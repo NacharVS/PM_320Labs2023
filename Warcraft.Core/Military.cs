@@ -18,9 +18,9 @@ public abstract class Military : Movable
         base.GetDamage(damage);
     }
 
-    public void Attack(Unit target)
+    public void Attack(Unit target, int damage)
     {
         if (!target.IsDestroyed)
-            target.GetDamage(Damage);
+            target.GetDamage(damage);
     }
 }

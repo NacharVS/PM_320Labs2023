@@ -34,8 +34,11 @@ public abstract class Unit
         Health -= damage;
     }
 
-    public virtual void GetHealed()
+    public void GetHealed()
     {
-        Health++;
+        if (IsDestroyed)
+            return;
+
+        Health = Math.Min(MaxHealth, ++Health);
     }
 }
