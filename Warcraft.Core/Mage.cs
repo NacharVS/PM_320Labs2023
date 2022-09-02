@@ -17,13 +17,19 @@ public class Mage : Ranged
     public void Fireball(Unit target)
     {
         if (Mana >= FireballManaCost)
+        {
             Attack(target, FireballDamage);
+            Mana -= FireballManaCost;
+        }
     }
 
     public void Blizzard(Unit target)
     {
         if (Mana >= BlizzardManaCost)
+        {
             Attack(target, BlizzardDamage);
+            Mana -= BlizzardManaCost;
+        }
     }
 
     public void Heal(Unit target)

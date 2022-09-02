@@ -2,7 +2,7 @@
 
 public abstract class Movable : Unit
 {
-    public int MoveSpeed { get; private set; }
+    public int MoveSpeed { get; protected set; }
 
     public abstract void Move();
 
@@ -10,5 +10,10 @@ public abstract class Movable : Unit
         : base(health, cost, name, level)
     {
         MoveSpeed = speed;
+    }
+
+    public void Slow(int percent)
+    {
+        MoveSpeed -= MoveSpeed * percent / 100;
     }
 }

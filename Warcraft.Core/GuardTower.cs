@@ -16,6 +16,6 @@ public class GuardTower : Unit
 
     public void Attack(Unit target)
     {
-        target.GetDamage(Damage);
+        target.Hit(Damage);
     }
 }

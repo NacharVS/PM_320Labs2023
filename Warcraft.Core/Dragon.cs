@@ -13,7 +13,10 @@ public class Dragon : Ranged
     public void FireBreath(Unit target)
     {
         if (Mana >= FireBreathManaCost)
+        {
             Attack(target, FireBreathDamage);
+            Mana -= FireBreathManaCost;
+        }
     }
 
 

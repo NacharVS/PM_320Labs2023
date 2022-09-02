@@ -2,7 +2,7 @@
 
 public abstract class Ranged : Military
 {
-    public int AttackRange { get; private set; }
+    public int AttackRange { get; protected set; }
     public int Mana { get; protected set; }
 
     protected Ranged(int health, int cost, string name, int level, int speed,
