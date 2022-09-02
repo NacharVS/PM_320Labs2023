@@ -3,45 +3,61 @@
 public class Mage : Ranged
 {
     private const int HealCost = 6;
-    private const int FireballDamage = 4;
-    private const int FireballManaCost = 12;
-    private const int BlizzardDamage = 4;
-    private const int BlizzardManaCost = 10;
+    private const int FireballDamage = 600;
+    private const int FireballManaCost = 100;
+    private const int BlizzardDamage = 400;
+    private const int BlizzardManaCost = 50;
 
-    public Mage(int health, int cost, string name, int level, int speed,
-        int attackSpeed, int attackRange) : base(health, cost, name, level,
-        speed, attackSpeed, attackRange)
+    public Mage(IEventLogger logger, int health, int cost, string name,
+        int level, int speed,
+        int attackSpeed, int damage, int attackRange, int mana) : base(logger,
+        health,
+        cost, name, level,
+        speed, attackSpeed, damage, attackRange, mana)
     {
-    }
-
-    public void Fireball(Unit target)
-    {
-        if (Mana >= FireballManaCost)
+        Spells = new Dictionary<string, Action<Unit>>
         {
-            Attack(target, FireballDamage);
-            Mana -= FireballManaCost;
-        }
+            { "Fireball", Fireball },
+            { "Blizzard", Blizzard }, { "Heal", Heal }
+        };
     }
 
-    public void Blizzard(Unit target)
+    private void Fireball(Unit target)
     {
-        if (Mana >= BlizzardManaCost)
+        if (Mana < FireballManaCost)
         {
-            Attack(target, BlizzardDamage);
-            Mana -= BlizzardManaCost;
+            Log("У меня нет маны!");
+            return;
         }
+
+        Attack(target, FireballDamage);
+        Mana -= FireballManaCost;
+        Log($"Пустил файрбол на {target.Name}");
     }
 
-    public void Heal(Unit target)
+    private void Blizzard(Unit target)
     {
-        if (Mana >= HealCost)
+        if (Mana < BlizzardManaCost)
         {
-            target.GetHealed();
-            Mana -= HealCost;
+            Log("У меня нет маны!");
+            return;
         }
+
+        Attack(target, BlizzardDamage);
+        Mana -= BlizzardManaCost;
+        Log($"Выпустил снежную бурю на {target.Name}");
     }
 
-    public override void Move()
+    private void Heal(Unit target)
     {
+        if (Mana < HealCost)
+        {
+            Log("У меня нет маны!");
+            return;
+        }
+
+        target.GetHealed();
+        Mana -= HealCost;
+        Log($"Вылечил {target.Name}");
     }
 }

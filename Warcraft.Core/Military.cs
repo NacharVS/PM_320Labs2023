@@ -6,10 +6,22 @@ public abstract class Military : Movable
     public int AttackSpeed { get; protected set; }
     public int Armor { get; protected set; }
 
-    protected Military(int health, int cost, string name, int level, int speed,
-        int attackSpeed) : base(health, cost, name, level, speed)
+    protected Dictionary<string, Action<Unit>> Spells { get; set; }
+    public string[] SpellNames => Spells.Keys.ToArray();
+
+    protected Military(IEventLogger logger, int health, int cost, string name,
+        int level, int speed,
+        int attackSpeed, int damage) : base(logger, health, cost, name, level,
+        speed)
     {
         AttackSpeed = attackSpeed;
+        Damage = damage;
+        Spells = new Dictionary<string, Action<Unit>>();
+    }
+
+    public void CastSpell(string spellName, Unit target)
+    {
+        Spells[spellName].Invoke(target);
     }
 
     public override void Hit(int damage)
@@ -25,7 +37,18 @@ public abstract class Military : Movable
 
     public void Attack(Unit target, int damage)
     {
-        if (!IsDestroyed && target != this)
-            target.Hit(damage);
+        if (target == this)
+        {
+            Log("Не могу атаковать себя!");
+            return;
+        }
+
+        if (IsDestroyed)
+        {
+            Log("Мертв и не может атаковать");
+        }
+
+        target.Hit(damage);
+        Log($"Атаковал {target.Name} на {damage} урона");
     }
 }
