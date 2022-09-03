@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "RTS.ConsoleGame/1.0.0": {
+        "dependencies": {
+          "RTS.Core": "1.0.0"
+        },
+        "runtime": {
+          "RTS.ConsoleGame.dll": {}
+        }
+      },
+      "RTS.Core/1.0.0": {
+        "runtime": {
+          "RTS.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RTS.ConsoleGame/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RTS.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
