@@ -3,7 +3,7 @@
 public class Footman : Military
 {
     private const int BerserkBoundary = 200;
-    private bool BerserkActive;
+    private bool _berserkActive;
 
     public Footman(IEventLogger logger, int health, int cost, string name,
         int level, int speed, int attackSpeed, int damage)
@@ -16,16 +16,16 @@ public class Footman : Military
     // Berserk passive
     private void CheckBerserkMode(object? sender, EventArgs args)
     {
-        if (!BerserkActive && MaxHealth - Health < BerserkBoundary)
+        if (!_berserkActive && MaxHealth - Health < BerserkBoundary)
         {
             Damage *= 2;
-            BerserkActive = true;
+            _berserkActive = true;
             Log("Получил способность берсерка");
         }
-        else if (BerserkActive && Health > BerserkBoundary)
+        else if (_berserkActive && Health > BerserkBoundary)
         {
             Damage /= 2;
-            BerserkActive = false;
+            _berserkActive = false;
             Log("Больше не берсерк");
         }
     }
@@ -37,5 +37,10 @@ public class Footman : Military
             movableTarget.Slow(100);
             Log($"Застанил {target.Name}");
         }
+    }
+
+    public void UpgradeWeapon(int value)
+    {
+        Damage += value;
     }
 }

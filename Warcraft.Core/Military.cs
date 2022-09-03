@@ -30,7 +30,7 @@ public abstract class Military : Movable
         base.Hit(damage);
     }
 
-    public void Attack(Unit target)
+    public virtual void Attack(Unit target)
     {
         Attack(target, Damage);
     }
@@ -50,5 +50,10 @@ public abstract class Military : Movable
 
         target.Hit(damage);
         Log($"Атаковал {target.Name} на {damage} урона");
+    }
+
+    public void IncreaseArmor(int value)
+    {
+        Armor += value;
     }
 }

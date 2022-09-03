@@ -16,6 +16,11 @@ public class GuardTower : Unit
 
     public void Attack(Unit target)
     {
+        if (target == this)
+        {
+            Log("Не могу атаковать себя");
+            return;
+        }
         target.Hit(Damage);
         Log($"Атаковал {target.Name} на {Damage} урона");
     }
