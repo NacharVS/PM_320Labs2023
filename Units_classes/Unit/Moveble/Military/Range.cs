@@ -10,8 +10,10 @@ class Range : Military
     public Range()
     {
         Radius = 2;
+        Mana = 2;
     }
 }
+
 
 
 

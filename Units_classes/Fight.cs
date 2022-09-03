@@ -2,12 +2,14 @@
 public class Fight
 {
     public Unit[] Players = new Unit[2];
+    public int Chronicles = 0;
+    public Dictionary<int, string> Fire_list  = new Dictionary<int, string>();
 
     public void Introduction()
     {
     start:
 
-        Console.WriteLine("\nСписок классов:\nSpearman, Mage, Dragon, Peasant, Guard_tower\n");
+        Console.WriteLine("\nСписок классов:\nSpearman, Mage, Dragon, Peasant, Guard_tower, Archer\n");
         int honesty = 2;
         for (int i = 0; i < 2; i++)
         {
@@ -56,8 +58,12 @@ public class Fight
             case ("guardtower" or "Guardtower"):
                 taked_unit = new Guard_tower();
                 break;
+            case ("archer" or "Archer"):
+                taked_unit = new Archer();
+                break;
         }
         Console.WriteLine($"Ваш выбор - {name}!");
+        Fire_list.Add(Chronicles, );
 
         return taked_unit;
     }
@@ -79,7 +85,8 @@ public class Fight
                 double second_loss = Players[1].Step();
                 Players[0].Taking_damage(second_loss);
                 i--;
-            }
+            } 
+            //Нужно придумать способ, каким получится останавливать бой в ничью
             Console.WriteLine();
         }
         
@@ -96,7 +103,10 @@ public class Fight
         else
         {
             Console.WriteLine("У нас нет победителя!");
+            Chronicles++;
         }
+
+        Chronicles++;
     }
 
     private int Honesty_cheking()
