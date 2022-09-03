@@ -16,7 +16,7 @@ public class Footman : Military
     // Berserk passive
     private void CheckBerserkMode(object? sender, EventArgs args)
     {
-        if (!_berserkActive && MaxHealth - Health < BerserkBoundary)
+        if (!_berserkActive && Health <= BerserkBoundary)
         {
             Damage *= 2;
             _berserkActive = true;
