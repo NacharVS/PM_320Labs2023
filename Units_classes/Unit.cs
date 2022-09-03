@@ -20,7 +20,8 @@ public abstract class Unit
         double real_loss = (loss - loss / 100 * Defence);
         Real_health -= real_loss;
         Console.WriteLine($"{Name} получает урон, равный {real_loss}!" );
-        //qqqqq
+     
+
     }
 
     public abstract double Step();
