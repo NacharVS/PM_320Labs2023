@@ -8,6 +8,8 @@ namespace WarcraftLibrary
 {
     public class Dragon : Range
     {
+        Random rnd = new Random();
+
         public Dragon(string name, int health = 500, int cost = 350, int lvl = 1, bool isDestroyed = false, int speed = 30, int damage = 50, int attackSpeed = 3, int armor = 100, int range = 40, int mana = 80) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed, armor, range, mana) { }
 
         public string FireBreath() 
@@ -16,13 +18,15 @@ namespace WarcraftLibrary
             return $"{Name} нанес удар с помощью firebreath {Damage + 10}.{Damage + 10}";
         }
 
-        public override string Attack(int num)
+        public override string Attack()
         {
-            if (num == 0)
+            var val = rnd.Next(1, 6);
+
+            if (val == 3)
             {
                 return $"{Name} не смог нанести удар.{0}";
             }
-            if (num == Damage + 30 && Mana > 10)
+            if (val == 4 && Mana > 10)
             {
                 return FireBreath();
             }

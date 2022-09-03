@@ -8,6 +8,7 @@ namespace WarcraftLibrary
 {
     public class GuardTower : Unit
     {
+        Random rnd = new Random();
         public int Range;
         public int AttackSpeed;
 
@@ -17,9 +18,11 @@ namespace WarcraftLibrary
             this.AttackSpeed = attackSpeed;
         }
 
-        public override string Attack(int num)
+        public override string Attack()
         {
-            if (num == 0)
+            var val = rnd.Next(1, 6);
+
+            if (val == 3)
             {
                 return $"{Name} не смог нанести удар.{0}";
             }

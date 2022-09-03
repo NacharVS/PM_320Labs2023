@@ -15,7 +15,7 @@ namespace WarcraftLibrary
 
         public void Choping() {}
 
-        public override string Attack(int num)
+        public override string Attack()
         {
             return $"{Name} не может нанести удар.{0}";
         }

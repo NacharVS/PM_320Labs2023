@@ -26,26 +26,19 @@ namespace WarcraftLibrary
             Health += 5;
         }
 
-        public override string Attack(int num)
+        public override string Attack()
         {
-            if (Health > 0 && rnd.Next(1, 6) == 2 && Health < 195 && Mana > 6)
+            var val = rnd.Next(1, 6);
+            if (Health > 0 && val == 2 && Health < 195 && Mana > 6)
             {
                 Heal();
-                if (num == 0)
-                {
-                    return $"{Name} не смог нанести удар, но воспользовался хилом +5.{0}";
-                }
-                if (num == Damage + 10 && Mana > 10)
-                {
-                    return $"{Name} нанес удар с помощью fireball {Damage + 10} и воспользовался хилом +5.{Damage + 10}";
-                }
-                return $"{Name} нанес удар с силой {Damage} и воспользовался хилом +5.{Damage}";
+                return $"{Name} не смог нанести удар, но воспользовался хилом +5.{0}";
             }
-            if (num == Damage + 10 && Mana > 10)
+            if (val == 1)
             {
                 return FireBall();
             }
-            if (num == 0)
+            if (val == 3)
             {
                 return $"{Name} не смог нанести удар.{0}";
             }

@@ -25,9 +25,7 @@ namespace ConsoleWarcraft
             
             while ((units[0].IsDestroyed == false) && (units[1].IsDestroyed == false))
             {
-                var vals = new int[] { 0, units[0].Damage, units[0].Damage + 10, units[0].Damage + 30 };
-                var val = vals[rnd.Next(vals.Length)];
-                string[] attack = (units[0].Attack(val)).Split(".");
+                string[] attack = (units[0].Attack()).Split(".");
                 units[1].Health = units[1].Health - Convert.ToInt32(attack[1]);
                 Console.WriteLine(attack[0]);
                 units[1].Checking();
@@ -38,9 +36,8 @@ namespace ConsoleWarcraft
                 }
                 Thread.Sleep(500);
 
-                var valsTwo = new int[] { 0, units[1].Damage, units[0].Damage + 10, units[0].Damage + 30 };
-                var valTwo = valsTwo[rnd.Next(vals.Length)];
-                string[] attackTwo = (units[1].Attack(valTwo)).Split(".");
+
+                string[] attackTwo = (units[1].Attack()).Split(".");
                 units[0].Health = units[0].Health - Convert.ToInt32(attackTwo[1]);
                 Console.WriteLine(attackTwo[0]);
                 units[0].Checking();

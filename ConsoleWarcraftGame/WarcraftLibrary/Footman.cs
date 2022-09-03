@@ -8,6 +8,8 @@ namespace WarcraftLibrary
 {
     public class Footman : Military
     {
+        Random rnd = new Random();
+
         public Footman(string name, int health = 40, int cost = 10, int lvl = 1, bool isDestroyed = false, int speed = 12, int damage = 10, int attackSpeed = 5, int armor = 5) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed, armor) { }
 
         public static void Berserker() 
@@ -16,9 +18,11 @@ namespace WarcraftLibrary
         public static void Stun() 
         { }
 
-        public override string Attack(int num)
+        public override string Attack()
         {
-            if (num == 0)
+            var val = rnd.Next(1, 6);
+
+            if (val == 3)
             {
                 return $"{Name} не смог нанести удар.{0}";
             }

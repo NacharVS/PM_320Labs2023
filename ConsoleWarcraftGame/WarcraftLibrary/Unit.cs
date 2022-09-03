@@ -25,7 +25,7 @@ namespace WarcraftLibrary
             this.Damage = damage;
         }
 
-        public virtual string Attack(int num)
+        public virtual string Attack()
         {
             return " ";
         }

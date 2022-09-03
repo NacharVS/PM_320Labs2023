@@ -17,6 +17,9 @@ namespace WarcraftLibrary
             this.Armor = armor;
         }
 
-        public virtual void Attack() { }
+        public override string Attack() 
+        {
+            return " ";
+        }
     }
 }
