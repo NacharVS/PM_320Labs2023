@@ -7,6 +7,7 @@ public enum MoveSpeed
     Fast = 400
 }
 
+// attack speed in ms
 public enum AttackSpeed
 {
     Slow = 1000,

@@ -42,8 +42,7 @@ var blacksmith = new Blacksmith(logger, (int)Health.Tank, (int)Cost.Standard,
 
 var random = new Random();
 var heroes = new List<Unit>
-    // { mage1, mage, dragon, footman, footman1, peasant, guardTower, blacksmith, archer, archer1 };
-    { footman, footman1 };
+    { mage1, mage, dragon, footman, footman1, peasant, guardTower, blacksmith, archer, archer1 };
 while (heroes.Count != 1)
 {
     var unit = heroes[random.Next(heroes.Count)];

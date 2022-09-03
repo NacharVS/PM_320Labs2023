@@ -2,6 +2,8 @@
 
 public abstract class Military : Movable
 {
+    // временной промежуток выделенный на атаку
+    private const int AttackTimeRange = 1000;
     public int Damage { get; protected set; }
     public int AttackSpeed { get; protected set; }
     public int Armor { get; protected set; }
@@ -32,7 +34,7 @@ public abstract class Military : Movable
 
     public virtual void Attack(Unit target)
     {
-        Attack(target, Damage);
+        Attack(target, Damage * (AttackTimeRange / AttackSpeed));
     }
 
     public void Attack(Unit target, int damage)

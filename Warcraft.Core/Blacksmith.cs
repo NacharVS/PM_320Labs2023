@@ -13,6 +13,13 @@ public class Blacksmith : Unit
     {
         _units = units;
     }
+    
+    public Blacksmith(IEventLogger logger, int health, int cost, string name,
+        int level, params Military[] units) : base(logger, health, cost, name,
+        level)
+    {
+        _units = units.ToList();
+    }
 
     public void UpgradeArmor()
     {
