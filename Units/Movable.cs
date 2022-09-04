@@ -9,9 +9,11 @@ namespace Units
     public abstract class Movable : Unit
     {
         private double _speed;
-        public Movable(double health) : base(health)
+
+        public Movable(double health, string name) : base(name, health)
         {
         }
+
         public abstract void Move();
     }
 }

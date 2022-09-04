@@ -8,15 +8,18 @@ namespace Units
 {
     public class Footman : Military
     {
-        public Footman(double health, double armor, int attackSpeed, double damage ) 
-            : base(health, armor, attackSpeed, damage)
+        public Footman(double health, double armor,
+            int attackSpeed, double damage, string name) 
+            : base(health, armor, attackSpeed, damage, name)
         {
         }
+
         public void Berserker()
         {
             this.SetAttackSpeed(GetAttackSpeed() * 2);
             this.SetDamage(GetDamage() * 1.2);
         }
+
         public void Stun(Military unit)
         {
             unit.SetAttackSpeed(0);
@@ -26,12 +29,14 @@ namespace Units
         {
             Console.WriteLine("Footman is moving");
         }
+
         public override void Attack(Unit unit)
         {
             if(GetHealth() / GetMaxHealth() < 1/3)
             {
                 Berserker();
             }
+
             if(GetRandom() == 1)
             {
                 Stun((Military)unit);
@@ -41,8 +46,8 @@ namespace Units
                 SetAttackSpeed(GetMaxAttackSpeed());
                 SetDamage(GetMaxDamage());
             }
+
             base.Attack(unit);
         }
-
     }
 }

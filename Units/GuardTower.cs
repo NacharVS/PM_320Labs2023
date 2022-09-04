@@ -12,7 +12,9 @@ namespace Units
         private double _damage;
         private int _attackSpeed;
 
-        public GuardTower(double health, double range, double damage, int attackSpeed) : base(health)
+        public GuardTower(double health, double range,
+            double damage, int attackSpeed, string name) 
+            : base(name, health)
         {
             _range = range;
             _damage = damage;
@@ -23,7 +25,7 @@ namespace Units
         {
             if (!unit.GetStateOfLife())
             {
-                throw new Exception("Enemy is destroyed!");
+                throw new Exception($"{unit.Name} is destroyed!");
             }
 
             unit.SetHealth(unit.GetHealth() - _damage);

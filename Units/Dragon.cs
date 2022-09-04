@@ -8,8 +8,9 @@ namespace Units
 {
     public class Dragon : Range
     {
-        public Dragon(double health, double armor, int attackSpeed, double range, double mana, double damage)
-            : base(health, armor, attackSpeed, range, mana, damage)
+        public Dragon(double health, double armor, int attackSpeed,
+            double range, double mana, double damage, string name)
+            : base(health, armor, attackSpeed, range, mana, damage, name)
         {
         }
 

@@ -9,17 +9,18 @@ namespace Units
     public abstract class Unit
     {
         private double _health;
-        private string? _name;
+        public string Name;
         private double _cost;
         private int _lvl;
         private bool _isAlive;
         private double _maxhealth;
 
-        public Unit(double health)
+        public Unit(string name, double health)
         {
             this.SetStateOfLife(true);
             this.SetHealth(health);
             this.SetMaxHealth(health);
+            this.Name = name;
         }
 
         public double GetHealth()
