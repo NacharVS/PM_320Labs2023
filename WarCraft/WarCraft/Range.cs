@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleWarcraftProj
+namespace WarCraft
 {
     class Range : Military
     {
