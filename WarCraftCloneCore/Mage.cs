@@ -59,6 +59,8 @@
             Console.WriteLine("Dead!");
             return;
         }
+        
+        Console.WriteLine($"{selectedUnit} healed!");
         if (selectedUnit.GetHealth() + _heal > selectedUnit.GetMaxHealth())
         {
             selectedUnit.SetHealth(selectedUnit.GetMaxHealth());
@@ -68,6 +70,5 @@
             selectedUnit.SetHealth(selectedUnit.GetHealth() + _heal);
         }
         SetMana(_healManaCost);
-        Console.WriteLine($"{selectedUnit} healed!");
     }
 }

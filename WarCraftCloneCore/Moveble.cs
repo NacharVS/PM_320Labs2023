@@ -11,7 +11,7 @@
 
     public void Move()
     {
-        if (GetState() == false)
+        if (GetState())
         {
             return;
         }

@@ -36,6 +36,7 @@
             return;
         }
 
+        Console.WriteLine($"{GetName()} attack {attackedUnit.GetName()}. Damage - {GetDamage()}");
         attackedUnit.SetHealth(attackedUnit.GetHealth() - Math.Min(damage, damage - _armor));
     }
 

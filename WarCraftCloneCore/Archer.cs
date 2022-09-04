@@ -25,7 +25,7 @@ public class Archer : Range
 
     public void UpgradeArrow()
     {
-        if (GetState() == false)
+        if (GetState())
         {
             return;
         }
@@ -34,7 +34,7 @@ public class Archer : Range
 
     public void UpgradeBow()
     {
-        if (GetState() == false)
+        if (GetState())
         {
             return;
         }

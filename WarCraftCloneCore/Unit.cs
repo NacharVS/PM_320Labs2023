@@ -42,4 +42,9 @@
     {
         return _maxHp;
     }
+
+    public string GetName()
+    {
+        return _name;
+    }
 }
