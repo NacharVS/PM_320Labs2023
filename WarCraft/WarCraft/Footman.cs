@@ -24,5 +24,10 @@ namespace ConsoleWarcraftProj
         public void Berserker() { }
 
         public void Stun() { }
+
+        public string Attack()
+        {
+            return $"Footman attacks with damage {Damage}.{Damage}";
+        }
     }
 }

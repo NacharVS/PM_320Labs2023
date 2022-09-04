@@ -10,7 +10,11 @@ namespace WarCraft
     internal class Archer : Military
     {
         public int ArrowCount { get; set; } 
-        public Archer(string name, int health, int cost, int lvl, bool isDestroyed, int speed, int damage, int attackSpeed, int armor) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed, armor)
+        public Archer(string name, int health, int cost,
+            int lvl, bool isDestroyed, int speed, int damage, 
+            int attackSpeed, int armor, int bow) : base(name, health, 
+                cost, lvl, isDestroyed, speed, damage, 
+                attackSpeed, armor)
         {
         }
 
@@ -19,6 +23,9 @@ namespace WarCraft
             ArrowCount += value;
         }
 
-        public void Attack() { }
+        public string Attack() 
+        {
+            return $"Archer attacks with damage {Damage}.{Damage}";
+        }
     }
 }

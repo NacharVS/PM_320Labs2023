@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarCraft;
 
 namespace ConsoleWarcraftProj
 {
@@ -10,10 +11,11 @@ namespace ConsoleWarcraftProj
     {
         static void Main(string[] args)
         {
-            var footman = new Footman("footman", 100, 10, 1, false, 10, 10, 100, 1000);
-            var mage = new Mage("mage", 200, 20, 1, false, 20, 20, 200, 2000, 20, 10);
-            var dragon = new Dragon("dragon", 300, 30, 1, false, 30, 30, 300, 3000, 30, 20);
-            var players = new List<Military> { footman, mage, dragon };
+            var footman = new Footman("Footman", 100, 10, 1, false, 10, 10, 100, 1000);
+            var mage = new Mage("Mage", 200, 20, 1, false, 20, 20, 200, 2000, 20, 10);
+            var dragon = new Dragon("Dragon", 300, 30, 1, false, 30, 30, 300, 3000, 30, 20);
+            var archer = new Archer("Archer", 200, 20, 1, false, 20, 20, 200, 2000, 20);
+            var players = new List<Military> { footman, mage, dragon, archer };
             var random = new Random();
 
             var player1 = players[random.Next(players.Count)];
@@ -23,7 +25,7 @@ namespace ConsoleWarcraftProj
                 player2 = players[random.Next(players.Count)];
             }
 
-            Console.WriteLine($"В игре участвуют {player1.Name} и {player2.Name}");
+            Console.WriteLine($"Players: {player1.Name} and {player2.Name}");
             Console.WriteLine();
 
             while (!player1.Death() && !player2.Death())
@@ -39,27 +41,29 @@ namespace ConsoleWarcraftProj
                     case 1:
                         player1.Attack(attack);
                         
-                        if (hit == 1)
+                        switch (hit)
                         {
-                            Console.WriteLine($"Попадание");
-                            player2.Hit(player1.Damage);
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Промах");
+                            case 1:
+                                Console.WriteLine($"Hit");
+                                player2.Hit(player1.Damage);
+                                break;
+                            case 2:
+                                Console.WriteLine($"Miss");
+                                break;
                         }
                         break;
                     case 2:
                         player2.Attack(attack);
 
-                        if (hit == 1)
+                        switch (hit)
                         {
-                            Console.WriteLine($"Попадание");
-                            player1.Hit(player2.Damage);
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Промах");
+                            case 1:
+                                Console.WriteLine($"Hit");
+                                player1.Hit(player2.Damage);
+                                break;
+                            case 2:
+                                Console.WriteLine($"Miss");
+                                break;
                         }
                         break;
                 }
@@ -67,11 +71,11 @@ namespace ConsoleWarcraftProj
 
             if (!player1.IsDestroyed)
             {
-                Console.WriteLine($"Выиграл {player1.Name}");
+                Console.WriteLine($"{player1.Name} won");
             }
             else
             {
-                Console.WriteLine($"Выиграл {player2.Name}");
+                Console.WriteLine($"{player2.Name} won");
             }
         }
     }

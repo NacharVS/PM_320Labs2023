@@ -42,7 +42,7 @@ namespace ConsoleWarcraftProj
 
         public void Attack(int number)
         {
-            Console.WriteLine("Ходит игрок " + number);
+            Console.WriteLine($"Attacking player number {number}");
         }
     }
 }

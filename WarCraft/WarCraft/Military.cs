@@ -23,6 +23,9 @@ namespace ConsoleWarcraftProj
             this.Armor = armor;
         }
 
-        public void Attack() { }
+        public string Attack() 
+        {
+            return $"Attack";
+        }
     }
 }

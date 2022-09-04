@@ -44,5 +44,10 @@ namespace ConsoleWarcraftProj
                 Mana -= HealLine;
             }
         }
+
+        public string Attack ()
+        {
+            return $"Mage attacks with damage {Damage}.{Damage}";
+        }
     }
 }

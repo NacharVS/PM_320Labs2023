@@ -25,5 +25,10 @@ namespace ConsoleWarcraftProj
                 Mana -= FireBreathLine;
             }
         }
+
+        public string Attack()
+        {
+            return $"Dragon attacks with damage {Damage}.{Damage}";
+        }
     }
 }

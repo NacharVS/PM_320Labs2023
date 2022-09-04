@@ -22,6 +22,9 @@ namespace ConsoleWarcraftProj
             this.AttackSpeed = attackSpeed;
         }
 
-        public void Attack() { }
+        public string Attack() 
+        {
+            return $"Attack";
+        }
     }
 }
