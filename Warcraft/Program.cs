@@ -10,5 +10,5 @@ while (!ft.IsDestroyed() && !d.IsDestroyed())
     Console.WriteLine();
 }
 
-Unit winner = gt.IsDestroyed() ? d : ft;
+Unit winner = ft.IsDestroyed() ? d : ft;
 Console.WriteLine($"winner is {winner.GetName()}");

@@ -11,6 +11,7 @@
         this.isStun = false;
         this.countMovesToFire = 0;
         this.countMovesToFreeze = 0;
+        Units.units.Add(this);
     }
     
     protected int health;

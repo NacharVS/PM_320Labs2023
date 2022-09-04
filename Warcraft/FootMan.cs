@@ -8,7 +8,7 @@
     {
         base.GetDamage(dmg);
         
-        if (health <= maxHealth / 3)
+        if (health <= maxHealth / 3 && health > 0)
         {
             Berserker();
         }
