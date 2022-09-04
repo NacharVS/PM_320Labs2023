@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarcraftCore", "WarcraftCore\WarcraftCore.csproj", "{0175E912-1F72-424F-A454-6D127789B3B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarcraftConsole", "WarcraftConsole\WarcraftConsole.csproj", "{9B992215-D557-47D6-A933-23C6F86BA4EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0175E912-1F72-424F-A454-6D127789B3B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0175E912-1F72-424F-A454-6D127789B3B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0175E912-1F72-424F-A454-6D127789B3B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0175E912-1F72-424F-A454-6D127789B3B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B992215-D557-47D6-A933-23C6F86BA4EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B992215-D557-47D6-A933-23C6F86BA4EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B992215-D557-47D6-A933-23C6F86BA4EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B992215-D557-47D6-A933-23C6F86BA4EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
