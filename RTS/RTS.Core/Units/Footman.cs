@@ -1,4 +1,6 @@
-﻿using RTS.Core;
+﻿using System;
+using System.Threading;
+using RTS.Core;
 
 public class Footman : Military
 {
@@ -9,7 +11,7 @@ public class Footman : Military
         _meaningOfUsingBerserker = (int)(Health * 0.3);
     }
 
-    public void Berserker()
+    private void Berserker()
     {
         if (Health < _meaningOfUsingBerserker) AttackSpeed /= 2;
     }
@@ -17,5 +19,26 @@ public class Footman : Military
     public void Stun(Unit entity)
     {
         
+    }
+
+    public override void Attack(Unit entity)
+    {
+        if (entity.IsDestroyed)
+        {
+            Console.WriteLine("игрок помер");
+        }
+        
+        Thread.Sleep(AttackSpeed);
+        entity.DealingDamage(this);
+        NotifyAboutDamage(Damage, entity);
+
+    }
+    
+    public override void DealingDamage(Military entity)
+    {
+        Health -= Damage > entity.Armor ? Damage : 0;
+        Console.WriteLine($"{this.Name}  {this.Health}");
+        this.Berserker();
+        this.CheckIsDestroyed();
     }
 }

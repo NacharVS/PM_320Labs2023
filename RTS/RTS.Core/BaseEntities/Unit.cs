@@ -33,9 +33,8 @@ public abstract class Unit
     {
         if (Health <= 0) IsDestroyed = true;
     }
-    public virtual void DealingDamage(ref Unit entity)
+    public virtual void DealingDamage(Military entity)
     {
-        Health -= ((Military)entity).Damage;
+        Health -= entity.Damage;
     }
-
 }

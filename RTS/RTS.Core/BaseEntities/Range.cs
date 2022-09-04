@@ -15,37 +15,14 @@ public abstract class Range : Military
         Mana = mana;
     }
 
-    public void Attack(Unit entity)
+    public override void Attack(Unit entity)
     {
         if (entity.IsDestroyed)
         {
-            new Exception();
+            Console.WriteLine("игрок помер");
         }
-        
-        if (entity.GetType() == typeof(Peasant))
-        {
-            Thread.Sleep(AttackSpeed);
-            entity.Health -= Damage;
-        }
-        
-        if (entity.GetType() == typeof(GuardTower))
-        {
-            Thread.Sleep(AttackSpeed);
-            entity.Health -= Damage;
-        }
-
-        if (entity.GetType() == typeof(Footman))
-        {
-            Thread.Sleep(AttackSpeed);
-            ((Footman)entity).Berserker();
-            entity.Health -= Damage > ((Footman)entity).Armor? Damage : 0;
-        }
-        if (entity.GetType() == typeof(Military))
-        {
-            Thread.Sleep(AttackSpeed);
-            entity.Health -= Damage > ((Military)entity).Armor? Damage : 0;
-        }
-
-        if (entity.Health <= 0) entity.CheckIsDestroyed();
+        Thread.Sleep(AttackSpeed);
+        entity.Health -= Damage > ((Range)entity).Armor? Damage : 0;
+        NotifyAboutDamage(Damage, entity);
     }
 }

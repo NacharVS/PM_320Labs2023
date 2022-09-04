@@ -63,4 +63,24 @@ public class Mage : Range
             Console.WriteLine("Мана бетте");
         }
     }
+    
+    public override void Attack(Unit entity)
+    {
+        if (entity.IsDestroyed)
+        {
+            Console.WriteLine("игрок помер");
+        }
+
+        Thread.Sleep(AttackSpeed);
+        entity.DealingDamage(this);
+        NotifyAboutDamage(Damage, entity);
+    }
+    
+    public override void DealingDamage(Military entity)
+    {
+        Console.WriteLine($"{this.Name}  {this.Health}");
+        Health -= Damage > entity.Armor ? Damage : 0;
+        Console.WriteLine($"{this.Name}  {this.Health}");
+        this.CheckIsDestroyed();
+    }
 }

@@ -30,8 +30,22 @@ public class Dragon : Range
         }
     }
     
-    public override void DealingDamage(ref Unit entity)
+    public override void Attack(Unit entity)
     {
-        Health -= ((Dragon)entity).Damage;
+        if (entity.IsDestroyed)
+        {
+            Console.WriteLine("игрок помер");
+        }
+
+        Thread.Sleep(AttackSpeed);
+        entity.DealingDamage(this);
+        NotifyAboutDamage(Damage, entity);
+    }
+    
+    public override void DealingDamage(Military entity)
+    {
+        Health -= Damage > entity.Armor ? Damage : 0;
+        Console.WriteLine($"{this.Name}  {this.Health}");
+        this.CheckIsDestroyed();
     }
 }
