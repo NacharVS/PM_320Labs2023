@@ -65,7 +65,7 @@ namespace ConsoleWarcraftProj
                 }
             }
 
-            if (player1.Health != 0 )
+            if (!player1.IsDestroyed)
             {
                 Console.WriteLine($"Выиграл {player1.Name}");
             }
