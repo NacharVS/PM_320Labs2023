@@ -6,16 +6,34 @@ using System.Threading.Tasks;
 
 namespace WarcraftLibrary
 {
-    public class Blacksmith : Moveable
+    public class Blacksmith : Unit
     {
-        public Blacksmith(string name, int health = 20, int cost = 10, int lvl = 1, bool isDestroyed = false, int speed = 15, int damage = 0) : base(name, health, cost, lvl, isDestroyed, speed, damage)
+        public Blacksmith(string name, int health = 20, int cost = 10, int lvl = 1, bool isDestroyed = false, int damage = 0) : base(name, health, cost, lvl, isDestroyed, damage)
         { }
 
-        public void UpgradeArmor() { }
+        public void UpgradeArmor(List<Military> units) 
+        {
+            foreach (var unit in units)
+            {
+                unit.Armor += 5;
+            }
+        }
 
-        public void UpgradeWeapoon() { }
+        public void UpgradeWeapoon(List<Military> units) 
+        {
+            foreach (var unit in units)
+            {
+                unit.Damage += 5;
+            }
+        }
 
-        public void UpgradeBow() { }
+        public void UpgradeBow(List<Military> units) 
+        {
+            foreach (var unit in units)
+            {
+                unit.Damage += 5;
+            }
+        }
 
         public override string Attack()
         {
