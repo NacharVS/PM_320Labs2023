@@ -1,6 +1,6 @@
 ﻿using System;
 
-internal class Archer : Military
+public class Archer : Military
 {
     public int arrowCount;
     public Archer(int healthPoint, int cost, string name, int level, int speed, int damage, int attackSpeed, int armor, int newArrowCount) :

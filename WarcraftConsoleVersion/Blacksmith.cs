@@ -11,5 +11,19 @@
         this.cost = cost;
     }
 
+    public void UpgradeWeapon(Military client)
+    {
+        client.damage = client.damage + 1;
+    }
+    public void UpgradeArmor(Military client)
+    {
+        client.armor = client.armor + 1;
+    }
+    public void UpgradeBow(Archer client)
+    {
+        client.damage = client.damage + 1;
+        client.arrowCount = client.arrowCount + 5;
+    }
+
 
 }
