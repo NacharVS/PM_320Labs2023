@@ -41,5 +41,10 @@ class Program
         Fight test_fight = new Fight();
         test_fight.Introduction();
 
+        Console.WriteLine(Tom.Damage);
+        Blacksmith.Upgrade_weapon(Tom);
+        Console.WriteLine(Tom.Damage);
+
+
     }
 }

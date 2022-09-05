@@ -24,6 +24,7 @@ class Military : Moveble
         Console.WriteLine($"{Name} атакует врага");
         return loss;
     }
+
 }
 
 

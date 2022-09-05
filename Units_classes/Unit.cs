@@ -1,6 +1,9 @@
 ﻿
 public abstract class Unit
 {
+    public delegate void HealthChangedDelegate();
+    public event HealthChangedDelegate HealthChanged;
+
     public double Max_health; 
     public double Real_health;
     public int Cost;
@@ -25,6 +28,7 @@ public abstract class Unit
     }
 
     public abstract double Step();
+
+/*    public abstract void Blacksmith();*/
+
 }
-
-

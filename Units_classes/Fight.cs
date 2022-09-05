@@ -2,8 +2,8 @@
 public class Fight
 {
     public Unit[] Players = new Unit[2];
-    public int Chronicles = 0;
-    public Dictionary<int, string> Fire_list  = new Dictionary<int, string>();
+/*    public int Chronicles = 0;
+    public Dictionary<int, string> Fire_list  = new Dictionary<int, string>();*/
 
     public void Introduction()
     {
@@ -21,6 +21,13 @@ public class Fight
                 honesty = Honesty_cheking();
                 break;
             }
+            Console.WriteLine("Желаете ли прокачать героя? ");
+            string ans = Console.ReadLine();
+            if (ans != null)
+            {
+                taked_hero = Upgrade(taked_hero);
+            }
+
             Players[i] = taked_hero;
         }
 
@@ -36,6 +43,12 @@ public class Fight
         }
 
         Console.WriteLine("\nДо свидания!");
+    }
+
+    //Пересчет списка героев
+    public void Recalculation() 
+    {
+
     }
 
     private Unit Unit_request(string name)
@@ -63,7 +76,7 @@ public class Fight
                 break;
         }
         Console.WriteLine($"Ваш выбор - {name}!");
-        Fire_list.Add(Chronicles, );
+/*        Fire_list.Add(Chronicles, );*/
 
         return taked_unit;
     }
@@ -103,10 +116,10 @@ public class Fight
         else
         {
             Console.WriteLine("У нас нет победителя!");
-            Chronicles++;
+/*            Chronicles++;*/
         }
 
-        Chronicles++;
+/*        Chronicles++;*/
     }
 
     private int Honesty_cheking()
@@ -132,6 +145,27 @@ public class Fight
             Players[1].Name = ($"{nick} " + $"{2}");
         }
     }
+
+    private Unit Upgrade(Unit hero)
+    {
+        Blacksmith.Upgrade_armour(hero);
+        return hero;
+    }
+
+/*    private void Upgrading(Unit hero)
+    {
+        Blacksmith.Upgrade_armour(hero);
+    }
+
+    private void Upgrading(Military hero)
+    {
+        Blacksmith.Upgrade_weapon(hero);
+    }
+
+    private void Upgrading(Archer hero)
+    {
+        Blacksmith.Upgrade_bow(hero);
+    }*/
 }
 
 
