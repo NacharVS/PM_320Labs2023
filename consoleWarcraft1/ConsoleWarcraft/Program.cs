@@ -12,11 +12,11 @@ namespace ConsoleWarcraft
             int player1 = 0;
             int player2 = 0;
 
-            Mage mage1 = new Mage("Voland", 1000, 750, 100,  false, 100, 100, 100, 200, 200);
-            Mage mage2 = new Mage("Potter", 1000, 50, 15, false, 100, 100, 100, 200, 200);
+            Mage mage1 = new Mage("Voland", 1000, 750, 100,   100, 100, 100, 200, 200, false);
+            Mage mage2 = new Mage("Potter", 1000, 50, 15, 100, 100, 100, 200, 200, false);
             Footman footman = new Footman("Worgen", 2500, 45000, 1000, 90, 30, false);
-            // Dragon dragon = new Dragon("Sparky", 1000, 50, 15, false, 100, 100, 100, 200, 200);
-            Unit[] units = new Unit[] {mage1, mage2, footman};
+            Dragon dragon = new Dragon("Sparky", 1000, 50, 15, 100, 100, 100, 200, 200, false);
+            Unit[] units = new Unit[] {mage1, mage2, footman, dragon};
             
 
 
@@ -57,6 +57,56 @@ namespace ConsoleWarcraft
         {
             Console.WriteLine(unit.name + ":  health:" + unit.health);
             Console.WriteLine();
+        }
+    }
+
+    public class Dragon : Range
+    {
+        public Dragon(String name, int health, int cost, int level, int mana, int range, double damage, int attackSpeed, int armor, bool isDestroy)
+        {
+            this.name = name;
+            this.health = health;
+            this.cost = cost;
+            this.level = level;
+            this.isDestroy = isDestroy;
+            this.mana = mana;
+            this.range = range;
+            this.damage = damage;   
+            this.attackSpeed = attackSpeed;
+            this.armor = armor;
+        }
+
+        public virtual void move()
+        {
+            speed = speed + level * 0.3;
+        }
+
+        public override void attack(Unit unit)
+        {
+            damage = attackSpeed + level * 0.2;
+            damageUnit(unit);
+        }
+
+        public void fireBreath(Unit unit)
+        {
+            if (mana >= 35)
+            {
+                damage = range + level * 0.9 ;
+                mana -= 35;
+                damageUnit(unit);
+            }
+        }
+        
+        private void damageUnit(Unit unit)
+        {
+            if (unit is Military military)
+            {
+                military.health = military.health + military.armor - damage;
+            }
+            else
+            {
+                unit.health -= damage;
+            }
         }
     }
 }

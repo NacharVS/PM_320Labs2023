@@ -35,13 +35,17 @@ namespace ConsoleWarcraft
                     {
                         mage.attack(unit2);
                         mage.blizzard(unit2);
-                        showAttack(mage);
-                        showHealth(unit2);
                     }
 
                     else if(unit1 is Footman footman)
                     {
                         footman.attack(unit2);
+                    }
+                    
+                    else if(unit1 is Dragon dragon)
+                    {
+                        dragon.attack(unit2);
+                        dragon.fireBreath(unit2);
                     }
 
                     if (unit2.isDestroyed())
@@ -49,6 +53,8 @@ namespace ConsoleWarcraft
                         Console.WriteLine(unit2.name + " is destroy!");
                         break;
                     }
+                    showAttack(unit1);
+                    showHealth(unit2);
                 }
                 else
                 {
@@ -56,14 +62,22 @@ namespace ConsoleWarcraft
                     {
                         mage.attack(unit1);
                         mage.blizzard(unit1);
-                        showAttack(mage);
-                        showHealth(unit1);
+                        
                     }
 
                     else if (unit2 is Footman footman)
                     {
                         footman.attack(unit1);
                     }
+                    
+                    else if(unit2 is Dragon dragon)
+                    {
+                        dragon.attack(unit1);
+                        dragon.fireBreath(unit1);
+                    }
+                    
+                    showAttack(unit2);
+                    showHealth(unit1);
 
                     if (unit1.isDestroyed())
                     {
@@ -77,10 +91,6 @@ namespace ConsoleWarcraft
             
         }
         
-        public void startGame(Unit unit1 , Unit unit2) {
-            
-        }
-
         public static void showAttack(Unit unit)
         {
              if (unit is Range mage)

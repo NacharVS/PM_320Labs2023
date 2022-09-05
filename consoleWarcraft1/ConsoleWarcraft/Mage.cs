@@ -4,7 +4,7 @@ namespace ConsoleWarcraft
 {
     public class Mage : Range
     {
-        public Mage(String name, int health, int cost, int level, bool isDestroy, int mana, int range, double damage, int attackSpeed, int armor)
+        public Mage(String name, int health, int cost, int level, int mana, int range, double damage, int attackSpeed, int armor, bool isDestroy)
         {
             this.name = name;
             this.health = health;
