@@ -35,13 +35,15 @@
             return;
         }
 
+        Console.WriteLine($"{GetName()} attack {attackedUnit.GetName()}. Damage - {GetDamage()}");
         if (attackedUnit is Military militaryUnit)
         {
             militaryUnit.SetHealth(militaryUnit.GetHealth() - _damage + _armor);
         }
-
-        Console.WriteLine($"{GetName()} attack {attackedUnit.GetName()}. Damage - {GetDamage()}");
-        attackedUnit.SetHealth(attackedUnit.GetHealth() - damage);
+        else
+        {
+            attackedUnit.SetHealth(attackedUnit.GetHealth() - damage);
+        }
     }
 
     public void SetDamage(double damage)

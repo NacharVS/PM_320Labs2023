@@ -3,9 +3,8 @@
 {
     Footman footman = new Footman("Footman - 1",200.0,10,1,200.0,35.0,10.0,0.1,4,0.1);
     Mage mage = new Mage("Mage - 1", 100.0, 10, 1,100,50.0, 7,0.3,2,3.0,100);
-    Dragon dragon = new Dragon("Dragon - 1", 300.0,10,1,300.0,30.0,15,0.1,8,3.0,100);
-
-
+    Dragon dragon = new Dragon("Dragon - 1", 350.0,10,1,350.0,30.0,15,0.1,8,3.0,100);
+    
     var random = new Random();
     var units = new List<Military> { footman, mage, dragon };
 

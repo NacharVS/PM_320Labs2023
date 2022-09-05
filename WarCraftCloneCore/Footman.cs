@@ -43,10 +43,4 @@
             Console.WriteLine($"{attackedUnit} get stunned!");
         }
     }
-
-    public override void Attack(Unit attackedUnit)
-    {
-        Berserker();
-        base.Attack(attackedUnit);
-    }
 }
