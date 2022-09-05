@@ -1,6 +1,8 @@
-﻿namespace WarCraft_3_ConsoleEdition
+﻿using System;
+
+namespace WarCraft_3_ConsoleEdition
 {
-    class Range : Military
+    public class Range : Military
     {
         public int range;
         public int mana;

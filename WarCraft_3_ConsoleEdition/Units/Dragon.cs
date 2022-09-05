@@ -1,6 +1,6 @@
 ﻿namespace WarCraft_3_ConsoleEdition
 {
-    class Dragon : Range
+    public class Dragon : Range
     {
         public void FireBreath(Unit unit)
         {

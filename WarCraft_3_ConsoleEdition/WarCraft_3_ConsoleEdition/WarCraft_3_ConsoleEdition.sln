@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarCraft_3_ConsoleEdition", "WarCraft_3_ConsoleEdition.csproj", "{BE3921AE-B9D6-40B2-9E72-4F5A31FEA047}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Units", "..\Units\Units.csproj", "{9A7ABD9E-AE34-4901-9947-BB59BB6DB0B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE3921AE-B9D6-40B2-9E72-4F5A31FEA047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE3921AE-B9D6-40B2-9E72-4F5A31FEA047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE3921AE-B9D6-40B2-9E72-4F5A31FEA047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE3921AE-B9D6-40B2-9E72-4F5A31FEA047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7ABD9E-AE34-4901-9947-BB59BB6DB0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7ABD9E-AE34-4901-9947-BB59BB6DB0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7ABD9E-AE34-4901-9947-BB59BB6DB0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7ABD9E-AE34-4901-9947-BB59BB6DB0B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE22C81B-DD14-41AA-8F3D-C481DC425C1E}
+	EndGlobalSection
+EndGlobal

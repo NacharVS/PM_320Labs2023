@@ -1,6 +1,6 @@
 ﻿namespace WarCraft_3_ConsoleEdition
 {
-    class Footman : Military
+    public class Footman : Military
     {
         public bool isBerserk;
 

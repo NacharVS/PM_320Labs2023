@@ -1,6 +1,6 @@
 ﻿namespace WarCraft_3_ConsoleEdition
 {
-    class Archer : Range
+    public class Archer : Range
     {
         public int arrowCount;
         public Archer(int range, int damage, int attackSpeed, int arrowCount,
@@ -9,5 +9,7 @@
         {
             this.arrowCount = arrowCount;
         }
+
+
     }
 }

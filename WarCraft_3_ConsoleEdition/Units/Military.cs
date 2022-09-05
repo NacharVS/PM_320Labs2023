@@ -1,10 +1,10 @@
 ﻿namespace WarCraft_3_ConsoleEdition
 {
-    class GuardTower : Unit
+    public class Military : Movable
     {
-        public int range;
         public int damage;
         public int attackSpeed;
+        public int armor;
         public void Attack(Unit unit)
         {
             try
@@ -16,12 +16,14 @@
             catch { unit.health -= this.damage; }
         }
 
-        public GuardTower(int range, int damage, int attackSpeed,
-            int health, int cost, string name, int level) : base(health, cost, name, level)
+
+        public Military(int damage, int attackSpeed, int armor,
+            int speed, int health, int cost, string name, int level)
+            : base(speed, health, cost, name, level)
         {
-            this.range = range;
             this.damage = damage;
             this.attackSpeed = attackSpeed;
+            this.armor = armor;
         }
     }
 }

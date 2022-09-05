@@ -1,6 +1,8 @@
-﻿namespace WarCraft_3_ConsoleEdition
+﻿using System.Collections.Generic;
+
+namespace WarCraft_3_ConsoleEdition
 {
-    class Blacksmith : Unit
+    public class Blacksmith : Unit
     {
         private int boost = 3;
         public Blacksmith(int health, int cost, string name, int level) : base( health, cost, name, level)

@@ -1,6 +1,8 @@
-﻿namespace WarCraft_3_ConsoleEdition
+﻿using System;
+
+namespace WarCraft_3_ConsoleEdition
 {
-    class Mage : Range
+    public class Mage : Range
     {
         public void Fireball(Unit unit)
         {

@@ -1,6 +1,6 @@
 ﻿namespace WarCraft_3_ConsoleEdition
 {
-    class Movable : Unit
+    public class Movable : Unit
     {
         public int speed;
         void Move()

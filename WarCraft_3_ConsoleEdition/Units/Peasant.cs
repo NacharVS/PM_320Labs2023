@@ -1,6 +1,6 @@
 ﻿namespace WarCraft_3_ConsoleEdition
 {
-    class Peasant : Movable
+    public class Peasant : Movable
     {
         void Mining() { }
         void Chopping() { }
