@@ -12,10 +12,9 @@ namespace Units
         private double _maxDamage;
         private int _attackSpeed;
         private int _maxAttackSpeed;
-        private double _armor;
-        private double _maxArmor;
         private int _stunCounter = 0;
-
+        private double _armor = 0;
+        private double _maxArmor = 0;
         private double _Armor
         {
             get { return _armor; }
@@ -31,7 +30,7 @@ namespace Units
                 }
             }
         }
-        
+
 
         public Military(double health, double armor, int attackSpeed, double damage, string name) 
             : base(health, name)
@@ -57,24 +56,34 @@ namespace Units
                 _attackSpeed = _maxAttackSpeed;
             }
 
-            double damageTakenByArmor = this.GetDamage() * ((Military)unit).GetArmor() / 100;
-            double totalDamage = this.GetDamage() + damageTakenByArmor;
+            if(unit is not Military)
+            {
+                double damage = this.GetDamage();
+                unit.SetHealth(unit.GetHealth() - damage);
+                ResultAttack(unit, damage);
 
-            ((Military)unit).SetArmor(((Military)unit).GetArmor() - damageTakenByArmor);
-            unit.SetHealth(unit.GetHealth() - totalDamage);
+            }
+            else
+            {
+                int damageTakenByArmor = (int)(this.GetDamage() * ((Military)unit).GetArmor() / 100);
+                double totalDamage = this.GetDamage() - damageTakenByArmor;
+
+                ((Military)unit).SetArmor(((Military)unit).GetArmor() - damageTakenByArmor);
+                unit.SetHealth(unit.GetHealth() - totalDamage);
+                ResultAttack(unit, totalDamage);
+            }
 
             if (unit.GetHealth() <= 0)
             {
                 unit.SetStateOfLife(false);
                 throw new Exception($"{unit.Name} is destroyed!");
             }
-
-            ResultAttack(unit, totalDamage);
         }
 
         public void ResultAttack(Unit unit, double totalDamage)
         {
-            Console.WriteLine($"{((Unit)this).Name} damaged {unit.Name} for {totalDamage}, {unit.GetHealth()} HP left");
+            Console.WriteLine($"{((Unit)this).Name} damaged {unit.Name} " +
+                $"for {totalDamage}, {unit.GetHealth()} HP left");
         }
 
         public double GetDamage()

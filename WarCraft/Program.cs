@@ -3,7 +3,7 @@
 
 
 Dragon playerOne = new(80, 100, 10, 15, 100, 4, "SuperDrago");
-Archer playerTwo = new(80, 0, 10, 15, 100, 4, 15, "Master of bows");
+Footman playerTwo = new(80, 100, 10, 15, "SuperFoot");
 
 try
 {
