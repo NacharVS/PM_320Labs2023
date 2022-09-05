@@ -18,6 +18,8 @@ namespace ConsoleWarcraft
             // Dragon dragon = new Dragon("Sparky", 1000, 50, 15, false, 100, 100, 100, 200, 200);
             Unit[] units = new Unit[] {mage1, mage2, footman};
             
+
+
             Console.WriteLine();
             for (int i = 0; i < units.Length; i++)
             {
@@ -32,6 +34,8 @@ namespace ConsoleWarcraft
 
             GameLogic game = new GameLogic(units[player1], units[player2]);
             game.run();
+
+            //Console.ReadKey();
             
         }
         

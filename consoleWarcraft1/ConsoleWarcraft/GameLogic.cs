@@ -35,11 +35,11 @@ namespace ConsoleWarcraft
                     {
                         mage.attack(unit2);
                         mage.blizzard(unit2);
-                        showMageAttack(mage);
+                        showAttack(mage);
                         showHealth(unit2);
                     }
 
-                    if(unit1 is Footman footman)
+                    else if(unit1 is Footman footman)
                     {
                         footman.attack(unit2);
                     }
@@ -56,9 +56,15 @@ namespace ConsoleWarcraft
                     {
                         mage.attack(unit1);
                         mage.blizzard(unit1);
-                        showMageAttack(mage);
+                        showAttack(mage);
                         showHealth(unit1);
                     }
+
+                    else if (unit2 is Footman footman)
+                    {
+                        footman.attack(unit1);
+                    }
+
                     if (unit1.isDestroyed())
                     {
                         Console.WriteLine(unit1.name + " is destroy!");
@@ -75,16 +81,25 @@ namespace ConsoleWarcraft
             
         }
 
-        public static void showMageAttack(Mage mage)
+        public static void showAttack(Unit unit)
         {
-            Console.WriteLine(mage.name + ": attack "+ mage.damage + " | mana: " + mage.mana);
+             if (unit is Range mage)
+             {
+                Console.WriteLine(mage.name + ": attack " + mage.damage + " | mana: " + mage.mana);
+             }
+            else if (unit is Military military )
+            {
+                Console.WriteLine(military.name + ": attack " + military.damage);
+            }
+            else if (unit is GuardTower tower)
+            {
+                Console.WriteLine(tower.name + ": attack " + tower.damage + " | range" + tower.range);
+            }
+
         }
-        
-        public static void showFootmanAttack(Footman footman)
-        {
-            Console.WriteLine(footman.name + ": attack "+ footman.damage);
-        }
-        
+
+
+
         public static void showHealth(Unit unit)
         {
             Console.WriteLine(unit.name + ":  health:" + unit.health);

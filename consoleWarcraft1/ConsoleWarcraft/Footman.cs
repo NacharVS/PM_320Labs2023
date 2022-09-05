@@ -19,7 +19,7 @@ namespace ConsoleWarcraft
         public override void attack(Unit unit)
         {
             damage =  attackSpeed + level * 0.2;
-            unit.health -= damage;
+            damageUnit(unit);
         }
 
         public void berserker()
@@ -30,12 +30,24 @@ namespace ConsoleWarcraft
         public void stun(Unit unit)
         {
             damage = damage + attackSpeed +  level * 0.2 ;
-            unit.health -= damage;
+            damageUnit(unit);
         }
 
         public virtual void move()
         {
             speed = speed + level * 0.1;
+        }
+
+        private void damageUnit(Unit unit)
+        {
+            if (unit is Military military)
+            {
+                military.health = military.health + military.armor - damage;
+            }
+            else
+            {
+                unit.health -= damage;
+            }
         }
     }
 }
