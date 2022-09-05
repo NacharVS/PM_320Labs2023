@@ -7,6 +7,10 @@
     private bool _isDestroyed;
     private double _maxHp;
 
+    public delegate void HealthChangedDelegate();
+
+    public event HealthChangedDelegate HealthChangedEvent;
+    
     public Unit(string name, double health, int cost, int lvl, double maxHp)
     {
         _name = name;
@@ -24,6 +28,7 @@
     public void SetHealth(double newHealth)
     {
         _health = newHealth;
+        HealthChangedEvent?.Invoke();
         Console.WriteLine($"{_name} have a {_health} hp...");
     }
 

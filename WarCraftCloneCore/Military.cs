@@ -3,7 +3,6 @@
     private double _damage;
     private double _attackSpeed;
     private double _armor;
-
     public Military(string name, double health, int cost, int lvl,
         double maxHp, double speed, double damage, double attackSpeed, double armor)
         : base(name, health, cost, lvl, maxHp, speed)
@@ -26,7 +25,7 @@
             return;
         }
 
-        else if (attackedUnit.GetHealth() - damage <= 0)
+        if (attackedUnit.GetHealth() - damage <= 0)
         {
             attackedUnit.SetState(true);
         }
@@ -36,8 +35,13 @@
             return;
         }
 
+        if (attackedUnit is Military militaryUnit)
+        {
+            militaryUnit.SetHealth(militaryUnit.GetHealth() - _damage + _armor);
+        }
+
         Console.WriteLine($"{GetName()} attack {attackedUnit.GetName()}. Damage - {GetDamage()}");
-        attackedUnit.SetHealth(attackedUnit.GetHealth() - Math.Min(damage, damage - _armor));
+        attackedUnit.SetHealth(attackedUnit.GetHealth() - damage);
     }
 
     public void SetDamage(double damage)

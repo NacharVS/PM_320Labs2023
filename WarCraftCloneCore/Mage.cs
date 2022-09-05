@@ -37,7 +37,7 @@
             Console.WriteLine("Not have a mana!");
             return;
         }
-        else if (GetState())
+        if (GetState())
         {
             Console.WriteLine("Dead!");
             return;
