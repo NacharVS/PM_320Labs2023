@@ -20,13 +20,13 @@ public class Mage : Ranged
         { nameof(Heal), -10 }
     };
 
-    private delegate void SpellAttackHandler(Mage sender, SpellArgs args);
+    public delegate void SpellAttackHandler(Mage sender, SpellArgs args);
 
-    private event SpellAttackHandler? OnSpellAttack;
+    public event SpellAttackHandler? OnSpellAttack;
 
     public Mage(int health, int cost, string? name, int level, int speed, int damage, 
-        int attackSpeed, int armor, int attackRange, int mana) :
-        base(health, cost, name, level, speed, damage, attackSpeed, armor, attackRange, mana)
+        int attackSpeed, int armor, int attackRange, int mana) 
+        : base(health, cost, name, level, speed, damage, attackSpeed, armor, attackRange, mana)
     {
         OnSpellAttack += delegate(Mage mage, SpellArgs args)
         {
@@ -44,30 +44,21 @@ public class Mage : Ranged
 
     public void FireBall(Unit entity)
     {
-        var spellName = nameof(FireBall);
-
-        OnSpellAttack?.Invoke(this, new SpellArgs(
-            entity, 
-            SpellsCost[spellName], 
-            SpellsDamage[spellName])
-        );
+        CastSpell(entity, nameof(FireBall));
     }
     
     public void Blizzard(Unit entity)
     {
-        var spellName = nameof(Blizzard);
-
-        OnSpellAttack?.Invoke(this, new SpellArgs(
-            entity, 
-            SpellsCost[spellName], 
-            SpellsDamage[spellName])
-        );
+        CastSpell(entity, nameof(Blizzard));
     }
     
     public void Heal(Unit entity)
     {
-        var spellName = nameof(Heal);
+        CastSpell(entity, nameof(Heal));
+    }
 
+    private void CastSpell(Unit entity, string spellName)
+    {
         OnSpellAttack?.Invoke(this, new SpellArgs(
             entity, 
             SpellsCost[spellName], 

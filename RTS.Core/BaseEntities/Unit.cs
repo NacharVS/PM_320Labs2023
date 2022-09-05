@@ -11,12 +11,12 @@ public abstract class Unit
     private protected readonly int MaxHealth;
     public bool IsDestroyed { get; private protected set; }
 
-    private protected delegate void HitHandler(Unit sender, HitArgs args);
+    public delegate void HitHandler(Unit sender, HitArgs args);
 
-    private protected delegate void DeathHandler(Unit sender, DeathArgs args);
+    public delegate void DeathHandler(Unit sender, DeathArgs args);
 
-    private protected event HitHandler? OnGetDamage;
-    private protected event DeathHandler? OnDeath;
+    public event HitHandler? OnGetDamage;
+    public event DeathHandler? OnDeath;
 
     protected Unit(int health, int cost, string? name, int level)
     {
@@ -46,7 +46,7 @@ public abstract class Unit
         };
     }
 
-    public virtual void GetDamage(int damage)
+    public void GetDamage(int damage)
     {
         OnGetDamage?.Invoke(this, new HitArgs(damage, Health));
     }

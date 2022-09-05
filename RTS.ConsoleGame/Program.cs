@@ -9,7 +9,7 @@ var units = new List<Military>
     new Footman(500, 250, "Pudge", 5, 6, 250, 2500, 5),
     new Mage(150, 300, "Ogre magi", 3, 7, 140, 1000, 1, 100, 200),
     new Dragon(1000, 2000, "Dragon knight", 15, 300, 400, 4000, 50, 300, 600),
-    new Mage(10, 100, "UltraKiller", 1, 10, 10000, 400, 5, 600, 600),
+    new Mage(10, 100, "UltraKiller", 1, 10, 10000, 700, 5, 600, 600),
 };
 
 var blacksmith = new Blacksmith(units);

@@ -20,7 +20,7 @@ public abstract class Military : Movable
         Armor = armor;
     }
 
-    public override void GetDamage(int damage)
+    public new void GetDamage(int damage)
     {
         RaiseOnHitEvent(this, new HitArgs(damage > Armor 
             ? damage - Armor : 0,
