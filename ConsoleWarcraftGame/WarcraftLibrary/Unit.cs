@@ -14,8 +14,8 @@ namespace WarcraftLibrary
         public int Lvl;
         public bool IsDestroyed;
         public int Damage;
-        public delegate void DestroyingHandler(string message);
-        public event DestroyingHandler? Notify;
+        public delegate void Destroying(string message);
+        public event Destroying? DestroyingEvent;
 
         public Unit(string name, int health, int cost, int lvl, bool isDestroyed, int damage)
         {
@@ -37,7 +37,7 @@ namespace WarcraftLibrary
             if (Health <= 0)
             {
                 IsDestroyed = true;
-                Notify?.Invoke($"{Name} погиб");
+                DestroyingEvent?.Invoke($"{Name} погиб");
             }
         }
     }
