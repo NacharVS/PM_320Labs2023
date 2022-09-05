@@ -1,0 +1,41 @@
+﻿using System;
+
+namespace ConsoleWarcraft
+{
+    public class Footman : Military
+    {
+        
+        public Footman(String name, int health, int cost, int level, int attackSpeed, int speed, bool isDestroy)
+        {
+            this.name = name;
+            this.health = health;
+            this.cost = cost;
+            this.level = level;
+            this.isDestroy = isDestroy;
+            this.attackSpeed = attackSpeed;
+            this.speed = speed;
+        }
+
+        public override void attack(Unit unit)
+        {
+            damage =  attackSpeed + level * 0.2;
+            unit.health -= damage;
+        }
+
+        public void berserker()
+        {
+            Console.WriteLine("Footman is berserker");
+        }
+
+        public void stun(Unit unit)
+        {
+            damage = damage + attackSpeed +  level * 0.2 ;
+            unit.health -= damage;
+        }
+
+        public virtual void move()
+        {
+            speed = speed + level * 0.1;
+        }
+    }
+}
