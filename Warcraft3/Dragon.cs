@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labs320
+namespace Warcraft3
 {
-    internal class TestClass
+    internal class Dragon
     {
+        public void FireBreath() 
+        { 
+
+        
+        }
     }
 }
