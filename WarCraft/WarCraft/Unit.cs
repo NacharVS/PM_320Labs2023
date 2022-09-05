@@ -42,7 +42,7 @@ namespace WarCraft
 
         public void Attack(int number)
         {
-            Console.WriteLine($"Attacking player number {number}");
+            Console.WriteLine($"Attacking player{number}");
         }
     }
 }

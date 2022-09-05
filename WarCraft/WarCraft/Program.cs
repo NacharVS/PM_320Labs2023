@@ -25,7 +25,8 @@ namespace WarCraft
                 player2 = players[random.Next(players.Count)];
             }
 
-            Console.WriteLine($"Players: {player1.Name} and {player2.Name}");
+            Console.WriteLine($"Player1: {player1.Name}");
+            Console.WriteLine($"Player2: {player2.Name}");
             Console.WriteLine();
 
             while (!player1.Death() && !player2.Death())
@@ -40,7 +41,8 @@ namespace WarCraft
                 {
                     case 1:
                         player1.Attack(attack);
-                        
+                        Thread.Sleep(700);
+
                         switch (hit)
                         {
                             case 1:
@@ -54,6 +56,7 @@ namespace WarCraft
                         break;
                     case 2:
                         player2.Attack(attack);
+                        Thread.Sleep(700);
 
                         switch (hit)
                         {
