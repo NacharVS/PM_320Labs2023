@@ -7,6 +7,15 @@
         protected double _armor;
         protected bool _isAttacking;
 
+        protected Military(double damage, int attackSpeed, double armor, 
+            double speed, string name, double health, int cost, int level)
+            : base (speed, name, health, cost, level)
+        {
+            _damage = damage;
+            _attackSpeed = attackSpeed;
+            _armor = armor;
+        }
+
         public void SetAttackedSpeed(int attackedSpeed)
         {
             _attackSpeed = attackedSpeed;
@@ -17,15 +26,6 @@
             return _attackSpeed;
         }
 
-        protected Military(double damage, int attackSpeed, double armor, 
-            double speed, string name, double health, int cost, int level)
-            : base (speed, name, health, cost, level)
-        {
-            _damage = damage;
-            _attackSpeed = attackSpeed;
-            _armor = armor;
-        }
-
         public double GetArmor()
         {
             return _armor;
@@ -33,6 +33,11 @@
 
         public void SetArmor(double armor)
         {
+            if (this.CheckDied())
+            {
+                return;
+            }
+
             if (armor < 0)
             {
                 _armor = 0;

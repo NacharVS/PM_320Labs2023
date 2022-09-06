@@ -8,7 +8,6 @@
         protected int _level;
         protected bool _isDestroyed;
 
-
         protected Unit(string name, double health, int cost, int level)
         {
             _name = name;
@@ -27,7 +26,7 @@
             return _health;
         }
 
-        public void SetHealth(double health)
+        public virtual void SetHealth(double health)
         {
             if (health <= 0)
             {

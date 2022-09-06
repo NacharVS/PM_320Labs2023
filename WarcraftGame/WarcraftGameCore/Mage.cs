@@ -2,11 +2,14 @@
 {
     public class Mage : Range
     {
+        private delegate void healthChangedDelegate();
         private double _maxHp;
 
         public Mage(string name) : base(3, 200, 1000, 3, 800, 40, name, 1500, 500, 2) 
         {
             _maxHp = 3000;
+
+            _healthChangedEvent += Heal;
         }
 
         public void FireBall(Unit unit)
@@ -59,5 +62,17 @@
                 Console.WriteLine("Not have mana!");
             }
         }
+
+        public override void SetHealth(double health)
+        {
+            base.SetHealth(health);
+
+            if (_health <= _maxHp * 0.1)
+            {
+                _healthChangedEvent?.Invoke();
+            }
+        }
+
+        private event healthChangedDelegate _healthChangedEvent;
     }
 }
