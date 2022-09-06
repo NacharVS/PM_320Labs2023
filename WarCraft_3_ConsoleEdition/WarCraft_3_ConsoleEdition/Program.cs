@@ -38,6 +38,7 @@ namespace WarCraft_3_ConsoleEdition
             {
                 Console.WriteLine("Wrong input!");
             }
+            Console.ReadKey();
         }
     }
 }

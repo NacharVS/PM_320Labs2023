@@ -2,21 +2,21 @@
 {
     public class Footman : Military
     {
-        public bool isBerserk;
+        public bool IsBerserk { }
 
         public void Berserker()
         {
-            if (!isBerserk)
+            if (!IsBerserk)
             {
-                damage *= 2;
+                Damage *= 2;
             }
 
-            isBerserk = true;
+            IsBerserk = true;
         }
 
         public void Stun(Movable movable)
         {
-            movable.timeWithoutAttack += 5;
+            movable.TimeWithoutAttack += 5;
         }
 
         public Footman(int damage, int attackSpeed, int armor, int speed, int health,

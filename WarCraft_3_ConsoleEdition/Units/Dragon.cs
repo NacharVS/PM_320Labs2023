@@ -4,10 +4,10 @@
     {
         public void FireBreath(Unit unit)
         {
-            if (this.mana >= 35)
+            if (this.Mana >= 35)
             {
-                unit.health -= this.damage * 3;
-                mana -= 35;
+                unit.Health -= this.Damage * 3;
+                this.Mana -= 35;
             }
 
             else

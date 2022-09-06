@@ -6,9 +6,9 @@ namespace WarCraft_3_ConsoleEdition
     {
         public void Fireball(Unit unit)
         {
-            if (this.mana >= 20)
+            if (this.Mana >= 20)
             {
-                unit.health -= this.damage * 2;
+                unit.Health -= this.Damage * 2;
             }
 
             else
@@ -19,10 +19,10 @@ namespace WarCraft_3_ConsoleEdition
 
         public void Blizzard(Unit unit)
         {
-            if (this.mana >= 15)
+            if (this.Mana >= 15)
             {
-                unit.timeWithoutAttack += 7;
-                mana -= 15;
+                unit.TimeWithoutAttack += 7;
+                this.Mana -= 15;
             }
 
             else
@@ -33,15 +33,15 @@ namespace WarCraft_3_ConsoleEdition
 
         public int Heal(Unit unit)
         {
-            int hp;
+            private int hp;
 
             Console.Write("Enter the number of HP: ");
             hp = int.Parse(Console.ReadLine());
 
-            if (hp * 5 <= this.mana)
+            if (hp * 5 <= this.Mana)
             {
-                unit.health += hp;
-                this.mana -= hp * 5;
+                unit.Health += hp;
+                this.Mana -= hp * 5;
             }
 
             else

@@ -4,15 +4,17 @@ namespace WarCraft_3_ConsoleEdition
 {
     public class Blacksmith : Unit
     {
-        private int boost = 3;
+        private int _boost = 3;
+
         public Blacksmith(int health, int cost, string name, int level) : base( health, cost, name, level)
         {
         }
+
         public void UpgradeArmor(List<Military> units)
         {
             for(int i = 0; i < units.Count; i++)
             {
-                units[i].armor += boost;
+                units[i].Armor += _boost;
             }
         }
 
@@ -20,7 +22,7 @@ namespace WarCraft_3_ConsoleEdition
         {
             for (int i = 0; i < units.Count; i++)
             {
-                units[i].damage += boost;
+                units[i].Damage += _boost;
             }
         }
 
@@ -28,8 +30,8 @@ namespace WarCraft_3_ConsoleEdition
         {
             for (int i = 0; i < units.Count; i++)
             {
-                units[i].range += boost;
-                units[i].damage += boost;
+                units[i].Range += _boost;
+                units[i].Damage += _boost;
             }
         }
     }

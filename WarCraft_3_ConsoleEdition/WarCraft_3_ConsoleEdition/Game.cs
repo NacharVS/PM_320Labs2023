@@ -5,6 +5,7 @@ using Range = WarCraft_3_ConsoleEdition.Range;
 static public class Game
 {
     static private int time = 0;
+
     static public void StartGame(Unit firstUnit, Unit secondUnit)
 	{
         for (; firstUnit.health > 0 && secondUnit.health > 0; time++)

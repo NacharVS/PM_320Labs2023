@@ -2,18 +2,18 @@
 {
     public class Unit
     {
-        public int health;
-        public int cost;
-        public string name;
-        public int level;
-        public int timeWithoutAttack;
+        public int Health { get; set; }
+        public int Cost { get; set; }
+        public string Name { get; set; }
+        public int Level { get; set; }
+        public int TimeWithoutAttack { get; set; }
 
         public Unit(int health, int cost, string name, int level)
         {
-            this.health = health;
-            this.cost = cost;
-            this.name = name;
-            this.level = level;
+            this.Health = health;
+            this.Cost = cost;
+            this.Name = name;
+            this.Level = level;
         }
     }
 }
