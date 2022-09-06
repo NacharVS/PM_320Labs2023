@@ -1,126 +1,120 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 using WarCraft_3_ConsoleEdition;
 using Range = WarCraft_3_ConsoleEdition.Range;
 
 static public class Game
 {
-    static private int time = 0;
+    static private int _time = 0;
 
     static public void StartGame(Unit firstUnit, Unit secondUnit)
 	{
-        for (; firstUnit.health > 0 && secondUnit.health > 0; time++)
+        try
         {
-            if (firstUnit.timeWithoutAttack == 0)
+            firstUnit.AttackEvent += firstUnit.Attack(secondUnit);
+            firstUnit.AttackEvent += firstUnit.ReportDamage(secondUnit);
+            secondUnit.AttackEvent += secondUnit.AttackDamage(firstUnit);
+            secondUnit.AttackEvent += secondUnit.ReportDamage(firstUnit);
+        }
+        catch
+        {
+            Console.WriteLine("The wrong type of fighter is selected!");
+        }
+
+
+        for (; firstUnit.Health > 0 && secondUnit.Health > 0; _time++)
+        {
+            if (firstUnit.TimeWithoutAttack == 0)
             {
-                ChoosingMove(firstUnit, secondUnit, time);
+                ChoosingMove(firstUnit, secondUnit, _time);
             }
 
-            if (secondUnit.timeWithoutAttack == 0)
+            if (secondUnit.TimeWithoutAttack == 0)
             {
-                ChoosingMove(secondUnit, firstUnit, time);
+                ChoosingMove(secondUnit, firstUnit, _time);
             }
 
-            if (firstUnit.timeWithoutAttack > 0)
+            if (firstUnit.TimeWithoutAttack > 0)
             {
-                firstUnit.timeWithoutAttack--;
+                firstUnit.TimeWithoutAttack--;
             }
 
-            if (secondUnit.timeWithoutAttack > 0)
+            if (secondUnit.TimeWithoutAttack > 0)
             {
-                secondUnit.timeWithoutAttack--;
+                secondUnit.TimeWithoutAttack--;
             }
         }
 
-        Console.WriteLine(firstUnit.health > 0 ?
-            $"{firstUnit.name} win!" : $"{secondUnit.name} win!");
+        Console.WriteLine(firstUnit.Health > 0 ?
+            $"{firstUnit.Name} win!" : $"{secondUnit.Name} win!");
 	}
 
     static void ChoosingMove(Unit atUnit, Unit defUnit, int time)
     {
+
         switch (atUnit.GetType().Name.ToString())
         {
             case "GuardTower":
-                if (time % ((GuardTower)atUnit).attackSpeed == 0)
+                if (time % ((GuardTower)atUnit).AttackSpeed == 0)
                 {
-                    ((GuardTower)atUnit).Attack(defUnit);
-                    ReportDamage(atUnit, (int)(((GuardTower)atUnit).damage -
-                                   ((GuardTower)atUnit).damage * (double)((Military)defUnit).armor / 100), defUnit);
+                    atUnit.AttackEvent;
                 }
                 break;
 
             case "Military":
-                if (time % ((Military)atUnit).attackSpeed == 0)
+                if (time % ((Military)atUnit).AttackSpeed == 0)
                 {
-                    ((Military)atUnit).Attack(defUnit);
-                    ReportDamage(atUnit, ((Military)atUnit).damage, defUnit);
+                    atUnit.AttackEvent;
                 }
                 break;
 
             case "Footman":
-                if (time % ((Footman)atUnit).attackSpeed == 0)
+                if (time % ((Footman)atUnit).AttackSpeed == 0)
                 {
-                    ((Footman)atUnit).Attack(defUnit);
-                    try
-                    {
-                        ReportDamage(atUnit, (int)(((Footman)atUnit).damage -
-                                    ((Footman)atUnit).damage * (double)((Military)defUnit).armor / 100), defUnit);
-                    }
-
-                    catch{ ReportDamage(atUnit, ((Footman)atUnit).damage, defUnit); }
+                    atUnit.AttackEvent;
                 }
 
-                if (atUnit.health < 35 && !((Footman)atUnit).isBerserk)
+                if (atUnit.Health < 35 && !((Footman)atUnit).IsBerserk)
                 {
-                    ((Footman)atUnit).Berserker();
-                    Console.WriteLine($"{atUnit.name} used Berserker");
+                    ((Footman)atUnit).HealthChangedEvent; 
                 }
 
-                if ((time % ((Footman) atUnit).attackSpeed * 5) == 0)
+                if ((time % ((Footman) atUnit).AttackSpeed * 5) == 0)
                 {
                     try
                     {
                         ((Footman)atUnit).Stun((Movable) defUnit);
-                        Console.WriteLine($"{atUnit.name} stunned " +
-                            $"{defUnit.name} for 5 second");                                            
+                        Console.WriteLine($"{atUnit.Name} stunned " +
+                            $"{defUnit.Name} for {((Footman)atUnit).StunTime} second");                                            
                     }
-
-                    catch{ }   
+                    catch
+                    { }   
                 }
                 break;
 
             case "Range":
-                if (time % ((Range) atUnit).attackSpeed == 0)
+                if (time % ((Range) atUnit).AttackSpeed == 0)
                 {
-                    ((Range)atUnit).Attack(defUnit);
-                    ReportDamage(atUnit, ((Range)atUnit).damage, defUnit);
+                    atUnit.AttackEvent;
                 }
                 break;
 
             case "Archer":
-                if (time % ((Archer) atUnit).attackSpeed == 0 
-                    && ((Archer)atUnit).arrowCount != 0)
+                if (time % ((Archer) atUnit).AttackSpeed == 0 
+                    && ((Archer)atUnit).ArrowCount != 0)
                 {
-                    ((Archer)atUnit).Attack(defUnit);
-                    ((Archer)atUnit).arrowCount--;
-                    ReportDamage(atUnit, ((Range)atUnit).damage, defUnit);
+                    atUnit.AttackEvent;
+                    ((Archer)atUnit).ArrowCount--;
                 }
                 break;
 
             case "Mage":
-                if (time % ((Mage)atUnit).attackSpeed == 0)
+                if (time % ((Mage)atUnit).AttackSpeed == 0)
                 {
-                    ((Mage)atUnit).Attack(defUnit);
-
-                    try
-                    {
-                        ReportDamage(atUnit, (int)(((Mage)atUnit).damage -
-                            ((Mage)atUnit).damage * (double)((Military)defUnit).armor / 100), defUnit);
-                    }
-
-                    catch{ ReportDamage(atUnit, ((Mage)atUnit).damage, defUnit); }
+                    atUnit.AttackEvent;
                 }
 
-                if (time % (((Mage)atUnit).attackSpeed * 3) == 0)
+                if (time % (((Mage)atUnit).AttackSpeed * 3) == 0)
                 {
                     Random rnd = new Random();
                     int value = rnd.Next(1, 4);
@@ -129,45 +123,37 @@ static public class Game
                     {
                         case 1:
                             ((Mage)atUnit).Fireball(defUnit);
-                            Console.WriteLine($"{atUnit.name} used fireball " +
-                                $"and dealt {((Mage)atUnit).damage * 2} " +
-                                $"damage to {defUnit.name}");
+                            Console.WriteLine($"{atUnit.Name} used fireball " +
+                                $"and dealt {((Mage)atUnit).Damage * 2} " +
+                                $"damage to {defUnit.Name}");
                             break;
 
                         case 2:
                             ((Mage)atUnit).Blizzard(defUnit);
-                            Console.WriteLine($"{atUnit.name} froze " +
-                            $"{defUnit.name} for 7 second");
+                            Console.WriteLine($"{atUnit.Name} froze " +
+                            $"{defUnit.Name} for 7 second");
                             break;
 
                         case 3:
-                            Console.WriteLine($"{atUnit.name} healed " +
-                                $"{atUnit.name} for {((Mage)atUnit).Heal(atUnit)} HP");
+                            Console.WriteLine($"{atUnit.Name} healed " +
+                                $"{atUnit.Name} for {((Mage)atUnit).Heal(atUnit)} HP");
                             break;
                     }
                 }
                 break;
 
             case "Dragon":
-                if (time % ((Dragon)atUnit).attackSpeed == 0)
+                if (time % ((Dragon)atUnit).AttackSpeed == 0)
                 {
-                    ((Dragon)atUnit).Attack(defUnit);
-
-                    try
-                    {
-                        ReportDamage(atUnit, (int)(((Dragon)atUnit).damage -
-                            ((Dragon)atUnit).damage * (double)((Military)defUnit).armor / 100), defUnit);
-                    }
-
-                    catch { ReportDamage(atUnit, ((Dragon)atUnit).damage, defUnit); }
+                    atUnit.AttackEvent;
                 }
 
-                if (time % (((Dragon)atUnit).attackSpeed * 2) == 0)
+                if (time % (((Dragon)atUnit).AttackSpeed * 2) == 0)
                 {
                     ((Dragon)atUnit).FireBreath(defUnit);
-                    Console.WriteLine($"{atUnit.name} used firebreath and" +
-                        $" dealt {((Dragon)atUnit).damage * 3} " +
-                        $"damage to {defUnit.name}");
+                    Console.WriteLine($"{atUnit.Name} used firebreath and" +
+                        $" dealt {((Dragon)atUnit).Damage * 3} " +
+                        $"damage to {defUnit.Name}");
                 }
                 break;
 
@@ -175,11 +161,6 @@ static public class Game
                 break;
         }
 
-    }
-
-    private static void ReportDamage(Unit atUnit, int damage, Unit defUnit)
-    {
-        Console.WriteLine($"{atUnit.name} dealt {damage} damage to {defUnit.name}");
     }
 }
 

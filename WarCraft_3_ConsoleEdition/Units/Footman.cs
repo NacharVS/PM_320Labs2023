@@ -2,9 +2,16 @@
 {
     public class Footman : Military
     {
-        public bool IsBerserk { }
+        public bool IsBerserk { get; set; }
+        public int StunTime { get; private set; } = 5;
 
-        public void Berserker()
+        public delegate void HealthChangedDelegate();
+
+        public Footman(int damage, int attackSpeed, int armor, int speed, int health,
+            int cost, string name, int level) : base(damage, attackSpeed, armor, speed, 
+                health, cost, name, level) { }
+
+        private void Berserker()
         {
             if (!IsBerserk)
             {
@@ -16,10 +23,17 @@
 
         public void Stun(Movable movable)
         {
-            movable.TimeWithoutAttack += 5;
+            movable.TimeWithoutAttack += StunTime;
         }
 
-        public Footman(int damage, int attackSpeed, int armor, int speed, int health,
-            int cost, string name, int level) : base(damage, attackSpeed, armor, speed, health, cost, name, level) { }
+        private void BerserkReport()
+        {
+            Console.WriteLine($"{Name} used Berserker");
+        }
+                                                                                    
+        public event HealthChangedDelegate HealthChangedEvent;
+
+        HealthChangedEvent += Berserker();
+        HealthChangedEvent += BerserkReport();
     }
 }

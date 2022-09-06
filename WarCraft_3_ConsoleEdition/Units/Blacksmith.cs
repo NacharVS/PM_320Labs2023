@@ -6,7 +6,8 @@ namespace WarCraft_3_ConsoleEdition
     {
         private int _boost = 3;
 
-        public Blacksmith(int health, int cost, string name, int level) : base( health, cost, name, level)
+        public Blacksmith(int health, int cost, string name, int level) 
+            : base( health, cost, name, level)
         {
         }
 

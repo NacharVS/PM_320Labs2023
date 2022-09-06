@@ -6,6 +6,8 @@
         public int AttackSpeed { get; set; }
         public int Armor { get; set; }
 
+        public delegate void AttackDelegate(Unit unit);
+
         public Military(int damage, int attackSpeed, int armor,
             int speed, int health, int cost, string name, int level)
             : base(speed, health, cost, name, level)
@@ -15,15 +17,29 @@
             this.Armor = armor;
         }
 
-         public void Attack(Unit unit)
+        public void Attack(Unit unit)
+        {
+                unit.Health -= DamageCalculating(unit);
+        }
+
+        public void ReportDamage(Unit unit)
+        {
+                Console.WriteLine($"{Name} dealt {DamageCalculating(unit)} damage to {unit.Name}");
+        }
+
+        private int DamageCalculating(Unit unit)
         {
             try
             {
-                unit.Health -= (int)(this.Damage -
-                        this.Damage * (double)((Military)unit).Armor / 100);
+                return (int)(this.Damage - this.Damage 
+                * (double)((Military)unit).Armor / 100);
             }
-
-            catch { unit.Health -= this.Damage; }
+            catch
+            {
+                return Damage;
+            }
         }
+
+        public event AttackDelegate AttackEvent;
     }
 }
