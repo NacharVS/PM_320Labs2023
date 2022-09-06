@@ -1,5 +1,5 @@
 ﻿namespace WarcraftGameCore
-{
+{ 
     public abstract class Moveble : Unit
     {
         private double _speed;

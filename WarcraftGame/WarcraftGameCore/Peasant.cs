@@ -6,11 +6,21 @@
 
         public void Mining()
         {
+            if (this.CheckDied())
+            {
+                return;
+            }
+
             Console.WriteLine($"{this._name} is mining");
         }
 
         public void Choping()
         {
+            if (this.CheckDied())
+            {
+                return;
+            }
+
             Console.WriteLine($"{this._name} is choping");
         }
     }

@@ -5,7 +5,6 @@
         private int _range;
         private double _damage;
         private int _attackSpeed;
-        private bool _isAttacking;
 
         public void SetAttackedSpeed(int attackedSpeed)
         {
@@ -28,47 +27,44 @@
             this.Attack(unit, _damage);
         }
 
-        protected void Attack(Unit unit, double damage)
+        protected virtual void Attack(Unit unit, double damage)
         {
-            if (!this.GetIsDestroyed())
+            if (unit == this)
             {
-                AttackUnit(unit, damage);
-                Thread.Sleep(_attackSpeed * 1000);
+                Console.WriteLine("You can`t attack yourself!!");
                 return;
             }
-            else
+
+            if (this.CheckDied() || unit.CheckDied())
             {
-                Console.WriteLine($"{unit.GetName} is destroyed!");
+                return;
             }
+
+            AttackUnit(unit, damage);
+            Thread.Sleep(_attackSpeed);
+            return;
         }
 
         private void AttackUnit(Unit unit, double damage)
         {
-            if (!unit.GetIsDestroyed())
+            if (unit is Military)
             {
-                if (unit is Military)
+                var militaryUnit = (Military)unit;
+
+                if (militaryUnit.GetArmor() >= damage * 0.1)
                 {
-                    var militaryUnit = (Military)unit;
-
-                    if (militaryUnit.GetArmor() >= damage * 0.1)
-                    {
-                        militaryUnit.SetArmor(militaryUnit.GetArmor() - damage * 0.1);
-                        militaryUnit.SetHealth(militaryUnit.GetHealth() - damage * 0.2);
-                        Console.WriteLine($"{this._name} attacked " +
-                            $"{unit.GetName()},Health: {militaryUnit.GetHealth()}, " +
-                            $"Armor: {militaryUnit.GetArmor()}");
-                        return;
-                    }
+                    militaryUnit.SetArmor(militaryUnit.GetArmor() - damage * 0.1);
+                    militaryUnit.SetHealth(militaryUnit.GetHealth() - damage * 0.2);
+                    Console.WriteLine($"{this._name} attacked " +
+                        $"{unit.GetName()},Health: {militaryUnit.GetHealth()}, " +
+                        $"Armor: {militaryUnit.GetArmor()}");
+                    return;
                 }
+            }
 
-                unit.SetHealth(unit.GetHealth() - damage);
-                Console.WriteLine($"{this._name} attacked {unit.GetName()}," +
-                    $"Health: {unit.GetHealth()}");
-            }
-            else
-            {
-                Console.WriteLine($"{unit.GetName} is destroyed!");
-            }
+            unit.SetHealth(unit.GetHealth() - damage);
+            Console.WriteLine($"{this._name} attacked {unit.GetName()}," +
+                $"Health: {unit.GetHealth()}");
         }
     }
 }
