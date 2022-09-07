@@ -47,6 +47,9 @@ namespace ConsoleWarcraft
                         case GuardTower tower:
                             tower.attack(unit2);
                             break;
+                        case Archer archer:
+                            archer.attack(unit2);
+                            break;
                     }
 
 
@@ -75,6 +78,9 @@ namespace ConsoleWarcraft
                             break;
                         case GuardTower tower:
                             tower.attack(unit1);
+                            break;
+                        case Archer archer:
+                            archer.attack(unit1);
                             break;
                     }
 

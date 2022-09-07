@@ -15,9 +15,10 @@ namespace ConsoleWarcraft
             Mage mage1 = new Mage("Voland", 1000, 750, 100, 100, 100, 100, 200, 200, false);
             Mage mage2 = new Mage("Potter", 1000, 50, 15, 100, 100, 100, 200, 200, false);
             Footman footman1 = new Footman("Worgen", 2500, 45000, 1000, 90, 30, false);
+            Archer archer1 = new Archer("Archer", 1500, 15000, 1000, 90, 30, 300, 4, false);
             Dragon dragon1 = new Dragon("Sparky", 1000, 50, 15, 100, 100, 100, 200, 200, false);
             GuardTower tower1 = new GuardTower("Tower of ghosts", 10000, 50000, 300, 20, 50, 90, false);
-            Unit[] units = new Unit[] { mage1, mage2, footman1, dragon1, tower1 };
+            Unit[] units = new Unit[] { mage1, mage2, footman1, dragon1, tower1, archer1 };
 
 
 
