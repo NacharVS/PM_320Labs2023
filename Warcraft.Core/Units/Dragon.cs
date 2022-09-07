@@ -1,6 +1,6 @@
-﻿using Warcaft.Core.BaseEntities;
+﻿using Warcraft.Core.BaseEntities;
 
-namespace Warcaft.Core.Units
+namespace Warcraft.Core.Units
 {
     public class Dragon : Ranged
     {

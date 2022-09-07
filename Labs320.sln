@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labs320", "Labs320\Labs320.csproj", "{6E4D25DD-ECFC-499D-B181-C187BEDADD23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warcaft.Core", "Warcaft.Core\Warcaft.Core.csproj", "{9A51D26B-7ADC-4998-BC23-C6120E989DCE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warcraft.Core", "Warcraft.Core\Warcraft.Core.csproj", "{9A51D26B-7ADC-4998-BC23-C6120E989DCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

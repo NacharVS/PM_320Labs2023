@@ -1,4 +1,4 @@
-﻿namespace Warcaft.Core.BaseEntities
+﻿namespace Warcraft.Core.BaseEntities
 {
      public abstract class Unit 
     {
