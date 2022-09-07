@@ -27,6 +27,7 @@ public abstract class Millitary : Moveable
             isStunned = false;
             return;
         }
+
         target.GetHit(damage);
         logger.Log($"{GetName()} нанес {damage} урона {target.GetName()}");
     }

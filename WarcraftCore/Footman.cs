@@ -3,18 +3,13 @@ namespace WarcraftCore;
 public class Footman : Millitary
 {
     Random rand = new();
+
+    protected bool isBerserkerModeActive;
     public Footman(int health, string name, int cost, int level, int moveSpeed, int damage, 
         int attackSpeed, int armor, ILogger logger) : 
         base(health, name, cost, level, moveSpeed, damage, attackSpeed, armor, logger)
     {
-    }
-
-    public override void GetHit(int damage)
-    {
-        base.GetHit(damage);
-        
-        if (health <= maxHealth / 3)
-            Berserker();
+        HealthChangedEvent += Berserker;
     }
 
     public override void Attack(Unit target)
@@ -27,8 +22,25 @@ public class Footman : Millitary
     {
         if (isDestroyed)
             return;
-        attackSpeed *= 2;
-        logger.Log($"{GetName()} включил режим берсерка");
+        
+        if (!isBerserkerModeActive && health <= maxHealth / 3)
+        {
+            isBerserkerModeActive = true;
+            attackSpeed *= 2;
+            damage *= 2;
+            
+            logger.Log($"{GetName()} включил режим берсерка");
+
+        }
+        else if (isBerserkerModeActive && health > maxHealth / 3)
+        {
+            isBerserkerModeActive = false;
+            attackSpeed /= 2;
+            damage /= 2;
+
+            logger.Log($"У {GetName()} закончился режим берсерка");
+        }
+
     }
 
     public void Stun(Unit target)

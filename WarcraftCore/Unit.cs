@@ -11,18 +11,24 @@ public abstract class Unit
     protected bool isStunned;
     protected bool isDestroyed;
 
+    public delegate void HealthChangedDelegate();
+
+    public event HealthChangedDelegate HealthChangedEvent;
+
     protected Unit(int health, string name, int cost, int level)
     {
         this.health = health;
-        this.maxHealth = health;
+        maxHealth = health;
         this.name = name;
         this.cost = cost;
         this.level = level;
+        
     }
 
     public virtual void GetHit(int damage)
     {
         health -= damage;
+        HealthChangedEvent?.Invoke();
         
         if (health <= 0)
         {
