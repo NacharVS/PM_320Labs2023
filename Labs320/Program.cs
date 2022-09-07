@@ -1,5 +1,5 @@
-﻿FootMan fm = new FootMan(100, 500, "Pidor", 100, 15, 45, 20);
-FootMan fmEnemy = new FootMan(150, 280, "Uebok", 100, 10, 25, 25);
+﻿FootMan fm = new FootMan(100, 500, "footman1", 100, 15, 45, 20);
+FootMan fmEnemy = new FootMan(150, 280, "footman2", 100, 10, 25, 25);
 
 while (fm.isDestroyed || fmEnemy.isDestroyed)
 {
