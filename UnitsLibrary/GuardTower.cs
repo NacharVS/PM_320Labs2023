@@ -1,4 +1,6 @@
-﻿namespace WarCraft_3_ConsoleEdition
+﻿using System;
+
+namespace WarCraft_3_ConsoleEdition
 {
     public class GuardTower : Unit
     {
@@ -18,13 +20,14 @@
 
         public void Attack(Unit unit)
         {
-                unit.Health -= DamageCalculating(unit);
+            unit.Health -= DamageCalculating(unit);
+            AttackEvent?.Invoke(unit);      
         }
 
         public void ReportDamage(Unit unit)
         {
-                Console.WriteLine($"{Name} dealt {DamageCalculating(unit)} damage to {unit.Name}");
- 
+                Console.WriteLine($"{Name} dealt {DamageCalculating(unit)} " +
+                    $"damage to {unit.Name}");
         }
 
         private int DamageCalculating(Unit unit)

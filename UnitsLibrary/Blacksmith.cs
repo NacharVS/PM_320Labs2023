@@ -31,7 +31,7 @@ namespace WarCraft_3_ConsoleEdition
         {
             for (int i = 0; i < units.Count; i++)
             {
-                units[i].Range += _boost;
+                units[i].Distance += _boost;
                 units[i].Damage += _boost;
             }
         }

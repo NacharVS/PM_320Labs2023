@@ -9,18 +9,8 @@ static public class Game
 
     static public void StartGame(Unit firstUnit, Unit secondUnit)
 	{
-        try
-        {
-            firstUnit.AttackEvent += firstUnit.Attack(secondUnit);
-            firstUnit.AttackEvent += firstUnit.ReportDamage(secondUnit);
-            secondUnit.AttackEvent += secondUnit.AttackDamage(firstUnit);
-            secondUnit.AttackEvent += secondUnit.ReportDamage(firstUnit);
-        }
-        catch
-        {
-            Console.WriteLine("The wrong type of fighter is selected!");
-        }
-
+        EventsDistributing(firstUnit);
+        EventsDistributing(secondUnit);
 
         for (; firstUnit.Health > 0 && secondUnit.Health > 0; _time++)
         {
@@ -57,35 +47,35 @@ static public class Game
             case "GuardTower":
                 if (time % ((GuardTower)atUnit).AttackSpeed == 0)
                 {
-                    atUnit.AttackEvent;
+                    ((GuardTower)atUnit).Attack(defUnit);
+                   
                 }
                 break;
 
             case "Military":
                 if (time % ((Military)atUnit).AttackSpeed == 0)
                 {
-                    atUnit.AttackEvent;
+                     ((Military)atUnit).Attack(defUnit);
+                    ((Military)atUnit).ReportDamage(defUnit);
                 }
                 break;
 
             case "Footman":
                 if (time % ((Footman)atUnit).AttackSpeed == 0)
                 {
-                    atUnit.AttackEvent;
+                    ((Footman)atUnit).Attack(defUnit);
                 }
 
-                if (atUnit.Health < 35 && !((Footman)atUnit).IsBerserk)
+                if (atUnit.Health < 35)
                 {
-                    ((Footman)atUnit).HealthChangedEvent; 
+                   ((Footman)atUnit).Berserker(); 
                 }
 
                 if ((time % ((Footman) atUnit).AttackSpeed * 5) == 0)
                 {
                     try
                     {
-                        ((Footman)atUnit).Stun((Movable) defUnit);
-                        Console.WriteLine($"{atUnit.Name} stunned " +
-                            $"{defUnit.Name} for {((Footman)atUnit).StunTime} second");                                            
+                        ((Footman)atUnit).Stun((Movable) defUnit);                                          
                     }
                     catch
                     { }   
@@ -95,7 +85,7 @@ static public class Game
             case "Range":
                 if (time % ((Range) atUnit).AttackSpeed == 0)
                 {
-                    atUnit.AttackEvent;
+                    ((Range)atUnit).Attack(defUnit);
                 }
                 break;
 
@@ -103,7 +93,7 @@ static public class Game
                 if (time % ((Archer) atUnit).AttackSpeed == 0 
                     && ((Archer)atUnit).ArrowCount != 0)
                 {
-                    atUnit.AttackEvent;
+                    ((Archer)atUnit).Attack(defUnit);
                     ((Archer)atUnit).ArrowCount--;
                 }
                 break;
@@ -111,7 +101,7 @@ static public class Game
             case "Mage":
                 if (time % ((Mage)atUnit).AttackSpeed == 0)
                 {
-                    atUnit.AttackEvent;
+                    ((Mage)atUnit).Attack(defUnit);
                 }
 
                 if (time % (((Mage)atUnit).AttackSpeed * 3) == 0)
@@ -123,15 +113,10 @@ static public class Game
                     {
                         case 1:
                             ((Mage)atUnit).Fireball(defUnit);
-                            Console.WriteLine($"{atUnit.Name} used fireball " +
-                                $"and dealt {((Mage)atUnit).Damage * 2} " +
-                                $"damage to {defUnit.Name}");
                             break;
 
                         case 2:
                             ((Mage)atUnit).Blizzard(defUnit);
-                            Console.WriteLine($"{atUnit.Name} froze " +
-                            $"{defUnit.Name} for 7 second");
                             break;
 
                         case 3:
@@ -145,15 +130,12 @@ static public class Game
             case "Dragon":
                 if (time % ((Dragon)atUnit).AttackSpeed == 0)
                 {
-                    atUnit.AttackEvent;
+                    ((Dragon)atUnit).Attack(defUnit);
                 }
 
                 if (time % (((Dragon)atUnit).AttackSpeed * 2) == 0)
                 {
                     ((Dragon)atUnit).FireBreath(defUnit);
-                    Console.WriteLine($"{atUnit.Name} used firebreath and" +
-                        $" dealt {((Dragon)atUnit).Damage * 3} " +
-                        $"damage to {defUnit.Name}");
                 }
                 break;
 
@@ -161,6 +143,65 @@ static public class Game
                 break;
         }
 
+    }
+
+    static private void EventsDistributing(Unit unit)
+    {
+        switch (unit.GetType().Name.ToString())
+        {
+            case "GuardTower":
+                ((GuardTower)unit).AttackEvent 
+                    += ((GuardTower)unit).ReportDamage;
+                break;
+
+            case "Military":
+                ((Military)unit).AttackEvent 
+                    += ((Military)unit).ReportDamage;
+                break;
+
+            case "Footman":
+                ((Footman)unit).AttackEvent 
+                    += ((Footman)unit).ReportDamage;
+
+                 ((Footman)unit).HealthChangedEvent 
+                    += ((Footman)unit).BerserkReport;
+
+                ((Footman)unit).StunEvent 
+                    += ((Footman)unit).StunReport;
+                break;
+
+            case "Range":
+               ((Range)unit).AttackEvent 
+                    += ((Range)unit).ReportDamage;
+                break;
+
+            case "Archer":
+                ((Archer)unit).AttackEvent 
+                    += ((Archer)unit).ReportDamage;
+                break;
+
+            case "Mage":
+               ((Mage)unit).AttackEvent 
+                    += ((Mage)unit).ReportDamage;
+
+                 ((Mage)unit).FireballEvent 
+                    += ((Mage)unit).FireballReport;
+
+                 ((Mage)unit).BlizzardEvent 
+                    += ((Mage)unit).BlizzardReport;
+                break;
+
+            case "Dragon":
+               ((Dragon)unit).AttackEvent 
+                    += ((Dragon)unit).ReportDamage;
+
+                ((Dragon)unit).FireBreathEvent 
+                    += ((Dragon)unit).FireBreathReport;
+                break;
+
+            default:
+                break;
+        }
     }
 }
 

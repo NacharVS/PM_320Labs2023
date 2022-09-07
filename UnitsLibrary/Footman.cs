@@ -1,4 +1,6 @@
-﻿namespace WarCraft_3_ConsoleEdition
+﻿using System;
+
+namespace WarCraft_3_ConsoleEdition
 {
     public class Footman : Military
     {
@@ -6,34 +8,40 @@
         public int StunTime { get; private set; } = 5;
 
         public delegate void HealthChangedDelegate();
+        public delegate void StunDelegate(Movable unit);
 
         public Footman(int damage, int attackSpeed, int armor, int speed, int health,
             int cost, string name, int level) : base(damage, attackSpeed, armor, speed, 
                 health, cost, name, level) { }
 
-        private void Berserker()
+        public void Berserker()
         {
             if (!IsBerserk)
             {
                 Damage *= 2;
+                HealthChangedEvent?.Invoke();
+                IsBerserk = true;
             }
-
-            IsBerserk = true;
         }
 
-        public void Stun(Movable movable)
+        public void Stun(Movable unit)
         {
-            movable.TimeWithoutAttack += StunTime;
+            unit.TimeWithoutAttack += StunTime;
+            StunEvent?.Invoke(unit);
         }
 
-        private void BerserkReport()
+        public void BerserkReport()
         {
             Console.WriteLine($"{Name} used Berserker");
         }
+
+        public void StunReport(Movable unit)
+        {
+            Console.WriteLine($"{Name} stunned " +
+                            $"{unit.Name} for {StunTime} second");
+        }
                                                                                     
         public event HealthChangedDelegate HealthChangedEvent;
-
-        HealthChangedEvent += Berserker();
-        HealthChangedEvent += BerserkReport();
+        public event StunDelegate StunEvent;
     }
 }

@@ -4,11 +4,21 @@ namespace WarCraft_3_ConsoleEdition
 {
     public class Mage : Range
     {
+        public delegate void FireballDelegate(Unit unit);
+        public delegate void BlizzardDelegate(Unit unit);
+
+        public Mage(int range, int mana, int damage, int attackSpeed, int armor,
+            int speed, int health, int cost, string name, int level) : base(range,
+                mana, damage, attackSpeed, armor, speed, health, cost, name, level)
+        {
+        }
+
         public void Fireball(Unit unit)
         {
             if (this.Mana >= 20)
             {
                 unit.Health -= this.Damage * 2;
+                FireballEvent?.Invoke(unit);
             }
 
             else
@@ -23,6 +33,7 @@ namespace WarCraft_3_ConsoleEdition
             {
                 unit.TimeWithoutAttack += 7;
                 this.Mana -= 15;
+                BlizzardEvent?.Invoke(unit);
             }
 
             else
@@ -33,7 +44,7 @@ namespace WarCraft_3_ConsoleEdition
 
         public int Heal(Unit unit)
         {
-            private int hp;
+            int hp;
 
             Console.Write("Enter the number of HP: ");
             hp = int.Parse(Console.ReadLine());
@@ -47,15 +58,26 @@ namespace WarCraft_3_ConsoleEdition
             else
             {
                 ReportingLackOfMana();
+                hp = 0;
             }
 
             return hp;
         }
 
-        public Mage(int range, int mana, int damage, int attackSpeed, int armor,
-            int speed, int health, int cost, string name, int level) : base(range,
-                mana, damage, attackSpeed, armor, speed, health, cost, name, level)
+        public void FireballReport(Unit unit)
         {
+            Console.WriteLine($"{Name} used fireball " +
+                                $"and dealt {Damage * 2} " +
+                                $"damage to {unit.Name}");
         }
+
+        public void BlizzardReport(Unit unit)
+        {
+            Console.WriteLine($"{Name} froze " +
+                           $"{unit.Name} for 7 second");
+        }
+
+        public event FireballDelegate FireballEvent;
+        public event BlizzardDelegate BlizzardEvent;
     }
 }
