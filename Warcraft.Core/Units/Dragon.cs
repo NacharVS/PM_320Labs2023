@@ -1,12 +1,34 @@
 ﻿using Warcraft.Core.BaseEntities;
+using Warcraft.Core.EventArgs;
 
 namespace Warcraft.Core.Units
 {
     public class Dragon : Ranged
     {
-        public override void Attack(Unit unit) { }
+        private static readonly Dictionary<string, int> SpellsCost = new()
+        {
+            {nameof(FireBreath), 150}
+        };
 
-        public void FireBreath() { }
+        private static readonly Dictionary<string, int> SpellsDamage = new()
+        {
+            {nameof(FireBreath), 200}
+        };
+
+        private delegate void SpellAttackHandler(Dragon sender, SpellArgs args);
+
+        private event SpellAttackHandler? OnSpellAttack;
+
+        public void FireBreath(Unit enemy)
+        {
+            string spellName = nameof(FireBreath);
+            
+            OnSpellAttack?.Invoke(this, new SpellArgs(
+                enemy, 
+                SpellsDamage[spellName],
+                SpellsCost[spellName])
+            );
+        }
 
         public override void Move() { }
 
@@ -14,6 +36,16 @@ namespace Warcraft.Core.Units
             int attackSpeed, int armor, int range, int mana) 
             : base(health, cost, name, level, speed, damage, attackSpeed, armor, range, mana)
         {
+            OnSpellAttack += delegate(Dragon sender, SpellArgs args)
+            {
+                if (sender.Mana >= args.SpellCost)
+                {
+                    sender.Mana -= args.SpellCost;
+                    Attack(args.Target, args.SpellDamage);
+                }
+                else
+                    Console.WriteLine("Не хватает маны");
+            };
         }
     }
 }

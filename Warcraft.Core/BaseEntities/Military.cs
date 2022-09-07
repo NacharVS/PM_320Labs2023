@@ -1,4 +1,6 @@
-﻿namespace Warcraft.Core.BaseEntities
+﻿using Warcraft.Core.EventArgs;
+
+namespace Warcraft.Core.BaseEntities
 {
     public abstract class Military : Movable
     {
@@ -16,7 +18,29 @@
             AttackSpeed = attackSpeed;
             Armor = armor;
         }
-        
-        public abstract void Attack(Unit unit);
+
+        private protected void Attack(Unit unit, int damage)
+        {
+            if (unit.IsDestroyed || IsDestroyed)
+                return;
+            
+            Thread.Sleep(AttackSpeed);
+            
+            if (unit.IsDestroyed || IsDestroyed)
+                return;
+
+            Console.WriteLine($"{Name} attacks {unit.Name}");
+            unit.GetDamage(damage);
+        }
+
+        public void Attack(Unit unit)
+        {
+            Attack(unit, Damage);
+        }
+
+        public new void GetDamage(int damage)
+        {
+            RaiseOnHitEvent(this, new HitArgs(damage < Armor ? damage - Armor : 0, Health));
+        }
     }
 }

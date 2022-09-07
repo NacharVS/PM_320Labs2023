@@ -10,9 +10,15 @@ namespace Warcraft.Core.Units
 
         public int AttackSpeed { get; private protected set; }
 
-        public void Attack(Unit unit) 
+        private void Attack(Unit unit, int damage) 
         {
+            Thread.Sleep(AttackSpeed);
+            unit.GetDamage(damage);
+        }
 
+        public void Attack(Unit unit)
+        {
+            Attack(unit, Damage);
         }
 
         public GuardTower(int health, int cost, string? name, int level, int range, int damage, int attackSpeed)
