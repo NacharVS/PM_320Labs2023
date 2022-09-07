@@ -10,7 +10,8 @@ namespace WarCraft_3_ConsoleEdition
             {"Footman", new Footman(15, 8, 10, 5, 100, 30, "Footman", 1) },
             {"Mage", new Mage(20, 100, 10, 6, 10, 5, 80, 45, "Mage", 1) },
             {"Dragon", new Dragon(30, 300, 20, 15, 20, 5, 200, 100, "Dragon", 1) },
-            {"Archer", new Archer(12, 12, 5, 35, 5, 5, 70, 50, "Archer", 1) }
+            {"Archer", new Archer(12, 12, 5, 35, 5, 5, 70, 50, "Archer", 1) },
+            {"Peasant", new Peasant(10, 80, 30, "Peasant", 1)}
         };
 
         static void Main(string[] args)
