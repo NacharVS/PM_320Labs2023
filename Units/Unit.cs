@@ -11,10 +11,10 @@ namespace Units
         public bool isDestroyed;
         public double maxHealth;
 
-        public Unit(double health, double cost, string name, int lvl = 1)
+        public Unit(double health, double cost, string name, int lvl)
         {
             this.health = health;
-            this.maxHealth = health;
+            maxHealth = health;
             this.cost = cost;
             this.name = name;
             this.lvl = lvl;

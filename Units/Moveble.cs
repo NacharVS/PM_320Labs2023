@@ -6,7 +6,7 @@ namespace Units
     {
         public double speed;
 
-        public Moveble(double health, double cost, string name, double speed) : base(health, cost, name)
+        public Moveble(double health, double cost, string name, int lvl, double speed) : base(health, cost, name, lvl)
         {
             this.speed = speed;
         }

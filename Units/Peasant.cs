@@ -4,7 +4,8 @@ namespace Units
 {
     public class Peasant : Moveble
     {
-        public Peasant(double health, double cost, string name, double speed) : base(health, cost, name, speed)
+        public Peasant(double health, double cost, string name, int lvl, double speed) 
+                : base(health, cost, name, lvl, speed)
         { }
 
         public void Mining()

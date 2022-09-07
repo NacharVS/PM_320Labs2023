@@ -8,7 +8,7 @@ namespace Units
         public double damage;
         public double attackSpeed;
 
-        public GuardTower(double health, double cost, string name, double range, double damage, double attackSpeed) : base(health, cost, name)
+        public GuardTower(double health, double cost, string name, int lvl, double range, double damage, double attackSpeed) : base(health, cost, name, lvl)
         {
             this.range = range;
             this.damage = damage;
