@@ -1,5 +1,7 @@
 ﻿// Turushkin Sergey, 320P, "Warcraft"
 
+// test comm
+
 using Units;
 
 namespace Warcraft
