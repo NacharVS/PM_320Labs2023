@@ -1,25 +1,24 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Labs320;
+﻿FootMan fm = new FootMan(100, 500, "Pidor", 100, 15, 45, 20);
+FootMan fmEnemy = new FootMan(150, 280, "Uebok", 100, 10, 25, 25);
 
-TestClass unit = new TestClass(100);
-unit.HealthChangedEvent += Rage;
-unit.HealthChangedEvent += Adrenaline;
-
-unit.TakeDamage(20);
-unit.TakeDamage(10);
-unit.TakeDamage(15);
-unit.TakeDamage(30);
-unit.TakeDamage(1); 
-unit.TakeDamage(1);
-
-
-static void Rage()
+while (fm.isDestroyed || fmEnemy.isDestroyed)
 {
-    Console.WriteLine("Rage is activated!");
+    fm.Attack(fmEnemy);
+    Console.WriteLine();
+    fmEnemy.Attack(fm);
+    Console.WriteLine();
 }
 
-static void Adrenaline()
+if (fm.isDestroyed)
 {
-    Console.WriteLine("Op op adrenaline!111");
+    Console.WriteLine($"{fmEnemy.GetName()} is winner");
+}
+else if (fmEnemy.isDestroyed)
+{
+    Console.WriteLine($"{fm.GetName()} is winner");
+}
+else
+{
+   Console.WriteLine("DRAW!");
 }
 
