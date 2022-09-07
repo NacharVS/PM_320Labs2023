@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Warcaft.Core\Warcaft.Core.csproj" />
-    <ProjectReference Include="..\Warcraft.Core2\Warcraft.Core2.csproj" />
   </ItemGroup>
 
 </Project>
