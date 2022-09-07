@@ -5,7 +5,7 @@ namespace ConsoleWarcraft
     public class Footman : Military
     {
         
-        public Footman(String name, int health, int cost, int level, int attackSpeed, int speed, bool isDestroy)
+        public Footman(String name, int health, int cost, int level, int attackSpeed, int speed, int armor, bool isDestroy)
         {
             this.name = name;
             this.health = health;
@@ -14,6 +14,7 @@ namespace ConsoleWarcraft
             this.isDestroy = isDestroy;
             this.attackSpeed = attackSpeed;
             this.speed = speed;
+            this.armor = armor;
         }
 
         public override void attack(Unit unit)

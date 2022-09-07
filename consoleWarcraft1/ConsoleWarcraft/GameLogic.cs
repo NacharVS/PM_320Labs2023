@@ -92,6 +92,7 @@ namespace ConsoleWarcraft
                         Console.WriteLine(unit1.name + " is destroy!");
                         break;
                     }
+                    Console.ReadKey();
                 }
                 count++;
                 System.Threading.Thread.Sleep(1000);
@@ -107,7 +108,7 @@ namespace ConsoleWarcraft
             }
             else if (unit is Military military)
             {
-                Console.WriteLine(military.name + ": attack " + military.damage);
+                Console.WriteLine(military.name + ": damage " + military.damage + "armor: " + military.armor);
             }
             else if (unit is GuardTower tower)
             {

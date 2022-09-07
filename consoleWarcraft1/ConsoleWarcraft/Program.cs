@@ -14,37 +14,53 @@ namespace ConsoleWarcraft
 
             Mage mage1 = new Mage("Voland", 1000, 750, 100, 100, 100, 100, 200, 200, false);
             Mage mage2 = new Mage("Potter", 1000, 50, 15, 100, 100, 100, 200, 200, false);
-            Footman footman1 = new Footman("Worgen", 2500, 45000, 1000, 90, 30, false);
+            Footman footman1 = new Footman("Worgen", 2500, 45000, 1000, 90, 30, 300,  false);
             Archer archer1 = new Archer("Archer", 1500, 15000, 1000, 90, 30, 300, 4, false);
             Dragon dragon1 = new Dragon("Sparky", 1000, 50, 15, 100, 100, 100, 200, 200, false);
             GuardTower tower1 = new GuardTower("Tower of ghosts", 10000, 50000, 300, 20, 50, 90, false);
+
+            Blacksmith blacksmith = new Blacksmith("Anvil", 2, 3, 3000, 1000); 
+            //List<Unit> units = new List<Unit> { };
+
+            //units.Add(mage1);
+            //units.Add(mage2);
+            //units.Add(footman1);
+            //units.Add(archer1);
+            //units.Add(dragon1);
+            //units.Add(tower1);
+
             Unit[] units = new Unit[] { mage1, mage2, footman1, dragon1, tower1, archer1 };
 
 
 
-            Console.WriteLine();
-            for (int i = 0; i < units.Length; i++)
+            startGame();
+
+
+             void startGame()
             {
-                Console.WriteLine($"{i + 1} {units[i].name}  level: {units[i].level}  health {units[i].health}");
+                Console.WriteLine();
+                for (int i = 0; i < units.Length; i++)
+                {
+                    Console.WriteLine($"{i + 1} {units[i].name}  level: {units[i].level}  health {units[i].health}");
+                }
+                Console.WriteLine();
+                Console.Write("Player 1: choose hero: ");
+                player1 = int.Parse(Console.ReadLine()) - 1;
+
+                Console.Write("Player 2: choose hero: ");
+                player2 = int.Parse(Console.ReadLine()) - 1;
+
+                blacksmith.UpgradeWeapon(units[player1]);
+                blacksmith.UpgradeBow(units[player2]);
+
+                GameLogic game = new GameLogic(units[player1], units[player2]);
+                game.run();
+
+                Console.ReadKey();
             }
-            Console.WriteLine();
-            Console.Write("Player 1: choose hero: ");
-            player1 = int.Parse(Console.ReadLine()) - 1;
-
-            Console.Write("Player 2: choose hero: ");
-            player2 = int.Parse(Console.ReadLine()) - 1;
-
-            GameLogic game = new GameLogic(units[player1], units[player2]);
-            game.run();
-
-            //Console.ReadKey();
-
         }
 
-        public void startGame(Unit unit1, Unit unit2)
-        {
-
-        }
+        
 
         public static void showMageAttack(Mage mage)
         {
