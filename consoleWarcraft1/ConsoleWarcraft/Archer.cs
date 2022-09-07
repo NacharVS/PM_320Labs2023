@@ -8,7 +8,7 @@ namespace ConsoleWarcraft
 {
     public class Archer : Military
     {
-        public Archer(String name, int health, int cost, int level, bool isDestroy, double damage, int attackSpeed, int armor, int arrowCount)
+        public Archer(String name, int health, int cost, int level, double damage, int attackSpeed, int armor, int arrowCount, bool isDestroy)
         {
             this.name = name;
             this.health = health;
