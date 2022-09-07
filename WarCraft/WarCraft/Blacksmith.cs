@@ -8,10 +8,9 @@ namespace WarCraft
 {
     class Blacksmith : Unit
     {
-        public int ArmorCount = 10;
-        public int WeaponCount = 10;
-        public int BowCount = 5;
-        private List<Military> Players;
+        public static int ArmorCount = 10;
+        public static int WeaponCount = 10;
+        public static int BowCount = 5;
 
         public Blacksmith(string name, int health, 
             int cost, int lvl, bool isDestroyed) : 
@@ -21,11 +20,17 @@ namespace WarCraft
 
         public void UpgradeArmor(Military pers) 
         {
-            pers.Armor = pers.Armor + 1; 
+            pers.Armor += ArmorCount; 
         }
 
-        public void UpgradeWeapon() { }
+        public void UpgradeWeapon(Military pers) 
+        {
+            pers.Damage += WeaponCount;
+        }
 
-        public void UpgradeBow() { }
+        public void UpgradeBow(Archer pers) 
+        {
+            pers.ArrowCount += BowCount;
+        }
     }
 }

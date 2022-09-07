@@ -8,9 +8,9 @@ namespace WarCraft
 {
     class Mage : Range
     {
-        public int FireBallLine = 10;
-        public int BlizzardLine = 20;
-        public int HealLine = 30;
+        public static int FireBallLine = 10;
+        public static int BlizzardLine = 20;
+        public static int HealLine = 30;
 
         public Mage(string name, int health, 
             int cost, int lvl, bool isDestroyed,
@@ -45,7 +45,7 @@ namespace WarCraft
             }
         }
 
-        public string Attack ()
+        public override string Attack (int number)
         {
             return $"Mage attacks with damage {Damage}.{Damage}";
         }

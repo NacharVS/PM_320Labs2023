@@ -8,7 +8,7 @@ namespace WarCraft
 {
     class Dragon : Range
     {
-        public int FireBreathLine = 100;
+        public static int FireBreathLine = 100;
 
         public Dragon(string name, int health, int cost, 
             int lvl, bool isDestroyed, int speed, int damage,
@@ -26,7 +26,7 @@ namespace WarCraft
             }
         }
 
-        public string Attack()
+        public override string Attack(int number)
         {
             return $"Dragon attacks with damage {Damage}.{Damage}";
         }

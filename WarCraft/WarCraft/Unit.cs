@@ -14,6 +14,9 @@ namespace WarCraft
         public int Lvl { get; set; }
         public bool IsDestroyed { get; set; }
 
+        public delegate void HealthChangedDelegate();
+        public event HealthChangedDelegate HealthChangedEvent;
+
         public Unit(string name, int health, int cost, 
             int lvl, bool isDestroyed)
         {
@@ -30,6 +33,7 @@ namespace WarCraft
             {
                 Health = 0;
                 IsDestroyed = true;
+                HealthChangedEvent?.Invoke();
                 return true;
             }
             return false;
@@ -38,11 +42,6 @@ namespace WarCraft
         public void Hit(int damage)
         {
             Health -= damage;
-        }
-
-        public void Attack(int number)
-        {
-            Console.WriteLine($"Attacking player{number}");
         }
     }
 }

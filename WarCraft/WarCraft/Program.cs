@@ -41,7 +41,7 @@ namespace WarCraft
                 {
                     case 1:
                         player1.Attack(attack);
-                        Thread.Sleep(700);
+                        Thread.Sleep(500);
 
                         switch (hit)
                         {
@@ -56,7 +56,7 @@ namespace WarCraft
                         break;
                     case 2:
                         player2.Attack(attack);
-                        Thread.Sleep(700);
+                        Thread.Sleep(500);
 
                         switch (hit)
                         {

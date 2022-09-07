@@ -23,7 +23,7 @@ namespace WarCraft
             this.Armor = armor;
         }
 
-        public string Attack() 
+        public virtual string Attack(int number) 
         {
             return $"Attack";
         }

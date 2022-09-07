@@ -8,9 +8,9 @@ namespace WarCraft
 {
     class GuardTower : Unit
     {
-        public int Range = 70;
-        public int Damage = 25;
-        public int AttackSpeed;
+        public int Range { get; set; }
+        public int Damage { get; set; }
+        public int AttackSpeed { get; set; }
 
         public GuardTower(string name, int health,
             int cost, int lvl, bool isDestroyed, 

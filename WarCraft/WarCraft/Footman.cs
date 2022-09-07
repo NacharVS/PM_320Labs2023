@@ -15,17 +15,14 @@ namespace WarCraft
                 isDestroyed, speed, damage, attackSpeed, 
                 armor)
         {
-            speed = 7;
-            armor = 2;
-            damage = 9;
-            cost = 135;
+            HealthChangedEvent += Berserker;
         }
 
         public void Berserker() { }
 
         public void Stun() { }
 
-        public string Attack()
+        public override string Attack(int number)
         {
             return $"Footman attacks with damage {Damage}.{Damage}";
         }
