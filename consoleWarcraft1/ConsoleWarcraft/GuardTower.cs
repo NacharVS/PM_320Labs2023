@@ -19,11 +19,23 @@ namespace ConsoleWarcraft
             this.range = range;
             this.attackSpeed = attackSpeed;
         }
-        
+
         public void attack(Unit unit)
         {
-            damage = damage + range + attackSpeed + level * 0.2 ;
-            unit.health -= damage;
+            damage = damage + range + attackSpeed + level * 0.2;
+            damageUnit(unit);
+        }
+
+        private void damageUnit(Unit unit)
+        {
+            if (unit is Military military)
+            {
+                military.health = military.health + military.armor - damage;
+            }
+            else
+            {
+                unit.health -= damage;
+            }
         }
     }
 }
