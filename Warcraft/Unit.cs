@@ -26,10 +26,14 @@
     protected int countMovesToFreeze;
     protected int damageByFreeze;
 
+    public delegate void HealthChangedDelegate();
+    public event HealthChangedDelegate HealthChangedEvent;
+
     public virtual void GetDamage(int dmg)
     {
         health -= dmg;
         Console.WriteLine($"{name} get {dmg} damage");
+        HealthChangedEvent?.Invoke();
         
         if (health <= 0)
         {
@@ -51,6 +55,8 @@
             --countMovesToFreeze;
             Console.WriteLine($"{name} get {damageByFreeze} damage by freeze");
         }
+
+
     }
 
     public bool IsDestroyed()
