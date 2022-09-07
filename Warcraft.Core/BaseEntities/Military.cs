@@ -29,7 +29,8 @@ namespace Warcraft.Core.BaseEntities
             if (unit.IsDestroyed || IsDestroyed)
                 return;
 
-            Console.WriteLine($"{Name} attacks {unit.Name}");
+            Console.WriteLine($"{Name} attacks {unit.Name}, damage = {Damage}," +
+                              $" {unit.Name} hp = {unit.Health}, {Name} hp = {Health}");
             unit.GetDamage(damage);
         }
 

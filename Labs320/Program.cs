@@ -15,4 +15,9 @@ foreach (var unit in warriors)
     ThreadPool.QueueUserWorkItem(new UnitWrapper(unit, warriors).Run);
 }
 
+while (warriors.FindAll(unit => !unit.IsDestroyed).Count > 1)
+{
+    Thread.Sleep(500);
+}
+
 Console.WriteLine($"{warriors.FirstOrDefault(military => !military.IsDestroyed)?.Name} is last standing warrior");

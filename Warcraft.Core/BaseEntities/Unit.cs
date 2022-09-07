@@ -36,15 +36,13 @@ namespace Warcraft.Core.BaseEntities
                 Health -= args.Damage;
 
                 if (Health <= 0)
-                {
                     OnDeath?.Invoke(this, new DeathArgs());
-                    Health = 0;
-                }
             };
             
             OnDeath += delegate
             {
                 IsDestroyed = true;
+                Health = 0;
                 Console.WriteLine($"{Name} is eliminated");
             };
         }
