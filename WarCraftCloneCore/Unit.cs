@@ -6,18 +6,22 @@
     private int _lvl;
     private bool _isDestroyed;
     private double _maxHp;
+    protected Logger _logger;
 
-    public delegate void HealthChangedDelegate();
+    public delegate void HealthChangedDelegate(double healthChange);
 
     public event HealthChangedDelegate HealthChangedEvent;
-    
-    public Unit(string name, double health, int cost, int lvl, double maxHp)
+
+    public Unit(Logger logger, string name, double health, int cost, int lvl, double maxHp)
     {
         _name = name;
         _health = health;
         _cost = cost;
         _lvl = lvl;
         _maxHp = maxHp;
+        _logger = logger; 
+        
+        HealthChangedEvent += CheckHealthChange;
     }
 
     public double GetHealth()
@@ -27,9 +31,11 @@
 
     public void SetHealth(double newHealth)
     {
+        var currentHealth = _health;
         _health = newHealth;
-        HealthChangedEvent?.Invoke();
-        Console.WriteLine($"{_name} have a {_health} hp...");
+        HealthChangedEvent?.Invoke(newHealth - currentHealth);
+        
+        _logger.Log($"{_name} have {_health} health.");
     }
 
     public bool GetState()
@@ -37,10 +43,22 @@
         return _isDestroyed;
     }
 
+    public void CheckHealthChange(double healthChange)
+    {
+        if (healthChange > 0)
+        {
+            _logger.Log($"{this._name} was healed {healthChange}!");
+        }
+        else
+        {
+            _logger.Log($"{this._name} was damaged {healthChange}!");
+        }
+    }
+
     public void SetState(bool state)
     {
         _isDestroyed = state;
-        Console.WriteLine($"{_name} is dead!");
+        _logger.Log($"{_name} is dead!");
     }
 
     public double GetMaxHealth()

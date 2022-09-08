@@ -2,8 +2,8 @@
 
 public class Blacksmith : Moveble
 {
-    public Blacksmith(string name, double health, int cost, int lvl,
-        double maxHp, double speed) : base(name, health, cost, lvl, maxHp, speed)
+    public Blacksmith(Logger logger,string name, double health, int cost, int lvl,
+        double maxHp, double speed) : base(logger, name, health, cost, lvl, maxHp, speed)
     {
     }
 

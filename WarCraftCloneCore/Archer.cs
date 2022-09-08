@@ -4,10 +4,10 @@ public class Archer : Range
 {
     private int _arrowCount = 32;
 
-    public Archer(string name, double health, int cost, int lvl,
+    public Archer(Logger logger, string name, double health, int cost, int lvl,
         double maxHp, double speed, double damage, double attackSpeed,
         double armor, double range, double mana)
-        : base(name, health, cost, lvl, maxHp, speed,damage,attackSpeed,armor,range,mana)
+        : base(logger, name, health, cost, lvl, maxHp, speed,damage,attackSpeed,armor,range,mana)
     {
     }
 
@@ -19,7 +19,7 @@ public class Archer : Range
         }
         else
         {
-            Console.WriteLine("Arrows count not enough!");
+            _logger.Log("Arrows count not enough!");
         }
     }
 

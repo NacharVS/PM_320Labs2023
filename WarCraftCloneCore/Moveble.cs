@@ -2,9 +2,9 @@
 {
     private double _speed;
 
-    public Moveble(string name, double health, int cost, int lvl,
+    public Moveble(Logger logger, string name, double health, int cost, int lvl,
                                         double maxHp, double speed)
-    : base(name,  health,  cost,  lvl,  maxHp)
+    : base(logger, name,  health,  cost,  lvl,  maxHp)
     {
         _speed = speed;
     }
@@ -15,7 +15,7 @@
         {
             return;
         }
-        Console.WriteLine($"Move with {_speed} speed...");
+        _logger.Log($"Move with {_speed} speed...");
     }
 
     public double GetSpeed()

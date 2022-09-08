@@ -3,16 +3,16 @@
     private double _stunChance;
     private bool _berserkerModeActive;
 
-    public Footman(string name, double health, int cost, int lvl,
+    public Footman(Logger logger,string name, double health, int cost, int lvl,
     double maxHp, double speed, double damage, double attackSpeed,
                                     double armor, double stunChance)
-        : base(name, health, cost, lvl, maxHp, speed, damage, attackSpeed, armor) 
+        : base(logger,name, health, cost, lvl, maxHp, speed, damage, attackSpeed, armor) 
     {
         _stunChance = stunChance;
         HealthChangedEvent += Berserker;
     }
 
-    public void Berserker()
+    public void Berserker(double healthChange)
     {
         if (!_berserkerModeActive && GetHealth() < GetMaxHealth() * 0.3)
         {
@@ -21,7 +21,7 @@
             _stunChance += 0.1;
             _berserkerModeActive = true;
             
-            Console.WriteLine("Berserker mode activated!");
+            _logger.Log("Berserker mode activated!");
         }
         else if(_berserkerModeActive && GetHealth() > GetMaxHealth() * 0.3)
         {
@@ -30,7 +30,7 @@
             _stunChance -= 0.1;
             _berserkerModeActive = false;
 
-            Console.WriteLine("Berserker mode deactivated!");
+            _logger.Log("Berserker mode deactivated!");
         }
     }
 

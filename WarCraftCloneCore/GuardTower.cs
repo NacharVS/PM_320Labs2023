@@ -4,9 +4,9 @@
     private double _damage;
     private double _attackSpeed;
 
-    public GuardTower(string name, double health, int cost, int lvl,
+    public GuardTower(Logger logger,string name, double health, int cost, int lvl,
     double maxHp, double range, double damage, double attackSpeed)
-        : base(name, health, cost, lvl, maxHp)
+        : base(logger,name, health, cost, lvl, maxHp)
     {
         _range = range;
         _damage = damage;

@@ -1,18 +1,18 @@
 ﻿public class Peasant : Moveble
 {
-    public Peasant(string name, double health, int cost, int lvl,
+    public Peasant(Logger logger,string name, double health, int cost, int lvl,
     double maxHp, double speed)
-        : base(name, health, cost, lvl, maxHp, speed)
+        : base(logger,name, health, cost, lvl, maxHp, speed)
     {
     }
     public void Mining()
     {
-        Console.WriteLine($"Mining...");
+        _logger.Log($"Mining...");
     }
 
     public void Choping()
     {
-        Console.WriteLine("Chopping...");
+        _logger.Log("Chopping...");
     }
 
 }

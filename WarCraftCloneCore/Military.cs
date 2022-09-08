@@ -1,11 +1,13 @@
-﻿public abstract class Military : Moveble
+﻿using WarCraftCloneCore;
+
+public abstract class Military : Moveble
 {
     private double _damage;
     private double _attackSpeed;
     private double _armor;
-    public Military(string name, double health, int cost, int lvl,
+    public Military(Logger logger,string name, double health, int cost, int lvl,
         double maxHp, double speed, double damage, double attackSpeed, double armor)
-        : base(name, health, cost, lvl, maxHp, speed)
+        : base(logger,name, health, cost, lvl, maxHp, speed)
     {
         _damage = damage;
         _attackSpeed = attackSpeed;
@@ -21,7 +23,7 @@
     {
         if (attackedUnit == this)
         {
-            Console.WriteLine("Can't attack himself!");
+            _logger.Log("Can't attack himself!");
             return;
         }
 
@@ -35,10 +37,10 @@
             return;
         }
 
-        Console.WriteLine($"{GetName()} attack {attackedUnit.GetName()}. Damage - {GetDamage()}");
+        _logger.Log($"{GetName()} attack {attackedUnit.GetName()}");
         if (attackedUnit is Military militaryUnit)
         {
-            militaryUnit.SetHealth(militaryUnit.GetHealth() - _damage + _armor);
+            militaryUnit.SetHealth(militaryUnit.GetHealth() - (_damage + _armor));
         }
         else
         {
