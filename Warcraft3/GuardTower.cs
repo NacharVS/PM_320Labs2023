@@ -21,32 +21,39 @@ namespace Warcraft3
         }
         public int IncreasedAtttack(int lvl)
         {
+            int tempDamage = this.damage;
             switch (lvl)
             {
-                case 1:
-                    damage += 5;
-                    return damage;
                 case 2:
-                    damage += 5;
-                    return damage;
+                    tempDamage += 5;
+                    return tempDamage;
                 case 3:
-                    damage += 10;
-                    return damage;
+                    tempDamage += 10;
+                    return tempDamage;
                 case 4:
-                    damage += 10;
-                    return damage;
+                    tempDamage += 10;
+                    return tempDamage;
                 case 5:
-                    damage += 15;
-                    return damage;
+                    tempDamage += 15;
+                    return tempDamage;
             }
-            return damage;
+            return tempDamage;
         }
         public virtual void Attack(Unit unit)
         {
-            unit.SetHealth(unit.GetHealth() - this.damage);
-            Print(unit);
+            if (unit is Military military)
+            {
+                unit.SetHealth(military.GetHealth() - IncreasedAtttack(this.GetLvl()) + military.ArmorDamage(military));
+                Print(military);
+            }
+            else
+            {
+                unit.SetHealth(unit.GetHealth() - IncreasedAtttack(this.GetLvl()));
+                Print(unit);
+            }
+
         }
-        public virtual void Print(Unit unit)
+        protected virtual void Print(Unit unit)
         {
             Console.WriteLine($"{this.GetName()} attack {unit.GetName()} for " +
                 $"{IncreasedAtttack(this.GetLvl())}. {unit.GetName()} HP - {unit.GetHealth()}");

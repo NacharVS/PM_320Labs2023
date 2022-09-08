@@ -10,7 +10,7 @@ namespace Warcraft3
     {
         int damage;
         int attackSpeed;
-        int armor;
+        double armor;
 
         public Military(string name, int health, int cost, int lvl, int maxHP, int speed,
             int damage, int attackSpeed, int armor) : base(name, health, cost, lvl, maxHP, speed)
@@ -24,42 +24,56 @@ namespace Warcraft3
             
         }
 
-        public Military(string name, int health, int cost, int lvl, int maxHP, int speed) : base(name, health, cost, lvl, maxHP, speed)
+        public Military(string name, int health, int cost, int lvl, int maxHP, int speed) : 
+            base(name, health, cost, lvl, maxHP, speed)
         {
         }
         public int IncreasedAtttack(int lvl)
         {
+            int tempDamage = this.damage;
             switch (lvl)
             {
-                case 1:
-                    damage += 5;
-                    return damage;
                 case 2:
-                    damage += 5;
-                    return damage;
+                    tempDamage += 5;
+                    return tempDamage;
                 case 3:
-                    damage += 10;
-                    return damage;
+                    tempDamage += 10;
+                    return tempDamage;
                 case 4:
-                    damage += 10;
-                    return damage;
+                    tempDamage += 10;
+                    return tempDamage;
                 case 5:
-                    damage += 15;
-                    return damage;
+                    tempDamage += 15;
+                    return tempDamage;
             }
-            return damage;
+            return tempDamage;
         }
 
 
-        public virtual void Attack(Military military)
+        public virtual void Attack(Unit unit)
         {
-            military.SetHealth(military.GetHealth() - this.damage);
-            Print(military);
+            if(unit is Military military)
+            {
+                unit.SetHealth(military.GetHealth() - IncreasedAtttack(this.GetLvl()) + ArmorDamage(military));
+                Print(military);
+            }
+            else
+            {
+                unit.SetHealth(unit.GetHealth() - IncreasedAtttack(this.GetLvl()));
+                Print(unit);
+            }
+           
         }
-        public virtual void Print(Military military)
+        public double ArmorDamage(Military military)
         {
-            Console.WriteLine($"{this.GetName()} attack {military.GetName()} for " +
-                $"{IncreasedAtttack(this.GetLvl())}. {military.GetName()} HP - {military.GetHealth()}");
+            double savedDmg = IncreasedAtttack(this.GetLvl()) * 0.3;
+            military.armor -= savedDmg;
+            return savedDmg;
+        }
+        protected virtual void Print(Unit unit) 
+        {
+            Console.WriteLine($"{this.GetName()} attack {unit.GetName()} for " +
+                $"{IncreasedAtttack(this.GetLvl())}. {unit.GetName()} HP - {unit.GetHealth()}");
         }
 
         public int GetDamage()
@@ -69,6 +83,18 @@ namespace Warcraft3
         public void SetAttackSpeed(int attack)
         {
             attackSpeed = attack;
+        }
+        public void SetArmor(int countOfArmor)
+        {
+            this.armor += countOfArmor;
+            if(this.armor > 100)                               //UPGRADE
+            {
+                this.armor = 100;
+            }
+        } 
+        public void SetDamage(int damageCount)
+        {
+            this.damage += damageCount;
         }
         public int GetAttackSpeed()
         {

@@ -10,13 +10,20 @@ namespace Warcraft3
     {
         public int range;
         public int mana;
-        
+
+
         public Range(int range, int mana)
         {
             this.range = range;
             this.mana = mana;
         }
-        public Range()
+        public Range(string name, int health)
+        {
+
+        }
+
+        public Range(string name, int health, int cost, int lvl, int maxHP, int speed, int damage, int attackSpeed,
+            int armor) : base(name, health, cost, lvl, maxHP, speed, damage, attackSpeed, armor)
         {
 
         }

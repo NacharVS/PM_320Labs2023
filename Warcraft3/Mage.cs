@@ -8,25 +8,22 @@ namespace Warcraft3
 {
     internal class Mage:Range
     {
-        public Mage(int range, int mana) : base(range, mana)
+        public Mage(string name, int health, int cost, int lvl, int maxHP, int speed, int damage, int attackSpeed,
+           int armor) : base(name, health, cost, lvl, maxHP, speed, damage, attackSpeed, armor)
         {
         }
-        public Mage()
+
+        public void FireBall(Unit unit)
         {
-
-        }
-
-        public void FireBall()
-        { 
-
+            unit.SetHealth(unit.GetHealth() - this.GetDamage() * 2);
         }
         public void Blizzard(Unit unit) 
         {
-            unit.SetHealth(unit.GetHealth() - this.GetDamage() * 5);
+            unit.SetHealth(unit.GetHealth() - this.GetDamage() * 4);
         }
         public void Heal() 
         {
-            this.SetHealth(this.GetHealth()+ 20);
+            this.SetHealth(this.GetHealth() + 20);
         }
 
     }

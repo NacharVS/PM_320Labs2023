@@ -9,7 +9,7 @@ namespace Warcraft3
     internal class Unit
     {
         string name = "";
-        int health;
+        double health;
         int cost;
         int lvl;
         int maxHP;
@@ -29,10 +29,11 @@ namespace Warcraft3
         }
 
 
-        public void SetHealth(int health)
+        public void SetHealth(double health)
         {
             if (health <= 0)
             {
+                this.health = 0;
                 isDestroyed = true;
             }
             else
@@ -51,7 +52,7 @@ namespace Warcraft3
             return false;
         }
 
-        public int GetHealth()
+        public double GetHealth()
         {
             return health;
         }

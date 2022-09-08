@@ -19,7 +19,7 @@ namespace Warcraft3
                 voyaka1.attackSpeed = 1;
             }
             */
-            Military voyaka2 = new Military("Bober",80,1300,3,100,1,10,6,100);
+            Military voyaka2 = new Military("Bober",100,1300,3,100,1,10,6,100);
             /*
             {
                 voyaka2.name = "Bober";
@@ -36,10 +36,11 @@ namespace Warcraft3
             {
 
             }
+            Dragon dragon = new Dragon("Dragon", 100, 1300, 1, 100, 1, 10, 6, 100);
             while (!voyaka1.isDeath() && !voyaka2.isDeath())
             {
-                voyaka1.Attack(voyaka2);
-                voyaka2.Attack(voyaka1);
+                voyaka1.Attack(dragon);
+                dragon.FireBreath(voyaka1);
             }
 
         }
