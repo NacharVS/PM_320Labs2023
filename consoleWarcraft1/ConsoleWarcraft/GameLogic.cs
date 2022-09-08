@@ -92,7 +92,6 @@ namespace ConsoleWarcraft
                         Console.WriteLine(unit1.name + " is destroy!");
                         break;
                     }
-                    Console.ReadKey();
                 }
                 count++;
                 System.Threading.Thread.Sleep(1000);
