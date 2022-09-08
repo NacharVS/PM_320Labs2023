@@ -9,8 +9,12 @@ namespace WarcraftLibrary
     public class Mage : Range
     {
         Random rnd = new Random();
+        private int _maxHealth;
 
-        public Mage(string name, int health = 200, int cost = 80, int lvl = 1, bool isDestroyed = false, int speed = 20, int damage = 50, int attackSpeed = 2, int armor = 5, int range = 3, int mana = 100) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed, armor, range, mana) { }
+        public Mage(string name, int health = 200, int cost = 80, int lvl = 1, bool isDestroyed = false, int speed = 20, int damage = 50, int attackSpeed = 2, int armor = 5, int range = 3, int mana = 100) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed, armor, range, mana) 
+        {
+            _maxHealth = health;
+        }
 
         public string FireBall() 
         {
@@ -29,7 +33,7 @@ namespace WarcraftLibrary
         public override string Attack()
         {
             var val = rnd.Next(1, 6);
-            if (Health > 0 && val == 2 && Health < 195 && Mana > 6)
+            if (Health > 0 && val == 2 && Health < _maxHealth - 5 && Mana > 6)
             {
                 Heal();
                 return $"{Name} не смог нанести удар, но воспользовался хилом +5.{0}";

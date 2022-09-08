@@ -9,18 +9,28 @@ namespace WarcraftLibrary
     public class Unit
     {
         public string Name;
-        public int Health;
+        public delegate void HealthChangedDelegate(string name, int beforeHealthValue, int healthValue);
+        private int _health;
+        public int Health
+        {
+            get { return _health; }
+            set
+            {
+                HealthChangedEvent?.Invoke(Name, _health, value);
+                _health = value;
+            }
+        }
         public int Cost;
         public int Lvl;
         public bool IsDestroyed;
         public int Damage;
         public delegate void Destroying(string message);
-        public event Destroying? DestroyingEvent;
+
 
         public Unit(string name, int health, int cost, int lvl, bool isDestroyed, int damage)
         {
             this.Name = name;
-            this.Health = health;
+            this._health = health;
             this.Cost = cost;
             this.Lvl = lvl;
             this.IsDestroyed = isDestroyed;
@@ -40,5 +50,8 @@ namespace WarcraftLibrary
                 DestroyingEvent?.Invoke($"{Name} погиб");
             }
         }
+
+        public event HealthChangedDelegate HealthChangedEvent;
+        public event Destroying DestroyingEvent;
     }
 }
