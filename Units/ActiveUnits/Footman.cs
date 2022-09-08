@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Units.BaseUnits;
 
-namespace Units
+namespace Units.ActiveUnits
 {
     public class Footman : Military
     {
+        public delegate void OnStunDelegate(Unit unit);
+        public event OnStunDelegate OnStunEvent;
+
         public Footman(double health, double armor,
-            int attackSpeed, double damage, string name) 
+            int attackSpeed, double damage, string name)
             : base(health, armor, attackSpeed, damage, name)
         {
+            OnStunEvent += CharacterToStun;
         }
 
-        public void Berserker()
+        private void Berserker()
         {
             this.SetAttackSpeed(GetAttackSpeed() * 2);
             this.SetDamage(GetDamage() * 1.2);
         }
 
-        public void Stun(Military unit)
+        private void Stun(Military unit)
         {
             unit.SetAttackSpeed(0);
         }
@@ -32,14 +37,18 @@ namespace Units
 
         public override void Attack(Unit unit)
         {
-            if(GetHealth() / GetMaxHealth() < 1/3)
+            if (GetHealth() / GetMaxHealth() < 1 / 3)
             {
                 Berserker();
             }
 
-            if(GetRandom() == 1)
+            if (GetRandom() == 1)
             {
-                Stun((Military)unit);
+                if (unit is Military)
+                {
+                    Stun((Military)unit);
+                }
+                OnStunEvent?.Invoke(unit);
             }
             else
             {
@@ -48,6 +57,10 @@ namespace Units
             }
 
             base.Attack(unit);
+        }
+        private void CharacterToStun(Unit unit)
+        {
+            Console.WriteLine($"{this.Name} stunned {unit.Name}!");
         }
     }
 }

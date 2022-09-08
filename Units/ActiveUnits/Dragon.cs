@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Units.BaseUnits;
 
-namespace Units
+namespace Units.ActiveUnits
 {
-    public class Dragon : Range
+    public class Dragon : BaseUnits.Range
     {
         public Dragon(double health, double armor, int attackSpeed,
             double range, double mana, double damage, string name)
@@ -24,7 +25,7 @@ namespace Units
 
         public override void Move()
         {
-            Console.WriteLine("Dragon is moving");
+            Console.WriteLine($"Dragon {this.Name} is moving");
         }
     }
 }

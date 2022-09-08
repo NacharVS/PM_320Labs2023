@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Units.BaseUnits;
 
-namespace Units
+namespace Units.ActiveUnits
 {
-    public class Mage : Range
+    public class Mage : BaseUnits.Range
     {
         public delegate void OnHealAbilityDelegate(Unit currentMage, Unit unit, double healedHP);
-        public event OnHealAbilityDelegate? OnHealEvent;
+        public event OnHealAbilityDelegate OnHealEvent;
         private int healthHealth = 15;
         private int manaForHeal = 20;
         private int manaForBlizzard = 25;
@@ -19,8 +20,8 @@ namespace Units
             double range, double mana, double damage, string name)
             : base(health, armor, attackSpeed, range, mana, damage, name)
         {
-            OnHealEvent += ((currentMage, unit, healedHP) => 
-            Console.WriteLine($"{currentMage.Name} have healed {unit.Name} for {healedHP}"));
+            OnHealEvent += (currentMage, unit, healedHP) =>
+            Console.WriteLine($"{currentMage.Name} have healed {unit.Name} for {healedHP}");
         }
 
         public void FireBall(Unit unit)
@@ -60,22 +61,25 @@ namespace Units
             }
 
             double oldHP = unit.GetHealth();
-
+            double newHP = oldHP + healthHealth;
             this.SetMana(GetMana() - manaForHeal);
-            unit.SetHealth(unit.GetHealth() + healthHealth);
-            if (unit.GetHealth() > unit.GetMaxHealth())
-            {
-                unit.SetHealth(GetMaxHealth());
-            }
-            double diff = unit.GetHealth() - oldHP;
-            OnHealEvent?.Invoke(this, unit, diff);
-            GetHealthChange(unit);
 
+            if (newHP > GetMaxHealth())
+            {
+                OnHealEvent(this, unit, GetMaxHealth() - oldHP);
+                unit.SetHealth(GetMaxHealth());
+                return;
+            }
+            else
+            {
+                OnHealEvent(this, unit, healthHealth);
+                unit.SetHealth(newHP);
+            }
         }
 
         public override void Move()
         {
-            Console.WriteLine("Mage is moving");
+            Console.WriteLine($"Mage {this.Name} is moving");
         }
     }
 }

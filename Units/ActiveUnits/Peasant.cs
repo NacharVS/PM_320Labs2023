@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Units.BaseUnits;
 
-namespace Units
+namespace Units.ActiveUnits
 {
     public class Peasant : Movable
     {
@@ -13,16 +14,16 @@ namespace Units
         }
         public void Mining()
         {
-            Console.WriteLine("Peasant is mining ore");
+            Console.WriteLine($"Peasant is mining ore");
         }
         public void Chopping()
         {
-            Console.WriteLine("Peasant is chopping woods");
+            Console.WriteLine($"Peasant is chopping woods");
         }
 
         public override void Move()
         {
-            Console.WriteLine("Peasant is moving");
+            Console.WriteLine($"Peasant is moving");
         }
     }
 }

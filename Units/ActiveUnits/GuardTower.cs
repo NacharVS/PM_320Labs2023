@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Units.BaseUnits;
 
-namespace Units
+namespace Units.ActiveUnits
 {
     public class GuardTower : Unit
     {
@@ -13,7 +14,7 @@ namespace Units
         private int _attackSpeed;
 
         public GuardTower(double health, double range,
-            double damage, int attackSpeed, string name) 
+            double damage, int attackSpeed, string name)
             : base(name, health)
         {
             _range = range;

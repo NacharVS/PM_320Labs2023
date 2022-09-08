@@ -4,34 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using Units.BaseUnits;
 
-namespace Units
+namespace Units.ActiveUnits
 {
-    public class Archer : Range
+    public class Archer : BaseUnits.Range
     {
+        public delegate void OnArrowsShortageDelegate();
+        public event OnArrowsShortageDelegate OnArrowsShortageEvent;
         private int _arrowCount;
 
         public Archer(double health, double armor, int attackSpeed,
-            double range, double mana, double damage, int arrowCount, string name) 
+            double range, double mana, double damage, int arrowCount, string name)
             : base(health, armor, attackSpeed, range, mana, damage, name)
         {
             _arrowCount = arrowCount;
+            OnArrowsShortageEvent += ArrowsToEnd;
         }
 
         public override void Move()
         {
-            Console.WriteLine("Archer is moving");
+            Console.WriteLine($"Archer {this.Name} is moving");
         }
 
         public override void Attack(Unit unit)
         {
-            if(_arrowCount < 1)
+            if (_arrowCount < 1)
             {
                 throw new Exception($"No arrows left for archer!");
             }
             _arrowCount--;
 
             base.Attack(unit);
+        }
+
+        public void ArrowsToEnd()
+        {
+            Console.WriteLine($"{this.Name}'s arrows are all gone!");
         }
     }
 }

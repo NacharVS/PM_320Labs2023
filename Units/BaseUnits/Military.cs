@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Units
+namespace Units.BaseUnits
 {
     public abstract class Military : Movable
     {
@@ -15,7 +15,8 @@ namespace Units
         private int _stunCounter = 0;
         private double _armor = 0;
         private double _maxArmor = 0;
-        public delegate void AttackDelegate (Unit unit, double totalDamage);
+
+        public delegate void AttackDelegate(Unit unit, double totalDamage);
         public event AttackDelegate AttackEvent;
         private double _Armor
         {
@@ -34,61 +35,52 @@ namespace Units
         }
 
 
-        public Military(double health, double armor, int attackSpeed, double damage, string name) 
+        public Military(double health, double armor, int attackSpeed, double damage, string name)
             : base(health, name)
         {
-            this._armor = armor;
-            this._attackSpeed = attackSpeed;
-            this._maxAttackSpeed = attackSpeed;
-            this._damage = damage;
-            this._maxDamage = damage;
+            _armor = armor;
+            _attackSpeed = attackSpeed;
+            _maxAttackSpeed = attackSpeed;
+            _damage = damage;
+            _maxDamage = damage;
             AttackEvent += ResultAttack;
         }
 
         public virtual void Attack(Unit unit)
         {
-            if(_attackSpeed == 0)
+            if (_attackSpeed == 0)
             {
                 _stunCounter++;
                 return;
             }
 
-            if(_stunCounter > 1)
+            if (_stunCounter > 1)
             {
                 _stunCounter = 0;
                 _attackSpeed = _maxAttackSpeed;
             }
 
-            if(unit is not Military)
+            if (unit is not Military)
             {
-                double damage = this.GetDamage();
-
-                unit.SetHealth(unit.GetHealth() - damage);
+                double damage = GetDamage();
                 AttackEvent(unit, damage);
 
             }
             else
             {
-                int damageTakenByArmor = (int)(this.GetDamage() * ((Military)unit).GetArmor() / 100);
-                double totalDamage = this.GetDamage() - damageTakenByArmor;
+                int damageTakenByArmor = (int)(GetDamage() * ((Military)unit).GetArmor() / 100);
+                double totalDamage = GetDamage() - damageTakenByArmor;
 
                 ((Military)unit).SetArmor(((Military)unit).GetArmor() - damageTakenByArmor);
-                unit.SetHealth(unit.GetHealth() - totalDamage);
                 AttackEvent(unit, totalDamage);
             }
-
-            if (unit.GetHealth() <= 0)
-            {
-                unit.SetStateOfLife(false);
-                throw new Exception($"{unit.Name} is destroyed!");
-            }
-            GetHealthChange(unit);
         }
 
-        public void ResultAttack(Unit unit, double totalDamage)
+        private void ResultAttack(Unit unit, double totalDamage)
         {
-            Console.WriteLine($"{((Unit)this).Name} damaged {unit.Name} " +
+            Console.WriteLine($"{Name} damaged {unit.Name} " +
                 $"for {totalDamage}");
+            unit.SetHealth(unit.GetHealth() - totalDamage);
         }
 
         public double GetDamage()
@@ -128,7 +120,7 @@ namespace Units
 
         public double GetArmor()
         {
-            return this._Armor;
+            return _Armor;
         }
 
         public void SetArmor(double armor)
@@ -138,7 +130,7 @@ namespace Units
 
         public double GetMaxArmor()
         {
-            return this._maxArmor;
+            return _maxArmor;
         }
 
         public void SetMaxArmor(double armor)
