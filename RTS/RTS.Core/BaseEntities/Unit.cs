@@ -4,16 +4,19 @@ using RTS.Core.Annotations;
 
 public abstract class Unit
 {
-    private int _health;
+    private int _health = 0;
 
-    public delegate void HealthChangedDelegate();
+    public delegate void HealthChangedDelegate(int damage);
     public delegate void IsDestroyedDelegate();
     public int Health
     {
         get { return _health; }
         internal set
         {
+            int damage = _health;
+            damage -= value < _health ? value : 0;
             _health = value;
+            HealthChangedEvent?.Invoke(damage);
         }
     }
 
@@ -32,6 +35,7 @@ public abstract class Unit
         MaxHealth = health;
         IsDestroyed = false;
         IsDestroyedEvent += () => IsDestroyed = true;
+        HealthChangedEvent += (int damage) => Console.WriteLine($"Игрок {this.Name} получил урон {damage}, текущее здоровье {this._health}\n");
     }
 
     public void CheckIsDestroyed()

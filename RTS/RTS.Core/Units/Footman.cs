@@ -30,15 +30,12 @@ public class Footman : Military
         
         Thread.Sleep(AttackSpeed);
         entity.DealingDamage(this);
-        Console.WriteLine($"{Health} - oleg");
-        NotifyAboutDamage(Damage, entity);
 
     }
     
     public override void DealingDamage(Military entity)
     {
-        Health -= Damage > entity.Armor ? Damage : 0;
-        Console.WriteLine($"{this.Name}  {this.Health}");
+        Health -= entity.Damage > Armor ? entity.Damage : 0;
         this.Berserker();
         this.CheckIsDestroyed();
     }

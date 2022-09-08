@@ -25,16 +25,11 @@ public abstract class Military : Movable
         }
         Thread.Sleep(AttackSpeed);
         entity.DealingDamage(this);
-        NotifyAboutDamage(Damage, entity);
     }
     
     public override void DealingDamage(Military entity)
     {
-        Health -= Damage > entity.Armor? Damage : 0;
+        Health -= entity.Damage > Armor? entity.Damage : 0;
         this.CheckIsDestroyed();
-    }
-    public void NotifyAboutDamage(int damage, Unit entity)
-    {
-        Console.WriteLine($"{this.Name} нанес удар силой в {this.Damage} игроку {entity.Name}");
     }
 }

@@ -73,15 +73,11 @@ public class Mage : Range
 
         Thread.Sleep(AttackSpeed);
         entity.DealingDamage(this);
-        Console.WriteLine($"{Health} - ex");
-        NotifyAboutDamage(Damage, entity);
     }
     
     public override void DealingDamage(Military entity)
     {
-        Console.WriteLine($"{this.Name}  {this.Health}");
-        Health -= Damage > entity.Armor ? Damage : 0;
-        Console.WriteLine($"{this.Name}  {this.Health}");
+        Health -= entity.Damage > Armor ? entity.Damage : 0;
         this.CheckIsDestroyed();
     }
 }
