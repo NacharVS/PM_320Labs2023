@@ -5,6 +5,9 @@ using RTS.Core.Annotations;
 public abstract class Unit
 {
     private int _health;
+
+    public delegate void HealthChangedDelegate();
+    public delegate void IsDestroyedDelegate();
     public int Health
     {
         get { return _health; }
@@ -27,14 +30,20 @@ public abstract class Unit
         Name = name;
         Level = level;
         MaxHealth = health;
+        IsDestroyed = false;
+        IsDestroyedEvent += () => IsDestroyed = true;
     }
 
     public void CheckIsDestroyed()
     {
-        if (Health <= 0) IsDestroyed = true;
+        if (Health <= 0) IsDestroyedEvent.Invoke();
     }
     public virtual void DealingDamage(Military entity)
     {
         Health -= entity.Damage;
+        this.CheckIsDestroyed();
     }
+
+    public event HealthChangedDelegate HealthChangedEvent;
+    public event IsDestroyedDelegate IsDestroyedEvent;
 }

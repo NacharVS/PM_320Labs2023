@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.ConsoleGame\\RTS.ConsoleGame.csproj": {}
+    "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.ConsoleGame\\RTS.ConsoleGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.ConsoleGame\\RTS.ConsoleGame.csproj": {
+    "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.ConsoleGame\\RTS.ConsoleGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.ConsoleGame\\RTS.ConsoleGame.csproj",
+        "projectUniqueName": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.ConsoleGame\\RTS.ConsoleGame.csproj",
         "projectName": "RTS.ConsoleGame",
-        "projectPath": "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.ConsoleGame\\RTS.ConsoleGame.csproj",
+        "projectPath": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.ConsoleGame\\RTS.ConsoleGame.csproj",
         "packagesPath": "C:\\Users\\Elvina\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.ConsoleGame\\obj\\",
+        "outputPath": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.ConsoleGame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Elvina\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.Core\\RTS.Core.csproj": {
-                "projectPath": "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.Core\\RTS.Core.csproj"
+              "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\RTS.Core.csproj": {
+                "projectPath": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\RTS.Core.csproj"
               }
             }
           }
@@ -62,14 +62,14 @@
         }
       }
     },
-    "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.Core\\RTS.Core.csproj": {
+    "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\RTS.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.Core\\RTS.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\RTS.Core.csproj",
         "projectName": "RTS.Core",
-        "projectPath": "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.Core\\RTS.Core.csproj",
+        "projectPath": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\RTS.Core.csproj",
         "packagesPath": "C:\\Users\\Elvina\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Elvina\\Desktop\\RTS\\RTS.Core\\obj\\",
+        "outputPath": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Elvina\\AppData\\Roaming\\NuGet\\NuGet.Config",

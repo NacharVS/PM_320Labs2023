@@ -30,6 +30,7 @@ public class Footman : Military
         
         Thread.Sleep(AttackSpeed);
         entity.DealingDamage(this);
+        Console.WriteLine($"{Health} - oleg");
         NotifyAboutDamage(Damage, entity);
 
     }

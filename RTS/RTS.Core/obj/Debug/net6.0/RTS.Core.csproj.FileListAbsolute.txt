@@ -22,3 +22,15 @@ C:\Users\Elvina\Desktop\RTS\RTS.Core\obj\Debug\net6.0\RTS.Core.dll
 C:\Users\Elvina\Desktop\RTS\RTS.Core\obj\Debug\net6.0\refint\RTS.Core.dll
 C:\Users\Elvina\Desktop\RTS\RTS.Core\obj\Debug\net6.0\RTS.Core.pdb
 C:\Users\Elvina\Desktop\RTS\RTS.Core\obj\Debug\net6.0\ref\RTS.Core.dll
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\bin\Debug\net6.0\RTS.Core.deps.json
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\bin\Debug\net6.0\RTS.Core.dll
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\bin\Debug\net6.0\RTS.Core.pdb
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\obj\Debug\net6.0\RTS.Core.csproj.AssemblyReference.cache
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\obj\Debug\net6.0\RTS.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\obj\Debug\net6.0\RTS.Core.AssemblyInfoInputs.cache
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\obj\Debug\net6.0\RTS.Core.AssemblyInfo.cs
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\obj\Debug\net6.0\RTS.Core.csproj.CoreCompileInputs.cache
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\obj\Debug\net6.0\RTS.Core.dll
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\obj\Debug\net6.0\refint\RTS.Core.dll
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\obj\Debug\net6.0\RTS.Core.pdb
+C:\Users\Elvina\source\repos\RTS\NacharVS\PM_320Labs2023\RTS\RTS.Core\obj\Debug\net6.0\ref\RTS.Core.dll

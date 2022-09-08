@@ -73,6 +73,7 @@ public class Mage : Range
 
         Thread.Sleep(AttackSpeed);
         entity.DealingDamage(this);
+        Console.WriteLine($"{Health} - ex");
         NotifyAboutDamage(Damage, entity);
     }
     
