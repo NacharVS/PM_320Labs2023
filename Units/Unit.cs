@@ -10,6 +10,7 @@ namespace Units
         public int lvl;
         public bool isDestroyed;
         public double maxHealth;
+        public Spells spell;
 
         public Unit(double health, double cost, string name, int lvl)
         {

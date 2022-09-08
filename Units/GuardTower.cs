@@ -15,15 +15,9 @@ namespace Units
             this.attackSpeed = attackSpeed;
         }
 
-        public override void Attack(Unit unt) 
+        public override void Attack(Unit unt)
         {
-            unt.health -= damage;
-
-            if (unt.health <= 0)
-            {
-                unt.isDestroyed = true;
-                unt.health = 0;
-            }
+            spell.Attack(unt, damage);
         }
     }
 }

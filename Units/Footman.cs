@@ -10,28 +10,22 @@ namespace Units
 
         public override void Attack(Unit unt)
         {
-            unt.health -= damage;
-
-            if (unt.health <= 0)
-            {
-                unt.isDestroyed = true;
-                unt.health = 0;
-            }
+            spell.Attack(unt, damage);
         }
 
-        public void Berserker()
+        public void Berserker() 
         {
-
+            spell.Berserker();
         }
 
         public override void Move()
         {
-
+            spell.Move();
         }
 
         public void Stun()
         {
-
+            spell.Stun();
         }
     }
 }

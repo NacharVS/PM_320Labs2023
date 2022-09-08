@@ -9,7 +9,8 @@ namespace Units
         public double armor;
 
         public Military(double health, double cost, string name, int lvl, double speed, 
-                        double damage, double attackSpeed, double armor) : base(health, cost, name, lvl, speed)
+                        double damage, double attackSpeed, double armor) 
+                 : base(health, cost, name, lvl, speed)
         {
             this.damage = damage;
             this.attackSpeed = attackSpeed;

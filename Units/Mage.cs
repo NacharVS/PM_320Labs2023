@@ -8,26 +8,29 @@ namespace Units
                     double damage, double attackSpeed, double armor, double range, double mana)
                     : base(health, cost, name, lvl, speed, damage, attackSpeed, armor, range, mana) { }
 
-        public void FireBall() { }
+        public void FireBall() 
+        {
+            spell.FireBall();
+        }
 
-        public void Blizzard() { }
+        public void Blizzard() 
+        {
+            spell.Blizzard();
+        }
 
         public void Heal(Unit unt) 
         {
-            unt.health += (lvl * 0.1) * mana;
+            spell.Heal(unt);
         }
 
-        public override void Attack(Unit unt) 
+        public override void Attack(Unit unt)
         {
-            unt.health -= damage;
-
-            if (unt.health <= 0)
-            {
-                unt.isDestroyed = true;
-                unt.health = 0;
-            }
+            spell.Attack(unt, damage);
         }
 
-        public override void Move() { }
+        public override void Move() 
+        {
+            spell.Move();
+        }
     }
 }

@@ -9,13 +9,19 @@ namespace Units
         { }
 
         public void Mining()
-        { }
+        {
+            spell.Mining();
+        }
 
         public void Choping()
-        { }
+        {
+            spell.Choping();
+        }
 
         public override void Move()
-        { }
+        { 
+            spell.Move();
+        }
 
         public override void Attack(Unit unt)
         { }
