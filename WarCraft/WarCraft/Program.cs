@@ -30,18 +30,17 @@ namespace WarCraft
             Console.WriteLine($"Player2: {player2.Name}");
             Console.WriteLine();
 
-            
-            blacksmith.Upgrade(player1);
-            blacksmith.Upgrade(player2);
-            
+            Console.WriteLine(blacksmith.Upgrade(player1));
+            Console.WriteLine(blacksmith.Upgrade(player2));
+            Console.WriteLine();
 
             if (player1 is Archer pers1)
             {
-                blacksmith.ArcherUpgrade(pers1);
+                Console.WriteLine(blacksmith.ArcherUpgrade(pers1)); 
             }
             if (player2 is Archer pers2)
             {
-                blacksmith.ArcherUpgrade(pers2);
+                Console.WriteLine(blacksmith.ArcherUpgrade(pers2));
             }
 
             while (!player1.Death() && !player2.Death())
@@ -56,7 +55,7 @@ namespace WarCraft
                 switch (attack)
                 {
                     case 1:
-                        player1.Attack(attack);
+                        Console.WriteLine(player1.Attack(attack));
                         Thread.Sleep(500);
 
                         switch (hit)
@@ -71,7 +70,7 @@ namespace WarCraft
                         }
                         break;
                     case 2:
-                        player2.Attack(attack);
+                        Console.WriteLine(player2.Attack(attack));
                         Thread.Sleep(500);
 
                         switch (hit)

@@ -24,7 +24,7 @@ namespace WarCraft
 
         public override string Attack(int number)
         {
-            return $"Footman attacks with damage {Damage}.{Damage}";
+            return $"Footman attacks with damage {Damage}";
         }
     }
 }

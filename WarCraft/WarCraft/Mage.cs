@@ -55,20 +55,20 @@ namespace WarCraft
                 case 1:
                     FireBall();
                     return $"The magician used a Fireball and " +
-                        $"dealt {Damage}.{Damage} damage";
+                        $"dealt {Damage} damage";
                     break;
                 case 2:
                     Blizzard();
                     return $"The magician used a Blizzard and " +
-                        $"dealt {Damage}.{Damage} damage";
+                        $"dealt {Damage} damage";
                     break;
                 case 3:
                     Heal();
                     return $"The magician used a Heal and " +
-                        $"dealt {Damage}.{Damage} damage";
+                        $"dealt {Damage} damage";
                     break;
                 case 4:
-                    return $"Mage attacks with damage {Damage}.{Damage}";
+                    return $"Mage attacks with damage {Damage}";
                     break;
             }
             return "";

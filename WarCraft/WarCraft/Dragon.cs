@@ -28,7 +28,7 @@ namespace WarCraft
 
         public override string Attack(int number)
         {
-            return $"Dragon attacks with damage {Damage}.{Damage}";
+            return $"Dragon attacks with damage {Damage}";
         }
     }
 }
