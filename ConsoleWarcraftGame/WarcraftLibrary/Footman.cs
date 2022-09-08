@@ -26,7 +26,7 @@ namespace WarcraftLibrary
             unit.Speed -= 10;
         }
 
-        public override string Attack()
+        public override string Attack(Blacksmith blacksmith)
         {
             var val = rnd.Next(1, 6);
 
@@ -37,6 +37,11 @@ namespace WarcraftLibrary
             if (val == 4 && Health < _maxHealth/2)
             {
                 return Berserker();
+            }
+            if (val == 5)
+            {
+                blacksmith.UpgradeArmor(this);
+                return $"{Name} улучшил броню.{0}";
             }
             return $"{Name} нанес удар с силой {Damage}.{Damage}";
         }

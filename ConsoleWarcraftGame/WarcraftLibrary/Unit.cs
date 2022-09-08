@@ -9,7 +9,6 @@ namespace WarcraftLibrary
     public class Unit
     {
         public string Name;
-        public delegate void HealthChangedDelegate(string name, int beforeHealthValue, int healthValue);
         private int _health;
         public int Health
         {
@@ -24,8 +23,8 @@ namespace WarcraftLibrary
         public int Lvl;
         public bool IsDestroyed;
         public int Damage;
-        public delegate void Destroying(string message);
-
+        public delegate void DestroyingDelegate(string message);
+        public delegate void HealthChangedDelegate(string name, int beforeHealthValue, int healthValue);
 
         public Unit(string name, int health, int cost, int lvl, bool isDestroyed, int damage)
         {
@@ -37,7 +36,7 @@ namespace WarcraftLibrary
             this.Damage = damage;
         }
 
-        public virtual string Attack()
+        public virtual string Attack(Blacksmith blacksmith)
         {
             return " ";
         }
@@ -52,6 +51,6 @@ namespace WarcraftLibrary
         }
 
         public event HealthChangedDelegate HealthChangedEvent;
-        public event Destroying DestroyingEvent;
+        public event DestroyingDelegate DestroyingEvent;
     }
 }

@@ -16,9 +16,9 @@ namespace WarcraftLibrary
             Arrows = arrows;
         }
 
-        public override string Attack()
+        public override string Attack(Blacksmith blacksmith)
         {
-            var val = rnd.Next(1, 6);
+            var val = rnd.Next(1, 8);
             if (Arrows == 0)
             {
                 return $"{Name} не смог нанести удар, закончились стрелы.{0}";
@@ -26,6 +26,16 @@ namespace WarcraftLibrary
             if (val == 3)
             {
                 return $"{Name} не смог нанести удар.{0}";
+            }
+            if (val == 4)
+            {
+                blacksmith.UpgradeBow(this);
+                return $"{Name} улучшил лук.{0}";
+            }
+            if (val == 5)
+            {
+                blacksmith.UpgradeArmor(this);
+                return $"{Name} улучшил броню.{0}";
             }
             Arrows--;
             return $"{Name} нанес удар с силой {Damage}.{Damage}";

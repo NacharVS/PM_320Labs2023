@@ -30,7 +30,7 @@ namespace WarcraftLibrary
             Health += 5;
         }
 
-        public override string Attack()
+        public override string Attack(Blacksmith blacksmith)
         {
             var val = rnd.Next(1, 6);
             if (Health > 0 && val == 2 && Health < _maxHealth - 5 && Mana > 6)
@@ -45,6 +45,11 @@ namespace WarcraftLibrary
             if (val == 3)
             {
                 return $"{Name} не смог нанести удар.{0}";
+            }
+            if (val == 5)
+            {
+                blacksmith.UpgradeArmor(this);
+                return $"{Name} улучшил броню.{0}";
             }
             return $"{Name} нанес удар с силой {Damage}.{Damage}";
         }

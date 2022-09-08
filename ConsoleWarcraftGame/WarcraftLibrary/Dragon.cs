@@ -18,7 +18,7 @@ namespace WarcraftLibrary
             return $"{Name} нанес удар с помощью firebreath {Damage + 10}.{Damage + 10}";
         }
 
-        public override string Attack()
+        public override string Attack(Blacksmith blacksmith)
         {
             var val = rnd.Next(1, 6);
 
@@ -29,6 +29,11 @@ namespace WarcraftLibrary
             if (val == 4 && Mana > 10)
             {
                 return FireBreath();
+            }
+            if (val == 5)
+            {
+                blacksmith.UpgradeArmor(this);
+                return $"{Name} улучшил броню.{0}";
             }
             return $"{Name} нанес удар с силой {Damage}.{Damage}";
         }
