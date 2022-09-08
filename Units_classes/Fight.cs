@@ -21,12 +21,12 @@ public class Fight
                 honesty = Honesty_cheking();
                 break;
             }
-            Console.WriteLine("Желаете ли прокачать героя? ");
+/*            Console.WriteLine("Желаете ли прокачать героя? ");
             string ans = Console.ReadLine();
             if (ans != null)
             {
                 taked_hero = Upgrade(taked_hero);
-            }
+            }*/
 
             Players[i] = taked_hero;
         }
@@ -148,7 +148,22 @@ public class Fight
 
     private Unit Upgrade(Unit hero)
     {
-        Blacksmith.Upgrade_armour(hero);
+        Blacksmith bs = new Blacksmith();
+        Console.WriteLine("Выберите одно из улучшений. Полный список возможных улучшений:");
+        Console.WriteLine("armour - улучшение брони \n weapon - улучшение оружия \n bow - улучшение лука \n");
+        string ans = Console.ReadLine();
+        switch (ans)
+        {
+            case "armour":
+                bs.Upgrade_armour(hero);
+                break;
+/*            case "weapon":
+                bs.Upgrade_weapon(hero);
+                break;
+            case "bow":
+                bs.Upgrade_bow(hero);
+                break;*/
+        }            
         return hero;
     }
 
