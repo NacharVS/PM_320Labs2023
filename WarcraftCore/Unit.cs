@@ -11,41 +11,45 @@ public abstract class Unit
     protected bool isStunned;
     protected bool isDestroyed;
 
+    protected ILogger logger;
+
     public delegate void HealthChangedDelegate();
 
-    public event HealthChangedDelegate HealthChangedEvent;
+    public delegate void AfterHealthChangedDelegate(int previousHealth, int afterChangeHealth);
 
-    protected Unit(int health, string name, int cost, int level)
+    public delegate void DeathDelegate();
+
+    public event HealthChangedDelegate HealthChangedEvent;
+    public event DeathDelegate DeathEvent;
+    public event AfterHealthChangedDelegate AfterHealthChangedEvent;
+
+    protected Unit(int health, string name, int cost, int level, ILogger logger)
     {
         this.health = health;
         maxHealth = health;
         this.name = name;
         this.cost = cost;
         this.level = level;
-        
+        this.logger = logger;
+
+        DeathEvent += Destroy;
+        AfterHealthChangedEvent += HealthChanged;
     }
 
     public virtual void GetHit(int damage)
     {
         health -= damage;
-        HealthChangedEvent?.Invoke();
-        
-        if (health <= 0)
-        {
-            Destroy();
-        }
+        AfterHealthChangedEvent?.Invoke(health + damage, health);
     }
 
     public void Destroy()
     {
         isDestroyed = true;
+        logger.Log($"{GetName()} умер");
     }
 
-    public void SetHealthPoint(int healPoint)
+    public void GetHeal(int healPoint)
     {
-        if (isDestroyed)
-            return;
-        
         if (CanHeal(healPoint))
         {
             health += healPoint;
@@ -55,6 +59,18 @@ public abstract class Unit
     private bool CanHeal(int healPoint)
     {
         return health + healPoint <= maxHealth;
+    }
+
+    private void HealthChanged(int previousHealth, int afterChangeHealth)
+    {
+        if (health <= 0)
+        {
+            DeathEvent?.Invoke();
+        }
+        else
+        {
+            logger.Log($"Здоровье {GetName()} изменилось c {previousHealth} на {afterChangeHealth}");
+        }
     }
 
     public bool IsDestroyed()

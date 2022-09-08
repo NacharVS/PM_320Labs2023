@@ -5,15 +5,13 @@ public abstract class Millitary : Moveable
     protected int damage;
     protected int attackSpeed;
     protected int armor;
-    protected ILogger logger;
 
     protected Millitary(int health, string name, int cost, int level, int moveSpeed, 
-        int damage, int attackSpeed, int armor, ILogger logger) : base(health, name, cost, level, moveSpeed)
+        int damage, int attackSpeed, int armor, ILogger logger) : base(health, name, cost, level, moveSpeed, logger)
     {
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.armor = armor;
-        this.logger = logger;
     }
 
     public virtual void Attack(Unit target)
@@ -28,14 +26,14 @@ public abstract class Millitary : Moveable
             return;
         }
 
+        logger.Log($"{GetName()} нанес урон {target.GetName()}");
         target.GetHit(damage);
-        logger.Log($"{GetName()} нанес {damage} урона {target.GetName()}");
     }
 
     public override void GetHit(int damage)
     {
         // Formula for calculating damage taking into account armor
-        base.GetHit(damage - armor / 2);
+        base.GetHit(Math.Min(damage, damage - armor / 2));
     }
 
 
