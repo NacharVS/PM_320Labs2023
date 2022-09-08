@@ -17,7 +17,7 @@ namespace Units
 
         public override void Attack(Unit unt)
         {
-            spell.Attack(unt, damage);
+            action.Attack(unt, damage);
         }
     }
 }

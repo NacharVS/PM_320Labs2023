@@ -10,22 +10,22 @@ namespace Units
 
         public override void Attack(Unit unt)
         {
-            spell.Attack(unt, damage);
+            action.Attack(unt, damage);
         }
 
         public void Berserker() 
         {
-            spell.Berserker();
+            action.Berserker();
         }
 
         public override void Move()
         {
-            spell.Move();
+            action.Move();
         }
 
         public void Stun()
         {
-            spell.Stun();
+            action.Stun();
         }
     }
 }

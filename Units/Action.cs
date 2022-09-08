@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Units
 {
-    abstract public class Spells
+    abstract public class Action
     {
         public abstract void Attack(Unit unt, double damage);
         public abstract void Move();

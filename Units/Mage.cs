@@ -10,27 +10,27 @@ namespace Units
 
         public void FireBall() 
         {
-            spell.FireBall();
+            action.FireBall();
         }
 
         public void Blizzard() 
         {
-            spell.Blizzard();
+            action.Blizzard();
         }
 
         public void Heal(Unit unt) 
         {
-            spell.Heal(unt);
+            action.Heal(unt);
         }
 
         public override void Attack(Unit unt)
         {
-            spell.Attack(unt, damage);
+            action.Attack(unt, damage);
         }
 
         public override void Move() 
         {
-            spell.Move();
+            action.Move();
         }
     }
 }

@@ -10,17 +10,17 @@ namespace Units
 
         public override void Attack(Unit unt)
         {
-            spell.Attack(unt, damage);
+            action.Attack(unt, damage);
         }
 
         public void FireBreath() 
         {
-            spell.FireBreath();
+            action.FireBreath();
         }
 
         public override void Move() 
         {
-            spell.Move();
+            action.Move();
         }
     }
 }

@@ -3,7 +3,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Labs320
 {
-    public class ConsoleSpells : Spells
+    public class ConsoleAction : Units.Action
     {
         public override void Attack(Unit unt, double damage) 
         {
