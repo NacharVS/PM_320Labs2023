@@ -1,15 +1,18 @@
 ﻿using RTS.ConsoleGame;
 using RTS.Core.BaseEntities;
-using RTS.Core.Buffs;
+using RTS.Core.Effects;
+using RTS.Core.Logger;
 using RTS.Core.Units;
+
+ILogger logger = new ConsoleLogger();
 
 var units = new List<Military>
 {
-    new Footman(300, 250, "Juggernaute", 2, 4, 70, 1200, 5),
-    new Footman(500, 250, "Pudge", 5, 6, 250, 2500, 5),
-    new Mage(150, 300, "Ogre magi", 3, 7, 140, 1000, 1, 100, 200),
-    new Dragon(1000, 2000, "Dragon knight", 15, 300, 400, 4000, 50, 300, 600),
-    new Mage(10, 100, "UltraKiller", 1, 10, 10000, 700, 5, 600, 600),
+    new Footman(300, 250, "Juggernaute", 2, 4, 70, 1200, 5, logger),
+    // new Footman(500, 250, "Pudge", 5, 6, 250, 2500, 5, logger),
+    new Mage(150, 300, "Ogre magi", 3, 7, 140, 1000, 1, 100, 200, logger),
+    // new Dragon(1000, 2000, "Dragon knight", 15, 300, 400, 4000, 50, 300, 600, logger),
+    // new Mage(10, 100, "UltraKiller", 1, 10, 10000, 700, 5, 600, 600, logger),
 };
 
 var blacksmith = new Blacksmith(units);

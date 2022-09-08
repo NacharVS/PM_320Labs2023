@@ -1,7 +1,7 @@
 ﻿using RTS.Core.BaseEntities;
 using RTS.Core.Units;
 
-namespace RTS.Core.Buffs;
+namespace RTS.Core.Effects;
 
 public class Blacksmith
 {

@@ -1,5 +1,6 @@
 ﻿using RTS.Core.BaseEntities;
 using RTS.Core.EventArgs;
+using RTS.Core.Logger;
 
 namespace RTS.Core.Units;
 
@@ -7,8 +8,8 @@ public class Footman : Military
 {
     private readonly int _berserkAbilityHealthBoundary;
     
-    public Footman(int health, int cost, string? name, int level, int speed, int damage, int attackSpeed, int armor) 
-        : base(health, cost, name, level, speed, damage, attackSpeed, armor)
+    public Footman(int health, int cost, string? name, int level, int speed, int damage, int attackSpeed, int armor, ILogger logger) 
+        : base(health, cost, name, level, speed, damage, attackSpeed, armor, logger)
     {
         _berserkAbilityHealthBoundary = (int)(health * 0.3);
         

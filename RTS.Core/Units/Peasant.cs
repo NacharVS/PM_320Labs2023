@@ -1,26 +1,27 @@
 ﻿using RTS.Core.BaseEntities;
+using RTS.Core.Logger;
 
 namespace RTS.Core.Units;
 
 public class Peasant : Movable
 {
-    public Peasant(int health, int cost, string? name, int level, int speed) 
-        : base(health, cost, name, level, speed)
+    public Peasant(int health, int cost, string? name, int level, int speed, ILogger logger) 
+        : base(health, cost, name, level, speed, logger)
     {
         
     }
 
     public void Mining()
     {
-        Console.WriteLine("Peasant is mining..");
+        Logger.Log(LogMessageType.Info, "Peasant is mining..");
         Thread.Sleep(3000);
-        Console.WriteLine("Mining is done!");
+        Logger.Log(LogMessageType.Info, "Mining is done!");
     }
 
     public void Chopping()
     {
-        Console.WriteLine("Peasant is chopping");
+        Logger.Log(LogMessageType.Info, "Peasant is chopping");
         Thread.Sleep(3000);
-        Console.WriteLine("Chopping is done!");
+        Logger.Log(LogMessageType.Info, "Chopping is done!");
     }
 }

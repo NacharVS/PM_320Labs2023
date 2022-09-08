@@ -1,4 +1,6 @@
-﻿namespace RTS.Core.BaseEntities;
+﻿using RTS.Core.Logger;
+
+namespace RTS.Core.BaseEntities;
 
 public abstract class Ranged : Military
 {
@@ -6,8 +8,8 @@ public abstract class Ranged : Military
     public int Mana { get; private protected set; }
 
     protected Ranged(int health, int cost, string? name, int level, int speed, int damage, 
-        int attackSpeed, int armor, int attackRange, int mana) 
-        : base(health, cost, name, level, speed, damage, attackSpeed, armor)
+        int attackSpeed, int armor, int attackRange, int mana, ILogger logger) 
+        : base(health, cost, name, level, speed, damage, attackSpeed, armor, logger)
     {
         AttackRange = attackRange;
         Mana = mana;

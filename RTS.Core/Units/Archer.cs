@@ -1,4 +1,5 @@
 ﻿using RTS.Core.BaseEntities;
+using RTS.Core.Logger;
 
 namespace RTS.Core.Units;
 
@@ -7,8 +8,8 @@ public class Archer : Ranged
     public int ArrowCount { get; set; }
     
     public Archer(int health, int cost, string? name, int level, int speed, int damage, 
-        int attackSpeed, int armor, int attackRange, int mana, int arrowCount) 
-        : base(health, cost, name, level, speed, damage, attackSpeed, armor, attackRange, mana)
+        int attackSpeed, int armor, int attackRange, int mana, int arrowCount, ILogger logger) 
+        : base(health, cost, name, level, speed, damage, attackSpeed, armor, attackRange, mana, logger)
     {
         ArrowCount = arrowCount;
     }
@@ -30,12 +31,12 @@ public class Archer : Ranged
         if (ArrowCount > 0)
         {
             --ArrowCount;
-            Console.WriteLine($"\"{Name}\" attacks \"{entity.Name}\" ");
+            Logger.Log(LogMessageType.Info, $"\"{Name}\" attacks \"{entity.Name}\" ");
             entity.GetDamage(damage);
         }
         else
         {
-            Console.WriteLine("Нужно больше стрел, милорд!");
+            Logger.Log(LogMessageType.Info, "Нужно больше стрел, милорд!");
         }
     }
 }

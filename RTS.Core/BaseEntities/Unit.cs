@@ -1,9 +1,11 @@
 ﻿using RTS.Core.EventArgs;
+using RTS.Core.Logger;
 
 namespace RTS.Core.BaseEntities;
 
 public abstract class Unit
 {
+    public ILogger Logger { get; set; }
     public int Health { get; private protected set; }
     public int Cost { get; private protected set; }
     public string? Name { get; private protected set; }
@@ -18,23 +20,28 @@ public abstract class Unit
     public event HitHandler? OnGetDamage;
     public event DeathHandler? OnDeath;
 
-    protected Unit(int health, int cost, string? name, int level)
+    protected Unit(int health, int cost, string? name, int level, ILogger logger)
     {
         Health = health;
         Cost = cost;
         Name = name;
         Level = level;
         MaxHealth = health;
+        Logger = logger;
         
         OnGetDamage += delegate(Unit _, HitArgs args)
         {
             if (IsDestroyed)
             {
-                Console.WriteLine("Unit is already destroyed");
+                Logger.Log(LogMessageType.Warning, "Unit is already destroyed");
                 return;
             }
             
             Health -= args.Damage;
+            Logger.Log(LogMessageType.Info, args.Damage >= 0 
+                ? $"Unit \"{Name}\" gets {args.Damage} points of damage." 
+                : $"Unit \"{Name}\" gets {args.Damage} points of heal.");
+            
             if (Health <= 0)
                 OnDeath?.Invoke(this, new DeathArgs());
         };
@@ -42,28 +49,12 @@ public abstract class Unit
         OnDeath += delegate
         {
             IsDestroyed = true;
-            Console.WriteLine($"Unit \" {Name} \" is destroyed");
+            Logger.Log(LogMessageType.Info, $"Unit \"{Name}\" is destroyed");
         };
     }
 
-    public void GetDamage(int damage)
+    public virtual void GetDamage(int damage)
     {
         OnGetDamage?.Invoke(this, new HitArgs(damage, Health));
-    }
-
-    /// <summary>
-    /// Raise hit event from inherited class
-    /// </summary>
-    private protected void RaiseOnHitEvent(Unit sender, HitArgs args)
-    {
-        OnGetDamage?.Invoke(sender, args);
-    }
-
-    /// <summary>
-    /// Raise death event from inherited class
-    /// </summary>
-    private protected void RaiseOnDeathEvent(Unit sender, DeathArgs args)
-    {
-        OnDeath?.Invoke(sender, args);
     }
 }
