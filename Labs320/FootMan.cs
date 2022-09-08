@@ -8,16 +8,18 @@
     {
         base.Attack(unit);
         Stun(unit);
+        if (health <= maxHealth / 4)
+        {
+            Berserker();
+        }
+        
     }
 
     public void Berserker()
     {
-        if (health <= maxHealth / 4)
-        {
             attackSpeed += 15;
             damage += 10;
             Console.WriteLine($"{name} in berserk mode");
-        }
     }
 
     public void Stun(Unit unit)

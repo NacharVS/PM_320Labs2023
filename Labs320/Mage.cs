@@ -1,7 +1,7 @@
 ﻿class Mage : Range
 {
     public Mage(int health, int cost, string name, int speed, int damage,
-        int attackSpeed, int armor) : base(health, cost, name, speed, damage, attackSpeed, armor)
+        int attackSpeed, int armor, int mana) : base(health, cost, name, speed, damage, attackSpeed, armor, mana)
     {
         
     }
@@ -42,7 +42,7 @@
 
         else if (mana < 10)
         {
-            Console.WriteLine("НЕ ХВАТАЕТ МАНЫ!!!!");
+            Console.WriteLine($"{this.name}: НЕ ХВАТАЕТ МАНЫ!!!!");
         }
 
         else
