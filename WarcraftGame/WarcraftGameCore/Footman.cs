@@ -2,23 +2,30 @@
 {
     public class Footman : Military
     {
+        private bool _isBerserkerActivated;
 
-        public Footman(string name) : base (700, 2, 1000, 20, name, 2000, 1100, 2) {}
-
-        public void Berserker(Unit unit)
+        public Footman(string name) : base (700, 2, 1000, 20, name, 2000, 1100, 2, 2500) 
         {
-            if (this.CheckDied())
-            {
-                return;
-            }
+            healthChangedEvent += Berserker;
+        }
 
-            if (unit is Military milUnit)
+        private void Berserker(EventArgs args)
+        {
+            if (!this._isBerserkerActivated && 
+                this.GetHealth() < this.GetMaxHp() * 0.2)
             {
-                milUnit.SetAttackedSpeed(milUnit.GetAttackedSpeed() + 4);
+                this._damage += this._damage * 2;
+                this._isBerserkerActivated = true;
+
+                Console.WriteLine($"{this.GetName()}: berserker activated!");
             }
-            else if (unit is GuardTower gtUnit)
+            else if (this._isBerserkerActivated && 
+                this.GetHealth() > this.GetMaxHp() * 0.2)
             {
-                gtUnit.SetAttackedSpeed(gtUnit.GetAttackedSpeed() + 4);
+                this._damage -= this._damage / 2;
+                this._isBerserkerActivated = false;
+
+                Console.WriteLine($"{this.GetName()}: berserker deactivated!");
             }
         }
 

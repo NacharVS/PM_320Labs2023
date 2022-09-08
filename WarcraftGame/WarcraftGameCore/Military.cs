@@ -7,8 +7,8 @@
         protected double _armor;
 
         protected Military(double damage, int attackSpeed, double armor, 
-            double speed, string name, double health, int cost, int level)
-            : base (speed, name, health, cost, level)
+            double speed, string name, double health, int cost, int level, double maxHp)
+            : base (speed, name, health, cost, level, maxHp)
         {
             _damage = damage;
             _attackSpeed = attackSpeed;

@@ -2,21 +2,14 @@
 {
     public class Mage : Range
     {
-        private delegate void healthChangedDelegate();
-        private double _maxHp;
-
-        public Mage(string name) : base(3, 200, 1000, 3, 800, 40, name, 1500, 500, 2) 
-        {
-            _maxHp = 3000;
-
-            _healthChangedEvent += Heal;
-        }
+        public Mage(string name) : base(3, 200, 1000, 3, 800, 40, 
+                                name, 1500, 500, 2, 2000) {}
 
         public void FireBall(Unit unit)
         {
             if (this._mana >= 100)
             {
-                this.Attack(unit, 2000);
+                this.Attack(unit, 900);
                 this._mana -= 100;
             }
             else
@@ -29,7 +22,7 @@
         {
             if (this._mana >= 150)
             {
-                this.Attack(unit, 3000);
+                this.Attack(unit, 1200);
                 this._mana -= 150;
             }
             else
@@ -38,41 +31,29 @@
             }
         }
 
-        public void Heal()
+        public void Heal(Unit unit)
         {
-            if (this.CheckDied())
+            if (this.CheckDied() || unit.CheckDied())
             {
                 return;
             }
 
             if (this._mana >= 150)
             {
-                if (this._health + 800 <= _maxHp)
+                if (unit.GetHealth() + 800 <= unit.GetMaxHp())
                 {
-                    this._health += 800;
+                    unit.SetHealth(unit.GetHealth() + 800);
                 }
                 else
                 {
-                    this._health = _maxHp;
+                    unit.SetHealth(unit.GetMaxHp());
                 }
-                _mana -= 150;
+                this._mana -= 150;
             }
             else
             {
                 Console.WriteLine("Not have mana!");
             }
         }
-
-        public override void SetHealth(double health)
-        {
-            base.SetHealth(health);
-
-            if (_health <= _maxHp * 0.1)
-            {
-                _healthChangedEvent?.Invoke();
-            }
-        }
-
-        private event healthChangedDelegate _healthChangedEvent;
     }
 }

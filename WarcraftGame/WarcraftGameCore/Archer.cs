@@ -4,7 +4,8 @@
     {
         private int _arrowCount;
 
-        public Archer(string name) : base (3, 200, 300, 2, 800, 20, name, 1800, 1000, 2)
+        public Archer(string name) : base(3, 200, 300, 2, 800, 20, 
+                                        name, 1800, 1000, 2, 2000)
         {
             _arrowCount = 20;
         }
@@ -19,7 +20,7 @@
             else
             {
                 Console.WriteLine("Not enough arrows!");
-            }        
+            }
         }
 
         public void UpgradeArrow()

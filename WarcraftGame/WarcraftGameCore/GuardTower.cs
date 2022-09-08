@@ -6,6 +6,12 @@
         private double _damage;
         private int _attackSpeed;
 
+        public GuardTower(string name) : base(name, 5000, 3000, 4, 5000)
+        {
+            _damage = 300;
+            _attackSpeed = 3;
+        }
+
         public void SetAttackedSpeed(int attackedSpeed)
         {
             _attackSpeed = attackedSpeed;
@@ -14,12 +20,6 @@
         public int GetAttackedSpeed()
         {
             return _attackSpeed;
-        }
-
-        public GuardTower(string name) : base (name,5000,3000,4)
-        {
-            _damage = 300;
-            _attackSpeed = 3;
         }
 
         public void Attack(Unit unit)

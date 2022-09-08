@@ -3,13 +3,15 @@
     public class Dragon : Range
     {
 
-        public Dragon(string name) : base (3, 300, 1000, 4, 600, 15, name, 2200, 1300, 3) {}
+        public Dragon(string name) : base(3, 300, 1000, 4, 600, 15, name,
+                                            2200, 1300, 3, 2500)
+        { }
 
         public void FireBreuth(Unit unit)
         {
             if (this._mana >= 200)
             {
-                this.Attack(unit, 4000);
+                this.Attack(unit, 1800);
             }
             else
             {

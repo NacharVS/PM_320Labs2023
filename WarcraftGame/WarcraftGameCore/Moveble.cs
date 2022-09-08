@@ -4,8 +4,9 @@
     {
         private double _speed;
 
-        protected Moveble(double speed, string name, double health, int cost, int level) 
-            : base(name, health, cost, level)
+        protected Moveble(double speed, string name, double health, 
+            int cost, int level, double maxHp) 
+            : base(name, health, cost, level, maxHp)
         {
             _speed = speed;
         }
