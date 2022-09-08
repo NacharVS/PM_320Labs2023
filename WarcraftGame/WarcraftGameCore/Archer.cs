@@ -14,6 +14,7 @@
             if (_arrowCount > 0)
             {
                 base.Attack(unit);
+                _arrowCount--;
             }
             else
             {
