@@ -15,6 +15,8 @@ namespace Units
         private int _stunCounter = 0;
         private double _armor = 0;
         private double _maxArmor = 0;
+        public delegate void AttackDelegate (Unit unit, double totalDamage);
+        public event AttackDelegate AttackEvent;
         private double _Armor
         {
             get { return _armor; }
@@ -40,6 +42,7 @@ namespace Units
             this._maxAttackSpeed = attackSpeed;
             this._damage = damage;
             this._maxDamage = damage;
+            AttackEvent += ResultAttack;
         }
 
         public virtual void Attack(Unit unit)
@@ -59,8 +62,9 @@ namespace Units
             if(unit is not Military)
             {
                 double damage = this.GetDamage();
+
                 unit.SetHealth(unit.GetHealth() - damage);
-                ResultAttack(unit, damage);
+                AttackEvent(unit, damage);
 
             }
             else
@@ -70,7 +74,7 @@ namespace Units
 
                 ((Military)unit).SetArmor(((Military)unit).GetArmor() - damageTakenByArmor);
                 unit.SetHealth(unit.GetHealth() - totalDamage);
-                ResultAttack(unit, totalDamage);
+                AttackEvent(unit, totalDamage);
             }
 
             if (unit.GetHealth() <= 0)
@@ -78,12 +82,13 @@ namespace Units
                 unit.SetStateOfLife(false);
                 throw new Exception($"{unit.Name} is destroyed!");
             }
+            GetHealthChange(unit);
         }
 
         public void ResultAttack(Unit unit, double totalDamage)
         {
             Console.WriteLine($"{((Unit)this).Name} damaged {unit.Name} " +
-                $"for {totalDamage}, {unit.GetHealth()} HP left");
+                $"for {totalDamage}");
         }
 
         public double GetDamage()

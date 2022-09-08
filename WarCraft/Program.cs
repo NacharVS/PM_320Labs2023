@@ -2,15 +2,15 @@
 
 
 
-Dragon playerOne = new(80, 100, 10, 15, 100, 4, "SuperDrago");
-Footman playerTwo = new(80, 100, 10, 15, "SuperFoot");
+Footman playerOne = new(80, 100, 10, 15, "SuperDrago");
+Mage playerTwo = new(80, 100, 10, 100, 100, 4, "SuperMage");
 
 try
 {
     while (true)
     {
-        playerOne.FireBreath(playerTwo);
-        playerTwo.Attack(playerOne);
+        playerOne.Attack(playerTwo);
+        playerTwo.Heal(playerTwo);
     }
 }
 catch(Exception ex)

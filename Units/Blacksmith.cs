@@ -23,6 +23,10 @@ namespace Units
         {
             foreach(var unit in listOfUnits)
             {
+                if(unit is Range)
+                {
+                    return;
+                }    
                 unit.SetDamage(unit.GetDamage() + _boost);
                 unit.SetMaxDamage(unit.GetMaxDamage() + _boost);
             }

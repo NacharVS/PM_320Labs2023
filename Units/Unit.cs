@@ -53,5 +53,9 @@ namespace Units
         {
             return _maxhealth;
         }
+        public void GetHealthChange(Unit unit)
+        {
+            Console.WriteLine($"{unit.Name}'s health is {unit.GetHealth()}");
+        }
     }
 }

@@ -9,10 +9,18 @@ namespace Units
 {
     public class Mage : Range
     {
+        public delegate void OnHealAbilityDelegate(Unit currentMage, Unit unit, double healedHP);
+        public event OnHealAbilityDelegate? OnHealEvent;
+        private int healthHealth = 15;
+        private int manaForHeal = 20;
+        private int manaForBlizzard = 25;
+
         public Mage(double health, double armor, int attackSpeed,
             double range, double mana, double damage, string name)
             : base(health, armor, attackSpeed, range, mana, damage, name)
         {
+            OnHealEvent += ((currentMage, unit, healedHP) => 
+            Console.WriteLine($"{currentMage.Name} have healed {unit.Name} for {healedHP}"));
         }
 
         public void FireBall(Unit unit)
@@ -30,12 +38,13 @@ namespace Units
 
         public void Blizzard(Unit unit)
         {
-            if (GetMana() < 25)
+            if (GetMana() < manaForBlizzard)
             {
-                throw new Exception("Not enough mana for blizzard!");
+                Console.WriteLine($"Not enough mana for blizzard for {this.Name}!");
+                return;
             }
 
-            this.SetMana(GetMana() - 25);
+            this.SetMana(GetMana() - manaForBlizzard);
             SetDamage(14);
             ((Military)unit).SetAttackSpeed(0);
             Attack(unit);
@@ -44,17 +53,24 @@ namespace Units
 
         public void Heal(Unit unit)
         {
-            if(GetMana() < 20)
+            if (GetMana() < manaForHeal)
             {
-                throw new Exception("Not enough mana for heal!");
+                Console.WriteLine($"Not enough mana for heal for {this.Name}!");
+                return;
             }
 
-            this.SetMana(GetMana() - 20);
-            unit.SetHealth(unit.GetHealth() + 15);
+            double oldHP = unit.GetHealth();
+
+            this.SetMana(GetMana() - manaForHeal);
+            unit.SetHealth(unit.GetHealth() + healthHealth);
             if (unit.GetHealth() > unit.GetMaxHealth())
             {
                 unit.SetHealth(GetMaxHealth());
             }
+            double diff = unit.GetHealth() - oldHP;
+            OnHealEvent?.Invoke(this, unit, diff);
+            GetHealthChange(unit);
+
         }
 
         public override void Move()
