@@ -1,10 +1,10 @@
 ﻿
 public abstract class Unit
 {
-    public delegate void HealthChangedDelegate();
-    public event HealthChangedDelegate HealthChanged;
+    public delegate void Taking_damage_delegate();
 
-    public double Max_health; 
+
+    public double Max_health;
     public double Real_health;
     public int Cost;
     public string Name;
@@ -23,8 +23,7 @@ public abstract class Unit
     {
         double real_loss = (loss - loss / 100 * Defence);
         Real_health -= real_loss;
-        Console.WriteLine($"{Name} получает урон, равный {real_loss}!" );
-
+        Taking_damage_event?.Invoke(real_loss, Name);
     }
 
     public abstract double Step();
@@ -33,4 +32,5 @@ public abstract class Unit
 
 
 
+    public event Taking_damage_delegate Taking_damage_event;
 }

@@ -4,25 +4,6 @@ class Program
 {
     static void Main()
     {
-        Spearman Tom = new Spearman();
-        Spearman Bob = new Spearman();
-        Tom.Real_health = 30;
-        Bob.Real_health = 50;
-
-        Console.Write(Tom.Real_health);
-        Console.Write(" " + Bob.Real_health);
-
-        Tom.Real_health = 100;
-        Tom.Taking_damage(20);
-        Bob.Taking_damage(20);
-
-        Console.WriteLine();
-        Console.Write(Tom.Real_health);
-        Console.Write(" " + Bob.Real_health);
-
-        Console.WriteLine();
-        Tom.Berserker();
-        Console.WriteLine(Tom.Damage);
 
         Console.WriteLine("/------------------/");
         Console.WriteLine("Новый тест");
@@ -44,6 +25,13 @@ class Program
         Archer archer = new Archer();
         Console.WriteLine(archer.Radius);
 
+        Kings_yard.Taking_damage_event += Health_newers(4, "dsdsd");
+    }
 
+    static void Health_newers(double real_loss, string name)
+    {
+        Console.WriteLine($"{name} получает урон, равный {real_loss}!");
     }
 }
+
+
