@@ -8,7 +8,7 @@ namespace Labs320
 {
     internal class TestClass
     {
-        public delegate void HealthChangedDelegate();   
+        public delegate void HealthChangedDelegate(int healthValue, int maxHealthValue);   
         
 
         private int _health;
@@ -27,18 +27,18 @@ namespace Labs320
             set 
             {
                 _health = value; 
-                if(_health < MaxHealth / 2)
-                {
-                    HealthChangedEvent?.Invoke();
-                }
+
+                    HealthChangedEvent?.Invoke(_health, MaxHealth);
+
             }
         }
 
         public void TakeDamage(int damage)
         {
-            Health -= damage;
-            Console.WriteLine($"INflicted {damage} - current healt{Health}");
+            Health -= damage;            
         }
+
+
         public event HealthChangedDelegate HealthChangedEvent;
     }
 }
