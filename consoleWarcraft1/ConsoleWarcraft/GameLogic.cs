@@ -18,6 +18,9 @@ namespace ConsoleWarcraft
         {
             this.unit1 = unit1;
             this.unit2 = unit2;
+
+            unit1.HealthChangedEvent += showHealth;
+            unit2.HealthChangedEvent += showHealth;
         }
 
         public void run()
@@ -39,6 +42,7 @@ namespace ConsoleWarcraft
                             break;
                         case Footman footman:
                             footman.attack(unit2);
+                          
                             break;
                         case Dragon dragon:
                             dragon.attack(unit2);
@@ -58,8 +62,8 @@ namespace ConsoleWarcraft
                         Console.WriteLine(unit2.name + " is destroy!");
                         break;
                     }
-                    showAttack(unit1);
-                    showHealth(unit2);
+                   // showAttack(unit1);
+                   // showHealth(unit2);
                 }
                 else
                 {
@@ -74,6 +78,7 @@ namespace ConsoleWarcraft
                             break;
                         case Dragon dragon:
                             dragon.attack(unit1);
+                            dragon.attack(unit1);
                             dragon.fireBreath(unit1);
                             break;
                         case GuardTower tower:
@@ -84,8 +89,8 @@ namespace ConsoleWarcraft
                             break;
                     }
 
-                    showAttack(unit2);
-                    showHealth(unit1);
+                   // showAttack(unit2);
+                   // showHealth(unit1);
 
                     if (unit1.isDestroyed())
                     {
@@ -120,7 +125,7 @@ namespace ConsoleWarcraft
 
         public static void showHealth(Unit unit)
         {
-            Console.WriteLine(unit.name + ":  health:" + unit.health);
+            Console.WriteLine(unit.name + " get dammage  health:" + unit.health);
             Console.WriteLine();
         }
     }

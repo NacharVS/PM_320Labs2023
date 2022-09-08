@@ -111,7 +111,7 @@ namespace ConsoleWarcraft
 
         public override void attack(Unit unit)
         {
-            damage = attackSpeed + level * 0.2;
+            damage = attackSpeed + level * 2;
             damageUnit(unit);
         }
 
@@ -129,11 +129,13 @@ namespace ConsoleWarcraft
         {
             if (unit is Military military)
             {
-                military.health = military.health + military.armor - damage;
+                // military.health = military.health + military.armor - damage;
+                TakeDamage(unit, damage);
             }
             else
             {
-                unit.health -= damage;
+                // unit.health -= damage;
+                TakeDamage(unit, damage);
             }
         }
     }

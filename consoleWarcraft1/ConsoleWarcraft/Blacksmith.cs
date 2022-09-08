@@ -36,7 +36,7 @@ namespace ConsoleWarcraft
             }
         }
 
-        public void UpgradeArrow(Unit unit)
+        public void UpgradeArrmor(Unit unit)
         {
             if (unit is Archer archer)
             {

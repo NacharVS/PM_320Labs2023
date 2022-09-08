@@ -10,6 +10,21 @@ namespace ConsoleWarcraft
         public int level = 0;
         public bool isDestroy = false;
 
+        public delegate void HealthChangedDelegate(Unit unit);
+
+        public double Health {
+            get { return health; }
+            set { 
+                health = value;
+                HealthChangedEvent?.Invoke(this);
+                }
+            }
+
+        public void TakeDamage(Unit unit, double damage)
+        {
+            unit.Health -= damage;
+        }
+
         public virtual bool isDestroyed()
         {
             if (health < 0)
@@ -19,5 +34,7 @@ namespace ConsoleWarcraft
             }
             return isDestroy;
         }
+
+        public event HealthChangedDelegate HealthChangedEvent;
     }
 }
