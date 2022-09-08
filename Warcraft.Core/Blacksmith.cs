@@ -1,4 +1,6 @@
-﻿namespace Warcraft.Core;
+﻿using Warcraft.Core.BaseClasses;
+
+namespace Warcraft.Core;
 
 public class Blacksmith : Unit
 {

@@ -1,4 +1,4 @@
-﻿namespace Warcraft.Core;
+﻿namespace Warcraft.Core.BaseClasses;
 
 public abstract class Movable : Unit
 {

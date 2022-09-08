@@ -1,4 +1,6 @@
-﻿namespace Warcraft.Core;
+﻿using Warcraft.Core.Events;
+
+namespace Warcraft.Core.BaseClasses;
 
 public abstract class Unit
 {
@@ -11,10 +13,12 @@ public abstract class Unit
 
     private readonly IEventLogger _logger;
 
-    public event EventHandler? OnHpChange; 
+    public event EventHandler? AfterHpChange;
+    public event EventHandler? OnDeath;
 
 
-    protected Unit(IEventLogger logger, int health, int cost, string name, int level)
+    protected Unit(IEventLogger logger, int health, int cost, string name,
+        int level)
     {
         _logger = logger;
         MaxHealth = health;
@@ -22,23 +26,24 @@ public abstract class Unit
         Cost = cost;
         Name = name;
         Level = level;
-        
-        OnHpChange += CheckHp;
+
+        AfterHpChange += CheckHp;
     }
 
-    public virtual void Hit(int damage)
+    internal virtual void Hit(int damage)
     {
         if (IsDestroyed)
         {
             Log("Уже мертв и не может получить урон");
             return;
         }
-        
+
         Health -= damage;
-        OnHpChange?.Invoke(this, new HealthPointEventArgs(Health + damage, Health));
+        AfterHpChange?.Invoke(this,
+            new HealthPointEventArgs(Health + damage, Health));
     }
 
-    public void GetHealed()
+    public void GetHealed(int value)
     {
         if (IsDestroyed)
         {
@@ -46,27 +51,30 @@ public abstract class Unit
             return;
         }
 
-        Health = Math.Min(MaxHealth, Health + 1);
-        OnHpChange?.Invoke(this, new HealthPointEventArgs(Health - 1, Health));
+        Health = Math.Min(MaxHealth, Health + value);
+        AfterHpChange?.Invoke(this,
+            new HealthPointEventArgs(Health - value, Health));
     }
 
     protected void Log(string message)
     {
         _logger.LogInfo(this, message);
     }
-    
+
     private void CheckHp(object? sender, EventArgs args)
     {
         if (Health <= 0)
         {
             Health = 0;
             IsDestroyed = true;
+            OnDeath?.Invoke(this, new DeathEventArgs());
             Log("Пал смертью храбрых");
         }
         else
         {
             if (args is HealthPointEventArgs healthArgs)
-                Log($"Здоровье изменено ({healthArgs.PreviousHealth} -> {healthArgs.CurrentHealth})");
+                Log(
+                    $"Здоровье изменено ({healthArgs.PreviousHealth} -> {healthArgs.CurrentHealth})");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Warcraft.Core;
+using Warcraft.Core.BaseClasses;
 
 namespace Warcraft.Console;
 

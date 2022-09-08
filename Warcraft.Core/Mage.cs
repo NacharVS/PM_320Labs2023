@@ -1,8 +1,11 @@
-﻿namespace Warcraft.Core;
+﻿using Warcraft.Core.BaseClasses;
+
+namespace Warcraft.Core;
 
 public class Mage : Ranged
 {
     private const int HealCost = 6;
+    private const int HealValue = 20;
     private const int FireballDamage = 600;
     private const int FireballManaCost = 100;
     private const int BlizzardDamage = 400;
@@ -56,7 +59,7 @@ public class Mage : Ranged
             return;
         }
 
-        target.GetHealed();
+        target.GetHealed(HealValue);
         Mana -= HealCost;
         Log($"Вылечил {target.Name}");
     }

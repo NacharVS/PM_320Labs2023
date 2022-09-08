@@ -1,4 +1,4 @@
-﻿namespace Warcraft.Core;
+﻿namespace Warcraft.Core.Events;
 
 public class HealthPointEventArgs : EventArgs
 {

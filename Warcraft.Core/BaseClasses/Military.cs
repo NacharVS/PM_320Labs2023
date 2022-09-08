@@ -1,4 +1,4 @@
-﻿namespace Warcraft.Core;
+﻿namespace Warcraft.Core.BaseClasses;
 
 public abstract class Military : Movable
 {
@@ -26,7 +26,7 @@ public abstract class Military : Movable
         Spells[spellName].Invoke(target);
     }
 
-    public override void Hit(int damage)
+    internal override void Hit(int damage)
     {
         damage = Math.Min(damage, damage - Armor);
         base.Hit(damage);
@@ -37,7 +37,7 @@ public abstract class Military : Movable
         Attack(target, Damage * (AttackTimeRange / AttackSpeed));
     }
 
-    public void Attack(Unit target, int damage)
+    protected void Attack(Unit target, int damage)
     {
         if (target == this)
         {

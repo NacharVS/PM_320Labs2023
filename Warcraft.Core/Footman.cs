@@ -1,4 +1,6 @@
-﻿namespace Warcraft.Core;
+﻿using Warcraft.Core.BaseClasses;
+
+namespace Warcraft.Core;
 
 public class Footman : Military
 {
@@ -9,7 +11,7 @@ public class Footman : Military
         int level, int speed, int attackSpeed, int damage)
         : base(logger, health, cost, name, level, speed, attackSpeed, damage)
     {
-        OnHpChange += CheckBerserkMode;
+        AfterHpChange += CheckBerserkMode;
         Spells = new Dictionary<string, Action<Unit>> { { "Stun", Stun } };
     }
 
