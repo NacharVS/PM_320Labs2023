@@ -15,6 +15,7 @@ namespace WarCraft
             var mage = new Mage("Mage", 200, 20, 1, false, 20, 20, 200, 2000, 20, 10);
             var dragon = new Dragon("Dragon", 300, 30, 1, false, 30, 30, 300, 3000, 30, 20);
             var archer = new Archer("Archer", 200, 20, 1, false, 20, 20, 200, 2000, 20);
+            var blacksmith = new Blacksmith("Blacksmith", 100, 100, 1, false);
             var players = new List<Military> { footman, mage, dragon, archer };
             var random = new Random();
 
@@ -29,11 +30,26 @@ namespace WarCraft
             Console.WriteLine($"Player2: {player2.Name}");
             Console.WriteLine();
 
+            
+            blacksmith.Upgrade(player1);
+            blacksmith.Upgrade(player2);
+            
+
+            if (player1 is Archer pers1)
+            {
+                blacksmith.ArcherUpgrade(pers1);
+            }
+            if (player2 is Archer pers2)
+            {
+                blacksmith.ArcherUpgrade(pers2);
+            }
+
             while (!player1.Death() && !player2.Death())
             {
                 Console.WriteLine($"HP1: {player1.Health}");
                 Console.WriteLine($"HP2: {player2.Health}");
                 Console.WriteLine();
+
                 int attack = random.Next(1, 3);
                 int hit = random.Next(1, 3);
 

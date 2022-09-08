@@ -47,7 +47,31 @@ namespace WarCraft
 
         public override string Attack (int number)
         {
-            return $"Mage attacks with damage {Damage}.{Damage}";
+            var random = new Random();
+            int attack = random.Next(1, 5);
+
+            switch (attack)
+            {
+                case 1:
+                    FireBall();
+                    return $"The magician used a Fireball and " +
+                        $"dealt {Damage}.{Damage} damage";
+                    break;
+                case 2:
+                    Blizzard();
+                    return $"The magician used a Blizzard and " +
+                        $"dealt {Damage}.{Damage} damage";
+                    break;
+                case 3:
+                    Heal();
+                    return $"The magician used a Heal and " +
+                        $"dealt {Damage}.{Damage} damage";
+                    break;
+                case 4:
+                    return $"Mage attacks with damage {Damage}.{Damage}";
+                    break;
+            }
+            return "";
         }
     }
 }
