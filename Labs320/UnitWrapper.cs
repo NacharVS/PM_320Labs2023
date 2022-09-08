@@ -1,4 +1,5 @@
 ﻿using Warcraft.Core.BaseEntities;
+using Warcraft.Core.Units;
 
 namespace Labs320;
 
@@ -21,7 +22,25 @@ public class UnitWrapper
             Unit target;
             while ((target = Warriors[random.Next(0, Warriors.Count)]) != Entity)
             {
-                Entity.Attack(target);
+                if (Entity.GetType() == typeof(Mage) && ((Mage)Entity).Mana >= 20)
+                {
+                    switch (random.Next(1,4))
+                    {
+                        case 1:
+                            ((Mage)Entity).Fireball(target);
+                            break;
+                        case 2:
+                            ((Mage)Entity).Heal(Entity);
+                            break;
+                        case 3:
+                            ((Mage)Entity).Blizzard(target);
+                            break;
+                    }
+                }
+                else
+                {
+                    Entity.Attack(target);   
+                }
             }
         }
     }

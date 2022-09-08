@@ -32,11 +32,12 @@ namespace Warcraft.Core.Units
                 if (sender.Mana >= args.SpellCost)
                 {
                     sender.Mana -= args.SpellCost;
+                    Console.WriteLine($"{Name} кастует заклинание {args.SpellName}\n");
                     Attack(args.Target, args.SpellDamage);
                 }
                 else
                 {
-                    Console.WriteLine("Нужно больше маны");
+                    Console.WriteLine($"Не хватает маны на {args.SpellName}");
                 }
             };
         }
@@ -52,7 +53,8 @@ namespace Warcraft.Core.Units
             OnSpellAttack?.Invoke(this, new SpellArgs(
             enemy,
             SpellsDamage[spellName],
-            SpellsCost[spellName])
+            SpellsCost[spellName],
+            spellName)
             );
         }
 

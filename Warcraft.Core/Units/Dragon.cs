@@ -26,7 +26,8 @@ namespace Warcraft.Core.Units
             OnSpellAttack?.Invoke(this, new SpellArgs(
                 enemy, 
                 SpellsDamage[spellName],
-                SpellsCost[spellName])
+                SpellsCost[spellName],
+                spellName)
             );
         }
 
@@ -44,7 +45,7 @@ namespace Warcraft.Core.Units
                     Attack(args.Target, args.SpellDamage);
                 }
                 else
-                    Console.WriteLine("Не хватает маны");
+                    Console.WriteLine($"Не хватает маны на {args.SpellName}");
             };
         }
     }

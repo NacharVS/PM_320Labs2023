@@ -28,6 +28,6 @@ public class Footman : Military
     {
         _rageAbility = (int) (MaxHealth * 0.3);
 
-        OnGetDamage += CheckRageBuff;
+        OnHealthChanged += CheckRageBuff;
     }
 }

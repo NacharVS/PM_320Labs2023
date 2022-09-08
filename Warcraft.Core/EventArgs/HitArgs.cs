@@ -2,14 +2,14 @@
 
 public class HitArgs
 {
-    public int Damage { get; set; }
+    public int HitValue { get; set; }
     public int PreviousHealth { get; set; }
     public int CurrentHealth { get; set; }
 
-    public HitArgs(int damage, int unitHealth)
+    public HitArgs(int hitValue, int unitHealth)
     {
-        Damage = damage;
+        HitValue = hitValue;
         PreviousHealth = unitHealth;
-        CurrentHealth = unitHealth - damage;
+        CurrentHealth = unitHealth - hitValue;
     }
 }

@@ -14,7 +14,7 @@ namespace Warcraft.Core.BaseEntities
         public delegate void HitHandler(Unit sender, HitArgs args);
         public delegate void DeathHandler(Unit sender, DeathArgs args);
 
-        public event HitHandler? OnGetDamage;
+        public event HitHandler? OnHealthChanged;
         public event DeathHandler? OnDeath;
         
         protected Unit(int health, int cost, string? name, int level)
@@ -26,35 +26,48 @@ namespace Warcraft.Core.BaseEntities
             IsDestroyed = false;
             MaxHealth = health;
             
-            OnGetDamage += delegate(Unit _, HitArgs args)
+            OnHealthChanged += delegate(Unit _, HitArgs args)
             {
                 if (IsDestroyed)
                 {
                     Console.WriteLine("Enemy is already dead");
                 }
 
-                Health -= args.Damage;
+                Health -= args.HitValue;
 
-                if (Health <= 0)
+                if (Health < 0)
+                    Health = 0;
+
+                switch (args.HitValue)
+                {
+                    case > 0:
+                        Console.WriteLine($"{Name} get damage = {args.HitValue}, hp = {Health}\n");
+                        break;
+                    case < 0:
+                        Console.WriteLine($"{Name} get heal = {Math.Abs(args.HitValue)}, hp = {Health}\n");
+                        break;
+                }
+                
+                if (Health == 0)
                     OnDeath?.Invoke(this, new DeathArgs());
+                
             };
             
             OnDeath += delegate
             {
                 IsDestroyed = true;
-                Health = 0;
-                Console.WriteLine($"{Name} is eliminated");
+                Console.WriteLine($"{Name} is eliminated\n");
             };
         }
 
         public void GetDamage(int damage)
         {
-            OnGetDamage?.Invoke(this, new HitArgs(damage, Health));
+            OnHealthChanged?.Invoke(this, new HitArgs(damage, Health));
         }
 
         private protected void RaiseOnHitEvent(Unit sender, HitArgs args)
         {
-            OnGetDamage?.Invoke(sender, args);
+            OnHealthChanged?.Invoke(sender, args);
         }
 
         private protected void RaiseOnDeathEvent(Unit sender, DeathArgs args)
