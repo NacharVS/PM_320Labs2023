@@ -1,7 +1,6 @@
 ﻿// Turushkin Sergey, 320P, "Warcraft"
 
-using Labs320;
-using Units;
+using Units.BaseUnits;
 
 namespace Warcraft
 {

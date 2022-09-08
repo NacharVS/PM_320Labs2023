@@ -1,8 +1,10 @@
 ﻿// Turushkin Sergey, 320P, "Warcraft"
 
-namespace Units
+using Units.BaseClasses;
+
+namespace Units.BaseUnits
 {
-    public class Dragon : Range
+    public class Dragon : BaseClasses.Range
     {
         public Dragon(double health, double cost, string name, int lvl, double speed,
                       double damage, double attackSpeed, double armor, double range, double mana)
@@ -13,12 +15,12 @@ namespace Units
             action.Attack(unt, damage);
         }
 
-        public void FireBreath() 
+        public void FireBreath()
         {
             action.FireBreath();
         }
 
-        public override void Move() 
+        public override void Move()
         {
             action.Move();
         }

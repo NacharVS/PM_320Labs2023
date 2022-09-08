@@ -1,24 +1,26 @@
 ﻿// Turushkin Sergey, 320P, "Warcraft"
 
-namespace Units
+using Units.BaseClasses;
+
+namespace Units.BaseUnits
 {
-    public class Mage : Range
+    public class Mage : BaseClasses.Range
     {
         public Mage(double health, double cost, string name, int lvl, double speed,
                     double damage, double attackSpeed, double armor, double range, double mana)
                     : base(health, cost, name, lvl, speed, damage, attackSpeed, armor, range, mana) { }
 
-        public void FireBall() 
+        public void FireBall()
         {
             action.FireBall();
         }
 
-        public void Blizzard() 
+        public void Blizzard()
         {
             action.Blizzard();
         }
 
-        public void Heal(Unit unt) 
+        public void Heal(Unit unt)
         {
             action.Heal(unt);
         }
@@ -28,7 +30,7 @@ namespace Units
             action.Attack(unt, damage);
         }
 
-        public override void Move() 
+        public override void Move()
         {
             action.Move();
         }

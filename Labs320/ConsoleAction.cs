@@ -1,7 +1,7 @@
-﻿using Units;
-using static System.Net.Mime.MediaTypeNames;
+﻿using Units.BaseClasses;
+using Units.BaseUnits;
 
-namespace Labs320
+namespace Warcraft
 {
     public class ConsoleAction : Units.Action
     {

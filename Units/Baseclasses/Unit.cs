@@ -1,6 +1,6 @@
 ﻿// Turushkin Sergey, 320P, "Warcraft"
 
-namespace Units
+namespace Units.BaseClasses
 {
     public abstract class Unit
     {

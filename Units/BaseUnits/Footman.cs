@@ -1,6 +1,8 @@
 ﻿// Turushkin Sergey, 320P, "Warcraft"
 
-namespace Units
+using Units.BaseClasses;
+
+namespace Units.BaseUnits
 {
     public class Footman : Military
     {
@@ -13,7 +15,7 @@ namespace Units
             action.Attack(unt, damage);
         }
 
-        public void Berserker() 
+        public void Berserker()
         {
             action.Berserker();
         }

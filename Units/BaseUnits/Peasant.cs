@@ -1,10 +1,12 @@
 ﻿// Turushkin Sergey, 320P, "Warcraft"
 
-namespace Units
+using Units.BaseClasses;
+
+namespace Units.BaseUnits
 {
     public class Peasant : Moveble
     {
-        public Peasant(double health, double cost, string name, int lvl, double speed) 
+        public Peasant(double health, double cost, string name, int lvl, double speed)
                 : base(health, cost, name, lvl, speed)
         { }
 
@@ -19,7 +21,7 @@ namespace Units
         }
 
         public override void Move()
-        { 
+        {
             action.Move();
         }
 

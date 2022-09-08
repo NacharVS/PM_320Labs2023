@@ -1,6 +1,8 @@
 ﻿// Turushkin Sergey, 320P, "Warcraft"
 
-namespace Units
+using Units.BaseClasses;
+
+namespace Units.BaseUnits
 {
     public class GuardTower : Unit
     {
