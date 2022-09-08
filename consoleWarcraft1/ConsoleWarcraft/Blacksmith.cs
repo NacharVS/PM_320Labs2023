@@ -26,7 +26,7 @@ namespace ConsoleWarcraft
         public int Timer
         {
             get {
-                System.Threading.Thread.Sleep(upgradeSpeed * 1000);
+                showTimeUpgrade(upgradeSpeed);
                 UpgradeEvent?.Invoke();
                 return upgradeSpeed; 
             }
@@ -42,8 +42,8 @@ namespace ConsoleWarcraft
             {
                 Console.WriteLine($"- upgrade arrow {upgradeSpeed} second...");
                 upgradeSpeed = Timer;
-
                 archer.arrowCount += 2 * level;
+                
             }
         }
 
@@ -53,7 +53,6 @@ namespace ConsoleWarcraft
             {
                 Console.WriteLine($"- upgrade bow {upgradeSpeed} second...");
                 upgradeSpeed = Timer;
-
                 archer.damage += 10 * level;
             }
         }
@@ -64,8 +63,16 @@ namespace ConsoleWarcraft
             {
                 Console.WriteLine($"- upgrade weapon {upgradeSpeed} second...");
                 upgradeSpeed = Timer;
-               
                 military.armor += 10 * level;
+            }
+        }
+
+        static void showTimeUpgrade(int time)
+        {
+            for (int i = 1; i <= time; i++)
+            {
+                System.Threading.Thread.Sleep(1000);
+                Console.WriteLine($"  second: {i}/{time}");
             }
         }
     }

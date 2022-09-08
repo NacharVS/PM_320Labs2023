@@ -94,7 +94,7 @@ namespace ConsoleWarcraft
                     }
                 }
                 count++;
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(500);
             }
 
         }
