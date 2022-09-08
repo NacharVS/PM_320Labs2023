@@ -7,7 +7,6 @@ namespace WarCraft_3_ConsoleEdition
         public bool IsBerserk { get; set; }
         public int StunTime { get; private set; } = 5;
 
-        public delegate void HealthChangedDelegate();
         public delegate void StunDelegate(Movable unit);
 
         public Footman(int damage, int attackSpeed, int armor, int speed, int health,
@@ -19,8 +18,8 @@ namespace WarCraft_3_ConsoleEdition
             if (!IsBerserk)
             {
                 Damage *= 2;
-                HealthChangedEvent?.Invoke();
                 IsBerserk = true;
+                BerserkReport();
             }
         }
 
@@ -30,7 +29,7 @@ namespace WarCraft_3_ConsoleEdition
             StunEvent?.Invoke(unit);
         }
 
-        public void BerserkReport()
+        private void BerserkReport()
         {
             Console.WriteLine($"{Name} used Berserker");
         }
@@ -41,7 +40,6 @@ namespace WarCraft_3_ConsoleEdition
                             $"{unit.Name} for {StunTime} second");
         }
                                                                                     
-        public event HealthChangedDelegate HealthChangedEvent;
         public event StunDelegate StunEvent;
     }
 }

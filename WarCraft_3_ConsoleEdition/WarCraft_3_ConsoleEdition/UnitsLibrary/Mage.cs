@@ -7,6 +7,8 @@ namespace WarCraft_3_ConsoleEdition
         public delegate void FireballDelegate(Unit unit);
         public delegate void BlizzardDelegate(Unit unit);
 
+        public int BlizzardTime { get; private set; } = 7;
+
         public Mage(int range, int mana, int damage, int attackSpeed, int armor,
             int speed, int health, int cost, string name, int level) : base(range,
                 mana, damage, attackSpeed, armor, speed, health, cost, name, level)
@@ -74,7 +76,7 @@ namespace WarCraft_3_ConsoleEdition
         public void BlizzardReport(Unit unit)
         {
             Console.WriteLine($"{Name} froze " +
-                           $"{unit.Name} for 7 second");
+                           $"{unit.Name} for {BlizzardTime} second");
         }
 
         public event FireballDelegate FireballEvent;

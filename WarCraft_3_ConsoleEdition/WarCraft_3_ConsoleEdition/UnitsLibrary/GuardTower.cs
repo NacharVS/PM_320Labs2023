@@ -8,8 +8,6 @@ namespace WarCraft_3_ConsoleEdition
         public int Damage { get; set; }
         public int AttackSpeed { get; set; }
 
-        public delegate void AttackDelegate(Unit unit);
-
         public GuardTower(int range, int damage, int attackSpeed,
             int health, int cost, string name, int level) : base(health, cost, name, level)
         {
@@ -21,7 +19,6 @@ namespace WarCraft_3_ConsoleEdition
         public void Attack(Unit unit)
         {
             unit.Health -= DamageCalculating(unit);
-            AttackEvent?.Invoke(unit);      
         }
 
         public void ReportDamage(Unit unit)
@@ -42,7 +39,5 @@ namespace WarCraft_3_ConsoleEdition
                 return Damage;
             }
         }
-
-        public event AttackDelegate AttackEvent;
     }
 }

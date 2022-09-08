@@ -6,7 +6,7 @@ namespace WarCraft_3_ConsoleEdition
     {
         static Dictionary<string, Unit> unitDict = new Dictionary<string, Unit>()
         {
-            {"GuardTower", new GuardTower(15, 35 ,20 ,300, 150, "GuardTower", 1) },
+            {"GuardTower", new GuardTower(15, 35, 20 ,300, 150, "GuardTower", 1) },
             {"Footman", new Footman(15, 8, 10, 5, 100, 30, "Footman", 1) },
             {"Mage", new Mage(20, 100, 10, 6, 10, 5, 80, 45, "Mage", 1) },
             {"Dragon", new Dragon(30, 300, 20, 15, 20, 5, 200, 100, "Dragon", 1) },

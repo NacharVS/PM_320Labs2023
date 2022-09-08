@@ -9,6 +9,9 @@ static public class Game
 
     static public void StartGame(Unit firstUnit, Unit secondUnit)
 	{
+        firstUnit.HealthChangedEvent += HealthChangeReport;
+        secondUnit.HealthChangedEvent += HealthChangeReport;
+
         EventsDistributing(firstUnit);
         EventsDistributing(secondUnit);
 
@@ -145,45 +148,31 @@ static public class Game
 
     }
 
+    static private void HealthChangeReport(int value, Unit unit)
+    {
+        if (value < 0)
+        {
+            Console.WriteLine($"{unit.Name} took {-value} damage");
+        }
+        else
+        {
+            Console.WriteLine($"{unit.Name} restored {value} hp");
+        }
+    }
+
+    
+
     static private void EventsDistributing(Unit unit)
     {
         switch (unit.GetType().Name.ToString())
         {
-            case "GuardTower":
-                ((GuardTower)unit).AttackEvent 
-                    += ((GuardTower)unit).ReportDamage;
-                break;
-
-            case "Military":
-                ((Military)unit).AttackEvent 
-                    += ((Military)unit).ReportDamage;
-                break;
-
             case "Footman":
-                ((Footman)unit).AttackEvent 
-                    += ((Footman)unit).ReportDamage;
-
-                 ((Footman)unit).HealthChangedEvent 
-                    += ((Footman)unit).BerserkReport;
 
                 ((Footman)unit).StunEvent 
                     += ((Footman)unit).StunReport;
                 break;
 
-            case "Range":
-               ((Range)unit).AttackEvent 
-                    += ((Range)unit).ReportDamage;
-                break;
-
-            case "Archer":
-                ((Archer)unit).AttackEvent 
-                    += ((Archer)unit).ReportDamage;
-                break;
-
             case "Mage":
-               ((Mage)unit).AttackEvent 
-                    += ((Mage)unit).ReportDamage;
-
                  ((Mage)unit).FireballEvent 
                     += ((Mage)unit).FireballReport;
 
@@ -192,9 +181,6 @@ static public class Game
                 break;
 
             case "Dragon":
-               ((Dragon)unit).AttackEvent 
-                    += ((Dragon)unit).ReportDamage;
-
                 ((Dragon)unit).FireBreathEvent 
                     += ((Dragon)unit).FireBreathReport;
                 break;
