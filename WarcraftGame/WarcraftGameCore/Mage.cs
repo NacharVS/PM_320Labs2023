@@ -8,23 +8,20 @@
 
         public void FireBall(Unit unit)
         {
-            if (this._mana >= 100)
-            {
-                this.Attack(unit, 900);
-                this._mana -= 100;
-            }
-            else
-            {
-                Log("Not have mana!");
-            }
+            SuperAttack(900, 100, unit);
         }
 
         public void Blizzerd(Unit unit)
         {
-            if (this._mana >= 150)
+            SuperAttack(1200, 150, unit);
+        }
+
+        private void SuperAttack(double damage, int mana, Unit unit)
+        {
+            if (this._mana >= mana)
             {
-                this.Attack(unit, 1200);
-                this._mana -= 150;
+                this.Attack(unit, damage);
+                this._mana -= mana;
             }
             else
             {
