@@ -10,10 +10,8 @@ namespace WarCraft
     {
         public int Speed { get; set; }
 
-        public Moveable(string name, int health, 
-            int cost, int lvl, bool isDestroyed, 
-            int speed) : base(name, health, cost, 
-                lvl, isDestroyed)
+        public Moveable(string name, int health, int cost,
+            int speed) : base(name, health, cost)
         {
             this.Speed = speed;
         }

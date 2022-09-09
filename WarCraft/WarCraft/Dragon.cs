@@ -11,9 +11,8 @@ namespace WarCraft
         public static int FireBreathLine = 100;
 
         public Dragon(string name, int health, int cost, 
-            int lvl, bool isDestroyed, int speed, int damage,
-            int attackSpeed, int armor, int range, int mana) : 
-            base(name, health, cost, lvl, isDestroyed, speed, 
+            int speed, int damage, int attackSpeed, int armor,
+            int range, int mana) : base(name, health, cost, speed, 
                 damage, attackSpeed, armor, range, mana)
         {
         }
@@ -26,7 +25,7 @@ namespace WarCraft
             }
         }
 
-        public override string Attack(int number)
+        public override string Attack(int number, Military player1, Military player2)
         {
             return $"Dragon attacks with damage {Damage}";
         }

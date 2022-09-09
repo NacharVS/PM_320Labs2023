@@ -8,21 +8,18 @@ namespace WarCraft
 {
     class Footman : Military
     {
-        public Footman(string name, int health, 
-            int cost, int lvl, bool isDestroyed, 
-            int speed, int damage, int attackSpeed, 
-            int armor) : base(name, health, cost, lvl,
-                isDestroyed, speed, damage, attackSpeed, 
-                armor)
+        public Footman(string name, int health, int cost, 
+            int speed, int damage, int attackSpeed, int armor) : 
+            base(name, health, cost, speed, damage, attackSpeed, armor)
         {
-            HealthChangedEvent += Berserker;
+            /*HealthChangedEvent += Berserker;*/
         }
 
         public void Berserker() { }
 
         public void Stun() { }
 
-        public override string Attack(int number)
+        public override string Attack(int number, Military player1, Military player2)
         {
             return $"Footman attacks with damage {Damage}";
         }

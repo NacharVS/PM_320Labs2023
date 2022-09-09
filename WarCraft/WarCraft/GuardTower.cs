@@ -12,17 +12,16 @@ namespace WarCraft
         public int Damage { get; set; }
         public int AttackSpeed { get; set; }
 
-        public GuardTower(string name, int health,
-            int cost, int lvl, bool isDestroyed, 
-            int range, int damage, int attackSpeed) :
-            base(name, health, cost, lvl, isDestroyed)
+        public GuardTower(string name, int health, int cost, 
+            int range, int damage, int attackSpeed) : 
+            base(name, health, cost)
         {
             this.Range = range;
             this.Damage = damage;
             this.AttackSpeed = attackSpeed;
         }
 
-        public string Attack() 
+        public string Attack()
         {
             return $"Attack";
         }

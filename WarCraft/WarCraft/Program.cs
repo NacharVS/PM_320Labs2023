@@ -11,11 +11,11 @@ namespace WarCraft
     {
         static void Main(string[] args)
         {
-            var footman = new Footman("Footman", 100, 10, 1, false, 10, 10, 100, 1000);
-            var mage = new Mage("Mage", 200, 20, 1, false, 20, 20, 200, 2000, 20, 10);
-            var dragon = new Dragon("Dragon", 300, 30, 1, false, 30, 30, 300, 3000, 30, 20);
-            var archer = new Archer("Archer", 200, 20, 1, false, 20, 20, 200, 2000, 20);
-            var blacksmith = new Blacksmith("Blacksmith", 100, 100, 1, false);
+            var footman = new Footman("Footman", 100, 10, 10, 10, 100, 1000);
+            var mage = new Mage("Mage", 200, 20, 20, 20, 200, 2000, 20, 10);
+            var dragon = new Dragon("Dragon", 300, 30, 30, 30, 300, 3000, 30, 20);
+            var archer = new Archer("Archer", 200, 20, 20, 20, 200, 2000, 20);
+            var blacksmith = new Blacksmith("Blacksmith", 100, 100);
             var players = new List<Military> { footman, mage, dragon, archer };
             var random = new Random();
 
@@ -36,11 +36,13 @@ namespace WarCraft
 
             if (player1 is Archer pers1)
             {
-                Console.WriteLine(blacksmith.ArcherUpgrade(pers1)); 
+                Console.WriteLine(blacksmith.ArcherUpgrade(pers1));
+                Console.WriteLine();
             }
             if (player2 is Archer pers2)
             {
                 Console.WriteLine(blacksmith.ArcherUpgrade(pers2));
+                Console.WriteLine();
             }
 
             while (!player1.Death() && !player2.Death())
@@ -55,7 +57,7 @@ namespace WarCraft
                 switch (attack)
                 {
                     case 1:
-                        Console.WriteLine(player1.Attack(attack));
+                        Console.WriteLine(player1.Attack(attack, player2, player1));
                         Thread.Sleep(500);
 
                         switch (hit)
@@ -70,7 +72,7 @@ namespace WarCraft
                         }
                         break;
                     case 2:
-                        Console.WriteLine(player2.Attack(attack));
+                        Console.WriteLine(player2.Attack(attack, player1, player2));
                         Thread.Sleep(500);
 
                         switch (hit)

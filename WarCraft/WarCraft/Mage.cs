@@ -12,12 +12,10 @@ namespace WarCraft
         public static int BlizzardLine = 20;
         public static int HealLine = 30;
 
-        public Mage(string name, int health, 
-            int cost, int lvl, bool isDestroyed,
-            int speed, int damage, int attackSpeed, 
-            int armor, int range, int mana) : base(name, 
-                health, cost, lvl, isDestroyed, speed, damage, 
-                attackSpeed, armor, range, mana)
+        public Mage(string name, int health, int cost,
+            int speed, int damage, int attackSpeed, int armor,
+            int range, int mana) : base(name, health, cost, 
+                speed, damage, attackSpeed, armor, range, mana)
         {
         }
 
@@ -45,10 +43,10 @@ namespace WarCraft
             }
         }
 
-        public override string Attack (int number)
+        public override string Attack (int number, Military player1, Military player2)
         {
             var random = new Random();
-            int attack = random.Next(1, 5);
+            int attack = random.Next(1, 10);
 
             switch (attack)
             {

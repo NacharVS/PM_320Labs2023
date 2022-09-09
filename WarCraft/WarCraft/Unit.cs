@@ -9,22 +9,33 @@ namespace WarCraft
     class Unit
     {
         public string Name { get; set; }
-        public int Health { get; set; }
+
+        private int _health;
+        public int Health
+        {
+            get { return _health; }
+            set 
+            {
+                _health = value; 
+                HealthChangedEvent?.Invoke(_health, MaxHealth);
+            }
+        }
+        public int MaxHealth { get; set; }
         public int Cost { get; set; }
         public int Lvl { get; set; }
         public bool IsDestroyed { get; set; }
 
-        public delegate void HealthChangedDelegate();
+        public delegate void HealthChangedDelegate(int healthValue, int maxHealthValue);
         public event HealthChangedDelegate HealthChangedEvent;
 
-        public Unit(string name, int health, int cost, 
-            int lvl, bool isDestroyed)
+        public Unit(string name, int health, int cost)
         {
             this.Name = name;
             this.Health = health;
+            this.MaxHealth = health;
             this.Cost = cost;
-            this.Lvl = lvl;
-            this.IsDestroyed = isDestroyed;
+            this.Lvl = 1;
+            this.IsDestroyed = false;
         }
 
         public bool Death()
@@ -33,7 +44,7 @@ namespace WarCraft
             {
                 Health = 0;
                 IsDestroyed = true;
-                HealthChangedEvent?.Invoke();
+                HealthChangedEvent?.Invoke(_health, MaxHealth);
                 return true;
             }
             return false;

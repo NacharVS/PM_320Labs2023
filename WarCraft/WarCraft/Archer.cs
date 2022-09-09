@@ -11,10 +11,9 @@ namespace WarCraft
         public int ArrowCount { get; set; } 
 
         public Archer(string name, int health, int cost,
-            int lvl, bool isDestroyed, int speed, int damage, 
-            int attackSpeed, int armor, int arrowCount) : base(name, health, 
-                cost, lvl, isDestroyed, speed, damage, 
-                attackSpeed, armor)
+            int speed, int damage, int attackSpeed, int armor, 
+            int arrowCount) : base(name, health, cost, speed, 
+                damage, attackSpeed, armor)
         {
             this.ArrowCount = arrowCount;
         }
@@ -24,7 +23,7 @@ namespace WarCraft
             ArrowCount += value;
         }
 
-        public override string Attack(int number) 
+        public override string Attack(int number, Military player1, Military player2) 
         {
             ArrowCount--;
             return $"Archer attacks with damage {Damage}";

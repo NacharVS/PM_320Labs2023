@@ -14,8 +14,7 @@ namespace WarCraft
         public static int BowCount = 5;
 
         public Blacksmith(string name, int health,
-            int cost, int lvl, bool isDestroyed) :
-            base(name, health, cost, lvl, isDestroyed)
+            int cost) : base(name, health, cost)
         {
         }
 
@@ -68,6 +67,7 @@ namespace WarCraft
                 {
                     case 1:
                         UpgradeBow(player);
+                        return $"Archer has upgraded the bow";
                         break;
                     case 2:
                         return $"Archer hasn't upgraded the bow";

@@ -13,17 +13,16 @@ namespace WarCraft
         public int Armor { get; set; }
 
         public Military(string name, int health, 
-            int cost, int lvl, bool isDestroyed, 
-            int speed, int damage, int attackSpeed, 
-            int armor) : base(name, health, cost, 
-                lvl, isDestroyed, speed)
+            int cost, int speed, int damage, 
+            int attackSpeed, int armor) : 
+            base(name, health, cost, speed)
         {
             this.Damage = damage;
             this.AttackSpeed = attackSpeed;
             this.Armor = armor;
         }
 
-        public virtual string Attack(int number) 
+        public virtual string Attack(int number, Military player1, Military player2) 
         {
             return $"Attack";
         }
