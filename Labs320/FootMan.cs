@@ -8,7 +8,7 @@
     {
         base.Attack(unit);
         Stun(unit);
-        if (health <= maxHealth / 4)
+        if (this.health <= maxHealth / 4)
         {
             Berserker();
         }

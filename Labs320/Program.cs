@@ -4,9 +4,7 @@ FootMan fmEnemy = new FootMan(10, 500, "juga", 60, 35, 30, 8);
 while (!mage.isDestroyed && !fmEnemy.isDestroyed)
 {
     mage.Attack(fmEnemy);
-    Console.WriteLine();
     fmEnemy.Attack(mage);
-    Console.WriteLine();
 }
 
 if (!mage.isDestroyed)

@@ -42,11 +42,6 @@
 
         else if (mana < 10)
         {
-            Console.WriteLine($"{this.name}: НЕ ХВАТАЕТ МАНЫ!!!!");
-        }
-
-        else
-        {
             base.Attack(unit);
         }
     }
