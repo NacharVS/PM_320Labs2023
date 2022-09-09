@@ -20,7 +20,10 @@ namespace ConsoleWarcraft
             this.unit2 = unit2;
 
             unit1.HealthChangedEvent += showHealth;
+            unit1.HealthChangedEvent += isDestroyed;
             unit2.HealthChangedEvent += showHealth;
+            unit2.HealthChangedEvent += isDestroyed;
+
         }
 
         public void run()
@@ -59,11 +62,10 @@ namespace ConsoleWarcraft
 
                     if (unit2.isDestroyed())
                     {
-                        Console.WriteLine(unit2.name + " is destroy!");
                         break;
                     }
-                   // showAttack(unit1);
-                   // showHealth(unit2);
+                    // showAttack(unit1);
+                    // showHealth(unit2);
                 }
                 else
                 {
@@ -89,12 +91,11 @@ namespace ConsoleWarcraft
                             break;
                     }
 
-                   // showAttack(unit2);
-                   // showHealth(unit1);
+                    // showAttack(unit2);
+                    // showHealth(unit1);
 
                     if (unit1.isDestroyed())
                     {
-                        Console.WriteLine(unit1.name + " is destroy!");
                         break;
                     }
                 }
@@ -103,6 +104,15 @@ namespace ConsoleWarcraft
             }
 
         }
+
+        public void isDestroyed(Unit unit)
+        {
+            if (unit.health < 0)
+            {
+                Console.WriteLine($"{unit.name} is destroy!");
+            }
+        }
+
 
         public static void showAttack(Unit unit)
         {

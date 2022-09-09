@@ -47,8 +47,8 @@ namespace ConsoleWarcraft
                 Console.Write("Player 2: choose hero: ");
                 player2 = int.Parse(Console.ReadLine()) - 1;
 
-                blacksmith.UpgradeWeapon();
-                blacksmith.UpgradeBow();
+               //  blacksmith.UpgradeWeapon();
+                // blacksmith.UpgradeBow();
 
                 GameLogic game = new GameLogic(units[player1], units[player2]);
                 game.run();

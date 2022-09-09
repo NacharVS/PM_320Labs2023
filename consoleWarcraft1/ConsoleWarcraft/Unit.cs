@@ -23,6 +23,7 @@ namespace ConsoleWarcraft
         public void TakeDamage(Unit unit, double damage)
         {
             unit.Health -= damage;
+            Console.WriteLine("damage");
         }
 
         public virtual bool isDestroyed()

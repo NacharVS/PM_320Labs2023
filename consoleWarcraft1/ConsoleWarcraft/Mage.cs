@@ -75,11 +75,11 @@ namespace ConsoleWarcraft
         {
             if (unit is Military military)
             {
-                military.health = military.health + military.armor - damage;
+                military.Health = military.health + military.armor - damage;
             }
             else
             {
-                unit.health -= damage;
+                unit.Health -= damage;
             }
         }
     }

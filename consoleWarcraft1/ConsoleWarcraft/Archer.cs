@@ -26,7 +26,7 @@ namespace ConsoleWarcraft
         public override void attack(Unit unit)
         {
             damage = (attackSpeed + level * 0.2);
-            unit.health -= damage;
+            unit.Health -= damage;
         }
     }
 }
