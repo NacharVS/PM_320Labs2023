@@ -5,10 +5,10 @@
         private int _range;
         protected int _mana;
 
-        protected Range(int range, int mana, double damage, 
+        protected Range(Logger logger, int range, int mana, double damage, 
             int attackSpeed, double armor, double speed, 
             string name, double health, int cost, int level, double maxHp) 
-            : base (damage,attackSpeed, armor, speed,
+            : base (logger, damage,attackSpeed, armor, speed,
             name, health, cost, level, maxHp)
         {
             _range = range;

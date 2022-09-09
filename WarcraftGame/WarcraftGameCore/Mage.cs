@@ -2,8 +2,9 @@
 {
     public class Mage : Range
     {
-        public Mage(string name) : base(3, 200, 1000, 3, 800, 40, 
-                                name, 1500, 500, 2, 2000) {}
+        public Mage(Logger logger, string name) : 
+            base(logger, 3, 200, 1000, 3, 800, 40, 
+                 name, 1500, 500, 2, 2000) {}
 
         public void FireBall(Unit unit)
         {
@@ -14,7 +15,7 @@
             }
             else
             {
-                Console.WriteLine("Not have mana!");
+                Log("Not have mana!");
             }
         }
 
@@ -27,7 +28,7 @@
             }
             else
             {
-                Console.WriteLine("Not have mana!");
+                Log("Not have mana!");
             }
         }
 
@@ -52,7 +53,7 @@
             }
             else
             {
-                Console.WriteLine("Not have mana!");
+                Log("Not have mana!");
             }
         }
     }

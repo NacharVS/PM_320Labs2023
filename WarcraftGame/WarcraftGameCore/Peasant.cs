@@ -2,7 +2,7 @@
 {
     public class Peasant : Moveble
     {
-        public Peasant(string name) : base(20, name, 2000, 1500,2, 2500) { }
+        public Peasant(Logger logger, string name) : base(logger, 20, name, 2000, 1500,2, 2500) { }
 
         public void Mining()
         {
@@ -11,7 +11,7 @@
                 return;
             }
 
-            Console.WriteLine($"{this._name} is mining");
+            Log($"{this._name} is mining");
         }
 
         public void Choping()
@@ -21,7 +21,7 @@
                 return;
             }
 
-            Console.WriteLine($"{this._name} is choping");
+            Log($"{this._name} is choping");
         }
     }
 }

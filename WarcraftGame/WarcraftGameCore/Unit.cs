@@ -2,6 +2,7 @@
 {
     public abstract class Unit
     {
+        private Logger _logger;
         protected double _health;
         protected int _cost;
         protected String _name;
@@ -10,8 +11,10 @@
         protected double _maxHp;
         protected delegate void healthChangedDelegate(EventArgs args);
 
-        protected Unit(string name, double health, int cost, int level, double maxHp)
+        public Unit(Logger logger, string name, double health, 
+                    int cost, int level, double maxHp)
         {
+            _logger = logger;
             _name = name;
             _health = health;
             _cost = cost;
@@ -19,6 +22,11 @@
             _maxHp = maxHp;
 
             healthChangedEvent += CheckHpChange;
+        }
+
+        protected void Log(string message)
+        {
+            _logger.Log(message);
         }
 
         private void CheckHpChange(EventArgs args)
@@ -29,11 +37,11 @@
 
                 if (changedHp > 0)
                 {
-                    Console.WriteLine($"{this.GetName()} was healed. +{changedHp}hp");
+                    Log($"{this.GetName()} was healed. +{changedHp}hp");
                 }
                 else
                 {
-                    Console.WriteLine($"{this.GetName()} was damaged. {changedHp}hp");
+                    Log($"{this.GetName()} was damaged. {changedHp}hp");
                 }
             } 
         }
@@ -82,7 +90,7 @@
         {
             if (this._isDestroyed)
             {
-                Console.WriteLine($"The unit {this._name} is died!");
+                Log($"The unit {this._name} is died!");
                 return true;
             }
             return false;

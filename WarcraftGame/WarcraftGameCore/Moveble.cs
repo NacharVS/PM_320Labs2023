@@ -4,9 +4,9 @@
     {
         private double _speed;
 
-        protected Moveble(double speed, string name, double health, 
+        protected Moveble(Logger logger, double speed, string name, double health, 
             int cost, int level, double maxHp) 
-            : base(name, health, cost, level, maxHp)
+            : base(logger, name, health, cost, level, maxHp)
         {
             _speed = speed;
         }
@@ -18,7 +18,7 @@
                 return;
             }
 
-            Console.WriteLine($"{this._name} move!Speed: {_speed}");
+            Log($"{this._name} move!Speed: {_speed}");
         }
     }
 }

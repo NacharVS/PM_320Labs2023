@@ -6,9 +6,9 @@
         protected int _attackSpeed;
         protected double _armor;
 
-        protected Military(double damage, int attackSpeed, double armor, 
+        protected Military(Logger logger, double damage, int attackSpeed, double armor, 
             double speed, string name, double health, int cost, int level, double maxHp)
-            : base (speed, name, health, cost, level, maxHp)
+            : base (logger, speed, name, health, cost, level, maxHp)
         {
             _damage = damage;
             _attackSpeed = attackSpeed;
@@ -54,7 +54,7 @@
         {
             if (unit == this)
             {
-                Console.WriteLine("You can`t attack yourself!!");
+                Log("You can`t attack yourself!!");
                 return;
             }
 
@@ -78,15 +78,15 @@
                 {
                     militaryUnit.SetArmor(militaryUnit.GetArmor() - damage * 0.1);
                     militaryUnit.SetHealth(militaryUnit.GetHealth() - damage * 0.2);
-                    Console.WriteLine($"{this._name} attacked " +
-                        $"{unit.GetName()},Health: {militaryUnit.GetHealth()}, " +
+                    Log($"{this._name} attacked {unit.GetName()}," +
+                        $"Health: {militaryUnit.GetHealth()}, " +
                         $"Armor: {militaryUnit.GetArmor()}");
                     return;
                 }
             }
 
             unit.SetHealth(unit.GetHealth() - damage);
-            Console.WriteLine($"{this._name} attacked {unit.GetName()}," +
+            Log($"{this._name} attacked {unit.GetName()}," +
                 $"Health: {unit.GetHealth()}");
         }     
 
