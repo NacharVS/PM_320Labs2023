@@ -14,25 +14,31 @@
 
     public virtual void Attack(Unit unit)
     {
-        if (unit.IsDestroyed() || this.isDestroyed)
+        while (!IsDestroyed() && !unit.IsDestroyed())
         {
-            Console.WriteLine("Game over");
-            return;
-        }
+            Thread.Sleep(attackSpeed);
 
-        if (isStun)
-        {
-            Console.WriteLine($"{name} scip this move because he's stunned");
-            isStun = false;
-            return;
+            if (this.IsDestroyed() || unit.IsDestroyed())
+            {
+                return;
+            }
+            else
+            {
+                unit.HealthChanged(damage);
+            }
         }
-
-        unit.GetDamage(damage);
     }
 
-    public override void GetDamage(int dmg)
+    public override void HealthChanged(int dmg)
     {
-        base.GetDamage(dmg - armor / 2);
+        if (dmg < armor / 2)
+        {
+            base.HealthChanged(0);
+        }
+        else
+        {
+            base.HealthChanged(dmg - armor / 2);
+        }
     }
 
     public override void UpgradeArmor()

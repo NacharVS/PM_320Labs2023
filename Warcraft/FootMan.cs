@@ -9,7 +9,7 @@
 
     private bool berserkMode;
 
-    public void Berserker()
+    public void Berserker(int _)
     {
         if (isDestroyed)
         {
@@ -23,7 +23,6 @@
             damage -= damage / 5;
             Console.WriteLine($"{name} not in berserker mode");
         }
-
         else if (!berserkMode && health < maxHealth / 3)
         {
             attackSpeed += attackSpeed / 2;
@@ -37,7 +36,7 @@
     public void Stun(Unit unit)
     {
         Random rnd = new Random();
-        int chance = rnd.Next(1, 11);    //chance to stun is 10% 
+        int chance = rnd.Next(1, 5);    //chance to stun is 25% 
 
         if (chance == 1)
         {

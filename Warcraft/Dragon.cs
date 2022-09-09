@@ -11,15 +11,26 @@
     public override void Attack(Unit unit)
     {
         Random rnd = new Random();
-        int chance = rnd.Next(1, 3);
 
-        if (chance == 1 && mana >= 10)  //fire breach need 10 mana to use
+        while (!IsDestroyed() && !unit.IsDestroyed())
         {
-            FireBreach(unit);
-        }
-        else
-        {
-            base.Attack(unit);
+            Thread.Sleep(attackSpeed);
+
+            if (IsDestroyed() || unit.IsDestroyed())
+            {
+                return;
+            }
+
+            int chance = rnd.Next(1, 3);
+
+            if (chance == 1 && mana >= 10)  //fire breach need 10 mana to use
+            {
+                FireBreach(unit);
+            }
+            else
+            {
+                base.Attack(unit);
+            }
         }
     }
 }

@@ -17,30 +17,45 @@
     public void Heal()
     {
         
-        GetHeal(maxHealth / 10);  //unit will hill to 10% by max health
+        HealthChanged(0 - (maxHealth / 10));  //unit will hill to 10% by max health
         mana -= 15;
     }
 
     public override void Attack(Unit unit)
     {
         Random rnd = new Random();
-        int chance = rnd.Next(1, 5);
 
-        if (chance == 1 && mana >= 20)       //fire ball need 20 mana to use
+        while (!IsDestroyed() && !unit.IsDestroyed())
         {
-            FireBall(unit);
-        }
-        else if (chance == 2 && mana >= 15)  //blizzard need 15 mana to use
-        {
-            Blizzard(unit);
-        }
-        else if(chance == 3 && mana >= 15)   //heal need 15 mana to use
-        {
-            Heal();
-        }
-        else
-        {
-            base.Attack(unit);
+            Thread.Sleep(attackSpeed);
+
+            if (IsDestroyed() || unit.IsDestroyed())
+            {
+                return;
+            }
+
+            int chance = rnd.Next(1, 5);
+
+            if (chance == 1 && mana >= 20)       //fire ball need 20 mana to use
+            {
+                FireBall(unit);
+            }
+            else if (chance == 2 && mana >= 15)  //blizzard need 15 mana to use
+            {
+                Blizzard(unit);
+            }
+            else if (chance == 3 && mana >= 15)   //heal need 15 mana to use
+            {
+                Heal();
+            }
+            else if (chance == 4)
+            {
+                base.Attack(unit);
+            }
+            else
+            {
+                Console.WriteLine("Need mana");
+            }
         }
     }
 }
