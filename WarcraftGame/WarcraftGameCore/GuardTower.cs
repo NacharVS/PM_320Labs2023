@@ -36,7 +36,7 @@
                 return;
             }
 
-            if (this.CheckDied() || unit.CheckDied())
+            if (CheckDied() || unit.CheckDied())
             {
                 return;
             }
@@ -56,7 +56,7 @@
                 {
                     militaryUnit.SetArmor(militaryUnit.GetArmor() - damage * 0.1);
                     militaryUnit.SetHealth(militaryUnit.GetHealth() - damage * 0.2);
-                    Log($"{this._name} attacked {unit.GetName()}," +
+                    Log($"{GetName()} attacked {unit.GetName()}," +
                         $"Health: {militaryUnit.GetHealth()}, " +
                         $"Armor: {militaryUnit.GetArmor()}");
                     return;
@@ -64,7 +64,7 @@
             }
 
             unit.SetHealth(unit.GetHealth() - damage);
-            Log($"{this._name} attacked {unit.GetName()}," +
+            Log($"{GetName()} attacked {unit.GetName()}," +
                 $"Health: {unit.GetHealth()}");
         }
     }

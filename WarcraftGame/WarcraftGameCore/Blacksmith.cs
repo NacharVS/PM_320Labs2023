@@ -2,7 +2,8 @@
 {
     public class Blacksmith : Moveble
     {
-        public Blacksmith(Logger logger, string name) : base(logger, 20, name, 2000, 1100, 2, 2500) { }
+        public Blacksmith(Logger logger, string name) : 
+          base(logger, 20, name, 2000, 1100, 2, 2500) { }
 
         public void UpgradeArmor(List<Unit> units)
         {

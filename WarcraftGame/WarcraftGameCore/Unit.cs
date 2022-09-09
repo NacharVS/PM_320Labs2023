@@ -3,12 +3,12 @@
     public abstract class Unit
     {
         private Logger _logger;
-        protected double _health;
-        protected int _cost;
-        protected String _name;
-        protected int _level;
-        protected bool _isDestroyed;
-        protected double _maxHp;
+        private double _health;
+        private int _cost;
+        private String _name;
+        private int _level;
+        private bool _isDestroyed;
+        private double _maxHp;
         protected delegate void healthChangedDelegate(EventArgs args);
 
         public Unit(Logger logger, string name, double health, 
@@ -88,9 +88,9 @@
 
         public bool CheckDied()
         {
-            if (this._isDestroyed)
+            if (_isDestroyed)
             {
-                Log($"The unit {this._name} is died!");
+                Log($"The unit {_name} is died!");
                 return true;
             }
             return false;

@@ -18,10 +18,10 @@
 
         private void SuperAttack(double damage, int mana, Unit unit)
         {
-            if (this._mana >= mana)
+            if (GetMana() >= mana)
             {
                 this.Attack(unit, damage);
-                this._mana -= mana;
+                SetMana(GetMana() - mana);
             }
             else
             {
@@ -31,12 +31,12 @@
 
         public void Heal(Unit unit)
         {
-            if (this.CheckDied() || unit.CheckDied())
+            if (CheckDied() || unit.CheckDied())
             {
                 return;
             }
 
-            if (this._mana >= 150)
+            if (GetMana() >= 150)
             {
                 if (unit.GetHealth() + 800 <= unit.GetMaxHp())
                 {
@@ -46,7 +46,7 @@
                 {
                     unit.SetHealth(unit.GetMaxHp());
                 }
-                this._mana -= 150;
+                SetMana(GetMana() - 150);
             }
             else
             {

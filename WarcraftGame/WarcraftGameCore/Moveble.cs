@@ -13,12 +13,12 @@
 
         public void Move()
         {
-            if (this.CheckDied())
+            if (CheckDied())
             {
                 return;
             }
 
-            Log($"{this._name} move!Speed: {_speed}");
+            Log($"{GetName()} move!Speed: {_speed}");
         }
     }
 }

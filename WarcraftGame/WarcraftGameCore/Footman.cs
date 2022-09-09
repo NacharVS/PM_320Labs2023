@@ -12,27 +12,27 @@
 
         private void Berserker(EventArgs args)
         {
-            if (!this._isBerserkerActivated && 
-                this.GetHealth() < this.GetMaxHp() * 0.2)
+            if (!_isBerserkerActivated && 
+                GetHealth() < GetMaxHp() * 0.2)
             {
-                this._damage *= 2;
-                this._isBerserkerActivated = true;
+                SetDamage(GetDamage() * 2);
+                _isBerserkerActivated = true;
 
-                Log($"{this.GetName()}: berserker activated!");
+                Log($"{GetName()}: berserker activated!");
             }
-            else if (this._isBerserkerActivated && 
-                this.GetHealth() > this.GetMaxHp() * 0.2)
+            else if (_isBerserkerActivated && 
+                GetHealth() > GetMaxHp() * 0.2)
             {
-                this._damage /= 2;
-                this._isBerserkerActivated = false;
+                SetDamage(GetDamage() / 2);
+                _isBerserkerActivated = false;
 
-                Log($"{this.GetName()}: berserker deactivated!");
+                Log($"{GetName()}: berserker deactivated!");
             }
         }
 
         public void Stun()
         {
-            if (this.CheckDied())
+            if (CheckDied())
             {
                 return;
             }

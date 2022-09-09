@@ -4,8 +4,8 @@
     {
         private int _arrowCount;
 
-        public Archer(Logger logger, string name) : base(logger, 3, 200, 300, 2, 800, 20, 
-                                        name, 1800, 1000, 2, 2000)
+        public Archer(Logger logger, string name) : 
+        base(logger, 3, 200, 300, 2, 800, 20, name, 1800, 1000, 2, 2000)
         {
             _arrowCount = 20;
         }
@@ -25,12 +25,12 @@
 
         public void UpgradeArrow()
         {
-            if (this.CheckDied())
+            if (CheckDied())
             {
                 return;
             }
 
-            this._damage += 200;
+            SetDamage(GetDamage() + 200);
         }
 
         public void UpgradeBow()
@@ -40,7 +40,7 @@
                 return;
             }
 
-            this._arrowCount += 10;
+            _arrowCount += 10;
         }
     }
 }

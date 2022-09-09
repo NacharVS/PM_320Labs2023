@@ -3,7 +3,7 @@
     public abstract class Range : Military
     {
         private int _range;
-        protected int _mana;
+        private int _mana;
 
         protected Range(Logger logger, int range, int mana, double damage, 
             int attackSpeed, double armor, double speed, 
@@ -13,6 +13,23 @@
         {
             _range = range;
             _mana = mana;
+        }
+
+        public int GetMana()
+        {
+            return _mana;
+        }
+
+        public void SetMana(int mana)
+        {
+            if (mana <= 0)
+            {
+                _mana = 0;
+            }
+            else
+            {
+                _mana = mana;
+            }
         }
     }
 }

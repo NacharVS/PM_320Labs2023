@@ -2,9 +2,9 @@
 {
     public abstract class Military : Moveble
     {
-        protected double _damage;
-        protected int _attackSpeed;
-        protected double _armor;
+        private double _damage;
+        private int _attackSpeed;
+        private double _armor;
 
         protected Military(Logger logger, double damage, int attackSpeed, double armor, 
             double speed, string name, double health, int cost, int level, double maxHp)
@@ -13,6 +13,23 @@
             _damage = damage;
             _attackSpeed = attackSpeed;
             _armor = armor;
+        }
+
+        public void SetDamage(double damage)
+        {
+            if (damage <= 0)
+            {
+                _damage = 0;
+            }
+            else
+            {
+                _damage = damage;
+            }
+        }
+
+        public double GetDamage()
+        {
+            return _damage;
         }
 
         public void SetAttackedSpeed(int attackedSpeed)
@@ -32,7 +49,7 @@
 
         public void SetArmor(double armor)
         {
-            if (this.CheckDied())
+            if (CheckDied())
             {
                 return;
             }
@@ -58,7 +75,7 @@
                 return;
             }
 
-            if (this.CheckDied() || unit.CheckDied())
+            if (CheckDied() || unit.CheckDied())
             {
                 return;
             }
@@ -78,7 +95,7 @@
                 {
                     militaryUnit.SetArmor(militaryUnit.GetArmor() - damage * 0.1);
                     militaryUnit.SetHealth(militaryUnit.GetHealth() - damage * 0.2);
-                    Log($"{this._name} attacked {unit.GetName()}," +
+                    Log($"{GetName()} attacked {unit.GetName()}," +
                         $"Health: {militaryUnit.GetHealth()}, " +
                         $"Armor: {militaryUnit.GetArmor()}");
                     return;
@@ -86,13 +103,13 @@
             }
 
             unit.SetHealth(unit.GetHealth() - damage);
-            Log($"{this._name} attacked {unit.GetName()}," +
+            Log($"{GetName()} attacked {unit.GetName()}," +
                 $"Health: {unit.GetHealth()}");
         }     
 
         public void UpgradeArmor()
         {
-            if (this.CheckDied())
+            if (CheckDied())
             {
                 return;
             }
