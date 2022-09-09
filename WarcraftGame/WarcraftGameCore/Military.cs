@@ -5,6 +5,7 @@
         private double _damage;
         private int _attackSpeed;
         private double _armor;
+        private double _armorUpgradeAmount = 500;
 
         protected Military(Logger logger, double damage, int attackSpeed, double armor, 
             double speed, string name, double health, int cost, int level, double maxHp)
@@ -114,7 +115,7 @@
                 return;
             }
 
-            this._armor += 500;
+            this._armor += _armorUpgradeAmount;
         }
     }
 }
