@@ -15,12 +15,16 @@ namespace ConsoleWarcraft
         String name = "Blacksmith";
         int level = 0;
         int upgradeSpeed = 0;
+        List<Unit> unitsList = new List<Unit> { };
 
-        public Blacksmith(String name, int level, int upgradeSpeed, int health, int cost)
+        public Blacksmith(String name, int level, int upgradeSpeed, int health, int cost, List<Unit> unitsList)
         {
                 this.name = name;
                 this.level = level;
                 this.upgradeSpeed = upgradeSpeed;
+                this.health = health;
+                this.cost = cost;
+                this.unitsList = unitsList;
         }
 
         public int Timer
@@ -36,34 +40,44 @@ namespace ConsoleWarcraft
             }
         }
 
-        public void UpgradeArrmor(Unit unit)
+        public void UpgradeArmor()
         {
-            if (unit is Archer archer)
+
+         foreach(var hero in unitsList)
             {
-                Console.WriteLine($"- upgrade arrow {upgradeSpeed} second...");
-                upgradeSpeed = Timer;
-                archer.arrowCount += 2 * level;
-                
-            }
+                if (hero is Military military)
+                {
+                    Console.WriteLine($"- {hero.name} upgrade armor {upgradeSpeed} second...");
+                    upgradeSpeed = Timer;
+                    military.armor += 10 * level;
+
+                }
+            }            
         }
 
-        public void UpgradeBow(Unit unit)
+        public void UpgradeBow()
         {
-            if (unit is Archer archer)
+            foreach (var hero in unitsList)
             {
-                Console.WriteLine($"- upgrade bow {upgradeSpeed} second...");
-                upgradeSpeed = Timer;
-                archer.damage += 10 * level;
+                if (hero is Archer archer)
+                {
+                    Console.WriteLine($"- {archer.name} upgrade bow {upgradeSpeed} second...");
+                    upgradeSpeed = Timer;
+                    archer.arrowCount += 2;
+                }
             }
         }
-
-        public void UpgradeWeapon(Unit unit)
+            
+        public void UpgradeWeapon()
         {
-            if (unit is Military military)
+            foreach (var hero in unitsList)
             {
-                Console.WriteLine($"- upgrade weapon {upgradeSpeed} second...");
-                upgradeSpeed = Timer;
-                military.armor += 10 * level;
+                if (hero is Military military)
+                {
+                    Console.WriteLine($"- {hero.name}  upgrade weapon {upgradeSpeed} second...");
+                    upgradeSpeed = Timer;
+                    military.damage += 10 * level;
+                }
             }
         }
 

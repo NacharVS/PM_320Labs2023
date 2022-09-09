@@ -19,30 +19,24 @@ namespace ConsoleWarcraft
             Dragon dragon1 = new Dragon("Sparky", 1000, 50, 15, 100, 100, 100, 200, 200, false);
             GuardTower tower1 = new GuardTower("Tower of ghosts", 10000, 50000, 300, 20, 50, 90, false);
 
-            Blacksmith blacksmith = new Blacksmith("Anvil", 2, 3, 3000, 1000);
+            List<Unit> units = new List<Unit> { };
+            units.Add(mage1);
+            units.Add(mage2);
+            units.Add(footman1);
+            units.Add(archer1);
+            units.Add(dragon1);
+            units.Add(tower1);
 
+            Blacksmith blacksmith = new Blacksmith("Anvil", 2, 3, 3000, 1000, units);
             blacksmith.UpgradeEvent += showUpgrade;
-
-            //List<Unit> units = new List<Unit> { };
-
-            //units.Add(mage1);
-            //units.Add(mage2);
-            //units.Add(footman1);
-            //units.Add(archer1);
-            //units.Add(dragon1);
-            //units.Add(tower1);
-
-            Unit[] units = new Unit[] { mage1, mage2, footman1, dragon1, tower1, archer1 };
-
 
 
             startGame();
 
-
              void startGame()
             {
                 Console.WriteLine();
-                for (int i = 0; i < units.Length; i++)
+                for (int i = 0; i < units.Count; i++)
                 {
                     Console.WriteLine($"{i + 1} {units[i].name}  level: {units[i].level}  health {units[i].health}");
                 }
@@ -53,8 +47,8 @@ namespace ConsoleWarcraft
                 Console.Write("Player 2: choose hero: ");
                 player2 = int.Parse(Console.ReadLine()) - 1;
 
-                blacksmith.UpgradeWeapon(units[player1]);
-                blacksmith.UpgradeBow(units[player2]);
+                blacksmith.UpgradeWeapon();
+                blacksmith.UpgradeBow();
 
                 GameLogic game = new GameLogic(units[player1], units[player2]);
                 game.run();
