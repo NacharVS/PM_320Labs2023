@@ -3,16 +3,18 @@ using Units.BaseUnits;
 
 Footman playerOne = new(80, 100, 10, 15, "Footer");
 Peasant playerTwo = new(100, "Bulat");
-List<Unit> units = new List<Unit>() { playerOne, playerTwo };
+Mage playerThree = new(80, 100, 10, 100, 100, 4, "Mage");
+Blacksmith blacksmith = new(1000, "Blacksmith");
+List<Unit> units = new List<Unit>() { playerOne, playerTwo, playerThree, blacksmith};
 
-//Mage playerTwo = new(80, 100, 10, 100, 100, 4, "Mage");
+blacksmith.UpgradeWeapon(units);
 
 try
 {
     while (true)
     {
         playerOne.Attack(playerTwo);
-        playerTwo.Mining();
+        playerThree.Attack(playerOne);
     }
 }
 catch(Exception ex)

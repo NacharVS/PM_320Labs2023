@@ -10,11 +10,12 @@ namespace Units.ActiveUnits
 {
     public class Mage : BaseUnits.Range
     {
-        public delegate void OnHealAbilityDelegate(Unit currentMage, Unit unit, double healedHP);
-        public event OnHealAbilityDelegate OnHealEvent;
         private int healthHealth = 15;
         private int manaForHeal = 20;
         private int manaForBlizzard = 25;
+
+        public delegate void OnHealAbilityDelegate(Unit currentMage, Unit unit, double healedHP);
+        public event OnHealAbilityDelegate OnHealEvent;
 
         public Mage(double health, double armor, int attackSpeed,
             double range, double mana, double damage, string name)

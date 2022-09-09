@@ -84,7 +84,7 @@ namespace Units.BaseUnits
             Console.WriteLine($"{unit.Name}'s health is {unit.GetHealth()}");
         }
 
-        public void CharacterToDie(Unit unit)
+        private void CharacterToDie(Unit unit)
         {
             SetStateOfLife(false);
             throw new Exception($"{unit.Name} is destroyed!");
