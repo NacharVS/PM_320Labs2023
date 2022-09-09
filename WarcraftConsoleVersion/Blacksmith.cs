@@ -1,8 +1,8 @@
 ﻿public class Blacksmith
 {
-    private int healtPoint;
-    private string name;
-    private int cost;
+    public int healtPoint;
+    public string name;
+    public int cost;
 
     public Blacksmith(int healtPoint, string name, int cost)
     {
@@ -15,15 +15,12 @@
     {
         client.damage = client.damage + 1;
     }
-    public void UpgradeArmor(Military client)
+    public void UpgradeArmor(Unit client)
     {
         client.armor = client.armor + 1;
     }
-    public void UpgradeBow(Archer client)
+    public void UpgradeBow(Unit client)
     {
         client.damage = client.damage + 1;
-        client.arrowCount = client.arrowCount + 5;
     }
-
-
 }

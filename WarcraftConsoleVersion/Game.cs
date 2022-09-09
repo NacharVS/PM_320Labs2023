@@ -63,6 +63,7 @@
                 ", left " + oneCharachter.healthPoint);
             twoCharachter.Attack(oneCharachter);
             Thread.Sleep(twoCharachter.getAttackSpeed() * 1000);
+
         }
 
         void Fight()

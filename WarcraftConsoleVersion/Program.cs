@@ -17,21 +17,35 @@ public class Program
         Console.WriteLine("Create game! Write name game:");
         Game newGame = new(Console.ReadLine());
 
-        Console.WriteLine("\nHi, dear player! You can choose Guard Towers(1), Peasant(2), Footman(3), Mage(4), Dragon(5), Archer(6)");
+        Console.WriteLine("\nHi, dear player! You can choose Guard Towers(1), Peasant(2), Footman(3), Mage(4), Dragon(5) or Archer(6)");
         Console.WriteLine("\nWrite name first character:");
 
-        first = Game.AddUnit(Console.ReadLine(), first);
+        //first = Game.AddUnit(Console.ReadLine(), first);
 
         Console.WriteLine("\nWrite name second character:");
 
-        second = Game.AddUnit(Console.ReadLine(), second);
+        //second = Game.AddUnit(Console.ReadLine(), second);
 
-        newGame.GameStart(first, second);
+        //newGame.GameStart(first, second);
+        Unit archer;
 
-        Military archer = new Military(550, 425, "123", 1, 1, 27, 2, 2);
         archer = new Archer(550, 425, "123", 1, 1, 27, 2, 2, 60);
+
+        Console.WriteLine(archer.GetType());
+
         Blacksmith blacksmith = new Blacksmith(1200, "Blacksmith", 5);
 
+        Console.WriteLine(archer.damage);
+
+        blacksmith.UpgradeBow(archer);
+
+        Console.WriteLine(archer.damage);
+
+        //Console.WriteLine(archer.armor);
+
+        blacksmith.UpgradeArmor(archer);
+
+        //Console.WriteLine(archer.armor);
     }
 
 }

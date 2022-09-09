@@ -68,5 +68,14 @@ public class Unit
     {
         //Console.WriteLine(name);
     }
+    public virtual bool useArmor()
+    {
+        return false;
+    }
 
+    public virtual int getArmor()
+    {
+        return 0;
+    }
 }
+

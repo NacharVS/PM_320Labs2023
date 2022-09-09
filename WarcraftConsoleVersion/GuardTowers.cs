@@ -13,7 +13,11 @@
     }
     public override void Attack(Unit enemy)
     {
-        enemy.healthPoint = enemy.healthPoint - damage;
+        if (!enemy.useArmor())
+        {
+            enemy.healthPoint = enemy.healthPoint - damage;
+            enemy.Alive();
+        }
         enemy.Alive();
     }
 

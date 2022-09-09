@@ -17,7 +17,7 @@
     public override void Attack(Unit enemy)
     {
         enemy.healthPoint = enemy.healthPoint - damage;
-        Console.WriteLine(name + ".Attack");
+
         enemy.Alive();
     }
 }

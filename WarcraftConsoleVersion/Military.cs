@@ -1,5 +1,6 @@
 ﻿public class Military : Moveble
 {
+    public Random rnd = new Random();
     public int damage;
     public int attackSpeed;
     public int armor;
@@ -13,7 +14,11 @@
     }
     public override void Attack(Unit enemy)
     {
-        enemy.healthPoint = enemy.healthPoint - damage;
+        if (!enemy.useArmor())
+        {
+            enemy.healthPoint = enemy.healthPoint - damage;
+            enemy.Alive();
+        }
         enemy.Alive();
     }
     public override int getAttackSpeed()
@@ -21,5 +26,20 @@
         return attackSpeed;
     }
 
-    
+    public override int getArmor()
+    {
+        return armor;
+    }
+    public override bool useArmor()
+    {
+        if ((rnd.Next(1, 5) == 1) && armor > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }
