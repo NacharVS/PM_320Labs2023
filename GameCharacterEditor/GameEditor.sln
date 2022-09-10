@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEditor", "GameEditor\GameEditor.csproj", "{99CE2DD6-4A02-402C-B375-A5C5D1095DC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEditorLibrary", "GameEditorLibrary\GameEditorLibrary.csproj", "{ACD61FA0-1C8E-4BA7-8B06-3DA1E12C3857}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99CE2DD6-4A02-402C-B375-A5C5D1095DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CE2DD6-4A02-402C-B375-A5C5D1095DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CE2DD6-4A02-402C-B375-A5C5D1095DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CE2DD6-4A02-402C-B375-A5C5D1095DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACD61FA0-1C8E-4BA7-8B06-3DA1E12C3857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACD61FA0-1C8E-4BA7-8B06-3DA1E12C3857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACD61FA0-1C8E-4BA7-8B06-3DA1E12C3857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACD61FA0-1C8E-4BA7-8B06-3DA1E12C3857}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52EE7B6E-B23E-41C2-AB78-05D02799B030}
+	EndGlobalSection
+EndGlobal

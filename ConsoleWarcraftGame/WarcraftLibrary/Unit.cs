@@ -36,7 +36,7 @@ namespace WarcraftLibrary
             this.Damage = damage;
         }
 
-        public virtual string Attack(Blacksmith blacksmith)
+        public virtual string Attack(Unit unit, Blacksmith blacksmith)
         {
             return " ";
         }

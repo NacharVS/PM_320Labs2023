@@ -17,7 +17,7 @@ namespace WarcraftLibrary
             this.Armor = armor;
         }
 
-        public override string Attack(Blacksmith blacksmith) 
+        public override string Attack(Unit unit, Blacksmith blacksmith) 
         {
             return " ";
         }

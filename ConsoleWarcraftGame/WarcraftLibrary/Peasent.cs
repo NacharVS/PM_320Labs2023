@@ -15,7 +15,7 @@ namespace WarcraftLibrary
 
         public void Choping() {}
 
-        public override string Attack(Blacksmith blacksmith)
+        public override string Attack(Unit unit, Blacksmith blacksmith)
         {
             return $"{Name} не может нанести удар.{0}";
         }

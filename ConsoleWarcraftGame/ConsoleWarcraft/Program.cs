@@ -31,7 +31,7 @@ namespace ConsoleWarcraft
 
             while ((units[0].IsDestroyed == false) && (units[1].IsDestroyed == false))
             {
-                string[] attack = (units[0].Attack(blacksmith)).Split(".");
+                string[] attack = (units[0].Attack(units[1], blacksmith)).Split(".");
                 Console.WriteLine(attack[0]);
                 units[1].Health = units[1].Health - Convert.ToInt32(attack[1]);
                 units[1].Checking();
@@ -42,7 +42,7 @@ namespace ConsoleWarcraft
                     return;
                 }
 
-                string[] attackTwo = (units[1].Attack(blacksmith)).Split(".");
+                string[] attackTwo = (units[1].Attack(units[0], blacksmith)).Split(".");
                 Console.WriteLine(attackTwo[0]);
                 units[0].Health = units[0].Health - Convert.ToInt32(attackTwo[1]);
                 units[0].Checking();

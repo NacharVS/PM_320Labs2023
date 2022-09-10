@@ -18,7 +18,7 @@ namespace WarcraftLibrary
             return $"{Name} нанес удар с помощью firebreath {Damage + 10}.{Damage + 10}";
         }
 
-        public override string Attack(Blacksmith blacksmith)
+        public override string Attack(Unit unit, Blacksmith blacksmith)
         {
             var val = rnd.Next(1, 6);
 

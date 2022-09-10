@@ -21,14 +21,15 @@ namespace WarcraftLibrary
             return $"{Name} нанес удар с силой {Damage * 1.5}.{Damage * 1.5}";
         }
 
-        public static void Stun(Moveable unit) 
+        public string Stun(Moveable unit) 
         {
             unit.Speed -= 10;
+            return $"{Name} застанил противника.{0}";
         }
 
-        public override string Attack(Blacksmith blacksmith)
+        public override string Attack(Unit unit, Blacksmith blacksmith)
         {
-            var val = rnd.Next(1, 6);
+            var val = rnd.Next(1, 8);
 
             if (val == 3)
             {
@@ -42,6 +43,10 @@ namespace WarcraftLibrary
             {
                 blacksmith.UpgradeArmor(this);
                 return $"{Name} улучшил броню.{0}";
+            }
+            if (val == 6 && unit.GetType() == typeof(Moveable))
+            {
+                return Stun((Moveable)unit);
             }
             return $"{Name} нанес удар с силой {Damage}.{Damage}";
         }

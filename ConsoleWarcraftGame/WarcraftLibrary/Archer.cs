@@ -16,7 +16,7 @@ namespace WarcraftLibrary
             Arrows = arrows;
         }
 
-        public override string Attack(Blacksmith blacksmith)
+        public override string Attack(Unit unit, Blacksmith blacksmith)
         {
             var val = rnd.Next(1, 8);
             if (Arrows == 0)

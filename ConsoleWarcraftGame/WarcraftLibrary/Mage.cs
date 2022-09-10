@@ -30,7 +30,7 @@ namespace WarcraftLibrary
             Health += 5;
         }
 
-        public override string Attack(Blacksmith blacksmith)
+        public override string Attack(Unit unit, Blacksmith blacksmith)
         {
             var val = rnd.Next(1, 6);
             if (Health > 0 && val == 2 && Health < _maxHealth - 5 && Mana > 6)

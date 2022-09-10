@@ -18,7 +18,7 @@ namespace WarcraftLibrary
             this.AttackSpeed = attackSpeed;
         }
 
-        public override string Attack(Blacksmith blacksmith)
+        public override string Attack(Unit unit, Blacksmith blacksmith)
         {
             var val = rnd.Next(1, 6);
 
