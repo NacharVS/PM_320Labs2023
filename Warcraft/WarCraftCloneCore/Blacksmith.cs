@@ -33,9 +33,9 @@ public class Blacksmith : Moveble
     {
         foreach (var unit in units)
         {
-            if (unit is Military archerUnit)
+            if (unit is Military militaryUnit)
             {
-                archerUnit.UpgradeArmor();
+                militaryUnit.UpgradeArmor();
             }
         }
     }
