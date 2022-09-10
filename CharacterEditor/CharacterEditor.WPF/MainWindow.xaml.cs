@@ -36,7 +36,7 @@ namespace CharacterEditor.WPF
             if (_currentCharacter is null)
                 return;
             
-            var slider = (((Button)sender).Parent as Grid)?.Parent as CharacteristicSlider;
+            var slider = CharacteristicSlider.TryGetSliderByButton((Button)sender);
             if (slider is null)
                 return;
 

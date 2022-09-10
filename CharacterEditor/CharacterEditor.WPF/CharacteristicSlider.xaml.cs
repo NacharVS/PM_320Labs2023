@@ -1,8 +1,6 @@
-﻿using System.Reflection;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using CharacterEditor.Core;
 
 namespace CharacterEditor.WPF;
 
@@ -22,6 +20,11 @@ public partial class CharacteristicSlider : UserControl
     protected override void OnRender(DrawingContext drawingContext)
     {
         CharacteristicValue.Content = SliderValue.ToString();
+    }
+
+    public static CharacteristicSlider? TryGetSliderByButton(Button btn)
+    {
+        return (btn.Parent as Grid)?.Parent as CharacteristicSlider;
     }
 
     public static readonly DependencyProperty CharName =
