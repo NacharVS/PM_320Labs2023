@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using CharacterEditor.Core;
 
 namespace CharacterEditor.WPF;
 

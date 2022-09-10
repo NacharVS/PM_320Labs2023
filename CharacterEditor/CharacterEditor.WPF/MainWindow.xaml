@@ -33,7 +33,8 @@
             <ComboBoxItem Content="Wizard" />
             <ComboBoxItem Content="Rogue" />
         </ComboBox>
-        <StackPanel x:Name="SliderPanel" Grid.Column="1" Orientation="Vertical" Margin="0,39,0,1" Grid.RowSpan="10">
+        <StackPanel x:Name="SliderPanel" Grid.Column="1" Orientation="Vertical" Margin="0,39,0,1" Grid.Row="0"
+                    Grid.RowSpan="10">
             <local:CharacteristicSlider x:Name="StrengthSlider" local:CharacteristicSlider.CharName="Strength"
                                         Margin="0,38,0,2" />
             <local:CharacteristicSlider x:Name="DexteritySlider" local:CharacteristicSlider.CharName="Dexterity"
@@ -44,5 +45,7 @@
                                         Margin="0,38,0,2" />
 
         </StackPanel>
+        <Label Grid.Column="2" Content="Осталось очков:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+        <Label x:Name="SkillPointsLabel" Grid.Column="2" Content="0" HorizontalAlignment="Left" Margin="115,0,0,0" VerticalAlignment="Center"/>
     </Grid>
 </Window>

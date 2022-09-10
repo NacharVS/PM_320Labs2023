@@ -25,6 +25,12 @@ namespace CharacterEditor.WPF
             }
         }
 
+        private void UpdateSkillPoints()
+        {
+            SkillPointsLabel.Content =
+                _currentCharacter?.SkillPoints.ToString() ?? "0";
+        }
+
         private void UpdateSliderView(object sender, RoutedEventArgs e)
         {
             if (_currentCharacter is null)
@@ -54,6 +60,7 @@ namespace CharacterEditor.WPF
                     break;
             }
             
+            UpdateSkillPoints();
             slider.InvalidateVisual();
         }
 
@@ -85,6 +92,7 @@ namespace CharacterEditor.WPF
             
             foreach (CharacteristicSlider slider in SliderPanel.Children)
                 slider.InvalidateVisual();
+            UpdateSkillPoints();
         }
     }
 }

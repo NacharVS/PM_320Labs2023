@@ -7,6 +7,8 @@ public abstract class CharacterBase
     private int _skillPoints = 5;
     public int SkillPoints => _skillPoints;
 
+    protected abstract Stats Stats { get; set; }
+
     private int _strength;
 
     public int Strength
@@ -14,7 +16,7 @@ public abstract class CharacterBase
         get => _strength;
         set
         {
-            if (!CanChange(StrengthInfo.Range, _strength, value))
+            if (!CanChange(Stats.StrengthInfo.Range, _strength, value))
                 return;
 
             _skillPoints -= value - _strength;
@@ -22,8 +24,6 @@ public abstract class CharacterBase
         }
     }
 
-    public StrengthInfo StrengthInfo { get; protected set; }
-    
     private int _dexterity;
 
     public int Dexterity
@@ -31,7 +31,7 @@ public abstract class CharacterBase
         get => _dexterity;
         set
         {
-            if (!CanChange(DexterityInfo.Range, _dexterity, value))
+            if (!CanChange(Stats.DexterityInfo.Range, _dexterity, value))
                 return;
 
             _skillPoints -= value - _dexterity;
@@ -39,52 +39,50 @@ public abstract class CharacterBase
         }
     }
 
-    public DexterityInfo DexterityInfo { get; protected set; }
-
     private int _constitution;
+
     public int Constitution
     {
         get => _constitution;
         set
         {
-            if (!CanChange(ConstitutionInfo.Range, _constitution, value))
+            if (!CanChange(Stats.ConstitutionInfo.Range, _constitution, value))
                 return;
 
             _skillPoints -= value - _constitution;
             _constitution = value;
         }
     }
-    public ConstitutionInfo ConstitutionInfo { get; protected set; }
 
     private int _intelligence;
+
     public int Intelligence
     {
         get => _intelligence;
         set
         {
-            if (!CanChange(ConstitutionInfo.Range, _intelligence, value))
+            if (!CanChange(Stats.IntelligenceInfo.Range, _intelligence, value))
                 return;
 
             _skillPoints -= value - _intelligence;
             _intelligence = value;
         }
     }
-    public IntelligenceInfo IntelligenceInfo { get; protected set; }
 
-    public double Health => Strength * StrengthInfo.HpChange +
-                            Constitution * ConstitutionInfo.HpChange;
+    public double Health => Strength * Stats.StrengthInfo.HpChange +
+                            Constitution * Stats.ConstitutionInfo.HpChange;
 
-    public double Mana => Intelligence * IntelligenceInfo.ManaChange;
+    public double Mana => Intelligence * Stats.IntelligenceInfo.ManaChange;
 
-    public double AttackDamage => Strength * StrengthInfo.AttackChange +
-                                  Dexterity * DexterityInfo.AttackChange;
+    public double AttackDamage => Strength * Stats.StrengthInfo.AttackChange +
+                                  Dexterity * Stats.DexterityInfo.AttackChange;
 
     public double MagicalAttackDamage =>
-        Intelligence * IntelligenceInfo.MagicalAttackChange;
+        Intelligence * Stats.IntelligenceInfo.MagicalAttackChange;
 
     public double PhysicalResistance =>
-        Constitution * ConstitutionInfo.PhysicalDefenceChange +
-        Dexterity * DexterityInfo.PhysicalDefenceChange;
+        Constitution * Stats.ConstitutionInfo.PhysicalDefenceChange +
+        Dexterity * Stats.DexterityInfo.PhysicalDefenceChange;
 
     private bool CanChange(CharacteristicRange range, int oldValue,
         int newValue)
@@ -102,9 +100,9 @@ public abstract class CharacterBase
 
     protected void InitStats()
     {
-        _strength = StrengthInfo.Range.MinValue;
-        _dexterity = DexterityInfo.Range.MinValue;
-        _constitution = ConstitutionInfo.Range.MinValue;
-        _intelligence = IntelligenceInfo.Range.MinValue;
+        _strength = Stats.StrengthInfo.Range.MinValue;
+        _dexterity = Stats.DexterityInfo.Range.MinValue;
+        _constitution = Stats.ConstitutionInfo.Range.MinValue;
+        _intelligence = Stats.IntelligenceInfo.Range.MinValue;
     }
 }
