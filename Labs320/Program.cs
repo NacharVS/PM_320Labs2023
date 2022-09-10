@@ -1,5 +1,6 @@
 ﻿// Turushkin Sergey, 320P, "Warcraft"
 
+using Units.BaseClasses;
 using Units.BaseUnits;
 
 namespace Warcraft
@@ -35,8 +36,8 @@ namespace Warcraft
             }
 
 
-            /*{
-                var units = new List<Units.Unit> {peasant, footman, mage, guardTower, dragon};
+            {
+                var units = new List<Unit> {peasant, footman, mage, guardTower, dragon};
 
                 while (units.Count > 1)
                 {
@@ -45,14 +46,19 @@ namespace Warcraft
                     var unit1 = random.Next(0, 5);
                     var unit2 = random.Next(0, 5);
 
-                    units[unit1].Attack(units[unit2]);
+                    if (units[unit1] is Military)
+                    {
+                        units[unit1].Attack(units[unit2]);
+                    }
 
                     if (units[unit2].isDestroyed)
                     {
-                        //units[unit2].
+                        units.Remove(units[unit2]);
                     }
                 }
-            }*/
+
+                Console.WriteLine($"Final is win: {units[0]}");
+            }
         }
     }
 }
