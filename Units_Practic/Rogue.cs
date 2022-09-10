@@ -11,6 +11,11 @@ namespace Units_Practic
         public Rogue()
         {
             characteristics = new Characteristics(Units.Rogue);
+            healthPoint = characteristics.HealthUpdate(Units.Rogue);
+            manaPoint = characteristics.ManaUpdate(Units.Rogue);
+            atackPoint = characteristics.AttackUpdate(Units.Rogue);
+            magicAtackPoint = characteristics.ManaAttackUpdate(Units.Rogue);
+            physicalProtectionPoint = characteristics.PhysicalProtectionUpdate(Units.Rogue);
         }
     }
 }
