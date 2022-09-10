@@ -24,9 +24,6 @@
             boostPoints = 5;
         }
 
-        public void HealthUpdate()
-        {
-
-        }
+        //public abstract void UpdateHaracteristics();
     }
 }

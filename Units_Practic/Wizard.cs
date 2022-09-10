@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Turushkin Sergey, 320P, "EditUnit"
 
 namespace Units_Practic
 {
@@ -17,5 +13,7 @@ namespace Units_Practic
             magicAtackPoint = characteristics.ManaAttackUpdate(Units.Wizard);
             physicalProtectionPoint = characteristics.PhysicalProtectionUpdate(Units.Wizard);
         }
+
+
     }
 }
