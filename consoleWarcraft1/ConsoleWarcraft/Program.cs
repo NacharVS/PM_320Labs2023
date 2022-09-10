@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
 namespace ConsoleWarcraft
 {
     class Program
     {
         static void Main()
         {
+
+
+
+
+
+
             int count = 1;
 
             int player1 = 0;
