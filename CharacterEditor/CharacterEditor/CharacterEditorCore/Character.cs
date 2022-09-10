@@ -3,10 +3,30 @@
     abstract class Character
     {
         public Characterictic Strength { get; set; }
+        private double _strengthAttackChange;
+        private double _strengthHealthChange;
         public Characterictic Dexterity { get; set; }
+        private double _dexterityAttackChange;
+        private double _dexterityPhysicalDefenceChange;
         public Characterictic Constitution { get; set; }
+        private double _constitutionHealthChange;
+        private double _constitutionPhysicalDefenceChange;
         public Characterictic Intellisense { get; set; }
+        private double _intellisenseManaChange;
+        private double _intellisenseMagicalAttackChange;
 
+        public int Mana
+        {
+            get { return Mana; }
+            set
+            {
+                if (value <= 0)
+                {
+                    Mana = 0;
+                }
+                Mana = value;
+            }
+        }
         public int AttackDamage
         {
             get { return AttackDamage; }
@@ -57,22 +77,6 @@
                 }
                 MagicalAttackDamage = value;
             }
-        }
-
-        private int _attackChange;
-        private int _healthChange;
-        private int _physicalDefenceChange;
-        private int _magicalAttackChange;
-
-        protected Character(Characterictic strength, 
-                            Characterictic dexterity, 
-                            Characterictic constitution, 
-                            Characterictic intellisense)
-        {
-            Strength = strength;
-            Dexterity = dexterity;
-            Constitution = constitution;
-            Intellisense = intellisense;
         }
     }
 }

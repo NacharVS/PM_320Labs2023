@@ -6,17 +6,17 @@
         private int _minValue;
         private int _maxValue;
 
-        public Characterictic(int value, int minValue, int maxValue)
+        public Characterictic(int minValue, int maxValue)
         {
             MaxValue = maxValue;
             MinValue = minValue;
-            Value = value;
+            Value = MinValue;
         }
 
         public int MaxValue
         {
             get { return _maxValue; }
-            set
+            private set
             {
                 if (value >= _minValue)
                 {
@@ -28,7 +28,7 @@
         public int MinValue
         {
             get { return _minValue; }
-            set
+            private set
             {
                 if (value <= _maxValue)
                 {
