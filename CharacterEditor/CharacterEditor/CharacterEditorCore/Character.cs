@@ -2,16 +2,19 @@
 {
     public abstract class Character
     {
-        public Characterictic Strength { get; set; }
+        private Characterictic _strength;
         private double _strengthAttackChange;
         private double _strengthHealthChange;
-        public Characterictic Dexterity { get; set; }
+
+        private Characterictic _dexterity;
         private double _dexterityAttackChange;
         protected double _dexterityPhysicalDefenceChange;
-        public Characterictic Constitution { get; set; }
+
+        private Characterictic _constitution;
         private double _constitutionHealthChange;
         private double _constitutionPhysicalDefenceChange;
-        public Characterictic Intellisense { get; set; }
+
+        private Characterictic _intellisense;
         private double _intellisenseManaChange;
         private double _intellisenseMagicalAttackChange;
 
@@ -79,6 +82,58 @@
             }
         }
 
+        public void SetStrength(int value)
+        {
+            _strength.Value = value;
+
+            AttackDamage = _strength.Value * _strengthAttackChange;
+            Health = _strength.Value * _strengthHealthChange;
+        }
+
+        public double GetStrength()
+        {
+            return _strength.Value;
+        }
+
+        public void SetDexterity(int value)
+        {
+            _dexterity.Value = value;
+
+            AttackDamage = _dexterity.Value * _dexterityAttackChange;
+            PhysicalDefence = _dexterity.Value * _dexterityPhysicalDefenceChange;
+        }
+
+        public double GetDexterity()
+        {
+            return _dexterity.Value;
+        }
+
+        public void SetConstitution(int value)
+        {
+            _constitution.Value = value;
+
+            Health = _constitution.Value * _constitutionHealthChange;
+            PhysicalDefence = _constitution.Value * _constitutionPhysicalDefenceChange;
+        }
+
+        public double GetConstitution()
+        {
+            return _constitution.Value;
+        }
+
+        public void SetIntellisense(int value)
+        {
+            _intellisense.Value = value;
+
+            Mana = _intellisense.Value * _intellisenseManaChange;
+            MagicalAttackDamage = _intellisense.Value * _intellisenseMagicalAttackChange;
+        }
+
+        public double GetIntellisense()
+        {
+            return _intellisense.Value;
+        }
+
         protected Character(Characterictic strength,
                             double strengthAttackChange,
                             double strengthHealthChange,
@@ -92,16 +147,23 @@
                             double intellisenseManaChange,
                             double intellisenseMagicalAttackChange)
         {
-            Strength = strength;
+            _strength = strength;
+            SetStrength(_strength.Value);
             _strengthAttackChange = strengthAttackChange;
             _strengthHealthChange = strengthHealthChange;
-            Dexterity = dexterity;
+
+            _dexterity = dexterity;
+            SetDexterity(_dexterity.Value);
             _dexterityAttackChange = dexterityAttackChange;
             _dexterityPhysicalDefenceChange = dexterityPhysicalDefenceChange;
-            Constitution = constitution;
+
+            _constitution = constitution;
+            SetConstitution(_constitution.Value);
             _constitutionHealthChange = constitutionHealthChange;
             _constitutionPhysicalDefenceChange = constitutionPhysicalDefenceChange;
-            Intellisense = intellisense;
+
+            _intellisense = intellisense;
+            SetIntellisense(_intellisense.Value);
             _intellisenseMagicalAttackChange = intellisenseMagicalAttackChange;
             _intellisenseManaChange = intellisenseManaChange;
         }

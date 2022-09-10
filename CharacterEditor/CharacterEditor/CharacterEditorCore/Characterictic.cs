@@ -45,6 +45,14 @@
                 {
                     _value = value;
                 }
+                else if (value < _minValue)
+                {
+                    _value = _minValue;
+                }
+                else
+                {
+                    _value = _maxValue;
+                }
             }
         }
     }
