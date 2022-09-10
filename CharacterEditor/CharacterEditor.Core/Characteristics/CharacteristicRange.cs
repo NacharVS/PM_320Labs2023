@@ -10,4 +10,9 @@ public class CharacteristicRange
         MinValue = minValue;
         MaxValue = maxValue;
     }
+
+    public bool ContainsValue(int value)
+    {
+        return value >= MinValue && value <= MaxValue;
+    }
 }
