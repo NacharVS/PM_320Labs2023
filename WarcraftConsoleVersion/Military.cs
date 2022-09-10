@@ -23,7 +23,7 @@
     }
     public override int getAttackSpeed()
     {
-        return attackSpeed;
+        return attackSpeed  ;
     }
 
     public override int getArmor()

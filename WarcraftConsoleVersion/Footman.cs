@@ -1,23 +1,38 @@
 ﻿public class Footman : Military
 {
-
+    public int maxHealtPoint;
     public Footman(int healthPoint, int cost, string name, int level, int speed, int damage, int attackSpeed, int armor) :
         base(healthPoint, cost, name, level, speed, damage, attackSpeed, armor)
     {
+        this.maxHealtPoint = healthPoint;
     }
 
-    public override void Berserker()
+    public void Berserker(Unit enemy)
     {
+        enemy.healthPoint = enemy.healthPoint - (damage * 2);
         Console.WriteLine(name + ".Berserker");
     }
-    public override void Stun()
+    public override bool Stun()
     {
-        Console.WriteLine(name + ".Stun");
+        if ((rnd.Next(1, 5) == 1))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public override void Attack(Unit enemy)
     {
-        enemy.healthPoint = enemy.healthPoint - damage;
-
-        enemy.Alive();
+        if (healthPoint > (maxHealtPoint * 0.3))
+        {
+            enemy.healthPoint = enemy.healthPoint - damage;
+            enemy.Alive();
+        }
+        else
+        {
+            Berserker(enemy);
+        }
     }
 }

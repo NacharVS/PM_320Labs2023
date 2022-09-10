@@ -16,7 +16,6 @@
         if (!enemy.useArmor())
         {
             enemy.healthPoint = enemy.healthPoint - damage;
-            enemy.Alive();
         }
         enemy.Alive();
     }

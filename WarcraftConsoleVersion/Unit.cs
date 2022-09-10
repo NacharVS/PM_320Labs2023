@@ -51,8 +51,9 @@ public class Unit
     {
         //Console.WriteLine(name);
     }
-    public virtual void Stun()
+    public virtual bool Stun()
     {
+        return false;
         //Console.WriteLine(name);
     }
     public virtual void FireBall(Unit enemy)

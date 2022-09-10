@@ -15,11 +15,11 @@
     {
         client.damage = client.damage + 1;
     }
-    public void UpgradeArmor(Unit client)
+    public void UpgradeArmor(Military client)
     {
         client.armor = client.armor + 1;
     }
-    public void UpgradeBow(Unit client)
+    public void UpgradeBow(Archer client)
     {
         client.damage = client.damage + 1;
     }
