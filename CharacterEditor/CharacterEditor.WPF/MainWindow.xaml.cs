@@ -62,6 +62,7 @@ namespace CharacterEditor.WPF
             
             UpdateSkillPoints();
             slider.InvalidateVisual();
+            UpdateStatDisplay();
         }
 
         private void SelectClassComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -93,6 +94,16 @@ namespace CharacterEditor.WPF
             foreach (CharacteristicSlider slider in SliderPanel.Children)
                 slider.InvalidateVisual();
             UpdateSkillPoints();
+            UpdateStatDisplay();
+        }
+
+        private void UpdateStatDisplay()
+        {
+            if (_currentCharacter is null)
+                return;
+
+            CharacterStats.UpdateValues(_currentCharacter);
+            CharacterStats.InvalidateVisual();
         }
     }
 }

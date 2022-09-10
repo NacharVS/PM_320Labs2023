@@ -6,7 +6,16 @@
              xmlns:local="clr-namespace:CharacterEditor.WPF"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        
+    <Grid Background="White">
+        <Label Content="Health" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="HealthTextBox" HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <Label Content="Attack" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="AttackTextBox" HorizontalAlignment="Left" Margin="10,92,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <Label Content="Magical attack" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="MagicalAttackTextBox" HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <Label Content="Mana" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ManaTextBox" HorizontalAlignment="Left" Margin="10,204,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <Label Content="Physical resist" HorizontalAlignment="Left" Margin="10,234,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="PhysicalResistTextBox" HorizontalAlignment="Left" Margin="10,260,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
     </Grid>
 </UserControl>
