@@ -124,12 +124,12 @@ namespace ConsoleWarcraft
             if (unit is Military military)
             {
                 // military.health = military.health + military.armor - damage;
-                TakeDamage(unit, damage);
+                TakeDamage(unit, damage, true);
             }
             else
             {
                 // unit.health -= damage;
-                TakeDamage(unit, damage);
+                TakeDamage(unit, damage, true);
             }
         }
     }

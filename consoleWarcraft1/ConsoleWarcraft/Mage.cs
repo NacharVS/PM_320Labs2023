@@ -56,7 +56,8 @@ namespace ConsoleWarcraft
         {
             if (mana >= 15)
             {
-                health += 15 + level * 0.5;
+                
+                TakeDamage(this, 15*level/2, false);
             }
             
         }
@@ -75,11 +76,13 @@ namespace ConsoleWarcraft
         {
             if (unit is Military military)
             {
-                military.Health = military.health + military.armor - damage;
+                // military.Health = military.health + military.armor - damage;
+                TakeDamage(military, damage, true);
             }
             else
             {
-                unit.Health -= damage;
+                TakeDamage(unit, damage, true);
+                // unit.Health -= damage;
             }
         }
     }

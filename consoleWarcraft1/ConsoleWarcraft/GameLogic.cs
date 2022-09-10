@@ -20,9 +20,12 @@ namespace ConsoleWarcraft
             this.unit2 = unit2;
 
             unit1.HealthChangedEvent += showHealth;
-            unit1.HealthChangedEvent += isDestroyed;
             unit2.HealthChangedEvent += showHealth;
+            unit1.HealthChangedEvent += isDestroyed;
             unit2.HealthChangedEvent += isDestroyed;
+           
+            
+           
 
         }
 
@@ -40,6 +43,7 @@ namespace ConsoleWarcraft
                     switch (unit1)
                     {
                         case Mage mage:
+                            mage.heal();
                             mage.attack(unit2);
                             mage.blizzard(unit2);
                             break;
@@ -72,6 +76,7 @@ namespace ConsoleWarcraft
                     switch (unit2)
                     {
                         case Mage mage:
+                            mage.heal();
                             mage.attack(unit1);
                             mage.blizzard(unit1);
                             break;
@@ -116,13 +121,9 @@ namespace ConsoleWarcraft
 
         public static void showAttack(Unit unit)
         {
-            if (unit is Range mage)
+            if (unit is Military military)
             {
-                Console.WriteLine(mage.name + ": attack " + mage.damage + " | mana: " + mage.mana);
-            }
-            else if (unit is Military military)
-            {
-                Console.WriteLine(military.name + ": damage " + military.damage + "armor: " + military.armor);
+                Console.WriteLine(military.name + ": damage " + military.damage + " armor: " + military.armor);
             }
             else if (unit is GuardTower tower)
             {
@@ -135,8 +136,8 @@ namespace ConsoleWarcraft
 
         public static void showHealth(Unit unit)
         {
-            Console.WriteLine(unit.name + " get dammage  health:" + unit.health);
-            Console.WriteLine();
+            Console.WriteLine(unit.name + " health:" + unit.health);
+            
         }
     }
 

@@ -20,10 +20,19 @@ namespace ConsoleWarcraft
                 }
             }
 
-        public void TakeDamage(Unit unit, double damage)
+        public void TakeDamage(Unit unit, double buff, bool isDamage)
         {
-            unit.Health -= damage;
-            Console.WriteLine("damage");
+            if (isDamage == true)
+            {
+                Console.WriteLine($"-{unit.name} get damage -{buff} HP!");
+                unit.Health -= buff;
+            }
+            else
+            {
+                Console.WriteLine($"-{unit.name} +{buff} HP!");
+                unit.Health += buff;
+            }
+            Console.WriteLine();
         }
 
         public virtual bool isDestroyed()
