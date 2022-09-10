@@ -1,0 +1,48 @@
+﻿<Window x:Class="Editor.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Editor.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ComboBox x:Name="comboCharacter" HorizontalAlignment="Left" Margin="108,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboCharacter_SelectionChanged">
+            <ComboBoxItem Content="Warrior"/>
+            <ComboBoxItem Content="Rogue"/>
+            <ComboBoxItem Content="Wizard"/>
+        </ComboBox>
+        <Label x:Name="lbCharacterClass" Content="Character Class:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbStrength" Content="Strength:" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbStrength_Copy" Content="Dexterity:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbStrength_Copy1" Content="Constitution:" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbStrength_Copy2" Content="Intelligence:" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnDecrStrength" Content="&lt;" HorizontalAlignment="Left" Margin="108,58,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnDecrDexterity" Content="&lt;" HorizontalAlignment="Left" Margin="108,89,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnDecrConstitution" Content="&lt;" HorizontalAlignment="Left" Margin="108,120,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnDecrIntelligence" Content="&lt;" HorizontalAlignment="Left" Margin="108,151,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnIncrStrength" Content="&gt;" HorizontalAlignment="Left" Margin="168,58,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnIncrDexterity" Content="&gt;" HorizontalAlignment="Left" Margin="168,89,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnIncrConstitution" Content="&gt;" HorizontalAlignment="Left" Margin="168,120,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnIncrIntelligence" Content="&gt;" HorizontalAlignment="Left" Margin="168,151,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbIntelligenceVal" Content="0" HorizontalAlignment="Left" Margin="130,148,0,0" VerticalAlignment="Top" Width="29"/>
+        <Label x:Name="lbAvailableSkillPoints" Content="Available skill points:" HorizontalAlignment="Left" Margin="259,55,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbSkillPointsVal" Content="0" HorizontalAlignment="Left" Margin="383,55,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbConstitutionVal" Content="0" HorizontalAlignment="Left" Margin="130,117,0,0" VerticalAlignment="Top" Width="29"/>
+        <Label x:Name="lbDexterityVal" Content="0" HorizontalAlignment="Left" Margin="130,86,0,0" VerticalAlignment="Top" Width="29"/>
+        <Label x:Name="lbStrengthVal" Content="0" HorizontalAlignment="Left" Margin="130,55,0,0" VerticalAlignment="Top" Width="29"/>
+        <Label x:Name="lbHP" Content="HP:" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbMP" Content="MP:" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy5" Content="PAtk:" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy6" Content="PDef:" HorizontalAlignment="Left" Margin="10,284,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy7" Content="MAtk:" HorizontalAlignment="Left" Margin="130,253,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy8" Content="MDef:" HorizontalAlignment="Left" Margin="130,284,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbPAtkVal" Content="0" HorizontalAlignment="Left" Margin="51,253,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbPDefVal" Content="0" HorizontalAlignment="Left" Margin="51,284,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbMAtkVal" Content="0" HorizontalAlignment="Left" Margin="176,253,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbMDefVal" Content="0" HorizontalAlignment="Left" Margin="176,284,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbMPVal" Content="0" HorizontalAlignment="Left" Margin="51,222,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbHPVal" Content="0" HorizontalAlignment="Left" Margin="51,191,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
