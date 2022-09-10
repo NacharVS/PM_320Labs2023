@@ -12,9 +12,6 @@ static public class Game
         firstUnit.HealthChangedEvent += HealthChangeReport;
         secondUnit.HealthChangedEvent += HealthChangeReport;
 
-        EventsDistributing(firstUnit);
-        EventsDistributing(secondUnit);
-
         for (; firstUnit.Health > 0 && secondUnit.Health > 0; _time++)
         {
             if (firstUnit.TimeWithoutAttack == 0)
@@ -157,36 +154,6 @@ static public class Game
         else
         {
             Console.WriteLine($"{unit.Name} restored {value} hp");
-        }
-    }
-
-    
-
-    static private void EventsDistributing(Unit unit)
-    {
-        switch (unit.GetType().Name.ToString())
-        {
-            case "Footman":
-
-                ((Footman)unit).StunEvent 
-                    += ((Footman)unit).StunReport;
-                break;
-
-            case "Mage":
-                 ((Mage)unit).FireballEvent 
-                    += ((Mage)unit).FireballReport;
-
-                 ((Mage)unit).BlizzardEvent 
-                    += ((Mage)unit).BlizzardReport;
-                break;
-
-            case "Dragon":
-                ((Dragon)unit).FireBreathEvent 
-                    += ((Dragon)unit).FireBreathReport;
-                break;
-
-            default:
-                break;
         }
     }
 }

@@ -4,9 +4,6 @@ namespace WarCraft_3_ConsoleEdition
 {
     public class Mage : Range
     {
-        public delegate void FireballDelegate(Unit unit);
-        public delegate void BlizzardDelegate(Unit unit);
-
         public int BlizzardTime { get; private set; } = 7;
 
         public Mage(int range, int mana, int damage, int attackSpeed, int armor,
@@ -20,7 +17,7 @@ namespace WarCraft_3_ConsoleEdition
             if (this.Mana >= 20)
             {
                 unit.Health -= this.Damage * 2;
-                FireballEvent?.Invoke(unit);
+                FireballReport(unit);
             }
 
             else
@@ -35,7 +32,7 @@ namespace WarCraft_3_ConsoleEdition
             {
                 unit.TimeWithoutAttack += 7;
                 this.Mana -= 15;
-                BlizzardEvent?.Invoke(unit);
+                BlizzardReport(unit);
             }
 
             else
@@ -66,20 +63,17 @@ namespace WarCraft_3_ConsoleEdition
             return hp;
         }
 
-        public void FireballReport(Unit unit)
+        private void FireballReport(Unit unit)
         {
             Console.WriteLine($"{Name} used fireball " +
                                 $"and dealt {Damage * 2} " +
                                 $"damage to {unit.Name}");
         }
 
-        public void BlizzardReport(Unit unit)
+        private void BlizzardReport(Unit unit)
         {
             Console.WriteLine($"{Name} froze " +
                            $"{unit.Name} for {BlizzardTime} second");
         }
-
-        public event FireballDelegate FireballEvent;
-        public event BlizzardDelegate BlizzardEvent;
     }
 }
