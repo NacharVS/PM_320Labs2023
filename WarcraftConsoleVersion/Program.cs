@@ -30,6 +30,7 @@ public class Program
 
         codeOne = Convert.ToInt32(Console.ReadLine());
         codeTwo = Convert.ToInt32(Console.ReadLine());
+
         newGame.GameStart(codeOne, codeTwo);
         //Unit archer;
 
