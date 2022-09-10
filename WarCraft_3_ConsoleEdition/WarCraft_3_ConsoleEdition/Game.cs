@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using WarCraft_3_ConsoleEdition;
 using Range = WarCraft_3_ConsoleEdition.Range;
 
 static public class Game
 {
+
     static private int time = 0;
     static public void StartGame(Unit firstUnit, Unit secondUnit)
 	{
@@ -32,7 +34,7 @@ static public class Game
 
         Console.WriteLine(firstUnit.health > 0 ?
             $"{firstUnit.name} win!" : $"{secondUnit.name} win!");
-	}
+    }
 
     static void ChoosingMove(Unit atUnit, Unit defUnit, int time)
     {
@@ -184,6 +186,7 @@ static public class Game
     private static void ReportDamage(Unit atUnit, int damage, Unit defUnit)
     {
         Console.WriteLine($"{atUnit.name} dealt {damage} damage to {defUnit.name}");
+        
     }
 }
 
