@@ -55,8 +55,7 @@ public class Mage : Range
         {
             Mana -= SpellsCost["Heal"];
             Thread.Sleep(AttackSpeed);
-            entity.Health -= Damage;
-            if (entity.Health <= 0) entity.CheckIsDestroyed();
+            entity.Health += 10;
         }
         else
         {

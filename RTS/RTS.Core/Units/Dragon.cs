@@ -39,13 +39,11 @@ public class Dragon : Range
 
         Thread.Sleep(AttackSpeed);
         entity.DealingDamage(this);
-        NotifyAboutDamage(Damage, entity);
     }
     
     public override void DealingDamage(Military entity)
     {
-        Health -= Damage > entity.Armor ? Damage : 0;
-        Console.WriteLine($"{this.Name}  {this.Health}");
+        Health -= entity.Damage > Armor ? entity.Damage : 0;
         this.CheckIsDestroyed();
     }
 }

@@ -30,6 +30,8 @@ while (!unit1.IsDestroyed && !unit2.IsDestroyed)
         break;
     }
 
+    ((Mage)unit1).Heal(unit2);
+
     ((Military)unit2).Attack(unit1);
     
     if (unit1.IsDestroyed) Console.WriteLine($"Игрок {unit1.Name} помер");

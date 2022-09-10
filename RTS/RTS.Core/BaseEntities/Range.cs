@@ -23,6 +23,5 @@ public abstract class Range : Military
         }
         Thread.Sleep(AttackSpeed);
         entity.Health -= Damage > ((Range)entity).Armor? Damage : 0;
-        NotifyAboutDamage(Damage, entity);
     }
 }

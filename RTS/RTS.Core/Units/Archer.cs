@@ -23,15 +23,12 @@ namespace RTS.Core.Annotations.Units
 
             Thread.Sleep(AttackSpeed);
             entity.DealingDamage(this);
-            NotifyAboutDamage(Damage, entity);
         }
         public override void DealingDamage(Military entity)
         {
-            Console.WriteLine($"{this.Name}  {this.Health}");
-            Health -= Damage > entity.Armor ? Damage : 0;
+            Health -= entity.Damage > Armor ? entity.Damage : 0;
             ((Archer) entity).ArrowCount--;
             this.CheckIsDestroyed();
-            Console.WriteLine($"{this.Name}  {this.Health}");
         }
     }
 }

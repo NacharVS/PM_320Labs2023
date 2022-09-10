@@ -13,10 +13,21 @@ public abstract class Unit
         get { return _health; }
         internal set
         {
-            int damage = _health;
-            damage -= value < _health ? value : 0;
+            if (value < _health)
+            {
+                int damage = _health;
+                damage -= value;
+                _health = value;
+                HealthChangedEvent?.Invoke(-damage);
+            }
+            else if (value > _health)
+            {
+                int heal = _health;
+                heal -= value;
+                _health = value;
+                HealthChangedEvent?.Invoke(-heal);
+            }
             _health = value;
-            HealthChangedEvent?.Invoke(damage);
         }
     }
 
@@ -35,7 +46,7 @@ public abstract class Unit
         MaxHealth = health;
         IsDestroyed = false;
         IsDestroyedEvent += () => IsDestroyed = true;
-        HealthChangedEvent += (int damage) => Console.WriteLine($"Игрок {this.Name} получил урон {damage}, текущее здоровье {this._health}\n");
+        HealthChangedEvent += (int damage) => Console.WriteLine($"Игрок {this.Name} получил {damage}, текущее здоровье {this._health}\n");
     }
 
     public void CheckIsDestroyed()
@@ -45,6 +56,7 @@ public abstract class Unit
     public virtual void DealingDamage(Military entity)
     {
         Health -= entity.Damage;
+        HealthChangedEvent.Invoke(entity.Damage);
         this.CheckIsDestroyed();
     }
 
