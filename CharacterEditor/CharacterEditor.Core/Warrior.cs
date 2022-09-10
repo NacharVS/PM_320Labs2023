@@ -12,15 +12,15 @@ public class Warrior : CharacterBase
     private const double DexterityAttackChange = 1;
     private const double DexterityPhysicalResistanceChange = 1;
     
-    private static readonly CharacteristicRange ConstitutionRange = new(15, 70);
+    private static readonly CharacteristicRange ConstitutionRange = new(20, 100);
     private const double ConstitutionHpChange = 10;
     private const double ConstitutionPhysicalDefenceChange = 2;
     
-    private static readonly CharacteristicRange IntelligenceRange = new(15, 70);
+    private static readonly CharacteristicRange IntelligenceRange = new(10, 50);
     private const double IntelligenceManaChange = 1;
     private const double IntelligenceMagicalAttackChange = 1;
 
-    static Warrior()
+    public Warrior()
     {
         StrengthInfo = new StrengthInfo(StrengthRange, StrengthAttackChange, StrengthHpChange);
         DexterityInfo = new DexterityInfo(DexterityRange, DexterityAttackChange, DexterityPhysicalResistanceChange);
@@ -28,5 +28,6 @@ public class Warrior : CharacterBase
             ConstitutionPhysicalDefenceChange);
         IntelligenceInfo = new IntelligenceInfo(IntelligenceRange,
             IntelligenceManaChange, IntelligenceMagicalAttackChange);
+        InitStats();
     }
 }

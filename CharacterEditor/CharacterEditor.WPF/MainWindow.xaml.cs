@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using CharacterEditor.Core;
 
 namespace CharacterEditor.WPF
 {
@@ -20,9 +9,82 @@ namespace CharacterEditor.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private CharacterBase? _currentCharacter;
         public MainWindow()
         {
             InitializeComponent();
+
+            SelectClassComboBox.SelectionChanged +=
+                SelectClassComboBox_SelectionChanged;
+            foreach (CharacteristicSlider slider in SliderPanel.Children)
+            {
+                slider.CharacteristicName.Content =
+                    CharacteristicSlider.GetCharName(slider);
+                slider.PlusButton.Click += UpdateSliderView;
+                slider.MinusButton.Click += UpdateSliderView;
+            }
+        }
+
+        private void UpdateSliderView(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter is null)
+                return;
+            
+            var slider = (((Button)sender).Parent as Grid)?.Parent as CharacteristicSlider;
+            if (slider is null)
+                return;
+
+            switch (slider.CharacteristicName.Content)
+            {
+                case "Strength":
+                    _currentCharacter.Strength = slider.SliderValue;
+                    slider.SliderValue = _currentCharacter.Strength;
+                    break;
+                case "Dexterity":
+                    _currentCharacter.Dexterity = slider.SliderValue;
+                    slider.SliderValue = _currentCharacter.Dexterity;
+                    break;
+                case "Constitution":
+                    _currentCharacter.Constitution = slider.SliderValue;
+                    slider.SliderValue = _currentCharacter.Constitution;
+                    break;
+                case "Intelligence":
+                    _currentCharacter.Intelligence = slider.SliderValue;
+                    slider.SliderValue = _currentCharacter.Intelligence;
+                    break;
+            }
+            
+            slider.InvalidateVisual();
+        }
+
+        private void SelectClassComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var combobox = sender as ComboBox;
+            var value = (combobox!.SelectedValue as ComboBoxItem)!.Content;
+
+            switch (value)
+            {
+                case "Warrior":
+                    _currentCharacter = new Warrior();
+                    break;
+                case "Wizard":
+                    _currentCharacter = new Wizard();
+                    break;
+                case "Rogue":
+                    _currentCharacter = new Rogue();
+                    break;
+            }
+            
+            if (_currentCharacter is null)
+                return;
+            
+            StrengthSlider.SliderValue = _currentCharacter.Strength;
+            DexteritySlider.SliderValue = _currentCharacter.Dexterity;
+            ConstitutionSlider.SliderValue = _currentCharacter.Constitution;
+            IntelligenceSlider.SliderValue = _currentCharacter.Intelligence;
+            
+            foreach (CharacteristicSlider slider in SliderPanel.Children)
+                slider.InvalidateVisual();
         }
     }
 }

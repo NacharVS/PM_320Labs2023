@@ -22,7 +22,7 @@ public abstract class CharacterBase
         }
     }
 
-    public static StrengthInfo StrengthInfo { get; protected set; }
+    public StrengthInfo StrengthInfo { get; protected set; }
     
     private int _dexterity;
 
@@ -39,7 +39,7 @@ public abstract class CharacterBase
         }
     }
 
-    public static DexterityInfo DexterityInfo { get; protected set; }
+    public DexterityInfo DexterityInfo { get; protected set; }
 
     private int _constitution;
     public int Constitution
@@ -54,7 +54,7 @@ public abstract class CharacterBase
             _constitution = value;
         }
     }
-    public static ConstitutionInfo ConstitutionInfo { get; protected set; }
+    public ConstitutionInfo ConstitutionInfo { get; protected set; }
 
     private int _intelligence;
     public int Intelligence
@@ -69,7 +69,7 @@ public abstract class CharacterBase
             _intelligence = value;
         }
     }
-    public static IntelligenceInfo IntelligenceInfo { get; protected set; }
+    public IntelligenceInfo IntelligenceInfo { get; protected set; }
 
     public double Health => Strength * StrengthInfo.HpChange +
                             Constitution * ConstitutionInfo.HpChange;
@@ -98,5 +98,13 @@ public abstract class CharacterBase
         }
 
         return true;
+    }
+
+    protected void InitStats()
+    {
+        _strength = StrengthInfo.Range.MinValue;
+        _dexterity = DexterityInfo.Range.MinValue;
+        _constitution = ConstitutionInfo.Range.MinValue;
+        _intelligence = IntelligenceInfo.Range.MinValue;
     }
 }

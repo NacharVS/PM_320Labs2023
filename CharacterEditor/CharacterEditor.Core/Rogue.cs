@@ -20,7 +20,7 @@ public class Rogue : CharacterBase
     private const double IntelligenceManaChange = 1.5;
     private const double IntelligenceMagicalAttackChange = 2;
 
-    static Rogue()
+    public Rogue()
     {
         StrengthInfo = new StrengthInfo(StrengthRange, StrengthAttackChange, StrengthHpChange);
         DexterityInfo = new DexterityInfo(DexterityRange, DexterityAttackChange, DexterityPhysicalResistanceChange);
@@ -28,5 +28,6 @@ public class Rogue : CharacterBase
             ConstitutionPhysicalDefenceChange);
         IntelligenceInfo = new IntelligenceInfo(IntelligenceRange,
             IntelligenceManaChange, IntelligenceMagicalAttackChange);
+        InitStats();
     }
 }

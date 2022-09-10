@@ -7,6 +7,42 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition MinWidth="120" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="SelectClassComboBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"
+                  Grid.Column="1">
+            <ComboBoxItem Content="Warrior" />
+            <ComboBoxItem Content="Wizard" />
+            <ComboBoxItem Content="Rogue" />
+        </ComboBox>
+        <StackPanel x:Name="SliderPanel" Grid.Column="1" Orientation="Vertical" Margin="0,39,0,1" Grid.RowSpan="10">
+            <local:CharacteristicSlider x:Name="StrengthSlider" local:CharacteristicSlider.CharName="Strength"
+                                        Margin="0,38,0,2" />
+            <local:CharacteristicSlider x:Name="DexteritySlider" local:CharacteristicSlider.CharName="Dexterity"
+                                        Margin="0,38,0,2" />
+            <local:CharacteristicSlider x:Name="ConstitutionSlider" local:CharacteristicSlider.CharName="Constitution"
+                                        Margin="0,38,0,2" />
+            <local:CharacteristicSlider x:Name="IntelligenceSlider" local:CharacteristicSlider.CharName="Intelligence"
+                                        Margin="0,38,0,2" />
 
+        </StackPanel>
     </Grid>
 </Window>

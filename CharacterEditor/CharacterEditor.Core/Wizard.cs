@@ -20,7 +20,7 @@ public class Wizard : CharacterBase
     private const double IntelligenceManaChange = 2;
     private const double IntelligenceMagicalAttackChange = 5;
 
-    static Wizard()
+    public Wizard()
     {
         StrengthInfo = new StrengthInfo(StrengthRange, StrengthAttackChange, StrengthHpChange);
         DexterityInfo = new DexterityInfo(DexterityRange, DexterityAttackChange, DexterityPhysicalResistanceChange);
@@ -28,5 +28,6 @@ public class Wizard : CharacterBase
             ConstitutionPhysicalDefenceChange);
         IntelligenceInfo = new IntelligenceInfo(IntelligenceRange,
             IntelligenceManaChange, IntelligenceMagicalAttackChange);
+        InitStats();
     }
 }
