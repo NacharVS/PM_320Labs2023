@@ -4,43 +4,79 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameCharacterEditor.Characters
+namespace GameCharacterEditor
 {
     class Character
     {
-        public string Name { get; set; }  // Имя
-        public int MinStrength { get; set; } // Сила
-        public int MaxStrength { get; set; }
-        public int MinDexterity { get; set; } // Ловкость 
-        public int MaxDexterity { get; set; }
-        public int MinConstitution { get; set; } // Телосложение
-        public int MaxConstitution { get; set; }
-        public int MinIntelligence { get; set; } // Интеллект 
-        public int MaxIntelligence { get; set; }
-        public int MP { get; set; } // Мана
-        public int HP { get; set; } // Здоровье
-        public int PDef { get; set; } // Физическая защита (Physical defention)
-        public int Attack { get; set; } // Атака (урон)
-
-        public Character (string name, int minStrength, int maxStrength, 
-            int minDexterity, int maxDexterity,int minConstitution, int maxConstitution, 
-            int minIntelligence, int maxIntelligence, int mP, int hP,  int pDef, int attack)
+        public string Name { get; set; }
+        // Сила
+        public int minStrength;
+        public int maxStrength;
+        public int _strength; 
+        public int Strength
         {
-            this.Name = name;
-            this.MinStrength = minStrength;
-            this.MaxStrength = maxStrength;
-            this.MinDexterity = minDexterity;
-            this.MaxDexterity = maxDexterity;
-            this.MinConstitution = minConstitution;
-            this.MaxConstitution = maxConstitution;
-            this.MinIntelligence = minIntelligence;
-            this.MaxIntelligence = maxIntelligence;
-            this.MP = mP;
-            this.HP = hP;
-            this.PDef = pDef;
-            this.Attack = attack;
-        }   
+            get { return _strength; }
+            set 
+            {
+                if (value >= minStrength && value <= maxStrength)
+                {
+                    _strength = value;
+                }
+            }
+        }
 
+        // Ловкость
+        public int minDexterity;
+        public int maxDexterity;
+        public int _dexterity;
+        public int Dexterity
+        {
+            get { return _dexterity; }
+            set 
+            {
+                if (value >= minDexterity && value <= maxDexterity)
+                {
+                    _dexterity = value;
+                }
+            }
+        }
 
+        // Телосложение
+        public int minConstitution;
+        public int maxConstitution;
+        public int _constitution;
+        public int Constitution
+        {
+            get { return _constitution; }
+            set 
+            {
+                if (value >= minConstitution && value <= maxConstitution)
+                {
+                    _constitution = value;
+                }
+            }
+        }
+
+        // Интеллект 
+        public int minIntelligence;
+        public int maxIntelligence;
+        public int _intelligence;
+        public int Intelligence
+        {
+            get { return _intelligence; }
+            set 
+            {
+                if (value >= minIntelligence && value <= maxIntelligence)
+                {
+                    _intelligence = value;
+                }
+            }
+        }
+
+        public int HP { get; set; } // Здоровье
+        public double MP { get; set; } // Мана
+        public double PDef { get; set; } // Физическая защита (Physical defention)
+        public int Attack { get; set; } // Атака (урон)
+        public int MPAttack { get; set; } // Магическая атака
     }
 }

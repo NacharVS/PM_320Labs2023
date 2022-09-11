@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameCharacterEditor
 {
-    class Rogue : Character
+    class Warrior : Character
     {
         public string Name { get; set; }
         public new int Strength
@@ -16,8 +16,8 @@ namespace GameCharacterEditor
             {
                 if (value >= minStrength && value <= maxStrength)
                 {
-                    HP += (value - _strength) * 1;
-                    Attack += (value - _strength) * 2;
+                    HP += (value - _strength) * 2;
+                    Attack += (value - _strength) * 5;
                     _strength = value;
                 }
             }
@@ -29,8 +29,8 @@ namespace GameCharacterEditor
             {
                 if (value >= minDexterity && value <= maxDexterity)
                 {
-                    Attack += (value - _dexterity) * 4;
-                    PDef += (value - _dexterity) * 1.5;
+                    Attack += (value - _dexterity) * 1;
+                    PDef += (value - _dexterity) * 1;
                     _dexterity = value;
                 }
             }
@@ -42,35 +42,36 @@ namespace GameCharacterEditor
             {
                 if (value >= minConstitution && value <= maxConstitution)
                 {
-                    HP += (value - _constitution) * 6;
+                    HP += (value - _constitution) * 10;
+                    PDef += (value - _constitution) * 12;
                     _constitution = value;
                 }
             }
         }
-        public new int MinIntelligence
+        public new int Intelligence
         {
             get { return _intelligence; }
             set
             {
                 if (value >= minIntelligence && value <= maxIntelligence)
                 {
-                    MP += (value - _intelligence) * 1.5;
-                    MPAttack += (value - _intelligence) * 2;
+                    MP += (value - _intelligence) * 1;
+                    MPAttack += (value - _intelligence) * 1;
                     _intelligence = value;
                 }
             }
         }
-        public Rogue(string name)
+        public Warrior(string name)
         {
             this.Name = name;
-            minStrength = 15;
-            maxStrength = 55;
-            minDexterity = 30;
-            maxDexterity = 250;
+            minStrength = 30;
+            maxStrength = 250;
+            minDexterity = 15;
+            maxDexterity = 70;
             minConstitution = 20;
-            maxConstitution = 80;
-            minIntelligence = 15;
-            maxIntelligence = 70;
+            maxConstitution = 100;
+            minIntelligence = 10;
+            maxIntelligence = 50;
         }
     }
 }

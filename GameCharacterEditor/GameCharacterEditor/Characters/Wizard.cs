@@ -4,18 +4,74 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameCharacterEditor.Characters
+namespace GameCharacterEditor
 {
     class Wizard : Character
     {
-        public Wizard(string name, int minStrength, int maxStrength, 
-            int minDexterity, int maxDexterity, int minConstitution, 
-            int maxConstitution, int minIntelligence, int maxIntelligence, 
-            int mP, int hP, int pDef, int attack) : base(name, minStrength, 
-                maxStrength, minDexterity, maxDexterity, minConstitution, 
-                maxConstitution, minIntelligence, maxIntelligence, mP, hP, 
-                pDef, attack)
+        public string Name { get; set; }
+        public new int Strength
         {
+            get { return _strength; }
+            set
+            {
+                if (value >= minStrength && value <= maxStrength)
+                {
+                    HP += (value - _strength) * 1;
+                    Attack += (value - _strength) * 3;
+                    _strength = value;
+                }
+            }
+        }
+        public new int Dexterity
+        {
+            get { return _dexterity; }
+            set
+            {
+                if (value >= minDexterity && value <= maxDexterity)
+                {
+                    Attack += (value - _dexterity) * 4;
+                    PDef += (value - _dexterity) * 1.5;
+                    _dexterity = value;
+                }
+            }
+        }
+        public new int Constitution
+        {
+            get { return _constitution; }
+            set
+            {
+                if (value >= minConstitution && value <= maxConstitution)
+                {
+                    HP += (value - _constitution) * 3;
+                    PDef += (value - _constitution) * 1;
+                    _constitution = value;
+                }
+            }
+        }
+        public new int Intelligence
+        {
+            get { return _intelligence; }
+            set
+            {
+                if (value >= minIntelligence && value <= maxIntelligence)
+                {
+                    MP += (value - _intelligence) * 2;
+                    MPAttack += (value - _intelligence) * 5;
+                    _intelligence = value;
+                }
+            }
+        }
+        public Wizard(string name)
+        {
+            this.Name = name;
+            minStrength = 10;
+            maxStrength = 45;
+            minDexterity = 20;
+            maxDexterity = 70;
+            minConstitution = 15;
+            maxConstitution = 60;
+            minIntelligence = 35;
+            maxIntelligence = 250;
         }
     }
 }

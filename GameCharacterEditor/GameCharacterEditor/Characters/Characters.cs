@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameCharacterEditor.Characters
+namespace GameCharacterEditor
 {
     class Characters
     {
@@ -13,6 +13,15 @@ namespace GameCharacterEditor.Characters
         public Characters()
         {
             characters = new List<Character>();
-        }   
+        }
+        public void Add(Character character)
+        {
+            characters.Add(character);
+        }
+
+        public void ClearList()
+        {
+            characters.Clear();
+        }
     }
 }
