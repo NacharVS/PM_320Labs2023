@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarCraftClone", "Warcraft\W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarCraftCloneCore", "Warcraft\WarCraftCloneCore\WarCraftCloneCore.csproj", "{EA720AD4-BF8F-4CDF-B279-E06D3FFA8F99}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitsEditorCore", "UnitsEditor\UnitsCharacters\UnitsEditorCore.csproj", "{011C4561-25BA-4C7B-9860-DA45C14F8689}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharacterEditorCore", "CharacterEditor\CharacterEditorCore\CharacterEditorCore.csproj", "{011C4561-25BA-4C7B-9860-DA45C14F8689}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitsEditor", "UnitsEditor\UnitsEditor\UnitsEditor.csproj", "{D5958882-0C85-4C1B-B790-FD832E1C40B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharacterEditor", "CharacterEditor\CharacterEditor\CharacterEditor.csproj", "{D5958882-0C85-4C1B-B790-FD832E1C40B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

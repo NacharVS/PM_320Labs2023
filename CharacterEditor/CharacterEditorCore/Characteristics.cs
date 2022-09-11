@@ -1,4 +1,4 @@
-﻿namespace UnitsEditorCore
+﻿namespace CharacterEditorCore
 {
     class Characteristics
     {

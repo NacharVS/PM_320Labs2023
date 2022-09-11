@@ -1,0 +1,148 @@
+﻿
+namespace CharacterEditorCore
+{
+    abstract class BaseCharacteristics
+    {
+        private Characteristics _strength;
+        public Characteristics Strength { get; set; }
+        protected int _strengthAttackChange;
+        protected int _strengthHpChange;
+
+        private Characteristics _dexterity;
+        public Characteristics Dexterity { get; set; }
+        protected int _dexterityAttackChange;
+        protected double _dexterityPhysicalDefChange;
+
+        private Characteristics _constitution;
+        public Characteristics Constitution { get; set; }
+
+        protected int _constitutionHpChange;
+        protected double _constitutionPhysicalDefChange;
+
+        private Characteristics _intelligence;
+        public Characteristics Intelligence { get; set; }
+        protected double _intelligenceMpChange;
+        protected int _intelligenceMagicAttackChange;
+
+        private int _attackDamage;
+        public int AttackDamage
+        {
+            get { return _attackDamage; }
+            set
+            {
+                if(value >= 0)
+                {
+                    _attackDamage = value;
+                }
+                else _attackDamage = 0;
+            }
+        }
+
+        public void AttackDamageCalc()
+        {
+            AttackDamage = Strength.Value * _strengthAttackChange + Dexterity.Value * _dexterityAttackChange;
+        }
+
+        private double _physicalDef;
+        public double PhysicalDef
+        {
+            get { return _physicalDef; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _physicalDef = value;
+                }
+                else _physicalDef = 0;
+            }
+        }
+
+        public void PhysicalDefCalc()
+        {
+            PhysicalDef = Dexterity.Value * _dexterityPhysicalDefChange + Constitution.Value * _constitutionPhysicalDefChange;
+        }
+
+        private int _magicAttack;
+        public int MagicAttack
+        {
+            get { return _magicAttack; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _magicAttack = value;
+                }
+                else _magicAttack = 0;
+            }
+        }
+        public void MagicAttackCalc()
+        {
+            MagicAttack = Intelligence.Value * _intelligenceMagicAttackChange;
+        }
+
+        private double _mp;
+        public double ManaPoint
+        {
+            get { return _mp; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _mp = value;
+                }
+                else _mp = 0;
+            }
+        }
+        public void ManaPointCalc()
+        {
+            ManaPoint = Intelligence.Value * _intelligenceMpChange;
+        }
+        private int _hp;
+        public int HealthPoint
+        {
+            get { return _hp; }
+            set
+            {
+                if (value >= 0)
+                {
+                    _hp = value;
+                }
+                else _hp = 0;
+            }
+        }
+        public void HealthPointCalc()
+        {
+            HealthPoint = Strength.Value * _strengthHpChange + Constitution.Value * _constitutionHpChange;
+        }
+
+        public BaseCharacteristics(Characteristics strength,
+                                Characteristics dexterity,
+                                Characteristics constitution,
+                                Characteristics intelligense,
+                                int strengthHpChange,
+                                int strengthAttackChange,
+                                double dexterityPhysicalDefChange,
+                                int dexterityAttackChange,
+                                double constitutionPhysicalDefChange,
+                                int constitutionHpChange,
+                                int intelligenceMagicAttackChange,
+                                double intelligenceMpChange)
+        {
+            _strength = strength;
+            _strengthHpChange = strengthHpChange;
+            _strengthAttackChange = strengthAttackChange;
+            _dexterityAttackChange = dexterityAttackChange;
+            _dexterityPhysicalDefChange = dexterityPhysicalDefChange;
+            _constitutionHpChange = constitutionHpChange;
+            _constitutionPhysicalDefChange = constitutionPhysicalDefChange;
+            _intelligenceMagicAttackChange = intelligenceMagicAttackChange;
+            _intelligenceMpChange = intelligenceMpChange;
+
+            AttackDamageCalc();
+            PhysicalDefCalc();
+            ManaPointCalc();
+            HealthPointCalc();
+            MagicAttackCalc();
+        }
+    }
+}
