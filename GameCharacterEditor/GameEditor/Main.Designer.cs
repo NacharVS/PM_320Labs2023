@@ -48,7 +48,6 @@
             this.dexterityLbl = new System.Windows.Forms.Label();
             this.strengthLbl = new System.Windows.Forms.Label();
             this.listBoxMain = new System.Windows.Forms.ListBox();
-            this.listBoxUnits = new System.Windows.Forms.ListBox();
             this.mainPan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCon)).BeginInit();
@@ -254,7 +253,7 @@
             this.listBoxMain.FormattingEnabled = true;
             this.listBoxMain.ItemHeight = 25;
             this.listBoxMain.Items.AddRange(new object[] {
-            "Warrier",
+            "Warrior",
             "Rogue",
             "Wizard"});
             this.listBoxMain.Location = new System.Drawing.Point(0, 0);
@@ -263,22 +262,12 @@
             this.listBoxMain.TabIndex = 0;
             this.listBoxMain.SelectedIndexChanged += new System.EventHandler(this.ListBoxMain_SelectedIndexChanged);
             // 
-            // listBoxUnits
-            // 
-            this.listBoxUnits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxUnits.FormattingEnabled = true;
-            this.listBoxUnits.ItemHeight = 20;
-            this.listBoxUnits.Location = new System.Drawing.Point(0, 0);
-            this.listBoxUnits.Name = "listBoxUnits";
-            this.listBoxUnits.Size = new System.Drawing.Size(327, 450);
-            this.listBoxUnits.TabIndex = 1;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listBoxUnits);
             this.Controls.Add(this.mainPan);
             this.Name = "Main";
             this.Text = "Main";
@@ -300,7 +289,6 @@
         private Label constitutionLbl;
         private Label dexterityLbl;
         private Label strengthLbl;
-        private ListBox listBoxUnits;
         private Label manaLbl;
         private NumericUpDown numericUpDownInt;
         private NumericUpDown numericUpDownCon;

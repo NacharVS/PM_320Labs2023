@@ -21,10 +21,10 @@ namespace GameEditorLibrary
 
         public Rogue() 
         {
-            strength = 15;
-            dexterity = 30;
-            constitution = 20;
-            intelligence = 15;
+            strength = minStrength;
+            dexterity = minDexterity;
+            constitution = minConstitution;
+            intelligence = minIntelligence;
             maxIintelligence = 70;
             minIntelligence = 15;
             minStrength = 15;

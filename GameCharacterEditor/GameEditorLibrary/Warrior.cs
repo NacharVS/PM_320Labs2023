@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEditorLibrary
 {
-    public class Warrier : Unit
+    public class Warrior : Unit
     {
         public int strength;
         public int dexterity;
@@ -19,12 +19,12 @@ namespace GameEditorLibrary
         public double HP;
         public double MP;
 
-        public Warrier()
+        public Warrior()
         {
-            strength = 30;
-            dexterity = 15;
-            constitution = 20;
-            intelligence = 10;
+            strength = minStrength;
+            dexterity = minDexterity;
+            constitution = minConstitution;
+            intelligence = minIntelligence;
             maxIintelligence = 50;
             minIntelligence = 10;
             minStrength = 30;
