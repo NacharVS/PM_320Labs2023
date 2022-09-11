@@ -66,7 +66,6 @@ namespace CharacterCreator.Core
             PhysAttackValueLabel.Content = _selectedCharacter?.PhysAttack;
             PhysDefenseValueLabel.Content = _selectedCharacter?.PhysDefense;
             MagicalAttackValueLabel.Content = _selectedCharacter?.MagicalAttack;
-            // MagicalDefenseLabel.Content = _currentCharacter?.MagicDefense;
         }
 
         private void StrengthIncrementBtn_Click(object sender, RoutedEventArgs e)
