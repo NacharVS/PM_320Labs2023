@@ -5,7 +5,6 @@
         private int _value;
         private int _minValue;
         private int _maxValue;
-
         public Characteristics(int value, int minValue, int maxValue)
         {
             _value = value;

@@ -1,15 +1,22 @@
-﻿
-namespace CharacterEditorCore
+﻿namespace CharacterEditorCore
 {
     public abstract class BaseCharacteristics
     {
+        private Characteristics _expPoints;
+        public Characteristics ExpPoints 
+        { 
+            get { return _expPoints; }
+            set 
+            { 
+               _expPoints = value;
+            }
+        }
         private Characteristics _strength;
         public Characteristics Strength {
             get { return _strength; }
             set 
             { 
                 _strength = value;
-                CharacteristicsChangeEvent?.Invoke();
             }
         }
         protected int _strengthAttackChange;
@@ -21,7 +28,6 @@ namespace CharacterEditorCore
             set 
             { 
                 _dexterity = value;
-                CharacteristicsChangeEvent?.Invoke();
             }
         }
         protected int _dexterityAttackChange;
@@ -37,7 +43,6 @@ namespace CharacterEditorCore
             set
             {
                 _constitution = value;
-                CharacteristicsChangeEvent?.Invoke();
             } 
         }
 
@@ -51,7 +56,6 @@ namespace CharacterEditorCore
             set 
             { 
                 _intelligence = value;
-                CharacteristicsChangeEvent?.Invoke();
             }
         }
         protected double _intelligenceMpChange;
@@ -157,10 +161,6 @@ namespace CharacterEditorCore
             PhysicalDefCalc();
         }
 
-        public delegate void CharacteristicsChangeDelegate();
-
-        public event CharacteristicsChangeDelegate CharacteristicsChangeEvent;
-
         public BaseCharacteristics(Characteristics strength,
                                 Characteristics dexterity,
                                 Characteristics constitution,
@@ -172,7 +172,8 @@ namespace CharacterEditorCore
                                 double constitutionPhysicalDefChange,
                                 int constitutionHpChange,
                                 int intelligenceMagicAttackChange,
-                                double intelligenceMpChange)
+                                double intelligenceMpChange,
+                                Characteristics expPoints)
         {
             _strength = strength;
             _dexterity = dexterity;
@@ -186,10 +187,9 @@ namespace CharacterEditorCore
             _constitutionPhysicalDefChange = constitutionPhysicalDefChange;
             _intelligenceMagicAttackChange = intelligenceMagicAttackChange;
             _intelligenceMpChange = intelligenceMpChange;
-
+            _expPoints = expPoints;
+            
             CalcStats();
-
-            this.CharacteristicsChangeEvent += CalcStats;
         }
     }
 }
