@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using ConsoleWarcraft.enumUnits;
 
 namespace ConsoleWarcraft
 {
@@ -9,10 +9,11 @@ namespace ConsoleWarcraft
         static void Main()
         {
 
+            Warier warier = new Warier();
 
+            int strensth = warier.changeStrensth();
 
-
-
+            Console.WriteLine(strensth);
 
             int count = 1;
 

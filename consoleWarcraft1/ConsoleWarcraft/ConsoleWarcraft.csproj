@@ -40,10 +40,10 @@
   <ItemGroup>
     <Compile Include="Archer.cs" />
     <Compile Include="Blacksmith.cs" />
-    <Compile Include="customUnits\customMain.cs" />
+    <Compile Include="enumUnits\customMain.cs" />
     <Compile Include="enumUnits\Wizard.cs" />
     <Compile Include="enumUnits\Rogue.cs" />
-    <Compile Include="enumUnits\Warrer.cs" />
+    <Compile Include="enumUnits\Warier.cs" />
     <Compile Include="Footman.cs" />
     <Compile Include="GameLogic.cs" />
     <Compile Include="GuardTower.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleWarcraft.enumUnits
 {
-    public class Warrer
+    public class Warier
     {
         int strensthMin = 30;
         int strensthMax = 250;
@@ -22,7 +22,7 @@ namespace ConsoleWarcraft.enumUnits
         int currentConstitution = 0;
         int currentIntellisense = 0;
     
-        public Warrer()
+        public Warier()
         {
 
         }
