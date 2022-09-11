@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CharacterEditor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="700" Background="#FFB0E7EC">
+        Title="Character Editor" Height="300" Width="700" Background="#FFB0E7EC">
     <Window.Resources>
         <Style x:Key="AllBtn" TargetType="Button">
             <Style.Resources>
@@ -57,7 +57,7 @@
             <ColumnDefinition Width="130"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Column="2" Content="Character Editor" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="3" FontSize="20" FontWeight="Bold" Margin="16,0,0,0"/>
-        <ComboBox Name="cbCharacters" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="120" FontSize="15"/>
+        <ComboBox Name="cbCharacters" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="120" FontSize="15" SelectionChanged="cbCharacters_SelectionChanged"/>
         
         <Button Name="strengthMinusBtn" Grid.Column="2" Grid.Row="1" Style="{StaticResource MinusBtn}"/>
         <Button Name="dexterityMinusBtn" Grid.Column="2" Grid.Row="2" Style="{StaticResource MinusBtn}"/>

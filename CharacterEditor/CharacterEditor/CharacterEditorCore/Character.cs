@@ -19,7 +19,7 @@
         private Characterictic _dexterity;
         public Characterictic Dexterity
         {
-            get { return _strength; }
+            get { return _dexterity; }
             private set
             {
                 _dexterity = value;

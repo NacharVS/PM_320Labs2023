@@ -12,7 +12,7 @@ namespace CharacterEditor
     public partial class MainWindow : Window
     {
         private List<string> _characterNames = new List<string>()
-                                              {"Warrior", "Rogue", "Wizzard"};
+                                              {"Warrior", "Rogue", "Wizard"};
         private Character _currentCharacter;
         public delegate void CharactericticChangedDelegate();
         public event CharactericticChangedDelegate CharactericticChangedEvent;
@@ -21,7 +21,6 @@ namespace CharacterEditor
         {
             InitializeComponent();
             cbCharacters.ItemsSource = _characterNames;
-            _currentCharacter = new Warrior();
             CharactericticChangedEvent += UpdateCharacterInfo;
         }
 
@@ -29,6 +28,16 @@ namespace CharacterEditor
         {
             if (_currentCharacter == null)
             {
+                Attack.Content = 0;
+                Health.Content = 0;
+                PhysicalDefence.Content = 0;
+                Mana.Content = 0;
+                MagicalAttack.Content = 0;
+
+                strength.Content = 0;
+                dexterity.Content = 0;
+                constitution.Content = 0;
+                intellisense.Content = 0;
                 return;
             }
 
@@ -37,6 +46,11 @@ namespace CharacterEditor
             PhysicalDefence.Content = _currentCharacter.PhysicalDefence;
             Mana.Content = _currentCharacter.Mana;
             MagicalAttack.Content = _currentCharacter.MagicalAttackDamage;
+
+            strength.Content = _currentCharacter.GetStrengthValue();
+            dexterity.Content = _currentCharacter.GetDexterityValue();
+            constitution.Content = _currentCharacter.GetConstitutionValue();
+            intellisense.Content = _currentCharacter.GetIntellisenseValue();
         }
 
         private void CharactericticChangeButton_Click(object sender, RoutedEventArgs e)
@@ -113,6 +127,37 @@ namespace CharacterEditor
             }
 
             CharactericticChangedEvent?.Invoke();
+        }
+
+        private void cbCharacters_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = cbCharacters.SelectedItem.ToString();
+
+            if (selectedItem == "")
+            {
+                _currentCharacter = null;
+            }
+            else
+            {
+                _currentCharacter = CreateCharacter(selectedItem);
+            }
+
+            CharactericticChangedEvent?.Invoke();
+        }
+
+        private Character CreateCharacter(string name)
+        {
+            switch (name)
+            {
+                case "Warrior":
+                    return new Warrior();
+                case "Rogue":
+                    return new Rogue();
+                case "Wizard":
+                    return new Wizard();
+            }
+
+            return null;
         }
     }
 }
