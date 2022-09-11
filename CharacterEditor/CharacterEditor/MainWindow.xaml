@@ -1,0 +1,43 @@
+﻿<Window x:Class="CharacterEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CharacterEditor"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button Content="Warrior" HorizontalAlignment="Left" Margin="38,44,0,0" VerticalAlignment="Top" Click="Warrior_Button_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="130,44,0,0" VerticalAlignment="Top"/>
+        <Button Content="Rogue" HorizontalAlignment="Left" Margin="130,44,0,0" VerticalAlignment="Top" Click="Rogue_Button_Click"/>
+        <Button Content="Wizzard" HorizontalAlignment="Left" Margin="230,44,0,0" VerticalAlignment="Top" Click="Wizard_Button_Click"/>
+        <Label Content="Select character to create" HorizontalAlignment="Left" Margin="38,13,0,0" VerticalAlignment="Top"/>
+        <Label Content="Strength:" HorizontalAlignment="Left" Margin="38,121,0,0" VerticalAlignment="Top"/>
+        <Label Content="Dexterity:" HorizontalAlignment="Left" Margin="38,174,0,0" VerticalAlignment="Top"/>
+        <Label Content="Constitution:" HorizontalAlignment="Left" Margin="38,235,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="___No_Name_" Content="Intelligence:" HorizontalAlignment="Left" Margin="38,295,0,0" VerticalAlignment="Top"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="139,118,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="31"/>
+        <Button x:Name="btnDexterityLow" Content="-" HorizontalAlignment="Left" Margin="139,171,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="31" Click="btnDexterityLow_Click"/>
+        <Button x:Name="btnConstitutionLow" Content="-" HorizontalAlignment="Left" Margin="139,235,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="31" Click="btnConstitutionLow_Click"/>
+        <Button x:Name="btnIntelligenceLow" Content="-" HorizontalAlignment="Left" Margin="139,292,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="31" Click="btnIntelligenceLow_Click"/>
+        <TextBlock x:Name="tbStrength" HorizontalAlignment="Left" Margin="170,118,0,0" TextWrapping="Wrap" Text="strength" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" Width="120" Height="31"/>
+        <Button x:Name="btnStrengthLow" Content="-" HorizontalAlignment="Left" Margin="139,118,0,0" VerticalAlignment="Top" Width="31" FontSize="18" Height="31" Click="btnStrengthLow_Click"/>
+        <TextBlock x:Name="tbDextirity" HorizontalAlignment="Left" Margin="170,171,0,0" TextWrapping="Wrap" Text="dextirity" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" Width="120" Height="31"/>
+        <TextBlock x:Name="tbConstitution" HorizontalAlignment="Left" Margin="170,235,0,0" TextWrapping="Wrap" Text="constitution" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" Width="120" Height="31"/>
+        <TextBlock x:Name="tbIntelligence" HorizontalAlignment="Left" Margin="170,292,0,0" TextWrapping="Wrap" Text="intelligence" VerticalAlignment="Top" FontSize="18" TextAlignment="Center" Width="120" Height="31"/>
+        <Button x:Name="btnStrengthUp" Content="+" HorizontalAlignment="Left" Margin="290,118,0,0" VerticalAlignment="Top" Width="30" FontSize="18" Height="31" Click="btnStrengthUp_Click"/>
+        <Button x:Name="btnDexterityUp" Content="+" HorizontalAlignment="Left" Margin="290,171,0,0" VerticalAlignment="Top" Width="30" FontSize="18" Height="31" Click="btnDexterityUp_Click"/>
+        <Button x:Name="btnConstitutionUp" Content="+" HorizontalAlignment="Left" Margin="290,235,0,0" VerticalAlignment="Top" Width="30" FontSize="18" Height="31" Click="btnConstitutionUp_Click"/>
+        <Button x:Name="btnIntelligenceUp" Content="+" HorizontalAlignment="Left" Margin="290,292,0,0" VerticalAlignment="Top" Width="30" FontSize="18" Height="31" Click="btnIntelligenceUp_Click"/>
+        <Label Content="Healph point:" HorizontalAlignment="Left" Margin="432,116,0,0" VerticalAlignment="Top"/>
+        <Label Content="Physical damage:" HorizontalAlignment="Left" Margin="432,156,0,0" VerticalAlignment="Top"/>
+        <Label Content="Mage damage:" HorizontalAlignment="Left" Margin="432,199,0,0" VerticalAlignment="Top"/>
+        <Label Content="Physical defense:" HorizontalAlignment="Left" Margin="432,242,0,0" VerticalAlignment="Top"/>
+        <Label Content="Mana point:" HorizontalAlignment="Left" Margin="432,282,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="tbHealphPoint" HorizontalAlignment="Left" Margin="550,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <TextBlock x:Name="tbPhysicalDamage" HorizontalAlignment="Left" Margin="550,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <TextBlock x:Name="tbMageDamage" HorizontalAlignment="Left" Margin="550,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <TextBlock x:Name="tbPhysicalDefense" HorizontalAlignment="Left" Margin="550,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <TextBlock x:Name="tbManaPoint" HorizontalAlignment="Left" Margin="550,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>
