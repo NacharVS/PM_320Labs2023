@@ -1,0 +1,60 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFcharacteristic.WPF"
+        xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="WPFcharacteristic.WPF.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="61*"/>
+            <ColumnDefinition Width="673*"/>
+            <ColumnDefinition Width="66*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="49*"/>
+            <RowDefinition Height="474*"/>
+            <RowDefinition Height="61*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="293,2,0,0" VerticalAlignment="Top" Width="110" Source="/rogue.jpg" Grid.Row="1"/>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="542,2,0,0" VerticalAlignment="Top" Width="95" Source="/wizard.png" Grid.Row="1"/>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="63,2,0,0" VerticalAlignment="Top" Width="110" Source="/warrior.jpg" Grid.Row="1"/>
+        <TextBlock x:Name="Points" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="237,210,0,0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Width="24" Background="Black" Foreground="White" Text="0" TextAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="134,258,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Strength" VerticalAlignment="Top" Width="76"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="134,284,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Dexterity" VerticalAlignment="Top" Width="76"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="134,308,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Constitution" VerticalAlignment="Top" Width="76"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="134,332,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Intelligence" VerticalAlignment="Top" Width="76"/>
+        <ComboBox x:Name="EntityBox" Grid.Column="1" HorizontalAlignment="Left" Margin="282,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="Entity_SelectionChanged">
+            <System:String>Warrior</System:String>
+            <System:String>Rogue</System:String>
+            <System:String>Wizard</System:String>
+        </ComboBox>
+        <Button x:Name="StrengthPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="303,258,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="19" Click="Button_Click"/>
+        <Button x:Name="DexterityPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="303,283,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="19" Click="DexterityPlus_Click"/>
+        <Button x:Name="ConstitutionPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="303,306,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="19" Click="ConstitutionPlus_Click"/>
+        <Button x:Name="IntelligencePlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="303,330,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="19" Click="IntelligencePlus_Click"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="276,258,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="22" Background="#FFEBEBEB" TextAlignment="Center"/>
+        <TextBlock x:Name="Dexterity" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="276,283,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="22" Background="#FFEBEBEB" TextAlignment="Center"/>
+        <TextBlock x:Name="Constitution" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="276,307,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="22" Background="#FFEBEBEB" TextAlignment="Center"/>
+        <TextBlock x:Name="Intelligence" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="276,330,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="22" Background="#FFEBEBEB" TextAlignment="Center" Text=""/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="421,258,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="Health"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="421,280,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="Mana"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="421,302,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Physical attack"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="421,324,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Magic attack"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="421,368,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Magic defense"/>
+        <TextBlock x:Name="Strength" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="276,258,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="22" Background="#FFEBEBEB" TextAlignment="Center"/>
+        <TextBlock x:Name="Health" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="542,258,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="17"/>
+        <TextBlock x:Name="Mana" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="542,280,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="17"/>
+        <TextBlock x:Name="PhysicalAttack" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="542,302,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="17"/>
+        <TextBlock x:Name="MagicAttack" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="542,324,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="17"/>
+        <TextBlock x:Name="PhysicalDefense" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="542,346,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="17"/>
+        <TextBlock x:Name="MagicDefense" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="542,368,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="17"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="63,147,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontFamily="Poor Richard" TextAlignment="Center" FontSize="16" Text="Warrior"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="293,147,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontFamily="Poor Richard" TextAlignment="Center" FontSize="16" Text="Rogue"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="542,145,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontFamily="Poor Richard" TextAlignment="Center" FontSize="16" Text="Wizard"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="421,346,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Physical defense"/>
+
+    </Grid>
+</Window>
