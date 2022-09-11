@@ -13,7 +13,14 @@ namespace ConsoleWarcraft
 
             int strensth = warier.changeStrensth();
 
-            Console.WriteLine(strensth);
+            warier.changeConstitution();
+            warier.changeIntellisense();
+            warier.changeConstitution();
+            warier.changeDesterity();
+
+
+            Console.WriteLine($"strensth:  {strensth}");
+            Console.WriteLine($"HP:  {warier.HP}; Attack: {warier.Attack}; PDet: {warier.PDet}; MAH: {warier.MAH}; MP: {warier.MP}");
 
             int count = 1;
 
@@ -22,7 +29,7 @@ namespace ConsoleWarcraft
 
             Mage mage1 = new Mage("Voland", 1000, 750, 100, 100, 100, 100, 200, 200, false);
             Mage mage2 = new Mage("Potter", 1000, 50, 15, 100, 100, 100, 200, 200, false);
-            Footman footman1 = new Footman("Worgen", 2500, 45000, 1000, 90, 30, 300,  false);
+            Footman footman1 = new Footman("Worgen", warier.HP, 45000, 1000, 90, 30, 300,  false);
             Archer archer1 = new Archer("Archer", 1500, 15000, 1000, 90, 30, 300, 4, false);
             Dragon dragon1 = new Dragon("Sparky", 1000, 50, 15, 100, 100, 100, 200, 200, false);
             GuardTower tower1 = new GuardTower("Tower of ghosts", 10000, 50000, 300, 20, 50, 90, false);
