@@ -7,6 +7,19 @@
     private bool _isDestroyed;
     private double _maxHp;
     protected Logger _logger;
+    private int _healDebuffPeriod;
+    public int HealDebuffPeriod
+    {
+        get { return +_healDebuffPeriod; }
+        set
+        {
+            if(value < 0)
+            {
+                _healDebuffPeriod = 0;
+            }
+            _healDebuffPeriod = value;
+        }
+    }
 
     public delegate void HealthChangedDelegate(double healthChange);
 
@@ -34,6 +47,7 @@
         var currentHealth = _health;
         _health = newHealth;
         HealthChangedEvent?.Invoke(newHealth - currentHealth);
+        HealDebuffPeriod = HealDebuffPeriod - 1;
         
         _logger.Log($"{_name} have {_health} health.");
     }
