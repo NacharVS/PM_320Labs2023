@@ -20,9 +20,12 @@ namespace CharacterEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<string> CharacterNames = new List<string>()
+                                              {"Warrior", "Rogue", "Wizzard"};
         public MainWindow()
         {
             InitializeComponent();
+            cbCharacters.ItemsSource = CharacterNames;
         }
     }
 }
