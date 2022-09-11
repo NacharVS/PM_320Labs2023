@@ -17,6 +17,7 @@
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="Height" Value="30"></Setter>
             <Setter Property="Width" Value="30"></Setter>
+            <EventSetter Event="Click" Handler="CharactericticChangeButton_Click"></EventSetter>
         </Style>
 
         <Style x:Key="PlusBtn" BasedOn="{StaticResource AllBtn}" TargetType="Button">
@@ -57,25 +58,26 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Column="2" Content="Character Editor" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="3" FontSize="20" FontWeight="Bold" Margin="16,0,0,0"/>
         <ComboBox Name="cbCharacters" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="120" FontSize="15"/>
-        <Button Grid.Column="2" Grid.Row="1" Style="{StaticResource MinusBtn}"/>
-        <Button Grid.Column="2" Grid.Row="2" Style="{StaticResource MinusBtn}"/>
-        <Button Grid.Column="2" Grid.Row="3" Style="{StaticResource MinusBtn}"/>
-        <Button Grid.Column="2" Grid.Row="4" Style="{StaticResource MinusBtn}" Margin="0,14,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+        
+        <Button Name="strengthMinusBtn" Grid.Column="2" Grid.Row="1" Style="{StaticResource MinusBtn}"/>
+        <Button Name="dexterityMinusBtn" Grid.Column="2" Grid.Row="2" Style="{StaticResource MinusBtn}"/>
+        <Button Name="constitutionMinusBtn" Grid.Column="2" Grid.Row="3" Style="{StaticResource MinusBtn}"/>
+        <Button Name="intellisenseMinusBtn" Grid.Column="2" Grid.Row="4" Style="{StaticResource MinusBtn}"/>
 
-        <Button Grid.Column="4" Grid.Row="1" Style="{StaticResource PlusBtn}"/>
-        <Button Grid.Column="4" Grid.Row="2" Style="{StaticResource PlusBtn}"/>
-        <Button Grid.Column="4" Grid.Row="3" Style="{StaticResource PlusBtn}"/>
-        <Button Grid.Column="4" Grid.Row="4" Style="{StaticResource PlusBtn}" Margin="0,14,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+        <Button Name="strengthPlusBtn" Grid.Column="4" Grid.Row="1" Style="{StaticResource PlusBtn}"/>
+        <Button Name="dexterityPlusBtn" Grid.Column="4" Grid.Row="2" Style="{StaticResource PlusBtn}"/>
+        <Button Name="constitutionPlusBtn" Grid.Column="4" Grid.Row="3" Style="{StaticResource PlusBtn}"/>
+        <Button Name="intellisensePlusBtn" Grid.Column="4" Grid.Row="4" Style="{StaticResource PlusBtn}"/>
 
         <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource AllLabel}" Content="Strength"/>
         <Label Grid.Column="1" Grid.Row="2" Style="{StaticResource AllLabel}" Content="Dexterity"/>
         <Label Grid.Column="1" Grid.Row="3" Style="{StaticResource AllLabel}" Content="Constitution"/>
         <Label Grid.Column="1" Grid.Row="4" Style="{StaticResource AllLabel}" Content="Intellisense"/>
         
-        <Label Grid.Column="3" Grid.Row="1" Style="{StaticResource CharactericticLabel}"/>
-        <Label Grid.Column="3" Grid.Row="2" Style="{StaticResource CharactericticLabel}"/>
-        <Label Grid.Column="3" Grid.Row="3" Style="{StaticResource CharactericticLabel}"/>
-        <Label Grid.Column="3" Grid.Row="4" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="strength" Grid.Column="3" Grid.Row="1" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="dexterity" Grid.Column="3" Grid.Row="2" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="constitution" Grid.Column="3" Grid.Row="3" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="intellisense" Grid.Column="3" Grid.Row="4" Style="{StaticResource CharactericticLabel}"/>
 
         <Label Grid.Column="5" Grid.Row="1" Style="{StaticResource AllLabel}" Content="Attack:"/>
         <Label Grid.Column="5" Grid.Row="2" Style="{StaticResource AllLabel}" Content="Health:"/>
@@ -83,10 +85,10 @@
         <Label Grid.Column="5" Grid.Row="4" Style="{StaticResource AllLabel}" Content="Mana:"/>
         <Label Grid.Column="5" Grid.Row="5" Style="{StaticResource AllLabel}" Content="Magical Attack:"/>
 
-        <Label Grid.Column="6" Grid.Row="1" Style="{StaticResource CharactericticLabel}"/>
-        <Label Grid.Column="6" Grid.Row="2" Style="{StaticResource CharactericticLabel}"/>
-        <Label Grid.Column="6" Grid.Row="3" Style="{StaticResource CharactericticLabel}"/>
-        <Label Grid.Column="6" Grid.Row="4" Style="{StaticResource CharactericticLabel}"/>
-        <Label Grid.Column="6" Grid.Row="5" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="Attack" Grid.Column="6" Grid.Row="1" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="Health" Grid.Column="6" Grid.Row="2" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="PhysicalDefence" Grid.Column="6" Grid.Row="3" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="Mana" Grid.Column="6" Grid.Row="4" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="MagicalAttack" Grid.Column="6" Grid.Row="5" Style="{StaticResource CharactericticLabel}"/>
     </Grid>
 </Window>

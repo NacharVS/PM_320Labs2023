@@ -3,18 +3,58 @@
     public abstract class Character
     {
         private Characterictic _strength;
+        public Characterictic Strength
+        {
+            get { return _strength; }
+            private set
+            {
+                _strength = value;
+                AttackDamage += _strength.Value * _strengthAttackChange;
+                Health += _strength.Value * _strengthHealthChange;
+            }
+        }
         private double _strengthAttackChange;
         private double _strengthHealthChange;
 
         private Characterictic _dexterity;
+        public Characterictic Dexterity
+        {
+            get { return _strength; }
+            private set
+            {
+                _dexterity = value;
+                AttackDamage += _dexterity.Value * _dexterityAttackChange;
+                PhysicalDefence += _dexterity.Value * _dexterityPhysicalDefenceChange;
+            }
+        }
         private double _dexterityAttackChange;
         private double _dexterityPhysicalDefenceChange;
 
         private Characterictic _constitution;
+        public Characterictic Constitution
+        {
+            get { return _constitution; }
+            private set
+            {
+                _constitution = value;
+                Health += _constitution.Value * _constitutionHealthChange;
+                PhysicalDefence += _constitution.Value * _constitutionPhysicalDefenceChange;
+            }
+        }
         private double _constitutionHealthChange;
         private double _constitutionPhysicalDefenceChange;
 
         private Characterictic _intellisense;
+        public Characterictic Intellisense
+        {
+            get { return _intellisense; }
+            private set
+            {
+                _intellisense = value;
+                Mana += _intellisense.Value * _intellisenseManaChange;
+                MagicalAttackDamage += _intellisense.Value * _intellisenseMagicalAttackChange;
+            }
+        }
         private double _intellisenseManaChange;
         private double _intellisenseMagicalAttackChange;
 
@@ -88,12 +128,28 @@
             }
         }
 
+        private int GetDifference(int value, Characterictic characterictic)
+        {
+            var previousValue = characterictic.Value;
+            characterictic.Value = value;
+            return characterictic.Value - previousValue;
+        }
+
         public void SetStrengthValue(int value)
         {
-            _strength.Value = value;
+            var difference = GetDifference(value, Strength);
 
-            AttackDamage += _strength.Value * _strengthAttackChange;
-            Health += _strength.Value * _strengthHealthChange;
+            if (difference > 0)
+            {
+                AttackDamage += difference * _strengthAttackChange;
+                Health += difference * _strengthHealthChange;
+            }
+            else if (difference < 0)
+            {
+                var difModule = Math.Abs(difference);
+                AttackDamage -= difModule * _strengthAttackChange;
+                Health -= difModule * _strengthHealthChange;
+            }
         }
 
         public double GetStrengthValue()
@@ -103,10 +159,19 @@
 
         public void SetDexterityValue(int value)
         {
-            _dexterity.Value = value;
+            var difference = GetDifference(value, Dexterity);
 
-            AttackDamage += _dexterity.Value * _dexterityAttackChange;
-            PhysicalDefence += _dexterity.Value * _dexterityPhysicalDefenceChange;
+            if (difference > 0)
+            {
+                AttackDamage += difference * _dexterityAttackChange;
+                PhysicalDefence += difference * _dexterityPhysicalDefenceChange;
+            }
+            else if (difference < 0)
+            {
+                var difModule = Math.Abs(difference);
+                AttackDamage -= difModule * _dexterityAttackChange;
+                PhysicalDefence -= difModule * _dexterityPhysicalDefenceChange;
+            }
         }
 
         public double GetDexterityValue()
@@ -116,10 +181,19 @@
 
         public void SetConstitutionValue(int value)
         {
-            _constitution.Value = value;
+            var difference = GetDifference(value, Constitution);
 
-            Health += _constitution.Value * _constitutionHealthChange;
-            PhysicalDefence += _constitution.Value * _constitutionPhysicalDefenceChange;
+            if (difference > 0)
+            {
+                Health += difference * _constitutionHealthChange;
+                PhysicalDefence += difference * _constitutionPhysicalDefenceChange;
+            }
+            else if (difference < 0)
+            {
+                var difModule = Math.Abs(difference);
+                Health -= difModule * _constitutionHealthChange;
+                PhysicalDefence -= difModule * _constitutionPhysicalDefenceChange;
+            }
         }
 
         public double GetConstitutionValue()
@@ -129,10 +203,19 @@
 
         public void SetIntellisenseValue(int value)
         {
-            _intellisense.Value = value;
+            var difference = GetDifference(value, Intellisense);
 
-            Mana += _intellisense.Value * _intellisenseManaChange;
-            MagicalAttackDamage += _intellisense.Value * _intellisenseMagicalAttackChange;
+            if (difference > 0)
+            {
+                Mana += difference * _intellisenseManaChange;
+                MagicalAttackDamage += difference * _intellisenseMagicalAttackChange;
+            }
+            else if (difference < 0)
+            {
+                var difModule = Math.Abs(difference);
+                Mana -= difModule * _intellisenseManaChange;
+                MagicalAttackDamage -= difModule * _intellisenseMagicalAttackChange;
+            }
         }
 
         public double GetIntellisenseValue()
@@ -152,26 +235,22 @@
                             Characterictic intellisense,
                             double intellisenseManaChange,
                             double intellisenseMagicalAttackChange)
-        {
-            _strength = strength;
+        {      
             _strengthAttackChange = strengthAttackChange;
             _strengthHealthChange = strengthHealthChange;
-            SetStrengthValue(_strength.Value);
+            Strength = strength;
 
-            _dexterity = dexterity;
             _dexterityAttackChange = dexterityAttackChange;
             _dexterityPhysicalDefenceChange = dexterityPhysicalDefenceChange;
-            SetDexterityValue(_dexterity.Value);
+            Dexterity = dexterity;
 
-            _constitution = constitution;
             _constitutionHealthChange = constitutionHealthChange;
             _constitutionPhysicalDefenceChange = constitutionPhysicalDefenceChange;
-            SetConstitutionValue(_constitution.Value);
+            Constitution = constitution;
 
-            _intellisense = intellisense;
             _intellisenseMagicalAttackChange = intellisenseMagicalAttackChange;
             _intellisenseManaChange = intellisenseManaChange;
-            SetIntellisenseValue(_intellisense.Value);
+            Intellisense = intellisense;
         }
     }
 }
