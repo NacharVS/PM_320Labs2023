@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterCreator.WPF", "CharacterCreator.WPF\CharacterCreator.WPF.csproj", "{227BCE32-1D67-4A9D-9003-ECF1222B0117}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterCreator.Core", "CharacterCreator.Core\CharacterCreator.Core.csproj", "{36FEB9F8-F778-4DC4-AD6C-E6A879E78607}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{227BCE32-1D67-4A9D-9003-ECF1222B0117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{227BCE32-1D67-4A9D-9003-ECF1222B0117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{227BCE32-1D67-4A9D-9003-ECF1222B0117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{227BCE32-1D67-4A9D-9003-ECF1222B0117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36FEB9F8-F778-4DC4-AD6C-E6A879E78607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36FEB9F8-F778-4DC4-AD6C-E6A879E78607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36FEB9F8-F778-4DC4-AD6C-E6A879E78607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36FEB9F8-F778-4DC4-AD6C-E6A879E78607}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
