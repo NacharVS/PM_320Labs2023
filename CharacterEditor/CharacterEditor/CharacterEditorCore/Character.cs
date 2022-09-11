@@ -8,7 +8,7 @@
 
         private Characterictic _dexterity;
         private double _dexterityAttackChange;
-        protected double _dexterityPhysicalDefenceChange;
+        private double _dexterityPhysicalDefenceChange;
 
         private Characterictic _constitution;
         private double _constitutionHealthChange;
@@ -18,118 +18,124 @@
         private double _intellisenseManaChange;
         private double _intellisenseMagicalAttackChange;
 
+        private double _mana;
         public double Mana
         {
-            get { return Mana; }
-            set
+            get { return _mana; }
+            private set
             {
                 if (value <= 0)
                 {
-                    Mana = 0;
+                    _mana = 0;
                 }
-                Mana = value;
+                _mana = value;
             }
         }
+
+        private double _attackDamage;
         public double AttackDamage
         {
-            get { return AttackDamage; }
-            set
+            get { return _attackDamage; }
+            private set
             {
                 if (value <= 0)
                 {
-                    AttackDamage = 0;
+                    _attackDamage = 0;
                 }
-                AttackDamage = value;
+                _attackDamage = value;
             }
         }
 
+        private double _health;
         public double Health
         {
-            get { return Health; }
-            set
+            get { return _health; }
+            private set
             {
                 if (value <= 0)
                 {
-                    Health = 0;
+                    _health = 0;
                 }
-                Health = value;
+                _health = value;
             }
         }
 
+        private double _physicalDefence;
         public double PhysicalDefence
         {
-            get { return PhysicalDefence; }
-            set
+            get { return _physicalDefence; }
+            private set
             {
                 if (value <= 0)
                 {
-                    PhysicalDefence = 0;
+                    _physicalDefence = 0;
                 }
-                PhysicalDefence = value;
+                _physicalDefence = value;
             }
         }
 
+        private double _magicalAttackDamage;
         public double MagicalAttackDamage
         {
-            get { return MagicalAttackDamage; }
-            set
+            get { return _magicalAttackDamage; }
+            private set
             {
                 if (value <= 0)
                 {
-                    MagicalAttackDamage = 0;
+                    _magicalAttackDamage = 0;
                 }
-                MagicalAttackDamage = value;
+                _magicalAttackDamage = value;
             }
         }
 
-        public void SetStrength(int value)
+        public void SetStrengthValue(int value)
         {
             _strength.Value = value;
 
-            AttackDamage = _strength.Value * _strengthAttackChange;
-            Health = _strength.Value * _strengthHealthChange;
+            AttackDamage += _strength.Value * _strengthAttackChange;
+            Health += _strength.Value * _strengthHealthChange;
         }
 
-        public double GetStrength()
+        public double GetStrengthValue()
         {
             return _strength.Value;
         }
 
-        public void SetDexterity(int value)
+        public void SetDexterityValue(int value)
         {
             _dexterity.Value = value;
 
-            AttackDamage = _dexterity.Value * _dexterityAttackChange;
-            PhysicalDefence = _dexterity.Value * _dexterityPhysicalDefenceChange;
+            AttackDamage += _dexterity.Value * _dexterityAttackChange;
+            PhysicalDefence += _dexterity.Value * _dexterityPhysicalDefenceChange;
         }
 
-        public double GetDexterity()
+        public double GetDexterityValue()
         {
             return _dexterity.Value;
         }
 
-        public void SetConstitution(int value)
+        public void SetConstitutionValue(int value)
         {
             _constitution.Value = value;
 
-            Health = _constitution.Value * _constitutionHealthChange;
-            PhysicalDefence = _constitution.Value * _constitutionPhysicalDefenceChange;
+            Health += _constitution.Value * _constitutionHealthChange;
+            PhysicalDefence += _constitution.Value * _constitutionPhysicalDefenceChange;
         }
 
-        public double GetConstitution()
+        public double GetConstitutionValue()
         {
             return _constitution.Value;
         }
 
-        public void SetIntellisense(int value)
+        public void SetIntellisenseValue(int value)
         {
             _intellisense.Value = value;
 
-            Mana = _intellisense.Value * _intellisenseManaChange;
-            MagicalAttackDamage = _intellisense.Value * _intellisenseMagicalAttackChange;
+            Mana += _intellisense.Value * _intellisenseManaChange;
+            MagicalAttackDamage += _intellisense.Value * _intellisenseMagicalAttackChange;
         }
 
-        public double GetIntellisense()
+        public double GetIntellisenseValue()
         {
             return _intellisense.Value;
         }
@@ -148,24 +154,24 @@
                             double intellisenseMagicalAttackChange)
         {
             _strength = strength;
-            SetStrength(_strength.Value);
             _strengthAttackChange = strengthAttackChange;
             _strengthHealthChange = strengthHealthChange;
+            SetStrengthValue(_strength.Value);
 
             _dexterity = dexterity;
-            SetDexterity(_dexterity.Value);
             _dexterityAttackChange = dexterityAttackChange;
             _dexterityPhysicalDefenceChange = dexterityPhysicalDefenceChange;
+            SetDexterityValue(_dexterity.Value);
 
             _constitution = constitution;
-            SetConstitution(_constitution.Value);
             _constitutionHealthChange = constitutionHealthChange;
             _constitutionPhysicalDefenceChange = constitutionPhysicalDefenceChange;
+            SetConstitutionValue(_constitution.Value);
 
             _intellisense = intellisense;
-            SetIntellisense(_intellisense.Value);
             _intellisenseMagicalAttackChange = intellisenseMagicalAttackChange;
             _intellisenseManaChange = intellisenseManaChange;
+            SetIntellisenseValue(_intellisense.Value);
         }
     }
 }
