@@ -43,7 +43,7 @@ namespace CharacterEditor
 
             Attack.Content = _currentCharacter.AttackDamage;
             Health.Content = _currentCharacter.Health;
-            PhysicalDefence.Content = _currentCharacter.PhysicalDefence;
+            PhysicalDefence.Content = _currentCharacter.PhysicalDefense;
             Mana.Content = _currentCharacter.Mana;
             MagicalAttack.Content = _currentCharacter.MagicalAttackDamage;
 

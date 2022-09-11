@@ -2,6 +2,8 @@
 {
     public abstract class Character
     {
+        private delegate void _charactericticChangedDelegate();
+        private _charactericticChangedDelegate _charactericticChangedEvent;
         private Characterictic _strength;
         public Characterictic Strength
         {
@@ -9,8 +11,7 @@
             private set
             {
                 _strength = value;
-                AttackDamage += _strength.Value * _strengthAttackChange;
-                Health += _strength.Value * _strengthHealthChange;
+                _charactericticChangedEvent?.Invoke();
             }
         }
         private double _strengthAttackChange;
@@ -23,8 +24,7 @@
             private set
             {
                 _dexterity = value;
-                AttackDamage += _dexterity.Value * _dexterityAttackChange;
-                PhysicalDefence += _dexterity.Value * _dexterityPhysicalDefenceChange;
+                _charactericticChangedEvent?.Invoke();
             }
         }
         private double _dexterityAttackChange;
@@ -37,8 +37,7 @@
             private set
             {
                 _constitution = value;
-                Health += _constitution.Value * _constitutionHealthChange;
-                PhysicalDefence += _constitution.Value * _constitutionPhysicalDefenceChange;
+                _charactericticChangedEvent?.Invoke();
             }
         }
         private double _constitutionHealthChange;
@@ -51,8 +50,7 @@
             private set
             {
                 _intellisense = value;
-                Mana += _intellisense.Value * _intellisenseManaChange;
-                MagicalAttackDamage += _intellisense.Value * _intellisenseMagicalAttackChange;
+                _charactericticChangedEvent?.Invoke();
             }
         }
         private double _intellisenseManaChange;
@@ -100,17 +98,17 @@
             }
         }
 
-        private double _physicalDefence;
-        public double PhysicalDefence
+        private double _physicalDefense;
+        public double PhysicalDefense
         {
-            get { return _physicalDefence; }
+            get { return _physicalDefense; }
             private set
             {
                 if (value <= 0)
                 {
-                    _physicalDefence = 0;
+                    _physicalDefense = 0;
                 }
-                _physicalDefence = value;
+                _physicalDefense = value;
             }
         }
 
@@ -128,28 +126,22 @@
             }
         }
 
-        private int GetDifference(int value, Characterictic characterictic)
+        private void CalculateCharacterictics()
         {
-            var previousValue = characterictic.Value;
-            characterictic.Value = value;
-            return characterictic.Value - previousValue;
+            AttackDamage = Strength.Value * _strengthAttackChange + 
+                           Dexterity.Value * _dexterityAttackChange;
+            Health = Constitution.Value * _constitutionHealthChange + 
+                        Strength.Value * _strengthHealthChange;
+            PhysicalDefense = Constitution.Value * _constitutionPhysicalDefenceChange + 
+                                Dexterity.Value * _dexterityPhysicalDefenceChange;
+            Mana = Intellisense.Value * _intellisenseManaChange;
+            MagicalAttackDamage = Intellisense.Value * _intellisenseMagicalAttackChange;
         }
 
         public void SetStrengthValue(int value)
         {
-            var difference = GetDifference(value, Strength);
-
-            if (difference > 0)
-            {
-                AttackDamage += difference * _strengthAttackChange;
-                Health += difference * _strengthHealthChange;
-            }
-            else if (difference < 0)
-            {
-                var difModule = Math.Abs(difference);
-                AttackDamage -= difModule * _strengthAttackChange;
-                Health -= difModule * _strengthHealthChange;
-            }
+            Strength.Value = value;
+            _charactericticChangedEvent?.Invoke();
         }
 
         public double GetStrengthValue()
@@ -159,19 +151,8 @@
 
         public void SetDexterityValue(int value)
         {
-            var difference = GetDifference(value, Dexterity);
-
-            if (difference > 0)
-            {
-                AttackDamage += difference * _dexterityAttackChange;
-                PhysicalDefence += difference * _dexterityPhysicalDefenceChange;
-            }
-            else if (difference < 0)
-            {
-                var difModule = Math.Abs(difference);
-                AttackDamage -= difModule * _dexterityAttackChange;
-                PhysicalDefence -= difModule * _dexterityPhysicalDefenceChange;
-            }
+            Dexterity.Value = value;
+            _charactericticChangedEvent?.Invoke();
         }
 
         public double GetDexterityValue()
@@ -181,19 +162,8 @@
 
         public void SetConstitutionValue(int value)
         {
-            var difference = GetDifference(value, Constitution);
-
-            if (difference > 0)
-            {
-                Health += difference * _constitutionHealthChange;
-                PhysicalDefence += difference * _constitutionPhysicalDefenceChange;
-            }
-            else if (difference < 0)
-            {
-                var difModule = Math.Abs(difference);
-                Health -= difModule * _constitutionHealthChange;
-                PhysicalDefence -= difModule * _constitutionPhysicalDefenceChange;
-            }
+            Constitution.Value = value;
+            _charactericticChangedEvent?.Invoke();
         }
 
         public double GetConstitutionValue()
@@ -203,19 +173,8 @@
 
         public void SetIntellisenseValue(int value)
         {
-            var difference = GetDifference(value, Intellisense);
-
-            if (difference > 0)
-            {
-                Mana += difference * _intellisenseManaChange;
-                MagicalAttackDamage += difference * _intellisenseMagicalAttackChange;
-            }
-            else if (difference < 0)
-            {
-                var difModule = Math.Abs(difference);
-                Mana -= difModule * _intellisenseManaChange;
-                MagicalAttackDamage -= difModule * _intellisenseMagicalAttackChange;
-            }
+            Intellisense.Value = value;
+            _charactericticChangedEvent?.Invoke();
         }
 
         public double GetIntellisenseValue()
@@ -235,7 +194,7 @@
                             Characterictic intellisense,
                             double intellisenseManaChange,
                             double intellisenseMagicalAttackChange)
-        {      
+        {
             _strengthAttackChange = strengthAttackChange;
             _strengthHealthChange = strengthHealthChange;
             Strength = strength;
@@ -251,6 +210,9 @@
             _intellisenseMagicalAttackChange = intellisenseMagicalAttackChange;
             _intellisenseManaChange = intellisenseManaChange;
             Intellisense = intellisense;
+
+            _charactericticChangedEvent += CalculateCharacterictics;
+            _charactericticChangedEvent?.Invoke();
         }
     }
 }
