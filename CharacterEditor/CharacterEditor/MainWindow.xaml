@@ -5,8 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UnitsEditor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="800" Width="800" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="PlusButton">
+            <Setter Property="Control.Height" Value="50"/>
+            <Setter Property="Control.Width" Value="50"/>
+            <Setter Property="Control.HorizontalAlignment" Value="Right"/>
+            <Setter Property="Control.VerticalAlignment" Value="Top"/>
+            <Setter Property="Button.Content" Value="+"/>
+            <Setter Property="Control.Margin" Value="5"/>
+            <EventSetter Event="Button.Click" Handler="PlusBtn_Click"/>
+        </Style>
+        <Style x:Key="MinusButton">
+            <Setter Property="Control.Height" Value="50"/>
+            <Setter Property="Control.Width" Value="50"/>
+            <Setter Property="Control.HorizontalAlignment" Value="Left"/>
+            <Setter Property="Control.VerticalAlignment" Value="Top"/>
+            <Setter Property="Button.Content" Value="-"/>
+            <Setter Property="Control.Margin" Value="5"/>
+        </Style>
+        <Style x:Key="CharactersName">
+            <Setter Property="Control.Height" Value="50"/>
+            <Setter Property="Control.HorizontalAlignment" Value="Center"/>
+            <Setter Property="Control.VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Label.HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Label.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Label.FontSize" Value="20"/>
+            <Setter Property="Control.Margin" Value="5"/>
+        </Style>
+        <Style x:Key="CharactersValue" BasedOn="{StaticResource CharactersName}">
+            <Setter Property="Control.VerticalAlignment" Value="Top"/>
+            <Setter Property="Label.Content" Value="0"/>
+        </Style>
 
+        <Style x:Key="StatsName" BasedOn="{StaticResource CharactersName}">
+            <Setter Property="Control.VerticalAlignment" Value="Top"/>
+            <Setter Property="Control.Height" Value="40"/>
+        </Style>
+
+        <Style x:Key="StatsValue">
+            <Setter Property="TextBox.Text" Value="0"/>
+            <Setter Property="TextBox.HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="TextBox.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="TextBox.VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Control.Width" Value="190"/>
+            <Setter Property="Control.Height" Value="30"/>
+            <Setter Property="Control.Margin" Value="0,40,0,0"/>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="GridMain">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="200*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="btnPlus1" Style="{StaticResource PlusButton}" Grid.Row="6" Grid.Column="0"/>
+        <Button x:Name="btnMinus1" Style="{StaticResource MinusButton}" Grid.Row="6" Grid.Column="0"/>
+        <Label x:Name="lbStrength" Style="{StaticResource CharactersName}" Content="Strength" Grid.Row="5"/>
+        <Label x:Name="lbStrengthValue" Style="{StaticResource CharactersValue}" Grid.Row="6"/>
+
+        <Button x:Name="btnPlus2" Style="{StaticResource PlusButton}" Grid.Row="6" Grid.Column="1"/>
+        <Button x:Name="btnMinus2" Style="{StaticResource MinusButton}" Grid.Row="6" Grid.Column="1" />
+        <Label x:Name="lbDexterity" Style="{StaticResource CharactersName}" Content="Dexterity" Grid.Row="5" Grid.Column="1"/>
+        <Label x:Name="lbDexterityValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="1"/>
+
+        <Button x:Name="btnPlus3" Style="{StaticResource PlusButton}" Grid.Row="6" Grid.Column="2"/>
+        <Button x:Name="btnMinus3" Style="{StaticResource MinusButton}" Grid.Row="6" Grid.Column="2"/>
+        <Label x:Name="lbConstitution" Style="{StaticResource CharactersName}" Content="Constitution" Grid.Row="5" Grid.Column="2"/>
+        <Label x:Name="lbConstitutionValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="2" />
+
+        <Button x:Name="btnPlus4" Style="{StaticResource PlusButton}" Grid.Row="6" Grid.Column="3"/>
+        <Button x:Name="btnMinus4" Style="{StaticResource MinusButton}" Grid.Row="6" Grid.Column="3"/>
+        <Label x:Name="lbIntelligence" Style="{StaticResource CharactersName}" Content="Intelligence" Grid.Row="5" Grid.Column="3"/>
+        <Label x:Name="lbIntelligenceValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="3"/>
+
+        <ComboBox x:Name="cbCharacters" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="190" Grid.Column="1" Height="50" SelectionChanged="ComboBox_SelectionChanged"/>
+
+        <Label x:Name="lbHealth" Style="{StaticResource StatsName}" Grid.Row="0" Grid.Column="2" Content="Health" Margin="0,93,0,0"/>
+        <TextBox x:Name="tbHealthValue" Grid.Column="2" Grid.Row="0" Style="{StaticResource StatsValue}"/>
+
+        <Label x:Name="lbMana" Style="{StaticResource StatsName}" Grid.Row="1" Grid.Column="2" Content="Mana"/>
+        <TextBox x:Name="tbManaValue" Grid.Column="2" Grid.Row="1" Style="{StaticResource StatsValue}"/>
+
+        <Label x:Name="lbAttackDamage" Style="{StaticResource StatsName}" Grid.Row="2" Grid.Column="2" Content="Attack Damage"/>
+        <TextBox x:Name="tbAttackDamageValue" Grid.Column="2" Grid.Row="2" Style="{StaticResource StatsValue}"/>
+
+        <Label x:Name="lbMagicAttack" Style="{StaticResource StatsName}" Grid.Row="3" Grid.Column="2" Content="Magic attack"/>
+        <TextBox x:Name="tbMagicAttackValue" Grid.Column="2" Grid.Row="3" Style="{StaticResource StatsValue}"/>
+
+        <Label x:Name="lbPhysicalDef" Style="{StaticResource StatsName}" Grid.Row="4" Grid.Column="2" Content="Physical defence"/>
+        <TextBox x:Name="tbPhysicalDefValue" Grid.Column="2" Grid.Row="4" Style="{StaticResource StatsValue}"/>
     </Grid>
 </Window>

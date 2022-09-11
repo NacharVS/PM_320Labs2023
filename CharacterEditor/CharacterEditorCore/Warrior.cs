@@ -1,6 +1,6 @@
 ﻿namespace CharacterEditorCore
 {
-    class Warrior : BaseCharacteristics
+    public class Warrior : BaseCharacteristics
     {
         public Warrior() : base(new Characteristics(30, 30, 250),
                                new Characteristics(15, 15,70),

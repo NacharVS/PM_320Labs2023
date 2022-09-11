@@ -1,6 +1,6 @@
 ﻿namespace CharacterEditorCore
 {
-    class Characteristics
+    public class Characteristics
     {
         private int _value;
         private int _minValue;

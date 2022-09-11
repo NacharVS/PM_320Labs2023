@@ -1,26 +1,59 @@
 ﻿
 namespace CharacterEditorCore
 {
-    abstract class BaseCharacteristics
+    public abstract class BaseCharacteristics
     {
         private Characteristics _strength;
-        public Characteristics Strength { get; set; }
+        public Characteristics Strength {
+            get { return _strength; }
+            set 
+            { 
+                _strength = value;
+                CharacteristicsChangeEvent?.Invoke();
+            }
+        }
         protected int _strengthAttackChange;
         protected int _strengthHpChange;
 
         private Characteristics _dexterity;
-        public Characteristics Dexterity { get; set; }
+        public Characteristics Dexterity {
+            get { return _dexterity; }
+            set 
+            { 
+                _dexterity = value;
+                CharacteristicsChangeEvent?.Invoke();
+            }
+        }
         protected int _dexterityAttackChange;
         protected double _dexterityPhysicalDefChange;
 
         private Characteristics _constitution;
-        public Characteristics Constitution { get; set; }
+        public Characteristics Constitution 
+        { 
+            get
+            {
+                return _constitution;
+            }
+            set
+            {
+                _constitution = value;
+                CharacteristicsChangeEvent?.Invoke();
+            } 
+        }
 
         protected int _constitutionHpChange;
         protected double _constitutionPhysicalDefChange;
 
         private Characteristics _intelligence;
-        public Characteristics Intelligence { get; set; }
+        public Characteristics Intelligence
+        {
+            get { return _intelligence; }
+            set 
+            { 
+                _intelligence = value;
+                CharacteristicsChangeEvent?.Invoke();
+            }
+        }
         protected double _intelligenceMpChange;
         protected int _intelligenceMagicAttackChange;
 
@@ -40,7 +73,7 @@ namespace CharacterEditorCore
 
         public void AttackDamageCalc()
         {
-            AttackDamage = Strength.Value * _strengthAttackChange + Dexterity.Value * _dexterityAttackChange;
+            AttackDamage = _strength.Value * _strengthAttackChange + _dexterity.Value * _dexterityAttackChange;
         }
 
         private double _physicalDef;
@@ -59,7 +92,7 @@ namespace CharacterEditorCore
 
         public void PhysicalDefCalc()
         {
-            PhysicalDef = Dexterity.Value * _dexterityPhysicalDefChange + Constitution.Value * _constitutionPhysicalDefChange;
+            PhysicalDef = _dexterity.Value * _dexterityPhysicalDefChange + _constitution.Value * _constitutionPhysicalDefChange;
         }
 
         private int _magicAttack;
@@ -77,7 +110,7 @@ namespace CharacterEditorCore
         }
         public void MagicAttackCalc()
         {
-            MagicAttack = Intelligence.Value * _intelligenceMagicAttackChange;
+            MagicAttack = _intelligence.Value * _intelligenceMagicAttackChange;
         }
 
         private double _mp;
@@ -95,7 +128,7 @@ namespace CharacterEditorCore
         }
         public void ManaPointCalc()
         {
-            ManaPoint = Intelligence.Value * _intelligenceMpChange;
+            ManaPoint = _intelligence.Value * _intelligenceMpChange;
         }
         private int _hp;
         public int HealthPoint
@@ -112,8 +145,21 @@ namespace CharacterEditorCore
         }
         public void HealthPointCalc()
         {
-            HealthPoint = Strength.Value * _strengthHpChange + Constitution.Value * _constitutionHpChange;
+            HealthPoint = _strength.Value * _strengthHpChange + _constitution.Value * _constitutionHpChange;
         }
+
+        public void CalcStats()
+        {
+            AttackDamageCalc();
+            HealthPointCalc();
+            ManaPointCalc();
+            MagicAttackCalc();
+            PhysicalDefCalc();
+        }
+
+        public delegate void CharacteristicsChangeDelegate();
+
+        public event CharacteristicsChangeDelegate CharacteristicsChangeEvent;
 
         public BaseCharacteristics(Characteristics strength,
                                 Characteristics dexterity,
@@ -129,6 +175,9 @@ namespace CharacterEditorCore
                                 double intelligenceMpChange)
         {
             _strength = strength;
+            _dexterity = dexterity;
+            _constitution = constitution;
+            _intelligence = intelligense;
             _strengthHpChange = strengthHpChange;
             _strengthAttackChange = strengthAttackChange;
             _dexterityAttackChange = dexterityAttackChange;
@@ -138,11 +187,9 @@ namespace CharacterEditorCore
             _intelligenceMagicAttackChange = intelligenceMagicAttackChange;
             _intelligenceMpChange = intelligenceMpChange;
 
-            AttackDamageCalc();
-            PhysicalDefCalc();
-            ManaPointCalc();
-            HealthPointCalc();
-            MagicAttackCalc();
+            CalcStats();
+
+            this.CharacteristicsChangeEvent += CalcStats;
         }
     }
 }
