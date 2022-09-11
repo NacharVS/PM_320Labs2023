@@ -2,6 +2,9 @@
 {
     private string name;
     public static List<Unit> character = new List<Unit>();
+    delegate void Message();
+    Message oneUnit;
+    Message twoUnit;
     public Game(string name)
     {
         this.name = name;
@@ -70,18 +73,22 @@
 
     public void GameStart(int one, int two)
     {
-        if(one != two)
+        Unit oneCharachter = character[one - 1];
+        Unit twoCharachter = character[two - 1];
+        void oneAttack() => Console.WriteLine(oneCharachter.name + " attack " + twoCharachter.name + ", left " + twoCharachter.healthPoint);
+        void twoAttack() => Console.WriteLine(twoCharachter.name + " attack " + oneCharachter.name + ", left " + oneCharachter.healthPoint);
+        oneUnit = oneAttack;
+        twoUnit = twoAttack;
+
+        if (one != two)
         {
-            Unit oneCharachter = character[one];
-            Unit twoCharachter = character[two];
             Thread myThread = new Thread(Fight);
 
             myThread.Start();
 
             while (oneCharachter.alive && twoCharachter.alive)
             {
-                Console.WriteLine(twoCharachter.name + " attack " + oneCharachter.name +
-                    ", left " + oneCharachter.healthPoint);
+                twoUnit();
                 twoCharachter.Attack(oneCharachter);
                 Thread.Sleep(twoCharachter.getAttackSpeed() * 1000);
 
@@ -91,8 +98,7 @@
             {
                 while (oneCharachter.alive && twoCharachter.alive)
                 {
-                    Console.WriteLine(oneCharachter.name + " attack " + twoCharachter.name +
-                        ", left " + twoCharachter.healthPoint);
+                    oneUnit();
                     oneCharachter.Attack(twoCharachter);
                     Thread.Sleep(oneCharachter.getAttackSpeed() * 1000);
                 }

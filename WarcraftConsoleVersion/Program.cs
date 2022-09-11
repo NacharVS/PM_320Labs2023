@@ -34,13 +34,11 @@ public class Program
         newGame.GameStart(codeOne, codeTwo);
         //Unit archer;
 
-        Archer archer = new (550, 425, "123", 1, 1, 27, 2, 2, 60);
-
-        Console.WriteLine(archer.GetType());
+        Archer archer = new (550, 425, "Archer", 1, 1, 27, 2, 2, 60);
 
         Blacksmith blacksmith = new Blacksmith(1200, "Blacksmith", 5);
 
-        Console.WriteLine(archer.damage);
+        /*Console.WriteLine(archer.damage);
 
         blacksmith.UpgradeBow(archer);
 
@@ -50,7 +48,7 @@ public class Program
 
         blacksmith.UpgradeArmor(archer);
 
-        Console.WriteLine(archer.armor);
+        Console.WriteLine(archer.armor);*/
     }
 
 }

@@ -7,21 +7,40 @@
 
     public override void FireBall(Unit enemy)
     {
-        Console.WriteLine(name + ".Fireball");
+        mana = mana - 30;
+        enemy.healthPoint = enemy.healthPoint - damage - 15;
     }
 
     public override void Blizzard(Unit enemy)
     {
-        Console.WriteLine(name + ".Blizzard");
+        mana = mana - 30;
+        enemy.healthPoint = enemy.healthPoint - damage - 15;
     }
 
     public override void Heal()
     {
-        Console.WriteLine(name + ".Heal");
+        mana = mana - 50;
+        healthPoint = healthPoint + 50;
     }
     public override void Attack(Unit enemy)
     {
-        enemy.healthPoint = enemy.healthPoint - damage;
+        int i = rnd.Next(1, 20);
+        if (i == 1 && mana > 29)
+        {
+            FireBall(enemy);
+        }
+        else if (i == 2 && mana > 29)
+        {
+            Blizzard(enemy);
+        }
+        else if (i == 3 && mana > 49)
+        {
+            Heal();
+        }
+        else
+        {
+            enemy.healthPoint = enemy.healthPoint - damage;
+        }
         enemy.Alive();
     }
 }
