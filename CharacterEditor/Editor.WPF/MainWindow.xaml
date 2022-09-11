@@ -17,14 +17,14 @@
         <Label x:Name="lbStrength_Copy" Content="Dexterity:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbStrength_Copy1" Content="Constitution:" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbStrength_Copy2" Content="Intelligence:" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnDecrStrength" Content="&lt;" HorizontalAlignment="Left" Margin="108,58,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnDecrDexterity" Content="&lt;" HorizontalAlignment="Left" Margin="108,89,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnDecrConstitution" Content="&lt;" HorizontalAlignment="Left" Margin="108,120,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnDecrIntelligence" Content="&lt;" HorizontalAlignment="Left" Margin="108,151,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnIncrStrength" Content="&gt;" HorizontalAlignment="Left" Margin="168,58,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnIncrDexterity" Content="&gt;" HorizontalAlignment="Left" Margin="168,89,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnIncrConstitution" Content="&gt;" HorizontalAlignment="Left" Margin="168,120,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnIncrIntelligence" Content="&gt;" HorizontalAlignment="Left" Margin="168,151,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnDecrStrength" Content="&lt;" HorizontalAlignment="Left" Margin="108,58,0,0" VerticalAlignment="Top" Click="btnDecrStrength_Click"/>
+        <Button x:Name="btnDecrDexterity" Content="&lt;" HorizontalAlignment="Left" Margin="108,89,0,0" VerticalAlignment="Top" Click="btnDecrDexterity_Click"/>
+        <Button x:Name="btnDecrConstitution" Content="&lt;" HorizontalAlignment="Left" Margin="108,120,0,0" VerticalAlignment="Top" Click="btnDecrConstitution_Click"/>
+        <Button x:Name="btnDecrIntelligence" Content="&lt;" HorizontalAlignment="Left" Margin="108,151,0,0" VerticalAlignment="Top" Click="btnDecrIntelligence_Click"/>
+        <Button x:Name="btnIncrStrength" Content="&gt;" HorizontalAlignment="Left" Margin="168,58,0,0" VerticalAlignment="Top" Click="btnIncrStrength_Click"/>
+        <Button x:Name="btnIncrDexterity" Content="&gt;" HorizontalAlignment="Left" Margin="168,89,0,0" VerticalAlignment="Top" Click="btnIncrDexterity_Click"/>
+        <Button x:Name="btnIncrConstitution" Content="&gt;" HorizontalAlignment="Left" Margin="168,120,0,0" VerticalAlignment="Top" Click="btnIncrConstitution_Click"/>
+        <Button x:Name="btnIncrIntelligence" Content="&gt;" HorizontalAlignment="Left" Margin="168,151,0,0" VerticalAlignment="Top" Click="btnIncrIntelligence_Click"/>
         <Label x:Name="lbIntelligenceVal" Content="0" HorizontalAlignment="Left" Margin="130,148,0,0" VerticalAlignment="Top" Width="29"/>
         <Label x:Name="lbAvailableSkillPoints" Content="Available skill points:" HorizontalAlignment="Left" Margin="259,55,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbSkillPointsVal" Content="0" HorizontalAlignment="Left" Margin="383,55,0,0" VerticalAlignment="Top"/>

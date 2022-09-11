@@ -4,53 +4,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Editor.Core.Enums;
+using Editor.Core.Helpers;
 
-namespace Editor.Core
+namespace Editor.Core;
+
+public class Wizard : Character
 {
-    public class Wizard : Character
+    public Wizard(int availableSkillPoints) 
+        : base(new WizardStatBoundary(), availableSkillPoints)
     {
-        public Wizard(int availableSkillPoints) 
-            : base(new WizardStatBoundary(), availableSkillPoints)
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        OnStrengthChange += delegate (Character _, StatChangeArgs args)
         {
-            Initialize();
-        }
+            if (args.Handled)
+            {
+                return;
+            }
 
-        public void Initialize()
+            HealthPoints += args.Difference;
+            PhysicalDamage += args.Difference * 2;
+        };
+
+        OnDexterityChange += delegate (Character _, StatChangeArgs args)
         {
-            OnStrengthChange += delegate (Character _, int difference)
+            if (args.Handled)
             {
-                HealthPoints += difference;
-                PhysicalDamage += difference * 2;
-            };
+                return;
+            }
 
-            OnDexterityChange += delegate (Character _, int difference)
+            PhysicalDamage += args.Difference;
+            PhysicalDefense += args.Difference * 0.5;
+        };
+
+        OnConstitutionChange += delegate (Character _, StatChangeArgs args)
+        {
+            if (args.Handled)
             {
-                PhysicalDamage += difference;
-                PhysicalDefense += difference * 0.5;
-            };
+                return;
+            }
 
-            OnConstitutionChange += delegate (Character _, int difference)
+            HealthPoints += args.Difference * 3;
+            PhysicalDefense += args.Difference;
+        };
+
+        OnIntelligenceChange += delegate (Character _, StatChangeArgs args)
+        {
+            if (args.Handled)
             {
-                HealthPoints += difference * 3;
-                PhysicalDefense += Constitution;
-            };
+                return;
+            }
 
-            OnIntelligenceChange += delegate (Character _, int difference)
-            {
-                MagicDamage += difference * 5;
-                MagicDefense += difference * 2;
-            };
+            MagicDamage += args.Difference * 5;
+            ManaPoints += args.Difference * 2;
+        };
 
-            Strength = StatsBoundary.MinStrength;
-            Dexterity = StatsBoundary.MinDexterity;
-            Constitution = StatsBoundary.MinConstitution;
-            Intelligence = StatsBoundary.MinIntelligence;
-
-            //HealthPoints = Strength + Constitution * 3;
-            //PhysicalDamage = Strength * 2;
-            //PhysicalDefense = Dexterity * 0.5 + Constitution;
-            //MagicDamage = 5 * Intelligence;
-            //MagicDefense = 2 * Intelligence;
-        }
+        Strength = StatsBoundary.MinStrength;
+        Dexterity = StatsBoundary.MinDexterity;
+        Constitution = StatsBoundary.MinConstitution;
+        Intelligence = StatsBoundary.MinIntelligence;
     }
 }
