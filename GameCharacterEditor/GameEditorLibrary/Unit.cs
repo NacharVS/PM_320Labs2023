@@ -4,10 +4,6 @@ namespace GameEditorLibrary
 {
     public class Unit
     {
-        public delegate void StrengthChangedDelegate();
-        public delegate void DexterityChangedDelegate();
-        public delegate void ConstitutionChangedDelegate();
-        public delegate void IntelligenceChangedDelegate();
         public int minStrength { get; set; }
         public int maxStrength;
         private int _strength;
@@ -17,7 +13,6 @@ namespace GameEditorLibrary
             set
             {
                 _strength = value;
-                StrengthChangedEvent?.Invoke();
             }
         }
         public int minDexterity;
@@ -29,7 +24,6 @@ namespace GameEditorLibrary
             set
             {
                 _dexterity = value;
-                DexterityChangedEvent?.Invoke();
             }
         }
         public int minConstitution;
@@ -41,7 +35,6 @@ namespace GameEditorLibrary
             set
             {
                 _constitution = value;
-                ConstitutionChangedEvent?.Invoke();
             }
         }
         public int minIntelligence;
@@ -53,7 +46,6 @@ namespace GameEditorLibrary
             set
             {
                 _intelligence = value;
-                IntelligenceChangedEvent?.Invoke();
             }
         }
         public int attackDamage;
@@ -63,12 +55,5 @@ namespace GameEditorLibrary
         public double MP;
 
         public Unit() { }
-
-        public event StrengthChangedDelegate StrengthChangedEvent;
-        public event DexterityChangedDelegate DexterityChangedEvent;
-        public event ConstitutionChangedDelegate ConstitutionChangedEvent;
-        public event IntelligenceChangedDelegate IntelligenceChangedEvent;
-
-
     }
 }
