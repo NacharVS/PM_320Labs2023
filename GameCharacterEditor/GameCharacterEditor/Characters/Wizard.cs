@@ -9,55 +9,55 @@ namespace GameCharacterEditor
     class Wizard : Character
     {
         public string Name { get; set; }
-        public new int Strength
+        public override int Strength
         {
-            get { return minStrength; }
+            get { return _strength; }
             set
             {
                 if (value >= minStrength && value <= maxStrength)
                 {
-                    HP += (value - minStrength) * 1;
-                    Attack += (value - minStrength) * 3;
-                    minStrength = value;
+                    HP += (value - _strength) * 1;
+                    Attack += (value - _strength) * 3;
+                    _strength = value;
                 }
             }
         }
-        public new int Dexterity
+        public override int Dexterity
         {
-            get { return minDexterity; }
+            get { return _dexterity; }
             set
             {
                 if (value >= minDexterity && value <= maxDexterity)
                 {
-                    Attack += (value - minDexterity) * 4;
-                    PDef += (value - minDexterity) * 1.5;
-                    minDexterity = value;
+                    Attack += (value - _dexterity) * 4;
+                    PDef += (value - _dexterity) * (int)1.5;
+                    _dexterity = value;
                 }
             }
         }
-        public new int Constitution
+        public override int Constitution
         {
             get { return minConstitution; }
             set
             {
                 if (value >= minConstitution && value <= maxConstitution)
                 {
-                    HP += (value - minConstitution) * 3;
-                    PDef += (value - minConstitution) * 1;
-                    minConstitution = value;
+                    HP += (value - _constitution) * 3;
+                    PDef += (value - _constitution) * 1;
+                    _constitution = value;
                 }
             }
         }
-        public new int Intelligence
+        public override int Intelligence
         {
-            get { return minIntelligence; }
+            get { return _intelligence; }
             set
             {
                 if (value >= minIntelligence && value <= maxIntelligence)
                 {
-                    MP += (value - minIntelligence) * 2;
-                    MPAttack += (value - minIntelligence) * 5;
-                    minIntelligence = value;
+                    MP += (value - _intelligence) * 2;
+                    MPAttack += (value - _intelligence) * 5;
+                    _intelligence = value;
                 }
             }
         }
@@ -72,6 +72,10 @@ namespace GameCharacterEditor
             maxConstitution = 60;
             minIntelligence = 35;
             maxIntelligence = 250;
+            Strength = minStrength;
+            Dexterity = minDexterity;
+            Constitution = minConstitution;
+            Intelligence = minIntelligence;
         }
     }
 }

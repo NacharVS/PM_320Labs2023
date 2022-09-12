@@ -15,88 +15,30 @@ namespace GameCharacterEditor
 
         private void Strength_Text_ValueChanged(object sender, EventArgs e)
         {
-            switch (characterName)
-            {
-                case "Rogue":
-                    HP_Text.Value += (Strength_Text.Value - character.minStrength) * 1;
-                    Attack_Text.Value += ((Strength_Text.Value - character.minStrength) * 2);
-                    break;
-                case "Warrior":
-                    HP_Text.Value += (Strength_Text.Value - character.minStrength) * 2;
-                    Attack_Text.Value += (Strength_Text.Value - character.minStrength) * 5;
-                    break;
-                case "Wizard":
-                    HP_Text.Value += (Strength_Text.Value - character.minStrength) * 1;
-                    Attack_Text.Value += ((Strength_Text.Value - character.minStrength) * 2);
-                    break;
-            }
-
-            /*HP_Text.Text = character.HP.ToString();
-            Attack_Text.Text = character.Attack.ToString();*/
+            character.Strength = (int)Strength_Text.Value;
+            HP_Text.Value = character.HP;
+            Attack_Text.Value = character.Attack;
         }
 
         private void Dexterity_Text_ValueChanged(object sender, EventArgs e)
         {
-            switch (characterName)
-            {
-                case "Rogue":
-                    PDef_Text.Value += (Dexterity_Text.Value - character.minDexterity) * (int)1.5;
-                    Attack_Text.Value += (Dexterity_Text.Value - character.minDexterity) * 4;
-                    break;
-                case "Warrior":
-                    PDef_Text.Value += (Dexterity_Text.Value - character.minDexterity) * 1;
-                    Attack_Text.Value += (Dexterity_Text.Value - character.minDexterity) * 1;
-                    break;
-                case "Wizard":
-                    PDef_Text.Value += (Dexterity_Text.Value - character.minDexterity) * (int)0.5;
-                    break;
-            }
-
-            /*PDef_Text.Text = character.PDef.ToString();
-            Attack_Text.Text = character.Attack.ToString();*/
+            character.Dexterity = (int)Dexterity_Text.Value;
+            PDef_Text.Value = character.PDef;
+            Attack_Text.Value = character.Attack;
         }
 
         private void Constitution_Text_ValueChanged(object sender, EventArgs e)
         {
-            switch (characterName)
-            {
-                case "Rogue":
-                    HP_Text.Value += (Constitution_Text.Value - character.minConstitution) * 6;
-                    break;
-                case "Warrior":
-                    HP_Text.Value += (Constitution_Text.Value - character.minConstitution) * 10;
-                    PDef_Text.Value += (Constitution_Text.Value - character.minConstitution) * 2;
-                    break;
-                case "Wizard":
-                    HP_Text.Value += (Constitution_Text.Value - character.minConstitution) * 3;
-                    PDef_Text.Value += (Constitution_Text.Value - character.minConstitution) * 1;
-                    break;
-            }
-
-            /*HP_Text.Text = character.HP.ToString();
-            PDef_Text.Text = character.PDef.ToString();*/
+            character.Constitution = (int)Constitution_Text.Value;
+            HP_Text.Value = character.HP;
+            PDef_Text.Value = character.PDef;
         }
 
         private void Intelligence_Text_ValueChanged(object sender, EventArgs e)
         {
-            switch (characterName)
-            {
-                case "Rogue":
-                    /*MP_Text.Value += (MP_Text.Value - character.minIntelligence) * (int)1.5;
-                    MPAttack_Text.Value += (MPAttack_Text.Value - character.minIntelligence) * 2;*/
-                    break;
-                case "Warrior":
-                    /*MP_Text.Value += (MP_Text.Value - character.minIntelligence) * 1;
-                    MPAttack_Text.Value += (MPAttack_Text.Value - character.minIntelligence) * 1;*/
-                    break;
-                case "Wizard":
-                    /*MP_Text.Value += (MP_Text.Value - character.minIntelligence) * 2;
-                    MPAttack_Text.Value += (MPAttack_Text.Value - character.minIntelligence) * 5;*/
-                    break;
-            }
-
-            /*MP_Text.Text = character.MP.ToString();
-            MPAttack_Text.Text = character.MPAttack.ToString();*/
+            character.Intelligence = (int)Intelligence_Text.Value;
+            MP_Text.Value = character.MP;
+            MPAttack_Text.Value = character.MPAttack;
         }
 
         private void Rogue_Button_Click(object sender, EventArgs e)

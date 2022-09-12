@@ -9,55 +9,55 @@ namespace GameCharacterEditor
     class Warrior : Character
     {
         public string Name { get; set; }
-        public new int Strength
+        public override int Strength
         {
-            get { return minStrength; }
+            get { return _strength; }
             set
             {
                 if (value >= minStrength && value <= maxStrength)
                 {
-                    HP += (value - minStrength) * 2;
-                    Attack += (value - minStrength) * 5;
-                    minStrength = value;
+                    HP += (value - _strength) * 2;
+                    Attack += (value - _strength) * 5;
+                    _strength = value;
                 }
             }
         }
-        public new int Dexterity
+        public override int Dexterity
         {
-            get { return minDexterity; }
+            get { return _dexterity; }
             set
             {
                 if (value >= minDexterity && value <= maxDexterity)
                 {
-                    Attack += (value - minDexterity) * 1;
-                    PDef += (value - minDexterity) * 1;
-                    minDexterity = value;
+                    Attack += (value - _dexterity) * 1;
+                    PDef += (value - _dexterity) * 1;
+                    _dexterity = value;
                 }
             }
         }
-        public new int Constitution
+        public override int Constitution
         {
-            get { return minConstitution; }
+            get { return _constitution; }
             set
             {
                 if (value >= minConstitution && value <= maxConstitution)
                 {
-                    HP += (value - minConstitution) * 10;
-                    PDef += (value - minConstitution) * 12;
-                    minConstitution = value;
+                    HP += (value - _constitution) * 10;
+                    PDef += (value - _constitution) * 12;
+                    _constitution = value;
                 }
             }
         }
-        public new int Intelligence
+        public override int Intelligence
         {
-            get { return minIntelligence; }
+            get { return _intelligence; }
             set
             {
                 if (value >= minIntelligence && value <= maxIntelligence)
                 {
-                    MP += (value - minIntelligence) * 1;
-                    MPAttack += (value - minIntelligence) * 1;
-                    minIntelligence = value;
+                    MP += (value - _intelligence) * 1;
+                    MPAttack += (value - _intelligence) * 1;
+                    _intelligence = value;
                 }
             }
         }
@@ -72,6 +72,10 @@ namespace GameCharacterEditor
             maxConstitution = 100;
             minIntelligence = 10;
             maxIntelligence = 50;
+            Strength = minStrength;
+            Dexterity = minDexterity;
+            Constitution = minConstitution;
+            Intelligence = minIntelligence;
         }
     }
 }

@@ -12,14 +12,15 @@ namespace GameCharacterEditor
         // Сила
         public int minStrength;
         public int maxStrength;
-        public int Strength
+        public int _strength;
+        public virtual int Strength
         {
-            get { return minStrength; }
+            get { return _strength; }
             set 
             {
                 if (value >= minStrength && value <= maxStrength)
                 {
-                    minStrength = value;
+                    _strength = value;
                 }
             }
         }
@@ -27,14 +28,15 @@ namespace GameCharacterEditor
         // Ловкость
         public int minDexterity;
         public int maxDexterity;
-        public int Dexterity
+        public int _dexterity;
+        public virtual int Dexterity
         {
-            get { return minDexterity; }
+            get { return _dexterity; }
             set 
             {
                 if (value >= minDexterity && value <= maxDexterity)
                 {
-                    minDexterity = value;
+                    _dexterity = value;
                 }
             }
         }
@@ -42,14 +44,15 @@ namespace GameCharacterEditor
         // Телосложение
         public int minConstitution;
         public int maxConstitution;
-        public int Constitution
+        public int _constitution;
+        public virtual int Constitution
         {
-            get { return minConstitution; }
+            get { return _constitution; }
             set 
             {
                 if (value >= minConstitution && value <= maxConstitution)
                 {
-                    minConstitution = value;
+                    _constitution = value;
                 }
             }
         }
@@ -57,22 +60,23 @@ namespace GameCharacterEditor
         // Интеллект 
         public int minIntelligence;
         public int maxIntelligence;
-        public int Intelligence
+        public int _intelligence;
+        public virtual int Intelligence
         {
-            get { return minIntelligence; }
+            get { return _intelligence; }
             set 
             {
                 if (value >= minIntelligence && value <= maxIntelligence)
                 {
-                    minIntelligence = value;
+                    _intelligence = value;
                 }
             }
         }
 
-        public int HP { get; set; } // Здоровье
-        public double MP { get; set; } // Мана
-        public double PDef { get; set; } // Физическая защита (Physical defention)
-        public int Attack { get; set; } // Атака (урон)
-        public int MPAttack { get; set; } // Магическая атака
+        public decimal HP { get; set; } // Здоровье
+        public decimal MP { get; set; } // Мана
+        public decimal PDef { get; set; } // Физическая защита (Physical defention)
+        public decimal Attack { get; set; } // Атака (урон)
+        public decimal MPAttack { get; set; } // Магическая атака
     }
 }

@@ -9,54 +9,54 @@ namespace GameCharacterEditor
     class Rogue : Character
     {
         public string Name { get; set; }
-        public new int Strength
+        public override int Strength
         {
-            get { return minStrength; }
+            get { return _strength; }
             set
             {
                 if (value >= minStrength && value <= maxStrength)
                 {
-                    HP += (value - minStrength) * 1;
-                    Attack += (value - minStrength) * 2;
-                    minStrength = value;
+                    HP += (value - _strength) * 1;
+                    Attack += (value - _strength) * 2;
+                    _strength = value;
                 }
             }
         }
-        public new int Dexterity
+        public override int Dexterity
         {
-            get { return minDexterity; }
+            get { return _dexterity; }
             set
             {
                 if (value >= minDexterity && value <= maxDexterity)
                 {
-                    Attack += (value - minDexterity) * 4;
-                    PDef += (value - minDexterity) * 1.5;
-                    minDexterity = value;
+                    Attack += (value - _dexterity) * 4;
+                    PDef += (value - _dexterity) * (int)1.5;
+                    _dexterity = value;
                 }
             }
         }
-        public new int Constitution
+        public override int Constitution
         {
-            get { return minConstitution; }
+            get { return _constitution; }
             set
             {
                 if (value >= minConstitution && value <= maxConstitution)
                 {
-                    HP += (value - minConstitution) * 6;
-                    minConstitution = value;
+                    HP += (value - _constitution) * 6;
+                    _constitution = value;
                 }
             }
         }
-        public new int MinIntelligence
+        public override int Intelligence
         {
-            get { return minIntelligence; }
+            get { return _intelligence; }
             set
             {
                 if (value >= minIntelligence && value <= maxIntelligence)
                 {
-                    MP += (value - minIntelligence) * 1.5;
-                    MPAttack += (value - minIntelligence) * 2;
-                    minIntelligence = value;
+                    MP += (value - _intelligence) * (int)1.5;
+                    MPAttack += (value - _intelligence) * 2;
+                    _intelligence = value;
                 }
             }
         }
@@ -71,6 +71,10 @@ namespace GameCharacterEditor
             maxConstitution = 80;
             minIntelligence = 15;
             maxIntelligence = 70;
+            Strength = minStrength;
+            Dexterity = minDexterity;
+            Constitution = minConstitution;
+            Intelligence = minIntelligence;
         }
     }
 }
