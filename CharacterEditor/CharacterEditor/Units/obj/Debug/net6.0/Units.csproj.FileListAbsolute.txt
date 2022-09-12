@@ -1,5 +1,0 @@
-C:\Users\202011\source\repos\CharacterEditor\Units\obj\Debug\net6.0\Units.csproj.AssemblyReference.cache
-C:\Users\202011\source\repos\CharacterEditor\Units\obj\Debug\net6.0\Units.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\202011\source\repos\CharacterEditor\Units\obj\Debug\net6.0\Units.AssemblyInfoInputs.cache
-C:\Users\202011\source\repos\CharacterEditor\Units\obj\Debug\net6.0\Units.AssemblyInfo.cs
-C:\Users\202011\source\repos\CharacterEditor\Units\obj\Debug\net6.0\Units.csproj.CoreCompileInputs.cache
