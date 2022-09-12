@@ -15,26 +15,88 @@ namespace GameCharacterEditor
 
         private void Strength_Text_ValueChanged(object sender, EventArgs e)
         {
-            HP_Text.Text = character.HP.ToString();
-            Attack_Text.Text = character.Attack.ToString();
+            switch (characterName)
+            {
+                case "Rogue":
+                    HP_Text.Value += (Strength_Text.Value - character.minStrength) * 1;
+                    Attack_Text.Value += ((Strength_Text.Value - character.minStrength) * 2);
+                    break;
+                case "Warrior":
+                    HP_Text.Value += (Strength_Text.Value - character.minStrength) * 2;
+                    Attack_Text.Value += (Strength_Text.Value - character.minStrength) * 5;
+                    break;
+                case "Wizard":
+                    HP_Text.Value += (Strength_Text.Value - character.minStrength) * 1;
+                    Attack_Text.Value += ((Strength_Text.Value - character.minStrength) * 2);
+                    break;
+            }
+
+            /*HP_Text.Text = character.HP.ToString();
+            Attack_Text.Text = character.Attack.ToString();*/
         }
 
         private void Dexterity_Text_ValueChanged(object sender, EventArgs e)
         {
-            PDef_Text.Text = character.PDef.ToString();
-            Attack_Text.Text = character.Attack.ToString();
+            switch (characterName)
+            {
+                case "Rogue":
+                    PDef_Text.Value += (Dexterity_Text.Value - character.minDexterity) * (int)1.5;
+                    Attack_Text.Value += (Dexterity_Text.Value - character.minDexterity) * 4;
+                    break;
+                case "Warrior":
+                    PDef_Text.Value += (Dexterity_Text.Value - character.minDexterity) * 1;
+                    Attack_Text.Value += (Dexterity_Text.Value - character.minDexterity) * 1;
+                    break;
+                case "Wizard":
+                    PDef_Text.Value += (Dexterity_Text.Value - character.minDexterity) * (int)0.5;
+                    break;
+            }
+
+            /*PDef_Text.Text = character.PDef.ToString();
+            Attack_Text.Text = character.Attack.ToString();*/
         }
 
         private void Constitution_Text_ValueChanged(object sender, EventArgs e)
         {
-            HP_Text.Text = character.HP.ToString();
-            PDef_Text.Text = character.PDef.ToString();
+            switch (characterName)
+            {
+                case "Rogue":
+                    HP_Text.Value += (Constitution_Text.Value - character.minConstitution) * 6;
+                    break;
+                case "Warrior":
+                    HP_Text.Value += (Constitution_Text.Value - character.minConstitution) * 10;
+                    PDef_Text.Value += (Constitution_Text.Value - character.minConstitution) * 2;
+                    break;
+                case "Wizard":
+                    HP_Text.Value += (Constitution_Text.Value - character.minConstitution) * 3;
+                    PDef_Text.Value += (Constitution_Text.Value - character.minConstitution) * 1;
+                    break;
+            }
+
+            /*HP_Text.Text = character.HP.ToString();
+            PDef_Text.Text = character.PDef.ToString();*/
         }
 
         private void Intelligence_Text_ValueChanged(object sender, EventArgs e)
         {
-            MP_Text.Text = character.MP.ToString();
-            MPAttack_Text.Text = character.MPAttack.ToString();
+            switch (characterName)
+            {
+                case "Rogue":
+                    /*MP_Text.Value += (MP_Text.Value - character.minIntelligence) * (int)1.5;
+                    MPAttack_Text.Value += (MPAttack_Text.Value - character.minIntelligence) * 2;*/
+                    break;
+                case "Warrior":
+                    /*MP_Text.Value += (MP_Text.Value - character.minIntelligence) * 1;
+                    MPAttack_Text.Value += (MPAttack_Text.Value - character.minIntelligence) * 1;*/
+                    break;
+                case "Wizard":
+                    /*MP_Text.Value += (MP_Text.Value - character.minIntelligence) * 2;
+                    MPAttack_Text.Value += (MPAttack_Text.Value - character.minIntelligence) * 5;*/
+                    break;
+            }
+
+            /*MP_Text.Text = character.MP.ToString();
+            MPAttack_Text.Text = character.MPAttack.ToString();*/
         }
 
         private void Rogue_Button_Click(object sender, EventArgs e)
@@ -55,7 +117,7 @@ namespace GameCharacterEditor
             Characteristics();
         }
 
-        private void CharacterSelection()
+        private void Characteristics()
         {
             switch (characterName)
             {
@@ -69,11 +131,6 @@ namespace GameCharacterEditor
                     character = new Wizard(characterName);
                     break;
             }
-        }
-
-        private void Characteristics()
-        {
-            CharacterSelection();
 
             Strength_Text.Minimum = character.Strength;
             Strength_Text.Maximum = character.maxStrength;
@@ -90,6 +147,36 @@ namespace GameCharacterEditor
             Intelligence_Text.Minimum = character.Intelligence;
             Intelligence_Text.Maximum = character.maxIntelligence;
             Intelligence_Text.Value = Intelligence_Text.Minimum;
+        }
+
+        private void OK_Button_Click(object sender, EventArgs e)
+        {
+            Strength_Text.Minimum = 0;
+            Strength_Text.Value = 0;
+
+            Dexterity_Text.Minimum = 0;
+            Dexterity_Text.Value = 0;
+
+            Constitution_Text.Minimum = 0;
+            Constitution_Text.Value = 0;
+
+            Intelligence_Text.Minimum = 0;
+            Intelligence_Text.Value = 0;
+
+            HP_Text.Minimum = 0;
+            HP_Text.Value = 0;
+
+            MP_Text.Minimum = 0;
+            MP_Text.Value = 0;
+
+            PDef_Text.Minimum = 0;
+            PDef_Text.Value = 0;
+
+            Attack_Text.Minimum = 0;
+            Attack_Text.Value = 0;
+
+            MPAttack_Text.Minimum = 0;
+            MPAttack_Text.Value = 0;
         }
     }
 }

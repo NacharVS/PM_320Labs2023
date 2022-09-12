@@ -11,52 +11,52 @@ namespace GameCharacterEditor
         public string Name { get; set; }
         public new int Strength
         {
-            get { return _strength; }
+            get { return minStrength; }
             set
             {
                 if (value >= minStrength && value <= maxStrength)
                 {
-                    HP += (value - _strength) * 1;
-                    Attack += (value - _strength) * 2;
-                    _strength = value;
+                    HP += (value - minStrength) * 1;
+                    Attack += (value - minStrength) * 2;
+                    minStrength = value;
                 }
             }
         }
         public new int Dexterity
         {
-            get { return _dexterity; }
+            get { return minDexterity; }
             set
             {
                 if (value >= minDexterity && value <= maxDexterity)
                 {
-                    Attack += (value - _dexterity) * 4;
-                    PDef += (value - _dexterity) * 1.5;
-                    _dexterity = value;
+                    Attack += (value - minDexterity) * 4;
+                    PDef += (value - minDexterity) * 1.5;
+                    minDexterity = value;
                 }
             }
         }
         public new int Constitution
         {
-            get { return _constitution; }
+            get { return minConstitution; }
             set
             {
                 if (value >= minConstitution && value <= maxConstitution)
                 {
-                    HP += (value - _constitution) * 6;
-                    _constitution = value;
+                    HP += (value - minConstitution) * 6;
+                    minConstitution = value;
                 }
             }
         }
         public new int MinIntelligence
         {
-            get { return _intelligence; }
+            get { return minIntelligence; }
             set
             {
                 if (value >= minIntelligence && value <= maxIntelligence)
                 {
-                    MP += (value - _intelligence) * 1.5;
-                    MPAttack += (value - _intelligence) * 2;
-                    _intelligence = value;
+                    MP += (value - minIntelligence) * 1.5;
+                    MPAttack += (value - minIntelligence) * 2;
+                    minIntelligence = value;
                 }
             }
         }

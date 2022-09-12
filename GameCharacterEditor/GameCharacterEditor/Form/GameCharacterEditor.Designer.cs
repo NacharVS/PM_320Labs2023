@@ -44,22 +44,28 @@
             this.Wizard_Button = new System.Windows.Forms.Button();
             this.Warrior_Button = new System.Windows.Forms.Button();
             this.MPAttack_Label = new System.Windows.Forms.Label();
-            this.MPAttack_Text = new System.Windows.Forms.TextBox();
-            this.Attack_Text = new System.Windows.Forms.TextBox();
-            this.PDef_Text = new System.Windows.Forms.TextBox();
-            this.MP_Text = new System.Windows.Forms.TextBox();
-            this.HP_Text = new System.Windows.Forms.TextBox();
+            this.Attack_Text = new System.Windows.Forms.NumericUpDown();
+            this.PDef_Text = new System.Windows.Forms.NumericUpDown();
+            this.MPAttack_Text = new System.Windows.Forms.NumericUpDown();
+            this.HP_Text = new System.Windows.Forms.NumericUpDown();
+            this.MP_Text = new System.Windows.Forms.NumericUpDown();
+            this.OK_Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Intelligence_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Constitution_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Strength_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dexterity_Text)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Attack_Text)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PDef_Text)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MPAttack_Text)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HP_Text)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MP_Text)).BeginInit();
             this.SuspendLayout();
             // 
             // Strength_Label
             // 
             this.Strength_Label.AutoSize = true;
             this.Strength_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Strength_Label.Location = new System.Drawing.Point(66, 117);
+            this.Strength_Label.Location = new System.Drawing.Point(86, 111);
             this.Strength_Label.Name = "Strength_Label";
             this.Strength_Label.Size = new System.Drawing.Size(85, 22);
             this.Strength_Label.TabIndex = 1;
@@ -69,7 +75,7 @@
             // 
             this.Dexterity_Label.AutoSize = true;
             this.Dexterity_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Dexterity_Label.Location = new System.Drawing.Point(66, 148);
+            this.Dexterity_Label.Location = new System.Drawing.Point(86, 142);
             this.Dexterity_Label.Name = "Dexterity_Label";
             this.Dexterity_Label.Size = new System.Drawing.Size(90, 22);
             this.Dexterity_Label.TabIndex = 2;
@@ -79,7 +85,7 @@
             // 
             this.Constitution_Label.AutoSize = true;
             this.Constitution_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Constitution_Label.Location = new System.Drawing.Point(66, 179);
+            this.Constitution_Label.Location = new System.Drawing.Point(86, 173);
             this.Constitution_Label.Name = "Constitution_Label";
             this.Constitution_Label.Size = new System.Drawing.Size(115, 22);
             this.Constitution_Label.TabIndex = 3;
@@ -89,7 +95,7 @@
             // 
             this.Intelligence_Label.AutoSize = true;
             this.Intelligence_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Intelligence_Label.Location = new System.Drawing.Point(66, 210);
+            this.Intelligence_Label.Location = new System.Drawing.Point(86, 204);
             this.Intelligence_Label.Name = "Intelligence_Label";
             this.Intelligence_Label.Size = new System.Drawing.Size(109, 22);
             this.Intelligence_Label.TabIndex = 4;
@@ -99,7 +105,7 @@
             // 
             this.HP_Label.AutoSize = true;
             this.HP_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.HP_Label.Location = new System.Drawing.Point(414, 101);
+            this.HP_Label.Location = new System.Drawing.Point(392, 99);
             this.HP_Label.Name = "HP_Label";
             this.HP_Label.Size = new System.Drawing.Size(41, 22);
             this.HP_Label.TabIndex = 5;
@@ -109,7 +115,7 @@
             // 
             this.MP_Label.AutoSize = true;
             this.MP_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.MP_Label.Location = new System.Drawing.Point(414, 132);
+            this.MP_Label.Location = new System.Drawing.Point(392, 130);
             this.MP_Label.Name = "MP_Label";
             this.MP_Label.Size = new System.Drawing.Size(45, 22);
             this.MP_Label.TabIndex = 6;
@@ -119,7 +125,7 @@
             // 
             this.PDef_Label.AutoSize = true;
             this.PDef_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.PDef_Label.Location = new System.Drawing.Point(414, 163);
+            this.PDef_Label.Location = new System.Drawing.Point(392, 161);
             this.PDef_Label.Name = "PDef_Label";
             this.PDef_Label.Size = new System.Drawing.Size(56, 22);
             this.PDef_Label.TabIndex = 7;
@@ -129,7 +135,7 @@
             // 
             this.Attack_Label.AutoSize = true;
             this.Attack_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Attack_Label.Location = new System.Drawing.Point(414, 194);
+            this.Attack_Label.Location = new System.Drawing.Point(392, 192);
             this.Attack_Label.Name = "Attack_Label";
             this.Attack_Label.Size = new System.Drawing.Size(70, 22);
             this.Attack_Label.TabIndex = 8;
@@ -138,7 +144,7 @@
             // Intelligence_Text
             // 
             this.Intelligence_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Intelligence_Text.Location = new System.Drawing.Point(204, 209);
+            this.Intelligence_Text.Location = new System.Drawing.Point(224, 203);
             this.Intelligence_Text.Name = "Intelligence_Text";
             this.Intelligence_Text.Size = new System.Drawing.Size(120, 25);
             this.Intelligence_Text.TabIndex = 19;
@@ -147,7 +153,7 @@
             // Constitution_Text
             // 
             this.Constitution_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Constitution_Text.Location = new System.Drawing.Point(204, 178);
+            this.Constitution_Text.Location = new System.Drawing.Point(224, 172);
             this.Constitution_Text.Name = "Constitution_Text";
             this.Constitution_Text.Size = new System.Drawing.Size(120, 25);
             this.Constitution_Text.TabIndex = 20;
@@ -156,7 +162,7 @@
             // Strength_Text
             // 
             this.Strength_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Strength_Text.Location = new System.Drawing.Point(204, 120);
+            this.Strength_Text.Location = new System.Drawing.Point(224, 114);
             this.Strength_Text.Name = "Strength_Text";
             this.Strength_Text.Size = new System.Drawing.Size(120, 25);
             this.Strength_Text.TabIndex = 21;
@@ -165,7 +171,7 @@
             // Dexterity_Text
             // 
             this.Dexterity_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Dexterity_Text.Location = new System.Drawing.Point(204, 147);
+            this.Dexterity_Text.Location = new System.Drawing.Point(224, 141);
             this.Dexterity_Text.Name = "Dexterity_Text";
             this.Dexterity_Text.Size = new System.Drawing.Size(120, 25);
             this.Dexterity_Text.TabIndex = 22;
@@ -211,47 +217,88 @@
             // 
             this.MPAttack_Label.AutoSize = true;
             this.MPAttack_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.MPAttack_Label.Location = new System.Drawing.Point(414, 225);
+            this.MPAttack_Label.Location = new System.Drawing.Point(392, 223);
             this.MPAttack_Label.Name = "MPAttack_Label";
             this.MPAttack_Label.Size = new System.Drawing.Size(103, 22);
             this.MPAttack_Label.TabIndex = 30;
             this.MPAttack_Label.Text = "MP Attack:";
             // 
-            // MPAttack_Text
-            // 
-            this.MPAttack_Text.Location = new System.Drawing.Point(548, 224);
-            this.MPAttack_Text.Name = "MPAttack_Text";
-            this.MPAttack_Text.Size = new System.Drawing.Size(100, 23);
-            this.MPAttack_Text.TabIndex = 33;
-            // 
             // Attack_Text
             // 
-            this.Attack_Text.Location = new System.Drawing.Point(548, 190);
+            this.Attack_Text.DecimalPlaces = 1;
+            this.Attack_Text.Location = new System.Drawing.Point(526, 191);
+            this.Attack_Text.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.Attack_Text.Name = "Attack_Text";
-            this.Attack_Text.Size = new System.Drawing.Size(100, 23);
-            this.Attack_Text.TabIndex = 34;
+            this.Attack_Text.Size = new System.Drawing.Size(120, 23);
+            this.Attack_Text.TabIndex = 38;
             // 
             // PDef_Text
             // 
-            this.PDef_Text.Location = new System.Drawing.Point(548, 161);
+            this.PDef_Text.DecimalPlaces = 1;
+            this.PDef_Text.Location = new System.Drawing.Point(526, 160);
+            this.PDef_Text.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.PDef_Text.Name = "PDef_Text";
-            this.PDef_Text.Size = new System.Drawing.Size(100, 23);
-            this.PDef_Text.TabIndex = 35;
+            this.PDef_Text.Size = new System.Drawing.Size(120, 23);
+            this.PDef_Text.TabIndex = 39;
             // 
-            // MP_Text
+            // MPAttack_Text
             // 
-            this.MP_Text.Location = new System.Drawing.Point(548, 132);
-            this.MP_Text.Name = "MP_Text";
-            this.MP_Text.Size = new System.Drawing.Size(100, 23);
-            this.MP_Text.TabIndex = 36;
+            this.MPAttack_Text.DecimalPlaces = 1;
+            this.MPAttack_Text.Location = new System.Drawing.Point(526, 223);
+            this.MPAttack_Text.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.MPAttack_Text.Name = "MPAttack_Text";
+            this.MPAttack_Text.Size = new System.Drawing.Size(120, 23);
+            this.MPAttack_Text.TabIndex = 40;
             // 
             // HP_Text
             // 
-            this.HP_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.HP_Text.Location = new System.Drawing.Point(548, 103);
+            this.HP_Text.DecimalPlaces = 1;
+            this.HP_Text.Location = new System.Drawing.Point(526, 98);
+            this.HP_Text.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.HP_Text.Name = "HP_Text";
-            this.HP_Text.Size = new System.Drawing.Size(100, 25);
-            this.HP_Text.TabIndex = 37;
+            this.HP_Text.Size = new System.Drawing.Size(120, 23);
+            this.HP_Text.TabIndex = 41;
+            // 
+            // MP_Text
+            // 
+            this.MP_Text.DecimalPlaces = 1;
+            this.MP_Text.Location = new System.Drawing.Point(526, 129);
+            this.MP_Text.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.MP_Text.Name = "MP_Text";
+            this.MP_Text.Size = new System.Drawing.Size(120, 23);
+            this.MP_Text.TabIndex = 42;
+            // 
+            // OK_Button
+            // 
+            this.OK_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.OK_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.OK_Button.Location = new System.Drawing.Point(610, 281);
+            this.OK_Button.Name = "OK_Button";
+            this.OK_Button.Size = new System.Drawing.Size(100, 30);
+            this.OK_Button.TabIndex = 43;
+            this.OK_Button.Text = "OK";
+            this.OK_Button.UseVisualStyleBackColor = false;
+            this.OK_Button.Click += new System.EventHandler(this.OK_Button_Click);
             // 
             // GameCharacterEditor
             // 
@@ -259,11 +306,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.HP_Text);
+            this.Controls.Add(this.OK_Button);
             this.Controls.Add(this.MP_Text);
+            this.Controls.Add(this.HP_Text);
+            this.Controls.Add(this.MPAttack_Text);
             this.Controls.Add(this.PDef_Text);
             this.Controls.Add(this.Attack_Text);
-            this.Controls.Add(this.MPAttack_Text);
             this.Controls.Add(this.MPAttack_Label);
             this.Controls.Add(this.Warrior_Button);
             this.Controls.Add(this.Wizard_Button);
@@ -287,6 +335,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.Constitution_Text)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Strength_Text)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dexterity_Text)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Attack_Text)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PDef_Text)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MPAttack_Text)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HP_Text)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MP_Text)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -309,10 +362,11 @@
         private Button Wizard_Button;
         private Button Warrior_Button;
         private Label MPAttack_Label;
-        private TextBox MPAttack_Text;
-        private TextBox Attack_Text;
-        private TextBox PDef_Text;
-        private TextBox MP_Text;
-        private TextBox HP_Text;
+        private NumericUpDown Attack_Text;
+        private NumericUpDown PDef_Text;
+        private NumericUpDown MPAttack_Text;
+        private NumericUpDown HP_Text;
+        private NumericUpDown MP_Text;
+        private Button OK_Button;
     }
 }

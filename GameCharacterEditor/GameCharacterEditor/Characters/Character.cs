@@ -12,15 +12,14 @@ namespace GameCharacterEditor
         // Сила
         public int minStrength;
         public int maxStrength;
-        public int _strength; 
         public int Strength
         {
-            get { return _strength; }
+            get { return minStrength; }
             set 
             {
                 if (value >= minStrength && value <= maxStrength)
                 {
-                    _strength = value;
+                    minStrength = value;
                 }
             }
         }
@@ -28,15 +27,14 @@ namespace GameCharacterEditor
         // Ловкость
         public int minDexterity;
         public int maxDexterity;
-        public int _dexterity;
         public int Dexterity
         {
-            get { return _dexterity; }
+            get { return minDexterity; }
             set 
             {
                 if (value >= minDexterity && value <= maxDexterity)
                 {
-                    _dexterity = value;
+                    minDexterity = value;
                 }
             }
         }
@@ -44,15 +42,14 @@ namespace GameCharacterEditor
         // Телосложение
         public int minConstitution;
         public int maxConstitution;
-        public int _constitution;
         public int Constitution
         {
-            get { return _constitution; }
+            get { return minConstitution; }
             set 
             {
                 if (value >= minConstitution && value <= maxConstitution)
                 {
-                    _constitution = value;
+                    minConstitution = value;
                 }
             }
         }
@@ -60,15 +57,14 @@ namespace GameCharacterEditor
         // Интеллект 
         public int minIntelligence;
         public int maxIntelligence;
-        public int _intelligence;
         public int Intelligence
         {
-            get { return _intelligence; }
+            get { return minIntelligence; }
             set 
             {
                 if (value >= minIntelligence && value <= maxIntelligence)
                 {
-                    _intelligence = value;
+                    minIntelligence = value;
                 }
             }
         }
