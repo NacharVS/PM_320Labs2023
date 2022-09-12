@@ -46,7 +46,7 @@
 
         </StackPanel>
         <Label Grid.Column="2" Content="Осталось очков:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-        <Label x:Name="SkillPointsLabel" Grid.Column="2" Content="0" HorizontalAlignment="Left" Margin="115,0,0,0" VerticalAlignment="Center"/>
+        <Label x:Name="SkillPointsLabel" Grid.Column="2" Content="0" HorizontalAlignment="Left" Margin="115,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" Width="70"/>
         <local:StatDisplay x:Name="CharacterStats" Grid.Column="2" HorizontalAlignment="Left" Margin="115,19,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="316" Grid.RowSpan="9" Width="168"/>
     </Grid>
 </Window>
