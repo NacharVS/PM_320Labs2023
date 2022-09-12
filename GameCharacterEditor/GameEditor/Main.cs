@@ -161,5 +161,12 @@ namespace GameEditor
             selectedUnit.intelligence = ((int)numericUpDownInt.Value);
             ChangingInt(value);
         }
+
+        private void OkBtn_Click(object sender, EventArgs e)
+        {
+            mainTextBox.Text += $"Unit - {selectedUnit.GetType().ToString()}, strength - {selectedUnit.strength}, " +
+                $"dexterity - {selectedUnit.dexterity}, constitution - {selectedUnit.constitution}, " +
+                $"intelligence - {selectedUnit.intelligence}" + Environment.NewLine;
+        }
     }
 }

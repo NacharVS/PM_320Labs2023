@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.mainPan = new System.Windows.Forms.Panel();
+            this.okBtn = new System.Windows.Forms.Button();
             this.textBoxAttackMana = new System.Windows.Forms.TextBox();
             this.attackManaLbl = new System.Windows.Forms.Label();
             this.textBoxPDef = new System.Windows.Forms.TextBox();
@@ -48,6 +49,7 @@
             this.dexterityLbl = new System.Windows.Forms.Label();
             this.strengthLbl = new System.Windows.Forms.Label();
             this.listBoxMain = new System.Windows.Forms.ListBox();
+            this.mainTextBox = new System.Windows.Forms.TextBox();
             this.mainPan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCon)).BeginInit();
@@ -59,6 +61,7 @@
             // 
             this.mainPan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.mainPan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mainPan.Controls.Add(this.okBtn);
             this.mainPan.Controls.Add(this.textBoxAttackMana);
             this.mainPan.Controls.Add(this.attackManaLbl);
             this.mainPan.Controls.Add(this.textBoxPDef);
@@ -83,6 +86,16 @@
             this.mainPan.Name = "mainPan";
             this.mainPan.Size = new System.Drawing.Size(473, 450);
             this.mainPan.TabIndex = 0;
+            // 
+            // okBtn
+            // 
+            this.okBtn.Location = new System.Drawing.Point(359, 418);
+            this.okBtn.Name = "okBtn";
+            this.okBtn.Size = new System.Drawing.Size(94, 25);
+            this.okBtn.TabIndex = 19;
+            this.okBtn.Text = "OK";
+            this.okBtn.UseVisualStyleBackColor = true;
+            this.okBtn.Click += new System.EventHandler(this.OkBtn_Click);
             // 
             // textBoxAttackMana
             // 
@@ -262,6 +275,15 @@
             this.listBoxMain.TabIndex = 0;
             this.listBoxMain.SelectedIndexChanged += new System.EventHandler(this.ListBoxMain_SelectedIndexChanged);
             // 
+            // mainTextBox
+            // 
+            this.mainTextBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.mainTextBox.Location = new System.Drawing.Point(0, 0);
+            this.mainTextBox.Multiline = true;
+            this.mainTextBox.Name = "mainTextBox";
+            this.mainTextBox.Size = new System.Drawing.Size(331, 450);
+            this.mainTextBox.TabIndex = 1;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -269,6 +291,7 @@
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.mainPan);
+            this.Controls.Add(this.mainTextBox);
             this.Name = "Main";
             this.Text = "Main";
             this.mainPan.ResumeLayout(false);
@@ -278,6 +301,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDex)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStr)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -303,5 +327,7 @@
         private TextBox textBoxAttack;
         private TextBox textBoxHP;
         private TextBox textBoxMana;
+        private Button okBtn;
+        private TextBox mainTextBox;
     }
 }
