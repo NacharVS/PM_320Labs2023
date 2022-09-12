@@ -8,7 +8,7 @@
                                new Characteristics(10,10,50),
                                2,5,1,1,2,
                                10,1,1,
-                               new Characteristics(5,0,5))
+                               5)
         {
 
         }

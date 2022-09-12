@@ -2,14 +2,11 @@
 {
     public abstract class BaseCharacteristics
     {
-        private Characteristics _expPoints;
-        public Characteristics ExpPoints 
-        { 
+        private int _expPoints;
+        public int ExpPoints
+        {
             get { return _expPoints; }
-            set 
-            { 
-               _expPoints = value;
-            }
+            set { _expPoints = value; }
         }
         private Characteristics _strength;
         public Characteristics Strength {
@@ -26,7 +23,8 @@
         public Characteristics Dexterity {
             get { return _dexterity; }
             set 
-            { 
+            {
+                _expPoints -= value.Value - _dexterity.Value;
                 _dexterity = value;
             }
         }
@@ -42,6 +40,7 @@
             }
             set
             {
+                _expPoints -= value.Value - _dexterity.Value;
                 _constitution = value;
             } 
         }
@@ -54,7 +53,8 @@
         {
             get { return _intelligence; }
             set 
-            { 
+            {
+                _expPoints -= value.Value - _dexterity.Value;
                 _intelligence = value;
             }
         }
@@ -173,7 +173,7 @@
                                 int constitutionHpChange,
                                 int intelligenceMagicAttackChange,
                                 double intelligenceMpChange,
-                                Characteristics expPoints)
+                                int expPoints)
         {
             _strength = strength;
             _dexterity = dexterity;
