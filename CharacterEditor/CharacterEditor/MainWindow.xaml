@@ -53,7 +53,7 @@
             <Setter Property="Control.IsEnabled" Value="False"/>
         </Style>
     </Window.Resources>
-    <Grid x:Name="GridMain">
+    <Grid x:Name="GridMain" Background="#FFC3C3C3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="200*"/>
@@ -92,7 +92,7 @@
         <ComboBox x:Name="cbCharacters" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="190" Grid.Column="1" Height="50" SelectionChanged="ComboBox_SelectionChanged"/>
         <!--<Label x:Name="lbExpValue" Grid.Column="1" Grid.Row="1" Style="{StaticResource CharactersValue}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 20,0"/>-->
         <!--<Label x:Name="lbExpName" Grid.Column="1" Grid.Row="1" Style="{StaticResource CharactersName}" HorizontalAlignment="Left" Margin="0, 0, 20,0" Content="Exp. Points:"/>-->
-        
+
         <Label x:Name="lbHealth" Style="{StaticResource StatsName}" Grid.Row="0" Grid.Column="2" Content="Health" Margin="0,93,0,0"/>
         <TextBox x:Name="tbHealthValue" Grid.Column="2" Grid.Row="0" Style="{StaticResource StatsValue}"/>
 
@@ -107,5 +107,7 @@
 
         <Label x:Name="lbPhysicalDef" Style="{StaticResource StatsName}" Grid.Row="4" Grid.Column="2" Content="Physical defence"/>
         <TextBox x:Name="tbPhysicalDefValue" Grid.Column="2" Grid.Row="4" Style="{StaticResource StatsValue}"/>
+        <Label x:Name="Name" HorizontalAlignment="Left" Margin="0,24,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Character editor" RenderTransformOrigin="0.5,0.5" Width="400" Grid.Column="1" Grid.ColumnSpan="2" FontSize="22" FontWeight="Bold">
+        </Label>
     </Grid>
 </Window>
