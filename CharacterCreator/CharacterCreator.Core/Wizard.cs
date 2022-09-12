@@ -24,7 +24,7 @@ public class Wizard : Character
         Stats = new Stats(_strength, _dexterity, _intelligence, _constitution);
         Initialize();
 
-        HealthPoint = STRENGTH_HP_CHANGE * _strength.MinValue + CONSTITUTION_HP_CHANGE * _strength.MinValue;
+        HealthPoint = STRENGTH_HP_CHANGE * _strength.MinValue + CONSTITUTION_HP_CHANGE * _constitution.MinValue;
         PhysAttack = STRENGTH_ATTACK_CHANGE * _strength.MinValue;
         PhysDefense = DEXTERITY_PHYS_DEFENSE_CHANGE * _dexterity.MinValue +
                       CONSTITUTION_PHYS_DEFENSE_CHANGE * _constitution.MinValue;

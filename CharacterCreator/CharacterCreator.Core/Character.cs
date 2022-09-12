@@ -21,8 +21,8 @@ public class Character
                 Stats.Strength.MinValue <= value && CanChangeStat(value, _strength))
             {
                 OnStrengthChangeEvent?.Invoke(value - _strength);
+                SkillPoints -= (int) (value - _strength);
                 _strength = value;
-                SkillPoints -= 1;
             }
         }
     }
@@ -36,8 +36,8 @@ public class Character
                 Stats.Dexterity.MinValue <= value  && CanChangeStat(value, _dexterity))
             {
                 OnDexterityChangeEvent?.Invoke(value - _dexterity);
+                SkillPoints -= (int) (value - _dexterity);
                 _dexterity = value;
-                SkillPoints -= 1;
             }
         }
     }
@@ -51,8 +51,8 @@ public class Character
                 Stats.Constitution.MinValue <= value && CanChangeStat(value, _constitution))
             {
                 OnConstitutionChangeEvent?.Invoke(value - _constitution);
+                SkillPoints -= (int) (value - _constitution);
                 _constitution = value;
-                SkillPoints -= 1;
             }
         }
     }
@@ -66,8 +66,8 @@ public class Character
                 Stats.Intelligence.MinValue <= value && CanChangeStat(value, _intelligence))
             {
                 OnIntelligenceChangeEvent?.Invoke(value - _intelligence);
+                SkillPoints -= (int) (value - _intelligence);
                 _intelligence = value;
-                SkillPoints -= 1;
             }
         }
     }
