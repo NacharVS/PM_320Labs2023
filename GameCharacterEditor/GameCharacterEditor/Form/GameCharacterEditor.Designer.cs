@@ -225,7 +225,6 @@
             // 
             // Attack_Text
             // 
-            this.Attack_Text.DecimalPlaces = 1;
             this.Attack_Text.Location = new System.Drawing.Point(526, 191);
             this.Attack_Text.Maximum = new decimal(new int[] {
             1000000,
@@ -238,7 +237,6 @@
             // 
             // PDef_Text
             // 
-            this.PDef_Text.DecimalPlaces = 1;
             this.PDef_Text.Location = new System.Drawing.Point(526, 160);
             this.PDef_Text.Maximum = new decimal(new int[] {
             1000000,
@@ -251,7 +249,6 @@
             // 
             // MPAttack_Text
             // 
-            this.MPAttack_Text.DecimalPlaces = 1;
             this.MPAttack_Text.Location = new System.Drawing.Point(526, 223);
             this.MPAttack_Text.Maximum = new decimal(new int[] {
             1000000,
@@ -264,7 +261,6 @@
             // 
             // HP_Text
             // 
-            this.HP_Text.DecimalPlaces = 1;
             this.HP_Text.Location = new System.Drawing.Point(526, 98);
             this.HP_Text.Maximum = new decimal(new int[] {
             1000000,
@@ -277,7 +273,6 @@
             // 
             // MP_Text
             // 
-            this.MP_Text.DecimalPlaces = 1;
             this.MP_Text.Location = new System.Drawing.Point(526, 129);
             this.MP_Text.Maximum = new decimal(new int[] {
             1000000,
