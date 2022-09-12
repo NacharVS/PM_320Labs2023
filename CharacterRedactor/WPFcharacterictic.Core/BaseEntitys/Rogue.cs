@@ -22,11 +22,17 @@ namespace WPFcharacterictic.Core.BaseEntitys
             Intelligence = 15;
             MinIntelligence = 15;
             MaxIntelligence = 70;
-        }
+
+            Health = Strength + Constitution * 6;
+            Mana = Intelligence * 1.5;
+            PhysicalAttack = Strength * 2 + Dexterity * 4;
+            MagicAttack = Intelligence * 15;
+            PhysicalDefense = Dexterity * 1.5;
+    }
 
         public override void IncreasedStrength()
         {
-            if (AvailablePoints > 0)
+            if (AvailablePoints > 0 && MaxStrength > Strength)
             {
                 Strength++;
                 PhysicalAttack += 3;
@@ -36,7 +42,7 @@ namespace WPFcharacterictic.Core.BaseEntitys
         }
         public override void IncreasedDexterity()
         {
-            if (AvailablePoints > 0)
+            if (AvailablePoints > 0 && MaxDexterity > Dexterity)
             {
                 Dexterity++;
                 PhysicalDefense += 0.5;
@@ -46,7 +52,7 @@ namespace WPFcharacterictic.Core.BaseEntitys
 
         public override void IncreasedConstitution()
         {
-            if (AvailablePoints > 0)
+            if (AvailablePoints > 0 && MaxConstitution > Constitution)
             {
                 Constitution++;
                 Health += 3;
@@ -57,7 +63,7 @@ namespace WPFcharacterictic.Core.BaseEntitys
 
         public override void IncreasedIntelligence()
         {
-            if (AvailablePoints > 0)
+            if (AvailablePoints > 0 && MaxIntelligence > Intelligence)
             {
                 Intelligence++;
                 Mana += 2;
