@@ -68,59 +68,35 @@ namespace CharacterEditor
             {
                 case "strengthMinusBtn":
                     previousValue = Convert.ToInt32(strength.Content);
-                    currentValue = --previousValue;
-                    _currentCharacter.SetStrengthValue(currentValue);
-
-                    strength.Content = _currentCharacter.GetStrengthValue();
+                    _currentCharacter.SetStrengthValue(--previousValue);
                     break;
                 case "strengthPlusBtn":
                     previousValue = Convert.ToInt32(strength.Content);
-                    currentValue = ++previousValue;
-                    _currentCharacter.SetStrengthValue(currentValue);
-
-                    strength.Content = _currentCharacter.GetStrengthValue();
+                    _currentCharacter.SetStrengthValue(++previousValue);
                     break;
                 case "dexterityMinusBtn":
                     previousValue = Convert.ToInt32(dexterity.Content);
-                    currentValue = --previousValue;
-                    _currentCharacter.SetDexterityValue(currentValue);
-
-                    dexterity.Content = _currentCharacter.GetDexterityValue();
+                    _currentCharacter.SetDexterityValue(--previousValue);
                     break;
                 case "dexterityPlusBtn":
                     previousValue = Convert.ToInt32(dexterity.Content);
-                    currentValue = ++previousValue;
-                    _currentCharacter.SetDexterityValue(currentValue);
-
-                    dexterity.Content = _currentCharacter.GetDexterityValue();
+                    _currentCharacter.SetDexterityValue(++previousValue);
                     break;
                 case "constitutionMinusBtn":
                     previousValue = Convert.ToInt32(constitution.Content);
-                    currentValue = --previousValue;
-                    _currentCharacter.SetConstitutionValue(currentValue);
-
-                    constitution.Content = _currentCharacter.GetConstitutionValue();
+                    _currentCharacter.SetConstitutionValue(--previousValue);
                     break;
                 case "constitutionPlusBtn":
                     previousValue = Convert.ToInt32(constitution.Content);
-                    currentValue = ++previousValue;
-                    _currentCharacter.SetConstitutionValue(currentValue);
-
-                    constitution.Content = _currentCharacter.GetConstitutionValue();
+                    _currentCharacter.SetConstitutionValue(++previousValue);
                     break;
                 case "intellisenseMinusBtn":
                     previousValue = Convert.ToInt32(intellisense.Content);
-                    currentValue = --previousValue;
-                    _currentCharacter.SetIntellisenseValue(currentValue);
-
-                    intellisense.Content = _currentCharacter.GetIntellisenseValue();
+                    _currentCharacter.SetIntellisenseValue(--previousValue);
                     break;
                 case "intellisensePlusBtn":
                     previousValue = Convert.ToInt32(intellisense.Content);
-                    currentValue = ++previousValue;
-                    _currentCharacter.SetIntellisenseValue(currentValue);
-
-                    intellisense.Content = _currentCharacter.GetIntellisenseValue();
+                    _currentCharacter.SetIntellisenseValue(++previousValue);
                     break;
                 default:
                     break;
