@@ -8,6 +8,7 @@ namespace Warcraft3
 {
     internal class Military:Moveble
     {
+        public delegate void healthChangedDelegate();
         int damage;
         int attackSpeed;
         double armor;
@@ -27,6 +28,7 @@ namespace Warcraft3
         public Military(string name, int health, int cost, int lvl, int maxHP, int speed) : 
             base(name, health, cost, lvl, maxHP, speed)
         {
+            healthChangedEvent += ChangeDamageAfterEvent;
         }
         public int IncreasedAtttack(int lvl)
         {
@@ -63,6 +65,24 @@ namespace Warcraft3
                 Print(unit);
             }
            
+        }
+        private void ChangeDamageAfterEvent()
+        {
+            if (!this.GetIsDestroyed())
+            {
+                damage += 10;
+            }
+        }
+
+        public override void SetHealth(double newHealth)
+        {
+            var difference = newHealth - GetHealth();
+
+            if(difference <= -20)
+            {
+                healthChangedEvent?.Invoke();
+            }
+            base.SetHealth(newHealth);
         }
         public double ArmorDamage(Military military)
         {
@@ -101,5 +121,6 @@ namespace Warcraft3
             return attackSpeed;
         }
 
+        public healthChangedDelegate healthChangedEvent;
     }
 }

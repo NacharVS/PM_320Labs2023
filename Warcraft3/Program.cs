@@ -6,7 +6,7 @@ namespace Warcraft3
     {
         static void Main(string[] args)
         {
-            Military voyaka1 = new Military("Sapsan", 100, 1200,1,100,1,10,6,100);
+            Military voyaka1 = new Military("Sapsan", 100, 1200,1,100,1,20,6,100);
             /*
             {
                 voyaka1.name = "Sapsan";
@@ -40,7 +40,7 @@ namespace Warcraft3
             while (!voyaka1.isDeath() && !voyaka2.isDeath())
             {
                 voyaka1.Attack(dragon);
-                dragon.FireBreath(voyaka1);
+                dragon.Attack(voyaka1);
             }
 
         }

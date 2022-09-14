@@ -8,6 +8,7 @@ namespace Warcraft3
 {
     internal class Unit
     {
+        
         string name = "";
         double health;
         int cost;
@@ -29,7 +30,7 @@ namespace Warcraft3
         }
 
 
-        public void SetHealth(double health)
+        public virtual void SetHealth(double health)
         {
             if (health <= 0)
             {
@@ -42,6 +43,8 @@ namespace Warcraft3
             }
             
         }
+
+
         public bool isDeath()
         {
             if(isDestroyed)
@@ -64,6 +67,11 @@ namespace Warcraft3
         {
             return name;
         }
-        
+        public bool GetIsDestroyed()
+        {
+            return isDestroyed;
+        }
+
+
     }
 }

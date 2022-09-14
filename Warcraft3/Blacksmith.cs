@@ -30,7 +30,7 @@ namespace Warcraft3
         }
         public void UpgradeWeapon(Archer archer,int damageAdd)
         {
-            archer.SetDamage(damageAdd);
+            archer.SetDamage(damageAdd); 
         }
         public void UpgradeBow(Archer archer, int ArrowCount)
         {
