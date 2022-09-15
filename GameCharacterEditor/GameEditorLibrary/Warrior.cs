@@ -21,10 +21,6 @@ namespace GameEditorLibrary
 
         public Warrior()
         {
-            strength = minStrength;
-            dexterity = minDexterity;
-            constitution = minConstitution;
-            intelligence = minIntelligence;
             maxIintelligence = 50;
             minIntelligence = 10;
             minStrength = 30;
@@ -33,7 +29,10 @@ namespace GameEditorLibrary
             maxDexterity = 70;
             minConstitution = 20;
             maxConstitution = 100;
+            strength = minStrength;
+            dexterity = minDexterity;
+            constitution = minConstitution;
+            intelligence = minIntelligence;
         }
-
     }
 }

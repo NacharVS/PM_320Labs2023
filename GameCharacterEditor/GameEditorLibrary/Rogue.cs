@@ -21,10 +21,6 @@ namespace GameEditorLibrary
 
         public Rogue() 
         {
-            strength = minStrength;
-            dexterity = minDexterity;
-            constitution = minConstitution;
-            intelligence = minIntelligence;
             maxIintelligence = 70;
             minIntelligence = 15;
             minStrength = 15;
@@ -33,6 +29,10 @@ namespace GameEditorLibrary
             maxDexterity = 250;
             minConstitution = 20;
             maxConstitution = 80;
+            strength = minStrength;
+            dexterity = minDexterity;
+            constitution = minConstitution;
+            intelligence = minIntelligence;
         }
     }
 }

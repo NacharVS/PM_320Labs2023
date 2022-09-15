@@ -21,10 +21,6 @@ namespace GameEditorLibrary
 
         public Wizard()
         {
-            strength = minStrength;
-            dexterity = minDexterity;
-            constitution = minConstitution;
-            intelligence = minIntelligence;
             maxIintelligence = 250;
             minIntelligence = 35;
             minStrength = 10;
@@ -33,6 +29,10 @@ namespace GameEditorLibrary
             maxDexterity = 70;
             minConstitution = 15;
             maxConstitution = 60;
+            strength = minStrength;
+            dexterity = minDexterity;
+            constitution = minConstitution;
+            intelligence = minIntelligence;
         }
     }
 }
