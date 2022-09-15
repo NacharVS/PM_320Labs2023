@@ -1,4 +1,5 @@
 ﻿using Warcraft.Core.BaseClasses;
+using Warcraft.Core.Spells;
 
 namespace Warcraft.Core;
 
@@ -12,7 +13,7 @@ public class Footman : Military
         : base(logger, health, cost, name, level, speed, attackSpeed, damage)
     {
         AfterHpChange += CheckBerserkMode;
-        Spells = new Dictionary<string, Action<Unit>> { { "Stun", Stun } };
+        Spells = new Dictionary<string, Spell> { { "Stun", new AttackingSpell { Damage = 10, ManaCost = 0, Name = "Стан", Message = "Застанил {0}"} } };
     }
 
     // Berserk passive

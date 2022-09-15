@@ -1,4 +1,6 @@
-﻿using Warcraft.Core.Events;
+﻿using Warcraft.Core.Effects;
+using Warcraft.Core.Events;
+using Warcraft.Core.Spells;
 
 namespace Warcraft.Core.BaseClasses;
 
@@ -11,10 +13,13 @@ public abstract class Unit
     public int Level { get; private set; }
     public bool IsDestroyed { get; private set; }
 
+    public List<Effect> ActiveEffects { get; private set; }
+
     private readonly IEventLogger _logger;
 
     public event EventHandler? AfterHpChange;
     public event EventHandler? OnDeath;
+    public event EventHandler? OnEffectTick;
 
 
     protected Unit(IEventLogger logger, int health, int cost, string name,
@@ -26,8 +31,10 @@ public abstract class Unit
         Cost = cost;
         Name = name;
         Level = level;
+        ActiveEffects = new List<Effect>();
 
         AfterHpChange += CheckHp;
+        OnEffectTick += ProcEffects;
     }
 
     internal virtual void Hit(int damage)
@@ -41,6 +48,20 @@ public abstract class Unit
         Health -= damage;
         AfterHpChange?.Invoke(this,
             new HealthPointEventArgs(Health + damage, Health));
+        OnEffectTick?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void AddEffect(Effect effect)
+    {
+        var existingEffect =
+            ActiveEffects.FirstOrDefault(x => x.Name == effect.Name);
+        if (existingEffect is not null)
+        {
+            existingEffect.Duration += effect.Duration;
+            return;
+        }
+
+        ActiveEffects.Add(effect);
     }
 
     public void GetHealed(int value)
@@ -54,6 +75,7 @@ public abstract class Unit
         Health = Math.Min(MaxHealth, Health + value);
         AfterHpChange?.Invoke(this,
             new HealthPointEventArgs(Health - value, Health));
+        OnEffectTick?.Invoke(this, EventArgs.Empty);
     }
 
     protected void Log(string message)
@@ -75,6 +97,29 @@ public abstract class Unit
             if (args is HealthPointEventArgs healthArgs)
                 Log(
                     $"Здоровье изменено ({healthArgs.PreviousHealth} -> {healthArgs.CurrentHealth})");
+        }
+    }
+
+    private void ProcEffects(object? sender, EventArgs args)
+    {
+        if (IsDestroyed)
+            return;
+        
+        foreach (var effect in ActiveEffects)
+        {
+            Log(effect.Duration.ToString());
+            if (effect.Duration <= 0)
+            {
+                ActiveEffects.Remove(effect);
+                Log($"Эффект {effect.Name} снят");
+                return;
+            }
+            
+            Health -= effect.Damage;
+            AfterHpChange?.Invoke(this,
+                new HealthPointEventArgs(Health + effect.Damage, Health));
+            effect.Duration--;
+            Log(effect.LogMessage);
         }
     }
 }

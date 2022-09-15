@@ -1,4 +1,6 @@
 ﻿using Warcraft.Core.BaseClasses;
+using Warcraft.Core.Effects;
+using Warcraft.Core.Spells;
 
 namespace Warcraft.Core;
 
@@ -18,10 +20,44 @@ public class Mage : Ranged
         cost, name, level,
         speed, attackSpeed, damage, attackRange, mana)
     {
-        Spells = new Dictionary<string, Action<Unit>>
+        Spells = new Dictionary<string, Spell>
         {
-            { "Fireball", Fireball },
-            { "Blizzard", Blizzard }, { "Heal", Heal }
+            {
+                "Fireball",
+                new AttackingSpell
+                {
+                    Name = "Файрбол", Damage = FireballDamage,
+                    ManaCost = FireballManaCost,
+                    Message = "Пустил файрбол на {0}",
+                    InflictedEffects = new[]
+                    {
+                        new Effect
+                        {
+                            Name = "Горение", Damage = 50, Duration = 3,
+                            Message = "Подгорел на {0} урона"
+                        }
+                    }
+                }
+            },
+            {
+                "Blizzard",
+                new AttackingSpell
+                {
+                    Name = "Буря",
+                    ManaCost = BlizzardManaCost, Damage = BlizzardDamage,
+                    Message = "Выпустил снежную бурю на {0}"
+                }
+            },
+            {
+                "Heal",
+                new HealingSpell
+                {
+                    Name = "Лечение",
+                    HealValue = HealValue,
+                    ManaCost = HealCost,
+                    Message = "Вылечил {0}"
+                }
+            }
         };
     }
 

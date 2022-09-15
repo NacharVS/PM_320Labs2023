@@ -1,4 +1,6 @@
 ﻿using Warcraft.Core.BaseClasses;
+using Warcraft.Core.Effects;
+using Warcraft.Core.Spells;
 
 namespace Warcraft.Core;
 
@@ -14,8 +16,39 @@ public class Dragon : Ranged
         cost, name, level,
         speed, attackSpeed, damage, attackRange, mana)
     {
-        Spells = new Dictionary<string, Action<Unit>>
-            { { "FireBreath", FireBreath } };
+        Spells = new Dictionary<string, Spell>
+        {
+            {
+                "FireBreath", new AttackingSpell
+                {
+                    Damage = FireBreathDamage, ManaCost = FireBreathManaCost,
+                    Name = "FireBreath",
+                    InflictedEffects = new[]
+                    {
+                        new Effect
+                        {
+                            Name = "Горение", Damage = 50, Duration = 3,
+                            Message = "Подгорел на {0} урона"
+                        }
+                    },
+                    Message = "Пустил огненное дыхание на {0}"
+                }
+            }
+        };
+    }
+
+    public void CastSpell(string spellName, Unit target)
+    {
+        var spell = Spells[spellName];
+
+        if (Mana < spell.ManaCost)
+        {
+            Log("Рррр! Нет маны!");
+            return;
+        }
+
+        spell.Cast(target);
+        Mana -= spell.ManaCost;
     }
 
     private void FireBreath(Unit target)

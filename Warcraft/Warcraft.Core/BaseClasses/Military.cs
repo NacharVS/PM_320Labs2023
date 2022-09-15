@@ -1,4 +1,6 @@
-﻿namespace Warcraft.Core.BaseClasses;
+﻿using Warcraft.Core.Spells;
+
+namespace Warcraft.Core.BaseClasses;
 
 public abstract class Military : Movable
 {
@@ -8,7 +10,7 @@ public abstract class Military : Movable
     public int AttackSpeed { get; protected set; }
     public int Armor { get; protected set; }
 
-    protected Dictionary<string, Action<Unit>> Spells { get; set; }
+    protected Dictionary<string, Spell> Spells { get; set; }
     public string[] SpellNames => Spells.Keys.ToArray();
 
     protected Military(IEventLogger logger, int health, int cost, string name,
@@ -18,12 +20,16 @@ public abstract class Military : Movable
     {
         AttackSpeed = attackSpeed;
         Damage = damage;
-        Spells = new Dictionary<string, Action<Unit>>();
+        Spells = new Dictionary<string, Spell>();
     }
 
     public void CastSpell(string spellName, Unit target)
     {
-        Spells[spellName].Invoke(target);
+        var spell = Spells[spellName];
+        if (spell is AttackingSpell && target == this)
+            return;
+        spell.Cast(target);
+        Log(string.Format(spell.Message, target.Name));
     }
 
     internal override void Hit(int damage)
