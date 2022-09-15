@@ -10,3 +10,15 @@
 \\NAS36D451\user-domain$\stud\202010\Desktop\projects\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\refint\CharacterEditorCore.dll
 \\NAS36D451\user-domain$\stud\202010\Desktop\projects\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\CharacterEditorCore.pdb
 \\NAS36D451\user-domain$\stud\202010\Desktop\projects\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\ref\CharacterEditorCore.dll
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\bin\Debug\net6.0\CharacterEditorCore.deps.json
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\bin\Debug\net6.0\CharacterEditorCore.dll
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\bin\Debug\net6.0\CharacterEditorCore.pdb
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\CharacterEditorCore.csproj.AssemblyReference.cache
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\CharacterEditorCore.GeneratedMSBuildEditorConfig.editorconfig
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\CharacterEditorCore.AssemblyInfoInputs.cache
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\CharacterEditorCore.AssemblyInfo.cs
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\CharacterEditorCore.csproj.CoreCompileInputs.cache
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\CharacterEditorCore.dll
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\refint\CharacterEditorCore.dll
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\CharacterEditorCore.pdb
+\\NAS36D451\user-domain$\stud\202010\Desktop\projects\Warcraft\CharacterEditorWPF\CharacterEditorCore\obj\Debug\net6.0\ref\CharacterEditorCore.dll

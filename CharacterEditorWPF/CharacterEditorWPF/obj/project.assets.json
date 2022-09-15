@@ -33,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\CharacterEditorWPF\\CharacterEditorWPF\\CharacterEditorWPF.csproj",
+      "projectUniqueName": "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\Warcraft\\CharacterEditorWPF\\CharacterEditorWPF\\CharacterEditorWPF.csproj",
       "projectName": "CharacterEditorWPF",
-      "projectPath": "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\CharacterEditorWPF\\CharacterEditorWPF\\CharacterEditorWPF.csproj",
+      "projectPath": "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\Warcraft\\CharacterEditorWPF\\CharacterEditorWPF\\CharacterEditorWPF.csproj",
       "packagesPath": "C:\\Users\\202010\\.nuget\\packages\\",
-      "outputPath": "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\CharacterEditorWPF\\CharacterEditorWPF\\obj\\",
+      "outputPath": "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\Warcraft\\CharacterEditorWPF\\CharacterEditorWPF\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -58,8 +58,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\CharacterEditorWPF\\CharacterEditorCore\\CharacterEditorCore.csproj": {
-              "projectPath": "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\CharacterEditorWPF\\CharacterEditorCore\\CharacterEditorCore.csproj"
+            "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\Warcraft\\CharacterEditorWPF\\CharacterEditorCore\\CharacterEditorCore.csproj": {
+              "projectPath": "\\\\NAS36D451\\user-domain$\\stud\\202010\\Desktop\\projects\\Warcraft\\CharacterEditorWPF\\CharacterEditorCore\\CharacterEditorCore.csproj"
             }
           }
         }
