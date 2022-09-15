@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\RTS.Core.csproj": {}
+    "C:\\Users\\Elvina\\source\\repos\\Ktits\\RTS\\RTS.Core\\RTS.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\RTS.Core.csproj": {
+    "C:\\Users\\Elvina\\source\\repos\\Ktits\\RTS\\RTS.Core\\RTS.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\RTS.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Elvina\\source\\repos\\Ktits\\RTS\\RTS.Core\\RTS.Core.csproj",
         "projectName": "RTS.Core",
-        "projectPath": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\RTS.Core.csproj",
+        "projectPath": "C:\\Users\\Elvina\\source\\repos\\Ktits\\RTS\\RTS.Core\\RTS.Core.csproj",
         "packagesPath": "C:\\Users\\Elvina\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Elvina\\source\\repos\\RTS\\NacharVS\\PM_320Labs2023\\RTS\\RTS.Core\\obj\\",
+        "outputPath": "C:\\Users\\Elvina\\source\\repos\\Ktits\\RTS\\RTS.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Elvina\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -54,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }
