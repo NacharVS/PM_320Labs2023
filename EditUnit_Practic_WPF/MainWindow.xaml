@@ -5,17 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EditUnit_Practic_WPF"
         mc:Ignorable="d"
-        Title="Edit unit" Height="675" Width="1200" ResizeMode="NoResize">
+        Title="Edit unit" Height="675" Width="1200" ResizeMode="NoResize" Icon="/Icon.png">
     <Grid>
         <TabControl>
             <TabItem x:Name="TbItWarrior" Header="Warrior">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="263*"/>
+                        <ColumnDefinition Width="687*"/>
+                        <ColumnDefinition Width="244*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="257*"/>
+                        <RowDefinition Height="203*"/>
+                        <RowDefinition Height="171*"/>
+                    </Grid.RowDefinitions>
+                    <Image Margin="15,15,15,10" Source="/Warrior.png"/>
+                </Grid>
             </TabItem>
             <TabItem x:Name="TbItRogue" Header="Rogue">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="263*"/>
+                        <ColumnDefinition Width="687*"/>
+                        <ColumnDefinition Width="244*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="257*"/>
+                        <RowDefinition Height="203*"/>
+                        <RowDefinition Height="171*"/>
+                    </Grid.RowDefinitions>
+                    <Image Margin="15,15,15,10" Source="/Rogue.png"/>
+                </Grid>
             </TabItem>
             <TabItem x:Name="TbItWizard" Header="Wizard">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="263*"/>
+                        <ColumnDefinition Width="687*"/>
+                        <ColumnDefinition Width="244*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="257*"/>
+                        <RowDefinition Height="203*"/>
+                        <RowDefinition Height="171*"/>
+                    </Grid.RowDefinitions>
+                    <Image Margin="15,15,15,10" Source="/Wizard2.png"/>
+                </Grid>
             </TabItem>
         </TabControl>
 

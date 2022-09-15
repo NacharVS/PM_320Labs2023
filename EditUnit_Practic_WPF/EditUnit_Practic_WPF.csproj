@@ -7,4 +7,22 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Icon.png" />
+    <None Remove="png-clipart-world-of-warcraft-legion-warcraft-iii-the-frozen-throne-world-of-warcraft-battle-for-azeroth-blizzard-entertainment-game-others-game-video-game.png" />
+    <None Remove="Rogue.png" />
+    <None Remove="Warrior.png" />
+    <None Remove="Wizard.png" />
+    <None Remove="Wizard2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icon.png" />
+    <Resource Include="png-clipart-world-of-warcraft-legion-warcraft-iii-the-frozen-throne-world-of-warcraft-battle-for-azeroth-blizzard-entertainment-game-others-game-video-game.png" />
+    <Resource Include="Rogue.png" />
+    <Resource Include="Warrior.png" />
+    <Resource Include="Wizard.png" />
+    <Resource Include="Wizard2.png" />
+  </ItemGroup>
+
 </Project>
