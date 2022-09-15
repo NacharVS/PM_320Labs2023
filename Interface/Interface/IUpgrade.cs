@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    interface IRecharge
+    internal interface IUpgrade
     {
-
     }
 }
