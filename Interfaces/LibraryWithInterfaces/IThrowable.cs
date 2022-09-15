@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibraryWithInterfaces
 {
-    class Shooter
+    interface IThrowable
     {
+
     }
 }
