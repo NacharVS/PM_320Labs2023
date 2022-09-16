@@ -13,5 +13,10 @@
         {
             item.Repair();
         }
+
+        public void Upgrade(IUpgradable item)
+        {
+            item.Upgrade();
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace WeaponGameConsole
             bob.Attack(ak);
             george.Repair(ak);
             bob.Throw(shuriken);
+            george.Upgrade(knife);
         }
     }
 }
