@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weaponry", "Weaponry\Weaponry.csproj", "{ABAC4406-A0E5-4622-A8D3-2F9AFE7B7711}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weaponry.Console", "Weaponry.Console\Weaponry.Console.csproj", "{9C9E0B18-BCB2-4724-8694-4EFD627818F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABAC4406-A0E5-4622-A8D3-2F9AFE7B7711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABAC4406-A0E5-4622-A8D3-2F9AFE7B7711}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABAC4406-A0E5-4622-A8D3-2F9AFE7B7711}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABAC4406-A0E5-4622-A8D3-2F9AFE7B7711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C9E0B18-BCB2-4724-8694-4EFD627818F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C9E0B18-BCB2-4724-8694-4EFD627818F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C9E0B18-BCB2-4724-8694-4EFD627818F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C9E0B18-BCB2-4724-8694-4EFD627818F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
