@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weapons", "Weapons\Weapons.csproj", "{589C0D42-81FB-4AC2-908F-D612F53BB48E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeaponsInterfaces", "WeaponsInterfaces\WeaponsInterfaces.csproj", "{7970CB9F-518F-4542-AA1F-27BE4DBECF5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeaponGameConsole", "WeaponGameConsole\WeaponGameConsole.csproj", "{D5C5E94A-2918-43F1-B356-A99F32C0F517}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{589C0D42-81FB-4AC2-908F-D612F53BB48E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589C0D42-81FB-4AC2-908F-D612F53BB48E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589C0D42-81FB-4AC2-908F-D612F53BB48E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589C0D42-81FB-4AC2-908F-D612F53BB48E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7970CB9F-518F-4542-AA1F-27BE4DBECF5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7970CB9F-518F-4542-AA1F-27BE4DBECF5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7970CB9F-518F-4542-AA1F-27BE4DBECF5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7970CB9F-518F-4542-AA1F-27BE4DBECF5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5C5E94A-2918-43F1-B356-A99F32C0F517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5C5E94A-2918-43F1-B356-A99F32C0F517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5C5E94A-2918-43F1-B356-A99F32C0F517}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5C5E94A-2918-43F1-B356-A99F32C0F517}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
