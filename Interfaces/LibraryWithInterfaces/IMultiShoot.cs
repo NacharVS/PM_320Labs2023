@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibraryWithInterfaces
 {
-    public interface IWeapon : IUpgradeble, IRepairible, IReload
+    public interface IMultiShoot
     {
-        int Damage { get; set; }
-
-        void Shoot();
+        void MultiShoot();
     }
 }

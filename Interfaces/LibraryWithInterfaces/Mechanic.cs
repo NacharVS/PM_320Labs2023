@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace LibraryWithInterfaces
 {
-    class Mechanic
+    public class Mechanic
     {
+        public Mechanic() { }
+
+        public void Repair(IRepairible weapon)
+        {
+            weapon.Repair();
+        }
+
+        public void Upgrade(IUpgradeble weapon)
+        {
+            weapon.Upgrade();
+        }
     }
 }

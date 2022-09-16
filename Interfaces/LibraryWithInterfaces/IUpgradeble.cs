@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibraryWithInterfaces
 {
-    interface IUpgradeble
+    public interface IUpgradeble
     {
+        void Upgrade();
     }
 }

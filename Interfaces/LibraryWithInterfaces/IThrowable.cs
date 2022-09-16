@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace LibraryWithInterfaces
 {
-    interface IThrowable
+    public interface IThrowable
     {
+        int ThrowDamage { get; set; }
 
+        void Throw();
     }
 }

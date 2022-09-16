@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibraryWithInterfaces
 {
-    interface IRepairible
+    public interface IRepairible
     {
+        void Repair();
     }
 }

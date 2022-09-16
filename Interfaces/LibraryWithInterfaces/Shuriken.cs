@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace LibraryWithInterfaces
 {
-    class Shuriken
+    public class Shuriken : IThrowable
     {
+        public int ThrowDamage { get; set; }
+
+        public Shuriken(int throwDamage)
+        {
+            ThrowDamage = throwDamage;
+        }
+
+        public void Throw()
+        {
+            Console.WriteLine("");
+        }
     }
 }
