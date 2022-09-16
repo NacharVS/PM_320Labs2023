@@ -8,6 +8,8 @@ namespace AppWithInterface
 {
     interface IMeleeWeapons
     {
+        int MeleeDamage { get; set; }
 
+        void MeleeHit();
     }
 }

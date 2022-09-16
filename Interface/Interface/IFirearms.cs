@@ -8,6 +8,8 @@ namespace AppWithInterface
 {
     interface IFirearms
     {
+        int GunshotDamage { get; set; }
 
+        void SingleShot();
     }
 }

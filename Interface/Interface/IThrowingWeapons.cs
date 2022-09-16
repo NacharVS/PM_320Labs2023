@@ -8,6 +8,8 @@ namespace AppWithInterface
 {
     interface IThrowingWeapons
     {
+        int ThrowDamage { get; set; }
 
+        public void ThrowHit();
     }
 }

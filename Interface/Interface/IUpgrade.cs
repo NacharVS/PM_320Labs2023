@@ -8,5 +8,6 @@ namespace AppWithInterface
 {
     internal interface IUpgrade
     {
+        public void Upgrade();
     }
 }

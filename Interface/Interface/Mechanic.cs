@@ -8,5 +8,9 @@ namespace AppWithInterface
 {
     class Mechanic
     {
+        public void Upgrade(IUpgrade item)
+        {
+            item.Upgrade();
+        }
     }
 }

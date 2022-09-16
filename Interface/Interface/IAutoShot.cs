@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    interface IAutoShoot
+    interface IAutoShot
     {
-
+        void AutoShot();
     }
 }

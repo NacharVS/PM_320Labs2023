@@ -8,6 +8,17 @@ namespace AppWithInterface
 {
     class Shuriken : IThrowingWeapons
     {
+        public int _throwDamage = 5;
 
+        public int ThrowDamage
+        {
+            get { return _throwDamage; }
+            set { _throwDamage = value; }
+        }
+
+        public void ThrowHit()
+        {
+
+        }
     }
 }

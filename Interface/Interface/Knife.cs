@@ -8,6 +8,29 @@ namespace AppWithInterface
 {
     class Knife : IMeleeWeapons, IThrowingWeapons
     {
+        public int _meleeeDamage = 15;
+        public int _throwDamage = 15;
 
+        public int MeleeDamage
+        {
+            get { return _meleeeDamage; }
+            set { _meleeeDamage = value; }
+        }
+
+        public int ThrowDamage
+        {
+            get { return _throwDamage; }
+            set { _throwDamage = value; }
+        }
+
+        public void MeleeHit()
+        {
+
+        }
+
+        public void ThrowHit()
+        {
+
+        }
     }
 }
