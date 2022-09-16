@@ -18,7 +18,7 @@ namespace AppWithInterface
 
         public void ThrowHit()
         {
-
+            Console.WriteLine($"Shuriken throw");
         }
     }
 }

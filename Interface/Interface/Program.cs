@@ -12,7 +12,7 @@ namespace AppWithInterface
         {
             Shooter shooter = new Shooter();
             Pistol pistol = new Pistol();
-            Automat automat = new Automat();
+            Machinegun automat = new Machinegun();
             Sword sword = new Sword();
             Shuriken shuriken = new Shuriken();
             Knife knife = new Knife();

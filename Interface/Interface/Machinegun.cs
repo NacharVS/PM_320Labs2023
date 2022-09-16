@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    class Automat : IFirearms, IAutoShot
+    class Machinegun : IFirearms, IAutoShot
     {
         public int _gunshotDamage = 20;
 
@@ -18,12 +18,12 @@ namespace AppWithInterface
 
         public void SingleShot()
         {
-
+            Console.WriteLine($"Single shot from a machine gun");
         }
 
         public void AutoShot()
         {
-
+            Console.WriteLine($"Several shots from the machine gun");
         }
     }
 }
