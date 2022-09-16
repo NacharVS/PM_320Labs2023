@@ -4,21 +4,16 @@ namespace Weapons;
 
 public class Shuriken : IThrowable
 {
-    private int _throwDamage;
 
-    public int ThrowDamage
-    {
-        get => _throwDamage;
-        set => _throwDamage = value;
-    }
+    public int ThrowDamage { get; set;}
 
     public Shuriken()
     {
-        _throwDamage = 10;
+        ThrowDamage = 10;
     }
 
     public void Throw()
     {
-        Console.WriteLine($"{GetType().Name} get throwed.");
+        Console.WriteLine($"{GetType().Name} get throwed, cause {ThrowDamage}");
     }
 }
