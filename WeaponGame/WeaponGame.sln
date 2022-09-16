@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeaponGame", "WeaponGame\WeaponGame.csproj", "{A6AD5629-9A3C-4D7C-BA33-0F9A40BB3112}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeaponGame", "WeaponGame\WeaponGame.csproj", "{A6AD5629-9A3C-4D7C-BA33-0F9A40BB3112}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeaponGameConsole", "WeaponGameConsole\WeaponGameConsole.csproj", "{0C5F02FC-9ABE-4531-9314-0DDF707A87C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A6AD5629-9A3C-4D7C-BA33-0F9A40BB3112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6AD5629-9A3C-4D7C-BA33-0F9A40BB3112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6AD5629-9A3C-4D7C-BA33-0F9A40BB3112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C5F02FC-9ABE-4531-9314-0DDF707A87C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C5F02FC-9ABE-4531-9314-0DDF707A87C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C5F02FC-9ABE-4531-9314-0DDF707A87C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C5F02FC-9ABE-4531-9314-0DDF707A87C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
