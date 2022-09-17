@@ -17,7 +17,7 @@ namespace LibraryWithInterfaces
 
         public void Throw()
         {
-            Console.WriteLine("");
+            Console.WriteLine($"{GetType().Name} был брошен с уроном {ThrowDamage}");
         }
     }
 }

@@ -19,6 +19,14 @@ namespace AppWithInterfaces
             Shuriken shuriken = new Shuriken(8);
             Sword sword = new Sword(10, 5);
 
+            shooter.Hit(knife);
+            shooter.Hit(sword);
+            shooter.Throw(shuriken);
+            shooter.Attack(shotgun);
+            shooter.MultiAttack(machinegun);
+
+            mechanic.Repair(knife);
+            mechanic.Upgrade(shotgun);
         }
     }
 }

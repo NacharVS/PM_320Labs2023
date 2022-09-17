@@ -27,32 +27,36 @@ namespace LibraryWithInterfaces
             {
                 Durability -= 1;
                 CurrentShots -= 1;
-                Console.WriteLine("");
+                Console.WriteLine($"{GetType().Name} выстрелил с уроном {Damage}");
             }
             else
             {
-                Console.WriteLine("");
+                Console.WriteLine($"{GetType().Name} не смог выстрелить");
             }
         }
 
         public void Upgrade()
         {
             Damage += 3;
+            Console.WriteLine($"{GetType().Name} был улучшен");
         }
 
         public void Repair()
         {
             Durability += 1;
+            Console.WriteLine($"{GetType().Name} был починен");
         }
 
         public void Reload()
         {
             CurrentShots = MaxShots;
+            Console.WriteLine($"{GetType().Name} перезаражен");
         }
 
         public void MultiShoot()
         {
-            Console.WriteLine("");
+            CurrentShots -= 3;
+            Console.WriteLine($"{GetType().Name} выстрелил очередью с уроном {Damage*3}");
         }
     }
 }

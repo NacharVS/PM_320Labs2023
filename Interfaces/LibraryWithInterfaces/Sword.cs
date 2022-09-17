@@ -22,22 +22,24 @@ namespace LibraryWithInterfaces
             if (Durability > 0)
             {
                 Durability -= 1;
-                Console.WriteLine("");
+                Console.WriteLine($"{GetType().Name} ударил с уроном {MleeDamage}");
             }
             else
             {
-                Console.WriteLine("");
+                Console.WriteLine($"{GetType().Name} не смог ударить");
             }
         }
 
         public void Repair()
         {
             Durability += 1;
+            Console.WriteLine($"{GetType().Name} был починен");
         }
 
         public void Upgrade()
         {
             MleeDamage += 3;
+            Console.WriteLine($"{GetType().Name} был улучшен");
         }
     }
 }
