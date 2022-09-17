@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CharacterEditor.Core\CharacterEditor.Core.csproj" />
+      <ProjectReference Include="..\CharacterEditor.MongoDB\CharacterEditor.MongoDB.csproj" />
     </ItemGroup>
 
 </Project>

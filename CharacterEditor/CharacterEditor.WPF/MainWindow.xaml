@@ -47,6 +47,10 @@
         </StackPanel>
         <Label Grid.Column="2" Content="Осталось очков:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
         <Label x:Name="SkillPointsLabel" Grid.Column="2" Content="0" HorizontalAlignment="Left" Margin="115,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" Width="70"/>
-        <local:StatDisplay x:Name="CharacterStats" Grid.Column="2" HorizontalAlignment="Left" Margin="115,19,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="316" Grid.RowSpan="9" Width="168"/>
+        <local:StatDisplay x:Name="CharacterStats" Grid.Column="2" HorizontalAlignment="Left" Margin="136,19,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="316" Grid.RowSpan="9" Width="168"/>
+        <ComboBox x:Name="CreatedCharactersComboBox" Grid.Column="3" HorizontalAlignment="Left" Margin="7,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="CreatedCharactersComboBox_SelectionChanged"/>
+        <Button x:Name="SaveCharacterButton" Grid.Column="3" Content="Сохранить" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="9" VerticalAlignment="Top"/>
+        <TextBox x:Name="NameTextBox" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Name" VerticalAlignment="Center" Width="120"/>
+        <Button x:Name="CreateNewButton" Grid.Column="3" Content="Новый" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="10" VerticalAlignment="Top"/>
     </Grid>
 </Window>

@@ -4,7 +4,7 @@ namespace CharacterEditor.Core;
 
 public class Rogue : CharacterBase
 {
-    public sealed override Stats Stats { get; set; }
+    public sealed override Stats Stats { get; }
 
     private static readonly CharacteristicRange StrengthRange = new(15, 55);
     private const double StrengthAttackChange = 2;

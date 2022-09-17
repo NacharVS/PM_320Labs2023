@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterEditor.WPF", "Char
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterEditor.Core", "CharacterEditor.Core\CharacterEditor.Core.csproj", "{5C15321D-2310-427E-BB52-B179D125C961}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterEditor.MongoDB", "CharacterEditor.MongoDB\CharacterEditor.MongoDB.csproj", "{414F1566-9108-4CF4-BAFA-C5FC3D3958E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{5C15321D-2310-427E-BB52-B179D125C961}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C15321D-2310-427E-BB52-B179D125C961}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C15321D-2310-427E-BB52-B179D125C961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{414F1566-9108-4CF4-BAFA-C5FC3D3958E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{414F1566-9108-4CF4-BAFA-C5FC3D3958E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{414F1566-9108-4CF4-BAFA-C5FC3D3958E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{414F1566-9108-4CF4-BAFA-C5FC3D3958E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

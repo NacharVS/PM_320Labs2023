@@ -4,7 +4,7 @@ namespace CharacterEditor.Core;
 
 public class Wizard : CharacterBase
 {
-    public sealed override Stats Stats { get; set; }
+    public sealed override Stats Stats { get; }
     private static readonly CharacteristicRange StrengthRange = new(10, 45);
     private const double StrengthAttackChange = 3;
     private const double StrengthHpChange = 1;

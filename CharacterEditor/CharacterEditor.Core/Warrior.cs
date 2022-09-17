@@ -4,7 +4,7 @@ namespace CharacterEditor.Core;
 
 public class Warrior : CharacterBase
 {
-    public sealed override Stats Stats { get; set; }
+    public sealed override Stats Stats { get; }
 
     private static readonly CharacteristicRange StrengthRange = new(30, 250);
     private const double StrengthAttackChange = 5;

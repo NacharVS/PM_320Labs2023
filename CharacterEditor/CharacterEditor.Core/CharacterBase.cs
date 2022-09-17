@@ -5,9 +5,12 @@ namespace CharacterEditor.Core;
 public abstract class CharacterBase
 {
     private int _skillPoints = 50;
+    
+    public string? Id { get; set; }
+    public string? Name { get; set; }
     public int SkillPoints => _skillPoints;
 
-    public abstract Stats Stats { get; set; }
+    public abstract Stats Stats { get; }
 
     private int _strength;
 
