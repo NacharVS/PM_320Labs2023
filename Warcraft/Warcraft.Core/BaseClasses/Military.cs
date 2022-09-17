@@ -9,6 +9,7 @@ public abstract class Military : Movable
     public int Damage { get; protected set; }
     public int AttackSpeed { get; protected set; }
     public int Armor { get; protected set; }
+    public int Mana { get; protected set; }
 
     protected Dictionary<string, Spell> Spells { get; set; }
     public string[] SpellNames => Spells.Keys.ToArray();
@@ -26,16 +27,30 @@ public abstract class Military : Movable
     public void CastSpell(string spellName, Unit target)
     {
         var spell = Spells[spellName];
-        if (spell is AttackingSpell && target == this)
+
+        if (spell.ManaCost > Mana)
+        {
+            Log("Нет маны!");
             return;
+        }
+
+        if (spell is AttackingSpell && target == this)
+        {
+            Log("Не могу кастовать на себя");
+            return;
+        }
+        
         spell.Cast(target);
+        Mana -= spell.ManaCost;
         Log(string.Format(spell.Message, target.Name));
     }
 
     internal override void Hit(int damage)
     {
-        damage = Math.Min(damage, damage - Armor);
-        base.Hit(damage);
+        var totalDamage = Math.Min(damage, damage - Armor);
+        if (totalDamage != damage)
+            Log($"Броня заблокировала {damage - totalDamage} урона");
+        base.Hit(totalDamage);
     }
 
     public virtual void Attack(Unit target)

@@ -2,7 +2,7 @@
 using Warcraft.Core;
 using Warcraft.Core.BaseClasses;
 
-var logger = new FileLogger();
+var logger = new ConsoleLogger();
 
 var footman = new Footman(logger, (int)Health.Standard, (int)Cost.Expensive,
     "Footman",
@@ -29,7 +29,7 @@ var dragon = new Dragon(logger, (int)Health.Standard, (int)Cost.Expensive,
     "Dragon",
     (int)Level.Hero, (int)MoveSpeed.Slow, (int)AttackSpeed.Slow,
     (int)Damage.Powerful, (int)AttackRange.Close, (int)ManaCount.Standard);
-var peasant = new Peasant(logger, (int)Health.Tank, (int)Cost.Cheap, "Peasant",
+var peasant = new Peasant(logger, (int)Health.Puny, (int)Cost.Cheap, "Peasant",
     (int)Level.Creep, (int)MoveSpeed.Slow);
 var guardTower = new GuardTower(logger, (int)Health.Tank, (int)Cost.Standard,
     "Tower",

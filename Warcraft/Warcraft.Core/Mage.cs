@@ -45,7 +45,15 @@ public class Mage : Ranged
                 {
                     Name = "Буря",
                     ManaCost = BlizzardManaCost, Damage = BlizzardDamage,
-                    Message = "Выпустил снежную бурю на {0}"
+                    Message = "Выпустил снежную бурю на {0}",
+                    InflictedEffects = new []
+                    {
+                        new Effect
+                        {
+                            Name = "Заморозка", Damage = 10, Duration = 6,
+                            Message = "Сильно замерзает и получает {0} урона"
+                        }
+                    }
                 }
             },
             {
@@ -59,44 +67,5 @@ public class Mage : Ranged
                 }
             }
         };
-    }
-
-    private void Fireball(Unit target)
-    {
-        if (Mana < FireballManaCost)
-        {
-            Log("У меня нет маны!");
-            return;
-        }
-
-        Attack(target, FireballDamage);
-        Mana -= FireballManaCost;
-        Log($"Пустил файрбол на {target.Name}");
-    }
-
-    private void Blizzard(Unit target)
-    {
-        if (Mana < BlizzardManaCost)
-        {
-            Log("У меня нет маны!");
-            return;
-        }
-
-        Attack(target, BlizzardDamage);
-        Mana -= BlizzardManaCost;
-        Log($"Выпустил снежную бурю на {target.Name}");
-    }
-
-    private void Heal(Unit target)
-    {
-        if (Mana < HealCost)
-        {
-            Log("У меня нет маны!");
-            return;
-        }
-
-        target.GetHealed(HealValue);
-        Mana -= HealCost;
-        Log($"Вылечил {target.Name}");
     }
 }

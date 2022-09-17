@@ -5,8 +5,10 @@ namespace Warcraft.Console;
 
 public class ConsoleLogger : IEventLogger
 {
-    public void LogInfo(Unit unit, string message)
+    private const string DefaultSource = "System";
+
+    public void LogInfo(Unit? unit, string message)
     {
-        System.Console.WriteLine($"{unit.Name}: {message}");
+        System.Console.WriteLine($"{(unit?.Name is null ? DefaultSource : unit.Name)}: {message}");
     }
 }

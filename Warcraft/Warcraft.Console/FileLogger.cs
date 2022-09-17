@@ -6,12 +6,16 @@ namespace Warcraft.Console;
 
 public class FileLogger : IEventLogger
 {
-    private string filename = "output.txt";
-    public void LogInfo(Unit unit, string message)
+    private const string Filename = "output.txt";
+    private const string DefaultSource = "System";
+
+    public void LogInfo(Unit? unit, string message)
     {
-        using (var file = new StreamWriter(File.Open(filename, FileMode.Append, FileAccess.Write)))
+        using (var file = new StreamWriter(File.Open(Filename, FileMode.Append,
+                   FileAccess.Write)))
         {
-            file.WriteLine($"{unit.Name}: {message}");
+            file.WriteLine(
+                $"{(unit?.Name is null ? DefaultSource : unit.Name)}: {message}");
         }
     }
 }

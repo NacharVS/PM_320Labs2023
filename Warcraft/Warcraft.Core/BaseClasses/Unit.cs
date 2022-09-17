@@ -62,6 +62,7 @@ public abstract class Unit
         }
 
         ActiveEffects.Add(effect);
+        Log($"Получил эффект {effect.Name}");
     }
 
     public void GetHealed(int value)
@@ -107,7 +108,6 @@ public abstract class Unit
         
         foreach (var effect in ActiveEffects)
         {
-            Log(effect.Duration.ToString());
             if (effect.Duration <= 0)
             {
                 ActiveEffects.Remove(effect);

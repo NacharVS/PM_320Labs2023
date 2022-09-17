@@ -36,9 +36,9 @@ public class Blacksmith : Unit
     public void UpgradeWeapon()
     {
         BeforeAction();
-        foreach (var foot in _units)
+        foreach (var unit in _units)
         {
-            if (foot is Footman f)
+            if (unit is Footman f)
             {
                 f.UpgradeWeapon(DamageIncreaseValue);
                 Log($"Увеличил урон {f.Name} на {DamageIncreaseValue}");
@@ -49,9 +49,9 @@ public class Blacksmith : Unit
     public void UpgradeBow()
     {
         BeforeAction();
-        foreach (var archer in _units)
+        foreach (var unit in _units)
         {
-            if (archer is Archer arr)
+            if (unit is Archer arr)
             {
                 arr.UpgradeBow(BowIncreaseValue);
                 Log(

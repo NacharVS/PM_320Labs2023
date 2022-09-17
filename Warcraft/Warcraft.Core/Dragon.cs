@@ -36,31 +36,4 @@ public class Dragon : Ranged
             }
         };
     }
-
-    public void CastSpell(string spellName, Unit target)
-    {
-        var spell = Spells[spellName];
-
-        if (Mana < spell.ManaCost)
-        {
-            Log("Рррр! Нет маны!");
-            return;
-        }
-
-        spell.Cast(target);
-        Mana -= spell.ManaCost;
-    }
-
-    private void FireBreath(Unit target)
-    {
-        if (Mana < FireBreathManaCost)
-        {
-            Log("Рррр! Нет маны!");
-            return;
-        }
-
-        Attack(target, FireBreathDamage);
-        Mana -= FireBreathManaCost;
-        Log($"Задул огненным дыханием на {target.Name}");
-    }
 }
