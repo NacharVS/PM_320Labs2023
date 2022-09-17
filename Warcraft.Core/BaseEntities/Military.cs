@@ -42,5 +42,15 @@ namespace Warcraft.Core.BaseEntities
         {
             RaiseOnHitEvent(this, new HitArgs(damage < Armor ? damage - Armor : 0, Health));
         }
+
+        public void UpgradeWeapon(int point)
+        {
+            Damage += point;
+        }
+
+        public void UpgradeArmor(int point)
+        {
+            Armor += point;
+        }
     }
 }

@@ -42,6 +42,7 @@ namespace Warcraft.Core.Units
                 if (sender.Mana >= args.SpellCost)
                 {
                     sender.Mana -= args.SpellCost;
+                    Console.WriteLine($"{Name} использует {args.SpellName}\n");
                     Attack(args.Target, args.SpellDamage);
                 }
                 else

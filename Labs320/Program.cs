@@ -1,5 +1,6 @@
 ﻿using Labs320;
 using Warcraft.Core.BaseEntities;
+using Warcraft.Core.Effects;
 using Warcraft.Core.Units;
 
 var warriors = new List<Military>
@@ -10,6 +11,8 @@ var warriors = new List<Military>
     new Dragon(1000, 2000, "Shivana", 15, 300, 400, 4000, 50, 300, 600),
 };
 
+var blacksmith = new Blacksmith(warriors);
+
 foreach (var unit in warriors)
 {
     ThreadPool.QueueUserWorkItem(new UnitWrapper(unit, warriors).Run);
@@ -17,6 +20,20 @@ foreach (var unit in warriors)
 
 while (warriors.FindAll(unit => !unit.IsDestroyed).Count > 1)
 {
+    Random random = new Random();
+
+    int randomNum = random.Next(1, 10);
+
+    switch (randomNum)
+    {
+        case 1 :
+            blacksmith.UpgradeWeapon(100);
+            break;
+        case 2 :
+            blacksmith.UpgradeWArmor(10);
+            break;
+    }
+    
     Thread.Sleep(500);
 }
 

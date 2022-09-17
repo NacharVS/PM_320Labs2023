@@ -37,6 +37,10 @@ public class UnitWrapper
                             break;
                     }
                 }
+                else if (Entity.GetType() == typeof(Dragon) && ((Dragon)Entity).Mana >= 150)
+                {
+                    ((Dragon)Entity).FireBreath(target);
+                }
                 else
                 {
                     Entity.Attack(target);   
