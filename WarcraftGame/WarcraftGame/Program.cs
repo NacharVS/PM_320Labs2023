@@ -12,6 +12,9 @@ namespace WarcraftGame
             //-------Players-------
             Footman footman = new Footman(logger, "Footman - 1");
             Mage mage = new Mage(logger, "Mage - 2");
+
+            mage.Buff(new List<Military> {footman});
+
             Archer archer = new Archer(logger, "Archer - 1");
             Blacksmith blacksmith = new Blacksmith(logger, "Blacksmith - 1");
 

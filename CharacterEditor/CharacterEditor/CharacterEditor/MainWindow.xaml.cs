@@ -62,7 +62,6 @@ namespace CharacterEditor
 
             var currentBtn = (Button)sender;
             int previousValue;
-            int currentValue;
 
             switch (currentBtn.Name)
             {

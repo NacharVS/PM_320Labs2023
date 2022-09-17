@@ -8,6 +8,7 @@
         private int _blizzerdMana = 150;
         private int _healMana = 150;
         private double _healAmount = 800;
+        private int _buffPeriod = 3;
 
         public Mage(Logger logger, string name) : 
             base(logger, 3, 200, 1000, 3, 800, 40, 
@@ -58,6 +59,14 @@
             else
             {
                 Log("Not have mana!");
+            }
+        }
+
+        public void Buff(List<Military> units)
+        {
+            foreach (Military unit in units)
+            {
+                unit.BuffCount = _buffPeriod;
             }
         }
     }

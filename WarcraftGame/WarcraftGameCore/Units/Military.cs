@@ -6,6 +6,19 @@
         private int _attackSpeed;
         private double _armor;
         private double _armorUpgradeAmount = 500;
+        private int _buffCount;
+        public int BuffCount
+        {
+            get { return _buffCount; }
+            set
+            {
+                if (value < 0)
+                {
+                    _buffCount = 0;
+                }
+                _buffCount = value;
+            }
+        }
 
         protected Military(Logger logger, double damage, int attackSpeed, double armor, 
             double speed, string name, double health, int cost, int level, double maxHp)
@@ -86,8 +99,10 @@
             return;
         }
 
-        private void AttackUnit(Unit unit, double damage)
+        private void AttackUnit(Unit unit, double attackDamage)
         {
+            var damage = CheckBuff(attackDamage);
+
             if (unit is Military)
             {
                 var militaryUnit = (Military)unit;
@@ -107,6 +122,16 @@
             Log($"{GetName()} attacked {unit.GetName()}," +
                 $"Health: {unit.GetHealth()}");
         }     
+
+        private double CheckBuff(double damage)
+        {
+            if (_buffCount > 0)
+            {
+                _buffCount--;
+                return damage * 0.6;
+            }
+            return damage;
+        }
 
         public void UpgradeArmor()
         {

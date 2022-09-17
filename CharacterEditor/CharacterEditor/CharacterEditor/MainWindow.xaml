@@ -57,8 +57,11 @@
             <ColumnDefinition Width="130"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Column="2" Content="Character Editor" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="3" FontSize="20" FontWeight="Bold" Margin="16,0,0,0"/>
-        <ComboBox Name="cbCharacters" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="120" FontSize="15" SelectionChanged="cbCharacters_SelectionChanged"/>
-        
+        <Label Grid.Column="0" Grid.Row="1" Style="{StaticResource AllLabel}" Content="New Character:"/>
+        <ComboBox Name="cbCharacters" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="120" FontSize="15" SelectionChanged="cbCharacters_SelectionChanged"/>
+        <Label Grid.Column="0" Grid.Row="3" Style="{StaticResource AllLabel}" Content="Select Character:"/>
+        <ComboBox Name="cbExestingCharacters" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Width="120" FontSize="15"/>
+
         <Button Name="strengthMinusBtn" Grid.Column="2" Grid.Row="1" Style="{StaticResource MinusBtn}"/>
         <Button Name="dexterityMinusBtn" Grid.Column="2" Grid.Row="2" Style="{StaticResource MinusBtn}"/>
         <Button Name="constitutionMinusBtn" Grid.Column="2" Grid.Row="3" Style="{StaticResource MinusBtn}"/>
