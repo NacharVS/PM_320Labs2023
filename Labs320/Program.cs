@@ -1,10 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Labs320;
 
-Unit unit1 = new Unit("Bob", 33, 123456);
-Unit unit2 = new Unit("Jimmy", 55);
 
-MongoDBExamples.AddToDataBase(unit2);
+
+MongoDBExamples.FindByName("JImmy");
 
 static void Info(int value)
 {
