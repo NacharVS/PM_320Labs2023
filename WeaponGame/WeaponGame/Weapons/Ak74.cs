@@ -62,12 +62,18 @@ namespace WeaponGame.Weapons
 
         public void SingleShoot()
         {
-            Log($"{GetType().Name} fired a single shoot with damage: {Damage}");
+            if (IsHaveDurability())
+            {
+                Log($"{GetType().Name} fired a single shoot with damage: {Damage}");
+            }
         }
 
         public void TripleShoot()
         {
-            Log($"{GetType().Name} fired a triple shoot with damage: {TripleShootDamage}");
+            if (IsHaveDurability())
+            {
+                Log($"{GetType().Name} fired a triple shoot with damage: {TripleShootDamage}");
+            }
         }
 
         public void Reload()
@@ -88,6 +94,16 @@ namespace WeaponGame.Weapons
             Log($"{GetType().Name} was upgraded. " +
                 $"Single shoot damage: {Damage}, " +
                 $"Triple shoot damage: {TripleShootDamage}");
+        }
+
+        private bool IsHaveDurability()
+        {
+            if (Durability == 0)
+            {
+                Log($"Can not fire!Durability {Durability}");
+                return false;
+            }
+            return true;
         }
     }
 }
