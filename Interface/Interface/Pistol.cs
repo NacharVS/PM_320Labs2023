@@ -18,7 +18,7 @@ namespace AppWithInterface
 
         public void SingleShot()
         {
-            throw new NotImplementedException();    
+            Console.WriteLine($"Single shot from a pistol with {GunshotDamage} damage");
         }
     }
 }

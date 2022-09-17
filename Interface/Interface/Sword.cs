@@ -18,7 +18,7 @@ namespace AppWithInterface
 
         public void MeleeHit()
         {
-            Console.WriteLine($"Sword hit");
+            Console.WriteLine($"Sword hit with {MeleeDamage} damage");
         }
     }
 }

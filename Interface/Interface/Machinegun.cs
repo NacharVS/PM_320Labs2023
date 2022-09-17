@@ -18,12 +18,12 @@ namespace AppWithInterface
 
         public void SingleShot()
         {
-            Console.WriteLine($"Single shot from a machine gun");
+            Console.WriteLine($"Single shot from a machine gun with {GunshotDamage} damage");
         }
 
         public void AutoShot()
         {
-            Console.WriteLine($"Several shots from the machine gun");
+            Console.WriteLine($"Several shot from a machine gun with {GunshotDamage} damage");
         }
     }
 }

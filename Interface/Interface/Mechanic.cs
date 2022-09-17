@@ -8,9 +8,14 @@ namespace AppWithInterface
 {
     class Mechanic
     {
-        public void Upgrade(IUpgrade item)
+        public void Upgrade(IUpgrade weapon)
         {
-            item.Upgrade();
+            weapon.Upgrade();
+        }
+
+        public void Repair(IRepairible weapon)
+        {
+            weapon.Repair();
         }
     }
 }

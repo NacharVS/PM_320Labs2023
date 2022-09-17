@@ -25,12 +25,12 @@ namespace AppWithInterface
 
         public void MeleeHit()
         {
-            Console.WriteLine($"Stabbing in close combat");
+            Console.WriteLine($"Stab with {MeleeDamage} damage");
         }
 
         public void ThrowHit()
         {
-            Console.WriteLine($"Knife throw");
+            Console.WriteLine($"Knife throw with {ThrowDamage} damage");
         }
     }
 }
