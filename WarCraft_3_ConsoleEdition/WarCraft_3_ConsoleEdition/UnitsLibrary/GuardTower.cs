@@ -7,7 +7,6 @@ namespace WarCraft_3_ConsoleEdition
         public int Range { get; set; }
         public int Damage { get; set; }
         public int AttackSpeed { get; set; }
-
         public GuardTower(int range, int damage, int attackSpeed,
             int health, int cost, string name, int level) : base(health, cost, name, level)
         {
@@ -15,18 +14,15 @@ namespace WarCraft_3_ConsoleEdition
             this.Damage = damage;
             this.AttackSpeed = attackSpeed;
         }
-
         public void Attack(Unit unit)
         {
             unit.Health -= DamageCalculating(unit);
         }
-
         public void ReportDamage(Unit unit)
         {
                 Console.WriteLine($"{Name} dealt {DamageCalculating(unit)} " +
                     $"damage to {unit.Name}");
         }
-
         private int DamageCalculating(Unit unit)
         {
             try

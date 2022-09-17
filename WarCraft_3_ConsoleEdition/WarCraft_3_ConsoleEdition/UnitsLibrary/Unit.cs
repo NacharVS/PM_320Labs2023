@@ -12,7 +12,6 @@
         Random rnd = new Random();
 
         public delegate void HealthChangedDelegate(int value, Unit unit);
-
         public Unit(int health, int cost, string name, int level)
         {
             this.Health = health;
@@ -31,7 +30,6 @@
                 Bleeding(_bleedingDamage);
             }
         }
-
         private void Bleeding(int value)
         {
             int chance = rnd.Next(0, 5);

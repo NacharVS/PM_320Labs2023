@@ -6,7 +6,6 @@
             : base(speed, health, cost, name, level)
         {
         }
-
         void Mining() { }
         void Chopping() { } 
     }

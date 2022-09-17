@@ -34,7 +34,6 @@ namespace WarCraft_3_ConsoleEdition
 
                 Game.StartGame(unitDict[firstUnit], unitDict[secondUnit]);
             }
-
             catch
             {
                 Console.WriteLine("Wrong input!");
