@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using DataProvider;
+using DataProvider.Interfaces;
 using Editor.Core;
-using Editor.Core.Enums;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.IdGenerators;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace Editor.WPF
 {
@@ -22,6 +16,8 @@ namespace Editor.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MongoProvider _provider;
+
         private Character? _currentCharacter;
         private const int StartSkillPoints = 5;
 
@@ -29,6 +25,8 @@ namespace Editor.WPF
         {
             InitializeComponent();
 
+            _provider = new MongoProvider("mongodb://localhost");
+            
             OnSkillChange += delegate(Character? sender, string propName, int val)
             {
                 if (sender != null)
@@ -124,5 +122,41 @@ namespace Editor.WPF
 
         public delegate void HandleSkillChange(Character? character, string propertyName, int val);
         public event HandleSkillChange? OnSkillChange;
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter != null)
+            {
+                _provider.Save(_currentCharacter);
+                MessageBox.Show("Successfully saved");
+            }
+        }
+
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter != null)
+            {
+                var dbCharacter = _provider.Load(_currentCharacter.GetType().ToString());
+                if (dbCharacter is not null)
+                {
+                    _currentCharacter = dbCharacter;
+                    MessageBox.Show("Successfully loaded");
+                    FillData();
+                }
+                else
+                {
+                    MessageBox.Show("No saved copies found");
+                }
+            }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter != null)
+            {
+                _provider.Delete(_currentCharacter);
+                MessageBox.Show("Successfully deleted");
+            }
+        }
     }
 }

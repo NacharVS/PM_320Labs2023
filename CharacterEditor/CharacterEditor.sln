@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor.WPF", "Editor.WPF\Editor.WPF.csproj", "{C0860709-AF89-43EA-868C-4AFA8C1D0926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Editor.WPF", "Editor.WPF\Editor.WPF.csproj", "{C0860709-AF89-43EA-868C-4AFA8C1D0926}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor.Core", "Editor.Core\Editor.Core.csproj", "{CC5FCC2B-07DD-4FD1-AC55-E01991978EA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Editor.Core", "Editor.Core\Editor.Core.csproj", "{CC5FCC2B-07DD-4FD1-AC55-E01991978EA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProvider", "DataProvider\DataProvider.csproj", "{04C38E96-4D02-4973-B1F4-0828A26BC89A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CC5FCC2B-07DD-4FD1-AC55-E01991978EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC5FCC2B-07DD-4FD1-AC55-E01991978EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC5FCC2B-07DD-4FD1-AC55-E01991978EA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04C38E96-4D02-4973-B1F4-0828A26BC89A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04C38E96-4D02-4973-B1F4-0828A26BC89A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04C38E96-4D02-4973-B1F4-0828A26BC89A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04C38E96-4D02-4973-B1F4-0828A26BC89A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

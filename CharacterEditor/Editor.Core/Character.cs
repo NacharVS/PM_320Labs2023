@@ -142,7 +142,7 @@ namespace Editor.Core
                     return;
                 }
 
-                AvailableSkillPoints += 1;
+                AvailableSkillPoints += args.Difference != 0 ? 1 : 0;
             }
         }
 
