@@ -63,7 +63,8 @@
         }
         else if (selectedUnit.HealDebuffPeriod > 0)
         {
-            _logger.Log($"{selectedUnit} have a heal debuff! Debuff will disappear after {selectedUnit.HealDebuffPeriod} health changes.");
+            _logger.Log($"{selectedUnit} have a heal debuff! Debuff will disappear " +
+                        $"after {selectedUnit.HealDebuffPeriod} health changes.");
             return;
         }
         

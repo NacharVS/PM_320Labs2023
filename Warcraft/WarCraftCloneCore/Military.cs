@@ -26,9 +26,12 @@ public abstract class Military : Moveble
             _logger.Log("Can't attack himself!");
             return;
         }
+        
+        _logger.Log($"{GetName()} attack {attackedUnit.GetName()}");
 
         if (attackedUnit.GetHealth() - damage <= 0)
         {
+            attackedUnit.SetHealth(0);
             attackedUnit.SetState(true);
         }
 
@@ -36,16 +39,16 @@ public abstract class Military : Moveble
         {
             return;
         }
-
-        _logger.Log($"{GetName()} attack {attackedUnit.GetName()}");
+        
         if (attackedUnit is Military militaryUnit)
         {
-            militaryUnit.SetHealth(militaryUnit.GetHealth() - (_damage + _armor));
+            militaryUnit.SetHealth(militaryUnit.GetHealth() - (_damage - _armor));
         }
         else
         {
             attackedUnit.SetHealth(attackedUnit.GetHealth() - damage);
         }
+        _logger.Log("");
     }
 
     public void SetDamage(double damage)

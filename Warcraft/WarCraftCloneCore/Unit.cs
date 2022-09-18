@@ -72,7 +72,7 @@
     public void SetState(bool state)
     {
         _isDestroyed = state;
-        _logger.Log($"{_name} is dead!");
+        _logger.Log($"{_name} is dead! \n");
     }
 
     public double GetMaxHealth()
