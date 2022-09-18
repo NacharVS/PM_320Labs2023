@@ -22,6 +22,6 @@ namespace Units.BaseClasses
             isDestroyed = false;
         }
 
-        public abstract void Attack(Unit unt);
+        //public abstract void Attack(Unit unt);
     }
 }

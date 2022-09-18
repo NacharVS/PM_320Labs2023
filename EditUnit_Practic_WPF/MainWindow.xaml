@@ -21,6 +21,10 @@
                         <RowDefinition Height="171*"/>
                     </Grid.RowDefinitions>
                     <Image Margin="15,15,15,10" Source="/Warrior.png"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,42,0,0" TextWrapping="Wrap" Text="Strength" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,92,0,0" TextWrapping="Wrap" Text="Dexterity" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,142,0,0" TextWrapping="Wrap" Text="Constitution" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,192,0,0" TextWrapping="Wrap" Text="Intelligence" VerticalAlignment="Top" FontSize="16"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TbItRogue" Header="Rogue">
@@ -35,7 +39,9 @@
                         <RowDefinition Height="203*"/>
                         <RowDefinition Height="171*"/>
                     </Grid.RowDefinitions>
-                    <Image Margin="15,15,15,10" Source="/Rogue.png"/>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Image Margin="15,15,15,10" Source="/Rogue.png"/>
+                    </Border>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TbItWizard" Header="Wizard">

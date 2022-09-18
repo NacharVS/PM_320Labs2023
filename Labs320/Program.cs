@@ -37,27 +37,19 @@ namespace Warcraft
 
 
             {
-                var units = new List<Unit> {peasant, footman, mage, guardTower, dragon};
+                var units = new List<Military> {footman, mage, dragon};
+                Random random = new Random();
 
                 while (units.Count > 1)
                 {
-                    Random random = new Random();
+                    var unit1 = random.Next(0, units.Count);
+                    var unit2 = random.Next(0, units.Count);
 
-                    var unit1 = random.Next(0, 5);
-                    var unit2 = random.Next(0, 5);
-
-                    if (units[unit1] is Military)
-                    {
-                        units[unit1].Attack(units[unit2]);
-                    }
-
-                    if (units[unit2].isDestroyed)
-                    {
-                        units.Remove(units[unit2]);
-                    }
+                    units[unit1].Attack(units[unit2]);
+                    units.Remove(units[unit2]);
                 }
 
-                Console.WriteLine($"Final is win: {units[0]}");
+                Console.WriteLine($"Final is win: {units[0].name}");
             }
         }
     }

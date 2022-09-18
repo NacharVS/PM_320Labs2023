@@ -17,7 +17,7 @@ namespace Units.BaseUnits
             this.attackSpeed = attackSpeed;
         }
 
-        public override void Attack(Unit unt)
+        public void Attack(Unit unt)
         {
             action.Attack(unt, damage);
         }

@@ -24,8 +24,5 @@ namespace Units.BaseUnits
         {
             action.Move();
         }
-
-        public override void Attack(Unit unt)
-        { }
     }
 }
