@@ -56,7 +56,7 @@ namespace Warcraft3
         {
             if(unit is Military military)
             {
-                unit.SetHealth(military.GetHealth() - IncreasedAtttack(this.GetLvl()) + ArmorDamage(military));
+                unit.SetHealth(military.GetHealth() - IncreasedAtttack(this.GetLvl()) + ArmorDamage(military)); //upgrade armor
                 Print(military);
             }
             else

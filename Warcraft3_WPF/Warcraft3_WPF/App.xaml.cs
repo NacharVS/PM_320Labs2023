@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfWarcraft3
+namespace Warcraft3_WPF
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,7 +1,7 @@
-﻿<Application x:Class="WpfWarcraft3.App"
+﻿<Application x:Class="Warcraft3_WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WpfWarcraft3"
+             xmlns:local="clr-namespace:Warcraft3_WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

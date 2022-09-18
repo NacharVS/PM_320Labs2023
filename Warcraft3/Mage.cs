@@ -8,9 +8,17 @@ namespace Warcraft3
 {
     internal class Mage:Range
     {
+        int buff;
         public Mage(string name, int health, int cost, int lvl, int maxHP, int speed, int damage, int attackSpeed,
            int armor) : base(name, health, cost, lvl, maxHP, speed, damage, attackSpeed, armor)
         {
+
+        }
+
+        public void BuffAttack(Unit unit)
+        {
+
+
         }
 
         public void FireBall(Unit unit)

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warcraft3_WPF", "Warcraft3_WPF\Warcraft3_WPF.csproj", "{94FD7731-91AE-4BF5-A2CC-97A81A840CBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterEditorCore", "CharacterEditorCore\CharacterEditorCore.csproj", "{91EE9C64-5217-42C7-9B1E-C5A86E25739D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94FD7731-91AE-4BF5-A2CC-97A81A840CBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94FD7731-91AE-4BF5-A2CC-97A81A840CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94FD7731-91AE-4BF5-A2CC-97A81A840CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94FD7731-91AE-4BF5-A2CC-97A81A840CBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91EE9C64-5217-42C7-9B1E-C5A86E25739D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91EE9C64-5217-42C7-9B1E-C5A86E25739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91EE9C64-5217-42C7-9B1E-C5A86E25739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91EE9C64-5217-42C7-9B1E-C5A86E25739D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {466AA996-CBCD-4EA2-A689-C4C1629782B5}
+	EndGlobalSection
+EndGlobal
