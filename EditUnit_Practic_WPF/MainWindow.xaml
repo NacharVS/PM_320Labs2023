@@ -5,15 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EditUnit_Practic_WPF"
         mc:Ignorable="d"
-        Title="Edit unit" Height="675" Width="1200" ResizeMode="NoResize" Icon="/Icon.png">
+        Title="Edit unit" Height="675" Width="800" ResizeMode="CanMinimize" Icon="/Icon.png">
     <Grid>
         <TabControl>
             <TabItem x:Name="TbItWarrior" Header="Warrior">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="263*"/>
-                        <ColumnDefinition Width="687*"/>
-                        <ColumnDefinition Width="244*"/>
+                        <ColumnDefinition Width="162*"/>
+                        <ColumnDefinition Width="235*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="257*"/>
@@ -21,10 +20,41 @@
                         <RowDefinition Height="171*"/>
                     </Grid.RowDefinitions>
                     <Image Margin="15,15,15,10" Source="/Warrior.png"/>
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,42,0,0" TextWrapping="Wrap" Text="Strength" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,92,0,0" TextWrapping="Wrap" Text="Dexterity" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,142,0,0" TextWrapping="Wrap" Text="Constitution" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,192,0,0" TextWrapping="Wrap" Text="Intelligence" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,42,0,0" TextWrapping="Wrap" Text="Strength:" VerticalAlignment="Top" FontSize="16" Height="21" Width="64"/>
+                    <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="149,42,0,0" VerticalAlignment="Top" Width="110">
+                        <Button Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="20"/>
+                        <Button Content="+" HorizontalAlignment="Left" Margin="90,0,0,0" VerticalAlignment="Center" Height="20" Width="20"/>
+                        <TextBlock x:Name="tbStrength" HorizontalAlignment="Center" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="16"/>
+                    </Grid>
+
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,92,0,0" TextWrapping="Wrap" Text="Dexterity:" VerticalAlignment="Top" FontSize="16" Height="21" Width="67"/>
+                    <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="149,92,0,0" VerticalAlignment="Top" Width="110">
+                        <Button Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="20"/>
+                        <Button Content="+" HorizontalAlignment="Left" Margin="90,0,0,0" VerticalAlignment="Center" Height="20" Width="20"/>
+                        <TextBlock x:Name="tbDexterity" HorizontalAlignment="Center" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="16"/>
+                    </Grid>
+
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,142,0,0" TextWrapping="Wrap" Text="Constitution:" VerticalAlignment="Top" FontSize="16" Height="21" Width="90"/>
+                    <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="149,142,0,0" VerticalAlignment="Top" Width="110">
+                        <Button Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="20"/>
+                        <Button Content="+" HorizontalAlignment="Left" Margin="90,0,0,0" VerticalAlignment="Center" Height="20" Width="20"/>
+                        <TextBlock x:Name="tbConstitution" HorizontalAlignment="Center" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="16"/>
+                    </Grid>
+
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,192,0,0" TextWrapping="Wrap" Text="Intelligence:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85"/>
+                    <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="149,192,0,0" VerticalAlignment="Top" Width="110">
+                        <Button Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="20"/>
+                        <Button Content="+" HorizontalAlignment="Left" Margin="90,0,0,0" VerticalAlignment="Center" Height="20" Width="20"/>
+                        <TextBlock x:Name="tbIntelligence" HorizontalAlignment="Center" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="16"/>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="HP:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Margin="89,41,0,0"/>
+                        <TextBlock x:Name="tbHP" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="150,41,0,0"/>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="MP:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Margin="89,91,0,0"/>
+                        <TextBlock x:Name="tbMP" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="150,91,0,0"/>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TbItRogue" Header="Rogue">

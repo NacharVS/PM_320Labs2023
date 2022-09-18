@@ -22,17 +22,23 @@ namespace Warcraft
 
             {
                 Console.WriteLine(guardTower.health);
-                guardTower.Attack(guardTower);
+                dragon.Attack(guardTower);
                 Console.WriteLine(guardTower.health);
+                
+                Console.WriteLine();
 
                 Console.WriteLine(dragon.health);
                 guardTower.Attack(dragon);
                 Console.WriteLine(dragon.health);
 
+                Console.WriteLine();
+
                 Console.WriteLine(mage.health);
                 guardTower.Attack(mage);
                 Console.WriteLine(mage.health);
                 if (mage.isDestroyed) { Console.WriteLine("die"); }
+
+                Console.WriteLine();
             }
 
 
