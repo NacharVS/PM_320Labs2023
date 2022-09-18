@@ -23,19 +23,10 @@ namespace ConsoleWarcraft
             unit2.HealthChangedEvent += showHealth;
             unit1.HealthChangedEvent += isDestroyed;
             unit2.HealthChangedEvent += isDestroyed;
-           
-            
-           
-
         }
 
         public void run()
         {
-            Console.WriteLine(unit1.name + " and " + unit2.name);
-
-
-
-
             while (true)
             {
                 if (count % 2 == 0)
@@ -47,29 +38,29 @@ namespace ConsoleWarcraft
                             mage.attack(unit2);
                             mage.blizzard(unit2);
                             break;
+
                         case Footman footman:
                             footman.attack(unit2);
-                          
                             break;
+
                         case Dragon dragon:
                             dragon.attack(unit2);
                             dragon.fireBreath(unit2);
                             break;
+
                         case GuardTower tower:
                             tower.attack(unit2);
                             break;
+
                         case Archer archer:
                             archer.attack(unit2);
                             break;
                     }
 
-
                     if (unit2.isDestroyed())
                     {
                         break;
                     }
-                    // showAttack(unit1);
-                    // showHealth(unit2);
                 }
                 else
                 {
@@ -80,24 +71,25 @@ namespace ConsoleWarcraft
                             mage.attack(unit1);
                             mage.blizzard(unit1);
                             break;
+
                         case Footman footman:
                             footman.attack(unit1);
                             break;
+
                         case Dragon dragon:
                             dragon.attack(unit1);
                             dragon.attack(unit1);
                             dragon.fireBreath(unit1);
                             break;
+
                         case GuardTower tower:
                             tower.attack(unit1);
                             break;
+
                         case Archer archer:
                             archer.attack(unit1);
                             break;
                     }
-
-                    // showAttack(unit2);
-                    // showHealth(unit1);
 
                     if (unit1.isDestroyed())
                     {
@@ -118,7 +110,6 @@ namespace ConsoleWarcraft
             }
         }
 
-
         public static void showAttack(Unit unit)
         {
             if (unit is Military military)
@@ -132,13 +123,10 @@ namespace ConsoleWarcraft
 
         }
 
-
-
         public static void showHealth(Unit unit)
         {
             Console.WriteLine(unit.name + " health:" + unit.health);
             
         }
     }
-
 }

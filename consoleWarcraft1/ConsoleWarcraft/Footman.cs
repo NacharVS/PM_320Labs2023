@@ -43,14 +43,10 @@ namespace ConsoleWarcraft
         {
             if (unit is Military military)
             {
-                // military.Health -= damage;
-
                 TakeDamage(military, damage, true);
-
             }
             else
             {
-                // unit.Health -= damage;
                 TakeDamage(unit, damage, true);
             }
         }

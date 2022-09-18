@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConsoleWarcraft.enumUnits;
 
 namespace ConsoleWarcraft
 {
@@ -9,19 +8,6 @@ namespace ConsoleWarcraft
         static void Main()
         {
 
-            Warier warier = new Warier();
-
-            int strensth = warier.changeStrensth();
-
-            warier.changeConstitution();
-            warier.changeIntellisense();
-            warier.changeConstitution();
-            warier.changeDesterity();
-
-
-            Console.WriteLine($"strensth:  {strensth}");
-            Console.WriteLine($"HP:  {warier.HP}; Attack: {warier.Attack}; PDet: {warier.PDet}; MAH: {warier.MAH}; MP: {warier.MP}");
-
             int count = 1;
 
             int player1 = 0;
@@ -29,18 +15,12 @@ namespace ConsoleWarcraft
 
             Mage mage1 = new Mage("Voland", 1000, 750, 100, 100, 100, 100, 200, 200, false);
             Mage mage2 = new Mage("Potter", 1000, 50, 15, 100, 100, 100, 200, 200, false);
-            Footman footman1 = new Footman("Worgen", warier.HP, 45000, 1000, 90, 30, 300,  false);
+            Footman footman1 = new Footman("Worgen", 2460, 45000, 1000, 90, 30, 300,  false);
             Archer archer1 = new Archer("Archer", 1500, 15000, 1000, 90, 30, 300, 4, false);
             Dragon dragon1 = new Dragon("Sparky", 1000, 50, 15, 100, 100, 100, 200, 200, false);
             GuardTower tower1 = new GuardTower("Tower of ghosts", 10000, 50000, 300, 20, 50, 90, false);
 
-            List<Unit> units = new List<Unit> { };
-            units.Add(mage1);
-            units.Add(mage2);
-            units.Add(footman1);
-            units.Add(archer1);
-            units.Add(dragon1);
-            units.Add(tower1);
+            List<Unit> units = new List<Unit> {mage1, mage2, footman1, archer1, dragon1, tower1};
 
             Blacksmith blacksmith = new Blacksmith("Anvil", 2, 3, 3000, 1000, units);
             blacksmith.UpgradeEvent += showUpgrade;
@@ -62,8 +42,8 @@ namespace ConsoleWarcraft
                 Console.Write("Player 2: choose hero: ");
                 player2 = int.Parse(Console.ReadLine()) - 1;
 
-               //  blacksmith.UpgradeWeapon();
-                // blacksmith.UpgradeBow();
+               blacksmith.UpgradeWeapon();
+               blacksmith.UpgradeBow();
 
                 GameLogic game = new GameLogic(units[player1], units[player2]);
                 game.run();
@@ -138,12 +118,10 @@ namespace ConsoleWarcraft
         {
             if (unit is Military military)
             {
-                // military.health = military.health + military.armor - damage;
                 TakeDamage(unit, damage, true);
             }
             else
             {
-                // unit.health -= damage;
                 TakeDamage(unit, damage, true);
             }
         }
