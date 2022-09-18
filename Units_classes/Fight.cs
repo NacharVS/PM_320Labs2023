@@ -2,14 +2,13 @@
 public class Fight
 {
     public Unit[] Players = new Unit[2];
-/*    public int Chronicles = 0;
-    public Dictionary<int, string> Fire_list  = new Dictionary<int, string>();*/
 
     public void Introduction()
     {
+        StringHelper stringHelper = new StringHelper();
     start:
 
-        Console.WriteLine("\nСписок классов:\nSpearman, Mage, Dragon, Peasant, Guard_tower, Archer\n");
+        Console.WriteLine("\nСписок классов:\nSpearman, Mage, Dragon, Peasant, Guard_tower\n");
         int honesty = 2;
         for (int i = 0; i < 2; i++)
         {
@@ -21,14 +20,8 @@ public class Fight
                 honesty = Honesty_cheking();
                 break;
             }
-/*            Console.WriteLine("Желаете ли прокачать героя? ");
-            string ans = Console.ReadLine();
-            if (ans != null)
-            {
-                taked_hero = Upgrade(taked_hero);
-            }*/
-
             Players[i] = taked_hero;
+            taked_hero.Event_HealthChanged = stringHelper.GetDamage;
         }
 
         if (honesty == 1)
@@ -45,14 +38,11 @@ public class Fight
         Console.WriteLine("\nДо свидания!");
     }
 
-    //Пересчет списка героев
-    public void Recalculation() 
-    {
-
-    }
-
     private Unit Unit_request(string name)
     {
+        StringHelper stringHelper = new StringHelper();
+        Spearman spearman = new Spearman();
+        spearman.Event_Berserk = stringHelper.Berserk;
         Unit taked_unit = null;
         switch (name)
         {
@@ -71,12 +61,8 @@ public class Fight
             case ("guardtower" or "Guardtower"):
                 taked_unit = new Guard_tower();
                 break;
-            case ("archer" or "Archer"):
-                taked_unit = new Archer();
-                break;
         }
         Console.WriteLine($"Ваш выбор - {name}!");
-/*        Fire_list.Add(Chronicles, );*/
 
         return taked_unit;
     }
@@ -98,8 +84,7 @@ public class Fight
                 double second_loss = Players[1].Step();
                 Players[0].Taking_damage(second_loss);
                 i--;
-            } 
-            //Нужно придумать способ, каким получится останавливать бой в ничью
+            }
             Console.WriteLine();
         }
         
@@ -116,10 +101,7 @@ public class Fight
         else
         {
             Console.WriteLine("У нас нет победителя!");
-/*            Chronicles++;*/
         }
-
-/*        Chronicles++;*/
     }
 
     private int Honesty_cheking()
@@ -145,42 +127,6 @@ public class Fight
             Players[1].Name = ($"{nick} " + $"{2}");
         }
     }
-
-    private Unit Upgrade(Unit hero)
-    {
-        Blacksmith bs = new Blacksmith();
-        Console.WriteLine("Выберите одно из улучшений. Полный список возможных улучшений:");
-        Console.WriteLine("armour - улучшение брони \n weapon - улучшение оружия \n bow - улучшение лука \n");
-        string ans = Console.ReadLine();
-        switch (ans)
-        {
-            case "armour":
-                bs.Upgrade_armour(hero);
-                break;
-/*            case "weapon":
-                bs.Upgrade_weapon(hero);
-                break;
-            case "bow":
-                bs.Upgrade_bow(hero);
-                break;*/
-        }            
-        return hero;
-    }
-
-/*    private void Upgrading(Unit hero)
-    {
-        Blacksmith.Upgrade_armour(hero);
-    }
-
-    private void Upgrading(Military hero)
-    {
-        Blacksmith.Upgrade_weapon(hero);
-    }
-
-    private void Upgrading(Archer hero)
-    {
-        Blacksmith.Upgrade_bow(hero);
-    }*/
 }
 
 

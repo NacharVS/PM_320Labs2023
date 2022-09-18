@@ -7,7 +7,7 @@ class Military : Moveble
     public Military()
     {
         Attack_speed = 1;
-        Damage = 0;
+        Damage = 1;
     }
 
 /*    public Military(double damage, double attack_speed, int defence, int speed) : base(speed)

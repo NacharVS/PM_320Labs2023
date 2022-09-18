@@ -1,0 +1,15 @@
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\bin\Debug\net6.0\Units_classes.exe
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\bin\Debug\net6.0\Units_classes.deps.json
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\bin\Debug\net6.0\Units_classes.runtimeconfig.json
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\bin\Debug\net6.0\Units_classes.dll
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\bin\Debug\net6.0\Units_classes.pdb
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\Units_classes.csproj.AssemblyReference.cache
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\Units_classes.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\Units_classes.AssemblyInfoInputs.cache
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\Units_classes.AssemblyInfo.cs
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\Units_classes.csproj.CoreCompileInputs.cache
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\Units_classes.dll
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\refint\Units_classes.dll
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\Units_classes.pdb
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\Units_classes.genruntimeconfig.cache
+C:\Users\Xakep\source\repos\Units_classes\Units_classes\obj\Debug\net6.0\ref\Units_classes.dll

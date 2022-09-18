@@ -1,16 +1,26 @@
 ﻿
 public abstract class Unit
 {
-    public delegate void Taking_damage_delegate();
+    private double _health;
 
+    public delegate void Delegate_HealthChanged(double health, double real_loss, string Name);
+    public Delegate_HealthChanged Event_HealthChanged { get; set; }
 
-    public double Max_health;
-    public double Real_health;
+    public double Max_health; 
+    public double Real_health 
+    {
+        get 
+        { return _health; }
+        set
+        { 
+            _health = value;
+        }
+    }
+
     public int Cost;
     public string Name;
     public int Level; // Уровень: 1 <= x <= 99
     public int Defence; // Защита: 0 <= x <= 100
-    public bool Is_dead = false;
 
     public Unit(string name = "Undefined")
     {
@@ -22,15 +32,12 @@ public abstract class Unit
     public void Taking_damage(double loss)
     {
         double real_loss = (loss - loss / 100 * Defence);
+        Event_HealthChanged(Real_health, real_loss, Name);
         Real_health -= real_loss;
-        Taking_damage_event?.Invoke(real_loss, Name);
+        /*Console.WriteLine($"{Name} получает урон, равный {real_loss}!" );*/
     }
 
     public abstract double Step();
-
-    /*    public abstract void Blacksmith();*/
-
-
-
-    public event Taking_damage_delegate Taking_damage_event;
 }
+
+
