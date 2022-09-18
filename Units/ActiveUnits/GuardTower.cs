@@ -26,7 +26,7 @@ namespace Units.ActiveUnits
             AttackEvent += ResultAttack;
         }
 
-        public void Attack(Unit unit)
+        public override void Attack(Unit unit)
         {
             if (unit is not Military)
             {

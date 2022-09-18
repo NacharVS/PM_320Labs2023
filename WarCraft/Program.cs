@@ -1,26 +1,41 @@
 ﻿using Units.ActiveUnits;
 using Units.BaseUnits;
 
-Footman playerOne = new(80, 100, 10, 15, "Footer");
-Peasant playerTwo = new(100, "Bulat");
-Mage playerThree = new(80, 100, 10, 100, 100, 4, "Mage");
-Blacksmith blacksmith = new(1000, "Blacksmith");
-List<Unit> units = new List<Unit>() { playerOne, playerTwo, playerThree, blacksmith};
+Footman f1 = new(80, 100, 10, 15, "Alexander");
+Peasant p1 = new(100, "Bulat");
+Mage m1 = new(80, 100, 10, 100, 100, 4, "Mage");
+Mage m2 = new(80, 100, 10, 100, 100, 4, "UltraMaga");
+Footman f2 = new(80, 100, 10, 15, "Magomed");
 
+Blacksmith blacksmith = new(1000, "Blacksmith");
+List<Unit> units = new List<Unit>() { f1, p1, m1, m2, f2};
 blacksmith.UpgradeWeapon(units);
 
-try
+Random rand = new Random();
+
+Unit playerOne;
+Unit playerTwo;
+
+while (units.Count > 1)
 {
-    while (true)
+    playerOne = units[rand.Next(units.Count)];
+    playerTwo = units[rand.Next(units.Count)];
+
+    if(playerOne == playerTwo)
     {
-        playerOne.Attack(playerTwo);
-        playerThree.Attack(playerOne);
+        continue;
+    }
+
+    playerOne.Attack(playerTwo);
+    playerTwo.Attack(playerOne);
+
+    if(!playerOne.GetStateOfLife())
+    {
+        units.Remove(playerOne);
+    }
+    else if(!playerTwo.GetStateOfLife())
+    {
+        units.Remove(playerTwo);
     }
 }
-catch(Exception ex)
-{
-    Console.WriteLine(ex.Message);
-    Console.WriteLine(playerOne.GetStateOfLife() 
-        ? $"First player ({playerOne.Name}) is victorious!" 
-        : $"Second player({playerTwo.Name}) is victorious!");
-}
+Console.WriteLine($"{units[0].Name} won this battle!!!");

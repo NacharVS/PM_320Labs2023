@@ -29,7 +29,7 @@ namespace Units.ActiveUnits
         {
             if (GetMana() < 35)
             {
-                throw new Exception("Not enough mana for fireball!");
+                Console.WriteLine($"Not enough mana for fireball for {this.Name}!");
             }
 
             this.SetMana(GetMana() - 35);
@@ -81,6 +81,24 @@ namespace Units.ActiveUnits
         public override void Move()
         {
             Console.WriteLine($"Mage {this.Name} is moving");
+        }
+
+        public override void Attack(Unit unit)
+        {
+            Random random = new Random();
+
+            if(random.Next(5) == 1)
+            {
+                FireBall(unit);
+                return;
+            }
+            if (random.Next(5) == 1)
+            {
+                Heal(this);
+                return;
+            }
+
+            base.Attack(unit);
         }
     }
 }

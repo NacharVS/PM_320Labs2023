@@ -27,5 +27,18 @@ namespace Units.ActiveUnits
         {
             Console.WriteLine($"Dragon {this.Name} is moving");
         }
+
+        public override void Attack(Unit unit)
+        {
+            Random random = new Random();
+
+            if(random.Next(5) == 1)
+            {
+                FireBreath(unit);
+                return;
+            }
+
+            base.Attack(unit);
+        }
     }
 }

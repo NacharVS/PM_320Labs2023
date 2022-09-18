@@ -31,7 +31,8 @@ namespace Units.ActiveUnits
         {
             if (_arrowCount < 1)
             {
-                throw new Exception($"No arrows left for archer!");
+                OnArrowsShortageEvent.Invoke();
+                return;
             }
             _arrowCount--;
 

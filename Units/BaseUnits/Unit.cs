@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Units.ActiveUnits;
 
 namespace Units.BaseUnits
 {
@@ -87,9 +88,14 @@ namespace Units.BaseUnits
         private void CharacterToDie(Unit unit)
         {
             SetStateOfLife(false);
-            throw new Exception($"{unit.Name} is destroyed!");
+            Console.WriteLine($"{unit.Name} is destroyed!");
         }
-
-
+        public virtual void Attack(Unit unit)
+        {
+            if(this is not Military || this is not GuardTower)
+            {
+                Console.WriteLine($"{this.Name} can't attack!");
+            }
+        }
     }
 }

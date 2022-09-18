@@ -46,7 +46,7 @@ namespace Units.BaseUnits
             AttackEvent += ResultAttack;
         }
 
-        public virtual void Attack(Unit unit)
+        public override void Attack(Unit unit)
         {
             if (_attackSpeed == 0)
             {
