@@ -1,0 +1,4 @@
+﻿interface ITripleShoot
+{
+    void TripleShoot();
+}
