@@ -16,36 +16,12 @@ namespace Units
         {
             InitializeComponent();
             comboBoxChoice.Items.AddRange(new string[] { "Rogue", "Warrior", "Wizard" });
+        }
 
-            OnParameterChangedEvent += delegate
-            {
-                numericStrength.Value = unit2.Strength;
-                numericStrength.Maximum = unit2.maxStrength;
-                numericStrength.Minimum = unit2.minStrength;
-
-                numericDexterity.Value = unit2.Dexterity;
-                numericDexterity.Maximum = unit2.maxDexterity;
-                numericDexterity.Minimum = unit2.minDexterity;
-                
-                numericConstitution.Value = unit2.Constitution;
-                numericConstitution.Maximum = unit2.maxConstitution;
-                numericConstitution.Minimum = unit2.minConstitution;
-
-                numericIntellisence.Value = unit2.Intelligence;
-                numericIntellisence.Maximum = unit2.maxIntelligence;
-                numericIntellisence.Minimum = unit2.minIntelligence;
-
-                tbHP.Text = unit2.healthPoint.ToString();
-                tbMP.Text = unit2.manaPoint.ToString();
-                tbDefence.Text = unit2.damage.ToString();
-                tbDamage.Text = unit2.damage.ToString();
-
-            };
-          
-    }
-        Unit unit2;
+        Unit unit;
         public delegate void ParameterChangedDelegate();
         public event ParameterChangedDelegate OnParameterChangedEvent;
+        List<Unit> units = new List<Unit>();
 
 
         private void domainChoice_SelectedItemChanged(object sender, EventArgs e)
@@ -55,48 +31,123 @@ namespace Units
 
         private void numericStrength_ValueChanged(object sender, EventArgs e)
         {
-            OnParameterChangedEvent += delegate
-            {
-               tbHP.Text = unit2.healthPoint.ToString();
-               tbMP.Text = unit2.manaPoint.ToString();
-               tbDefence.Text = unit2.damage.ToString();
-               tbDamage.Text = unit2.damage.ToString();
-            };
-
-           
-
-
+            unit.Strength = (int)numericStrength.Value;
+            tbHP.Text = unit.healthPoint.ToString();
+            tbMP.Text = unit.manaPoint.ToString();
+            tbDefence.Text = unit.damage.ToString();
+            tbDamage.Text = unit.damage.ToString();
         }
 
         private void comboBoxChoice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string unit = comboBoxChoice.SelectedItem.ToString();
+            string unit2 = comboBoxChoice.SelectedItem.ToString();
            
-
-            switch (unit)
+            switch (unit2)
             {
                 case "Rogue":
-                    Console.WriteLine("1");
-                    
-                    unit2 = new Rogue();
+                    unit = new Rogue();
                     OnParameterChangedEvent?.Invoke();
 
                     break;
 
                 case "Warrior":
-                    Console.WriteLine("2");
-                    unit2 = new Warrior();
+                    unit = new Warrior();
                     OnParameterChangedEvent?.Invoke();
                     
                     break;
 
                 case "Wizard":
-                    unit2 = new Wizard();
+                    unit = new Wizard();
                     OnParameterChangedEvent?.Invoke();
-                    Console.WriteLine("3");
+                    
                     break;
             }
+            numericStrength.Maximum = 256;
+            numericStrength.Minimum = 0;
+      
+            numericDexterity.Maximum = 256;
+            numericDexterity.Minimum = 0;
+
+            numericConstitution.Maximum = 256;
+            numericConstitution.Minimum = 0;
+
+            numericIntellisence.Maximum = 256;
+            numericIntellisence.Minimum = 0;
+
+
+            OnParameterChangedEvent += delegate
+            {
+                numericStrength.Value = unit.Strength;
+                numericStrength.Maximum = unit.maxStrength;
+                numericStrength.Minimum = unit.minStrength;
+
+                numericDexterity.Value = unit.Dexterity;
+                numericDexterity.Maximum = unit.maxDexterity;
+                numericDexterity.Minimum = unit.minDexterity;
+
+                numericConstitution.Value = unit.Constitution;
+                numericConstitution.Maximum = unit.maxConstitution;
+                numericConstitution.Minimum = unit.minConstitution;
+
+                numericIntellisence.Value = unit.Intelligence;
+                numericIntellisence.Maximum = unit.maxIntelligence;
+                numericIntellisence.Minimum = unit.minIntelligence;
+
+                tbHP.Text = unit.healthPoint.ToString();
+                tbMP.Text = unit.manaPoint.ToString();
+                tbDefence.Text = unit.damage.ToString();
+                tbDamage.Text = unit.damage.ToString();
+            };
+        }
+
+        private void numericDexterity_ValueChanged(object sender, EventArgs e)
+        {
+            unit.Dexterity = (int)numericDexterity.Value;
+            tbHP.Text = unit.healthPoint.ToString();
+            tbMP.Text = unit.manaPoint.ToString();
+            tbDefence.Text = unit.damage.ToString();
+            tbDamage.Text = unit.damage.ToString();
+        }
+
+        private void numericConstitution_ValueChanged(object sender, EventArgs e)
+        {
+            unit.Constitution = (int)numericConstitution.Value;
+            tbHP.Text = unit.healthPoint.ToString();
+            tbMP.Text = unit.manaPoint.ToString();
+            tbDefence.Text = unit.damage.ToString();
+            tbDamage.Text = unit.damage.ToString();
+        }
+
+        private void numericIntellisence_ValueChanged(object sender, EventArgs e)
+        {
+            unit.Intelligence = (int)numericIntellisence.Value;
+            tbHP.Text = unit.healthPoint.ToString();
+            tbMP.Text = unit.manaPoint.ToString();
+            tbDefence.Text = unit.damage.ToString();
+            tbDamage.Text = unit.damage.ToString();
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            units.Add(unit);
+            numericStrength.Minimum = 0;
+            numericStrength.Value = 0;
+
+            numericDexterity.Minimum = 0;
+            numericDexterity.Value = 0;
+
+            numericConstitution.Minimum = 0;
+            numericConstitution.Value = 0;
+
+            numericIntellisence.Minimum = 0;
+            numericIntellisence.Value = 0;
             
+            tbHP.Text = "0";
+            tbMP.Text = "0";
+            tbDefence.Text = "0";
+            tbDamage.Text = "0";
+            comboBoxChoice.Text = "";
+
         }
     }
 }

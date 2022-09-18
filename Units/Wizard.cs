@@ -47,7 +47,5 @@ namespace Units
             Constitution = minConstitution;
             Intelligence = minIntelligence;
         }
-
     }
-    
 }

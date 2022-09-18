@@ -46,7 +46,6 @@ namespace Units
             Dexterity = minDexterity;
             Constitution = minConstitution;
             Intelligence = minIntelligence;
-
         }
     }
 }

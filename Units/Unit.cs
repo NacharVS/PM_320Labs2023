@@ -24,10 +24,6 @@ namespace Units
 
                     StrengthChangedEvent?.Invoke();
                 }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
             }
         }
         public int Dexterity
@@ -40,10 +36,6 @@ namespace Units
                     dexterity = value;
 
                     DexterityChangedEvent?.Invoke();
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
                 }
             }
         }
@@ -58,10 +50,6 @@ namespace Units
 
                     ConstitutionChangedEvent?.Invoke();
                 }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
             }
         }
         public int Intelligence
@@ -74,10 +62,6 @@ namespace Units
                     intelligence = value;
 
                     IntelligenceChangedEvent?.Invoke();
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException();
                 }
             }
         }
@@ -101,5 +85,4 @@ namespace Units
         public event ParameterChangedDelegate ConstitutionChangedEvent;
         public event ParameterChangedDelegate IntelligenceChangedEvent;
     }
-    
 }
