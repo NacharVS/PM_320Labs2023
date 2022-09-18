@@ -10,6 +10,8 @@ namespace Units
     abstract public class Action
     {
         public abstract void Attack(Unit unt, double damage);
+        public abstract void Unit_HealthChangedEvent(Unit unit);
+        public abstract void Unit_OnDiedEvent(Unit unit);
         public abstract void Move();
         public abstract void Mining();
         public abstract void Choping();

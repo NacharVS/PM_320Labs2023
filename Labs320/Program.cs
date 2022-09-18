@@ -23,20 +23,18 @@ namespace Warcraft
             {
                 Console.WriteLine(guardTower.health);
                 dragon.Attack(guardTower);
-                Console.WriteLine(guardTower.health);
                 
                 Console.WriteLine();
 
                 Console.WriteLine(dragon.health);
                 guardTower.Attack(dragon);
-                Console.WriteLine(dragon.health);
+
+                Console.WriteLine();
 
                 Console.WriteLine();
 
                 Console.WriteLine(mage.health);
                 guardTower.Attack(mage);
-                Console.WriteLine(mage.health);
-                if (mage.isDestroyed) { Console.WriteLine("die"); }
 
                 Console.WriteLine();
             }
@@ -52,6 +50,7 @@ namespace Warcraft
                     var unit2 = random.Next(0, units.Count);
 
                     units[unit1].Attack(units[unit2]);
+                    Console.WriteLine();
                     units.Remove(units[unit2]);
                 }
 

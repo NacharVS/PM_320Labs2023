@@ -8,13 +8,10 @@ namespace Warcraft
         public override void Attack(Unit unt, double damage) 
         {
             unt.health -= damage;
-
-            if (unt.health <= 0)
-            {
-                unt.isDestroyed = true;
-                unt.health = 0;
-            }
+            unt.IsDestroyed();
         }
+        public override void Unit_OnDiedEvent(Unit unit) { Console.WriteLine($"{unit.name} is died"); }
+        public override void Unit_HealthChangedEvent(Unit unit) { Console.WriteLine($"{unit.name} current health is {unit.health}"); }
         public override void Move() { }
         public override void Mining() { }
         public override void Choping() { }
