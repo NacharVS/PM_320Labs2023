@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Xakep\\source\\repos\\Units_classes\\Units_classes\\Units_classes.csproj": {}
+    "C:\\Users\\202002\\source\\repos\\Units_classes\\Units_classes\\Units_classes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Xakep\\source\\repos\\Units_classes\\Units_classes\\Units_classes.csproj": {
+    "C:\\Users\\202002\\source\\repos\\Units_classes\\Units_classes\\Units_classes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Xakep\\source\\repos\\Units_classes\\Units_classes\\Units_classes.csproj",
+        "projectUniqueName": "C:\\Users\\202002\\source\\repos\\Units_classes\\Units_classes\\Units_classes.csproj",
         "projectName": "Units_classes",
-        "projectPath": "C:\\Users\\Xakep\\source\\repos\\Units_classes\\Units_classes\\Units_classes.csproj",
-        "packagesPath": "C:\\Users\\Xakep\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Xakep\\source\\repos\\Units_classes\\Units_classes\\obj\\",
+        "projectPath": "C:\\Users\\202002\\source\\repos\\Units_classes\\Units_classes\\Units_classes.csproj",
+        "packagesPath": "C:\\Users\\202002\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\202002\\source\\repos\\Units_classes\\Units_classes\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Xakep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\202002\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -54,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
