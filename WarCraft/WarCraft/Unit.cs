@@ -11,6 +11,8 @@ namespace WarCraft
         public string Name { get; set; }
 
         private int _health;
+
+        public delegate void HealthChangedDelegate(int healthValue, int maxHealthValue);
         public int Health
         {
             get { return _health; }
@@ -24,9 +26,6 @@ namespace WarCraft
         public int Cost { get; set; }
         public int Lvl { get; set; }
         public bool IsDestroyed { get; set; }
-
-        public delegate void HealthChangedDelegate(int healthValue, int maxHealthValue);
-        public event HealthChangedDelegate HealthChangedEvent;
 
         public Unit(string name, int health, int cost)
         {
@@ -54,5 +53,7 @@ namespace WarCraft
         {
             Health -= damage;
         }
+
+        public event HealthChangedDelegate HealthChangedEvent;
     }
 }
