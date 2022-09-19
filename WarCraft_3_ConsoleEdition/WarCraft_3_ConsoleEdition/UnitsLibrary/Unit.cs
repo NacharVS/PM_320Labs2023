@@ -36,12 +36,23 @@
 
             if (_timeBleeding > 0)
             {
-                Console.WriteLine($"{Name} is bleeding! " +
+                if (this.GetType().Name.ToString() == "GuardTower")
+                {
+                    Console.WriteLine($"{Name} is bleeding! " +
                     $"He takes {value} damage.");
+                }
+                else
+                {
+                    Console.WriteLine($"{Name} is on fire! " +
+                    $"It takes {value} damage.");
+                }
+
                 _health -= 2;
                 _timeBleeding--;
                 return;
             }
+
+
 
             if (chance == 0)
             {
