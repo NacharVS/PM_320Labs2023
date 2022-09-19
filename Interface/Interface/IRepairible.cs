@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    interface IRepairible
+    public interface IRepairible
     {
         public int Condition { get; set; }
         public void Repair();
