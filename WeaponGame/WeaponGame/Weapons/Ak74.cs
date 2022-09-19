@@ -47,6 +47,38 @@ namespace WeaponGame.Weapons
             }
         }
 
+        private int _maxMagazineCapacity;
+        public int MaxMagazineCapacity
+        {
+            get { return _maxMagazineCapacity; }
+            private set
+            {
+                if (value <= 0)
+                {
+                    _maxMagazineCapacity = 0;
+                }
+                _maxMagazineCapacity = value;
+            }
+        }
+
+        private int _magazineCapacity;
+        public int MagazineCapacity
+        {
+            get { return _magazineCapacity; }
+            private set
+            {
+                if(value <= MaxMagazineCapacity && value > 0)
+                {
+                    _magazineCapacity = value;
+                }
+                else if (value > MaxMagazineCapacity)
+                {
+                    _magazineCapacity = MaxMagazineCapacity;
+                }
+                _magazineCapacity = 0;
+            }
+        }
+
         public Ak74(ILogger logger, int damage, int tripleShootDamage, int durability)
         {
             _logger = logger;
@@ -78,7 +110,11 @@ namespace WeaponGame.Weapons
 
         public void Reload()
         {
-            Log($"{GetType().Name} was reloaded.");
+            if (IsHaveDurability())
+            {
+                MagazineCapacity += 10;
+                Log($"{GetType().Name} was reloaded.");
+            }
         }
 
         public void Repair()

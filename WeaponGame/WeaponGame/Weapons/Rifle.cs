@@ -33,6 +33,38 @@ namespace WeaponGame
             }
         }
 
+        private int _maxMagazineCapacity;
+        public int MaxMagazineCapacity
+        {
+            get { return _maxMagazineCapacity; }
+            private set
+            {
+                if (value <= 0)
+                {
+                    _maxMagazineCapacity = 0;
+                }
+                _maxMagazineCapacity = value;
+            }
+        }
+
+        private int _magazineCapacity;
+        public int MagazineCapacity
+        {
+            get { return _magazineCapacity; }
+            private set
+            {
+                if (value <= MaxMagazineCapacity && value > 0)
+                {
+                    _magazineCapacity = value;
+                }
+                else if (value > MaxMagazineCapacity)
+                {
+                    _magazineCapacity = MaxMagazineCapacity;
+                }
+                _magazineCapacity = 0;
+            }
+        }
+
         public Rifle(ILogger logger, int damage, int durability)
         {
             _logger = logger;
@@ -47,12 +79,19 @@ namespace WeaponGame
 
         public void SingleShoot()
         {
-            Log($"{GetType().Name} fired a single shoot with damage: {Damage}");
+            if(IsHaveDurability())
+            {
+                Log($"{GetType().Name} fired a single shoot with damage: {Damage}");
+            }          
         }
 
         public void Reload()
         {
-            Log($"{GetType().Name} was reloaded.");
+            if(IsHaveDurability())
+            {
+                MagazineCapacity += 2;
+                Log($"{GetType().Name} was reloaded.");
+            }           
         }
 
         public void Repair()
@@ -65,6 +104,16 @@ namespace WeaponGame
         {
             Damage += 10;
             Log($"{GetType().Name} was upgraded. Damage: {Damage}");
+        }
+
+        private bool IsHaveDurability()
+        {
+            if (Durability == 0)
+            {
+                Log($"Can not fire!Durability {Durability}");
+                return false;
+            }
+            return true;
         }
     }
 }

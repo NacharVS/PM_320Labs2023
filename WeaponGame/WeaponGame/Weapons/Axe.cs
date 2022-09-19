@@ -47,7 +47,10 @@ namespace WeaponGame.Weapons
 
         public void MeleeAttack()
         {
-            Log($"{GetType().Name} attack with damage: {MeleeDamage}");
+            if(IsHaveDurability())
+            {
+                Log($"{GetType().Name} attack with damage: {MeleeDamage}");
+            }
         }
 
         public void Repair()
@@ -60,6 +63,16 @@ namespace WeaponGame.Weapons
         {
             MeleeDamage += 15;
             Log($"{GetType().Name} was upgraded. Damage: {MeleeDamage}");
+        }
+
+        private bool IsHaveDurability()
+        {
+            if (Durability == 0)
+            {
+                Log($"Can not fire!Durability {Durability}");
+                return false;
+            }
+            return true;
         }
     }
 }
