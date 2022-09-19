@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    class Mechanic
+    public class Mechanic
     {
         public void Upgrade(IUpgrade weapon)
         {

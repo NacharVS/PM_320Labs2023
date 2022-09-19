@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    class Shooter
+    public class Shooter
     {
         public void SingleShot(IFirearms weapon)
         {
@@ -26,6 +26,11 @@ namespace AppWithInterface
         public void ThrowHit(IThrowingWeapons weapon)
         {
             weapon.ThrowHit();
+        }
+
+        public void Reload (IReloadable weapon)
+        {
+            weapon.Reload();
         }
     }
 }

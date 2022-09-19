@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    public interface IMeleeWeapons : IUpgrade, IRepairible
+    public interface IReloadable
     {
-        public int MeleeDamage { get; set; }
-
-        public void MeleeHit();
+        public int BulletsCount { get; set; }
+        public int MaxBulletsCount { get; set; }
+        public void Reload();
     }
 }

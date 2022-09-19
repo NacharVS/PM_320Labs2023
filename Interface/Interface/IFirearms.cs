@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    interface IFirearms
+    public interface IFirearms : IUpgrade, IRepairible, IReloadable
     {
-        int GunshotDamage { get; set; }
+        public int GunshotDamage { get; set; }
 
-        void SingleShot();
+        public void SingleShot();
     }
 }

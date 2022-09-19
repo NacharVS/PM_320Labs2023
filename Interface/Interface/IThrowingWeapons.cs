@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    interface IThrowingWeapons
+    public interface IThrowingWeapons
     {
-        int ThrowDamage { get; set; }
+        public int ThrowDamage { get; set; }
 
         public void ThrowHit();
     }

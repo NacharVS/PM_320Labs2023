@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    class Shuriken : IThrowingWeapons
+    public class Shuriken : IThrowingWeapons
     {
-        public int _throwDamage = 5;
+        public int ThrowDamage { get; set; }
 
-        public int ThrowDamage
+        public Shuriken (int throwDamage)
         {
-            get { return _throwDamage; }
-            set { _throwDamage = value; }
+            ThrowDamage = throwDamage;
         }
 
         public void ThrowHit()

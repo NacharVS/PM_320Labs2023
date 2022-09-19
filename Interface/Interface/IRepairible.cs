@@ -8,6 +8,7 @@ namespace AppWithInterface
 {
     interface IRepairible
     {
+        public int Condition { get; set; }
         public void Repair();
     }
 }

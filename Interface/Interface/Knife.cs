@@ -6,31 +6,46 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    class Knife : IMeleeWeapons, IThrowingWeapons
+    public class Knife : IMeleeWeapons, IThrowingWeapons
     {
-        public int _meleeeDamage = 15;
-        public int _throwDamage = 15;
+        public int MeleeDamage { get; set; }
+        public int ThrowDamage { get; set; }
+        public int Condition { get; set; }
 
-        public int MeleeDamage
-        {
-            get { return _meleeeDamage; }
-            set { _meleeeDamage = value; }
-        }
+        public int upgrade = 10;
+        public int repair = 10;
 
-        public int ThrowDamage
+        public Knife (int meleeDamage, int throwDamage, int condition)
         {
-            get { return _throwDamage; }
-            set { _throwDamage = value; }
+            MeleeDamage = meleeDamage;
+            ThrowDamage = throwDamage;
+            Condition = condition;
         }
 
         public void MeleeHit()
         {
-            Console.WriteLine($"Stab with {MeleeDamage} damage");
+            Condition--;
+            Console.WriteLine($"Stab with {MeleeDamage} damage. Condition: {Condition}");
         }
 
         public void ThrowHit()
         {
-            Console.WriteLine($"Knife throw with {ThrowDamage} damage");
+            Condition--;
+            Console.WriteLine($"Knife throw with {ThrowDamage} damage. Condition: {Condition}");
+        }
+
+        public void Upgrade()
+        {
+            MeleeDamage += upgrade;
+            ThrowDamage += upgrade;
+            Console.WriteLine($"Knife is upgraded by {upgrade}. " +
+                $"Melee damage: {MeleeDamage}. Throw damage: {ThrowDamage}");
+        }
+
+        public void Repair()
+        {
+            Condition += repair;
+            Console.WriteLine($"Knife is repaired by {repair}. Condition: {Condition}");
         }
     }
 }

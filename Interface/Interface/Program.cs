@@ -13,11 +13,11 @@ namespace AppWithInterface
             Shooter shooter = new Shooter();
             Mechanic mechanic = new Mechanic();
 
-            Pistol pistol = new Pistol();
-            Machinegun machinegun = new Machinegun();
-            Sword sword = new Sword();
-            Shuriken shuriken = new Shuriken();
-            Knife knife = new Knife();
+            Pistol pistol = new Pistol(120, 100, 15);
+            Machinegun machinegun = new Machinegun(150, 100, 30);
+            Sword sword = new Sword(70, 100);
+            Shuriken shuriken = new Shuriken(100);
+            Knife knife = new Knife(50, 110, 100);
 
             shooter.SingleShot(pistol);
             shooter.AutoShot(machinegun);
@@ -26,16 +26,30 @@ namespace AppWithInterface
             shooter.MeleeHit(knife);
             shooter.ThrowHit(knife);
 
-            /*mechanic.Upgrade(pistol);
+            Console.WriteLine("---");
+
+            pistol.Reload();
+            machinegun.Reload();
+
+            Console.WriteLine("---");
+
+            mechanic.Upgrade(pistol);
             mechanic.Repair(pistol);
             mechanic.Upgrade(machinegun);
             mechanic.Repair(machinegun);
             mechanic.Upgrade(sword);
             mechanic.Repair(sword);
-            mechanic.Upgrade(shuriken);
-            mechanic.Repair(shuriken);
             mechanic.Upgrade(knife);
-            mechanic.Repair(knife);*/
+            mechanic.Repair(knife);
+
+            Console.WriteLine("---");
+
+            shooter.SingleShot(pistol);
+            shooter.AutoShot(machinegun);
+            shooter.MeleeHit(sword);
+            shooter.ThrowHit(shuriken);
+            shooter.MeleeHit(knife);
+            shooter.ThrowHit(knife);
         }
     }
 }

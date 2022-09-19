@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppWithInterface
 {
-    internal interface IUpgrade
+    public interface IUpgrade
     {
         public void Upgrade();
     }
