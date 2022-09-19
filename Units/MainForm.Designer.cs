@@ -35,7 +35,7 @@ namespace Units
             this.comboBoxChoice = new System.Windows.Forms.ComboBox();
             this.numericConstitution = new System.Windows.Forms.NumericUpDown();
             this.numericIntellisence = new System.Windows.Forms.NumericUpDown();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.tbHP = new System.Windows.Forms.TextBox();
             this.tbMP = new System.Windows.Forms.TextBox();
             this.tbDefence = new System.Windows.Forms.TextBox();
@@ -54,7 +54,7 @@ namespace Units
             ((System.ComponentModel.ISupportInitialize)(this.numericDexterity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConstitution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericIntellisence)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // numericStrength
@@ -124,14 +124,15 @@ namespace Units
             this.numericIntellisence.TabIndex = 5;
             this.numericIntellisence.ValueChanged += new System.EventHandler(this.numericIntellisence_ValueChanged);
             // 
-            // pictureBox1
+            // pictureBox
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Location = new System.Drawing.Point(50, 127);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(186, 200);
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
+            this.pictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox.Location = new System.Drawing.Point(50, 127);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(336, 200);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 6;
+            this.pictureBox.TabStop = false;
             // 
             // tbHP
             // 
@@ -297,7 +298,7 @@ namespace Units
             this.Controls.Add(this.tbDefence);
             this.Controls.Add(this.tbMP);
             this.Controls.Add(this.tbHP);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.numericIntellisence);
             this.Controls.Add(this.numericConstitution);
             this.Controls.Add(this.comboBoxChoice);
@@ -309,7 +310,7 @@ namespace Units
             ((System.ComponentModel.ISupportInitialize)(this.numericDexterity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConstitution)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericIntellisence)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -321,7 +322,7 @@ namespace Units
         private System.Windows.Forms.ComboBox comboBoxChoice;
         private System.Windows.Forms.NumericUpDown numericConstitution;
         private System.Windows.Forms.NumericUpDown numericIntellisence;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TextBox tbHP;
         private System.Windows.Forms.TextBox tbMP;
         private System.Windows.Forms.TextBox tbDefence;
