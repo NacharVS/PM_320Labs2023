@@ -36,7 +36,7 @@
 
             if (_timeBleeding > 0)
             {
-                if (this.GetType().Name.ToString() == "GuardTower")
+                if (this.GetType().Name.ToString() != "GuardTower")
                 {
                     Console.WriteLine($"{Name} is bleeding! " +
                     $"He takes {value} damage.");
