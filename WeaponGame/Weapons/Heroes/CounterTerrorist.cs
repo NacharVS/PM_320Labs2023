@@ -40,4 +40,8 @@ public class CounterTerrorist
     {
         reloadableWeapon.Reload();
     }
+    public void TripleShot(ITripleShot tripleShot)
+    {
+        tripleShot.TripleShot();
+    }
 }
