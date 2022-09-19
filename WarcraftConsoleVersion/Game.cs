@@ -104,13 +104,19 @@
                 }
             }
 
+            void EffectBurning()
+            {
+                //fire!
+            }
             if (oneCharachter.alive)
             {
+                oneCharachter.skillPoint = twoCharachter.skillPoint + 1;
                 Console.WriteLine(oneCharachter.name + " kill " + twoCharachter.name);
             }
             else
             {
                 Console.WriteLine(twoCharachter.name + " kill " + oneCharachter.name);
+                twoCharachter.skillPoint = oneCharachter.skillPoint + 1;
             }
         }
     }
@@ -128,4 +134,6 @@
             }
         }
     }
+
+    
 }

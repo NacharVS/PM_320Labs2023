@@ -1,14 +1,8 @@
-﻿public class Blacksmith
+﻿public class Blacksmith : Unit
 {
-    public int healtPoint;
-    public string name;
-    public int cost;
 
-    public Blacksmith(int healtPoint, string name, int cost)
+    public Blacksmith(int healthPoint, string name, int cost, int level): base(healthPoint, cost, name, level)
     {
-        this.healtPoint = healtPoint;
-        this.name = name;
-        this.cost = cost;
     }
 
     public void UpgradeWeapon()

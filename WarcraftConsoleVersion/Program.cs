@@ -34,9 +34,11 @@ public class Program
         newGame.GameStart(codeOne, codeTwo);
         //Unit archer;
 
-        Archer archer = new (550, 425, "Archer", 1, 1, 27, 2, 2, 60);
+        Archer archer = new(550, 425, "Archer", 1, 1, 27, 2, 2, 60);
 
-        Blacksmith blacksmith = new Blacksmith(1200, "Blacksmith", 5);
+        //Console.WriteLine(archer.skillPoint);
+
+        Blacksmith blacksmith = new Blacksmith(1200, "Blacksmith", 5, 1);
 
         /*Console.WriteLine(archer.damage);
 

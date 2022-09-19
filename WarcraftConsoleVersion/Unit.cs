@@ -7,6 +7,7 @@ public class Unit
     public string name;
     public int level;
     public bool alive = true;
+    public int skillPoint = 0;
 
     public Unit(int newHealthPoint, int newCost, string newName, int newLevel)
     {

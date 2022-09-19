@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Icon.gif" />
+    <None Remove="Images\image.jpg" />
+    <None Remove="Images\Rogue.gif" />
+    <None Remove="Images\Warrior.gif" />
+    <None Remove="Images\Wizard.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Icon.gif" />
+    <Resource Include="Images\image.jpg" />
+    <Resource Include="Images\Rogue.gif" />
+    <Resource Include="Images\Warrior.gif" />
+    <Resource Include="Images\Wizard.gif" />
+  </ItemGroup>
+
+</Project>
