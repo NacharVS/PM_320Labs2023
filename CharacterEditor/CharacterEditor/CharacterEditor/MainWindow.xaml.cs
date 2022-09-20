@@ -1,4 +1,5 @@
 ﻿using CharacterEditorCore;
+using CharacterEditorMongoDb;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -14,6 +15,7 @@ namespace CharacterEditor
         private List<string> _characterNames = new List<string>()
                                               {"Warrior", "Rogue", "Wizard"};
         private Character _currentCharacter;
+        private CharacterRepository _repository;
         public delegate void CharactericticChangedDelegate();
         public event CharactericticChangedDelegate CharactericticChangedEvent;
 
@@ -22,6 +24,14 @@ namespace CharacterEditor
             InitializeComponent();
             cbCharacters.ItemsSource = _characterNames;
             CharactericticChangedEvent += UpdateCharacterInfo;
+            try
+            {
+                _repository = new CharacterRepository("mongodb://localhost", "CharacterEditor");
+            }
+            catch
+            {
+                MessageBox.Show("Failed to connect to the database","Warning");
+            }
         }
 
         private void UpdateCharacterInfo()
