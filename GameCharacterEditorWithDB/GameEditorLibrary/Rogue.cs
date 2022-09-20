@@ -13,9 +13,13 @@ namespace GameEditorLibrary
             get { return _strength; }
             set
             {
-                attackDamage += (value - _strength) * 2;
-                HP += (value - _strength);
-                _strength = value;
+                if (value >= minStrength && value <= maxStrength)
+                {
+                    attackDamage += (value - _strength) * 2;
+                    HP += (value - _strength);
+                    _strength = value;
+                }
+
             }
         }
         public override int Dexterity
@@ -23,9 +27,13 @@ namespace GameEditorLibrary
             get { return _dexterity; }
             set
             {
-                attackDamage += (value - _dexterity) * 4;
-                phDefention += (value - _dexterity) * 1.5;
-                _dexterity = value;
+                if (value >= minDexterity && value <= maxDexterity)
+                {
+                    attackDamage += (value - _dexterity) * 4;
+                    phDefention += (value - _dexterity) * 1.5;
+                    _dexterity = value;
+                }
+
             }
         }
         public override int Constitution
@@ -33,8 +41,12 @@ namespace GameEditorLibrary
             get { return _constitution; }
             set
             {
-                HP += (value - _constitution) * 6;
-                _constitution = value;
+                if (value >= minConstitution && value <= maxConstitution)
+                {
+                    HP += (value - _constitution) * 6;
+                    _constitution = value;
+                }
+
             }
         }
         public override int Intelligence
@@ -42,14 +54,18 @@ namespace GameEditorLibrary
             get { return _intelligence; }
             set
             {
-                MP += (value - _intelligence) * 1.5;
-                manaAttack += (value - _intelligence) * 2;
-                _intelligence = value;
+                if (value >= minIntelligence && value <= maxIintelligence)
+                {
+                    MP += (value - _intelligence) * 1.5;
+                    manaAttack += (value - _intelligence) * 2;
+                    _intelligence = value;
+                }
+
             }
         }
-
         public Rogue() 
         {
+            typeOfUnit = "Rogue";
             maxIintelligence = 70;
             minIntelligence = 15;
             minStrength = 15;

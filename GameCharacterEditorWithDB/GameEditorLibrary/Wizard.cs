@@ -13,9 +13,13 @@ namespace GameEditorLibrary
             get { return _strength; }
             set
             {
-                attackDamage += (value - _strength) * 3;
-                HP += (value - _strength);
-                _strength = value;
+                if (value >= minStrength && value <= maxStrength)
+                {
+                    attackDamage += (value - _strength) * 3;
+                    HP += (value - _strength);
+                    _strength = value;
+                }
+
             }
         }
 
@@ -24,8 +28,12 @@ namespace GameEditorLibrary
             get { return _dexterity; }
             set
             {
-                phDefention += (value - _dexterity) * 0.5;
-                _dexterity = value;
+                if (value >= minDexterity && value <= maxDexterity)
+                {
+                    phDefention += (value - _dexterity) * 0.5;
+                    _dexterity = value;
+                }
+
             }
         }
         public override int Constitution
@@ -33,9 +41,13 @@ namespace GameEditorLibrary
             get { return _constitution; }
             set
             {
-                HP += (value - _constitution) * 3;
-                phDefention += (value - _constitution);
-                _constitution = value;
+                if (value >= minConstitution && value <= maxConstitution)
+                {
+                    HP += (value - _constitution) * 3;
+                    phDefention += (value - _constitution);
+                    _constitution = value;
+                }
+
             }
         }
         public override int Intelligence
@@ -43,14 +55,19 @@ namespace GameEditorLibrary
             get { return _intelligence; }
             set
             {
-                MP += (value - _intelligence) * 2;
-                manaAttack += (value - _intelligence) * 5;
-                _intelligence = value;
+                if (value >= minIntelligence && value <= maxIintelligence)
+                {
+                    MP += (value - _intelligence) * 2;
+                    manaAttack += (value - _intelligence) * 5;
+                    _intelligence = value;
+                }
+
             }
         }
 
         public Wizard()
         {
+            typeOfUnit = "Wizard";
             maxIintelligence = 250;
             minIntelligence = 35;
             minStrength = 10;

@@ -1,9 +1,17 @@
 ﻿using System;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameEditorLibrary
 {
     public class Unit
     {
+        [BsonIgnoreIfDefault]
+        public ObjectId _id;
+        [BsonIgnoreIfDefault]
+        public string typeOfUnit;
+        [BsonIgnoreIfNull]
+        public string Name { get; set; }
         public int minStrength;
         public int maxStrength;
         protected int _strength;

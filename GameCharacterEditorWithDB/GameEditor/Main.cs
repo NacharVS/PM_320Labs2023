@@ -1,33 +1,45 @@
 using GameEditorLibrary;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace GameEditor
 {
     public partial class Main : Form
     {
         Unit selectedUnit;
+
         public Main()
         {
             InitializeComponent();
+            ListUpdate();
+            listBoxMain.SetSelected(0,true);
         }
 
         private void ListBoxMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Units.Clear();
-            string nameOfCharachter = listBoxMain.SelectedItem.ToString();
-            Unit infoName = GameEditorLibrary.Units.Info(nameOfCharachter);
-            selectedUnit = infoName;
-            numericUpDownStr.Minimum = Convert.ToDecimal(infoName.minStrength);
-            numericUpDownStr.Maximum = Convert.ToDecimal(infoName.maxStrength);
-            numericUpDownStr.Value = numericUpDownStr.Minimum;
-            numericUpDownDex.Minimum = Convert.ToDecimal(infoName.minDexterity);
-            numericUpDownDex.Maximum = Convert.ToDecimal(infoName.maxDexterity);
-            numericUpDownDex.Value = numericUpDownDex.Minimum;
-            numericUpDownCon.Minimum = Convert.ToDecimal(infoName.minConstitution);
-            numericUpDownCon.Maximum = Convert.ToDecimal(infoName.maxConstitution);
-            numericUpDownCon.Value = numericUpDownCon.Minimum;
-            numericUpDownInt.Minimum = Convert.ToDecimal(infoName.minIntelligence);
-            numericUpDownInt.Maximum = Convert.ToDecimal(infoName.maxIintelligence);
-            numericUpDownInt.Value = numericUpDownInt.Minimum;
+            if (listBoxMain.SelectedItems.Count > 0)
+            {
+                string nameOfCharachter = listBoxMain.SelectedItem.ToString();
+                Unit infoName = GameEditorLibrary.Units.Info(nameOfCharachter);
+                selectedUnit = infoName;
+                textBoxName.Text = "";
+                numericUpDownStr.Value = selectedUnit.Strength;
+
+                numericUpDownDex.Value = selectedUnit.Dexterity;
+                numericUpDownCon.Value = selectedUnit.Constitution;
+                numericUpDownInt.Value = selectedUnit.Intelligence;
+                listBoxRes.SelectedItems.Clear();
+            }
+            else
+            {
+                textBoxName.Text = selectedUnit.Name;
+                numericUpDownStr.Value = selectedUnit.Strength;
+                numericUpDownDex.Value = selectedUnit.Dexterity;
+                numericUpDownCon.Value = selectedUnit.Constitution;
+                numericUpDownInt.Value = selectedUnit.Intelligence;
+            }
+            
         }
 
         private void NumericUpDownStr_ValueChanged(object sender, EventArgs e)
@@ -36,7 +48,6 @@ namespace GameEditor
             textBoxAttack.Text = selectedUnit.attackDamage.ToString();
             textBoxHP.Text = selectedUnit.HP.ToString();
         }
-
 
         private void NumericUpDownDex_ValueChanged(object sender, EventArgs e)
         {
@@ -61,7 +72,35 @@ namespace GameEditor
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
-            listBoxRes.Items.Add($"{selectedUnit} : {selectedUnit.Strength}");
+            listBoxRes.Items.Add(selectedUnit.Name);
+            DBConnection.AddToDataBase(selectedUnit);
+            numericUpDownStr.Value = numericUpDownStr.Minimum;
+            numericUpDownCon.Value = numericUpDownCon.Minimum;
+            numericUpDownDex.Value = numericUpDownDex.Minimum;
+            numericUpDownInt.Value = numericUpDownInt.Minimum;
+            textBoxName.Text = "";
+        }
+
+        private void TextBoxName_TextChanged(object sender, EventArgs e)
+        {
+            selectedUnit.Name = textBoxName.Text;
+        }
+
+        private void ListBoxRes_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (listBoxRes.SelectedItems.Count > 0)
+            {
+                selectedUnit = DBConnection.FindByName(listBoxRes.Text);
+                listBoxMain.SelectedItems.Clear();
+            }
+        }
+        private void ListUpdate()
+        {
+            var collection = DBConnection.ImportData();
+            foreach (var post in collection)
+            {
+                listBoxRes.Items.Add(post.Name);
+            }
         }
     }
 }

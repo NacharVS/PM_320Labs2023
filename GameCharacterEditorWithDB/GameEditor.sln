@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameEditor", "GameEditor\Ga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameEditorLibrary", "GameEditorLibrary\GameEditorLibrary.csproj", "{ACD61FA0-1C8E-4BA7-8B06-3DA1E12C3857}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEditorMongoDB", "GameEditorMongoDB\GameEditorMongoDB.csproj", "{68F8E049-1062-4A81-8E03-6C5369ED6728}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{ACD61FA0-1C8E-4BA7-8B06-3DA1E12C3857}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACD61FA0-1C8E-4BA7-8B06-3DA1E12C3857}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACD61FA0-1C8E-4BA7-8B06-3DA1E12C3857}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68F8E049-1062-4A81-8E03-6C5369ED6728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68F8E049-1062-4A81-8E03-6C5369ED6728}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68F8E049-1062-4A81-8E03-6C5369ED6728}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68F8E049-1062-4A81-8E03-6C5369ED6728}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

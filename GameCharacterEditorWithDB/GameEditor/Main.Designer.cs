@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.mainPan = new System.Windows.Forms.Panel();
+            this.textBoxName = new System.Windows.Forms.TextBox();
+            this.nameLbl = new System.Windows.Forms.Label();
             this.okBtn = new System.Windows.Forms.Button();
             this.textBoxAttackMana = new System.Windows.Forms.TextBox();
             this.attackManaLbl = new System.Windows.Forms.Label();
@@ -61,6 +63,8 @@
             // 
             this.mainPan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.mainPan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mainPan.Controls.Add(this.textBoxName);
+            this.mainPan.Controls.Add(this.nameLbl);
             this.mainPan.Controls.Add(this.okBtn);
             this.mainPan.Controls.Add(this.textBoxAttackMana);
             this.mainPan.Controls.Add(this.attackManaLbl);
@@ -86,6 +90,24 @@
             this.mainPan.Name = "mainPan";
             this.mainPan.Size = new System.Drawing.Size(473, 450);
             this.mainPan.TabIndex = 0;
+            // 
+            // textBoxName
+            // 
+            this.textBoxName.Location = new System.Drawing.Point(156, 69);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.Size = new System.Drawing.Size(280, 27);
+            this.textBoxName.TabIndex = 21;
+            this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxName_TextChanged);
+            // 
+            // nameLbl
+            // 
+            this.nameLbl.AutoSize = true;
+            this.nameLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.nameLbl.Location = new System.Drawing.Point(21, 67);
+            this.nameLbl.Name = "nameLbl";
+            this.nameLbl.Size = new System.Drawing.Size(59, 25);
+            this.nameLbl.TabIndex = 20;
+            this.nameLbl.Text = "Name";
             // 
             // okBtn
             // 
@@ -262,16 +284,16 @@
             // listBoxMain
             // 
             this.listBoxMain.Dock = System.Windows.Forms.DockStyle.Top;
-            this.listBoxMain.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.listBoxMain.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listBoxMain.FormattingEnabled = true;
-            this.listBoxMain.ItemHeight = 25;
+            this.listBoxMain.ItemHeight = 20;
             this.listBoxMain.Items.AddRange(new object[] {
             "Warrior",
             "Rogue",
             "Wizard"});
             this.listBoxMain.Location = new System.Drawing.Point(0, 0);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(469, 79);
+            this.listBoxMain.Size = new System.Drawing.Size(469, 64);
             this.listBoxMain.TabIndex = 0;
             this.listBoxMain.SelectedIndexChanged += new System.EventHandler(this.ListBoxMain_SelectedIndexChanged);
             // 
@@ -282,8 +304,9 @@
             this.listBoxRes.ItemHeight = 20;
             this.listBoxRes.Location = new System.Drawing.Point(0, 0);
             this.listBoxRes.Name = "listBoxRes";
-            this.listBoxRes.Size = new System.Drawing.Size(323, 450);
+            this.listBoxRes.Size = new System.Drawing.Size(328, 450);
             this.listBoxRes.TabIndex = 1;
+            this.listBoxRes.SelectedValueChanged += new System.EventHandler(this.ListBoxRes_SelectedValueChanged);
             // 
             // Main
             // 
@@ -329,5 +352,7 @@
         private TextBox textBoxMana;
         private Button okBtn;
         private ListBox listBoxRes;
+        private TextBox textBoxName;
+        private Label nameLbl;
     }
 }

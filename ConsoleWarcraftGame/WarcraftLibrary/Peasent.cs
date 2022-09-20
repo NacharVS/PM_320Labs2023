@@ -11,9 +11,15 @@ namespace WarcraftLibrary
         public Peasent(string name, int health = 20, int cost = 10, int lvl = 1, bool isDestroyed = false, int speed = 15, int damage = 0) : base(name, health, cost, lvl, isDestroyed, speed, damage)
         { }
 
-        public void Mining() {}
+        public void Mining() 
+        {
+            Console.WriteLine("Is mining");
+        }
 
-        public void Choping() {}
+        public void Choping() 
+        {
+            Console.WriteLine("Is choping");
+        }
 
         public override string Attack(Unit unit, Blacksmith blacksmith)
         {
