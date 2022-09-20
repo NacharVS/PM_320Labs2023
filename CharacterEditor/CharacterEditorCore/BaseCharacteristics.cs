@@ -1,13 +1,19 @@
-﻿namespace CharacterEditorCore
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace CharacterEditorCore
 {
     public abstract class BaseCharacteristics
     {
-        private int _expPoints;
-        public int ExpPoints
+        private ObjectId _id;
+
+        private string _name;
+        public string Name 
         {
-            get { return _expPoints; }
-            set { _expPoints = value; }
+            get => _name;
+            set => _name = value;
         }
+
         private Characteristics _strength;
         public Characteristics Strength {
             get { return _strength; }
@@ -24,7 +30,6 @@
             get { return _dexterity; }
             set 
             {
-                _expPoints -= value.Value - _dexterity.Value;
                 _dexterity = value;
             }
         }
@@ -40,7 +45,6 @@
             }
             set
             {
-                _expPoints -= value.Value - _dexterity.Value;
                 _constitution = value;
             } 
         }
@@ -54,7 +58,6 @@
             get { return _intelligence; }
             set 
             {
-                _expPoints -= value.Value - _dexterity.Value;
                 _intelligence = value;
             }
         }
@@ -75,11 +78,6 @@
             }
         }
 
-        public void AttackDamageCalc()
-        {
-            AttackDamage = _strength.Value * _strengthAttackChange + _dexterity.Value * _dexterityAttackChange;
-        }
-
         private double _physicalDef;
         public double PhysicalDef
         {
@@ -92,11 +90,6 @@
                 }
                 else _physicalDef = 0;
             }
-        }
-
-        public void PhysicalDefCalc()
-        {
-            PhysicalDef = _dexterity.Value * _dexterityPhysicalDefChange + _constitution.Value * _constitutionPhysicalDefChange;
         }
 
         private int _magicAttack;
@@ -112,10 +105,6 @@
                 else _magicAttack = 0;
             }
         }
-        public void MagicAttackCalc()
-        {
-            MagicAttack = _intelligence.Value * _intelligenceMagicAttackChange;
-        }
 
         private double _mp;
         public double ManaPoint
@@ -130,10 +119,6 @@
                 else _mp = 0;
             }
         }
-        public void ManaPointCalc()
-        {
-            ManaPoint = _intelligence.Value * _intelligenceMpChange;
-        }
         private int _hp;
         public int HealthPoint
         {
@@ -147,9 +132,27 @@
                 else _hp = 0;
             }
         }
+
         public void HealthPointCalc()
         {
             HealthPoint = _strength.Value * _strengthHpChange + _constitution.Value * _constitutionHpChange;
+        }
+
+        public void AttackDamageCalc()
+        {
+            AttackDamage = _strength.Value * _strengthAttackChange + _dexterity.Value * _dexterityAttackChange;
+        }
+        public void ManaPointCalc()
+        {
+            ManaPoint = _intelligence.Value * _intelligenceMpChange;
+        }
+        public void MagicAttackCalc()
+        {
+            MagicAttack = _intelligence.Value * _intelligenceMagicAttackChange;
+        }
+        public void PhysicalDefCalc()
+        {
+            PhysicalDef = _dexterity.Value * _dexterityPhysicalDefChange + _constitution.Value * _constitutionPhysicalDefChange;
         }
 
         public void CalcStats()
@@ -172,8 +175,7 @@
                                 double constitutionPhysicalDefChange,
                                 int constitutionHpChange,
                                 int intelligenceMagicAttackChange,
-                                double intelligenceMpChange,
-                                int expPoints)
+                                double intelligenceMpChange)
         {
             _strength = strength;
             _dexterity = dexterity;
@@ -187,8 +189,7 @@
             _constitutionPhysicalDefChange = constitutionPhysicalDefChange;
             _intelligenceMagicAttackChange = intelligenceMagicAttackChange;
             _intelligenceMpChange = intelligenceMpChange;
-            _expPoints = expPoints;
-            
+
             CalcStats();
         }
     }

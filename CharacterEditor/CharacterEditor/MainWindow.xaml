@@ -7,21 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="800" ResizeMode="NoResize">
     <Window.Resources>
-        <Style x:Key="PlusButton">
+        <Style x:Key="CharacteristicChangeButton">
             <Setter Property="Control.Height" Value="50"/>
             <Setter Property="Control.Width" Value="50"/>
-            <Setter Property="Control.HorizontalAlignment" Value="Right"/>
             <Setter Property="Control.VerticalAlignment" Value="Top"/>
-            <Setter Property="Button.Content" Value="+"/>
             <Setter Property="Control.Margin" Value="5"/>
-        </Style>
-        <Style x:Key="MinusButton">
-            <Setter Property="Control.Height" Value="50"/>
-            <Setter Property="Control.Width" Value="50"/>
-            <Setter Property="Control.HorizontalAlignment" Value="Left"/>
-            <Setter Property="Control.VerticalAlignment" Value="Top"/>
-            <Setter Property="Button.Content" Value="-"/>
-            <Setter Property="Control.Margin" Value="5"/>
+            <EventSetter Event="Button.Click" Handler="CharacteristicChange"/>
         </Style>
         <Style x:Key="CharactersName">
             <Setter Property="Control.Height" Value="50"/>
@@ -69,29 +60,44 @@
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnPlusStrength" Style="{StaticResource PlusButton}" Grid.Row="6" Grid.Column="0" Click="btnPlusStrength_Click"/>
-        <Button x:Name="btnMinusStrength" Style="{StaticResource MinusButton}" Grid.Row="6" Grid.Column="0" Click="btnMinusStrength_Click"/>
+        <Button x:Name="btnPlusStrength" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="0" Click="BtnPlusStrength_Click"/>
+        <Button x:Name="btnMinusStrength" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="0" Click="BtnMinusStrength_Click"/>
         <Label x:Name="lbStrength" Style="{StaticResource CharactersName}" Content="Strength" Grid.Row="5"/>
         <Label x:Name="lbStrengthValue" Style="{StaticResource CharactersValue}" Grid.Row="6"/>
 
-        <Button x:Name="btnPlusDexterity" Style="{StaticResource PlusButton}" Grid.Row="6" Grid.Column="1" Click="btnPlusDexterity_Click"/>
-        <Button x:Name="btnMinusDexterity" Style="{StaticResource MinusButton}" Grid.Row="6" Grid.Column="1" Click="btnMinusDexterity_Click" />
+        <Button x:Name="btnPlusDexterity" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="1" Click="BtnPlusDexterity_Click"/>
+        <Button x:Name="btnMinusDexterity" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="1" Click="BtnMinusDexterity_Click" />
         <Label x:Name="lbDexterity" Style="{StaticResource CharactersName}" Content="Dexterity" Grid.Row="5" Grid.Column="1"/>
         <Label x:Name="lbDexterityValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="1"/>
 
-        <Button x:Name="btnPlusConstitution" Style="{StaticResource PlusButton}" Grid.Row="6" Grid.Column="2" Click="btnPlusConstitution_Click"/>
-        <Button x:Name="btnMinusConstitution" Style="{StaticResource MinusButton}" Grid.Row="6" Grid.Column="2" Click="btnMinusConstitution_Click"/>
+        <Button x:Name="btnPlusConstitution" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="2" Click="BtnPlusConstitution_Click"/>
+        <Button x:Name="btnMinusConstitution" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="2" Click="BtnMinusConstitution_Click"/>
         <Label x:Name="lbConstitution" Style="{StaticResource CharactersName}" Content="Constitution" Grid.Row="5" Grid.Column="2"/>
         <Label x:Name="lbConstitutionValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="2" />
 
-        <Button x:Name="btnPlusIntelligence" Style="{StaticResource PlusButton}" Grid.Row="6" Grid.Column="3" Click="btnPlusIntelligence_Click"/>
-        <Button x:Name="btnMinusIntelligence" Style="{StaticResource MinusButton}" Grid.Row="6" Grid.Column="3" Click="btnMinusIntelligence_Click"/>
+        <Button x:Name="btnPlusIntelligence" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="3" Click="BtnPlusIntelligence_Click"/>
+        <Button x:Name="btnMinusIntelligence" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="3" Click="BtnMinusIntelligence_Click"/>
         <Label x:Name="lbIntelligence" Style="{StaticResource CharactersName}" Content="Intelligence" Grid.Row="5" Grid.Column="3"/>
         <Label x:Name="lbIntelligenceValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="3"/>
 
-        <ComboBox x:Name="cbCharacters" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="190" Grid.Column="1" Height="50" SelectionChanged="ComboBox_SelectionChanged"/>
-        <!--<Label x:Name="lbExpValue" Grid.Column="1" Grid.Row="1" Style="{StaticResource CharactersValue}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 20,0"/>-->
-        <!--<Label x:Name="lbExpName" Grid.Column="1" Grid.Row="1" Style="{StaticResource CharactersName}" HorizontalAlignment="Left" Margin="0, 0, 20,0" Content="Exp. Points:"/>-->
+        <Label x:Name="lbNewCharacter" Style="{StaticResource CharactersName}" Grid.Row="0" Grid.Column="1" Content="New Character"/>
+        <ComboBox x:Name="cbNewCharacters" HorizontalAlignment="Center" VerticalAlignment="Top" Width="190" Grid.Column="1" Height="50" SelectionChanged="NewCharComboBox_SelectionChanged" Margin="0,163,0,0" Grid.RowSpan="2"/>
+
+        <Label x:Name="lbExistCharacter" Style="{StaticResource CharactersName}" Grid.Row="2" Grid.Column="1" Content="Existing Character"/>
+        <ComboBox x:Name="cbExistCharacters" HorizontalAlignment="Center" VerticalAlignment="Top" Width="190" Grid.Column="1" Height="50" SelectionChanged="ExtCharComboBox_SelectionChanged" Margin="0,73,0,0" Grid.RowSpan="2" Grid.Row="2">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="50" Text="{Binding Path=Name}" />
+                        <TextBlock Width="170" Text="{Binding Path=Id}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+
+        <Label x:Name="lbCharacterName" Style="{StaticResource CharactersName}" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Content="Character name"/>
+        <TextBox x:Name="tbCharacterName" Grid.Column="2" Grid.Row="5" Height="30" Width="200" VerticalAlignment="Top" Margin="0,16,0,0"/>
 
         <Label x:Name="lbHealth" Style="{StaticResource StatsName}" Grid.Row="0" Grid.Column="2" Content="Health" Margin="0,93,0,0"/>
         <TextBox x:Name="tbHealthValue" Grid.Column="2" Grid.Row="0" Style="{StaticResource StatsValue}"/>
@@ -107,7 +113,9 @@
 
         <Label x:Name="lbPhysicalDef" Style="{StaticResource StatsName}" Grid.Row="4" Grid.Column="2" Content="Physical defence"/>
         <TextBox x:Name="tbPhysicalDefValue" Grid.Column="2" Grid.Row="4" Style="{StaticResource StatsValue}"/>
-        <Label x:Name="Name" HorizontalAlignment="Left" Margin="0,24,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Character editor" RenderTransformOrigin="0.5,0.5" Width="400" Grid.Column="1" Grid.ColumnSpan="2" FontSize="22" FontWeight="Bold">
+        <Label x:Name="WindowName" HorizontalAlignment="Left" Margin="0,24,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Character editor" RenderTransformOrigin="0.5,0.5" Width="400" Grid.Column="1" Grid.ColumnSpan="2" FontSize="22" FontWeight="Bold">
         </Label>
+
+        <Button x:Name="btnSaveButton" Grid.Column="3" Content="Save" HorizontalAlignment="Center" Margin="0,16,0,0" Grid.Row="5" VerticalAlignment="Top" Width="100" Height="30" Click="SaveButton_Click"/>
     </Grid>
 </Window>

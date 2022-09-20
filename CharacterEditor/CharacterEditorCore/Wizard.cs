@@ -8,8 +8,7 @@ namespace CharacterEditorCore
                                new Characteristics(15, 15, 60),
                                new Characteristics(35, 35, 250),
                                1, 3, 0.5, 0, 1,
-                               3, 5, 2,
-                               5)
+                               3, 5, 2)
         {
 
         }
