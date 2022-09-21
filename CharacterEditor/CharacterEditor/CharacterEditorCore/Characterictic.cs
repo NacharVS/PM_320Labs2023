@@ -13,6 +13,13 @@
             Value = MinValue;
         }
 
+        public Characterictic(int minValue, int value, int maxValue)
+        {
+            MaxValue = maxValue;
+            MinValue = minValue;
+            Value = value;
+        }
+
         public int MaxValue
         {
             get { return _maxValue; }

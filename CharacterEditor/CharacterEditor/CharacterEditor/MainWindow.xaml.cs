@@ -18,12 +18,15 @@ namespace CharacterEditor
         private CharacterRepository _repository;
         public delegate void CharactericticChangedDelegate();
         public event CharactericticChangedDelegate CharactericticChangedEvent;
+        public delegate void CharacterUpdateDelegate();
+        public event CharacterUpdateDelegate CharacterUpdateEvent;
 
         public MainWindow()
         {
             InitializeComponent();
             cbCharacters.ItemsSource = _characterNames;
             CharactericticChangedEvent += UpdateCharacterInfo;
+            CharacterUpdateEvent += UpdateExistingCharacters;
             try
             {
                 _repository = new CharacterRepository("mongodb://localhost", "CharacterEditor");
@@ -34,10 +37,16 @@ namespace CharacterEditor
             }
         }
 
+        private void UpdateExistingCharacters()
+        {
+            cbExestingCharacters.ItemsSource = _repository.GetCharacterNames();
+        }
+
         private void UpdateCharacterInfo()
         {
             if (_currentCharacter == null)
             {
+                tbCharacterName.Text = "";
                 Attack.Content = 0;
                 Health.Content = 0;
                 PhysicalDefence.Content = 0;
@@ -51,6 +60,10 @@ namespace CharacterEditor
                 return;
             }
 
+            if (_currentCharacter.Name != null)
+            {
+                tbCharacterName.Text = _currentCharacter.Name;
+            }
             Attack.Content = _currentCharacter.AttackDamage;
             Health.Content = _currentCharacter.Health;
             PhysicalDefence.Content = _currentCharacter.PhysicalDefense;
@@ -130,9 +143,9 @@ namespace CharacterEditor
             CharactericticChangedEvent?.Invoke();
         }
 
-        private Character CreateCharacter(string name)
+        private Character CreateCharacter(string className)
         {
-            switch (name)
+            switch (className)
             {
                 case "Warrior":
                     return new Warrior();
@@ -143,6 +156,83 @@ namespace CharacterEditor
             }
 
             return null;
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (_currentCharacter == null)
+                {
+                    return;
+                }
+
+                if (cbCharacters.SelectedItem == null)
+                {
+                    MessageBox.Show("Characters type not selected!", "Warning");
+                    return;
+                }
+
+                if (!IsCharacterNameCorrect())
+                {
+                    MessageBox.Show("Invalid Character name!","Warning");
+                    return;
+                }
+
+                if (_repository.IsCharacterExist(tbCharacterName.Text))
+                {
+                    MessageBox.Show("Character with same name already exists!", "Warning");
+                    return;
+                }
+
+                _currentCharacter.Name = tbCharacterName.Text;
+                _repository.InsertCharacter(_currentCharacter);
+                CharacterUpdateEvent?.Invoke();
+                MessageBox.Show("Character successfully saved!");
+            }
+            catch
+            {
+                MessageBox.Show("Failed to save!","Warning");
+            }
+        }
+
+        private bool IsCharacterNameCorrect()
+        {
+            var name = tbCharacterName.Text;
+
+            if (name == "" || name == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CharacterUpdateEvent?.Invoke();
+            }
+            catch
+            {
+                MessageBox.Show("Failed loading!", "Warning");
+                this.Close();
+            }         
+        }
+
+        private void cbExestingCharacters_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = cbExestingCharacters.SelectedItem.ToString();
+            var character = _repository.GetCharacterByName(item);       
+
+            if (character == null)
+            {
+                return;
+            }
+
+            cbCharacters.SelectedItem = character.GetType().Name;
+            _currentCharacter = character;
+            CharactericticChangedEvent?.Invoke();
         }
     }
 }
