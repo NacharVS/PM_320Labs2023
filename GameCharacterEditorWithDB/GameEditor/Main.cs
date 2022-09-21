@@ -12,8 +12,12 @@ namespace GameEditor
         public Main()
         {
             InitializeComponent();
+            BsonClassMap.RegisterClassMap<Unit>();
+            BsonClassMap.RegisterClassMap<Warrior>();
+            BsonClassMap.RegisterClassMap<Rogue>();
+            BsonClassMap.RegisterClassMap<Wizard>();
             ListUpdate();
-            listBoxMain.SetSelected(0,true);
+            listBoxMain.SetSelected(0, true);
         }
 
         private void ListBoxMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -25,7 +29,6 @@ namespace GameEditor
                 selectedUnit = infoName;
                 textBoxName.Text = "";
                 numericUpDownStr.Value = selectedUnit.Strength;
-
                 numericUpDownDex.Value = selectedUnit.Dexterity;
                 numericUpDownCon.Value = selectedUnit.Constitution;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
@@ -72,13 +75,20 @@ namespace GameEditor
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
-            listBoxRes.Items.Add(selectedUnit.Name);
-            DBConnection.AddToDataBase(selectedUnit);
-            numericUpDownStr.Value = numericUpDownStr.Minimum;
-            numericUpDownCon.Value = numericUpDownCon.Minimum;
-            numericUpDownDex.Value = numericUpDownDex.Minimum;
-            numericUpDownInt.Value = numericUpDownInt.Minimum;
-            textBoxName.Text = "";
+            try
+            {
+                listBoxRes.Items.Add(selectedUnit.Name);
+                DBConnection.AddToDataBase(selectedUnit);
+                numericUpDownStr.Value = numericUpDownStr.Minimum;
+                numericUpDownCon.Value = numericUpDownCon.Minimum;
+                numericUpDownDex.Value = numericUpDownDex.Minimum;
+                numericUpDownInt.Value = numericUpDownInt.Minimum;
+                textBoxName.Text = "";
+            }
+            catch (Exception ex)
+            { 
+
+            }
         }
 
         private void TextBoxName_TextChanged(object sender, EventArgs e)
@@ -92,6 +102,11 @@ namespace GameEditor
             {
                 selectedUnit = DBConnection.FindByName(listBoxRes.Text);
                 listBoxMain.SelectedItems.Clear();
+                textBoxName.Text = selectedUnit.Name;
+                numericUpDownStr.Value = selectedUnit.Strength;
+                numericUpDownDex.Value = selectedUnit.Dexterity;
+                numericUpDownCon.Value = selectedUnit.Constitution;
+                numericUpDownInt.Value = selectedUnit.Intelligence;
             }
         }
         private void ListUpdate()

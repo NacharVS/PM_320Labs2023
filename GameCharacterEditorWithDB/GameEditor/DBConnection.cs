@@ -25,7 +25,6 @@ namespace GameEditor
             var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("Example320");
             var collection = database.GetCollection<Unit>("ExCogHk");
-            Console.WriteLine(name);
             var unit = collection.Find(x => x.Name == name).FirstOrDefault();
             return unit;
         }
