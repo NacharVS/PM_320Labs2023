@@ -11,8 +11,8 @@ namespace AppWithInterface
         public int MeleeDamage { get; set; }
         public int Condition { get; set; }
 
-        public int upgrade = 10;
-        public int repair = 10;
+        public int upgrade = 7;
+        public int repair = 7;
 
         public Sword (int meleeDamage, int condition)
         {

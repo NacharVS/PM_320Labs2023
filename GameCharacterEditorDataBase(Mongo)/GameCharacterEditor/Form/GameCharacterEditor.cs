@@ -120,5 +120,10 @@ namespace GameCharacterEditor
             MPAttack_Text.Minimum = 0;
             MPAttack_Text.Value = 0;
         }
+
+        private void Save_Button_Click(object sender, EventArgs e)
+        {
+            DataBase.AddToDataBase(character);
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace AppWithInterface
         public int Condition { get; set; }
 
         public int upgrade = 10;
-        public int repair = 10;
+        public int repair = 5;
 
         public Knife (int meleeDamage, int throwDamage, int condition)
         {

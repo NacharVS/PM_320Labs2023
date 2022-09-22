@@ -8,7 +8,6 @@ namespace GameCharacterEditor
 {
     class Rogue : Character
     {
-        public string Name { get; set; }
         public override int Strength
         {
             get { return _strength; }
