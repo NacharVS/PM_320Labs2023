@@ -171,11 +171,15 @@ namespace UnitsEditor
                 _selectedCharacter.Intelligence.Value -= 1;
                 lbIntelligenceValue.Content = Convert.ToString(_selectedCharacter.Intelligence.Value);
             }
-            catch{ }
+            catch{}
         }
 
         private void CharacteristicChange(object sender, RoutedEventArgs e)
         {
+            if(_selectedCharacter is null)
+            {
+                return;
+            }
             CharacteristicChangeEvent?.Invoke();
         }
 
