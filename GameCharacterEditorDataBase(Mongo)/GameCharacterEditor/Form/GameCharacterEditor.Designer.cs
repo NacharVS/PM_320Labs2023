@@ -50,7 +50,7 @@
             this.HP_Text = new System.Windows.Forms.NumericUpDown();
             this.MP_Text = new System.Windows.Forms.NumericUpDown();
             this.OK_Button = new System.Windows.Forms.Button();
-            this.Save_Button = new System.Windows.Forms.Button();
+            this.textBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Intelligence_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Constitution_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Strength_Text)).BeginInit();
@@ -288,7 +288,7 @@
             // 
             this.OK_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.OK_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.OK_Button.Location = new System.Drawing.Point(526, 278);
+            this.OK_Button.Location = new System.Drawing.Point(546, 278);
             this.OK_Button.Name = "OK_Button";
             this.OK_Button.Size = new System.Drawing.Size(100, 30);
             this.OK_Button.TabIndex = 43;
@@ -296,17 +296,15 @@
             this.OK_Button.UseVisualStyleBackColor = false;
             this.OK_Button.Click += new System.EventHandler(this.OK_Button_Click);
             // 
-            // Save_Button
+            // textBox
             // 
-            this.Save_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.Save_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Save_Button.Location = new System.Drawing.Point(649, 278);
-            this.Save_Button.Name = "Save_Button";
-            this.Save_Button.Size = new System.Drawing.Size(100, 30);
-            this.Save_Button.TabIndex = 44;
-            this.Save_Button.Text = "Save";
-            this.Save_Button.UseVisualStyleBackColor = false;
-            this.Save_Button.Click += new System.EventHandler(this.Save_Button_Click);
+            this.textBox.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.textBox.Location = new System.Drawing.Point(86, 352);
+            this.textBox.Name = "textBox";
+            this.textBox.Size = new System.Drawing.Size(560, 23);
+            this.textBox.TabIndex = 44;
+            this.textBox.Text = "Character";
+            this.textBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // GameCharacterEditor
             // 
@@ -314,7 +312,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.Save_Button);
+            this.Controls.Add(this.textBox);
             this.Controls.Add(this.OK_Button);
             this.Controls.Add(this.MP_Text);
             this.Controls.Add(this.HP_Text);
@@ -377,6 +375,6 @@
         private NumericUpDown HP_Text;
         private NumericUpDown MP_Text;
         private Button OK_Button;
-        private Button Save_Button;
+        private TextBox textBox;
     }
 }

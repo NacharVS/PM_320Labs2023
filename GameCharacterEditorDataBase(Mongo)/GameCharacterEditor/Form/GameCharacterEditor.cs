@@ -3,6 +3,7 @@ namespace GameCharacterEditor
     public partial class GameCharacterEditor : Form
     {
         private Character character;
+        private Characters characters;
         private string characterName;
         public GameCharacterEditor()
         {
@@ -10,7 +11,10 @@ namespace GameCharacterEditor
         }
         private void GameCharacterEditor_Load(object sender, EventArgs e)
         {
-            
+            if (characterName != null)
+            {
+                characters.Add(character);
+            }
         }
 
         private void Strength_Text_ValueChanged(object sender, EventArgs e)
@@ -65,12 +69,15 @@ namespace GameCharacterEditor
             {
                 case "Rogue":
                     character = new Rogue(characterName);
+                    textBox.Text = DataBase.FindByName(characterName);
                     break;
                 case "Warrior":
                     character = new Warrior(characterName);
+                    textBox.Text = DataBase.FindByName(characterName);
                     break;
                 case "Wizard":
                     character = new Wizard(characterName);
+                    DataBase.FindByName(characterName);
                     break;
             }
 
@@ -93,6 +100,8 @@ namespace GameCharacterEditor
 
         private void OK_Button_Click(object sender, EventArgs e)
         {
+            DataBase.AddToDataBase(character);
+
             Strength_Text.Minimum = 0;
             Strength_Text.Value = 0;
 
@@ -121,9 +130,9 @@ namespace GameCharacterEditor
             MPAttack_Text.Value = 0;
         }
 
-        private void Save_Button_Click(object sender, EventArgs e)
+        private void textBox_TextChanged(object sender, EventArgs e)
         {
-            DataBase.AddToDataBase(character);
+
         }
     }
 }

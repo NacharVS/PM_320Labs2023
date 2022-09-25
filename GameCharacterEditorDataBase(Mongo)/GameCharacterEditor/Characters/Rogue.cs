@@ -61,7 +61,7 @@ namespace GameCharacterEditor
         }
         public Rogue(string name)
         {
-            this.Name = name;
+            Name = "Rogue";
             minStrength = 15;
             maxStrength = 55;
             minDexterity = 30;

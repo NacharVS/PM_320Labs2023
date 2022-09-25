@@ -62,7 +62,7 @@ namespace GameCharacterEditor
         }
         public Warrior(string name)
         {
-            this.Name = name;
+            Name = "Warrior";
             minStrength = 30;
             maxStrength = 250;
             minDexterity = 15;
