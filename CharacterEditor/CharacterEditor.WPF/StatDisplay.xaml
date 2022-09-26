@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CharacterEditor.WPF"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" Width="150">
     <Grid Background="White">
         <Label Content="Health" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="HealthTextBox" HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>

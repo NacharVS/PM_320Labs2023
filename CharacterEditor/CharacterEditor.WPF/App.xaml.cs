@@ -16,8 +16,10 @@ namespace CharacterEditor.WPF
         public App()
         {
             Connection = new MongoConnection(
-                ConfigurationManager.AppSettings["MongoConnection"],
-                ConfigurationManager.AppSettings["MongoDatabase"]);
+                ConfigurationManager.AppSettings["MongoConnection"] ??
+                throw new NotFoundException("No connection address"),
+                ConfigurationManager.AppSettings["MongoDatabase"] ??
+                throw new NotFoundException("No database name"));
             CharacterRepository = new CharacterRepository(Connection);
         }
     }
