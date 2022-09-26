@@ -25,12 +25,7 @@ namespace CharacterEditorMongoDb
 
         public void InsertCharacter(Character character)
         {
-            _characters.InsertOne(new CharacterDb(character.Name,
-                                                  character.GetType().Name,
-                                                  character.GetStrengthValue(),
-                                                  character.GetDexterityValue(),
-                                                  character.GetConstitutionValue(),
-                                                  character.GetIntellisenseValue()));
+            _characters.InsertOne(CreateCharacterDb(character));
         }
 
         public bool IsCharacterExist(string name)
@@ -73,6 +68,21 @@ namespace CharacterEditorMongoDb
                                         { Name = dbCharacter.Name };
                 default: return null;
             }
+        }
+
+        public bool ReplaceByName(string name, Character character)
+        {
+            return _characters.ReplaceOne(x => x.Name == name, CreateCharacterDb(character)).ModifiedCount > 0;
+        }
+
+        private CharacterDb CreateCharacterDb(Character character)
+        {
+            return new CharacterDb(character.Name,
+                                character.GetType().Name,
+                                character.GetStrengthValue(),
+                                character.GetDexterityValue(),
+                                character.GetConstitutionValue(),
+                                character.GetIntellisenseValue());
         }
     }
 }

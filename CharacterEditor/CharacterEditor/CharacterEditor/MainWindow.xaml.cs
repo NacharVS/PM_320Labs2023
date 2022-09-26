@@ -234,5 +234,29 @@ namespace CharacterEditor
             _currentCharacter = character;
             CharactericticChangedEvent?.Invoke();
         }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter == null)
+            {
+                return;
+            }
+
+            try
+            {
+                if (_repository.ReplaceByName(tbCharacterName.Text, _currentCharacter))
+                {
+                    MessageBox.Show("Character successfully updated!");
+                }
+                else
+                {
+                    MessageBox.Show("Character not founded!", "Warning");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Failed updating!", "Warning");
+            }
+        }
     }
 }
