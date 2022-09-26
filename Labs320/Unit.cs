@@ -9,6 +9,7 @@ namespace Labs320
         {
             Name = name;
             Age = age;
+            inventory = new List<Item>();
         }
 
         public Unit(string name, int age, int driverCard)
@@ -16,6 +17,11 @@ namespace Labs320
             Name = name;
             Age = age;
             DriverCard = driverCard;
+            inventory = new List<Item>();
+        }
+
+        public Unit()
+        {
         }
 
         [BsonIgnoreIfDefault] 
@@ -26,5 +32,13 @@ namespace Labs320
         public int Age { get; set; }
         [BsonIgnoreIfDefault]
         public int DriverCard { get; set; }
+
+        [BsonIgnoreIfNull]
+        public List<Item> inventory;
+
+        public void AddToInventory(Item item)
+        {
+            inventory.Add(item);
+        }
     }
 }

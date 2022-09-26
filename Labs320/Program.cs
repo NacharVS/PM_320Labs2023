@@ -1,9 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Labs320;
 
+Unit unit = new Unit("Freddy",30 );
+unit.AddToInventory(new Item("Pencil", 1));
+unit.AddToInventory(new Item("Erasier", 1));
+unit.AddToInventory(new Item("Pen", 5));
+MongoDBExamples.ReplaceByName("Freddy", unit);
 
 
-MongoDBExamples.FindByName("JImmy");
 
 static void Info(int value)
 {
