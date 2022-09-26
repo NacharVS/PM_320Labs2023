@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace CharacterEditorMongoDb
 {
-    public class CharacterRepository
+    public class CharacterRepository : ICharacterRepository
     {
         private IMongoCollection<CharacterDb> _characters;
 

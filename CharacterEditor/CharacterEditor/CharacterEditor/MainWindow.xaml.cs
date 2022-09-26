@@ -15,7 +15,7 @@ namespace CharacterEditor
         private List<string> _characterNames = new List<string>()
                                               {"Warrior", "Rogue", "Wizard"};
         private Character _currentCharacter;
-        private CharacterRepository _repository;
+        private ICharacterRepository _repository;
         public delegate void CharactericticChangedDelegate();
         public event CharactericticChangedDelegate CharactericticChangedEvent;
         public delegate void CharacterUpdateDelegate();
@@ -148,11 +148,11 @@ namespace CharacterEditor
             switch (className)
             {
                 case "Warrior":
-                    return new Warrior();
+                    return new Warrior() { Name = tbCharacterName.Text};
                 case "Rogue":
-                    return new Rogue();
+                    return new Rogue() { Name = tbCharacterName.Text };
                 case "Wizard":
-                    return new Wizard();
+                    return new Wizard() { Name = tbCharacterName.Text };
             }
 
             return null;
@@ -185,7 +185,6 @@ namespace CharacterEditor
                     return;
                 }
 
-                _currentCharacter.Name = tbCharacterName.Text;
                 _repository.InsertCharacter(_currentCharacter);
                 CharacterUpdateEvent?.Invoke();
                 MessageBox.Show("Character successfully saved!");
@@ -198,7 +197,7 @@ namespace CharacterEditor
 
         private bool IsCharacterNameCorrect()
         {
-            var name = tbCharacterName.Text;
+            var name = _currentCharacter.Name;
 
             if (name == "" || name == null)
             {
@@ -257,6 +256,11 @@ namespace CharacterEditor
             {
                 MessageBox.Show("Failed updating!", "Warning");
             }
+        }
+
+        private void tbCharacterName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _currentCharacter.Name = tbCharacterName.Text;
         }
     }
 }

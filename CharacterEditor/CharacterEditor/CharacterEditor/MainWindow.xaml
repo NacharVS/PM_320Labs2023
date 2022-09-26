@@ -95,7 +95,7 @@
         <Label Name="PhysicalDefence" Grid.Column="6" Grid.Row="3" Style="{StaticResource CharactericticLabel}"/>
         <Label Name="Mana" Grid.Column="6" Grid.Row="4" Style="{StaticResource CharactericticLabel}"/>
         <Label Name="MagicalAttack" Grid.Column="6" Grid.Row="5" Style="{StaticResource CharactericticLabel}"/>
-        <TextBox x:Name="tbCharacterName" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Height="28" FontSize="16"/>
+        <TextBox x:Name="tbCharacterName" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Height="28" FontSize="16" TextChanged="tbCharacterName_TextChanged"/>
         <Button x:Name="btnSave" Content="Save" Grid.Column="6" Grid.Row="6" Style="{StaticResource AllBtn}" Width="120" Click="btnSave_Click">
             <Button.Resources>
                 <Style TargetType="Border">
