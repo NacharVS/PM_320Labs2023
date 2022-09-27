@@ -4,6 +4,7 @@
     {
         private delegate void _charactericticChangedDelegate();
         private _charactericticChangedDelegate _charactericticChangedEvent;
+        public Inventory Inventory { get; set; }
         public string Name { get; set; }
         private Characterictic _strength;
         public Characterictic Strength

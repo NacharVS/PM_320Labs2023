@@ -221,7 +221,7 @@ namespace CharacterEditor
 
         private void cbExestingCharacters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var item = cbExestingCharacters.SelectedItem.ToString();
+            var item = cbExestingCharacters.SelectedItem?.ToString();
             var character = _repository.GetCharacterByName(item);       
 
             if (character == null)
@@ -242,7 +242,7 @@ namespace CharacterEditor
             }
 
             try
-            {
+            {   
                 if (_repository.ReplaceByName(tbCharacterName.Text, _currentCharacter))
                 {
                     MessageBox.Show("Character successfully updated!");
@@ -251,6 +251,7 @@ namespace CharacterEditor
                 {
                     MessageBox.Show("Character not founded!", "Warning");
                 }
+                CharacterUpdateEvent?.Invoke();
             }
             catch
             {

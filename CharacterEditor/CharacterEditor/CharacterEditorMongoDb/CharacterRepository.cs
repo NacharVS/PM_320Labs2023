@@ -46,6 +46,11 @@ namespace CharacterEditorMongoDb
         {
             var dbCharacter = _characters.Find<CharacterDb>(x => x.Name == name).FirstOrDefault();
 
+            if (dbCharacter == null)
+            {
+                return null;
+            }
+
             switch (dbCharacter.ClassName)
             {
                 case "Warrior":
