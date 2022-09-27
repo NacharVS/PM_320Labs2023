@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using CharacterEditorCore;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace CharacterEditorMongoDb
@@ -19,10 +20,13 @@ namespace CharacterEditorMongoDb
         public int Constitution { get; set; }
         [BsonIgnoreIfDefault]
         public int Intellisense { get; set; }
+        [BsonIgnoreIfNull]
+        public List<IItem> Items { get; set; }
 
         public CharacterDb(string name, string className, 
                             int strength, int dexterity, 
-                            int constitution, int intellisense)
+                            int constitution, int intellisense,
+                            List<IItem> items)
         {
             Name = name;
             ClassName = className;
@@ -30,6 +34,7 @@ namespace CharacterEditorMongoDb
             Dexterity = dexterity;
             Constitution = constitution;
             Intellisense = intellisense;
+            Items = items;
         }
     }
 }

@@ -2,33 +2,38 @@
 {
     public class Inventory
     {
-        List<IItem> _inventory;
+        public List<IItem> Items { get; private set; }
 
         public Inventory ()
         {
-            _inventory = new List<IItem>();
+            Items = new List<IItem>();
         }
 
-        public void AddItem (IItem item)
+        public Inventory(List<IItem> items)
+        {
+            Items = items;
+        }
+
+        public void AddItem(IItem item)
         {
             if (item == null)
             {
                 return;
             }
 
-            _inventory.Add(item);
+            Items.Add(item);
         }
 
         public bool DeleteItemByName(string name)
         {
-            var item = _inventory.Find(x => x.Name == name);
+            var item = Items.Find(x => x.Name == name);
 
             if (item == null)
             {
                 return false;
             }
 
-            return _inventory.Remove(item);
+            return Items.Remove(item);
         }      
     }
 }

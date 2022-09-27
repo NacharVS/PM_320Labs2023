@@ -251,7 +251,7 @@ namespace CharacterEditor
                 {
                     MessageBox.Show("Character not founded!", "Warning");
                 }
-                CharacterUpdateEvent?.Invoke();
+
             }
             catch
             {
@@ -262,6 +262,12 @@ namespace CharacterEditor
         private void tbCharacterName_TextChanged(object sender, TextChangedEventArgs e)
         {
             _currentCharacter.Name = tbCharacterName.Text;
+        }
+
+        private void btnInventory_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new InventoryWindow();
+            window.Show();
         }
     }
 }

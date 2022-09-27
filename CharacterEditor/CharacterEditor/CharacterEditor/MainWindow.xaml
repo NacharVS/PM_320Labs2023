@@ -110,7 +110,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="btnInventory" Content="Inventory" Grid.Column="3" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource AllBtn}" Width="120">
+        <Button x:Name="btnInventory" Content="Inventory" Grid.Column="3" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource AllBtn}" Width="120" Click="btnInventory_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>

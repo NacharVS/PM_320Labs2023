@@ -58,19 +58,22 @@ namespace CharacterEditorMongoDb
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
                                         dbCharacter.Intellisense)
-                                        { Name = dbCharacter.Name};
+                                        { Name = dbCharacter.Name,
+                                          Inventory = new Inventory(dbCharacter.Items) };
                 case "Wizard":
                     return new Wizard(dbCharacter.Strength,
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
                                         dbCharacter.Intellisense)
-                                        { Name = dbCharacter.Name };
+                                        { Name = dbCharacter.Name,
+                                          Inventory = new Inventory(dbCharacter.Items) };
                 case "Rogue":
                     return new Rogue(dbCharacter.Strength,
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
                                         dbCharacter.Intellisense)
-                                        { Name = dbCharacter.Name };
+                                        { Name = dbCharacter.Name,
+                                          Inventory = new Inventory(dbCharacter.Items) };
                 default: return null;
             }
         }
@@ -87,7 +90,8 @@ namespace CharacterEditorMongoDb
                                 character.GetStrengthValue(),
                                 character.GetDexterityValue(),
                                 character.GetConstitutionValue(),
-                                character.GetIntellisenseValue());
+                                character.GetIntellisenseValue(),
+                                character.Inventory.Items);
         }
     }
 }

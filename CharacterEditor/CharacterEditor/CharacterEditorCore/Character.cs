@@ -213,6 +213,8 @@
             _intellisenseManaChange = intellisenseManaChange;
             Intellisense = intellisense;
 
+            Inventory = new Inventory();
+
             _charactericticChangedEvent += CalculateCharacterictics;
             _charactericticChangedEvent?.Invoke();
         }
