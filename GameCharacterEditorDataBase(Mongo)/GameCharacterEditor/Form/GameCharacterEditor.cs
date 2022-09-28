@@ -1,20 +1,21 @@
+using MongoDB.Bson.Serialization;
+using System.Data.Common;
+
 namespace GameCharacterEditor
 {
     public partial class GameCharacterEditor : Form
     {
         private Character character;
-        private Characters characters;
         private string characterName;
+        private string equipmentName;
         public GameCharacterEditor()
         {
             InitializeComponent();
-        }
-        private void GameCharacterEditor_Load(object sender, EventArgs e)
-        {
-            if (characterName != null)
-            {
-                characters.Add(character);
-            }
+            BsonClassMap.RegisterClassMap<Character>();
+            BsonClassMap.RegisterClassMap<Warrior>();
+            BsonClassMap.RegisterClassMap<Rogue>();
+            BsonClassMap.RegisterClassMap<Wizard>();
+            ListUpdate();
         }
 
         private void Strength_Text_ValueChanged(object sender, EventArgs e)
@@ -47,19 +48,19 @@ namespace GameCharacterEditor
 
         private void Rogue_Button_Click(object sender, EventArgs e)
         {
-            characterName = "Rogue";
+            characterName = Rogue_Button.Text;
             Characteristics();
         }
 
         private void Warrior_Button_Click(object sender, EventArgs e)
         {
-            characterName = "Warrior";
+            characterName = Warrior_Button.Text;
             Characteristics();
         }
 
         private void Wizard_Button_Click(object sender, EventArgs e)
         {
-            characterName = "Wizard";
+            characterName = Wizard_Button.Text;
             Characteristics();
         }
 
@@ -68,16 +69,19 @@ namespace GameCharacterEditor
             switch (characterName)
             {
                 case "Rogue":
-                    character = new Rogue(characterName);
-                    textBox.Text = DataBase.FindByName(characterName);
+                    character = new Rogue();
+                    Type_Lable.Text = character.Type;
+                    Name_Text.Text = "";
                     break;
                 case "Warrior":
-                    character = new Warrior(characterName);
-                    textBox.Text = DataBase.FindByName(characterName);
+                    character = new Warrior();
+                    Type_Lable.Text = character.Type;
+                    Name_Text.Text = "";
                     break;
                 case "Wizard":
-                    character = new Wizard(characterName);
-                    DataBase.FindByName(characterName);
+                    character = new Wizard();
+                    Type_Lable.Text = character.Type;
+                    Name_Text.Text = "";
                     break;
             }
 
@@ -100,7 +104,10 @@ namespace GameCharacterEditor
 
         private void OK_Button_Click(object sender, EventArgs e)
         {
+            SavedCharactersBox.Items.Add(character.Name);
             DataBase.AddToDataBase(character);
+
+            Name_Text.Text = "";
 
             Strength_Text.Minimum = 0;
             Strength_Text.Value = 0;
@@ -130,9 +137,48 @@ namespace GameCharacterEditor
             MPAttack_Text.Value = 0;
         }
 
-        private void textBox_TextChanged(object sender, EventArgs e)
+        private void Name_Text_TextChanged(object sender, EventArgs e)
         {
+            character.Name = Name_Text.Text;
+        }
 
+        private void SavedCharactersBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            character = DataBase.FindByName(SavedCharactersBox.Text);
+            Type_Lable.Text = character.Type;
+            Name_Text.Text = character.Name;
+            Strength_Text.Value = character.Strength;
+            Dexterity_Text.Value = character.Dexterity;
+            Constitution_Text.Value = character.Constitution;
+            Intelligence_Text.Value = character.Intelligence;
+        }
+
+        private void ListUpdate()
+        {
+            var collection = DataBase.ImportData();
+
+            foreach (var c in collection)
+            {
+                SavedCharactersBox.Items.Add(c.Name);
+            }
+        }
+
+        private void Bow_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            equipmentName = Bow_CheckBox.Text;
+            character.AddToEquipment(new Equipment());
+        }
+
+        private void Mace_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            equipmentName = Mace_CheckBox.Text;
+            character.AddToEquipment(new Equipment());
+        }
+
+        private void Dagger_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            equipmentName = Dagger_CheckBox.Text;
+            character.AddToEquipment(new Equipment());
         }
     }
 }

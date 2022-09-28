@@ -18,14 +18,33 @@ namespace GameCharacterEditor
             collection.InsertOne(character);
         }
 
-        public static string FindByName(string name)
+        public static Character FindByName(string name)
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("GameCharacterEditor");
             var collection = database.GetCollection<Character>("CharacterCollection");
             var character = collection.Find(x => x.Name == name).FirstOrDefault();
 
-            return $"{character?.Name} {character?.Strength} {character?.Dexterity} {character?.Constitution} {character?.Intelligence} {character?.HP} {character?.MP} {character?.PDef} {character?.Attack} {character?.MPAttack}";
+            return character;
+        }
+
+        public static List<Character> ImportData()
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("GameCharacterEditor");
+            var collection = database.GetCollection<Character>("CharacterCollection");
+            var list = collection.Find(new BsonDocument()).ToList();
+
+            return list;
+        }
+
+        public static void ReplaceByName(string name, Character character)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("GameCharacterEditor");
+            var collection = database.GetCollection<Character>("CharacterCollection");
+            //var filter = Builders<Unit>.Update.Set(name == "Jimmy")
+            collection.ReplaceOne(x => x.Name == name, character);
         }
     }
 }

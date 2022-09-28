@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameCharacterEditor
 {
-    class CharacterDB 
+    class CharacterDB
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -36,7 +36,7 @@ namespace GameCharacterEditor
         [BsonIgnoreIfDefault]
         public decimal MPAttack { get; set; }
 
-        public CharacterDB (string id, string name, int strength, int dexterity, int constitution, int intelligence, decimal hP, decimal mP, decimal pDef, decimal attack, decimal mPAttack)
+        public CharacterDB(string id, string name, int strength, int dexterity, int constitution, int intelligence, decimal hP, decimal mP, decimal pDef, decimal attack, decimal mPAttack)
         {
             Id = id;
             Name = name;

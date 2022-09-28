@@ -60,9 +60,9 @@ namespace GameCharacterEditor
                 }
             }
         }
-        public Wizard(string name)
+        public Wizard()
         {
-            Name = "Wizard";
+            Type = "WIZARD";
             minStrength = 10;
             maxStrength = 45;
             minDexterity = 20;

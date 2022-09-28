@@ -60,9 +60,9 @@ namespace GameCharacterEditor
                 }
             }
         }
-        public Warrior(string name)
+        public Warrior()
         {
-            Name = "Warrior";
+            Type = "WARRIOR";
             minStrength = 30;
             maxStrength = 250;
             minDexterity = 15;

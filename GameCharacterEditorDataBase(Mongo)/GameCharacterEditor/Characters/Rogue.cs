@@ -59,9 +59,9 @@ namespace GameCharacterEditor
                 }
             }
         }
-        public Rogue(string name)
+        public Rogue()
         {
-            Name = "Rogue";
+            Type = "ROGUE";
             minStrength = 15;
             maxStrength = 55;
             minDexterity = 30;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
 namespace GameCharacterEditor
@@ -11,7 +12,9 @@ namespace GameCharacterEditor
     class Character
     {
         public ObjectId Id;
+        public string Type { get; set; }
         public string Name { get; set; }
+
         // Сила
         public int minStrength;
         public int maxStrength;
@@ -81,5 +84,16 @@ namespace GameCharacterEditor
         public decimal PDef { get; set; } // Физическая защита (Physical defention)
         public decimal Attack { get; set; } // Атака (урон)
         public decimal MPAttack { get; set; } // Магическая атака
+
+        [BsonIgnoreIfNull]
+        public List<Equipment> equipment;
+        public Character()
+        {
+            equipment = new List<Equipment>();
+        }
+        public void AddToEquipment(Equipment item)
+        {
+            equipment.Add(item);
+        }
     }
 }
