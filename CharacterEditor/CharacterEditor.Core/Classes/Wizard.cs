@@ -4,7 +4,7 @@ namespace CharacterEditor.Core;
 
 public class Wizard : CharacterBase
 {
-    public sealed override Stats Stats { get; }
+    public sealed override CharacteristicsInfo CharacteristicsInfo { get; }
     private static readonly CharacteristicRange StrengthRange = new(10, 45);
     private const double StrengthAttackChange = 3;
     private const double StrengthHpChange = 1;
@@ -34,7 +34,7 @@ public class Wizard : CharacterBase
             ConstitutionPhysicalDefenceChange);
         var intelligenceInfo = new IntelligenceInfo(IntelligenceRange,
             IntelligenceManaChange, IntelligenceMagicalAttackChange);
-        Stats = new Stats(strengthInfo, dexterityInfo, constitutionInfo,
+        CharacteristicsInfo = new CharacteristicsInfo(strengthInfo, dexterityInfo, constitutionInfo,
             intelligenceInfo);
         InitStats();
     }

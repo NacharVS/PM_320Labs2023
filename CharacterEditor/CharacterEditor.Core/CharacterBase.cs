@@ -4,13 +4,14 @@ namespace CharacterEditor.Core;
 
 public abstract class CharacterBase
 {
-    private int _skillPoints = 50;
-    
     public string? Id { get; set; }
     public string? Name { get; set; }
+    private int _skillPoints = 50;
     public int SkillPoints => _skillPoints;
 
-    public abstract Stats Stats { get; }
+    # region Characteristics
+
+    public abstract CharacteristicsInfo CharacteristicsInfo { get; }
 
     private int _strength;
 
@@ -19,7 +20,8 @@ public abstract class CharacterBase
         get => _strength;
         set
         {
-            if (!CanChange(Stats.StrengthInfo.Range, _strength, value))
+            if (!CanChange(CharacteristicsInfo.StrengthInfo.Range, _strength,
+                    value))
                 return;
 
             _skillPoints -= value - _strength;
@@ -34,7 +36,8 @@ public abstract class CharacterBase
         get => _dexterity;
         set
         {
-            if (!CanChange(Stats.DexterityInfo.Range, _dexterity, value))
+            if (!CanChange(CharacteristicsInfo.DexterityInfo.Range, _dexterity,
+                    value))
                 return;
 
             _skillPoints -= value - _dexterity;
@@ -49,7 +52,8 @@ public abstract class CharacterBase
         get => _constitution;
         set
         {
-            if (!CanChange(Stats.ConstitutionInfo.Range, _constitution, value))
+            if (!CanChange(CharacteristicsInfo.ConstitutionInfo.Range,
+                    _constitution, value))
                 return;
 
             _skillPoints -= value - _constitution;
@@ -64,7 +68,8 @@ public abstract class CharacterBase
         get => _intelligence;
         set
         {
-            if (!CanChange(Stats.IntelligenceInfo.Range, _intelligence, value))
+            if (!CanChange(CharacteristicsInfo.IntelligenceInfo.Range,
+                    _intelligence, value))
                 return;
 
             _skillPoints -= value - _intelligence;
@@ -72,20 +77,30 @@ public abstract class CharacterBase
         }
     }
 
-    public double Health => Strength * Stats.StrengthInfo.HpChange +
-                            Constitution * Stats.ConstitutionInfo.HpChange;
+    #endregion
 
-    public double Mana => Intelligence * Stats.IntelligenceInfo.ManaChange;
+    # region Stats
 
-    public double AttackDamage => Strength * Stats.StrengthInfo.AttackChange +
-                                  Dexterity * Stats.DexterityInfo.AttackChange;
+    public double Health =>
+        Strength * CharacteristicsInfo.StrengthInfo.HpChange +
+        Constitution * CharacteristicsInfo.ConstitutionInfo.HpChange;
+
+    public double Mana =>
+        Intelligence * CharacteristicsInfo.IntelligenceInfo.ManaChange;
+
+    public double AttackDamage =>
+        Strength * CharacteristicsInfo.StrengthInfo.AttackChange +
+        Dexterity * CharacteristicsInfo.DexterityInfo.AttackChange;
 
     public double MagicalAttackDamage =>
-        Intelligence * Stats.IntelligenceInfo.MagicalAttackChange;
+        Intelligence * CharacteristicsInfo.IntelligenceInfo.MagicalAttackChange;
 
     public double PhysicalResistance =>
-        Constitution * Stats.ConstitutionInfo.PhysicalDefenceChange +
-        Dexterity * Stats.DexterityInfo.PhysicalDefenceChange;
+        Constitution *
+        CharacteristicsInfo.ConstitutionInfo.PhysicalDefenceChange +
+        Dexterity * CharacteristicsInfo.DexterityInfo.PhysicalDefenceChange;
+
+    #endregion
 
     private bool CanChange(CharacteristicRange range, int oldValue,
         int newValue)
@@ -103,9 +118,9 @@ public abstract class CharacterBase
 
     protected void InitStats()
     {
-        _strength = Stats.StrengthInfo.Range.MinValue;
-        _dexterity = Stats.DexterityInfo.Range.MinValue;
-        _constitution = Stats.ConstitutionInfo.Range.MinValue;
-        _intelligence = Stats.IntelligenceInfo.Range.MinValue;
+        _strength = CharacteristicsInfo.StrengthInfo.Range.MinValue;
+        _dexterity = CharacteristicsInfo.DexterityInfo.Range.MinValue;
+        _constitution = CharacteristicsInfo.ConstitutionInfo.Range.MinValue;
+        _intelligence = CharacteristicsInfo.IntelligenceInfo.Range.MinValue;
     }
 }
