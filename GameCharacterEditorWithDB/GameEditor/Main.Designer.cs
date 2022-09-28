@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.mainPan = new System.Windows.Forms.Panel();
+            this.secondPanel = new System.Windows.Forms.Panel();
+            this.listBoxItems = new System.Windows.Forms.ListBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.nameLbl = new System.Windows.Forms.Label();
             this.okBtn = new System.Windows.Forms.Button();
@@ -51,18 +53,29 @@
             this.dexterityLbl = new System.Windows.Forms.Label();
             this.strengthLbl = new System.Windows.Forms.Label();
             this.listBoxMain = new System.Windows.Forms.ListBox();
+            this.panelMain = new System.Windows.Forms.Panel();
+            this.thirdComboBox = new System.Windows.Forms.ComboBox();
+            this.thirdItemLbl = new System.Windows.Forms.Label();
+            this.secondComboBox = new System.Windows.Forms.ComboBox();
+            this.inventoryLbl = new System.Windows.Forms.Label();
+            this.firstComboBox = new System.Windows.Forms.ComboBox();
+            this.secondItemLbl = new System.Windows.Forms.Label();
+            this.firstItemLbl = new System.Windows.Forms.Label();
             this.listBoxRes = new System.Windows.Forms.ListBox();
             this.mainPan.SuspendLayout();
+            this.secondPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStr)).BeginInit();
+            this.panelMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPan
             // 
             this.mainPan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.mainPan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mainPan.Controls.Add(this.secondPanel);
             this.mainPan.Controls.Add(this.textBoxName);
             this.mainPan.Controls.Add(this.nameLbl);
             this.mainPan.Controls.Add(this.okBtn);
@@ -85,11 +98,29 @@
             this.mainPan.Controls.Add(this.dexterityLbl);
             this.mainPan.Controls.Add(this.strengthLbl);
             this.mainPan.Controls.Add(this.listBoxMain);
-            this.mainPan.Dock = System.Windows.Forms.DockStyle.Right;
-            this.mainPan.Location = new System.Drawing.Point(327, 0);
+            this.mainPan.Controls.Add(this.panelMain);
+            this.mainPan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPan.Location = new System.Drawing.Point(328, 0);
             this.mainPan.Name = "mainPan";
-            this.mainPan.Size = new System.Drawing.Size(473, 450);
+            this.mainPan.Size = new System.Drawing.Size(819, 466);
             this.mainPan.TabIndex = 0;
+            // 
+            // secondPanel
+            // 
+            this.secondPanel.Controls.Add(this.listBoxItems);
+            this.secondPanel.Location = new System.Drawing.Point(442, 258);
+            this.secondPanel.Name = "secondPanel";
+            this.secondPanel.Size = new System.Drawing.Size(370, 125);
+            this.secondPanel.TabIndex = 30;
+            // 
+            // listBoxItems
+            // 
+            this.listBoxItems.FormattingEnabled = true;
+            this.listBoxItems.ItemHeight = 20;
+            this.listBoxItems.Location = new System.Drawing.Point(22, 10);
+            this.listBoxItems.Name = "listBoxItems";
+            this.listBoxItems.Size = new System.Drawing.Size(341, 104);
+            this.listBoxItems.TabIndex = 0;
             // 
             // textBoxName
             // 
@@ -293,9 +324,102 @@
             "Wizard"});
             this.listBoxMain.Location = new System.Drawing.Point(0, 0);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(469, 64);
+            this.listBoxMain.Size = new System.Drawing.Size(815, 64);
             this.listBoxMain.TabIndex = 0;
             this.listBoxMain.SelectedIndexChanged += new System.EventHandler(this.ListBoxMain_SelectedIndexChanged);
+            // 
+            // panelMain
+            // 
+            this.panelMain.Controls.Add(this.thirdComboBox);
+            this.panelMain.Controls.Add(this.thirdItemLbl);
+            this.panelMain.Controls.Add(this.secondComboBox);
+            this.panelMain.Controls.Add(this.inventoryLbl);
+            this.panelMain.Controls.Add(this.firstComboBox);
+            this.panelMain.Controls.Add(this.secondItemLbl);
+            this.panelMain.Controls.Add(this.firstItemLbl);
+            this.panelMain.Location = new System.Drawing.Point(442, 70);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(370, 182);
+            this.panelMain.TabIndex = 29;
+            // 
+            // thirdComboBox
+            // 
+            this.thirdComboBox.FormattingEnabled = true;
+            this.thirdComboBox.Items.AddRange(new object[] {
+            "Bow",
+            "Axe",
+            "Sword"});
+            this.thirdComboBox.Location = new System.Drawing.Point(172, 118);
+            this.thirdComboBox.Name = "thirdComboBox";
+            this.thirdComboBox.Size = new System.Drawing.Size(191, 28);
+            this.thirdComboBox.TabIndex = 25;
+            this.thirdComboBox.SelectedIndexChanged += new System.EventHandler(this.ThirdComboBox_SelectedIndexChanged);
+            // 
+            // thirdItemLbl
+            // 
+            this.thirdItemLbl.AutoSize = true;
+            this.thirdItemLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.thirdItemLbl.Location = new System.Drawing.Point(23, 122);
+            this.thirdItemLbl.Name = "thirdItemLbl";
+            this.thirdItemLbl.Size = new System.Drawing.Size(93, 25);
+            this.thirdItemLbl.TabIndex = 28;
+            this.thirdItemLbl.Text = "Third Item";
+            // 
+            // secondComboBox
+            // 
+            this.secondComboBox.FormattingEnabled = true;
+            this.secondComboBox.Items.AddRange(new object[] {
+            "Bow",
+            "Axe",
+            "Sword"});
+            this.secondComboBox.Location = new System.Drawing.Point(172, 80);
+            this.secondComboBox.Name = "secondComboBox";
+            this.secondComboBox.Size = new System.Drawing.Size(191, 28);
+            this.secondComboBox.TabIndex = 24;
+            this.secondComboBox.SelectedIndexChanged += new System.EventHandler(this.SecondComboBox_SelectedIndexChanged);
+            // 
+            // inventoryLbl
+            // 
+            this.inventoryLbl.AutoSize = true;
+            this.inventoryLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.inventoryLbl.Location = new System.Drawing.Point(22, 1);
+            this.inventoryLbl.Name = "inventoryLbl";
+            this.inventoryLbl.Size = new System.Drawing.Size(87, 25);
+            this.inventoryLbl.TabIndex = 22;
+            this.inventoryLbl.Text = "Inventory";
+            // 
+            // firstComboBox
+            // 
+            this.firstComboBox.FormattingEnabled = true;
+            this.firstComboBox.Items.AddRange(new object[] {
+            "Bow",
+            "Axe",
+            "Sword"});
+            this.firstComboBox.Location = new System.Drawing.Point(172, 37);
+            this.firstComboBox.Name = "firstComboBox";
+            this.firstComboBox.Size = new System.Drawing.Size(191, 28);
+            this.firstComboBox.TabIndex = 23;
+            this.firstComboBox.SelectedIndexChanged += new System.EventHandler(this.FirstComboBox_SelectedIndexChanged);
+            // 
+            // secondItemLbl
+            // 
+            this.secondItemLbl.AutoSize = true;
+            this.secondItemLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.secondItemLbl.Location = new System.Drawing.Point(22, 79);
+            this.secondItemLbl.Name = "secondItemLbl";
+            this.secondItemLbl.Size = new System.Drawing.Size(112, 25);
+            this.secondItemLbl.TabIndex = 27;
+            this.secondItemLbl.Text = "Second Item";
+            // 
+            // firstItemLbl
+            // 
+            this.firstItemLbl.AutoSize = true;
+            this.firstItemLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.firstItemLbl.Location = new System.Drawing.Point(23, 40);
+            this.firstItemLbl.Name = "firstItemLbl";
+            this.firstItemLbl.Size = new System.Drawing.Size(86, 25);
+            this.firstItemLbl.TabIndex = 26;
+            this.firstItemLbl.Text = "First Item";
             // 
             // listBoxRes
             // 
@@ -304,7 +428,7 @@
             this.listBoxRes.ItemHeight = 20;
             this.listBoxRes.Location = new System.Drawing.Point(0, 0);
             this.listBoxRes.Name = "listBoxRes";
-            this.listBoxRes.Size = new System.Drawing.Size(328, 450);
+            this.listBoxRes.Size = new System.Drawing.Size(328, 466);
             this.listBoxRes.TabIndex = 1;
             this.listBoxRes.SelectedValueChanged += new System.EventHandler(this.ListBoxRes_SelectedValueChanged);
             // 
@@ -313,17 +437,20 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listBoxRes);
+            this.ClientSize = new System.Drawing.Size(1147, 466);
             this.Controls.Add(this.mainPan);
+            this.Controls.Add(this.listBoxRes);
             this.Name = "Main";
             this.Text = "Main";
             this.mainPan.ResumeLayout(false);
             this.mainPan.PerformLayout();
+            this.secondPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDex)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStr)).EndInit();
+            this.panelMain.ResumeLayout(false);
+            this.panelMain.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -354,5 +481,15 @@
         private ListBox listBoxRes;
         private TextBox textBoxName;
         private Label nameLbl;
+        private Label firstItemLbl;
+        private ComboBox thirdComboBox;
+        private ComboBox secondComboBox;
+        private ComboBox firstComboBox;
+        private Label inventoryLbl;
+        private Label thirdItemLbl;
+        private Label secondItemLbl;
+        private Panel panelMain;
+        private Panel secondPanel;
+        private ListBox listBoxItems;
     }
 }

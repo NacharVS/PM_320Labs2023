@@ -16,6 +16,10 @@ namespace GameEditor
             BsonClassMap.RegisterClassMap<Warrior>();
             BsonClassMap.RegisterClassMap<Rogue>();
             BsonClassMap.RegisterClassMap<Wizard>();
+            BsonClassMap.RegisterClassMap<Item>();
+            BsonClassMap.RegisterClassMap<Axe>();
+            BsonClassMap.RegisterClassMap<Sword>();
+            BsonClassMap.RegisterClassMap<Bow>();
             ListUpdate();
             listBoxMain.SetSelected(0, true);
         }
@@ -33,6 +37,9 @@ namespace GameEditor
                 numericUpDownCon.Value = selectedUnit.Constitution;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
                 listBoxRes.SelectedItems.Clear();
+                panelMain.Visible = true;
+                secondPanel.Visible = false;
+                listBoxItems.Items.Clear();
             }
             else
             {
@@ -75,19 +82,26 @@ namespace GameEditor
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
-            try
+            if (listBoxMain.SelectedItems.Count == 0)
             {
-                listBoxRes.Items.Add(selectedUnit.Name);
-                DBConnection.AddToDataBase(selectedUnit);
-                numericUpDownStr.Value = numericUpDownStr.Minimum;
-                numericUpDownCon.Value = numericUpDownCon.Minimum;
-                numericUpDownDex.Value = numericUpDownDex.Minimum;
-                numericUpDownInt.Value = numericUpDownInt.Minimum;
-                textBoxName.Text = "";
+                DBConnection.Replace(selectedUnit);
             }
-            catch (Exception ex)
-            { 
+            else
+            {
+                try
+                {
+                    listBoxRes.Items.Add(selectedUnit.Name);
+                    DBConnection.AddToDataBase(selectedUnit);
+                    numericUpDownStr.Value = numericUpDownStr.Minimum;
+                    numericUpDownCon.Value = numericUpDownCon.Minimum;
+                    numericUpDownDex.Value = numericUpDownDex.Minimum;
+                    numericUpDownInt.Value = numericUpDownInt.Minimum;
+                    textBoxName.Text = "";
+                }
+                catch (Exception ex)
+                {
 
+                }
             }
         }
 
@@ -98,6 +112,7 @@ namespace GameEditor
 
         private void ListBoxRes_SelectedValueChanged(object sender, EventArgs e)
         {
+            listBoxItems.Items.Clear();
             if (listBoxRes.SelectedItems.Count > 0)
             {
                 selectedUnit = DBConnection.FindByName(listBoxRes.Text);
@@ -107,6 +122,12 @@ namespace GameEditor
                 numericUpDownDex.Value = selectedUnit.Dexterity;
                 numericUpDownCon.Value = selectedUnit.Constitution;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
+                panelMain.Visible = false;
+                secondPanel.Visible = true;
+                foreach (var i in selectedUnit.inventory)
+                {
+                    listBoxItems.Items.Add(i.ItemName);
+                }
             }
         }
         private void ListUpdate()
@@ -116,6 +137,27 @@ namespace GameEditor
             {
                 listBoxRes.Items.Add(post.Name);
             }
+        }
+
+        private void FirstComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string nameOfItem = firstComboBox.SelectedItem.ToString();
+            Item infoName = GameEditorLibrary.Units.InfoItem(nameOfItem);
+            selectedUnit.AddToInventory(infoName);
+        }
+
+        private void SecondComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string nameOfItem = secondComboBox.SelectedItem.ToString();
+            Item infoName = GameEditorLibrary.Units.InfoItem(nameOfItem);
+            selectedUnit.AddToInventory(infoName);
+        }
+
+        private void ThirdComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string nameOfItem = thirdComboBox.SelectedItem.ToString();
+            Item infoName = GameEditorLibrary.Units.InfoItem(nameOfItem);
+            selectedUnit.AddToInventory(infoName);
         }
     }
 }

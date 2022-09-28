@@ -34,6 +34,16 @@ namespace GameEditorLibrary
         public double HP;
         public double MP;
 
-        public Unit() { }
+        public List<Item> inventory;
+        
+        public Unit() 
+        { 
+            inventory =new List<Item>();
+        }
+
+        public void AddToInventory(Item item)
+        {
+            inventory.Add(item);
+        }
     }
 }

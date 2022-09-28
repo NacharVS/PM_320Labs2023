@@ -35,5 +35,23 @@ namespace GameEditorLibrary
         {
             UnitList.Clear();
         }
+
+        public static Item InfoItem(string name)
+        {
+            switch (name)
+            {
+                case "Bow":
+                    Bow bow = new Bow();
+                    return bow;
+                case "Axe":
+                    Axe axe = new Axe();
+                    return axe;
+                case "Sword":
+                    Sword sword = new Sword();
+                    return sword;
+                default:
+                    return null;
+            }
+        }
     }
 }
