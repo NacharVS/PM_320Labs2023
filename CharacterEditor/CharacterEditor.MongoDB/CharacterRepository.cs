@@ -35,7 +35,10 @@ public class CharacterRepository : ICharacterRepository
                     Name = dbChar.Name, Constitution = dbChar.Constitution,
                     Dexterity = dbChar.Dexterity,
                     Intelligence = dbChar.Intelligence, Id = dbChar.Id,
-                    Strength = dbChar.Strength, Inventory = dbChar.Inventory
+                    Strength = dbChar.Strength,
+                    Inventory = dbChar.Inventory is not null
+                        ? dbChar.Inventory.ToArray()
+                        : Array.Empty<Item>()
                 };
             case "Wizard":
                 return new Wizard
@@ -43,7 +46,10 @@ public class CharacterRepository : ICharacterRepository
                     Name = dbChar.Name, Constitution = dbChar.Constitution,
                     Dexterity = dbChar.Dexterity,
                     Intelligence = dbChar.Intelligence, Id = dbChar.Id,
-                    Strength = dbChar.Strength, Inventory = dbChar.Inventory
+                    Strength = dbChar.Strength,
+                    Inventory = dbChar.Inventory is not null
+                        ? dbChar.Inventory.ToArray()
+                        : Array.Empty<Item>()
                 };
             case "Rogue":
                 return new Rogue
@@ -51,7 +57,10 @@ public class CharacterRepository : ICharacterRepository
                     Name = dbChar.Name, Constitution = dbChar.Constitution,
                     Dexterity = dbChar.Dexterity,
                     Intelligence = dbChar.Intelligence, Id = dbChar.Id,
-                    Strength = dbChar.Strength, Inventory = dbChar.Inventory
+                    Strength = dbChar.Strength,
+                    Inventory = dbChar.Inventory is not null
+                        ? dbChar.Inventory.ToArray()
+                        : Array.Empty<Item>()
                 };
             default:
                 throw new NotFoundException();
@@ -67,7 +76,7 @@ public class CharacterRepository : ICharacterRepository
             Constitution = character.Constitution,
             Intelligence = character.Intelligence,
             ClassName = character.GetType().Name,
-            Inventory = character.Inventory
+            Inventory = character.Inventory.Length == 0 ? null : character.Inventory
         });
     }
 
@@ -81,7 +90,7 @@ public class CharacterRepository : ICharacterRepository
             Constitution = character.Constitution,
             Intelligence = character.Intelligence,
             ClassName = character.GetType().Name,
-            Inventory = character.Inventory
+            Inventory = character.Inventory.Length == 0 ? null : character.Inventory
         });
     }
 }

@@ -13,9 +13,9 @@ public abstract class CharacterBase
 
     private readonly List<Item> _inventory = new();
 
-    public List<Item> Inventory
+    public Item[] Inventory
     {
-        get => _inventory;
+        get => _inventory.ToArray();
         init
         {
             foreach (var item in value)
@@ -27,10 +27,15 @@ public abstract class CharacterBase
 
     public void AddToInventory(Item item)
     {
-        if (_inventory.Count >= InventoryCapacity)
+        if (_inventory.Count < InventoryCapacity)
         {
             _inventory.Add(item);
         }
+    }
+
+    public void DeleteFromInventory(Item item)
+    {
+        _inventory.Remove(item);
     }
 
     # region Characteristics

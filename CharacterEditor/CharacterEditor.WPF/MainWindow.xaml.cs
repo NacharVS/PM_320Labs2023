@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using CharacterEditor.Core;
+using CharacterEditor.WPF.Windows;
 
 namespace CharacterEditor.WPF
 {
@@ -21,6 +22,8 @@ namespace CharacterEditor.WPF
         {
             InitializeComponent();
 
+            Inventory.AddItemButton.Click += AddItem;
+            Inventory.RemoveItemButton.Click += RemoveItem;
             CreateNewButton.Click += CreateNewButton_Click;
             SaveCharacterButton.Click += SaveCharacterButton_Click;
             CreatedCharactersComboBox.SelectionChanged +=
@@ -31,6 +34,7 @@ namespace CharacterEditor.WPF
             AfterChangeCharacter += UpdateSlidersView;
             AfterChangeCharacter += UpdateStatDisplay;
             AfterChangeCharacter += UpdateName;
+            AfterChangeCharacter += UpdateInventory;
             foreach (CharacteristicSlider slider in SliderPanel.Children)
             {
                 slider.CharacteristicName.Content =
@@ -38,6 +42,35 @@ namespace CharacterEditor.WPF
                 slider.PlusButton.Click += UpdateSliderView;
                 slider.MinusButton.Click += UpdateSliderView;
             }
+        }
+
+        private void RemoveItem(object sender, RoutedEventArgs e)
+        {
+            if (Inventory.ItemListBox.SelectedItem is not Item item)
+                return;
+            
+            _currentCharacter.DeleteFromInventory(item);
+            UpdateInventory();
+        }
+
+        private void AddItem(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter is null)
+                return;
+
+            var prompt = new TextPrompt();
+            if (prompt.ShowDialog() == true)
+            {
+                var item = new Item { Name = prompt.ResponseTextBox.Text };
+                _currentCharacter.AddToInventory(item);
+                UpdateInventory();
+            }
+        }
+
+        private void UpdateInventory()
+        {
+            Inventory.ItemListBox.ItemsSource = _currentCharacter.Inventory;
+            Inventory.InvalidateVisual();
         }
 
         private void UpdateName()
@@ -131,6 +164,7 @@ namespace CharacterEditor.WPF
                 return;
 
             _currentCharacter = _repository.GetCharacter(value.Id);
+            Inventory.ItemListBox.ItemsSource = _currentCharacter.Inventory;
             AfterChangeCharacter?.Invoke();
         }
 
@@ -153,7 +187,7 @@ namespace CharacterEditor.WPF
         {
             if (string.IsNullOrEmpty(SelectClassComboBox.Text))
                 return;
-            
+
             SelectClassComboBox_SelectionChanged(SelectClassComboBox, null);
         }
 
