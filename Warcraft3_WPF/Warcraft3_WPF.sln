@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warcraft3_WPF", "Warcraft3_WPF\Warcraft3_WPF.csproj", "{94FD7731-91AE-4BF5-A2CC-97A81A840CBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Warcraft3_WPF", "Warcraft3_WPF\Warcraft3_WPF.csproj", "{94FD7731-91AE-4BF5-A2CC-97A81A840CBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterEditorCore", "CharacterEditorCore\CharacterEditorCore.csproj", "{91EE9C64-5217-42C7-9B1E-C5A86E25739D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharacterEditorCore", "CharacterEditorCore\CharacterEditorCore.csproj", "{91EE9C64-5217-42C7-9B1E-C5A86E25739D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB", "MongoDB\MongoDB.csproj", "{B2F99E56-B545-43AE-91AA-857708597465}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{91EE9C64-5217-42C7-9B1E-C5A86E25739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91EE9C64-5217-42C7-9B1E-C5A86E25739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91EE9C64-5217-42C7-9B1E-C5A86E25739D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F99E56-B545-43AE-91AA-857708597465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F99E56-B545-43AE-91AA-857708597465}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F99E56-B545-43AE-91AA-857708597465}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F99E56-B545-43AE-91AA-857708597465}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

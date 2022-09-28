@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WeaponGame_Core.Interfaces
 {
-    internal interface ITripleShot
+    public interface ITripleShot
     {
+        public void TripleShot();
     }
 }

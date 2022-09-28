@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WeaponGame_Core.Interfaces
 {
-    internal interface IRepairable
+    public interface IRepairable
     {
+        public void Repair();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CharacterEditorCore;
+using MongoDB;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -133,6 +134,26 @@ namespace CharacterEditor
             }
 
             return null;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _currentCharacter.Name = ChName.Text;
+                var db = new MongoDB.MongoDB();
+                db.InsertUnit(_currentCharacter);
+                MessageBox.Show("Successfully saved");
+            }
+            catch
+            {
+                MessageBox.Show("Error");
+            }
         }
     }
 }

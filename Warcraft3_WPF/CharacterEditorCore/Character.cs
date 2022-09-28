@@ -2,6 +2,7 @@
 {
     public abstract class Character
     {
+        public String Name { get; set; }
         private delegate void _charactericticChangedDelegate();
         private _charactericticChangedDelegate _charactericticChangedEvent;
         private Characterictic _strength;
@@ -144,7 +145,7 @@
             _charactericticChangedEvent?.Invoke();
         }
 
-        public double GetStrengthValue()
+        public int GetStrengthValue()
         {
             return _strength.Value;
         }
@@ -155,7 +156,7 @@
             _charactericticChangedEvent?.Invoke();
         }
 
-        public double GetDexterityValue()
+        public int GetDexterityValue()
         {
             return _dexterity.Value;
         }
@@ -166,7 +167,7 @@
             _charactericticChangedEvent?.Invoke();
         }
 
-        public double GetConstitutionValue()
+        public int GetConstitutionValue()
         {
             return _constitution.Value;
         }
@@ -177,7 +178,7 @@
             _charactericticChangedEvent?.Invoke();
         }
 
-        public double GetIntellisenseValue()
+        public int GetIntellisenseValue()
         {
             return _intellisense.Value;
         }

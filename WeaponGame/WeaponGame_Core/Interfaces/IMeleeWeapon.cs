@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeaponGame_Core.Interfaces
 {
-    internal interface IMeleeWeapon
+    public interface IMeleeWeapon: ILogger,IRepairable,IThrowable,IUpgradable
     {
     }
 }

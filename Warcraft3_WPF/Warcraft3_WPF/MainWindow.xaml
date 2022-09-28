@@ -40,47 +40,51 @@
             <RowDefinition Height="50*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="130*"/>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="60*"/>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="60*"/>
-            <ColumnDefinition Width="120*"/>
-            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="41*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="26*"/>
+            <ColumnDefinition Width="84.315"/>
         </Grid.ColumnDefinitions>
-        <ComboBox Name="cbCharacters" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Width="120" FontSize="15" SelectionChanged="cbCharacters_SelectionChanged" />
+        <ComboBox Name="cbCharacters" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" FontSize="15" SelectionChanged="cbCharacters_SelectionChanged" Height="26"  />
 
-        <Button Name="strengthMinusBtn" Content="-" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
+        <Button Name="strengthMinusBtn" Content="-" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25" Margin="57,0,0,0"/>
 
-        <Button Name="dexterityMinusBtn" Content="-" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
-        <Button Name="constitutionMinusBtn" Content="-" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click"  FontSize="25"/>
-        <Button Name="intellisenseMinusBtn" Content="-" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
+        <Button Name="dexterityMinusBtn" Content="-" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25" Margin="57,0,0,0"/>
+        <Button Name="constitutionMinusBtn" Content="-" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click"  FontSize="25" Margin="57,0,0,0"/>
+        <Button Name="intellisenseMinusBtn" Content="-" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25" Margin="57,0,0,0"/>
 
-        <Button Name="strengthPlusBtn" Content="+" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
-        <Button Name="dexterityPlusBtn" Content="+" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
-        <Button Name="constitutionPlusBtn" Content="+" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
-        <Button Name="intellisensePlusBtn" Content="+" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
+        <Button Name="strengthPlusBtn" Content="+" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
+        <Button Name="dexterityPlusBtn" Content="+" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
+        <Button Name="constitutionPlusBtn" Content="+" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
+        <Button Name="intellisensePlusBtn" Content="+" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="30" Click="CharactericticChangeButton_Click" FontSize="25"/>
 
-        <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource AllLabel}" Content="Strength"/>
-        <Label Grid.Column="1" Grid.Row="2" Style="{StaticResource AllLabel}" Content="Dexterity"/>
-        <Label Grid.Column="1" Grid.Row="3" Style="{StaticResource AllLabel}" Content="Constitution"/>
-        <Label Grid.Column="1" Grid.Row="4" Style="{StaticResource AllLabel}" Content="Intellisense"/>
+        <Label Grid.Column="2" Grid.Row="1" Style="{StaticResource AllLabel}" Content="Strength" Height="30" Width="66"/>
+        <Label Grid.Column="2" Grid.Row="2" Style="{StaticResource AllLabel}" Content="Dexterity" Height="30" Width="70"/>
+        <Label Grid.Column="2" Grid.Row="3" Style="{StaticResource AllLabel}" Content="Constitution" Height="29" Width="91"/>
+        <Label Grid.Column="2" Grid.Row="4" Style="{StaticResource AllLabel}" Content="Intellisense" Height="30" Width="83"/>
 
-        <Label Name="strength" Grid.Column="3" Grid.Row="1" Style="{StaticResource CharactericticLabel}"/>
-        <Label Name="dexterity" Grid.Column="3" Grid.Row="2" Style="{StaticResource CharactericticLabel}"/>
-        <Label Name="constitution" Grid.Column="3" Grid.Row="3" Style="{StaticResource CharactericticLabel}"/>
-        <Label Name="intellisense" Grid.Column="3" Grid.Row="4" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="strength" Grid.Column="4" Grid.Row="1" Style="{StaticResource CharactericticLabel}" Height="30" Width="38"/>
+        <Label Name="dexterity" Grid.Column="4" Grid.Row="2" Style="{StaticResource CharactericticLabel}" Height="30" Width="38"/>
+        <Label Name="constitution" Grid.Column="4" Grid.Row="3" Style="{StaticResource CharactericticLabel}" Height="29" Width="38"/>
+        <Label Name="intellisense" Grid.Column="4" Grid.Row="4" Style="{StaticResource CharactericticLabel}" Height="30" Width="38"/>
 
-        <Label Grid.Column="5" Grid.Row="1" Style="{StaticResource AllLabel}" Content="Attack:"/>
-        <Label Grid.Column="5" Grid.Row="2" Style="{StaticResource AllLabel}" Content="Health:"/>
-        <Label Grid.Column="5" Grid.Row="3" Style="{StaticResource AllLabel}" Content="Physical Defence:"/>
-        <Label Grid.Column="5" Grid.Row="4" Style="{StaticResource AllLabel}" Content="Mana:"/>
-        <Label Grid.Column="5" Grid.Row="5" Style="{StaticResource AllLabel}" Content="Magical Attack:"/>
+        <Label Grid.Column="5" Grid.Row="1" Style="{StaticResource AllLabel}" Content="Attack:" Height="30" Width="55"/>
+        <Label Grid.Column="5" Grid.Row="2" Style="{StaticResource AllLabel}" Content="Health:" Height="30" Width="57"/>
+        <Label Grid.Column="5" Grid.Row="3" Style="{StaticResource AllLabel}" Content="Physical Defence:" Height="29" Width="124"/>
+        <Label Grid.Column="5" Grid.Row="4" Style="{StaticResource AllLabel}" Content="Mana:" Height="30" Width="51"/>
+        <Label Grid.Column="5" Grid.Row="5" Style="{StaticResource AllLabel}" Content="Magical Attack:" Height="30" Width="111"/>
 
-        <Label Name="Attack" Grid.Column="6" Grid.Row="1" Style="{StaticResource CharactericticLabel}"/>
-        <Label Name="Health" Grid.Column="6" Grid.Row="2" Style="{StaticResource CharactericticLabel}"/>
-        <Label Name="PhysicalDefence" Grid.Column="6" Grid.Row="3" Style="{StaticResource CharactericticLabel}"/>
-        <Label Name="Mana" Grid.Column="6" Grid.Row="4" Style="{StaticResource CharactericticLabel}"/>
-        <Label Name="MagicalAttack" Grid.Column="6" Grid.Row="5" Style="{StaticResource CharactericticLabel}"/>
+        <Label Name="Attack" Grid.Column="7" Grid.Row="1" Style="{StaticResource CharactericticLabel}" Height="30" Width="38"/>
+        <Label Name="Health" Grid.Column="7" Grid.Row="2" Style="{StaticResource CharactericticLabel}" Height="30" Width="38"/>
+        <Label Name="PhysicalDefence" Grid.Column="7" Grid.Row="3" Style="{StaticResource CharactericticLabel}" Height="29" Width="38"/>
+        <Label Name="Mana" Grid.Column="7" Grid.Row="4" Style="{StaticResource CharactericticLabel}" Height="30" Width="38"/>
+        <Label Name="MagicalAttack" Grid.Column="7" Grid.Row="5" Style="{StaticResource CharactericticLabel}" Height="30" Width="38"/>
+        <TextBox Name="ChName" HorizontalAlignment="Center"  Grid.Row="5" TextWrapping="Wrap" Text="Unit name" VerticalAlignment="Center" Width="80" Height="30" TextChanged="TextBox_TextChanged" Grid.Column="1" FontSize="15" />
+        <Label Content="Unit name: " HorizontalAlignment="Left"  Grid.Row="5" VerticalAlignment="Center" RenderTransformOrigin="0.658,-0.015" FontSize="20" Margin="61,0,0,0" Height="37" Width="111"/>
+        <Button Grid.Column="3" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.342,-18.773" Width="65" Height="30" Click="Button_Click"/>
+        <ComboBox HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="120" Height="22"/>
     </Grid>
 </Window>

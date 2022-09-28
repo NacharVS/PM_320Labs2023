@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WeaponGame_Core.Interfaces
 {
-    internal interface IWeapon
+    public interface IWeapon: ILogger,IRepairable,IUpgradable,IReloadable
     {
+        
     }
 }

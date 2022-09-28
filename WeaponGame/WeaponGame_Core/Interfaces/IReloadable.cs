@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WeaponGame_Core.Interfaces
 {
-    internal interface IReloadable
+    public interface IReloadable
     {
+        public void Reload();
     }
 }

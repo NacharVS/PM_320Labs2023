@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WeaponGame_Core.Interfaces
 {
-    interface ILogger
+    public interface ILogger
     {
+        public void Log(string message);
+        
     }
 }

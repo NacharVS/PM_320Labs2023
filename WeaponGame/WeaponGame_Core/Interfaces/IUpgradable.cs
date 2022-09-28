@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WeaponGame_Core.Interfaces
 {
-    internal interface IUpgradable
+    public interface IUpgradable
     {
+        public void Upgrade();
     }
 }
