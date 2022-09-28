@@ -4,10 +4,34 @@ namespace CharacterEditor.Core;
 
 public abstract class CharacterBase
 {
+    public const int InventoryCapacity = 9;
+
     public string? Id { get; set; }
     public string? Name { get; set; }
     private int _skillPoints = 50;
     public int SkillPoints => _skillPoints;
+
+    private readonly List<Item> _inventory = new();
+
+    public List<Item> Inventory
+    {
+        get => _inventory;
+        init
+        {
+            foreach (var item in value)
+            {
+                AddToInventory(item);
+            }
+        }
+    }
+
+    public void AddToInventory(Item item)
+    {
+        if (_inventory.Count >= InventoryCapacity)
+        {
+            _inventory.Add(item);
+        }
+    }
 
     # region Characteristics
 

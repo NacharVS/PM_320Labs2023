@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using CharacterEditor.Core;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace CharacterEditor.MongoDB;
@@ -15,4 +16,5 @@ public class CharacterDb
     [BsonIgnoreIfDefault] public int Dexterity { get; internal set; }
     [BsonIgnoreIfDefault] public int Constitution { get; internal set; }
     [BsonIgnoreIfDefault] public int Intelligence { get; internal set; }
+    [BsonIgnoreIfDefault] public List<Item> Inventory { get; internal set; }
 }
