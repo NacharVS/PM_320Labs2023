@@ -8,10 +8,13 @@ namespace GameCharacterEditor
 {
     class Mace : Equipment
     {
-        public Mace()
+        /*public Mace()
         {
             EquipmentName = "Mace";
             EquipmentCount = 10;
+        }*/
+        public Mace(string equipmentName, int equipmentCount) : base(equipmentName, equipmentCount)
+        {
         }
     }
 }

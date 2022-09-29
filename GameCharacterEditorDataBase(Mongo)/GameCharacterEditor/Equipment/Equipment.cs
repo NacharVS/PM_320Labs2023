@@ -10,5 +10,11 @@ namespace GameCharacterEditor
     {
         public string EquipmentName { get; set; }
         public int EquipmentCount { get; set; }
+
+        public Equipment (string equipmentName, int equipmentCount)
+        {
+            EquipmentName = equipmentName;
+            EquipmentCount = equipmentCount;
+        }
     }
 }

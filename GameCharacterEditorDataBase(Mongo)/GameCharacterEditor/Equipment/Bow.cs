@@ -8,10 +8,13 @@ namespace GameCharacterEditor
 {
     class Bow : Equipment
     {
-        public Bow ()
+        /*public Bow ()
         {
             EquipmentName = "Bow";
             EquipmentCount = 10;
+        }*/
+        public Bow(string equipmentName, int equipmentCount) : base(equipmentName, equipmentCount)
+        {
         }
     }
 }

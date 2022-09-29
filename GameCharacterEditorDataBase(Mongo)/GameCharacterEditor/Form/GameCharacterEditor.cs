@@ -166,19 +166,19 @@ namespace GameCharacterEditor
         private void Bow_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             equipmentName = Bow_CheckBox.Text;
-            character.AddToEquipment(new Equipment());
+            character.AddToEquipment(new Equipment("Bow", 10));
         }
 
         private void Mace_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             equipmentName = Mace_CheckBox.Text;
-            character.AddToEquipment(new Equipment());
+            character.AddToEquipment(new Equipment("Mace", 10));
         }
 
         private void Dagger_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             equipmentName = Dagger_CheckBox.Text;
-            character.AddToEquipment(new Equipment());
+            character.AddToEquipment(new Equipment("Dagger", 10));
         }
     }
 }
