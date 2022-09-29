@@ -10,17 +10,19 @@ public abstract class CharacterBase
     public string? Id { get; set; }
     public string? Name { get; set; }
 
-    public LevelInfo Level { get; init; } = new();
+    public LevelInfo Level { get; }
 
     private int _skillPoints = 50;
     public int SkillPoints => _skillPoints;
+
+    # region Inventory
 
     private readonly List<Item> _inventory = new();
 
     public Item[] Inventory
     {
         get => _inventory.ToArray();
-        init
+        set
         {
             foreach (var item in value)
             {
@@ -41,6 +43,8 @@ public abstract class CharacterBase
     {
         _inventory.Remove(item);
     }
+
+    #endregion
 
     # region Characteristics
 
@@ -122,6 +126,20 @@ public abstract class CharacterBase
         }
     }
 
+    private bool CanChange(CharacteristicRange range, int oldValue,
+        int newValue)
+    {
+        if (!range.ContainsValue(newValue))
+            return false;
+        if (newValue > oldValue)
+        {
+            if (newValue - oldValue > _skillPoints)
+                return false;
+        }
+
+        return true;
+    }
+
     #endregion
 
     # region Stats
@@ -137,20 +155,6 @@ public abstract class CharacterBase
     public double PhysicalResistance { get; private set; }
 
     #endregion
-
-    private bool CanChange(CharacteristicRange range, int oldValue,
-        int newValue)
-    {
-        if (!range.ContainsValue(newValue))
-            return false;
-        if (newValue > oldValue)
-        {
-            if (newValue - oldValue > _skillPoints)
-                return false;
-        }
-
-        return true;
-    }
 
     public CharacterBase(int experience = 0)
     {
@@ -202,11 +206,19 @@ public abstract class CharacterBase
         _dexterity = CharacteristicsInfo.DexterityInfo.Range.MinValue;
         _constitution = CharacteristicsInfo.ConstitutionInfo.Range.MinValue;
         _intelligence = CharacteristicsInfo.IntelligenceInfo.Range.MinValue;
-        
-        OnStrengthChange?.Invoke(this, new CharacteristicChangeEventArgs(CharacteristicsInfo.StrengthInfo.Range.MinValue));
-        OnDexterityChange?.Invoke(this, new CharacteristicChangeEventArgs(CharacteristicsInfo.DexterityInfo.Range.MinValue));
-        OnConstitutionChange?.Invoke(this, new CharacteristicChangeEventArgs(CharacteristicsInfo.ConstitutionInfo.Range.MinValue));
-        OnIntelligenceChange?.Invoke(this, new CharacteristicChangeEventArgs(CharacteristicsInfo.IntelligenceInfo.Range.MinValue));
+
+        OnStrengthChange?.Invoke(this,
+            new CharacteristicChangeEventArgs(CharacteristicsInfo.StrengthInfo
+                .Range.MinValue));
+        OnDexterityChange?.Invoke(this,
+            new CharacteristicChangeEventArgs(CharacteristicsInfo.DexterityInfo
+                .Range.MinValue));
+        OnConstitutionChange?.Invoke(this,
+            new CharacteristicChangeEventArgs(CharacteristicsInfo
+                .ConstitutionInfo.Range.MinValue));
+        OnIntelligenceChange?.Invoke(this,
+            new CharacteristicChangeEventArgs(CharacteristicsInfo
+                .IntelligenceInfo.Range.MinValue));
     }
 
     public event CharacteristicChangeEventHandler? OnStrengthChange;

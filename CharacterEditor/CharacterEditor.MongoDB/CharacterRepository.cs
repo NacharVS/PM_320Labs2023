@@ -30,44 +30,33 @@ public class CharacterRepository : ICharacterRepository
     {
         var dbChar = Characters.Find(x => x.Id == id).FirstOrDefault() ??
                      throw new NotFoundException();
+        CharacterBase character;
         switch (dbChar.ClassName)
         {
             case "Warrior":
-                return new Warrior(dbChar.Experience)
-                {
-                    Name = dbChar.Name, Constitution = dbChar.Constitution,
-                    Dexterity = dbChar.Dexterity,
-                    Intelligence = dbChar.Intelligence, Id = dbChar.Id,
-                    Strength = dbChar.Strength,
-                    Inventory = dbChar.Inventory is not null
-                        ? dbChar.Inventory.ToArray()
-                        : Array.Empty<Item>()
-                };
+                character = new Warrior(dbChar.Experience);
+                break;
             case "Wizard":
-                return new Wizard(dbChar.Experience)
-                {
-                    Name = dbChar.Name, Constitution = dbChar.Constitution,
-                    Dexterity = dbChar.Dexterity,
-                    Intelligence = dbChar.Intelligence, Id = dbChar.Id,
-                    Strength = dbChar.Strength,
-                    Inventory = dbChar.Inventory is not null
-                        ? dbChar.Inventory.ToArray()
-                        : Array.Empty<Item>()
-                };
+                character = new Wizard(dbChar.Experience);
+                break;
             case "Rogue":
-                return new Rogue(dbChar.Experience)
-                {
-                    Name = dbChar.Name, Constitution = dbChar.Constitution,
-                    Dexterity = dbChar.Dexterity,
-                    Intelligence = dbChar.Intelligence, Id = dbChar.Id,
-                    Strength = dbChar.Strength,
-                    Inventory = dbChar.Inventory is not null
-                        ? dbChar.Inventory.ToArray()
-                        : Array.Empty<Item>()
-                };
+                character = new Rogue(dbChar.Experience);
+                break;
             default:
                 throw new NotFoundException();
         }
+
+        character.Id = dbChar.Id;
+        character.Name = dbChar.Name;
+        character.Strength = dbChar.Strength;
+        character.Dexterity = dbChar.Dexterity;
+        character.Constitution = dbChar.Constitution;
+        character.Intelligence = dbChar.Intelligence;
+        character.Inventory = dbChar.Inventory is not null
+            ? dbChar.Inventory.ToArray()
+            : Array.Empty<Item>();
+
+        return character;
     }
 
     public void InsertCharacter(CharacterBase character)
@@ -80,7 +69,9 @@ public class CharacterRepository : ICharacterRepository
             Constitution = character.Constitution,
             Intelligence = character.Intelligence,
             ClassName = character.GetType().Name,
-            Inventory = character.Inventory.Length == 0 ? null : character.Inventory
+            Inventory = character.Inventory.Length == 0
+                ? null
+                : character.Inventory
         });
     }
 
@@ -94,7 +85,9 @@ public class CharacterRepository : ICharacterRepository
             Constitution = character.Constitution,
             Intelligence = character.Intelligence,
             ClassName = character.GetType().Name,
-            Inventory = character.Inventory.Length == 0 ? null : character.Inventory
+            Inventory = character.Inventory.Length == 0
+                ? null
+                : character.Inventory
         });
     }
 }
