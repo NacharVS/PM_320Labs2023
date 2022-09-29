@@ -59,6 +59,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.Mace_CheckBox = new System.Windows.Forms.CheckBox();
             this.Dagger_CheckBox = new System.Windows.Forms.CheckBox();
+            this.Bow_CheckBox2 = new System.Windows.Forms.CheckBox();
+            this.Mace_CheckBox2 = new System.Windows.Forms.CheckBox();
+            this.Dagger_CheckBox2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Intelligence_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Constitution_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Strength_Text)).BeginInit();
@@ -422,12 +425,54 @@
             this.Dagger_CheckBox.UseVisualStyleBackColor = true;
             this.Dagger_CheckBox.CheckedChanged += new System.EventHandler(this.Dagger_CheckBox_CheckedChanged);
             // 
+            // Bow_CheckBox2
+            // 
+            this.Bow_CheckBox2.AutoSize = true;
+            this.Bow_CheckBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Bow_CheckBox2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Bow_CheckBox2.Location = new System.Drawing.Point(168, 276);
+            this.Bow_CheckBox2.Name = "Bow_CheckBox2";
+            this.Bow_CheckBox2.Size = new System.Drawing.Size(55, 21);
+            this.Bow_CheckBox2.TabIndex = 55;
+            this.Bow_CheckBox2.Text = "Bow";
+            this.Bow_CheckBox2.UseVisualStyleBackColor = true;
+            this.Bow_CheckBox2.Visible = false;
+            // 
+            // Mace_CheckBox2
+            // 
+            this.Mace_CheckBox2.AutoSize = true;
+            this.Mace_CheckBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Mace_CheckBox2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Mace_CheckBox2.Location = new System.Drawing.Point(257, 276);
+            this.Mace_CheckBox2.Name = "Mace_CheckBox2";
+            this.Mace_CheckBox2.Size = new System.Drawing.Size(61, 21);
+            this.Mace_CheckBox2.TabIndex = 56;
+            this.Mace_CheckBox2.Text = "Mace";
+            this.Mace_CheckBox2.UseVisualStyleBackColor = true;
+            this.Mace_CheckBox2.Visible = false;
+            // 
+            // Dagger_CheckBox2
+            // 
+            this.Dagger_CheckBox2.AutoSize = true;
+            this.Dagger_CheckBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Dagger_CheckBox2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Dagger_CheckBox2.Location = new System.Drawing.Point(346, 276);
+            this.Dagger_CheckBox2.Name = "Dagger_CheckBox2";
+            this.Dagger_CheckBox2.Size = new System.Drawing.Size(71, 21);
+            this.Dagger_CheckBox2.TabIndex = 57;
+            this.Dagger_CheckBox2.Text = "Dagger";
+            this.Dagger_CheckBox2.UseVisualStyleBackColor = true;
+            this.Dagger_CheckBox2.Visible = false;
+            // 
             // GameCharacterEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Dagger_CheckBox2);
+            this.Controls.Add(this.Mace_CheckBox2);
+            this.Controls.Add(this.Bow_CheckBox2);
             this.Controls.Add(this.Dagger_CheckBox);
             this.Controls.Add(this.Mace_CheckBox);
             this.Controls.Add(this.label3);
@@ -507,5 +552,8 @@
         private Label label3;
         private CheckBox Mace_CheckBox;
         private CheckBox Dagger_CheckBox;
+        private CheckBox Bow_CheckBox2;
+        private CheckBox Mace_CheckBox2;
+        private CheckBox Dagger_CheckBox2;
     }
 }

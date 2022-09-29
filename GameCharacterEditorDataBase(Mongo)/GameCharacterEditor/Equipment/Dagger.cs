@@ -8,13 +8,10 @@ namespace GameCharacterEditor
 {
     class Dagger : Equipment
     {
-        /*public Dagger()
+        public Dagger(string equipmentName, int equipmentCount) : 
+            base(equipmentName, equipmentCount)
         {
-            EquipmentName = "Dagger";
-            EquipmentCount = 10;
-        }*/
-        public Dagger(string equipmentName, int equipmentCount) : base(equipmentName, equipmentCount)
-        {
+            TypeEquipment = "Dagger";
         }
     }
 }

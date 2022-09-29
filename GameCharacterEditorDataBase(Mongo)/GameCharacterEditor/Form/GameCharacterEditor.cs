@@ -12,6 +12,10 @@ namespace GameCharacterEditor
         {
             InitializeComponent();
             BsonClassMap.RegisterClassMap<Character>();
+            BsonClassMap.RegisterClassMap<Equipment>();
+            BsonClassMap.RegisterClassMap<Bow>();
+            BsonClassMap.RegisterClassMap<Dagger>();
+            BsonClassMap.RegisterClassMap<Mace>();
             BsonClassMap.RegisterClassMap<Warrior>();
             BsonClassMap.RegisterClassMap<Rogue>();
             BsonClassMap.RegisterClassMap<Wizard>();
@@ -85,6 +89,10 @@ namespace GameCharacterEditor
                     break;
             }
 
+            Bow_CheckBox.Checked = false;
+            Mace_CheckBox.Checked = false;
+            Dagger_CheckBox.Checked = false;
+
             Strength_Text.Minimum = character.Strength;
             Strength_Text.Maximum = character.maxStrength;
             Strength_Text.Value = Strength_Text.Minimum;
@@ -108,6 +116,10 @@ namespace GameCharacterEditor
             DataBase.AddToDataBase(character);
 
             Name_Text.Text = "";
+
+            Bow_CheckBox.Checked = false;
+            Mace_CheckBox.Checked = false;
+            Dagger_CheckBox.Checked = false;
 
             Strength_Text.Minimum = 0;
             Strength_Text.Value = 0;
@@ -151,6 +163,26 @@ namespace GameCharacterEditor
             Dexterity_Text.Value = character.Dexterity;
             Constitution_Text.Value = character.Constitution;
             Intelligence_Text.Value = character.Intelligence;
+
+            foreach (var eq in character.equipment)
+            {
+                MessageBox.Show(eq.TypeEquipment);
+                switch (eq.TypeEquipment)
+                {
+                    case "Bow":
+                        Bow_CheckBox2.Visible = true;
+                        Bow_CheckBox2.Checked = true;
+                        break;
+                    case "Mace":
+                        Mace_CheckBox2.Visible = true;
+                        Mace_CheckBox2.Checked = true;
+                        break;
+                    case "Dagger":
+                        Dagger_CheckBox2.Visible= true;
+                        Dagger_CheckBox2.Checked = true;
+                        break;
+                }
+            }
         }
 
         private void ListUpdate()
@@ -166,19 +198,19 @@ namespace GameCharacterEditor
         private void Bow_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             equipmentName = Bow_CheckBox.Text;
-            character.AddToEquipment(new Equipment("Bow", 10));
+            character.AddToEquipment(new Bow(equipmentName, 10));
         }
 
         private void Mace_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             equipmentName = Mace_CheckBox.Text;
-            character.AddToEquipment(new Equipment("Mace", 10));
+            character.AddToEquipment(new Mace(equipmentName, 10));
         }
 
         private void Dagger_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             equipmentName = Dagger_CheckBox.Text;
-            character.AddToEquipment(new Equipment("Dagger", 10));
+            character.AddToEquipment(new Dagger(equipmentName, 10));
         }
     }
 }
