@@ -41,9 +41,9 @@ namespace GameEditor
         public static void Replace(Unit unit)
         {
             var client = new MongoClient("mongodb://localhost:27017");
-            var database = client.GetDatabase("Example320");
+            var database = client.GetDatabase("Galieva");
             var filter = new BsonDocument("_id", unit._id);
-            var collection = database.GetCollection<Unit>("ExCogHk");
+            var collection = database.GetCollection<Unit>("CollectionOfUnits");
             collection.ReplaceOne(filter, unit);
         }
     }

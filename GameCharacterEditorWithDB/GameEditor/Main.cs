@@ -32,9 +32,17 @@ namespace GameEditor
                 Unit infoName = GameEditorLibrary.Units.Info(nameOfCharachter);
                 selectedUnit = infoName;
                 textBoxName.Text = "";
+                numericUpDownStr.Minimum = selectedUnit.minStrength;
+                numericUpDownStr.Maximum = selectedUnit.maxStrength;
                 numericUpDownStr.Value = selectedUnit.Strength;
+                numericUpDownDex.Minimum = selectedUnit.minDexterity;
+                numericUpDownDex.Maximum = selectedUnit.maxDexterity;
                 numericUpDownDex.Value = selectedUnit.Dexterity;
+                numericUpDownCon.Minimum = selectedUnit.minConstitution;
+                numericUpDownCon.Maximum = selectedUnit.maxConstitution;
                 numericUpDownCon.Value = selectedUnit.Constitution;
+                numericUpDownInt.Minimum = selectedUnit.minIntelligence;
+                numericUpDownInt.Maximum = selectedUnit.maxIintelligence;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
                 listBoxRes.SelectedItems.Clear();
                 panelMain.Visible = true;
@@ -44,9 +52,17 @@ namespace GameEditor
             else
             {
                 textBoxName.Text = selectedUnit.Name;
+                numericUpDownStr.Minimum = selectedUnit.minStrength;
+                numericUpDownStr.Maximum = selectedUnit.maxStrength;
                 numericUpDownStr.Value = selectedUnit.Strength;
+                numericUpDownDex.Minimum = selectedUnit.minDexterity;
+                numericUpDownDex.Maximum = selectedUnit.maxDexterity;
                 numericUpDownDex.Value = selectedUnit.Dexterity;
+                numericUpDownCon.Minimum = selectedUnit.minConstitution;
+                numericUpDownCon.Maximum = selectedUnit.maxConstitution;
                 numericUpDownCon.Value = selectedUnit.Constitution;
+                numericUpDownInt.Minimum = selectedUnit.minIntelligence;
+                numericUpDownInt.Maximum = selectedUnit.maxIintelligence;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
             }
             
@@ -118,9 +134,17 @@ namespace GameEditor
                 selectedUnit = DBConnection.FindByName(listBoxRes.Text);
                 listBoxMain.SelectedItems.Clear();
                 textBoxName.Text = selectedUnit.Name;
+                numericUpDownStr.Minimum = selectedUnit.minStrength;
+                numericUpDownStr.Maximum = selectedUnit.maxStrength;
                 numericUpDownStr.Value = selectedUnit.Strength;
+                numericUpDownDex.Minimum = selectedUnit.minDexterity;
+                numericUpDownDex.Maximum = selectedUnit.maxDexterity;
                 numericUpDownDex.Value = selectedUnit.Dexterity;
+                numericUpDownCon.Minimum = selectedUnit.minConstitution;
+                numericUpDownCon.Maximum = selectedUnit.maxConstitution;
                 numericUpDownCon.Value = selectedUnit.Constitution;
+                numericUpDownInt.Minimum = selectedUnit.minIntelligence;
+                numericUpDownInt.Maximum = selectedUnit.maxIintelligence;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
                 panelMain.Visible = false;
                 secondPanel.Visible = true;
