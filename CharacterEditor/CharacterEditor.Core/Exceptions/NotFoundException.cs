@@ -1,4 +1,4 @@
-﻿namespace CharacterEditor.Core;
+﻿namespace CharacterEditor.Core.Exceptions;
 
 public class NotFoundException : Exception
 {

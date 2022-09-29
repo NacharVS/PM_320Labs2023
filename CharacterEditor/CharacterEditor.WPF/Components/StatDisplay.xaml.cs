@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using CharacterEditor.Core;
 
-namespace CharacterEditor.WPF;
+namespace CharacterEditor.WPF.Components;
 
 public partial class StatDisplay : UserControl
 {

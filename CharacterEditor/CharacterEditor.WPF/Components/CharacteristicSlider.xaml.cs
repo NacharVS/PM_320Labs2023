@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace CharacterEditor.WPF;
+namespace CharacterEditor.WPF.Components;
 
 public partial class CharacteristicSlider : UserControl
 {

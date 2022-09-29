@@ -1,6 +1,6 @@
 ﻿using CharacterEditor.Core.Characteristics;
 
-namespace CharacterEditor.Core;
+namespace CharacterEditor.Core.Classes;
 
 public class Wizard : CharacterBase
 {

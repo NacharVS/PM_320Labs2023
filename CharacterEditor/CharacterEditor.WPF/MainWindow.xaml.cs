@@ -2,6 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using CharacterEditor.Core;
+using CharacterEditor.Core.Classes;
+using CharacterEditor.Core.Db;
+using CharacterEditor.WPF.Components;
 using CharacterEditor.WPF.Windows;
 
 namespace CharacterEditor.WPF
