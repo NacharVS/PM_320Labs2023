@@ -5,6 +5,7 @@ namespace CharacterEditor.Core;
 public abstract class CharacterBase
 {
     private const int InventoryCapacity = 9;
+    private const int MaximumAbilityCount = 5;
     private const int SkillPointsPerLevel = 5;
 
     public string? Id { get; set; }
@@ -14,6 +15,35 @@ public abstract class CharacterBase
 
     private int _skillPoints = 50;
     public int SkillPoints => _skillPoints;
+
+    # region Abilities
+
+    private readonly List<Ability> _abilities = new();
+
+    public Ability[] Abilities
+    {
+        get => _abilities.ToArray();
+        set
+        {
+            foreach (var ability in value)
+            {
+                AddAbility(ability);
+            }
+        }
+    }
+
+    public void AddAbility(Ability ability)
+    {
+        if (_abilities.Count < MaximumAbilityCount)
+            _abilities.Add(ability);
+    }
+
+    public void DeleteAbility(Item item)
+    {
+        _inventory.Remove(item);
+    }
+
+    #endregion
 
     # region Inventory
 

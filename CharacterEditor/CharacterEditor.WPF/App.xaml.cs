@@ -14,6 +14,7 @@ namespace CharacterEditor.WPF
     {
         private MongoConnection Connection { get; }
         public ICharacterRepository CharacterRepository { get; }
+        public IAbilityRepository AbilityRepository { get; }
 
         public App()
         {
@@ -23,6 +24,7 @@ namespace CharacterEditor.WPF
                 ConfigurationManager.AppSettings["MongoDatabase"] ??
                 throw new NotFoundException("No database name"));
             CharacterRepository = new CharacterRepository(Connection);
+            AbilityRepository = new AbilityRepository(Connection);
         }
     }
 }

@@ -16,13 +16,17 @@ namespace CharacterEditor.WPF
     {
         private CharacterBase? _currentCharacter;
 
-        private readonly ICharacterRepository _repository =
-            ((App)Application.Current).CharacterRepository;
+        private readonly ICharacterRepository _repository;
+        private readonly IAbilityRepository _abilityRepository;
 
         public event Action? AfterChangeCharacter;
 
         public MainWindow()
         {
+            var app = (App)Application.Current;
+            _repository = app.CharacterRepository;
+            _abilityRepository = app.AbilityRepository;
+            
             InitializeComponent();
 
             Inventory.AddItemButton.Click += AddItem;
@@ -130,9 +134,6 @@ namespace CharacterEditor.WPF
 
             if (_currentCharacter is null)
                 return;
-
-            _currentCharacter.Level.CurrentExperience += 4000;
-            _currentCharacter.Level.CurrentExperience += 50;
 
             CreatedCharactersComboBox.ItemsSource =
                 _repository.GetAllCharacterNamesByClass((string)value);
