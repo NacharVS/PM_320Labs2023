@@ -1,12 +1,11 @@
-﻿using MongoDB.Bson;
+﻿using CharacterEditorCore.Items;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace CharacterEditorCore
 {
     public abstract class BaseCharacteristics
     {
-        private ObjectId _id;
-
         private string _name;
         public string Name 
         {
@@ -133,6 +132,29 @@ namespace CharacterEditorCore
             }
         }
 
+        private List<IItem> _inventory = new();
+
+        public List<IItem> Inventory
+        {
+            get => _inventory;
+            set
+            {
+                foreach (var item in value)
+                {
+                    AddItem(item);
+                }
+            }
+        }
+
+        public void AddItem(IItem item)
+        {
+            _inventory.Add(item);
+        }
+
+        public void RemoveItem(IItem item)
+        {
+            _inventory.Remove(item);
+        }
         public void HealthPointCalc()
         {
             HealthPoint = _strength.Value * _strengthHpChange + _constitution.Value * _constitutionHpChange;

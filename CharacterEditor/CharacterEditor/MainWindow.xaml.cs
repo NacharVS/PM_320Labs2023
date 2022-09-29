@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using CharacterEditor;
 using CharacterEditorCore;
 using CharacterEditorMongoDataBase;
 
@@ -14,7 +15,7 @@ namespace UnitsEditor
     {
         private readonly List<string> _characterNames;
         private BaseCharacteristics _selectedCharacter;
-        private readonly CharacterEditorContext _charContext;
+        public readonly CharacterEditorContext CharContext;
 
         private delegate void CharacteristicChangeDelegate();
         private event CharacteristicChangeDelegate? CharacteristicChangeEvent;
@@ -22,13 +23,13 @@ namespace UnitsEditor
         public MainWindow()
         {
             InitializeComponent();
-            _charContext = new CharacterEditorContext();
+            CharContext = new CharacterEditorContext();
 
             _characterNames = new List<string>
             { "Warrior", "Rogue", "Wizard"};
 
             cbNewCharacters.ItemsSource = _characterNames;
-            cbExistCharacters.ItemsSource = _charContext.GetAllChars();
+            cbExistCharacters.ItemsSource = CharContext.GetAllChars();
         }
 
         private void NewCharComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,7 +62,7 @@ namespace UnitsEditor
             CharacteristicChangeEvent?.Invoke();
         }
 
-        private void FillCharacterInfo()
+        public void FillCharacterInfo()
         {
             if (_selectedCharacter == null)
             {
@@ -187,12 +188,32 @@ namespace UnitsEditor
         {
             try
             {
+                if (cbExistCharacters.SelectedItem is not null)
+                {
+                    if (tbCharacterName.Text != "")
+                    {
+                        _selectedCharacter.Name = tbCharacterName.Text;
+                        if (CharContext.UpdateCharacterInDb(
+                            ((CharacterIdName)cbExistCharacters.SelectedItem).Id,
+                            _selectedCharacter))
+                            
+                        {
+                            cbExistCharacters.ItemsSource = CharContext.GetAllChars();
+                            cbNewCharacters.SelectedIndex = -1;
+                            _selectedCharacter = null;
+                            FillCharacterInfo();
+                            MessageBox.Show("Update succesfull");
+                            return;
+                        }
+                    }
+                }
+
                 if (tbCharacterName.Text != "")
                 {
                     _selectedCharacter.Name = tbCharacterName.Text;
-                    if (_charContext.AddCharacterToDb(_selectedCharacter))
+                    if (CharContext.AddCharacterToDb(_selectedCharacter))
                     {
-                        cbExistCharacters.ItemsSource = _charContext.GetAllChars();
+                        cbExistCharacters.ItemsSource = CharContext.GetAllChars();
                         cbNewCharacters.SelectedIndex = -1;
                         _selectedCharacter = null;
                         FillCharacterInfo();
@@ -211,7 +232,7 @@ namespace UnitsEditor
             {
                 tbCharacterName.Text = charInDb.Name;
 
-                var findCharacter = _charContext.GetCharacter(charInDb.Id);
+                var findCharacter = CharContext.GetCharacter(charInDb.Id);
                 if (findCharacter is not null)
                 {
                     _selectedCharacter = findCharacter;
@@ -222,6 +243,36 @@ namespace UnitsEditor
 
                     CharacteristicChangeEvent?.Invoke();
                 }
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(_selectedCharacter is not null)
+            {
+                if(cbExistCharacters.SelectedItem is not null)
+                {
+                    var charInDb = (CharacterIdName)cbExistCharacters.SelectedItem;
+                    if (charInDb is not null)
+                    {
+                        tbCharacterName.Text = charInDb.Name;
+
+                        _selectedCharacter.Name = tbCharacterName.Text;
+                        var inventWindow = new Inventory(this, _selectedCharacter);
+                        inventWindow.Show();
+                    }
+                }
+            }
+            if (cbNewCharacters.SelectedItem is not null)
+            {
+                _selectedCharacter.Name = tbCharacterName.Text;
+                var inventWindow = new Inventory(this, _selectedCharacter);
+
+                inventWindow.Show();
+            }
+            if(cbNewCharacters.SelectedItem is null && _selectedCharacter is null)
+            {
+                MessageBox.Show("Select chatacter!");
             }
         }
     }

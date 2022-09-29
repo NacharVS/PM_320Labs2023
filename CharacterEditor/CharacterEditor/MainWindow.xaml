@@ -44,7 +44,7 @@
             <Setter Property="Control.IsEnabled" Value="False"/>
         </Style>
     </Window.Resources>
-    <Grid x:Name="GridMain" Background="#FFC3C3C3">
+    <Grid x:Name="GridMain" Background="#FFC4B7D7" Cursor="Arrow" ShowGridLines="False">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="200*"/>
@@ -81,21 +81,22 @@
         <Label x:Name="lbIntelligenceValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="3"/>
 
         <Label x:Name="lbNewCharacter" Style="{StaticResource CharactersName}" Grid.Row="0" Grid.Column="1" Content="New Character"/>
-        <ComboBox x:Name="cbNewCharacters" HorizontalAlignment="Center" VerticalAlignment="Top" Width="190" Grid.Column="1" Height="50" SelectionChanged="NewCharComboBox_SelectionChanged" Margin="0,163,0,0" Grid.RowSpan="2"/>
+        <ComboBox x:Name="cbNewCharacters" HorizontalAlignment="Center" VerticalAlignment="Top" Width="190" Grid.Column="1" Height="50" SelectionChanged="NewCharComboBox_SelectionChanged" Margin="0,163,10,0" Grid.RowSpan="2"/>
 
         <Label x:Name="lbExistCharacter" Style="{StaticResource CharactersName}" Grid.Row="2" Grid.Column="1" Content="Existing Character"/>
-        <ComboBox x:Name="cbExistCharacters" HorizontalAlignment="Center" VerticalAlignment="Top" Width="190" Grid.Column="1" Height="50" SelectionChanged="ExtCharComboBox_SelectionChanged" Margin="0,73,0,0" Grid.RowSpan="2" Grid.Row="2">
+        <ComboBox x:Name="cbExistCharacters" HorizontalAlignment="Center" VerticalAlignment="Top" Width="190" Grid.Column="1" Height="50" SelectionChanged="ExtCharComboBox_SelectionChanged" Margin="0,73,10,0" Grid.RowSpan="2" Grid.Row="2">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Width="50" Text="{Binding Path=Name}" />
-                        <TextBlock Width="170" Text="{Binding Path=Id}" />
+                        <TextBlock Width="180" Text="{Binding Path=Id}" />
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-
+        <Button Content="Inventory" Grid.Column="1" Grid.Row="4" Width="190" Height="50" Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click"/>
+        
         <Label x:Name="lbCharacterName" Style="{StaticResource CharactersName}" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Content="Character name"/>
         <TextBox x:Name="tbCharacterName" Grid.Column="2" Grid.Row="5" Height="30" Width="200" VerticalAlignment="Top" Margin="0,16,0,0"/>
 
