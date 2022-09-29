@@ -8,7 +8,7 @@ public class CharacterDb
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; internal set; }
+    public string Id { get; internal set; } = null!;
 
     [BsonIgnoreIfNull] public string? Name { get; internal set; }
     [BsonIgnoreIfNull] public string? ClassName { get; internal set; }

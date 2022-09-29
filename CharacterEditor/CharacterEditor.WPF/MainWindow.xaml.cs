@@ -12,7 +12,7 @@ namespace CharacterEditor.WPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private CharacterBase? _currentCharacter;
 
@@ -26,22 +26,28 @@ namespace CharacterEditor.WPF
             var app = (App)Application.Current;
             _repository = app.CharacterRepository;
             _abilityRepository = app.AbilityRepository;
-            
+
             InitializeComponent();
 
             Inventory.AddItemButton.Click += AddItem;
             Inventory.RemoveItemButton.Click += RemoveItem;
+
             CreateNewButton.Click += CreateNewButton_Click;
+
             SaveCharacterButton.Click += SaveCharacterButton_Click;
+
             CreatedCharactersComboBox.SelectionChanged +=
                 CreatedCharactersComboBox_SelectionChanged;
+
             SelectClassComboBox.SelectionChanged +=
                 SelectClassComboBox_SelectionChanged;
+
             AfterChangeCharacter += UpdateSkillPoints;
             AfterChangeCharacter += UpdateSlidersView;
             AfterChangeCharacter += UpdateStatDisplay;
             AfterChangeCharacter += UpdateName;
             AfterChangeCharacter += UpdateInventory;
+
             foreach (CharacteristicSlider slider in SliderPanel.Children)
             {
                 slider.CharacteristicName.Content =
@@ -51,70 +57,13 @@ namespace CharacterEditor.WPF
             }
         }
 
-        private void RemoveItem(object sender, RoutedEventArgs e)
+        private void CreateNewButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Inventory.ItemListBox.SelectedItem is not Item item)
-                return;
-            
-            _currentCharacter.DeleteFromInventory(item);
-            UpdateInventory();
-        }
-
-        private void AddItem(object sender, RoutedEventArgs e)
-        {
-            if (_currentCharacter is null)
-                return;
-
-            var prompt = new TextPrompt();
-            if (prompt.ShowDialog() == true)
-            {
-                var item = new Item { Name = prompt.ResponseTextBox.Text };
-                _currentCharacter.AddToInventory(item);
-                UpdateInventory();
-            }
-        }
-
-        private void UpdateInventory()
-        {
-            Inventory.ItemListBox.ItemsSource = _currentCharacter.Inventory;
-            Inventory.InvalidateVisual();
-        }
-
-        private void UpdateName()
-        {
-            NameTextBox.Text = _currentCharacter.Name ??
-                               _currentCharacter.GetType().Name;
-        }
-
-        private void UpdateSkillPoints()
-        {
-            SkillPointsLabel.Content =
-                _currentCharacter?.SkillPoints.ToString() ?? "0";
-        }
-
-        private void UpdateSliderView(object sender, RoutedEventArgs e)
-        {
-            if (_currentCharacter is null)
-                return;
-
-            var slider =
-                CharacteristicSlider.TryGetSliderByButton((Button)sender);
-            if (slider is null)
-                return;
-
-            var property = _currentCharacter
-                .GetType()
-                .GetProperty((string)slider.CharacteristicName.Content);
-            property?.SetValue(_currentCharacter, slider.SliderValue);
-            slider.SliderValue = (int)property?.GetValue(_currentCharacter)!;
-
-            slider.InvalidateVisual();
-            UpdateSkillPoints();
-            UpdateStatDisplay();
+            CreateNewCharacter();
         }
 
         private void SelectClassComboBox_SelectionChanged(object sender,
-            SelectionChangedEventArgs e)
+            SelectionChangedEventArgs? e)
         {
             var combobox = sender as ComboBox;
             var value = (combobox!.SelectedValue as ComboBoxItem)!.Content;
@@ -140,25 +89,6 @@ namespace CharacterEditor.WPF
             CreatedCharactersComboBox.DisplayMemberPath = "Name";
 
             AfterChangeCharacter?.Invoke();
-        }
-
-        private void UpdateSlidersView()
-        {
-            StrengthSlider.SliderValue = _currentCharacter.Strength;
-            DexteritySlider.SliderValue = _currentCharacter.Dexterity;
-            ConstitutionSlider.SliderValue = _currentCharacter.Constitution;
-            IntelligenceSlider.SliderValue = _currentCharacter.Intelligence;
-            foreach (CharacteristicSlider slider in SliderPanel.Children)
-                slider.InvalidateVisual();
-        }
-
-        private void UpdateStatDisplay()
-        {
-            if (_currentCharacter is null)
-                return;
-
-            CharacterStats.UpdateValues(_currentCharacter);
-            CharacterStats.InvalidateVisual();
         }
 
         private void CreatedCharactersComboBox_SelectionChanged(object sender,
@@ -190,17 +120,95 @@ namespace CharacterEditor.WPF
             CreateNewCharacter();
         }
 
+        private void AddItem(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter is null)
+                return;
+
+            var prompt = new TextPrompt();
+            if (prompt.ShowDialog() == true)
+            {
+                var item = new Item { Name = prompt.ResponseTextBox.Text };
+                _currentCharacter.AddToInventory(item);
+                UpdateInventory();
+            }
+        }
+
+        private void RemoveItem(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter is null ||
+                Inventory.ItemListBox.SelectedItem is not Item item)
+                return;
+
+            _currentCharacter.DeleteFromInventory(item);
+            UpdateInventory();
+        }
+
+        private void UpdateInventory()
+        {
+            Inventory.ItemListBox.ItemsSource = _currentCharacter!.Inventory;
+            Inventory.InvalidateVisual();
+        }
+
+        private void UpdateName()
+        {
+            NameTextBox.Text = _currentCharacter!.Name ??
+                               _currentCharacter.GetType().Name;
+        }
+
+        private void UpdateSkillPoints()
+        {
+            SkillPointsLabel.Content =
+                _currentCharacter?.SkillPoints.ToString() ?? "0";
+        }
+
+        private void UpdateSliderView(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter is null)
+                return;
+
+            var slider =
+                CharacteristicSlider.TryGetSliderByButton((Button)sender);
+            if (slider is null)
+                return;
+
+            var property = _currentCharacter
+                .GetType()
+                .GetProperty((string)slider.CharacteristicName.Content);
+            property?.SetValue(_currentCharacter, slider.SliderValue);
+            slider.SliderValue = (int)property?.GetValue(_currentCharacter)!;
+
+            slider.InvalidateVisual();
+            UpdateSkillPoints();
+            UpdateStatDisplay();
+        }
+
+        private void UpdateSlidersView()
+        {
+            StrengthSlider.SliderValue = _currentCharacter!.Strength;
+            DexteritySlider.SliderValue = _currentCharacter.Dexterity;
+            ConstitutionSlider.SliderValue = _currentCharacter.Constitution;
+            IntelligenceSlider.SliderValue = _currentCharacter.Intelligence;
+            foreach (CharacteristicSlider slider in SliderPanel.Children)
+                slider.InvalidateVisual();
+        }
+
+        private void UpdateStatDisplay()
+        {
+            if (_currentCharacter is null)
+                return;
+
+            CharacterStats.UpdateValues(_currentCharacter);
+            CharacterStats.InvalidateVisual();
+        }
+
+
         private void CreateNewCharacter()
         {
             if (string.IsNullOrEmpty(SelectClassComboBox.Text))
                 return;
 
             SelectClassComboBox_SelectionChanged(SelectClassComboBox, null);
-        }
-
-        private void CreateNewButton_Click(object sender, RoutedEventArgs e)
-        {
-            CreateNewCharacter();
         }
     }
 }

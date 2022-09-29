@@ -7,18 +7,20 @@ public abstract class CharacterBase
     private const int InventoryCapacity = 9;
     private const int MaximumAbilityCount = 5;
     private const int SkillPointsPerLevel = 5;
+    private const int DefaultSkillPoints = 50;
+
+    private int _skillPoints = DefaultSkillPoints;
+    private readonly List<Ability> _abilities = new();
+    private readonly List<Item> _inventory = new();
+    private int _strength;
+    private int _dexterity;
+    private int _constitution;
+    private int _intelligence;
 
     public string? Id { get; set; }
     public string? Name { get; set; }
-
     public LevelInfo Level { get; }
-
-    private int _skillPoints = 50;
     public int SkillPoints => _skillPoints;
-
-    # region Abilities
-
-    private readonly List<Ability> _abilities = new();
 
     public Ability[] Abilities
     {
@@ -32,23 +34,6 @@ public abstract class CharacterBase
         }
     }
 
-    public void AddAbility(Ability ability)
-    {
-        if (_abilities.Count < MaximumAbilityCount)
-            _abilities.Add(ability);
-    }
-
-    public void DeleteAbility(Item item)
-    {
-        _inventory.Remove(item);
-    }
-
-    #endregion
-
-    # region Inventory
-
-    private readonly List<Item> _inventory = new();
-
     public Item[] Inventory
     {
         get => _inventory.ToArray();
@@ -61,26 +46,7 @@ public abstract class CharacterBase
         }
     }
 
-    public void AddToInventory(Item item)
-    {
-        if (_inventory.Count < InventoryCapacity)
-        {
-            _inventory.Add(item);
-        }
-    }
-
-    public void DeleteFromInventory(Item item)
-    {
-        _inventory.Remove(item);
-    }
-
-    #endregion
-
-    # region Characteristics
-
     public abstract CharacteristicsInfo CharacteristicsInfo { get; }
-
-    private int _strength;
 
     public int Strength
     {
@@ -99,8 +65,6 @@ public abstract class CharacterBase
         }
     }
 
-    private int _dexterity;
-
     public int Dexterity
     {
         get => _dexterity;
@@ -117,8 +81,6 @@ public abstract class CharacterBase
                 new CharacteristicChangeEventArgs(skillPointsTaken));
         }
     }
-
-    private int _constitution;
 
     public int Constitution
     {
@@ -137,8 +99,6 @@ public abstract class CharacterBase
         }
     }
 
-    private int _intelligence;
-
     public int Intelligence
     {
         get => _intelligence;
@@ -156,37 +116,13 @@ public abstract class CharacterBase
         }
     }
 
-    private bool CanChange(CharacteristicRange range, int oldValue,
-        int newValue)
-    {
-        if (!range.ContainsValue(newValue))
-            return false;
-        if (newValue > oldValue)
-        {
-            if (newValue - oldValue > _skillPoints)
-                return false;
-        }
-
-        return true;
-    }
-
-    #endregion
-
-    # region Stats
-
     public double Health { get; private set; }
-
     public double Mana { get; private set; }
-
     public double AttackDamage { get; private set; }
-
     public double MagicalAttackDamage { get; private set; }
-
     public double PhysicalResistance { get; private set; }
 
-    #endregion
-
-    public CharacterBase(int experience = 0)
+    protected CharacterBase(int experience = 0)
     {
         Level = new LevelInfo();
         Level.OnLevelUp += OnLevelUp;
@@ -225,9 +161,28 @@ public abstract class CharacterBase
         };
     }
 
-    private void OnLevelUp()
+    public void AddAbility(Ability ability)
     {
-        _skillPoints += SkillPointsPerLevel;
+        if (_abilities.Count < MaximumAbilityCount)
+            _abilities.Add(ability);
+    }
+
+    public void DeleteAbility(Item item)
+    {
+        _inventory.Remove(item);
+    }
+
+    public void AddToInventory(Item item)
+    {
+        if (_inventory.Count < InventoryCapacity)
+        {
+            _inventory.Add(item);
+        }
+    }
+
+    public void DeleteFromInventory(Item item)
+    {
+        _inventory.Remove(item);
     }
 
     protected void InitStats()
@@ -249,6 +204,25 @@ public abstract class CharacterBase
         OnIntelligenceChange?.Invoke(this,
             new CharacteristicChangeEventArgs(CharacteristicsInfo
                 .IntelligenceInfo.Range.MinValue));
+    }
+
+    private void OnLevelUp()
+    {
+        _skillPoints += SkillPointsPerLevel;
+    }
+
+    private bool CanChange(CharacteristicRange range, int oldValue,
+        int newValue)
+    {
+        if (!range.ContainsValue(newValue))
+            return false;
+        if (newValue > oldValue)
+        {
+            if (newValue - oldValue > _skillPoints)
+                return false;
+        }
+
+        return true;
     }
 
     public event CharacteristicChangeEventHandler? OnStrengthChange;

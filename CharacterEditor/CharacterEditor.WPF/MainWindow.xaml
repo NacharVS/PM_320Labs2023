@@ -53,9 +53,9 @@
         </StackPanel>
         <components:StatDisplay x:Name="CharacterStats" Grid.Column="3" HorizontalAlignment="Center" Margin="0,19,0,0" Grid.Row="1" VerticalAlignment="Center" Height="316" Grid.RowSpan="9" Width="137"/>
         <ComboBox x:Name="CreatedCharactersComboBox" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" Margin="7,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="CreatedCharactersComboBox_SelectionChanged"/>
-        <Button x:Name="SaveCharacterButton" Grid.Column="3" Content="Сохранить" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="9" VerticalAlignment="Top"/>
+        <Button x:Name="SaveCharacterButton" Grid.Column="3" Content="Save" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="9" VerticalAlignment="Top"/>
         <TextBox x:Name="NameTextBox" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Name" VerticalAlignment="Center" Width="120"/>
-        <Button x:Name="CreateNewButton" Grid.Column="3" Content="Новый" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="10" VerticalAlignment="Top"/>
-        <components:Inventory x:Name="Inventory" Grid.Row="2" Grid.Column="2" Grid.RowSpan="6" BorderBrush="Black" />
+        <Button x:Name="CreateNewButton" Grid.Column="3" Content="New" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="10" VerticalAlignment="Top"/>
+        <components:Inventory x:Name="Inventory" Grid.Row="4" Grid.Column="2" Grid.RowSpan="6" BorderBrush="Black" />
     </Grid>
 </Window>

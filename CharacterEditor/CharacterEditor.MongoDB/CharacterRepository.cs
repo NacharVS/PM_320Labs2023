@@ -23,7 +23,7 @@ public class CharacterRepository : ICharacterRepository
             .Find(x =>
                 x.ClassName != null && x.ClassName.Equals(characterClass))
             .ToEnumerable()
-            .Select(x => new CharacterTuple { Id = x.Id, Name = x.Name });
+            .Select(x => new CharacterTuple { Id = x.Id, Name = x.Name ?? String.Empty });
     }
 
     public CharacterBase GetCharacter(string id)

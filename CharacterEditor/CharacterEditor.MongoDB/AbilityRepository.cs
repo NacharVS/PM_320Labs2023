@@ -20,7 +20,7 @@ public class AbilityRepository : IAbilityRepository
             .ToEnumerable()
             .Select(x => new Ability
             {
-                Name = x.Name, AttackChange = x.AttackChange,
+                Name = x.Name ?? String.Empty, AttackChange = x.AttackChange,
                 HealthChange = x.HealthChange,
                 ManaChange = x.ManaChange,
                 MagicalAttackChange = x.MagicalAttackChange,
