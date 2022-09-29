@@ -27,10 +27,13 @@ namespace CharacterEditor.WPF
             _repository = app.CharacterRepository;
             _abilityRepository = app.AbilityRepository;
 
+            _abilityRepository.InitializeCollection();
             InitializeComponent();
 
-            Inventory.AddItemButton.Click += AddItem;
-            Inventory.RemoveItemButton.Click += RemoveItem;
+            LevelInfo.AddXpButton.Click += AddXpButtonClick;
+
+            Inventory.AddItemButton.Click += AddItemButton_Click;
+            Inventory.RemoveItemButton.Click += RemoveItemButton_Click;
 
             CreateNewButton.Click += CreateNewButton_Click;
 
@@ -47,6 +50,7 @@ namespace CharacterEditor.WPF
             AfterChangeCharacter += UpdateStatDisplay;
             AfterChangeCharacter += UpdateName;
             AfterChangeCharacter += UpdateInventory;
+            AfterChangeCharacter += UpdateLevel;
 
             foreach (CharacteristicSlider slider in SliderPanel.Children)
             {
@@ -55,6 +59,17 @@ namespace CharacterEditor.WPF
                 slider.PlusButton.Click += UpdateSliderView;
                 slider.MinusButton.Click += UpdateSliderView;
             }
+        }
+
+        private void AddXpButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter is null ||
+                !int.TryParse(LevelInfo.XpTextBox.Text, out int val))
+                return;
+
+            _currentCharacter.Level.CurrentExperience += val;
+            UpdateLevel();
+            UpdateSkillPoints();
         }
 
         private void CreateNewButton_Click(object sender, RoutedEventArgs e)
@@ -84,11 +99,20 @@ namespace CharacterEditor.WPF
             if (_currentCharacter is null)
                 return;
 
+            _currentCharacter.Level.OnLevelUp += GiveAbility;
             CreatedCharactersComboBox.ItemsSource =
                 _repository.GetAllCharacterNamesByClass((string)value);
             CreatedCharactersComboBox.DisplayMemberPath = "Name";
 
             AfterChangeCharacter?.Invoke();
+        }
+
+        private void GiveAbility()
+        {
+            if (_currentCharacter!.Level.CurrentLevel % 3 == 0)
+            {
+                
+            }
         }
 
         private void CreatedCharactersComboBox_SelectionChanged(object sender,
@@ -120,7 +144,7 @@ namespace CharacterEditor.WPF
             CreateNewCharacter();
         }
 
-        private void AddItem(object sender, RoutedEventArgs e)
+        private void AddItemButton_Click(object sender, RoutedEventArgs e)
         {
             if (_currentCharacter is null)
                 return;
@@ -134,7 +158,7 @@ namespace CharacterEditor.WPF
             }
         }
 
-        private void RemoveItem(object sender, RoutedEventArgs e)
+        private void RemoveItemButton_Click(object sender, RoutedEventArgs e)
         {
             if (_currentCharacter is null ||
                 Inventory.ItemListBox.SelectedItem is not Item item)
@@ -200,6 +224,16 @@ namespace CharacterEditor.WPF
 
             CharacterStats.UpdateValues(_currentCharacter);
             CharacterStats.InvalidateVisual();
+        }
+
+        private void UpdateLevel()
+        {
+            LevelInfo.CurrentLevelTextBox.Text =
+                _currentCharacter!.Level.CurrentLevel.ToString();
+            LevelInfo.XpToGainLevelTextBox.Text =
+                _currentCharacter.Level.ExperienceToGainLevel.ToString();
+            LevelInfo.ExperienceLeftTextBox.Text =
+                _currentCharacter.Level.ExperienceLeft.ToString();
         }
 
 

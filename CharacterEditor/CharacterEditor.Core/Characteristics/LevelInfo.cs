@@ -15,18 +15,17 @@ public class LevelInfo
         get => _currentExperience;
         set
         {
+            TotalExperience += value - _currentExperience;
             var currLevelExp = GetCurrentLevelExp();
             while (value >= currLevelExp)
             {
                 _currentLevel++;
                 value -= currLevelExp;
                 _currentExperience = value;
-                TotalExperience += currLevelExp;
                 currLevelExp = GetCurrentLevelExp();
                 OnLevelUp?.Invoke();
             }
 
-            TotalExperience += value - _currentExperience;
             _currentExperience = value;
         }
     }

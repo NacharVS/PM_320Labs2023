@@ -1,6 +1,5 @@
 ﻿using System.Configuration;
 using System.Windows;
-using CharacterEditor.Core;
 using CharacterEditor.Core.Db;
 using CharacterEditor.Core.Exceptions;
 using CharacterEditor.MongoDB;

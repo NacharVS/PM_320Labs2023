@@ -3,11 +3,11 @@
 namespace CharacterEditor.WPF.Components
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for LevelInfo.xaml
     /// </summary>
-    public partial class Inventory : UserControl
+    public partial class LevelInfo : UserControl
     {
-        public Inventory()
+        public LevelInfo()
         {
             InitializeComponent();
         }

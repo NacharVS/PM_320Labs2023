@@ -127,6 +127,14 @@ public abstract class CharacterBase
         Level = new LevelInfo();
         Level.OnLevelUp += OnLevelUp;
         Level.CurrentExperience += experience;
+        OnAbilityAdd += (_, ability) =>
+        {
+            Health += ability.HealthChange;
+            AttackDamage += ability.AttackChange;
+            Mana += ability.ManaChange;
+            MagicalAttackDamage += ability.MagicalAttackChange;
+            PhysicalResistance += ability.PhysicalResistanceChange;
+        };
         OnStrengthChange += (_, args) =>
         {
             Health += args.Difference *
@@ -164,12 +172,10 @@ public abstract class CharacterBase
     public void AddAbility(Ability ability)
     {
         if (_abilities.Count < MaximumAbilityCount)
+        {
             _abilities.Add(ability);
-    }
-
-    public void DeleteAbility(Item item)
-    {
-        _inventory.Remove(item);
+            OnAbilityAdd?.Invoke(this, ability);
+        }
     }
 
     public void AddToInventory(Item item)
@@ -225,6 +231,7 @@ public abstract class CharacterBase
         return true;
     }
 
+    public event AbilityAddEventHandler? OnAbilityAdd;
     public event CharacteristicChangeEventHandler? OnStrengthChange;
     public event CharacteristicChangeEventHandler? OnDexterityChange;
     public event CharacteristicChangeEventHandler? OnConstitutionChange;
@@ -233,3 +240,6 @@ public abstract class CharacterBase
 
 public delegate void CharacteristicChangeEventHandler(CharacterBase sender,
     CharacteristicChangeEventArgs args);
+
+public delegate void AbilityAddEventHandler(CharacterBase sender,
+    Ability ability);

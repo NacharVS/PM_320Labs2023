@@ -27,4 +27,25 @@ public class AbilityRepository : IAbilityRepository
                 PhysicalResistanceChange = x.PhysicalResistanceChange
             });
     }
+
+    public void InitializeCollection()
+    {
+        foreach (var ability in Defaults.DefaultAbilities)
+        {
+            var storedAbility = Abilities.Find(x => x.Name == ability.Name)
+                .FirstOrDefault();
+            if (storedAbility is not null)
+                continue;
+
+            Abilities.InsertOne(new AbilityDb
+            {
+                Name = ability.Name,
+                AttackChange = ability.AttackChange,
+                HealthChange = ability.HealthChange,
+                ManaChange = ability.ManaChange,
+                MagicalAttackChange = ability.MagicalAttackChange,
+                PhysicalResistanceChange = ability.PhysicalResistanceChange
+            });
+        }
+    }
 }

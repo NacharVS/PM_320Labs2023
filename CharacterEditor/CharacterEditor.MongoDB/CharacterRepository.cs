@@ -23,7 +23,8 @@ public class CharacterRepository : ICharacterRepository
             .Find(x =>
                 x.ClassName != null && x.ClassName.Equals(characterClass))
             .ToEnumerable()
-            .Select(x => new CharacterTuple { Id = x.Id, Name = x.Name ?? String.Empty });
+            .Select(x => new CharacterTuple
+                { Id = x.Id, Name = x.Name ?? String.Empty });
     }
 
     public CharacterBase GetCharacter(string id)
@@ -55,6 +56,15 @@ public class CharacterRepository : ICharacterRepository
         character.Inventory = dbChar.Inventory is not null
             ? dbChar.Inventory.ToArray()
             : Array.Empty<Item>();
+        character.Abilities = dbChar.Abilities is not null
+            ? dbChar.Abilities.Select(x => new Ability
+            {
+                Name = x.Name, AttackChange = x.AttackChange,
+                HealthChange = x.AttackChange, ManaChange = x.ManaChange,
+                MagicalAttackChange = x.MagicalAttackChange,
+                PhysicalResistanceChange = x.PhysicalResistanceChange
+            }).ToArray()
+            : Array.Empty<Ability>();
 
         return character;
     }
@@ -71,7 +81,16 @@ public class CharacterRepository : ICharacterRepository
             ClassName = character.GetType().Name,
             Inventory = character.Inventory.Length == 0
                 ? null
-                : character.Inventory
+                : character.Inventory,
+            Abilities = character.Abilities.Length == 0
+                ? null
+                : character.Abilities.Select(x => new AbilityDb
+                {
+                    Name = x.Name, AttackChange = x.AttackChange,
+                    HealthChange = x.HealthChange, ManaChange = x.ManaChange,
+                    MagicalAttackChange = x.MagicalAttackChange,
+                    PhysicalResistanceChange = x.PhysicalResistanceChange
+                })
         });
     }
 
@@ -87,7 +106,16 @@ public class CharacterRepository : ICharacterRepository
             ClassName = character.GetType().Name,
             Inventory = character.Inventory.Length == 0
                 ? null
-                : character.Inventory
+                : character.Inventory,
+            Abilities = character.Abilities.Length == 0
+                ? null
+                : character.Abilities.Select(x => new AbilityDb
+                {
+                    Name = x.Name, AttackChange = x.AttackChange,
+                    HealthChange = x.HealthChange, ManaChange = x.ManaChange,
+                    MagicalAttackChange = x.MagicalAttackChange,
+                    PhysicalResistanceChange = x.PhysicalResistanceChange
+                })
         });
     }
 }
