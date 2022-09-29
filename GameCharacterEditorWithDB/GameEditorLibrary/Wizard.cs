@@ -19,6 +19,10 @@ namespace GameEditorLibrary
                     HP += (value - _strength);
                     _strength = value;
                 }
+                else
+                {
+                    throw new Exception();
+                }
 
             }
         }
@@ -32,6 +36,10 @@ namespace GameEditorLibrary
                 {
                     phDefention += (value - _dexterity) * 0.5;
                     _dexterity = value;
+                }
+                else
+                {
+                    throw new Exception();
                 }
 
             }
@@ -47,7 +55,10 @@ namespace GameEditorLibrary
                     phDefention += (value - _constitution);
                     _constitution = value;
                 }
-
+                else
+                {
+                    throw new Exception();
+                }
             }
         }
         public override int Intelligence
@@ -61,7 +72,10 @@ namespace GameEditorLibrary
                     manaAttack += (value - _intelligence) * 5;
                     _intelligence = value;
                 }
-
+                else
+                {
+                    throw new Exception();
+                }
             }
         }
 

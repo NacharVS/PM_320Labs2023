@@ -19,7 +19,10 @@ namespace GameEditorLibrary
                     HP += (value - _strength);
                     _strength = value;
                 }
-
+                else
+                {
+                    throw new Exception();
+                }
             }
         }
         public override int Dexterity
@@ -33,7 +36,10 @@ namespace GameEditorLibrary
                     phDefention += (value - _dexterity) * 1.5;
                     _dexterity = value;
                 }
-
+                else
+                {
+                    throw new Exception();
+                }
             }
         }
         public override int Constitution
@@ -46,7 +52,10 @@ namespace GameEditorLibrary
                     HP += (value - _constitution) * 6;
                     _constitution = value;
                 }
-
+                else
+                {
+                    throw new Exception();
+                }
             }
         }
         public override int Intelligence
@@ -60,7 +69,10 @@ namespace GameEditorLibrary
                     manaAttack += (value - _intelligence) * 2;
                     _intelligence = value;
                 }
-
+                else
+                {
+                    throw new Exception();
+                }
             }
         }
         public Rogue() 

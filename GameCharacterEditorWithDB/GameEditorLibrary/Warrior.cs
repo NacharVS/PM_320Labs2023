@@ -19,6 +19,10 @@ namespace GameEditorLibrary
                     HP += (value - _strength) * 2;
                     _strength = value;
                 }
+                else
+                {
+                    throw new Exception();
+                }
             }
         }
 
@@ -33,6 +37,10 @@ namespace GameEditorLibrary
                     phDefention += (value - _dexterity);
                     _dexterity = value;
                 }
+                else
+                {
+                    throw new Exception();
+                }
             }
         }
         public override int Constitution
@@ -45,6 +53,10 @@ namespace GameEditorLibrary
                     HP += (value - _constitution) * 10;
                     phDefention += (value - _constitution) * 2;
                     _constitution = value;
+                }
+                else
+                {
+                    throw new Exception();
                 }
 
             }
@@ -59,6 +71,10 @@ namespace GameEditorLibrary
                     MP += (value - _intelligence);
                     manaAttack += (value - _intelligence);
                     _intelligence = value;
+                }
+                else
+                {
+                    throw new Exception();
                 }
 
             }
