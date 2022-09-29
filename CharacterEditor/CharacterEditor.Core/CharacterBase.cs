@@ -4,10 +4,14 @@ namespace CharacterEditor.Core;
 
 public abstract class CharacterBase
 {
-    public const int InventoryCapacity = 9;
+    private const int InventoryCapacity = 9;
+    private const int SkillPointsPerLevel = 5;
 
     public string? Id { get; set; }
     public string? Name { get; set; }
+
+    public LevelInfo Level { get; init; } = new();
+
     private int _skillPoints = 50;
     public int SkillPoints => _skillPoints;
 
@@ -53,8 +57,11 @@ public abstract class CharacterBase
                     value))
                 return;
 
-            _skillPoints -= value - _strength;
+            var skillPointsTaken = value - _strength;
+            _skillPoints -= skillPointsTaken;
             _strength = value;
+            OnStrengthChange?.Invoke(this,
+                new CharacteristicChangeEventArgs(skillPointsTaken));
         }
     }
 
@@ -69,8 +76,11 @@ public abstract class CharacterBase
                     value))
                 return;
 
-            _skillPoints -= value - _dexterity;
+            var skillPointsTaken = value - _dexterity;
+            _skillPoints -= skillPointsTaken;
             _dexterity = value;
+            OnDexterityChange?.Invoke(this,
+                new CharacteristicChangeEventArgs(skillPointsTaken));
         }
     }
 
@@ -85,8 +95,11 @@ public abstract class CharacterBase
                     _constitution, value))
                 return;
 
-            _skillPoints -= value - _constitution;
+            var skillPointsTaken = value - _constitution;
+            _skillPoints -= skillPointsTaken;
             _constitution = value;
+            OnConstitutionChange?.Invoke(this,
+                new CharacteristicChangeEventArgs(skillPointsTaken));
         }
     }
 
@@ -101,8 +114,11 @@ public abstract class CharacterBase
                     _intelligence, value))
                 return;
 
-            _skillPoints -= value - _intelligence;
+            var skillPointsTaken = value - _intelligence;
+            _skillPoints -= skillPointsTaken;
             _intelligence = value;
+            OnIntelligenceChange?.Invoke(this,
+                new CharacteristicChangeEventArgs(skillPointsTaken));
         }
     }
 
@@ -110,24 +126,15 @@ public abstract class CharacterBase
 
     # region Stats
 
-    public double Health =>
-        Strength * CharacteristicsInfo.StrengthInfo.HpChange +
-        Constitution * CharacteristicsInfo.ConstitutionInfo.HpChange;
+    public double Health { get; private set; }
 
-    public double Mana =>
-        Intelligence * CharacteristicsInfo.IntelligenceInfo.ManaChange;
+    public double Mana { get; private set; }
 
-    public double AttackDamage =>
-        Strength * CharacteristicsInfo.StrengthInfo.AttackChange +
-        Dexterity * CharacteristicsInfo.DexterityInfo.AttackChange;
+    public double AttackDamage { get; private set; }
 
-    public double MagicalAttackDamage =>
-        Intelligence * CharacteristicsInfo.IntelligenceInfo.MagicalAttackChange;
+    public double MagicalAttackDamage { get; private set; }
 
-    public double PhysicalResistance =>
-        Constitution *
-        CharacteristicsInfo.ConstitutionInfo.PhysicalDefenceChange +
-        Dexterity * CharacteristicsInfo.DexterityInfo.PhysicalDefenceChange;
+    public double PhysicalResistance { get; private set; }
 
     #endregion
 
@@ -145,11 +152,68 @@ public abstract class CharacterBase
         return true;
     }
 
+    public CharacterBase(int experience = 0)
+    {
+        Level = new LevelInfo();
+        Level.OnLevelUp += OnLevelUp;
+        Level.CurrentExperience += experience;
+        OnStrengthChange += (_, args) =>
+        {
+            Health += args.Difference *
+                      CharacteristicsInfo.StrengthInfo.HpChange;
+            AttackDamage += args.Difference *
+                            CharacteristicsInfo.StrengthInfo.AttackChange;
+        };
+
+        OnDexterityChange += (_, args) =>
+        {
+            AttackDamage += args.Difference *
+                            CharacteristicsInfo.DexterityInfo.AttackChange;
+            PhysicalResistance += args.Difference *
+                                  CharacteristicsInfo.DexterityInfo
+                                      .PhysicalDefenceChange;
+        };
+
+        OnConstitutionChange += (_, args) =>
+        {
+            Health += args.Difference *
+                      CharacteristicsInfo.ConstitutionInfo.HpChange;
+            PhysicalResistance += args.Difference * CharacteristicsInfo
+                .ConstitutionInfo.PhysicalDefenceChange;
+        };
+
+        OnIntelligenceChange += (_, args) =>
+        {
+            Mana += args.Difference *
+                    CharacteristicsInfo.IntelligenceInfo.ManaChange;
+            MagicalAttackDamage += args.Difference * CharacteristicsInfo
+                .IntelligenceInfo.MagicalAttackChange;
+        };
+    }
+
+    private void OnLevelUp()
+    {
+        _skillPoints += SkillPointsPerLevel;
+    }
+
     protected void InitStats()
     {
         _strength = CharacteristicsInfo.StrengthInfo.Range.MinValue;
         _dexterity = CharacteristicsInfo.DexterityInfo.Range.MinValue;
         _constitution = CharacteristicsInfo.ConstitutionInfo.Range.MinValue;
         _intelligence = CharacteristicsInfo.IntelligenceInfo.Range.MinValue;
+        
+        OnStrengthChange?.Invoke(this, new CharacteristicChangeEventArgs(CharacteristicsInfo.StrengthInfo.Range.MinValue));
+        OnDexterityChange?.Invoke(this, new CharacteristicChangeEventArgs(CharacteristicsInfo.DexterityInfo.Range.MinValue));
+        OnConstitutionChange?.Invoke(this, new CharacteristicChangeEventArgs(CharacteristicsInfo.ConstitutionInfo.Range.MinValue));
+        OnIntelligenceChange?.Invoke(this, new CharacteristicChangeEventArgs(CharacteristicsInfo.IntelligenceInfo.Range.MinValue));
     }
+
+    public event CharacteristicChangeEventHandler? OnStrengthChange;
+    public event CharacteristicChangeEventHandler? OnDexterityChange;
+    public event CharacteristicChangeEventHandler? OnConstitutionChange;
+    public event CharacteristicChangeEventHandler? OnIntelligenceChange;
 }
+
+public delegate void CharacteristicChangeEventHandler(CharacterBase sender,
+    CharacteristicChangeEventArgs args);

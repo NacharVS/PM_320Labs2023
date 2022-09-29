@@ -131,6 +131,9 @@ namespace CharacterEditor.WPF
             if (_currentCharacter is null)
                 return;
 
+            _currentCharacter.Level.CurrentExperience += 4000;
+            _currentCharacter.Level.CurrentExperience += 50;
+
             CreatedCharactersComboBox.ItemsSource =
                 _repository.GetAllCharacterNamesByClass((string)value);
             CreatedCharactersComboBox.DisplayMemberPath = "Name";
@@ -161,7 +164,7 @@ namespace CharacterEditor.WPF
             SelectionChangedEventArgs e)
         {
             var combobox = sender as ComboBox;
-            var value = combobox!.SelectedValue as CharacterPair;
+            var value = combobox!.SelectedValue as CharacterTuple;
 
             if (value is null)
                 return;

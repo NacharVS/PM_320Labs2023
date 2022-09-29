@@ -16,5 +16,6 @@ public class CharacterDb
     [BsonIgnoreIfDefault] public int Dexterity { get; internal set; }
     [BsonIgnoreIfDefault] public int Constitution { get; internal set; }
     [BsonIgnoreIfDefault] public int Intelligence { get; internal set; }
+    [BsonIgnoreIfDefault] public int Experience { get; internal set; }
     [BsonIgnoreIfDefault] public IEnumerable<Item>? Inventory { get; internal set; }
 }

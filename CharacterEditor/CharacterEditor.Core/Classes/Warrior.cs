@@ -24,7 +24,7 @@ public class Warrior : CharacterBase
     private const double IntelligenceManaChange = 1;
     private const double IntelligenceMagicalAttackChange = 1;
 
-    public Warrior()
+    public Warrior(int experience=0) : base(experience)
     {
         var strengthInfo = new StrengthInfo(StrengthRange, StrengthAttackChange,
             StrengthHpChange);

@@ -23,7 +23,7 @@ public class Wizard : CharacterBase
     private const double IntelligenceManaChange = 2;
     private const double IntelligenceMagicalAttackChange = 5;
 
-    public Wizard()
+    public Wizard(int experience=0) : base(experience)
     {
         var strengthInfo = new StrengthInfo(StrengthRange, StrengthAttackChange,
             StrengthHpChange);

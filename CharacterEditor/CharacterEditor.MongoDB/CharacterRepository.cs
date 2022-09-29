@@ -16,14 +16,14 @@ public class CharacterRepository : ICharacterRepository
             connection.Database?.GetCollection<CharacterDb>("Characters")!;
     }
 
-    public IEnumerable<CharacterPair> GetAllCharacterNamesByClass(
+    public IEnumerable<CharacterTuple> GetAllCharacterNamesByClass(
         string characterClass)
     {
         return Characters
             .Find(x =>
                 x.ClassName != null && x.ClassName.Equals(characterClass))
             .ToEnumerable()
-            .Select(x => new CharacterPair { Id = x.Id, Name = x.Name });
+            .Select(x => new CharacterTuple { Id = x.Id, Name = x.Name });
     }
 
     public CharacterBase GetCharacter(string id)
@@ -33,7 +33,7 @@ public class CharacterRepository : ICharacterRepository
         switch (dbChar.ClassName)
         {
             case "Warrior":
-                return new Warrior
+                return new Warrior(dbChar.Experience)
                 {
                     Name = dbChar.Name, Constitution = dbChar.Constitution,
                     Dexterity = dbChar.Dexterity,
@@ -44,7 +44,7 @@ public class CharacterRepository : ICharacterRepository
                         : Array.Empty<Item>()
                 };
             case "Wizard":
-                return new Wizard
+                return new Wizard(dbChar.Experience)
                 {
                     Name = dbChar.Name, Constitution = dbChar.Constitution,
                     Dexterity = dbChar.Dexterity,
@@ -55,7 +55,7 @@ public class CharacterRepository : ICharacterRepository
                         : Array.Empty<Item>()
                 };
             case "Rogue":
-                return new Rogue
+                return new Rogue(dbChar.Experience)
                 {
                     Name = dbChar.Name, Constitution = dbChar.Constitution,
                     Dexterity = dbChar.Dexterity,
@@ -74,6 +74,7 @@ public class CharacterRepository : ICharacterRepository
     {
         Characters.InsertOne(new CharacterDb
         {
+            Experience = character.Level.TotalExperience,
             Name = character.Name, Strength = character.Strength,
             Dexterity = character.Dexterity,
             Constitution = character.Constitution,
@@ -87,8 +88,8 @@ public class CharacterRepository : ICharacterRepository
     {
         Characters.ReplaceOne(x => x.Id == id, new CharacterDb
         {
-            Id = id,
-            Name = character.Name, Strength = character.Strength,
+            Experience = character.Level.TotalExperience,
+            Id = id, Name = character.Name, Strength = character.Strength,
             Dexterity = character.Dexterity,
             Constitution = character.Constitution,
             Intelligence = character.Intelligence,

@@ -22,7 +22,7 @@ public class Rogue : CharacterBase
     private const double IntelligenceManaChange = 1.5;
     private const double IntelligenceMagicalAttackChange = 2;
 
-    public Rogue()
+    public Rogue(int experience=0) : base(experience)
     {
         var strengthInfo = new StrengthInfo(StrengthRange, StrengthAttackChange,
             StrengthHpChange);

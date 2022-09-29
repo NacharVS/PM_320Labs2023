@@ -2,7 +2,7 @@
 
 public interface ICharacterRepository
 {
-    public IEnumerable<CharacterPair> GetAllCharacterNamesByClass(
+    public IEnumerable<CharacterTuple> GetAllCharacterNamesByClass(
         string characterClass);
 
     public CharacterBase GetCharacter(string id);
