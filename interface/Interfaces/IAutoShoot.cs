@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    internal interface IAutoShoot
+    public interface IAutoShoot
     {
+        public void AutoShoot();
     }
 }

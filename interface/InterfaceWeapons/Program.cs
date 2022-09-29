@@ -1,2 +1,6 @@
-﻿
-Console.WriteLine("Hello, World!");
+﻿using Core;
+
+Shooter shooter = new();
+
+shooter.FireFromAllWeapons();
+

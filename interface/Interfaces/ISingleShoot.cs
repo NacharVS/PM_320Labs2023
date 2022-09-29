@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    internal interface ISingleShoot
+    public interface ISingleShoot
     {
+        public void SingleShoot();
     }
 }

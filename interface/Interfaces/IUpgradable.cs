@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    internal interface IGunshot
+    public interface IUpgradable
     {
+        public void Upgrade();
     }
 }

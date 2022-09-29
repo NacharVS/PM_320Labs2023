@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    internal interface IInfighting
+    public interface IWeapon : IUpgradable, IRepairable, ISingleShoot
     {
-
+        int Damage { get; set; }
     }
 }

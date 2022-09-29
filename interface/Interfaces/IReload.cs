@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    internal interface IMleeWeapon
+    public interface IReload
     {
+        public void Reload();
     }
 }

@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    public interface IThrowable
+    public interface IMeleeWeapon : IWeapon
     {
-        int ThrowDamage { get; set; }
-        public void Throw();
     }
 }

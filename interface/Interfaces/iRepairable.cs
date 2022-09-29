@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    internal interface iRepairable
+    public interface IRepairable
     {
+        public void Repaire();
     }
 }

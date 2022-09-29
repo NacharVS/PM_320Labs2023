@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceWeapons", "InterfaceWeapons.csproj", "{C0058EEC-24FE-4584-940B-3076A9446186}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterfaceWeapons", "InterfaceWeapons.csproj", "{C0058EEC-24FE-4584-940B-3076A9446186}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Core\Core.csproj", "{C289AA71-B707-4FF2-B16A-49FF85C6EFB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "..\Core\Core.csproj", "{C289AA71-B707-4FF2-B16A-49FF85C6EFB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "..\Interfaces\Interfaces.csproj", "{921FD3DF-4702-429B-8FED-EBF57EBA4FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "..\Interfaces\Interfaces.csproj", "{921FD3DF-4702-429B-8FED-EBF57EBA4FCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weapons", "..\Weapons\Weapons.csproj", "{71BF3D8A-8D5E-415C-9F9C-B7169F6E1645}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{921FD3DF-4702-429B-8FED-EBF57EBA4FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{921FD3DF-4702-429B-8FED-EBF57EBA4FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{921FD3DF-4702-429B-8FED-EBF57EBA4FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71BF3D8A-8D5E-415C-9F9C-B7169F6E1645}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71BF3D8A-8D5E-415C-9F9C-B7169F6E1645}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71BF3D8A-8D5E-415C-9F9C-B7169F6E1645}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71BF3D8A-8D5E-415C-9F9C-B7169F6E1645}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
