@@ -215,6 +215,8 @@ public abstract class CharacterBase
     private void OnLevelUp()
     {
         _skillPoints += SkillPointsPerLevel;
+        if (Level.CurrentLevel % 3 == 0)
+            OnAbilityGain?.Invoke();
     }
 
     private bool CanChange(CharacteristicRange range, int oldValue,
@@ -232,6 +234,7 @@ public abstract class CharacterBase
     }
 
     public event AbilityAddEventHandler? OnAbilityAdd;
+    public event AbilityGainEventHandler? OnAbilityGain;
     public event CharacteristicChangeEventHandler? OnStrengthChange;
     public event CharacteristicChangeEventHandler? OnDexterityChange;
     public event CharacteristicChangeEventHandler? OnConstitutionChange;
@@ -243,3 +246,5 @@ public delegate void CharacteristicChangeEventHandler(CharacterBase sender,
 
 public delegate void AbilityAddEventHandler(CharacterBase sender,
     Ability ability);
+
+public delegate void AbilityGainEventHandler();

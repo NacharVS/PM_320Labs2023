@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using CharacterEditor.Core;
@@ -30,6 +31,8 @@ namespace CharacterEditor.WPF
             _abilityRepository.InitializeCollection();
             InitializeComponent();
 
+            AbilityListBox.DisplayMemberPath = "Name";
+
             LevelInfo.AddXpButton.Click += AddXpButtonClick;
 
             Inventory.AddItemButton.Click += AddItemButton_Click;
@@ -51,6 +54,7 @@ namespace CharacterEditor.WPF
             AfterChangeCharacter += UpdateName;
             AfterChangeCharacter += UpdateInventory;
             AfterChangeCharacter += UpdateLevel;
+            AfterChangeCharacter += UpdateAbilities;
 
             foreach (CharacteristicSlider slider in SliderPanel.Children)
             {
@@ -99,20 +103,12 @@ namespace CharacterEditor.WPF
             if (_currentCharacter is null)
                 return;
 
-            _currentCharacter.Level.OnLevelUp += GiveAbility;
+            _currentCharacter.OnAbilityGain += GiveAbility;
             CreatedCharactersComboBox.ItemsSource =
                 _repository.GetAllCharacterNamesByClass((string)value);
             CreatedCharactersComboBox.DisplayMemberPath = "Name";
 
             AfterChangeCharacter?.Invoke();
-        }
-
-        private void GiveAbility()
-        {
-            if (_currentCharacter!.Level.CurrentLevel % 3 == 0)
-            {
-                
-            }
         }
 
         private void CreatedCharactersComboBox_SelectionChanged(object sender,
@@ -125,6 +121,8 @@ namespace CharacterEditor.WPF
                 return;
 
             _currentCharacter = _repository.GetCharacter(value.Id);
+            _currentCharacter.OnAbilityGain += GiveAbility;
+            AbilityListBox.ItemsSource = _currentCharacter.Abilities;
             Inventory.ItemListBox.ItemsSource = _currentCharacter.Inventory;
             AfterChangeCharacter?.Invoke();
         }
@@ -167,25 +165,7 @@ namespace CharacterEditor.WPF
             _currentCharacter.DeleteFromInventory(item);
             UpdateInventory();
         }
-
-        private void UpdateInventory()
-        {
-            Inventory.ItemListBox.ItemsSource = _currentCharacter!.Inventory;
-            Inventory.InvalidateVisual();
-        }
-
-        private void UpdateName()
-        {
-            NameTextBox.Text = _currentCharacter!.Name ??
-                               _currentCharacter.GetType().Name;
-        }
-
-        private void UpdateSkillPoints()
-        {
-            SkillPointsLabel.Content =
-                _currentCharacter?.SkillPoints.ToString() ?? "0";
-        }
-
+        
         private void UpdateSliderView(object sender, RoutedEventArgs e)
         {
             if (_currentCharacter is null)
@@ -205,6 +185,44 @@ namespace CharacterEditor.WPF
             slider.InvalidateVisual();
             UpdateSkillPoints();
             UpdateStatDisplay();
+        }
+
+        private void UpdateInventory()
+        {
+            Inventory.ItemListBox.ItemsSource = _currentCharacter!.Inventory;
+            Inventory.InvalidateVisual();
+        }
+
+        private void UpdateAbilities()
+        {
+            AbilityListBox.ItemsSource = _currentCharacter!.Abilities;
+            AbilityListBox.InvalidateVisual();
+        }
+
+        private void GiveAbility()
+        {
+            var abilities = _abilityRepository.GetAllAbilities();
+            var selectAbility =
+                new SelectAbilityWindow(_currentCharacter!,
+                    abilities.ToArray());
+            if (selectAbility.ShowDialog() == true)
+            {
+                _currentCharacter!.AddAbility(selectAbility.SelectedAbility);
+                UpdateStatDisplay();
+                UpdateAbilities();
+            }
+        }
+
+        private void UpdateName()
+        {
+            NameTextBox.Text = _currentCharacter!.Name ??
+                               _currentCharacter.GetType().Name;
+        }
+
+        private void UpdateSkillPoints()
+        {
+            SkillPointsLabel.Content =
+                _currentCharacter?.SkillPoints.ToString() ?? "0";
         }
 
         private void UpdateSlidersView()
