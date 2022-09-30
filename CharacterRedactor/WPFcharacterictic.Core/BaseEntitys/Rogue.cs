@@ -10,6 +10,7 @@ namespace WPFcharacterictic.Core.BaseEntitys
      {
         public Rogue() 
         {
+            Name = "Rogue";
             Strength = 15;
             MinStrength = 15;
             MaxStrength = 55;

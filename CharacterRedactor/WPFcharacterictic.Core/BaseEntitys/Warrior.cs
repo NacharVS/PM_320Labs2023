@@ -10,6 +10,7 @@ namespace WPFcharacterictic.Core.BaseEntitys
     {
         public Warrior() 
         {
+            Name = "Warrior";
             Strength = 30;
             MinStrength = 30;
             MaxStrength = 250;

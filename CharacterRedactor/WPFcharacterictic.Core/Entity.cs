@@ -1,9 +1,14 @@
-﻿namespace WPFcharacterictic.Core
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace WPFcharacterictic.Core
 {
-    public abstract class Entity
+    public class Entity
     {
         public delegate void ChangedСharacteristics();
         //int values
+        [BsonId]
+        public string Id { get; set; }
+
         public int MaxStrength;
         public int MinStrength;
         public int MaxDexterity;
@@ -57,8 +62,17 @@
             private protected set { _magicDefense = value; }
         }
 
+        string _name;
+        public string Name 
+        {
+            get { return _name; }
+            private protected set { _name = value; }
+        }
+
         public Entity()
         {
+            Id = Guid.NewGuid().ToString();
+
             Health = 0;
             Mana = 0;
             PhysicalAttack = 0;

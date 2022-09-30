@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFcharacteristic.WPF", "WP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFcharacterictic.Core", "..\WPFcharacterictic.Core\WPFcharacterictic.Core.csproj", "{20316AFE-5A07-49B4-B662-590394D83F9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDBwpf", "..\MongoDBwpf\MongoDBwpf.csproj", "{62988761-E7EE-4A93-962A-3CA835583A81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{20316AFE-5A07-49B4-B662-590394D83F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20316AFE-5A07-49B4-B662-590394D83F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20316AFE-5A07-49B4-B662-590394D83F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62988761-E7EE-4A93-962A-3CA835583A81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62988761-E7EE-4A93-962A-3CA835583A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62988761-E7EE-4A93-962A-3CA835583A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62988761-E7EE-4A93-962A-3CA835583A81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

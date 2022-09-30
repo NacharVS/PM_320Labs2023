@@ -10,6 +10,7 @@ namespace WPFcharacterictic.Core.BaseEntitys
     {
         public Wizard() 
         {
+            Name = "Wizard";
             Strength = 10;
             MinStrength = 10;
             MaxStrength = 45;

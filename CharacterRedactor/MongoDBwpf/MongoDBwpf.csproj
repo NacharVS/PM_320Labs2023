@@ -1,16 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
-    <ProjectReference Include="..\Weapons\Weapons.csproj" />
+    <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WPFcharacterictic.Core\WPFcharacterictic.Core.csproj" />
   </ItemGroup>
 
 </Project>

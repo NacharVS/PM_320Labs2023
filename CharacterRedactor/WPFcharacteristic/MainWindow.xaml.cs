@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFcharacterictic.Core;
 using WPFcharacterictic.Core.BaseEntitys;
+using MongoDBwpf;
 
 namespace WPFcharacteristic.WPF
 {
@@ -184,6 +185,60 @@ namespace WPFcharacteristic.WPF
             catch (Exception)
             {
                 MessageBox.Show("Не выбран персонаж");
+            }
+        }
+        private void SaveDataBase_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MongoDBwpf.MongoDBwpf.AddToDataBase(entity);
+                MessageBox.Show("Готово!");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не выбран персонаж");
+            }
+        }
+        private void ReplaceDataBase_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MongoDBwpf.MongoDBwpf.ReplaceByName(entity.Name, entity);
+                MessageBox.Show("Готово!");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не выбран персонаж");
+            }
+        }
+        private void InsertDataBase_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MessageBox.Show($"{EntityBox.Text.ToString()}");
+                entity = MongoDBwpf.MongoDBwpf.FindByName(EntityBox.Text.ToString());
+
+                entity.IncreasedIntelligence();
+
+                Points.Text = entity.AvailablePoints.ToString();
+                Strength.Text = entity.Strength.ToString();
+                Dexterity.Text = entity.Dexterity.ToString();
+                Constitution.Text = entity.Constitution.ToString();
+                Intelligence.Text = entity.Intelligence.ToString();
+
+                Health.Text = entity.Health.ToString();
+                Mana.Text = entity.Mana.ToString();
+                PhysicalAttack.Text = entity.PhysicalAttack.ToString();
+                MagicAttack.Text = entity.MagicAttack.ToString();
+                PhysicalDefense.Text = entity.PhysicalDefense.ToString();
+                MagicDefense.Text = entity.MagicDefense.ToString();
+
+                MessageBox.Show("Готово!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                MessageBox.Show("Не выбран персонаж1111");
             }
         }
     }

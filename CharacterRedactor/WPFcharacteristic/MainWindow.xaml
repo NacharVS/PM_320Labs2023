@@ -22,29 +22,27 @@
         <Image Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="542,2,0,0" VerticalAlignment="Top" Width="95" Source="/wizard.png" Grid.Row="1"/>
         <Image Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="63,2,0,0" VerticalAlignment="Top" Width="110" Source="/warrior.jpg" Grid.Row="1"/>
         <TextBlock x:Name="Points" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="237,210,0,0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Width="40" Background="Black" Foreground="White" Text="0" TextAlignment="Center" FontFamily="Calibri" FontSize="14"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="134,258,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Strength" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="134,284,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Dexterity" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="134,308,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Constitution" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="134,332,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Intelligence" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="173,258,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Strength" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="173,284,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Dexterity" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="173,308,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Constitution" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="173,332,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Intelligence" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
         <ComboBox x:Name="EntityBox" Grid.Column="1" HorizontalAlignment="Left" Margin="282,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="Entity_SelectionChanged" FontFamily="Poor Richard" FontSize="16">
             <System:String>Warrior</System:String>
             <System:String>Rogue</System:String>
             <System:String>Wizard</System:String>
         </ComboBox>
-        <Button x:Name="StrengthPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="303,258,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="19" Click="Button_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
-        <Button x:Name="DexterityPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="303,283,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="19" Click="DexterityPlus_Click" Background="#FFB4D9FF" BorderBrush="#FFB4D9FF"/>
-        <Button x:Name="ConstitutionPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="303,306,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="19" Click="ConstitutionPlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
-        <Button x:Name="IntelligencePlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="303,330,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="19" Click="IntelligencePlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="276,258,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="22" Background="#FFEBEBEB" TextAlignment="Center"/>
-        <TextBlock x:Name="Dexterity" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="257,283,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="41" Background="#FFEBEBEB" TextAlignment="Center"/>
-        <TextBlock x:Name="Constitution" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="257,307,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="41" Background="#FFEBEBEB" TextAlignment="Center"/>
-        <TextBlock x:Name="Intelligence" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="257,330,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="41" Background="#FFEBEBEB" TextAlignment="Center" Text=""/>
+        <Button x:Name="DexterityPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="333,284,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="DexterityPlus_Click" Background="#FFB4D9FF" BorderBrush="#FFB4D9FF"/>
+        <Button x:Name="ConstitutionPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="333,307,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="ConstitutionPlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
+        <Button x:Name="IntelligencePlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="333,331,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="IntelligencePlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
+        <TextBlock x:Name="Dexterity" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="287,284,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Background="#FFEBEBEB" TextAlignment="Center"/>
+        <TextBlock x:Name="Constitution" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="287,308,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Background="#FFEBEBEB" TextAlignment="Center"/>
+        <TextBlock x:Name="Intelligence" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="287,331,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Background="#FFEBEBEB" TextAlignment="Center" Text=""/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="409,254,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="Health" FontSize="16" FontFamily="Poor Richard"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="409,276,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="Mana" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="409,298,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Physical attack" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="409,320,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Magic attack" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="409,364,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Magic defense" FontFamily="Poor Richard" FontSize="16"/>
-        <TextBlock x:Name="Strength" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="257,258,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="41" Background="#FFEBEBEB" TextAlignment="Center"/>
+        <TextBlock x:Name="Strength" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="287,259,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Background="#FFEBEBEB" TextAlignment="Center"/>
         <TextBlock x:Name="Health" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="530,254,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center"/>
         <TextBlock x:Name="Mana" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="530,276,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center"/>
         <TextBlock x:Name="PhysicalAttack" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="530,298,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center"/>
@@ -55,6 +53,10 @@
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="293,147,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontFamily="Poor Richard" TextAlignment="Center" FontSize="16" Text="Rogue"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="542,145,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontFamily="Poor Richard" TextAlignment="Center" FontSize="16" Text="Wizard"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="409,342,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Text="Physical defense" FontFamily="Poor Richard" FontSize="16"/>
+        <Button x:Name="StrengthPlus_Copy" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="333,259,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="Button_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
+        <Button x:Name="SaveDataBase" Grid.Column="1" Content="Save" HorizontalAlignment="Left" Margin="300,425,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="42" Click="SaveDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
+        <Button x:Name="InsertDataBase" Grid.Column="1" Content="Receive" HorizontalAlignment="Left" Margin="368,425,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="52" Click="InsertDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF" RenderTransformOrigin="0.481,0.592"/>
+        <Button x:Name="ReplaceDataBase" Grid.Column="1" Content="Replace" HorizontalAlignment="Left" Margin="211,425,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="52" Click="ReplaceDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
 
     </Grid>
 </Window>
