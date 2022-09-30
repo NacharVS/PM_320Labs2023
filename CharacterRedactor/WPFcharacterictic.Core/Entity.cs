@@ -5,9 +5,10 @@ namespace WPFcharacterictic.Core
     public class Entity
     {
         public delegate void ChangedСharacteristics();
-        //int values
         [BsonId]
         public string Id { get; set; }
+
+        public List<InventoryItem> InventoryItems = new List<InventoryItem>();
 
         public int MaxStrength;
         public int MinStrength;
@@ -17,7 +18,7 @@ namespace WPFcharacterictic.Core
         public int MinConstitution;
         public int MaxIntelligence;
         public int MinIntelligence;
-        public int AvailablePoints = 300;
+        public int AvailablePoints = 5;
 
         public int Strength;
         public int Dexterity;

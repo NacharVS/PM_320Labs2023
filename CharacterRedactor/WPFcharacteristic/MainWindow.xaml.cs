@@ -237,8 +237,26 @@ namespace WPFcharacteristic.WPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                MessageBox.Show("Не выбран персонаж1111");
+                MessageBox.Show("Не выбран персонаж или его нет в базе данных");
+            }
+        }
+        private void InventoryPlus_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var newItem = new InventoryItem();
+                newItem.Name = $"{entity.InventoryItems.Count + 1} weapon";
+
+                entity.InventoryItems.Add(newItem);
+
+                foreach (var item in entity.InventoryItems)
+                {
+                    Invenoty.Text += $"{item.Name} \n";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не выбран персонаж");
             }
         }
     }
