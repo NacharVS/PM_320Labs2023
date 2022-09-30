@@ -18,7 +18,7 @@ namespace UnitsEditor
         public readonly CharacterEditorContext CharContext;
 
         private delegate void CharacteristicChangeDelegate();
-        private event CharacteristicChangeDelegate? CharacteristicChangeEvent;
+        private delegate void ExpChangeDelegate();
 
         public MainWindow()
         {
@@ -30,6 +30,8 @@ namespace UnitsEditor
 
             cbNewCharacters.ItemsSource = _characterNames;
             cbExistCharacters.ItemsSource = CharContext.GetAllChars();
+
+            ExpChangeEvent += FillCharacterInfo;
         }
 
         private void NewCharComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -56,8 +58,10 @@ namespace UnitsEditor
                 default:
                     throw new Exception("Not correct Character!");
             }
+
             CharacteristicChangeEvent += _selectedCharacter.CalcStats;
             CharacteristicChangeEvent += FillCharacterInfo;
+            _selectedCharacter.Lvl.OnLevelUpEvent += AddAbility;
 
             CharacteristicChangeEvent?.Invoke();
         }
@@ -70,6 +74,8 @@ namespace UnitsEditor
                 lbDexterityValue.Content = 0;
                 lbConstitutionValue.Content = 0;
                 lbIntelligenceValue.Content = 0;
+                lblExp.Content = 0;
+                lblLvl.Content = 0;
 
                 tbAttackDamageValue.Text = "0";
                 tbHealthValue.Text = "0";
@@ -85,6 +91,8 @@ namespace UnitsEditor
                 lbDexterityValue.Content = Convert.ToString(_selectedCharacter.Dexterity.Value);
                 lbConstitutionValue.Content = Convert.ToString(_selectedCharacter.Constitution.Value);
                 lbIntelligenceValue.Content = Convert.ToString(_selectedCharacter.Intelligence.Value);
+                lblExp.Content = Convert.ToString(_selectedCharacter.Lvl.CurrentExp);
+                lblLvl.Content = _selectedCharacter.Lvl.CurrentLevel;
 
                 tbAttackDamageValue.Text = Convert.ToString(_selectedCharacter.AttackDamage);
                 tbHealthValue.Text = Convert.ToString(_selectedCharacter.HealthPoint);
@@ -95,6 +103,7 @@ namespace UnitsEditor
             catch { }
         }
 
+        #region CharacteristicsChangeBtns
         private void BtnPlusStrength_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -104,7 +113,7 @@ namespace UnitsEditor
             }
             catch { }
         }
-        
+
         private void BtnMinusStrength_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -130,9 +139,9 @@ namespace UnitsEditor
             try
             {
                 _selectedCharacter.Dexterity.Value -= 1;
-                lbDexterityValue.Content = Convert.ToString(_selectedCharacter.Dexterity.Value);;
+                lbDexterityValue.Content = Convert.ToString(_selectedCharacter.Dexterity.Value); ;
             }
-            catch{ }
+            catch { }
         }
 
         private void BtnMinusConstitution_Click(object sender, RoutedEventArgs e)
@@ -142,7 +151,7 @@ namespace UnitsEditor
                 _selectedCharacter.Constitution.Value -= 1;
                 lbConstitutionValue.Content = Convert.ToString(_selectedCharacter.Constitution.Value);
             }
-            catch{}
+            catch { }
         }
 
         private void BtnPlusConstitution_Click(object sender, RoutedEventArgs e)
@@ -172,8 +181,9 @@ namespace UnitsEditor
                 _selectedCharacter.Intelligence.Value -= 1;
                 lbIntelligenceValue.Content = Convert.ToString(_selectedCharacter.Intelligence.Value);
             }
-            catch{}
+            catch { }
         }
+        #endregion
 
         private void CharacteristicChange(object sender, RoutedEventArgs e)
         {
@@ -196,7 +206,7 @@ namespace UnitsEditor
                         if (CharContext.UpdateCharacterInDb(
                             ((CharacterIdName)cbExistCharacters.SelectedItem).Id,
                             _selectedCharacter))
-                            
+
                         {
                             cbExistCharacters.ItemsSource = CharContext.GetAllChars();
                             cbNewCharacters.SelectedIndex = -1;
@@ -222,7 +232,7 @@ namespace UnitsEditor
                 }
             }
             catch { }
-            
+
         }
 
         private void ExtCharComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -241,6 +251,8 @@ namespace UnitsEditor
                     CharacteristicChangeEvent += _selectedCharacter.CalcStats;
                     CharacteristicChangeEvent += FillCharacterInfo;
 
+                    _selectedCharacter.Lvl.OnLevelUpEvent += AddAbility;
+
                     CharacteristicChangeEvent?.Invoke();
                 }
             }
@@ -248,9 +260,9 @@ namespace UnitsEditor
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(_selectedCharacter is not null)
+            if (_selectedCharacter is not null)
             {
-                if(cbExistCharacters.SelectedItem is not null)
+                if (cbExistCharacters.SelectedItem is not null)
                 {
                     var charInDb = (CharacterIdName)cbExistCharacters.SelectedItem;
                     if (charInDb is not null)
@@ -258,7 +270,7 @@ namespace UnitsEditor
                         tbCharacterName.Text = charInDb.Name;
 
                         _selectedCharacter.Name = tbCharacterName.Text;
-                        var inventWindow = new Inventory(this, _selectedCharacter);
+                        var inventWindow = new Inventory(_selectedCharacter);
                         inventWindow.Show();
                     }
                 }
@@ -266,14 +278,54 @@ namespace UnitsEditor
             if (cbNewCharacters.SelectedItem is not null)
             {
                 _selectedCharacter.Name = tbCharacterName.Text;
-                var inventWindow = new Inventory(this, _selectedCharacter);
+                var inventWindow = new Inventory( _selectedCharacter);
 
                 inventWindow.Show();
             }
-            if(cbNewCharacters.SelectedItem is null && _selectedCharacter is null)
+            if (cbNewCharacters.SelectedItem is null && _selectedCharacter is null)
             {
                 MessageBox.Show("Select chatacter!");
             }
         }
+
+        private void ExpChangeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var clickedBtn = (Button)sender;
+
+                switch (clickedBtn.Name)
+                {
+                    case "ExpAdd1":
+                        _selectedCharacter.Lvl.AddExp(100);
+                        break;
+                    case "ExpAdd2":
+                        _selectedCharacter.Lvl.AddExp(200);
+                        break;
+                    case "ExpAdd5":
+                        _selectedCharacter.Lvl.AddExp(500);
+                        break;
+                    default:
+                        return;
+                }
+                ExpChangeEvent?.Invoke();
+            }
+            catch { }
+            
+        }
+
+
+
+        private void AddAbility()
+        {
+            if(_selectedCharacter.Lvl.CurrentLevel % 3 == 0)
+            {
+                var abilitiesWindow = new Abilities(_selectedCharacter);
+                abilitiesWindow.Show();
+            }
+        }
+
+        private event CharacteristicChangeDelegate? CharacteristicChangeEvent;
+        private event ExpChangeDelegate? ExpChangeEvent;
     }
 }

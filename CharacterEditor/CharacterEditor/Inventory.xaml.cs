@@ -14,20 +14,19 @@ namespace CharacterEditor
     /// </summary>
     public partial class Inventory : Window
     {
-        private readonly MainWindow _mainWindow;
         private BaseCharacteristics _selectedCharacter;
 
-        public Inventory(MainWindow mainWindow, BaseCharacteristics selectedCharacter)
+        public Inventory(BaseCharacteristics selectedCharacter)
         {
             InitializeComponent();
 
-            _mainWindow = mainWindow;
             _selectedCharacter = selectedCharacter;
             FillInventory();
         }
 
         private void FillInventory()
         {
+            lblInventoryCapacity.Content = $"{_selectedCharacter.Inventory.Count} / {_selectedCharacter.InventCapacity}";
             lbInventory.DisplayMemberPath = "Name";
             lbInventory.Items.Clear();
             foreach (var item in _selectedCharacter.Inventory)
@@ -38,7 +37,6 @@ namespace CharacterEditor
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             this.Close();
         }
 
@@ -68,15 +66,21 @@ namespace CharacterEditor
                 default:
                     return;
             }
-            _selectedCharacter.Inventory.Add(item);
-            lbInventory.Items.Add(item);
+            _selectedCharacter.AddItem(item);
+            if(_selectedCharacter.InventCapacity > lbInventory.Items.Count)
+            {
+                lbInventory.Items.Add(item);
+            }
+
+            lblInventoryCapacity.Content = $"{_selectedCharacter.Inventory.Count} / {_selectedCharacter.InventCapacity}";
         }
 
         private void lbInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IItem deletedItem = (IItem)lbInventory.SelectedItem;
-            _selectedCharacter.Inventory.Remove(deletedItem);
+            _selectedCharacter.RemoveItem(deletedItem);
             lbInventory.Items.Remove(deletedItem);
+            lblInventoryCapacity.Content = $"{_selectedCharacter.Inventory.Count} / {_selectedCharacter.InventCapacity}";
         }
     }
 }

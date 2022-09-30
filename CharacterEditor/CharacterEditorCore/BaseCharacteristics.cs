@@ -7,17 +7,18 @@ namespace CharacterEditorCore
     public abstract class BaseCharacteristics
     {
         private string _name;
-        public string Name 
+        public string Name
         {
             get => _name;
             set => _name = value;
         }
 
+        #region Characteristics
         private Characteristics _strength;
         public Characteristics Strength {
             get { return _strength; }
-            set 
-            { 
+            set
+            {
                 _strength = value;
             }
         }
@@ -27,7 +28,7 @@ namespace CharacterEditorCore
         private Characteristics _dexterity;
         public Characteristics Dexterity {
             get { return _dexterity; }
-            set 
+            set
             {
                 _dexterity = value;
             }
@@ -36,8 +37,8 @@ namespace CharacterEditorCore
         protected double _dexterityPhysicalDefChange;
 
         private Characteristics _constitution;
-        public Characteristics Constitution 
-        { 
+        public Characteristics Constitution
+        {
             get
             {
                 return _constitution;
@@ -45,7 +46,7 @@ namespace CharacterEditorCore
             set
             {
                 _constitution = value;
-            } 
+            }
         }
 
         protected int _constitutionHpChange;
@@ -55,7 +56,7 @@ namespace CharacterEditorCore
         public Characteristics Intelligence
         {
             get { return _intelligence; }
-            set 
+            set
             {
                 _intelligence = value;
             }
@@ -63,13 +64,24 @@ namespace CharacterEditorCore
         protected double _intelligenceMpChange;
         protected int _intelligenceMagicAttackChange;
 
+        private Level _lvl = new();
+
+        public Level Lvl
+        {
+            get => _lvl;
+            set => _lvl = value;
+        }
+        #endregion
+
+        #region Stats
+        private int _lvlStatsChangeVal = 5;
         private int _attackDamage;
         public int AttackDamage
         {
             get { return _attackDamage; }
             set
             {
-                if(value >= 0)
+                if (value >= 0)
                 {
                     _attackDamage = value;
                 }
@@ -131,9 +143,16 @@ namespace CharacterEditorCore
                 else _hp = 0;
             }
         }
+        #endregion
 
-        private List<IItem> _inventory = new();
-
+        #region Inventory
+        private int _inventCapacity = 10;
+        public int InventCapacity
+        {
+            get => _inventCapacity;
+            private set => _inventCapacity = value;
+        }
+        private List<IItem> _inventory;
         public List<IItem> Inventory
         {
             get => _inventory;
@@ -145,21 +164,47 @@ namespace CharacterEditorCore
                 }
             }
         }
-
         public void AddItem(IItem item)
         {
-            _inventory.Add(item);
+            if (_inventory.Count < _inventCapacity)
+            {
+                _inventory.Add(item);
+            }
         }
-
         public void RemoveItem(IItem item)
         {
             _inventory.Remove(item);
         }
+        #endregion
+
+        #region Abilities
+        private int _abilitiesCapacity = 5;
+        private List<Ability> _abilities;
+        public List<Ability> Abilities
+        {
+            get => _abilities;
+            set
+            {
+                foreach (var ability in value)
+                {
+                    AddAbility(ability);
+                }
+            }
+        }
+        public void AddAbility(Ability ability)
+        {
+            if (_abilities.Count < _abilitiesCapacity)
+            {
+                _abilities.Add(ability);
+            }
+        }
+        #endregion
+
+        #region CalcStats
         public void HealthPointCalc()
         {
             HealthPoint = _strength.Value * _strengthHpChange + _constitution.Value * _constitutionHpChange;
         }
-
         public void AttackDamageCalc()
         {
             AttackDamage = _strength.Value * _strengthAttackChange + _dexterity.Value * _dexterityAttackChange;
@@ -176,7 +221,6 @@ namespace CharacterEditorCore
         {
             PhysicalDef = _dexterity.Value * _dexterityPhysicalDefChange + _constitution.Value * _constitutionPhysicalDefChange;
         }
-
         public void CalcStats()
         {
             AttackDamageCalc();
@@ -185,6 +229,15 @@ namespace CharacterEditorCore
             MagicAttackCalc();
             PhysicalDefCalc();
         }
+        private void AddStats()
+        {
+            PhysicalDef += _lvlStatsChangeVal;
+            HealthPoint += _lvlStatsChangeVal;
+            ManaPoint += _lvlStatsChangeVal;
+            MagicAttack += _lvlStatsChangeVal;
+            AttackDamage += _lvlStatsChangeVal;
+        }
+        #endregion
 
         public BaseCharacteristics(Characteristics strength,
                                 Characteristics dexterity,
@@ -211,6 +264,10 @@ namespace CharacterEditorCore
             _constitutionPhysicalDefChange = constitutionPhysicalDefChange;
             _intelligenceMagicAttackChange = intelligenceMagicAttackChange;
             _intelligenceMpChange = intelligenceMpChange;
+
+            _inventory = new();
+            _abilities = new();
+            Lvl.OnLevelUpEvent += AddStats;
 
             CalcStats();
         }

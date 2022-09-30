@@ -16,6 +16,7 @@ namespace CharacterEditorMongoDataBase
             BsonClassMap.RegisterClassMap<Helmet>();
             BsonClassMap.RegisterClassMap<Knife>();
             BsonClassMap.RegisterClassMap<Pistol>();
+            BsonClassMap.RegisterClassMap<Ability>();
         }
         public bool AddCharacterToDb(BaseCharacteristics character)
         {
@@ -29,7 +30,9 @@ namespace CharacterEditorMongoDataBase
                     Dexterity = character.Dexterity.Value,
                     Constitution = character.Constitution.Value,
                     Intelligence = character.Intelligence.Value,
-                    Inventory = character.Inventory
+                    Inventory = character.Inventory.Count == 0 ? null : character.Inventory,
+                    Experience = character.Lvl.CurrentExp,
+                    Abilities = character.Abilities.Count == 0 ? null : character.Abilities
                 });
 
                 return true;
@@ -54,7 +57,9 @@ namespace CharacterEditorMongoDataBase
                     Dexterity = character.Dexterity.Value,
                     Constitution = character.Constitution.Value,
                     Intelligence = character.Intelligence.Value,
-                    Inventory = character.Inventory
+                    Inventory = character.Inventory,
+                    Experience = character.Lvl.CurrentExp,
+                    Abilities = character.Abilities
                 });
 
                 return true;
@@ -116,7 +121,9 @@ namespace CharacterEditorMongoDataBase
                 baseCharacter.Intelligence.Value = characterDb.Intelligence;
                 baseCharacter.Strength.Value = characterDb.Strength;
                 baseCharacter.Constitution.Value = characterDb.Constitution;
-                baseCharacter.Inventory = characterDb.Inventory;
+                baseCharacter.Inventory = characterDb.Inventory is not null ? characterDb.Inventory : new List<IItem>();
+                baseCharacter.Lvl.CurrentExp = characterDb.Experience;
+                baseCharacter.Abilities = characterDb.Abilities is not null ? characterDb.Abilities : new List<Ability>();
                 return baseCharacter;
             }
             catch 

@@ -30,6 +30,12 @@ namespace CharacterEditorCore
         public int Constitution { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<IItem>? Inventory { get; set; }
+        public List<IItem> Inventory { get; set; }
+
+        [BsonIgnoreIfNull]
+        public List<Ability> Abilities { get; set; }
+
+        [BsonIgnoreIfDefault]
+        public int Experience { get; set; }
     }
 }
