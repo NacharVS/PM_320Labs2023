@@ -261,12 +261,20 @@ namespace CharacterEditor
 
         private void tbCharacterName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _currentCharacter.Name = tbCharacterName.Text;
+            if (_currentCharacter != null)
+            {
+                _currentCharacter.Name = tbCharacterName.Text;
+            }
         }
 
         private void btnInventory_Click(object sender, RoutedEventArgs e)
         {
-            var window = new InventoryWindow();
+            if (_currentCharacter == null)
+            {
+                return;
+            }
+
+            var window = new InventoryWindow(_currentCharacter, _repository);
             window.Show();
         }
     }

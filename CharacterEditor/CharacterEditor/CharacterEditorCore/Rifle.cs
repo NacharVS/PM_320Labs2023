@@ -4,9 +4,9 @@
     {
         public string Name { get; set; }
 
-        public Rifle(string name) 
+        public Rifle() 
         {
-            Name = name;
+            Name = GetType().Name;
         }
     }
 }

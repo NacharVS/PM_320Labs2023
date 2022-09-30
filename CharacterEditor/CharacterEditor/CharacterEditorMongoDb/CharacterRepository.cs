@@ -1,4 +1,5 @@
 ﻿using CharacterEditorCore;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace CharacterEditorMongoDb
@@ -9,6 +10,9 @@ namespace CharacterEditorMongoDb
 
         public CharacterRepository(string? connectionClient, string? databaseStr)
         {
+            BsonClassMap.RegisterClassMap<Helmet>();
+            BsonClassMap.RegisterClassMap<Armor>();
+            BsonClassMap.RegisterClassMap<Rifle>();
 
             var client = new MongoClient(connectionClient);
             var database = client.GetDatabase(databaseStr);

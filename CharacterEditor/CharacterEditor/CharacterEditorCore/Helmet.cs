@@ -4,9 +4,9 @@
     {
         public string Name { get; set; }
 
-        public Helmet(string name) 
+        public Helmet() 
         {
-            Name = name;
+            Name = GetType().Name;
         }
     }
 }

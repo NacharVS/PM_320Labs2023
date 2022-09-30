@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CharacterEditor"
         mc:Ignorable="d"
-        Title="InventoryWindow" Height="350" Width="500" Background="#FFB0E7EC">
+        Title="InventoryWindow" Height="400" Width="500" Background="#FFB0E7EC" Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="AllBtn" TargetType="Button">
             <Style.Resources>
@@ -16,74 +16,43 @@
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="Height" Value="40"></Setter>
-            <Setter Property="Width" Value="40"></Setter>
+            <Setter Property="Width" Value="80"></Setter>
+        </Style>
+
+        <Style x:Key="ItemBtn" BasedOn="{StaticResource AllBtn}" TargetType="Button">
+            <EventSetter Event="Click" Handler="ItemsBtn_Click"></EventSetter>
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250*"></ColumnDefinition>
+            <ColumnDefinition Width="250*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="150*"/>
+            <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
-        <GroupBox Name ="gbItems" Header="Items" Margin="10,0,10,10" Grid.Column="0" Grid.ColumnSpan="6">
-            <Grid>
+        <GroupBox Name ="gbItems" Header="Items" Margin="10,0,10,10" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid Name="ItemsGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="0" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="1" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="2" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="3" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="4" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="5" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="6" Grid.Row="0"/>
+                <Button Content="Armor" Style="{StaticResource ItemBtn}" Grid.Column="0" Grid.Row="0"/>
+                <Button Content="Rifle" Style="{StaticResource ItemBtn}" Grid.Column="1" Grid.Row="0"/>
+                <Button Content="Helmet" Style="{StaticResource ItemBtn}" Grid.Column="2" Grid.Row="0"/>
+                <Button Content="Armor" Style="{StaticResource ItemBtn}" Grid.Column="3" Grid.Row="0"/>
+                <Button Content="Armor" Style="{StaticResource ItemBtn}" Grid.Column="4" Grid.Row="0"/>
             </Grid>
         </GroupBox>
-        <GroupBox Name ="gbInventory" Header="Inventory" Grid.Row="1" Margin="10,0,10,10">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50*"></RowDefinition>
-                    <RowDefinition Height="50*"></RowDefinition>
-                    <RowDefinition Height="50*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="0" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="1" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="2" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="3" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="4" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="5" Grid.Row="0"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="6" Grid.Row="0"/>
-
-                <Button Style="{StaticResource AllBtn}" Grid.Column="0" Grid.Row="1"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="1" Grid.Row="1"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="2" Grid.Row="1"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="3" Grid.Row="1"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="4" Grid.Row="1"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="5" Grid.Row="1"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="6" Grid.Row="1"/>
-
-                <Button Style="{StaticResource AllBtn}" Grid.Column="0" Grid.Row="2"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="1" Grid.Row="2"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="2" Grid.Row="2"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="3" Grid.Row="2"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="4" Grid.Row="2"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="5" Grid.Row="2"/>
-                <Button Style="{StaticResource AllBtn}" Grid.Column="6" Grid.Row="2"/>
-            </Grid>
+        <GroupBox Name ="gbInventory" Header="Inventory" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,0,10,10">
+            <ListBox Name="lbInventoryItems" Margin="10,10,10,10"/>
         </GroupBox>
+        <Button Name="DeleteBtn" Grid.Column="0" Grid.Row="2" Style="{StaticResource AllBtn}" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Click="DeleteBtn_Click">Delete</Button>
+        <Button Name="SaveBtn" Grid.Column="1" Grid.Row="2" Style="{StaticResource AllBtn}" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SaveBtn_Click">Save</Button>
     </Grid>
 </Window>
