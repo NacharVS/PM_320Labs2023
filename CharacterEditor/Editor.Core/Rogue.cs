@@ -10,13 +10,24 @@ namespace Editor.Core;
 
 public class Rogue : Character
 {
-    public Rogue(int availableSkillPoints) 
-        : base(new RogueStatBoundary(), availableSkillPoints)
+    public Rogue(int availableSkillPoints, int experience) 
+        : base(new RogueStatBoundary(), availableSkillPoints, experience)
     {
         Initialize();
     }
+    
+    public Rogue(int availableSkillPoints, int experience, int strength, int dexterity, int constitution, int intelligence)
+        : base(new RogueStatBoundary(), availableSkillPoints, experience)
+    {
+        Initialize(true);
+        
+        Strength = strength;
+        Dexterity = dexterity;
+        Constitution = constitution;
+        Intelligence = intelligence;
+    }
 
-    public void Initialize()
+    public void Initialize(bool ignoreStatsBoundary=false)
     {
         OnStrengthChange += delegate (Character _, StatChangeArgs args)
         {
@@ -61,11 +72,12 @@ public class Rogue : Character
             ManaPoints += args.Difference * 1.5;
         };
 
-        StatsBoundary = new RogueStatBoundary();
-
-        Strength = StatsBoundary.MinStrength;
-        Dexterity = StatsBoundary.MinDexterity;
-        Constitution = StatsBoundary.MinConstitution;
-        Intelligence = StatsBoundary.MinIntelligence;
+        if (!ignoreStatsBoundary)
+        {
+            Strength = StatsBoundary.MinStrength;
+            Dexterity = StatsBoundary.MinDexterity;
+            Constitution = StatsBoundary.MinConstitution;
+            Intelligence = StatsBoundary.MinIntelligence;
+        }
     }
 }

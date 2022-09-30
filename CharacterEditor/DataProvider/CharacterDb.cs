@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Editor.Core;
+﻿using Editor.Core;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace DataProvider
@@ -18,8 +13,10 @@ namespace DataProvider
         public int Constitution { get; set; }
         public int Intelligence { get; set; }
         public int AvailableSkillPoints { get; set; }
+        public int Experience { get; set; }
 
-        public CharacterDb(int id, string? name, int strength, int dexterity, int constitution, int intelligence, int availableSkillPoints)
+        public CharacterDb(int id, string? name, int strength, int dexterity, int constitution, 
+            int intelligence, int availableSkillPoints, int experience)
         {
             Id = id;
             Name = name;
@@ -28,6 +25,7 @@ namespace DataProvider
             Constitution = constitution;
             Intelligence = intelligence;
             AvailableSkillPoints = availableSkillPoints;
+            Experience = experience;
         }
 
         public CharacterDb(Character character)
@@ -38,6 +36,7 @@ namespace DataProvider
             Constitution = character.Constitution;
             Intelligence = character.Intelligence;
             AvailableSkillPoints = character.AvailableSkillPoints;
+            Experience = character.Experience;
         }
 
         public CharacterDb(int id, Character character)
@@ -49,6 +48,7 @@ namespace DataProvider
             Constitution = character.Constitution;
             Intelligence = character.Intelligence;
             AvailableSkillPoints = character.AvailableSkillPoints;
+            Experience = character.Experience;
         }
     }
 }

@@ -1,29 +1,33 @@
 ﻿using Editor.Core.Enums;
 using Editor.Core.Helpers;
-using System.Reflection;
+using Editor.Core.Abilities;
 
 namespace Editor.Core
 {
     public abstract class Character
     {
         public BaseStatBoundary StatsBoundary;
-        public double HealthPoints { get; private protected set; }
-        public double ManaPoints { get; private protected set; }
+        public double HealthPoints { get; internal set; }
+        public double ManaPoints { get; internal set; }
+        public double PhysicalDamage { get; internal set; }
+        public double MagicDamage { get; internal set; }
+        public double PhysicalDefense { get; internal set; }
+        public double MagicDefense { get; internal set; }
         
-        public double PhysicalDamage { get; private protected set; }
-        public double MagicDamage { get; private protected set; }
-        public double PhysicalDefense { get; private protected set; }
-        public double MagicDefense { get; private protected set; }
+        public IEnumerable<Ability> Abilities { get; internal set; }
 
-        private int _strength { get; set; }
+        private int _strength;
         private int _dexterity;
         private int _constitution;
         private int _intelligence;
+        private int _experience;
+        private int _level;
 
-        public Character (BaseStatBoundary statsBoundary, int availableSkillPoints)
+        public Character (BaseStatBoundary statsBoundary, int availableSkillPoints, int experience)
         {
             StatsBoundary = statsBoundary;
             AvailableSkillPoints = availableSkillPoints;
+            Experience = experience;
 
             OnStrengthChange += CheckSkillPoints;
             OnDexterityChange += CheckSkillPoints;
@@ -53,6 +57,29 @@ namespace Editor.Core
                 if (args.Handled)
                     return;
                 _intelligence += args.Difference;
+            };
+            OnExperienceChange += (_, args) =>
+            {
+                var exp = _experience;
+                while (exp < args.Amount)
+                {
+                    ++Level;
+                    exp += 1000 * Level;
+                    if (exp > _experience)
+                    {
+                        --Level;
+                    }
+                }
+                _experience = args.Amount;
+            };
+            OnLevelChange += (_, args) =>
+            {
+                _level = args.Level;
+                if (Abilities != null)
+                    foreach (var ability in Abilities.Where(x => x.RequiredLevel == args.Level))
+                    {
+                        ability.Apply(this);
+                    }
             };
         }
 
@@ -124,6 +151,24 @@ namespace Editor.Core
                 }
             }
         }
+
+        public int Experience
+        {
+            get
+            {
+                return _experience;
+            }
+            set => OnExperienceChange?.Invoke(this, new ExpChangeArgs(value));
+        }
+
+        public int Level
+        {
+            get
+            {
+                return _level;
+            }
+            set => OnLevelChange?.Invoke(this, new LevelChangeArgs(value));
+        }
         public int AvailableSkillPoints { get; set; }
 
         private void CheckSkillPoints(Character sender, StatChangeArgs args)
@@ -147,10 +192,15 @@ namespace Editor.Core
         }
 
         public delegate void HandleStatChange(Character sender, StatChangeArgs args);
+        public delegate void HandleExperienceChange(Character sender, ExpChangeArgs args);
+
+        public delegate void HandleLevelChange(Character sender, LevelChangeArgs args);
 
         public event HandleStatChange? OnStrengthChange;
         public event HandleStatChange? OnDexterityChange;
         public event HandleStatChange? OnConstitutionChange;
         public event HandleStatChange? OnIntelligenceChange;
+        public event HandleExperienceChange? OnExperienceChange;
+        public event HandleLevelChange? OnLevelChange;
     }
 }

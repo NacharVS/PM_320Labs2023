@@ -10,13 +10,24 @@ namespace Editor.Core;
 
 public class Warrior : Character
 {
-    public Warrior(int availableSkillPoints) 
-        : base(new WarriorStatBoundary(), availableSkillPoints)
+    public Warrior(int availableSkillPoints, int experience) 
+        : base(new WarriorStatBoundary(), availableSkillPoints, experience)
     {
         Initialize();
     }
 
-    public void Initialize()
+    public Warrior(int availableSkillPoints, int experience, int strength, int dexterity, int constitution, int intelligence)
+        : base(new WarriorStatBoundary(), availableSkillPoints, experience)
+    {
+        Initialize(true);
+        
+        Strength = strength;
+        Dexterity = dexterity;
+        Constitution = constitution;
+        Intelligence = intelligence;
+    }
+
+    public void Initialize(bool ignoreStatsBoundary=false)
     {
         OnStrengthChange += delegate (Character _, StatChangeArgs args)
         {
@@ -62,9 +73,12 @@ public class Warrior : Character
             ManaPoints += args.Difference;
         };
 
-        Strength = StatsBoundary.MinStrength;
-        Dexterity = StatsBoundary.MinDexterity;
-        Constitution = StatsBoundary.MinConstitution;
-        Intelligence = StatsBoundary.MinIntelligence;
+        if (!ignoreStatsBoundary)
+        {
+            Strength = StatsBoundary.MinStrength;
+            Dexterity = StatsBoundary.MinDexterity;
+            Constitution = StatsBoundary.MinConstitution;
+            Intelligence = StatsBoundary.MinIntelligence;
+        }
     }
 }

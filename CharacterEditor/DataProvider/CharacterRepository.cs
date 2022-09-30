@@ -6,7 +6,7 @@ namespace DataProvider
 {
     public class CharacterRepository : IRepository<Character>
     {
-        MongoConnection<CharacterDb> _connection;
+        private readonly MongoConnection<CharacterDb> _connection;
 
         public CharacterRepository(MongoConnection<CharacterDb> connection)
         {
@@ -69,19 +69,7 @@ namespace DataProvider
 
         private Character? InitializeCharacter(CharacterDb entity)
         {
-            var character = CastToCharacter(entity);
-
-            if (character is not null)
-            {
-                character.Strength = entity.Strength;
-                character.Constitution = entity.Constitution;
-                character.Dexterity = entity.Dexterity;
-                character.Intelligence = entity.Intelligence;
-
-                return character;
-            }
-
-            return null;
+            return CastToCharacter(entity);
         }
 
         private Character? CastToCharacter(CharacterDb entity)
@@ -89,11 +77,14 @@ namespace DataProvider
             switch (entity?.Name?.Split('.')[^1])
             {
                 case "Warrior":
-                    return new Warrior(entity.AvailableSkillPoints);
+                    return new Warrior(entity.AvailableSkillPoints, entity.Experience, entity.Strength, 
+                        entity.Dexterity, entity.Constitution, entity.Intelligence);
                 case "Rogue":
-                    return new Rogue(entity.AvailableSkillPoints);
+                    return new Rogue(entity.AvailableSkillPoints, entity.Experience, entity.Strength, 
+                        entity.Dexterity, entity.Constitution, entity.Intelligence);
                 case "Wizard":
-                    return new Wizard(entity.AvailableSkillPoints);
+                    return new Wizard(entity.AvailableSkillPoints, entity.Experience, entity.Strength, 
+                        entity.Dexterity, entity.Constitution, entity.Intelligence);
             }
             return null;
         }

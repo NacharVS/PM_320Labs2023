@@ -10,13 +10,24 @@ namespace Editor.Core;
 
 public class Wizard : Character
 {
-    public Wizard(int availableSkillPoints) 
-        : base(new WizardStatBoundary(), availableSkillPoints)
+    public Wizard(int availableSkillPoints, int experience) 
+        : base(new WizardStatBoundary(), availableSkillPoints, experience)
     {
         Initialize();
     }
+    
+    public Wizard(int availableSkillPoints, int experience, int strength, int dexterity, int constitution, int intelligence)
+        : base(new WizardStatBoundary(), availableSkillPoints, experience)
+    {
+        Initialize(true);
+        
+        Strength = strength;
+        Dexterity = dexterity;
+        Constitution = constitution;
+        Intelligence = intelligence;
+    }
 
-    public void Initialize()
+    public void Initialize(bool ignoreStatsBoundary=false)
     {
         OnStrengthChange += delegate (Character _, StatChangeArgs args)
         {
@@ -62,9 +73,12 @@ public class Wizard : Character
             ManaPoints += args.Difference * 2;
         };
 
-        Strength = StatsBoundary.MinStrength;
-        Dexterity = StatsBoundary.MinDexterity;
-        Constitution = StatsBoundary.MinConstitution;
-        Intelligence = StatsBoundary.MinIntelligence;
+        if (!ignoreStatsBoundary)
+        {
+            Strength = StatsBoundary.MinStrength;
+            Dexterity = StatsBoundary.MinDexterity;
+            Constitution = StatsBoundary.MinConstitution;
+            Intelligence = StatsBoundary.MinIntelligence;
+        }
     }
 }
