@@ -1,16 +1,42 @@
+using System.Text.RegularExpressions;
 using CharacterCreator.Core.Characteristics;
 namespace CharacterCreator.Core;
 
 public class Character
 {
     public Stats Stats { get; private protected set; }
-    public int SkillPoints { get; private protected set; } = 5;
+    public int SkillPoints { get; set; } = 1005;
     
 
     private double _strength;
     private double _dexterity;
     private double _constitution;
     private double _intelligence;
+    
+    public string? Id { get; set; }
+    public string Name { get; set; }
+
+    private const int InventoryCapacity = 3;
+    private List<Item> _inventory = new();
+    
+
+    public Item[] Inventory
+    {
+        get => _inventory.ToArray();
+        set => _inventory = value.ToList();
+    }
+
+    public void AddItemToInventory(Item item)
+    {
+        if (InventoryCapacity > _inventory.Count)
+            _inventory.Add(item);
+    }
+
+    public void RemoveItemFromInventory(Item item)
+    {
+        _inventory.Remove(item);
+    }
+    
 
     public double Strength
     {

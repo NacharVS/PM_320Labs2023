@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CharacterCreator.Core;
+using CharacterCreator.Data.Interfaces;
+using CharacterCreator.Data.Repositories;
 
 namespace CharacterCreator.Core
 {
@@ -22,9 +12,12 @@ namespace CharacterCreator.Core
     public partial class MainWindow : Window
     {
         private Character? _selectedCharacter;
+        private ICharacterRepository _characterRepository;
         public MainWindow()
         {
             InitializeComponent();
+
+            _characterRepository = new CharacterRepository(((App)Application.Current).connection);
             
             OnStatChangedEvent += delegate
             {
@@ -32,7 +25,7 @@ namespace CharacterCreator.Core
             };
         }
 
-        private void CharacterList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CharacterClassList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var chosenCharacterName = ((ComboBoxItem) e.AddedItems[0]).Content.ToString();
             switch (chosenCharacterName)
@@ -49,11 +42,37 @@ namespace CharacterCreator.Core
                 default:
                     break;
             };
+            
+            if (_selectedCharacter is null)
+                return;
+
             FillData();
+        }
+
+        private void CharactersListUpdate(string className)
+        {
+            CharactersList.ItemsSource = _characterRepository.GetAllByClassName(className);
+            CharactersList.DisplayMemberPath = "Name";
+        }
+        
+        private void CharactersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CharactersList.Items.Count != 0 && CharactersList.SelectedIndex != -1)
+            {
+                _selectedCharacter = (Character) CharactersList.Items[CharactersList.SelectedIndex];
+                FillData();
+            }
+        }
+        
+        private void CharactersList_OnDropDownOpened(object? sender, EventArgs e)
+        {
+            if (CharacterClassList.SelectionBoxItem is not null)
+                CharactersListUpdate(CharacterClassList.SelectionBoxItem.ToString());
         }
 
         private void FillData()
         {
+            NameTextBox.Text = _selectedCharacter.Name;
             AvailableSkillPointsValueLabel.Content = _selectedCharacter.SkillPoints;
             
             StrengthValueLabel.Content = _selectedCharacter?.Strength;
@@ -66,6 +85,7 @@ namespace CharacterCreator.Core
             PhysAttackValueLabel.Content = _selectedCharacter?.PhysAttack;
             PhysDefenseValueLabel.Content = _selectedCharacter?.PhysDefense;
             MagicalAttackValueLabel.Content = _selectedCharacter?.MagicalAttack;
+            UpdateInventory();
         }
 
         private void StrengthIncrementBtn_Click(object sender, RoutedEventArgs e)
@@ -119,5 +139,53 @@ namespace CharacterCreator.Core
         private delegate void OnStatChangedDelegate();
 
         private event OnStatChangedDelegate OnStatChangedEvent;
+        
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCharacter is null)
+                return;
+
+            _selectedCharacter.Name = NameTextBox.Text;
+            _characterRepository.InsertOrUpdate(_selectedCharacter);
+
+            MessageBox.Show("Done");
+        }
+
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCharacter != null)
+            {
+                _characterRepository.DeleteCharacter(_selectedCharacter.Id);
+                MessageBox.Show("Done");
+            }
+            
+        }
+
+        private void AddInventoryBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCharacter is null)
+                return;
+            
+
+            Item item = new Item {Name = ItemNameTextBox.Text};
+            _selectedCharacter.AddItemToInventory(item);
+            UpdateInventory();
+        }
+
+        private void UpdateInventory()
+        {
+            InventoryListBox.ItemsSource = _selectedCharacter!.Inventory;
+            InventoryListBox.InvalidateVisual();
+        }
+
+        private void RemoveInventoryBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCharacter is null || InventoryListBox.SelectedItem is null)
+                return;
+            
+            _selectedCharacter.RemoveItemFromInventory((Item) InventoryListBox.SelectedItem);
+            UpdateInventory();
+        }
     }
 }
