@@ -60,7 +60,7 @@ public class CharacterRepository : ICharacterRepository
             ? dbChar.Abilities.Select(x => new Ability
             {
                 Name = x.Name, AttackChange = x.AttackChange,
-                HealthChange = x.AttackChange, ManaChange = x.ManaChange,
+                HealthChange = x.HealthChange, ManaChange = x.ManaChange,
                 MagicalAttackChange = x.MagicalAttackChange,
                 PhysicalResistanceChange = x.PhysicalResistanceChange
             }).ToArray()
