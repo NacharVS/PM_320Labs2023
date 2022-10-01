@@ -72,6 +72,7 @@ namespace Editor.Core
             OnExperienceChange += CalculateLevel;
             OnLevelChange += (_, args) =>
             {
+                AvailableSkillPoints += (args.Level - _level) * 5;
                 _level = args.Level;
             };
         }

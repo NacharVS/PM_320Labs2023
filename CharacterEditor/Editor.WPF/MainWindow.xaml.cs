@@ -214,6 +214,7 @@ namespace Editor.WPF
                     {
                         btnChooseAbility.IsEnabled = true;
                     }
+                    lbAvailableSkillPoints.Content = _currentCharacter.AvailableSkillPoints;
                 };
             }
         }
