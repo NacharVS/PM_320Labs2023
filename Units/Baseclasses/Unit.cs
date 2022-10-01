@@ -12,18 +12,11 @@ namespace Units.BaseClasses
             {
                 if (value < _health)
                 {
-                    double damage = _health;
-                    damage -= value;
+
                     _health = value;
                     HealthChangedEvent?.Invoke();
                 }
-                else if (value > _health)
-                {
-                    double heal = _health;
-                    heal -= value;
-                    _health = value;
-                    HealthChangedEvent?.Invoke();
-                }
+
                 _health = value;
             }
         }

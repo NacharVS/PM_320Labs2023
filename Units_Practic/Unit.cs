@@ -24,6 +24,13 @@
             boostPoints = 5;
         }
 
-        public abstract void UpdateHaracteristics();
+        public void UpdateHaracteristics() 
+        {
+            healthPoint = characteristics.HealthUpdate(characteristics.type);
+            manaPoint = characteristics.ManaUpdate(characteristics.type);
+            atackPoint = characteristics.AttackUpdate(characteristics.type);
+            magicAtackPoint = characteristics.ManaAttackUpdate(characteristics.type);
+            physicalProtectionPoint = characteristics.PhysicalProtectionUpdate(characteristics.type);
+        }
     }
 }

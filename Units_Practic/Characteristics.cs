@@ -4,9 +4,11 @@ namespace Units_Practic
 {
     public class Characteristics
     {
+        public Units type;
+
         public double strength;
-        public int strenghtMax;
-        public int strenghtMin;
+        public int strengthMax;
+        public int strengthMin;
 
         public double dexterity;
         public int dexterityMax;
@@ -22,11 +24,13 @@ namespace Units_Practic
 
         public Characteristics(Units unt)
         {
-            switch (unt)
+            type = unt;
+
+            switch (type)
             {
                 case Units.Warrior:
-                    strenghtMax = 250;
-                    strenghtMin = 30;
+                    strengthMax = 250;
+                    strengthMin = 30;
 
                     dexterity = 15;
                     dexterityMax = 70;
@@ -40,8 +44,8 @@ namespace Units_Practic
                 break;
 
                 case Units.Rogue:
-                    strenghtMax = 55;
-                    strenghtMin = 15;
+                    strengthMax = 55;
+                    strengthMin = 15;
 
                     dexterityMax = 250;
                     dexterityMin = 30;
@@ -54,8 +58,8 @@ namespace Units_Practic
                 break;
 
                 case Units.Wizard:
-                    strenghtMax = 45;
-                    strenghtMin = 10;
+                    strengthMax = 45;
+                    strengthMin = 10;
 
                     dexterityMax = 70;
                     dexterityMin = 20;
@@ -72,11 +76,20 @@ namespace Units_Practic
                 break;
             }
 
-            strength = strenghtMin;
+            strength = strengthMin;
             dexterity = dexterityMin;
             constitution = constitutionMin;
             intelligence = intelligenceMin;
         }
+
+/*        public void CharacteristicsUpdate()
+        {
+            HealthUpdate(type);
+            ManaUpdate(type);
+            ManaAttackUpdate(type);
+            AttackUpdate(type);
+            PhysicalProtectionUpdate(type);
+        }*/
 
         public double HealthUpdate(Units unt)
         {

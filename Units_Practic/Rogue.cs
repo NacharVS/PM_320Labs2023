@@ -9,14 +9,5 @@ namespace Units_Practic
             characteristics = new Characteristics(Units.Rogue);
             UpdateHaracteristics();
         }
-
-        public override void UpdateHaracteristics()
-        {
-            healthPoint = characteristics.HealthUpdate(Units.Rogue);
-            manaPoint = characteristics.ManaUpdate(Units.Rogue);
-            atackPoint = characteristics.AttackUpdate(Units.Rogue);
-            magicAtackPoint = characteristics.ManaAttackUpdate(Units.Rogue);
-            physicalProtectionPoint = characteristics.PhysicalProtectionUpdate(Units.Rogue);
-        }
     }
 }
