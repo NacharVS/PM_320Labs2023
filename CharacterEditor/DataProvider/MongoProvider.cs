@@ -3,32 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataProvider.Interfaces;
 using Editor.Core;
 using MongoDB.Driver;
 
 namespace DataProvider
 {
-    public class MongoProvider
+    public class MongoProvider<TEntity>
     {
-        private CharacterRepository _repository;
+        private IRepository<TEntity> _repository;
 
-        public MongoProvider(string connectionString)
+        public MongoProvider(IRepository<TEntity> repository)
         {
-            _repository = new CharacterRepository(new 
-                MongoConnection<CharacterDb>(connectionString, "Characters", "CharactersCollection"));
+            _repository = repository;
         }
 
-        public void Save(Character character)
+        public void Save(TEntity character)
         {
             _repository.SaveOrUpdate(character);
         }
 
-        public Character? Load(string name)
+        public TEntity? Load(string name)
         {
             return _repository.GetByName(name);
         }
 
-        public void Delete(Character entity)
+        public IEnumerable<TEntity?> LoadAll()
+        {
+            return _repository.GetAll();
+        }
+
+        public void Delete(TEntity entity)
         {
             _repository.Delete(entity);
         }

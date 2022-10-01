@@ -1,33 +1,44 @@
 ﻿using Editor.Core.Enums;
 using Editor.Core.Helpers;
 using Editor.Core.Abilities;
+using Editor.Core.Inventory;
 
 namespace Editor.Core
 {
     public abstract class Character
     {
         public BaseStatBoundary StatsBoundary;
-        public double HealthPoints { get; internal set; }
-        public double ManaPoints { get; internal set; }
-        public double PhysicalDamage { get; internal set; }
-        public double MagicDamage { get; internal set; }
-        public double PhysicalDefense { get; internal set; }
-        public double MagicDefense { get; internal set; }
+        public string? Name { get; set; }
+        public List<InventoryItem> Inventory { get; set; }
+        public double HealthPoints { get; set; }
+        public double ManaPoints { get; set; }
+        public double PhysicalDamage { get; set; }
+        public double MagicDamage { get; set; }
+        public double PhysicalDefense { get; set; }
+        public double MagicDefense { get; set; }
         
-        public IEnumerable<Ability> Abilities { get; internal set; }
+        public IEnumerable<Ability?>? Abilities { get; internal set; }
 
         private int _strength;
         private int _dexterity;
         private int _constitution;
         private int _intelligence;
         private int _experience;
-        private int _level;
+        private int _level = 1;
+        public int InventoryCapacity { get; set; }
 
-        public Character (BaseStatBoundary statsBoundary, int availableSkillPoints, int experience)
+        public Character (BaseStatBoundary statsBoundary, int availableSkillPoints, 
+            int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory)
         {
             StatsBoundary = statsBoundary;
             AvailableSkillPoints = availableSkillPoints;
-            Experience = experience;
+            _experience = experience;
+            Abilities = abilities;
+            Name = name;
+            Inventory = inventory;
+            InventoryCapacity = 15;
+
+            CalculateLevel(this, new ExpChangeArgs(experience));
 
             OnStrengthChange += CheckSkillPoints;
             OnDexterityChange += CheckSkillPoints;
@@ -58,28 +69,10 @@ namespace Editor.Core
                     return;
                 _intelligence += args.Difference;
             };
-            OnExperienceChange += (_, args) =>
-            {
-                var exp = _experience;
-                while (exp < args.Amount)
-                {
-                    ++Level;
-                    exp += 1000 * Level;
-                    if (exp > _experience)
-                    {
-                        --Level;
-                    }
-                }
-                _experience = args.Amount;
-            };
+            OnExperienceChange += CalculateLevel;
             OnLevelChange += (_, args) =>
             {
                 _level = args.Level;
-                if (Abilities != null)
-                    foreach (var ability in Abilities.Where(x => x.RequiredLevel == args.Level))
-                    {
-                        ability.Apply(this);
-                    }
             };
         }
 
@@ -189,6 +182,38 @@ namespace Editor.Core
 
                 AvailableSkillPoints += args.Difference != 0 ? 1 : 0;
             }
+        }
+        private void CalculateLevel(Character sender, ExpChangeArgs args)
+        {
+            var exp = 0;
+            var level = 1;
+
+            while (true)
+            {
+                exp += level * 1000;
+                if (args.Amount < exp)
+                {
+                    break;
+                }
+                ++level;
+            }
+
+            Level = level;
+            _experience = args.Amount;
+        }
+
+        public void AddItemToInventory(InventoryItem item)
+        {
+            if (Inventory.Count >= InventoryCapacity)
+            {
+                throw new Exception("Max capacity");
+            }
+            Inventory.Add(item);
+        }
+
+        public void RemoveItemFromInventory(string name)
+        {
+            Inventory.Remove(Inventory.FirstOrDefault(x => x.Name == name));
         }
 
         public delegate void HandleStatChange(Character sender, StatChangeArgs args);

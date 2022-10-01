@@ -1,13 +1,12 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using DataProvider;
-using DataProvider.Interfaces;
 using Editor.Core;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.IdGenerators;
-using MongoDB.Bson.Serialization.Serializers;
+using Editor.Core.Abilities;
+using Editor.Core.Inventory;
 
 namespace Editor.WPF
 {
@@ -16,18 +15,23 @@ namespace Editor.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MongoProvider _provider;
+        private MongoProvider<Character> _characterProvider;
+        private MongoProvider<Ability> _abilityProvider;
 
         private Character? _currentCharacter;
         private const int StartSkillPoints = 5;
 
+        private IEnumerable<Ability?>? _starterAbilities;
+
         public MainWindow()
         {
             InitializeComponent();
-
-            _provider = new MongoProvider("mongodb://localhost");
+            InitializeProviders();
             
-            OnSkillChange += delegate(Character? sender, string propName, int val)
+            _starterAbilities = _abilityProvider?.LoadAll();
+            InitializeAbilitiesList(_starterAbilities);
+
+            OnSkillChange += delegate (Character? sender, string propName, int val)
             {
                 if (sender != null)
                 {
@@ -49,16 +53,20 @@ namespace Editor.WPF
             switch (chosenCharacterName)
             {
                 case "Warrior":
-                    _currentCharacter = new Warrior(StartSkillPoints);
+                    _currentCharacter = new Warrior(StartSkillPoints, 0, _starterAbilities, null, new List<InventoryItem>());
+                    InitializeEvents();
                     break;
                 case "Rogue":
-                    _currentCharacter = new Rogue(StartSkillPoints);
+                    _currentCharacter = new Rogue(StartSkillPoints, 0, _starterAbilities, null, new List<InventoryItem>());
+                    InitializeEvents();
                     break;
                 case "Wizard":
-                    _currentCharacter = new Wizard(StartSkillPoints);
+                    _currentCharacter = new Wizard(StartSkillPoints, 0, _starterAbilities, null, new List<InventoryItem>());
+                    InitializeEvents();
                     break;
             };
             FillData();
+            InitializeInventory();
         }
 
         private void FillData()
@@ -77,6 +85,13 @@ namespace Editor.WPF
             lbPDefVal.Content = _currentCharacter?.PhysicalDefense;
             lbMAtkVal.Content = _currentCharacter?.MagicDamage;
             lbMDefVal.Content = _currentCharacter?.MagicDefense;
+
+            tbName.Text = _currentCharacter?.Name;
+
+            lbExpPoints.Content = _currentCharacter.Experience;
+            lbLevel.Content = _currentCharacter.Level;
+
+            InitializeAbilitiesList(_currentCharacter?.Abilities?.Where(x => x?.IsApplied == false));
         }
 
         private void btnDecrStrength_Click(object sender, RoutedEventArgs e)
@@ -127,7 +142,15 @@ namespace Editor.WPF
         {
             if (_currentCharacter != null)
             {
-                _provider.Save(_currentCharacter);
+                if (tbName.Text == "")
+                {
+                    MessageBox.Show("Enter the correct name");
+                    return;
+                }
+
+                _currentCharacter.Name = tbName.Text;
+
+                _characterProvider.Save(_currentCharacter);
                 MessageBox.Show("Successfully saved");
             }
         }
@@ -136,10 +159,12 @@ namespace Editor.WPF
         {
             if (_currentCharacter != null)
             {
-                var dbCharacter = _provider.Load(_currentCharacter.GetType().ToString());
+                var dbCharacter = _characterProvider.Load(tbName.Text);
                 if (dbCharacter is not null)
                 {
                     _currentCharacter = dbCharacter;
+                    InitializeEvents();
+                    InitializeInventory();
                     MessageBox.Show("Successfully loaded");
                     FillData();
                 }
@@ -154,8 +179,114 @@ namespace Editor.WPF
         {
             if (_currentCharacter != null)
             {
-                _provider.Delete(_currentCharacter);
+                _characterProvider.Delete(_currentCharacter);
                 MessageBox.Show("Successfully deleted");
+            }
+        }
+
+        private void btnAddExp_Click(object sender, RoutedEventArgs e)
+        {
+            int exp;
+
+            if (int.TryParse(tbExpAmount.Text, out exp))
+            {
+                if (_currentCharacter != null)
+                {
+                    _currentCharacter.Experience += exp;
+                }
+            }
+            
+        }
+
+        private void InitializeEvents()
+        {
+            if (_currentCharacter != null)
+            {
+                _currentCharacter.OnExperienceChange += (sender, _) =>
+                {
+                    lbExpPoints.Content = sender.Experience;
+                    lbLevel.Content = sender.Level;
+                };
+
+                _currentCharacter.OnLevelChange += (sender, _) =>
+                {
+                    if (sender.Level % 3 == 0)
+                    {
+                        btnChooseAbility.IsEnabled = true;
+                    }
+                };
+            }
+        }
+
+        private void InitializeProviders()
+        {
+            _characterProvider = new MongoProvider<Character>(new CharacterRepository(new
+                MongoConnection<CharacterDb>("mongodb://localhost", "Characters", "CharactersCollection")));
+
+            _abilityProvider = new MongoProvider<Ability>(new AbilityRepository(new
+                MongoConnection<AbilityDb>("mongodb://localhost", "Abilities", "AbilitiesCollection")));
+        }
+
+        private void InitializeAbilitiesList(IEnumerable<Ability> abilities)
+        {
+            comboAbilities.Items.Clear();
+            foreach (var i in abilities)
+            {
+                comboAbilities.Items.Add(i.Name);
+            }
+        }
+
+        private void InitializeInventory()
+        {
+            comboInventory.Items.Clear();
+            foreach (var i in _currentCharacter.Inventory)
+            {
+                comboInventory.Items.Add(i.Name);
+            }
+
+            lbInvCapacity.Content = (_currentCharacter.InventoryCapacity - _currentCharacter.Inventory.Count);
+        }
+
+        private void btnChooseAbility_Click(object sender, RoutedEventArgs e)
+        {
+            string? value = (string?)comboAbilities.SelectedItem;
+
+            if (_currentCharacter != null)
+            {
+                _currentCharacter.Abilities!.FirstOrDefault(x => x?.Name == value)?.Apply(_currentCharacter);
+
+                if (_currentCharacter.Abilities != null)
+                    InitializeAbilitiesList(_currentCharacter.Abilities.Where(x => x != null && !x.IsApplied)!);
+
+                btnChooseAbility.IsEnabled = false;
+                FillData();
+            }
+        }
+
+        private void btnAddInvItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _currentCharacter?.AddItemToInventory(new InventoryItem(tbInvItem.Text));
+                comboInventory.Items.Add(tbInvItem.Text);
+                lbInvCapacity.Content = (_currentCharacter?.InventoryCapacity - _currentCharacter?.Inventory.Count);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnRemoveInvItem_Click(object sender, RoutedEventArgs e)
+        {
+            string? value = (string?)comboInventory.SelectedItem;
+
+            if (_currentCharacter != null && value != null)
+            {
+                _currentCharacter.RemoveItemFromInventory(value);
+                comboInventory.Items.Remove(tbInvItem.Text);
+                tbInvItem.Text = "";
+                lbInvCapacity.Content = (_currentCharacter?.InventoryCapacity - _currentCharacter?.Inventory.Count);
             }
         }
     }

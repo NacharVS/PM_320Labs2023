@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Editor.Core.Abilities;
 using Editor.Core.Enums;
 using Editor.Core.Helpers;
+using Editor.Core.Inventory;
 
 namespace Editor.Core;
 
 public class Rogue : Character
 {
-    public Rogue(int availableSkillPoints, int experience) 
-        : base(new RogueStatBoundary(), availableSkillPoints, experience)
+    public Rogue(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory) 
+        : base(new RogueStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize();
     }
     
-    public Rogue(int availableSkillPoints, int experience, int strength, int dexterity, int constitution, int intelligence)
-        : base(new RogueStatBoundary(), availableSkillPoints, experience)
+    public Rogue(int availableSkillPoints, int experience, int strength, int dexterity, 
+        int constitution, int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory)
+        : base(new RogueStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize(true);
         

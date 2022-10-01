@@ -46,6 +46,22 @@
         <Button x:Name="btnSave" Content="Save character" HorizontalAlignment="Left" Margin="671,58,0,0" VerticalAlignment="Top" Click="btnSave_Click"/>
         <Button x:Name="btnLoad" Content="Load character" HorizontalAlignment="Left" Margin="671,89,0,0" VerticalAlignment="Top" Click="btnLoad_Click"/>
         <Button x:Name="btnDelete" Content="Delete saved" HorizontalAlignment="Left" Margin="671,120,0,0" VerticalAlignment="Top" Click="btnDelete_Click"/>
+        <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="539,59,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lbAvailableSkillPoints_Copy" Content="Current experience:" HorizontalAlignment="Left" Margin="259,86,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbAvailableSkillPoints_Copy1" Content="Current level:" HorizontalAlignment="Left" Margin="259,120,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbExpPoints" Content="0" HorizontalAlignment="Left" Margin="383,86,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbLevel" Content="0" HorizontalAlignment="Left" Margin="383,120,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnAddExp" Content="Add experience" HorizontalAlignment="Left" Margin="539,191,0,0" VerticalAlignment="Top" Click="btnAddExp_Click"/>
+        <TextBox x:Name="tbExpAmount" HorizontalAlignment="Left" Margin="632,192,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnChooseAbility" Content="Choose ability" HorizontalAlignment="Left" Margin="539,225,0,0" VerticalAlignment="Top" Click="btnChooseAbility_Click" IsEnabled="False"/>
+        <ComboBox x:Name="comboAbilities" ItemsSource="{Binding Path=_characterAbilities}" SelectedValue="{Binding _characterAbility}" HorizontalAlignment="Left" Margin="632,224,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="comboInventory" HorizontalAlignment="Left" Margin="632,257,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lbAvailableSkillPoints_Copy2" Content="Inventory items:" HorizontalAlignment="Left" Margin="523,255,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnAddInvItem" Content="Add new item:" HorizontalAlignment="Left" Margin="537,308,0,0" VerticalAlignment="Top" Click="btnAddInvItem_Click"/>
+        <TextBox x:Name="tbInvItem" HorizontalAlignment="Left" Margin="634,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnRemoveInvItem" Content="Remove current item" HorizontalAlignment="Left" Margin="637,332,0,0" VerticalAlignment="Top" Click="btnRemoveInvItem_Click"/>
+        <Label x:Name="lbAvailableSkillPoints_Copy3" Content="Left space:" HorizontalAlignment="Left" Margin="533,277,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbInvCapacity" Content="" HorizontalAlignment="Left" Margin="632,277,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

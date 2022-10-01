@@ -13,7 +13,7 @@ namespace DataProvider
             _connection = connection;
         }
 
-        public Character? GetById(int id)
+        public Character? GetById(string id)
         {
             var entity = _connection.Collection.Find(x => x.Id == id).FirstOrDefault();
             return InitializeCharacter(entity);
@@ -27,9 +27,15 @@ namespace DataProvider
 
         public IEnumerable<Character?> GetAllByName(string name)
         {
-            var entityCollection = _connection.Collection.Find(x => x.Name == name);
+            return GetAll().Where(x => x?.Name == name).ToList();
+        }
+
+        public IEnumerable<Character?> GetAll()
+        {
+            var entityCollection = _connection.Collection.Find(x => x != null);
+
             var characterCollection = new List<Character?>();
-            entityCollection.ToList().ForEach(x => 
+            entityCollection.ToList().ForEach(x =>
                 characterCollection.Add(InitializeCharacter(x)));
 
             return characterCollection;
@@ -37,27 +43,27 @@ namespace DataProvider
 
         public void Delete(Character entity)
         {
-            _connection.Collection.DeleteOne(x => x.Name == entity.GetType().ToString());
+            _connection.Collection.DeleteOne(x => x.Name == entity.Name);
         }
 
         public void Update(Character entity)
         {
             var dbCharacter = _connection.Collection
-                .Find(x => x.Name == entity.GetType().ToString()).FirstOrDefault();
+                .Find(x => x.Name == entity.Name).FirstOrDefault();
             _connection.Collection.ReplaceOne(x => x.Id == dbCharacter.Id, 
                 new CharacterDb(dbCharacter.Id, entity));
         }
 
         public void Save(Character entity)
         {
-            _connection.Collection.InsertOne(new CharacterDb(entity.GetHashCode(), entity));
+            _connection.Collection.InsertOne(new CharacterDb(Guid.NewGuid().ToString(), entity));
         }
 
         public void SaveOrUpdate(Character entity)
         {
             if (_connection.Collection.
                     Find(x => 
-                        x.Name == entity.GetType().ToString()).FirstOrDefault() != null)
+                        x.Name == entity.Name).FirstOrDefault() != null)
             {
                 Update(entity);
             }
@@ -74,17 +80,17 @@ namespace DataProvider
 
         private Character? CastToCharacter(CharacterDb entity)
         {
-            switch (entity?.Name?.Split('.')[^1])
+            switch (entity?.Class)
             {
                 case "Warrior":
                     return new Warrior(entity.AvailableSkillPoints, entity.Experience, entity.Strength, 
-                        entity.Dexterity, entity.Constitution, entity.Intelligence);
+                        entity.Dexterity, entity.Constitution, entity.Intelligence, entity.Abilities, entity.Name, entity.Inventory);
                 case "Rogue":
                     return new Rogue(entity.AvailableSkillPoints, entity.Experience, entity.Strength, 
-                        entity.Dexterity, entity.Constitution, entity.Intelligence);
+                        entity.Dexterity, entity.Constitution, entity.Intelligence, entity.Abilities, entity.Name, entity.Inventory);
                 case "Wizard":
                     return new Wizard(entity.AvailableSkillPoints, entity.Experience, entity.Strength, 
-                        entity.Dexterity, entity.Constitution, entity.Intelligence);
+                        entity.Dexterity, entity.Constitution, entity.Intelligence, entity.Abilities, entity.Name, entity.Inventory);
             }
             return null;
         }
