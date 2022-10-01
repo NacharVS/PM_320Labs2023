@@ -11,6 +11,8 @@ namespace WPFcharacterictic.Core.BaseEntitys
         public Rogue() 
         {
             Name = "Rogue";
+            MaxCountInventoryItem = 5;
+
             Strength = 15;
             MinStrength = 15;
             MaxStrength = 55;
@@ -29,8 +31,7 @@ namespace WPFcharacterictic.Core.BaseEntitys
             PhysicalAttack = Strength * 2 + Dexterity * 4;
             MagicAttack = Intelligence * 15;
             PhysicalDefense = Dexterity * 1.5;
-    }
-
+        }
         public override void IncreasedStrength()
         {
             if (AvailablePoints > 0 && MaxStrength > Strength)

@@ -11,6 +11,8 @@ namespace WPFcharacterictic.Core.BaseEntitys
         public Warrior() 
         {
             Name = "Warrior";
+            MaxCountInventoryItem = 6;
+
             Strength = 30;
             MinStrength = 30;
             MaxStrength = 250;

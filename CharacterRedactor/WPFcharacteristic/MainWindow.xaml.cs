@@ -37,51 +37,31 @@ namespace WPFcharacteristic.WPF
                 case "Warrior":
                     entity = new Warrior();
 
-                    Points.Text = entity.AvailablePoints.ToString();
-                    Strength.Text = entity.Strength.ToString();
-                    Dexterity.Text = entity.Dexterity.ToString();
-                    Constitution.Text = entity.Constitution.ToString();
-                    Intelligence.Text = entity.Intelligence.ToString();
-
-                    Health.Text = entity.Health.ToString();
-                    Mana.Text = entity.Mana.ToString();
-                    PhysicalAttack.Text = entity.PhysicalAttack.ToString();
-                    MagicAttack.Text = entity.MagicAttack.ToString();
-                    PhysicalDefense.Text = entity.PhysicalDefense.ToString();
-                    MagicDefense.Text = entity.MagicDefense.ToString();
+                    foreach (var ability in entity.Abilities)
+                    {
+                        Abilities.Items.Add(ability);
+                    }
+                    Refresh();
                     break;
                 case "Rogue":
                     entity = new Rogue();
 
-                    Points.Text = entity.AvailablePoints.ToString();
-                    Strength.Text = entity.Strength.ToString();
-                    Dexterity.Text = entity.Dexterity.ToString();
-                    Constitution.Text = entity.Constitution.ToString();
-                    Intelligence.Text = entity.Intelligence.ToString();
-
-                    Health.Text = entity.Health.ToString();
-                    Mana.Text = entity.Mana.ToString();
-                    PhysicalAttack.Text = entity.PhysicalAttack.ToString();
-                    MagicAttack.Text = entity.MagicAttack.ToString();
-                    PhysicalDefense.Text = entity.PhysicalDefense.ToString();
-                    MagicDefense.Text = entity.MagicDefense.ToString();
+                    foreach (var ability in entity.Abilities)
+                    {
+                        Abilities.Items.Add(ability);
+                    }
+                    Refresh();
 
                     break;
                 case "Wizard":
                     entity = new Wizard();
 
-                    Points.Text = entity.AvailablePoints.ToString();
-                    Strength.Text = entity.Strength.ToString();
-                    Dexterity.Text = entity.Dexterity.ToString();
-                    Constitution.Text = entity.Constitution.ToString();
-                    Intelligence.Text = entity.Intelligence.ToString();
+                    foreach (var ability in entity.Abilities)
+                    {
+                        Abilities.Items.Add(ability);
+                    }
 
-                    Health.Text = entity.Health.ToString();
-                    Mana.Text = entity.Mana.ToString();
-                    PhysicalAttack.Text = entity.PhysicalAttack.ToString();
-                    MagicAttack.Text = entity.MagicAttack.ToString();
-                    PhysicalDefense.Text = entity.PhysicalDefense.ToString();
-                    MagicDefense.Text = entity.MagicDefense.ToString();
+                    Refresh();
 
                     break;
             }
@@ -91,20 +71,7 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
-                entity.IncreasedStrength();
-
-                Points.Text = entity.AvailablePoints.ToString();
-                Strength.Text = entity.Strength.ToString();
-                Dexterity.Text = entity.Dexterity.ToString();
-                Constitution.Text = entity.Constitution.ToString();
-                Intelligence.Text = entity.Intelligence.ToString();
-
-                Health.Text = entity.Health.ToString();
-                Mana.Text = entity.Mana.ToString();
-                PhysicalAttack.Text = entity.PhysicalAttack.ToString();
-                MagicAttack.Text = entity.MagicAttack.ToString();
-                PhysicalDefense.Text = entity.PhysicalDefense.ToString();
-                MagicDefense.Text = entity.MagicDefense.ToString();
+                Refresh();
             }
             catch (Exception) 
             {
@@ -117,20 +84,7 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
-                entity.IncreasedDexterity();
-
-                Points.Text = entity.AvailablePoints.ToString();
-                Strength.Text = entity.Strength.ToString();
-                Dexterity.Text = entity.Dexterity.ToString();
-                Constitution.Text = entity.Constitution.ToString();
-                Intelligence.Text = entity.Intelligence.ToString();
-
-                Health.Text = entity.Health.ToString();
-                Mana.Text = entity.Mana.ToString();
-                PhysicalAttack.Text = entity.PhysicalAttack.ToString();
-                MagicAttack.Text = entity.MagicAttack.ToString();
-                PhysicalDefense.Text = entity.PhysicalDefense.ToString();
-                MagicDefense.Text = entity.MagicDefense.ToString();
+                Refresh();
             }
             catch (Exception)
             {
@@ -142,20 +96,7 @@ namespace WPFcharacteristic.WPF
         {
             try 
             {
-                entity.IncreasedConstitution();
-
-                Points.Text = entity.AvailablePoints.ToString();
-                Strength.Text = entity.Strength.ToString();
-                Dexterity.Text = entity.Dexterity.ToString();
-                Constitution.Text = entity.Constitution.ToString();
-                Intelligence.Text = entity.Intelligence.ToString();
-
-                Health.Text = entity.Health.ToString();
-                Mana.Text = entity.Mana.ToString();
-                PhysicalAttack.Text = entity.PhysicalAttack.ToString();
-                MagicAttack.Text = entity.MagicAttack.ToString();
-                PhysicalDefense.Text = entity.PhysicalDefense.ToString();
-                MagicDefense.Text = entity.MagicDefense.ToString();
+                Refresh();
             }
             catch (Exception)
             {
@@ -167,20 +108,7 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
-                entity.IncreasedIntelligence();
-
-                Points.Text = entity.AvailablePoints.ToString();
-                Strength.Text = entity.Strength.ToString();
-                Dexterity.Text = entity.Dexterity.ToString();
-                Constitution.Text = entity.Constitution.ToString();
-                Intelligence.Text = entity.Intelligence.ToString();
-
-                Health.Text = entity.Health.ToString();
-                Mana.Text = entity.Mana.ToString();
-                PhysicalAttack.Text = entity.PhysicalAttack.ToString();
-                MagicAttack.Text = entity.MagicAttack.ToString();
-                PhysicalDefense.Text = entity.PhysicalDefense.ToString();
-                MagicDefense.Text = entity.MagicDefense.ToString();
+                Refresh();
             }
             catch (Exception)
             {
@@ -215,23 +143,10 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
-                MessageBox.Show($"{EntityBox.Text.ToString()}");
-                entity = MongoDBwpf.MongoDBwpf.FindByName(EntityBox.Text.ToString());
+                MessageBox.Show($"{EntityBox.Text}");
+                entity = MongoDBwpf.MongoDBwpf.FindByName(EntityBox.Text);
 
-                entity.IncreasedIntelligence();
-
-                Points.Text = entity.AvailablePoints.ToString();
-                Strength.Text = entity.Strength.ToString();
-                Dexterity.Text = entity.Dexterity.ToString();
-                Constitution.Text = entity.Constitution.ToString();
-                Intelligence.Text = entity.Intelligence.ToString();
-
-                Health.Text = entity.Health.ToString();
-                Mana.Text = entity.Mana.ToString();
-                PhysicalAttack.Text = entity.PhysicalAttack.ToString();
-                MagicAttack.Text = entity.MagicAttack.ToString();
-                PhysicalDefense.Text = entity.PhysicalDefense.ToString();
-                MagicDefense.Text = entity.MagicDefense.ToString();
+                Refresh();
 
                 MessageBox.Show("Готово!");
             }
@@ -244,20 +159,65 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
-                var newItem = new InventoryItem();
-                newItem.Name = $"{entity.InventoryItems.Count + 1} weapon";
+                entity.AddInventoryItem();
 
-                entity.InventoryItems.Add(newItem);
+                Inventory.Text = "";
 
                 foreach (var item in entity.InventoryItems)
                 {
-                    Invenoty.Text += $"{item.Name} \n";
+                    Inventory.Text += $"{item.Name} \n";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Не выбран персонаж");
+                MessageBox.Show(ex.Message);
             }
+        }
+        private void ExpiriencePlus_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                entity.AddExpirience(1000);
+                Expirience.Text = entity.Expirience.ToString();
+                Level.Text = entity.Level.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Персонаж не выбран");
+            }
+        }
+
+        private void Abilities_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var item = Abilities.SelectedItem;
+                entity.UseAbility((string?)item);
+                Refresh();
+            }
+            catch 
+            {
+                MessageBox.Show("Персонаж не выбран");
+            }
+        }
+
+        private void Refresh() 
+        {
+            entity.IncreasedIntelligence();
+
+            Level.Text = entity.Level.ToString();
+            Points.Text = entity.AvailablePoints.ToString();
+            Strength.Text = entity.Strength.ToString();
+            Dexterity.Text = entity.Dexterity.ToString();
+            Constitution.Text = entity.Constitution.ToString();
+            Intelligence.Text = entity.Intelligence.ToString();
+
+            Health.Text = entity.Health.ToString();
+            Mana.Text = entity.Mana.ToString();
+            PhysicalAttack.Text = entity.PhysicalAttack.ToString();
+            MagicAttack.Text = entity.MagicAttack.ToString();
+            PhysicalDefense.Text = entity.PhysicalDefense.ToString();
+            MagicDefense.Text = entity.MagicDefense.ToString();
         }
     }
 }

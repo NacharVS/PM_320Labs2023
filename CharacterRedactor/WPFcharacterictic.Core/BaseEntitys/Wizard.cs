@@ -11,6 +11,8 @@ namespace WPFcharacterictic.Core.BaseEntitys
         public Wizard() 
         {
             Name = "Wizard";
+            MaxCountInventoryItem = 7;
+
             Strength = 10;
             MinStrength = 10;
             MaxStrength = 45;

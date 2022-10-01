@@ -15,18 +15,18 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="49*"/>
-            <RowDefinition Height="474*"/>
-            <RowDefinition Height="61*"/>
+            <RowDefinition Height="486*"/>
+            <RowDefinition Height="49*"/>
         </Grid.RowDefinitions>
         <Image Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="293,2,0,0" VerticalAlignment="Top" Width="110" Source="/rogue.jpg" Grid.Row="1"/>
         <Image Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="542,2,0,0" VerticalAlignment="Top" Width="95" Source="/wizard.png" Grid.Row="1"/>
         <Image Grid.Column="1" HorizontalAlignment="Left" Height="138" Margin="63,2,0,0" VerticalAlignment="Top" Width="110" Source="/warrior.jpg" Grid.Row="1"/>
-        <TextBlock x:Name="Points" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="251,187,0,0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Width="40" Background="Black" Foreground="White" Text="0" TextAlignment="Center" FontFamily="Calibri" FontSize="14"/>
+        <TextBlock x:Name="Points" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="233,187,0,0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Width="40" Background="Black" Foreground="White" Text="0" TextAlignment="Center" FontFamily="Calibri" FontSize="14"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,254,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Strength" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,280,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Dexterity" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,304,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Constitution" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,328,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Intelligence" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
-        <ComboBox x:Name="EntityBox" Grid.Column="1" HorizontalAlignment="Left" Margin="295,185,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="Entity_SelectionChanged" FontFamily="Poor Richard" FontSize="16">
+        <ComboBox x:Name="EntityBox" Grid.Column="1" HorizontalAlignment="Left" Margin="278,185,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="Entity_SelectionChanged" FontFamily="Poor Richard" FontSize="16">
             <System:String>Warrior</System:String>
             <System:String>Rogue</System:String>
             <System:String>Wizard</System:String>
@@ -58,8 +58,16 @@
         <Button x:Name="InsertDataBase" Grid.Column="1" Content="Receive" HorizontalAlignment="Left" Margin="368,444,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="52" Click="InsertDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF" RenderTransformOrigin="0.481,0.592"/>
         <Button x:Name="ReplaceDataBase" Grid.Column="1" Content="Replace" HorizontalAlignment="Left" Margin="211,444,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="52" Click="ReplaceDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,376,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
-        <TextBlock x:Name="Invenoty" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="97,376,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="110" Background="#FFEBEBEB" TextAlignment="Center" Text=""/>
         <Button x:Name="InvenotyPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="219,376,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="InventoryPlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
+        <TextBox x:Name="Inventory" Grid.Column="1" HorizontalAlignment="Left" Height="43" Margin="97,376,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Background="#FFEBEBEB" BorderBrush="#FFEBEBEB"/>
+        <TextBlock x:Name="Level" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="403,187,0,0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Width="40" Background="#FFB4D9FF" Foreground="Black" Text="0" TextAlignment="Center" FontFamily="Calibri" FontSize="14"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="505,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="Health" FontSize="16" FontFamily="Poor Richard"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="450,188,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="LVL" FontSize="16" FontFamily="Poor Richard"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="249,256,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Expirience" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
+        <TextBlock x:Name="Expirience" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="330,257,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Background="#FFEBEBEB" TextAlignment="Center"/>
+        <Button x:Name="ExpiriencePlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="376,257,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="ExpiriencePlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="249,286,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Abilities" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
+        <ComboBox x:Name="Abilities" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="330,284,0,0" Grid.Row="1" VerticalAlignment="Top" Width="93" BorderBrush="#FFE5E5E5" SelectionChanged="Abilities_SelectionChanged"/>
 
     </Grid>
 </Window>

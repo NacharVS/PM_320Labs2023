@@ -9,6 +9,42 @@ namespace WPFcharacterictic.Core
         public string Id { get; set; }
 
         public List<InventoryItem> InventoryItems = new List<InventoryItem>();
+        int _maxCountInventoryItem;
+        public int MaxCountInventoryItem 
+        {
+            get { return _maxCountInventoryItem; }
+            set { _maxCountInventoryItem = value; }
+        }
+
+        List<string> _abilities = new List<string>
+        {
+            "one","two","three","four","five","six","seven","eight","nine","ten"
+        };
+
+        public List<string> Abilities 
+        { 
+            get { return _abilities; }
+            set { _abilities = value; }
+        }
+
+        int _expirience = 0;
+        int _expNewLvl = 1000;
+        public int Expirience
+        {
+            get { return _expirience; }
+            set { _expirience = value; }
+        }
+
+        int _lvl = 1;
+        public int Level 
+        {
+            get { return _lvl; }
+            set 
+            { 
+                _lvl = value; 
+                _expNewLvl += _lvl * 1000; 
+            }
+        }
 
         public int MaxStrength;
         public int MinStrength;
@@ -80,6 +116,77 @@ namespace WPFcharacterictic.Core
             MagicAttack = 0;
             PhysicalDefense = 0;
             MagicDefense = 0;
+        }
+        public void UseAbility(string? ability) 
+        {
+            if (Level % 3 == 0 && Level != 0) 
+            { 
+                int index = Abilities.IndexOf(ability);
+                Abilities.Remove(ability);
+                switch (index) 
+                {
+                    case 0:
+                        Mana += 10;
+                        Health += 10;
+                        break;
+                    case 1:
+                        PhysicalAttack += 10;
+                        MagicAttack += 10;
+                        break;
+                    case 2:
+                        PhysicalDefense += 10;
+                        MagicDefense += 10;
+                        break;
+                    case 3:
+                        Mana += 10;
+                        PhysicalAttack += 10;
+                        break;
+                    case 4:
+                        PhysicalAttack += 10;
+                        Health += 10;
+                        break;
+                    case 5:
+                        PhysicalDefense += 10;
+                        Mana += 10;
+                        break;
+                    case 6:
+                        Health += 10;
+                        MagicDefense += 10;
+                        break;
+                    case 7:
+                        MagicAttack += 10;
+                        MagicDefense += 10;
+                        break;
+                    case 8:
+                        PhysicalDefense += 10;
+                        PhysicalDefense += 10;
+                        break;
+                    case 9:
+                        Mana += 10;
+                        MagicDefense += 10;
+                        break;
+                }
+
+            }
+        }
+        public void AddExpirience(int expAmount)
+        {
+            Expirience += expAmount;
+            if (Expirience >= _expNewLvl)
+            {
+               ++Level;
+            }
+        }
+
+        public void AddInventoryItem() 
+        {
+            if (InventoryItems.Count <= MaxCountInventoryItem)
+            {
+                var newItem = new InventoryItem();
+                newItem.Name = $"{InventoryItems.Count + 1} weapon";
+
+                InventoryItems.Add(newItem);
+            }
         }
 
         public virtual void IncreasedStrength() 
