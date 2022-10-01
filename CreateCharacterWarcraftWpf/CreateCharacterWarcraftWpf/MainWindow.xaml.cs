@@ -302,5 +302,10 @@ namespace CreateCharacterWarcraftWpf
         {
             tbInfo.Clear();
         }
+
+        private void tbInfo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

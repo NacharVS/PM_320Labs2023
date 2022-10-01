@@ -18,10 +18,12 @@ namespace CreateCharacterWarcraftWpf
         public int constitutionMax;
         public int intelligence;
         public int intelligenceMax;
+        public int experience;
+        public int level;
 
         public Character(string name, int healthPoint, int manaPoint, int attack, double protDet, int skillPoint, int strength, int strengthMax,
             int dexterity, int dexterityMax, int constitution, int constitutionMax, int intelligence,
-            int intelligenceMax)
+            int intelligenceMax, int experience, int level)
         {
             this.name = name;
             this.healthPoint = healthPoint;
@@ -37,6 +39,8 @@ namespace CreateCharacterWarcraftWpf
             this.constitutionMax = constitutionMax;
             this.intelligence = intelligence;
             this.intelligenceMax = intelligenceMax;
+            this.experience = experience;
+            this.level = level;
         }
 
         public string getInfo()
