@@ -4,21 +4,21 @@ namespace Units_Practic
 {
     public class Characteristics
     {
-        double strength;
-        int strenghtMax;
-        int strenghtMin;
+        public double strength;
+        public int strenghtMax;
+        public int strenghtMin;
 
-        double dexterity;
-        int dexterityMax;
-        int dexterityMin;
+        public double dexterity;
+        public int dexterityMax;
+        public int dexterityMin;
 
-        double constitution;
-        int constitutionMax;
-        int constitutionMin;
+        public double constitution;
+        public int constitutionMax;
+        public int constitutionMin;
 
-        double intelligence;
-        int intelligenceMax;
-        int intelligenceMin;
+        public double intelligence;
+        public int intelligenceMax;
+        public int intelligenceMin;
 
         public Characteristics(Units unt)
         {

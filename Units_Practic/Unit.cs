@@ -24,6 +24,6 @@
             boostPoints = 5;
         }
 
-        //public abstract void UpdateHaracteristics();
+        public abstract void UpdateHaracteristics();
     }
 }

@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Units_Practic\Units_Practic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Icon.png" />
     <Resource Include="png-clipart-world-of-warcraft-legion-warcraft-iii-the-frozen-throne-world-of-warcraft-battle-for-azeroth-blizzard-entertainment-game-others-game-video-game.png" />
     <Resource Include="Rogue.png" />

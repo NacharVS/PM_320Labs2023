@@ -7,13 +7,16 @@ namespace Units_Practic
         public Wizard()
         {
             characteristics = new Characteristics(Units.Wizard);
+            UpdateHaracteristics();
+        }
+
+        public override void UpdateHaracteristics()
+        {
             healthPoint = characteristics.HealthUpdate(Units.Wizard);
             manaPoint = characteristics.ManaUpdate(Units.Wizard);
             atackPoint = characteristics.AttackUpdate(Units.Wizard);
             magicAtackPoint = characteristics.ManaAttackUpdate(Units.Wizard);
             physicalProtectionPoint = characteristics.PhysicalProtectionUpdate(Units.Wizard);
         }
-
-
     }
 }

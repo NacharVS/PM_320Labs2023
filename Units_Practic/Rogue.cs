@@ -7,6 +7,11 @@ namespace Units_Practic
         public Rogue()
         {
             characteristics = new Characteristics(Units.Rogue);
+            UpdateHaracteristics();
+        }
+
+        public override void UpdateHaracteristics()
+        {
             healthPoint = characteristics.HealthUpdate(Units.Rogue);
             manaPoint = characteristics.ManaUpdate(Units.Rogue);
             atackPoint = characteristics.AttackUpdate(Units.Rogue);
