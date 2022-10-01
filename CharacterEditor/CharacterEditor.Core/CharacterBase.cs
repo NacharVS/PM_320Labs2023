@@ -8,6 +8,7 @@ public abstract class CharacterBase
     private const int MaximumAbilityCount = 5;
     private const int SkillPointsPerLevel = 5;
     private const int DefaultSkillPoints = 50;
+    private const int AbilityGainLevelInterval = 3;
 
     private int _skillPoints = DefaultSkillPoints;
     private readonly List<Ability> _abilities = new();
@@ -215,7 +216,7 @@ public abstract class CharacterBase
     private void OnLevelUp()
     {
         _skillPoints += SkillPointsPerLevel;
-        if (Level.CurrentLevel % 3 == 0)
+        if (Level.CurrentLevel % AbilityGainLevelInterval == 0)
             OnAbilityGain?.Invoke();
     }
 
