@@ -16,16 +16,27 @@ namespace WPFcharacterictic.Core
             set { _maxCountInventoryItem = value; }
         }
 
-        List<string> _abilities = new List<string>
+        Dictionary<string, bool> _abilities = new Dictionary<string, bool>
         {
-            "one","two","three","four","five","six","seven","eight","nine","ten"
+            {"one", true},
+            {"two", true},
+            {"three", true},
+            {"four", true},
+            {"five", true},
+            {"six", true},
+            {"seven", true},
+            {"eight", true},
+            {"nine", true},
+            {"ten", true}
         };
 
-        public List<string> Abilities 
+        public Dictionary<string, bool> Abilities 
         { 
             get { return _abilities; }
             set { _abilities = value; }
         }
+        int _pointAbility;
+        int _pointAbilityLvl = 1;
 
         int _expirience = 0;
         int _expNewLvl = 1000;
@@ -41,8 +52,15 @@ namespace WPFcharacterictic.Core
             get { return _lvl; }
             set 
             { 
-                _lvl = value; 
-                _expNewLvl += _lvl * 1000; 
+                _lvl = value;
+                AvailablePoints += 5;
+                _expNewLvl += _lvl * 1000;
+                _pointAbilityLvl++;
+                if (_pointAbilityLvl == 3) 
+                {
+                    _pointAbilityLvl = 0;
+                    _pointAbility++;
+                }
             }
         }
 
@@ -119,49 +137,49 @@ namespace WPFcharacterictic.Core
         }
         public void UseAbility(string? ability) 
         {
-            if (Level % 3 == 0 && Level != 0) 
-            { 
-                int index = Abilities.IndexOf(ability);
-                Abilities.Remove(ability);
-                switch (index) 
+            if (Level % 3 == 0 && Level != 0 && _pointAbility != 0 && Abilities[ability] == true) 
+            {
+                Abilities[ability] = false;
+                _pointAbility--;
+                switch (ability) 
                 {
-                    case 0:
+                    case "one":
                         Mana += 10;
                         Health += 10;
                         break;
-                    case 1:
+                    case "two":
                         PhysicalAttack += 10;
                         MagicAttack += 10;
                         break;
-                    case 2:
+                    case "three":
                         PhysicalDefense += 10;
                         MagicDefense += 10;
                         break;
-                    case 3:
+                    case "four":
                         Mana += 10;
                         PhysicalAttack += 10;
                         break;
-                    case 4:
+                    case "five":
                         PhysicalAttack += 10;
                         Health += 10;
                         break;
-                    case 5:
+                    case "six":
                         PhysicalDefense += 10;
                         Mana += 10;
                         break;
-                    case 6:
+                    case "seven":
                         Health += 10;
                         MagicDefense += 10;
                         break;
-                    case 7:
+                    case "eigth":
                         MagicAttack += 10;
                         MagicDefense += 10;
                         break;
-                    case 8:
+                    case "nine":
                         PhysicalDefense += 10;
                         PhysicalDefense += 10;
                         break;
-                    case 9:
+                    case "ten":
                         Mana += 10;
                         MagicDefense += 10;
                         break;

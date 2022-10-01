@@ -39,7 +39,7 @@ namespace WPFcharacteristic.WPF
 
                     foreach (var ability in entity.Abilities)
                     {
-                        Abilities.Items.Add(ability);
+                        Abilities.Items.Add(ability.Key);
                     }
                     Refresh();
                     break;
@@ -48,7 +48,7 @@ namespace WPFcharacteristic.WPF
 
                     foreach (var ability in entity.Abilities)
                     {
-                        Abilities.Items.Add(ability);
+                        Abilities.Items.Add(ability.Key);
                     }
                     Refresh();
 
@@ -58,7 +58,7 @@ namespace WPFcharacteristic.WPF
 
                     foreach (var ability in entity.Abilities)
                     {
-                        Abilities.Items.Add(ability);
+                        Abilities.Items.Add(ability.Key);
                     }
 
                     Refresh();
@@ -80,10 +80,23 @@ namespace WPFcharacteristic.WPF
 
         }
 
+        private void StrengthPlus_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                entity.IncreasedStrength();
+                Refresh();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не выбран персонаж");
+            }
+        }
         private void DexterityPlus_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                entity.IncreasedDexterity();
                 Refresh();
             }
             catch (Exception)
@@ -96,6 +109,7 @@ namespace WPFcharacteristic.WPF
         {
             try 
             {
+                entity.IncreasedConstitution();
                 Refresh();
             }
             catch (Exception)
@@ -108,6 +122,7 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
+                entity.IncreasedIntelligence();
                 Refresh();
             }
             catch (Exception)
@@ -143,7 +158,6 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
-                MessageBox.Show($"{EntityBox.Text}");
                 entity = MongoDBwpf.MongoDBwpf.FindByName(EntityBox.Text);
 
                 Refresh();
@@ -178,8 +192,7 @@ namespace WPFcharacteristic.WPF
             try
             {
                 entity.AddExpirience(1000);
-                Expirience.Text = entity.Expirience.ToString();
-                Level.Text = entity.Level.ToString();
+                Refresh();
             }
             catch (Exception ex)
             {
@@ -203,8 +216,7 @@ namespace WPFcharacteristic.WPF
 
         private void Refresh() 
         {
-            entity.IncreasedIntelligence();
-
+            Expirience.Text = entity.Expirience.ToString();
             Level.Text = entity.Level.ToString();
             Points.Text = entity.AvailablePoints.ToString();
             Strength.Text = entity.Strength.ToString();
