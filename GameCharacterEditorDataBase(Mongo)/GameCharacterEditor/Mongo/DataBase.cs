@@ -38,7 +38,7 @@ namespace GameCharacterEditor
             return list;
         }
 
-        public static void ReplaceByName(string name, Character character)
+        public static void ReplaceByName(Character character)
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("GameCharacterEditor");

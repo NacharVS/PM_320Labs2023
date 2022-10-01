@@ -85,15 +85,30 @@ namespace GameCharacterEditor
         public decimal Attack { get; set; } // Атака (урон)
         public decimal MPAttack { get; set; } // Магическая атака
 
+        public int Points { get; set; }
+
         [BsonIgnoreIfNull]
         public List<Equipment> equipment;
-        public Character()
-        {
-            equipment = new List<Equipment>();
-        }
         public void AddToEquipment(Equipment item)
         {
             equipment.Add(item);
         }
+        [BsonIgnoreIfNull]
+        public List<Skill> skill;
+        public void AddToSkill(Skill item)
+        {
+            skill.Add(item);
+        }
+        public Character()
+        {
+            equipment = new List<Equipment>();
+            skill = new List<Skill>();
+        }
+
+        public int minLvl { get; set; } = 1;
+        public int Lvl { get; set; } = 1;
+        public int minXPLvl { get; set; } 
+        public int XPLvl { get; set; }
+        public int XP { get; set; }
     }
 }
