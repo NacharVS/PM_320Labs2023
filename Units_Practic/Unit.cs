@@ -12,16 +12,16 @@
         public double healthPoint;
         public double manaPoint;
         public Characteristics characteristics;
-        public double lvl;
-        public int boostPoints;
+        public Lvl lvl;
+        //public double lvl;
+        //public int boostPoints;
         public double atackPoint;
         public double physicalProtectionPoint;
         public double magicAtackPoint;
 
         public Unit()
         {
-            lvl = 1;
-            boostPoints = 5;
+            lvl = new Lvl();
         }
 
         public void UpdateHaracteristics() 

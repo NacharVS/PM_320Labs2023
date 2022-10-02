@@ -44,8 +44,8 @@ namespace EditUnit_Practic_WPF
 
             tbHP.Text = units[unit].healthPoint.ToString();
             tbMP.Text = units[unit].manaPoint.ToString();
-            tbLvl.Text = units[unit].lvl.ToString();
-            tbBoostPoints.Text =units[unit].boostPoints.ToString();
+            tbLvl.Text = units[unit].lvl.lvl.ToString();
+            tbBoostPoints.Text =units[unit].lvl.boostPoints.ToString();
 
             tbAtackPoint.Text = units[unit].atackPoint.ToString();
             tbMagicAtackPoint.Text = units[unit].magicAtackPoint.ToString();
@@ -54,9 +54,9 @@ namespace EditUnit_Practic_WPF
 
         private void dexBtnMax_Click(object sender, RoutedEventArgs e)
         {
-            if (units[0].boostPoints > 0 && units[0].characteristics.dexterity + 1 <= units[0].characteristics.dexterityMax)
+            if (units[0].lvl.boostPoints > 0 && units[0].characteristics.dexterity + 1 <= units[0].characteristics.dexterityMax)
             {
-                --units[0].boostPoints;
+                --units[0].lvl.boostPoints;
                 ++units[0].characteristics.dexterity;
 
                 units[0].UpdateHaracteristics();
@@ -68,7 +68,7 @@ namespace EditUnit_Practic_WPF
         {
             if (units[0].characteristics.dexterity - 1 >= units[0].characteristics.dexterityMin)
             {
-                ++units[0].boostPoints;
+                ++units[0].lvl.boostPoints;
                 --units[0].characteristics.dexterity;
 
                 units[0].UpdateHaracteristics();
@@ -78,9 +78,9 @@ namespace EditUnit_Practic_WPF
 
         private void strBtnMax_Click(object sender, RoutedEventArgs e)
         {
-            if (units[0].boostPoints > 0 && units[0].characteristics.strength + 1 <= units[0].characteristics.strengthMax)
+            if (units[0].lvl.boostPoints > 0 && units[0].characteristics.strength + 1 <= units[0].characteristics.strengthMax)
             {
-                --units[0].boostPoints;
+                --units[0].lvl.boostPoints;
                 ++units[0].characteristics.strength;
 
                 units[0].UpdateHaracteristics();
@@ -92,7 +92,7 @@ namespace EditUnit_Practic_WPF
         {
             if (units[0].characteristics.strength - 1 >= units[0].characteristics.strengthMin)
             {
-                ++units[0].boostPoints;
+                ++units[0].lvl.boostPoints;
                 --units[0].characteristics.strength;
 
                 units[0].UpdateHaracteristics();
@@ -102,9 +102,9 @@ namespace EditUnit_Practic_WPF
 
         private void consBtnMax_Click(object sender, RoutedEventArgs e)
         {
-            if (units[0].boostPoints > 0 && units[0].characteristics.constitution + 1 <= units[0].characteristics.constitutionMax)
+            if (units[0].lvl.boostPoints > 0 && units[0].characteristics.constitution + 1 <= units[0].characteristics.constitutionMax)
             {
-                --units[0].boostPoints;
+                --units[0].lvl.boostPoints;
                 ++units[0].characteristics.constitution;
 
                 units[0].UpdateHaracteristics();
@@ -116,7 +116,7 @@ namespace EditUnit_Practic_WPF
         {
             if (units[0].characteristics.constitution - 1 >= units[0].characteristics.constitutionMin)
             {
-                ++units[0].boostPoints;
+                ++units[0].lvl.boostPoints;
                 --units[0].characteristics.constitution;
 
                 units[0].UpdateHaracteristics();
@@ -126,9 +126,9 @@ namespace EditUnit_Practic_WPF
 
         private void intBtnMax_Click(object sender, RoutedEventArgs e)
         {
-            if (units[0].boostPoints > 0 && units[0].characteristics.intelligence + 1 <= units[0].characteristics.intelligenceMax)
+            if (units[0].lvl.boostPoints > 0 && units[0].characteristics.intelligence + 1 <= units[0].characteristics.intelligenceMax)
             {
-                --units[0].boostPoints;
+                --units[0].lvl.boostPoints;
                 ++units[0].characteristics.intelligence;
 
                 units[0].UpdateHaracteristics();
@@ -140,7 +140,7 @@ namespace EditUnit_Practic_WPF
         {
             if (units[0].characteristics.intelligence - 1 >= units[0].characteristics.intelligenceMin)
             {
-                ++units[0].boostPoints;
+                ++units[0].lvl.boostPoints;
                 --units[0].characteristics.intelligence;
 
                 units[0].UpdateHaracteristics();
