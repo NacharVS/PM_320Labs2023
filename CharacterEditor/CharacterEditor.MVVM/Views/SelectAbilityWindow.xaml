@@ -1,0 +1,24 @@
+﻿<Window x:Class="CharacterEditor.MVVM.Views.SelectAbilityWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="SelectAbilityWindow" Height="300" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <ListBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="AbilityListBox"/>
+        <Button x:Name="ButtonLearn" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="40" MinWidth="80" Content="Learn ability"></Button>
+    </Grid>
+</Window>

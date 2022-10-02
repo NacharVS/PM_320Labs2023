@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Page Update="Views\SelectAbilityWindow.xaml">
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Views\TextPrompt.xaml">
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\SelectAbilityWindow.xaml.cs">
+        <SubType>Code</SubType>
+        <DependentUpon>SelectAbilityWindow.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="Views\TextPrompt.xaml.cs">
+        <SubType>Code</SubType>
+        <DependentUpon>TextPrompt.xaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CharacterEditor.Core\CharacterEditor.Core.csproj" />
+      <ProjectReference Include="..\CharacterEditor.MongoDB\CharacterEditor.MongoDB.csproj" />
+    </ItemGroup>
+
+</Project>

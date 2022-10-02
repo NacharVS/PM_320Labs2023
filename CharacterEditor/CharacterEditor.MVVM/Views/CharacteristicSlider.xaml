@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="CharacterEditor.MVVM.Views.CharacteristicSlider"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:CharacterEditor.MVVM.ViewModels"
+             d:DataContext="{RelativeSource AncestorType=viewModels:MainWindowViewModel}"
+             mc:Ignorable="d"
+             d:DesignWidth="300" MinWidth="120">
+    <Grid>
+        <Label x:Name="CharacteristicValue"
+               VerticalAlignment="Center" Height="40"
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White"
+               Margin="40,0,40,0" BorderBrush="#FF707070" BorderThickness="1" />
+        <Button x:Name="MinusButton" Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40"
+                Height="40" />
+        <Button x:Name="PlusButton" Content="+" HorizontalAlignment="Right" VerticalAlignment="Center" Width="40"
+                Height="40"/>
+        <Label x:Name="CharacteristicName" Content="Label" VerticalAlignment="Top" HorizontalAlignment="Center"
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-26,0,0" />
+    </Grid>
+</UserControl>
