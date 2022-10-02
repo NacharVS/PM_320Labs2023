@@ -101,13 +101,13 @@ public class CharacterRepository : ICharacterRepository
         switch (model.ClassName)
         {
             case "Warrior":
-                character = new Warrior();
+                character = new Warrior(model.Experience);
                 break;
             case "Wizard":
-                character = new Wizard();
+                character = new Wizard(model.Experience);
                 break;
             case "Rogue":
-                character = new Rogue();
+                character = new Rogue(model.Experience);
                 break;
             default:
                 break;
@@ -120,7 +120,11 @@ public class CharacterRepository : ICharacterRepository
         character.Intelligence = model.Intelligence;
         character.Strength = model.Strength;
         character.SkillPoints = model.SkillPoints;
-        character.Inventory = model.Inventory.ToArray();
+        character.Inventory = model.Inventory.ToList();
+        foreach (Ability a in model.Abilities)
+        {
+            character.AddAbility(a);
+        }
 
         return character;
     }

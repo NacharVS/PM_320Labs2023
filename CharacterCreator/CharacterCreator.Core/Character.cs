@@ -6,7 +6,7 @@ public class Character
 {
     public Stats Stats { get; private protected set; }
     public int SkillPoints { get; set; } = 1005;
-    
+
 
     private double _strength;
     private double _dexterity;
@@ -15,15 +15,24 @@ public class Character
     
     public string? Id { get; set; }
     public string Name { get; set; }
+    public LevelInfo Level { get; set; }
 
     private const int InventoryCapacity = 3;
     private List<Item> _inventory = new();
+
+    private  List<Ability> abilities = new();
     
 
-    public Item[] Inventory
+    public List<Item> Inventory
     {
-        get => _inventory.ToArray();
-        set => _inventory = value.ToList();
+        get => _inventory;
+        set => _inventory = value;
+    }
+
+    public List<Ability> Abilities
+    {
+        get => abilities;
+        set => abilities = value;
     }
 
     public void AddItemToInventory(Item item)
@@ -109,23 +118,53 @@ public class Character
         return true;
     }
 
+    public bool AddAbility(Ability ability)
+    {
+        if (ability.RequiredLevel > Level.CurrentLvl)
+            return false;
+        
+        abilities.Add(ability);
+        OnAbilityAddEvent?.Invoke(ability);
+        return true;
+    }
+
     public double HealthPoint { get; protected set; } 
     public double PhysAttack { get; protected set; }
     public double PhysDefense { get; protected set; }
     public double Mana { get; protected set; }
     public double MagicalAttack { get; protected set; }
 
-    public void Initialize()
+    public void Initialize(int exp = 0)
     {
+        Level = new LevelInfo();
+        Level.CurrentExperience = exp;
+        Level.LevelUpEvent += OnLevelUp;
+        OnAbilityAddEvent += (ability) =>
+        {
+            HealthPoint += ability.HealthChangeValue;
+            Mana += ability.ManaChangeValue;
+            MagicalAttack += ability.ManaAttackChangeValue;
+            PhysAttack += ability.PhysAttackChangeValue;
+            PhysDefense += ability.PhysDefenseChangeValue;
+        };
+        
         _intelligence = Stats.Intelligence.MinValue;
         _strength = Stats.Strength.MinValue;
         _constitution = Stats.Constitution.MinValue;
         _dexterity = Stats.Dexterity.MinValue;
     }
 
+    public void OnLevelUp()
+    {
+        SkillPoints += 5;
+    }
+
     public delegate void OnCharacteristicChangeDelegate(double value);
 
+    public delegate void OnAbilityAddDelegate(Ability ability);
+
     public event OnCharacteristicChangeDelegate OnStrengthChangeEvent;
+    public event OnAbilityAddDelegate OnAbilityAddEvent;
     public event OnCharacteristicChangeDelegate OnDexterityChangeEvent;
     public event OnCharacteristicChangeDelegate OnConstitutionChangeEvent;
     public event OnCharacteristicChangeDelegate OnIntelligenceChangeEvent;

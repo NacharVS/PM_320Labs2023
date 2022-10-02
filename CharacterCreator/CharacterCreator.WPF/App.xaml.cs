@@ -15,13 +15,20 @@ namespace CharacterCreator.Core
     /// </summary>
     public partial class App : Application
     {
-        public DbConnection<CharacterDbModel> connection;
+        public DbConnection<CharacterDbModel> characterDbConnection;
+        public DbConnection<AbilityDbModel> abilityDbConnection;
 
         public App()
         {
-            connection = new DbConnection<CharacterDbModel>(ConfigurationManager.AppSettings["MongoDbConnectionString"],
+            characterDbConnection = new DbConnection<CharacterDbModel>(
+                ConfigurationManager.AppSettings["MongoDbConnectionString"],
                 ConfigurationManager.AppSettings["MongoDbName"], 
-                ConfigurationManager.AppSettings["MongoDbName"]);
+                ConfigurationManager.AppSettings["MongoCharactersCollectionName"]);
+
+            abilityDbConnection = new DbConnection<AbilityDbModel>(
+                ConfigurationManager.AppSettings["MongoDbConnectionString"],
+                ConfigurationManager.AppSettings["MongoDbName"],
+                ConfigurationManager.AppSettings["MongoAbilityCollectionName"]);
         }
     }
 }

@@ -20,10 +20,10 @@ public class Warrior : Character
     private const double INTELLIGENCE_MAGICAL_ATTACK_CHANGE = 1;
     private CharacteristicBoundary _intelligence = new CharacteristicBoundary(10, 50);
 
-    public Warrior()
+    public Warrior(int exp = 0)
     {
         Stats = new Stats(_strength, _dexterity, _intelligence, _constitution);
-        Initialize();
+        Initialize(exp);
 
         HealthPoint = STRENGTH_HP_CHANGE * _strength.MinValue + CONSTITUTION_HP_CHANGE * _constitution.MinValue;
         PhysAttack = STRENGTH_ATTACK_CHANGE * _strength.MinValue + DEXTERITY_ATTACK_CHANGE * _dexterity.MinValue;
