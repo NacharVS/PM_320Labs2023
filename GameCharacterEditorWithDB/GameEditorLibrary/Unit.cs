@@ -51,7 +51,7 @@ namespace GameEditorLibrary
         }
         public int CurrentExpa
         {
-            get { return _currentExpa; }
+            get { return _expa; }
             set
             {
                 if (value - _expa ==  1000 + 1000 * _level)
@@ -59,13 +59,13 @@ namespace GameEditorLibrary
                     _expa = value;
                     Level++;
                 }
+                _expa = value;
             }
         }
         public int points;
         private int _expa;
         public List<Item> inventory;
         public List<Skill> skills;
-        private int _currentExpa;
         private int _level;
 
         public Unit() 

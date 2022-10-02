@@ -30,6 +30,7 @@ namespace GameEditor
         {
             if (listBoxMain.SelectedItems.Count > 0)
             {
+                listBoxSkills.Items.Clear();
                 string nameOfCharachter = listBoxMain.SelectedItem.ToString();
                 Unit infoName = GameEditorLibrary.Units.Info(nameOfCharachter);
                 selectedUnit = infoName;
@@ -41,7 +42,6 @@ namespace GameEditor
                 numericUpDownExpa.Value = selectedUnit.CurrentExpa;
                 textBoxPoints.Text = selectedUnit.points.ToString();
                 numericUpDownLevel.Value = selectedUnit.Level;
-
                 listBoxRes.SelectedItems.Clear();
                 panelMain.Visible = true;
                 secondPanel.Visible = false;
@@ -70,7 +70,7 @@ namespace GameEditor
                         textBoxAttack.Text = selectedUnit.attackDamage.ToString();
                         textBoxHP.Text = selectedUnit.HP.ToString();
                         selectedUnit.points--;
-                        textBoxPoints.Text = selectedUnit.points.ToString();
+
                     }
                     catch (Exception ex)
                     {
@@ -96,7 +96,7 @@ namespace GameEditor
                     numericUpDownStr.Value = selectedUnit.Strength;
                 }
             }
-
+            textBoxPoints.Text = selectedUnit.points.ToString();
         }
 
         private void NumericUpDownDex_ValueChanged(object sender, EventArgs e)
@@ -237,6 +237,7 @@ namespace GameEditor
                     panel3.Visible = false;
                     listBoxMain.SetSelected(0, true);
                     textBoxName.Text = "";
+                    listBoxSkills.Items.Clear();
                 }
                 catch (Exception ex) { }
             }
@@ -252,6 +253,7 @@ namespace GameEditor
             checking = false;
             listBoxItems.Items.Clear();
             listBoxSkills.Items.Clear();
+            textBoxPoints.Clear();
             if (listBoxRes.SelectedItems.Count > 0)
             {
                 selectedUnit = DBConnection.FindByName(listBoxRes.Text);
@@ -263,7 +265,9 @@ namespace GameEditor
                 numericUpDownInt.Value = selectedUnit.Intelligence;
                 numericUpDownExpa.Value = selectedUnit.CurrentExpa;
                 numericUpDownLevel.Value = selectedUnit.Level;
-                textBoxPoints.Text = selectedUnit.points.ToString();
+                if (selectedUnit.points == 0) { textBoxPoints.Text = (selectedUnit.points).ToString(); }
+                else { textBoxPoints.Text = (selectedUnit.points - 5).ToString(); }
+                numericUpDownExpa.Value = selectedUnit.CurrentExpa;
                 listBoxSkills.Visible = true;
                 panelMain.Visible = false;
                 secondPanel.Visible = true;
