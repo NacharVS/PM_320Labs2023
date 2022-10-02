@@ -12,4 +12,8 @@
       <ProjectReference Include="..\CharacterEditor.MongoDB\CharacterEditor.MongoDB.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
+    </ItemGroup>
+
 </Project>

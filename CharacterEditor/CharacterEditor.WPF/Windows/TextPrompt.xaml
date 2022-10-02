@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CharacterEditor.WPF.Windows"
         mc:Ignorable="d"
-        Title="Add item" Height="100" Width="250"
+        Title="Add item" Height="120" Width="250"
         FocusManager.FocusedElement="{Binding ElementName=ResponseTextBox}">
     <StackPanel>
         <TextBlock Text="Enter the item name" />
         <TextBox x:Name="ResponseTextBox" KeyDown="ResponseTextBox_KeyDown" />
-        <Button Content="OK" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Click="Button_Click" />
+        <Button Content="OK" Margin="0,10,0,10" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Click="Button_Click" />
     </StackPanel>
 </Window>
