@@ -1,4 +1,6 @@
-﻿namespace Units_Practic
+﻿using Units_Practic.Abilities;
+
+namespace Units_Practic.Characters
 {
     public enum Units
     {
@@ -12,9 +14,8 @@
         public double healthPoint;
         public double manaPoint;
         public Characteristics characteristics;
+
         public Lvl lvl;
-        //public double lvl;
-        //public int boostPoints;
         public double atackPoint;
         public double physicalProtectionPoint;
         public double magicAtackPoint;
@@ -24,7 +25,7 @@
             lvl = new Lvl();
         }
 
-        public void UpdateHaracteristics() 
+        public void UpdateHaracteristics()
         {
             healthPoint = characteristics.HealthUpdate(characteristics.type);
             manaPoint = characteristics.ManaUpdate(characteristics.type);

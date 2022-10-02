@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Units_Practic;
+using Units_Practic.Characters;
 
 namespace EditUnit_Practic_WPF
 {

@@ -1,5 +1,7 @@
 ﻿// Turushkin Sergey, 320P, "EditUnit"
 
+using Units_Practic.Characters;
+
 namespace Units_Practic
 {
     public class Characteristics
@@ -81,15 +83,6 @@ namespace Units_Practic
             constitution = constitutionMin;
             intelligence = intelligenceMin;
         }
-
-/*        public void CharacteristicsUpdate()
-        {
-            HealthUpdate(type);
-            ManaUpdate(type);
-            ManaAttackUpdate(type);
-            AttackUpdate(type);
-            PhysicalProtectionUpdate(type);
-        }*/
 
         public double HealthUpdate(Units unt)
         {

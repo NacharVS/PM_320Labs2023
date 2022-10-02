@@ -1,6 +1,6 @@
 ﻿// Turushkin Sergey, 320P, "EditUnit"
 
-namespace Units_Practic
+namespace Units_Practic.Characters
 {
     public class Wizard : Unit
     {
