@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,6 +32,35 @@ namespace CreateCharacterWarcraftWpf
         string[] activeAbility = new string[7];
         int levelUp = 1000;
         int expUp = 0;
+
+        public static void AddToDataBase(Character unit)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Example320");
+            var collection = database.GetCollection<Character>("ExCollection");
+            collection.InsertOne(unit);
+        }
+
+        public static void FindByName(string name)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Example320");
+            var collection = database.GetCollection<Character>("ExCollection");
+            var unit = collection.Find(x => x.name == name).FirstOrDefault();
+
+            //Console.WriteLine($"{unit?.name} {unit?.Age} {unit?._id} {unit?.DriverCard}");
+
+        }
+
+        public static void ReplaceByName(string name, Character unit)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Example320");
+            var collection = database.GetCollection<Character>("ExCollection");
+            //var filter = Builders<Unit>.Update.Set(name == "Jimmy")
+            collection.ReplaceOne(x => x.name == name, unit);
+
+        }
 
         //Image Rogue = Image.FromFile("Rogue.gif");
         //Image Wizard = Image.FromFile("Wizard.gif");
@@ -280,6 +310,8 @@ namespace CreateCharacterWarcraftWpf
                         70, takeNum(tbConInfo.Text), 100, takeNum(tbIntInfo.Text), 50, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
                     newInfo.Add(unit);
                     tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
+                    lstBoxCharacters.Items.Add(tbUntName.Text);
+                    AddToDataBase(unit);
                 }
                 else if (cmBxChooseCharacter.SelectedIndex == 1)
                 {
@@ -288,6 +320,8 @@ namespace CreateCharacterWarcraftWpf
                         250, takeNum(tbConInfo.Text), 80, takeNum(tbIntInfo.Text), 70, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
                     newInfo.Add(unit);
                     tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
+                    lstBoxCharacters.Items.Add(tbUntName.Text);
+                    AddToDataBase(unit);
                 }
                 else if (cmBxChooseCharacter.SelectedIndex == 2)
                 {
@@ -296,6 +330,8 @@ namespace CreateCharacterWarcraftWpf
                         70, takeNum(tbConInfo.Text), 60, takeNum(tbIntInfo.Text), 250, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
                     newInfo.Add(unit);
                     tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
+                    lstBoxCharacters.Items.Add(tbUntName.Text);
+                    AddToDataBase(unit);
                 }
             }
         }
@@ -346,5 +382,9 @@ namespace CreateCharacterWarcraftWpf
             MessageBox.Show(line);
         }
 
+        private void tbUntName_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

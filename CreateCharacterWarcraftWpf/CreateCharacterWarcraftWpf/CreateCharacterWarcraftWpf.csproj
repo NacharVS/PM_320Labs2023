@@ -16,6 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Bson" Version="2.17.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.17.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\Icon.gif" />
     <Resource Include="Images\image.jpg" />
     <Resource Include="Images\Rogue.gif" />
