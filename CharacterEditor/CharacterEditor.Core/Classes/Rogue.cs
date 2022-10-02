@@ -24,6 +24,7 @@ public class Rogue : CharacterBase
 
     public Rogue(int experience=0) : base(experience)
     {
+        Name = nameof(Rogue);
         var strengthInfo = new StrengthInfo(StrengthRange, StrengthAttackChange,
             StrengthHpChange);
         var dexterityInfo = new DexterityInfo(DexterityRange,

@@ -26,6 +26,7 @@ public class Warrior : CharacterBase
 
     public Warrior(int experience=0) : base(experience)
     {
+        Name = nameof(Warrior);
         var strengthInfo = new StrengthInfo(StrengthRange, StrengthAttackChange,
             StrengthHpChange);
         var dexterityInfo = new DexterityInfo(DexterityRange,

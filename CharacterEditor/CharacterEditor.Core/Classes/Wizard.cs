@@ -25,6 +25,7 @@ public class Wizard : CharacterBase
 
     public Wizard(int experience=0) : base(experience)
     {
+        Name = nameof(Wizard);
         var strengthInfo = new StrengthInfo(StrengthRange, StrengthAttackChange,
             StrengthHpChange);
         var dexterityInfo = new DexterityInfo(DexterityRange,
