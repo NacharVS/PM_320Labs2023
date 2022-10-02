@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace GameEditorLibrary
 {
-    public class Item
+    public class Skill
     {
-        public Item() { }
+        public Skill(string name) 
+        {
+            SkillName = name;
+        }
 
-        public string ItemName { get; set; }
+        public string SkillName { get; set; }
     }
 }

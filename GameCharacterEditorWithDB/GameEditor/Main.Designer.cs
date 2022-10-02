@@ -29,6 +29,22 @@
         private void InitializeComponent()
         {
             this.mainPan = new System.Windows.Forms.Panel();
+            this.listBoxSkills = new System.Windows.Forms.ListBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.skillsRogComboBox = new System.Windows.Forms.ComboBox();
+            this.skillsRogLbl = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.skillsWizComboBox = new System.Windows.Forms.ComboBox();
+            this.skillsWizLbl = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.skillsWarComboBox = new System.Windows.Forms.ComboBox();
+            this.skillsWarLbl = new System.Windows.Forms.Label();
+            this.numericUpDownExpa = new System.Windows.Forms.NumericUpDown();
+            this.textBoxPoints = new System.Windows.Forms.TextBox();
+            this.pointsLbl = new System.Windows.Forms.Label();
+            this.numericUpDownLevel = new System.Windows.Forms.NumericUpDown();
+            this.levelLbl = new System.Windows.Forms.Label();
+            this.ExLbl = new System.Windows.Forms.Label();
             this.secondPanel = new System.Windows.Forms.Panel();
             this.listBoxItems = new System.Windows.Forms.ListBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
@@ -63,6 +79,11 @@
             this.firstItemLbl = new System.Windows.Forms.Label();
             this.listBoxRes = new System.Windows.Forms.ListBox();
             this.mainPan.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExpa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
             this.secondPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCon)).BeginInit();
@@ -75,6 +96,16 @@
             // 
             this.mainPan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.mainPan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mainPan.Controls.Add(this.listBoxSkills);
+            this.mainPan.Controls.Add(this.panel2);
+            this.mainPan.Controls.Add(this.panel3);
+            this.mainPan.Controls.Add(this.panel1);
+            this.mainPan.Controls.Add(this.numericUpDownExpa);
+            this.mainPan.Controls.Add(this.textBoxPoints);
+            this.mainPan.Controls.Add(this.pointsLbl);
+            this.mainPan.Controls.Add(this.numericUpDownLevel);
+            this.mainPan.Controls.Add(this.levelLbl);
+            this.mainPan.Controls.Add(this.ExLbl);
             this.mainPan.Controls.Add(this.secondPanel);
             this.mainPan.Controls.Add(this.textBoxName);
             this.mainPan.Controls.Add(this.nameLbl);
@@ -100,17 +131,192 @@
             this.mainPan.Controls.Add(this.listBoxMain);
             this.mainPan.Controls.Add(this.panelMain);
             this.mainPan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPan.Location = new System.Drawing.Point(328, 0);
+            this.mainPan.Location = new System.Drawing.Point(268, 0);
             this.mainPan.Name = "mainPan";
-            this.mainPan.Size = new System.Drawing.Size(819, 466);
+            this.mainPan.Size = new System.Drawing.Size(884, 592);
             this.mainPan.TabIndex = 0;
+            // 
+            // listBoxSkills
+            // 
+            this.listBoxSkills.FormattingEnabled = true;
+            this.listBoxSkills.ItemHeight = 20;
+            this.listBoxSkills.Location = new System.Drawing.Point(468, 493);
+            this.listBoxSkills.Name = "listBoxSkills";
+            this.listBoxSkills.Size = new System.Drawing.Size(397, 84);
+            this.listBoxSkills.TabIndex = 39;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.skillsRogComboBox);
+            this.panel2.Controls.Add(this.skillsRogLbl);
+            this.panel2.Location = new System.Drawing.Point(459, 421);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(409, 53);
+            this.panel2.TabIndex = 25;
+            // 
+            // skillsRogComboBox
+            // 
+            this.skillsRogComboBox.FormattingEnabled = true;
+            this.skillsRogComboBox.Items.AddRange(new object[] {
+            "FireBall",
+            "Invisibility",
+            "Speed X5"});
+            this.skillsRogComboBox.Location = new System.Drawing.Point(155, 13);
+            this.skillsRogComboBox.Name = "skillsRogComboBox";
+            this.skillsRogComboBox.Size = new System.Drawing.Size(191, 28);
+            this.skillsRogComboBox.TabIndex = 25;
+            this.skillsRogComboBox.SelectedIndexChanged += new System.EventHandler(this.SkillsRogComboBox_SelectedIndexChanged);
+            // 
+            // skillsRogLbl
+            // 
+            this.skillsRogLbl.AutoSize = true;
+            this.skillsRogLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.skillsRogLbl.Location = new System.Drawing.Point(23, 13);
+            this.skillsRogLbl.Name = "skillsRogLbl";
+            this.skillsRogLbl.Size = new System.Drawing.Size(51, 25);
+            this.skillsRogLbl.TabIndex = 24;
+            this.skillsRogLbl.Text = "Skills";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.skillsWizComboBox);
+            this.panel3.Controls.Add(this.skillsWizLbl);
+            this.panel3.Location = new System.Drawing.Point(462, 421);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(406, 53);
+            this.panel3.TabIndex = 26;
+            // 
+            // skillsWizComboBox
+            // 
+            this.skillsWizComboBox.FormattingEnabled = true;
+            this.skillsWizComboBox.Items.AddRange(new object[] {
+            "FireBall",
+            "Invisibility",
+            "Speed X5"});
+            this.skillsWizComboBox.Location = new System.Drawing.Point(155, 14);
+            this.skillsWizComboBox.Name = "skillsWizComboBox";
+            this.skillsWizComboBox.Size = new System.Drawing.Size(191, 28);
+            this.skillsWizComboBox.TabIndex = 26;
+            this.skillsWizComboBox.SelectedIndexChanged += new System.EventHandler(this.SkillsWizComboBox_SelectedIndexChanged);
+            // 
+            // skillsWizLbl
+            // 
+            this.skillsWizLbl.AutoSize = true;
+            this.skillsWizLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.skillsWizLbl.Location = new System.Drawing.Point(23, 14);
+            this.skillsWizLbl.Name = "skillsWizLbl";
+            this.skillsWizLbl.Size = new System.Drawing.Size(51, 25);
+            this.skillsWizLbl.TabIndex = 25;
+            this.skillsWizLbl.Text = "Skills";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.skillsWarComboBox);
+            this.panel1.Controls.Add(this.skillsWarLbl);
+            this.panel1.Location = new System.Drawing.Point(459, 422);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(406, 52);
+            this.panel1.TabIndex = 38;
+            // 
+            // skillsWarComboBox
+            // 
+            this.skillsWarComboBox.FormattingEnabled = true;
+            this.skillsWarComboBox.Items.AddRange(new object[] {
+            "FireBall",
+            "Invisibility",
+            "Speed X5"});
+            this.skillsWarComboBox.Location = new System.Drawing.Point(155, 4);
+            this.skillsWarComboBox.Name = "skillsWarComboBox";
+            this.skillsWarComboBox.Size = new System.Drawing.Size(191, 28);
+            this.skillsWarComboBox.TabIndex = 24;
+            this.skillsWarComboBox.SelectedIndexChanged += new System.EventHandler(this.SkillsWarComboBox_SelectedIndexChanged);
+            // 
+            // skillsWarLbl
+            // 
+            this.skillsWarLbl.AutoSize = true;
+            this.skillsWarLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.skillsWarLbl.Location = new System.Drawing.Point(20, 7);
+            this.skillsWarLbl.Name = "skillsWarLbl";
+            this.skillsWarLbl.Size = new System.Drawing.Size(51, 25);
+            this.skillsWarLbl.TabIndex = 23;
+            this.skillsWarLbl.Text = "Skills";
+            // 
+            // numericUpDownExpa
+            // 
+            this.numericUpDownExpa.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericUpDownExpa.Location = new System.Drawing.Point(85, 422);
+            this.numericUpDownExpa.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.numericUpDownExpa.Name = "numericUpDownExpa";
+            this.numericUpDownExpa.Size = new System.Drawing.Size(125, 27);
+            this.numericUpDownExpa.TabIndex = 37;
+            this.numericUpDownExpa.ValueChanged += new System.EventHandler(this.NumericUpDownExpa_ValueChanged);
+            // 
+            // textBoxPoints
+            // 
+            this.textBoxPoints.Location = new System.Drawing.Point(527, 388);
+            this.textBoxPoints.Name = "textBoxPoints";
+            this.textBoxPoints.ReadOnly = true;
+            this.textBoxPoints.Size = new System.Drawing.Size(125, 27);
+            this.textBoxPoints.TabIndex = 36;
+            // 
+            // pointsLbl
+            // 
+            this.pointsLbl.AutoSize = true;
+            this.pointsLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.pointsLbl.Location = new System.Drawing.Point(465, 389);
+            this.pointsLbl.Name = "pointsLbl";
+            this.pointsLbl.Size = new System.Drawing.Size(56, 23);
+            this.pointsLbl.TabIndex = 35;
+            this.pointsLbl.Text = "Points";
+            // 
+            // numericUpDownLevel
+            // 
+            this.numericUpDownLevel.Location = new System.Drawing.Point(270, 422);
+            this.numericUpDownLevel.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownLevel.Name = "numericUpDownLevel";
+            this.numericUpDownLevel.ReadOnly = true;
+            this.numericUpDownLevel.Size = new System.Drawing.Size(183, 27);
+            this.numericUpDownLevel.TabIndex = 34;
+            this.numericUpDownLevel.ValueChanged += new System.EventHandler(this.NumericUpDownLevel_ValueChanged);
+            // 
+            // levelLbl
+            // 
+            this.levelLbl.AutoSize = true;
+            this.levelLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.levelLbl.Location = new System.Drawing.Point(216, 423);
+            this.levelLbl.Name = "levelLbl";
+            this.levelLbl.Size = new System.Drawing.Size(48, 23);
+            this.levelLbl.TabIndex = 33;
+            this.levelLbl.Text = "Level";
+            // 
+            // ExLbl
+            // 
+            this.ExLbl.AutoSize = true;
+            this.ExLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ExLbl.Location = new System.Drawing.Point(21, 426);
+            this.ExLbl.Name = "ExLbl";
+            this.ExLbl.Size = new System.Drawing.Size(30, 23);
+            this.ExLbl.TabIndex = 31;
+            this.ExLbl.Text = "XP";
             // 
             // secondPanel
             // 
             this.secondPanel.Controls.Add(this.listBoxItems);
-            this.secondPanel.Location = new System.Drawing.Point(442, 258);
+            this.secondPanel.Location = new System.Drawing.Point(442, 257);
             this.secondPanel.Name = "secondPanel";
-            this.secondPanel.Size = new System.Drawing.Size(370, 125);
+            this.secondPanel.Size = new System.Drawing.Size(423, 125);
             this.secondPanel.TabIndex = 30;
             // 
             // listBoxItems
@@ -142,7 +348,7 @@
             // 
             // okBtn
             // 
-            this.okBtn.Location = new System.Drawing.Point(359, 418);
+            this.okBtn.Location = new System.Drawing.Point(359, 476);
             this.okBtn.Name = "okBtn";
             this.okBtn.Size = new System.Drawing.Size(94, 25);
             this.okBtn.TabIndex = 19;
@@ -243,6 +449,11 @@
             // numericUpDownInt
             // 
             this.numericUpDownInt.Location = new System.Drawing.Point(158, 229);
+            this.numericUpDownInt.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.numericUpDownInt.Name = "numericUpDownInt";
             this.numericUpDownInt.Size = new System.Drawing.Size(278, 27);
             this.numericUpDownInt.TabIndex = 8;
@@ -251,6 +462,11 @@
             // numericUpDownCon
             // 
             this.numericUpDownCon.Location = new System.Drawing.Point(158, 189);
+            this.numericUpDownCon.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.numericUpDownCon.Name = "numericUpDownCon";
             this.numericUpDownCon.Size = new System.Drawing.Size(278, 27);
             this.numericUpDownCon.TabIndex = 7;
@@ -259,6 +475,11 @@
             // numericUpDownDex
             // 
             this.numericUpDownDex.Location = new System.Drawing.Point(158, 149);
+            this.numericUpDownDex.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.numericUpDownDex.Name = "numericUpDownDex";
             this.numericUpDownDex.Size = new System.Drawing.Size(278, 27);
             this.numericUpDownDex.TabIndex = 6;
@@ -267,6 +488,11 @@
             // numericUpDownStr
             // 
             this.numericUpDownStr.Location = new System.Drawing.Point(158, 108);
+            this.numericUpDownStr.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.numericUpDownStr.Name = "numericUpDownStr";
             this.numericUpDownStr.Size = new System.Drawing.Size(278, 27);
             this.numericUpDownStr.TabIndex = 5;
@@ -324,7 +550,7 @@
             "Wizard"});
             this.listBoxMain.Location = new System.Drawing.Point(0, 0);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(815, 64);
+            this.listBoxMain.Size = new System.Drawing.Size(880, 64);
             this.listBoxMain.TabIndex = 0;
             this.listBoxMain.SelectedIndexChanged += new System.EventHandler(this.ListBoxMain_SelectedIndexChanged);
             // 
@@ -339,7 +565,7 @@
             this.panelMain.Controls.Add(this.firstItemLbl);
             this.panelMain.Location = new System.Drawing.Point(442, 70);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(370, 182);
+            this.panelMain.Size = new System.Drawing.Size(423, 182);
             this.panelMain.TabIndex = 29;
             // 
             // thirdComboBox
@@ -428,7 +654,7 @@
             this.listBoxRes.ItemHeight = 20;
             this.listBoxRes.Location = new System.Drawing.Point(0, 0);
             this.listBoxRes.Name = "listBoxRes";
-            this.listBoxRes.Size = new System.Drawing.Size(328, 466);
+            this.listBoxRes.Size = new System.Drawing.Size(268, 592);
             this.listBoxRes.TabIndex = 1;
             this.listBoxRes.SelectedValueChanged += new System.EventHandler(this.ListBoxRes_SelectedValueChanged);
             // 
@@ -437,13 +663,21 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.ClientSize = new System.Drawing.Size(1147, 466);
+            this.ClientSize = new System.Drawing.Size(1152, 592);
             this.Controls.Add(this.mainPan);
             this.Controls.Add(this.listBoxRes);
             this.Name = "Main";
             this.Text = "Main";
             this.mainPan.ResumeLayout(false);
             this.mainPan.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExpa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
             this.secondPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCon)).EndInit();
@@ -491,5 +725,21 @@
         private Panel panelMain;
         private Panel secondPanel;
         private ListBox listBoxItems;
+        private Label levelLbl;
+        private Label ExLbl;
+        private NumericUpDown numericUpDownLevel;
+        private TextBox textBoxPoints;
+        private Label pointsLbl;
+        private NumericUpDown numericUpDownExpa;
+        private Panel panel1;
+        private ComboBox skillsWarComboBox;
+        private Label skillsWarLbl;
+        private Panel panel2;
+        private ComboBox skillsRogComboBox;
+        private Label skillsRogLbl;
+        private Panel panel3;
+        private ComboBox skillsWizComboBox;
+        private Label skillsWizLbl;
+        private ListBox listBoxSkills;
     }
 }

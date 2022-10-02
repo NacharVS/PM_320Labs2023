@@ -33,17 +33,59 @@ namespace GameEditorLibrary
         public double phDefention;
         public double HP;
         public double MP;
-
+        public int Level
+        {
+            get { return _level; }
+            set
+            {
+                if (value > 0)
+                {
+                    _level = value;
+                    points += 5;
+                }    
+                else
+                {
+                    _level = value;
+                }
+            }
+        }
+        public int CurrentExpa
+        {
+            get { return _currentExpa; }
+            set
+            {
+                if (value - _expa ==  1000 + 1000 * _level)
+                {
+                    _expa = value;
+                    Level++;
+                }
+            }
+        }
+        public int points;
+        private int _expa;
         public List<Item> inventory;
-        
+        public List<Skill> skills;
+        private int _currentExpa;
+        private int _level;
+
         public Unit() 
         { 
             inventory =new List<Item>();
+            skills =new List<Skill>();
+            Level = 0;
+            CurrentExpa = 0;
+            points = 0;
+            _expa = 0;
         }
 
         public void AddToInventory(Item item)
         {
             inventory.Add(item);
+        }
+
+        public void AddToSkills(Skill skill)
+        {
+            skills.Add(skill);
         }
     }
 }

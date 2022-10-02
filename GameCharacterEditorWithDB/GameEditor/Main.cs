@@ -8,6 +8,7 @@ namespace GameEditor
     public partial class Main : Form
     {
         Unit selectedUnit;
+        bool checking = false;
 
         public Main()
         {
@@ -21,7 +22,11 @@ namespace GameEditor
             BsonClassMap.RegisterClassMap<Sword>();
             BsonClassMap.RegisterClassMap<Bow>();
             ListUpdate();
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
             listBoxMain.SetSelected(0, true);
+
         }
 
         private void ListBoxMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -36,10 +41,15 @@ namespace GameEditor
                 numericUpDownDex.Value = selectedUnit.Dexterity;
                 numericUpDownCon.Value = selectedUnit.Constitution;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
+                numericUpDownExpa.Value = selectedUnit.CurrentExpa;
+                textBoxPoints.Text = selectedUnit.points.ToString();
+                numericUpDownLevel.Value = selectedUnit.Level;
+
                 listBoxRes.SelectedItems.Clear();
                 panelMain.Visible = true;
                 secondPanel.Visible = false;
                 listBoxItems.Items.Clear();
+                checking = true;
             }
             else
             {
@@ -53,57 +63,163 @@ namespace GameEditor
 
         private void NumericUpDownStr_ValueChanged(object sender, EventArgs e)
         {
-            try
+            if (checking == true)
             {
-                selectedUnit.Strength = ((int)numericUpDownStr.Value);
-                textBoxAttack.Text = selectedUnit.attackDamage.ToString();
-                textBoxHP.Text = selectedUnit.HP.ToString();
+                if (selectedUnit.points > 0)
+                {
+                    try
+                    {
+                        selectedUnit.Strength = ((int)numericUpDownStr.Value);
+                        textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                        textBoxHP.Text = selectedUnit.HP.ToString();
+                        selectedUnit.points--;
+                        textBoxPoints.Text = selectedUnit.points.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        selectedUnit.points++;
+                        numericUpDownStr.Value = selectedUnit.Strength;
+                    }
+                }
+                else
+                {
+                    numericUpDownStr.Value = selectedUnit.Strength;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("LIMIT");
+                try
+                {
+                    selectedUnit.Strength = ((int)numericUpDownStr.Value);
+                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                    textBoxHP.Text = selectedUnit.HP.ToString();
+                }
+                catch (Exception ex)
+                {
+                    numericUpDownStr.Value = selectedUnit.Strength;
+                }
             }
+
         }
 
         private void NumericUpDownDex_ValueChanged(object sender, EventArgs e)
         {
-            try
-            {
-                selectedUnit.Dexterity = ((int)numericUpDownDex.Value);
-                textBoxAttack.Text = selectedUnit.attackDamage.ToString();
-                textBoxPDef.Text = selectedUnit.phDefention.ToString();
+            if (checking == true)
+            { 
+                if (selectedUnit.points > 0)
+                {
+                    try
+                    {
+                        selectedUnit.Dexterity = ((int)numericUpDownDex.Value);
+                        textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                        textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                        selectedUnit.points--;
+                        textBoxPoints.Text = selectedUnit.points.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        selectedUnit.points++;
+                        numericUpDownDex.Value = selectedUnit.Dexterity;
+
+                    }
+                }
+                else
+                {
+                    numericUpDownDex.Value = selectedUnit.Dexterity;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("LIMIT");
+                try
+                {
+                    selectedUnit.Dexterity = ((int)numericUpDownDex.Value);
+                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                }
+                catch (Exception ex)
+                {
+                    numericUpDownDex.Value = selectedUnit.Dexterity;
+                }
             }
         }
 
         private void NumericUpDownCon_ValueChanged(object sender, EventArgs e)
         {
-            try
+            if (checking == true)
             {
-                selectedUnit.Constitution = ((int)numericUpDownCon.Value);
-                textBoxHP.Text = selectedUnit.HP.ToString();
-                textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                if (selectedUnit.points > 0)
+                {
+                    try
+                    {
+                        selectedUnit.Constitution = ((int)numericUpDownCon.Value);
+                        textBoxHP.Text = selectedUnit.HP.ToString();
+                        textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                        selectedUnit.points--;
+                        textBoxPoints.Text = selectedUnit.points.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        selectedUnit.points++;
+                        numericUpDownCon.Value = selectedUnit.Constitution;
+                    }
+                }
+                else
+                {
+                    numericUpDownCon.Value = selectedUnit.Constitution;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("LIMIT");
+                try
+                {
+                    selectedUnit.Constitution = ((int)numericUpDownCon.Value);
+                    textBoxHP.Text = selectedUnit.HP.ToString();
+                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                }
+                catch (Exception ex)
+                {
+                    numericUpDownCon.Value = selectedUnit.Constitution;
+                }
             }
         }
 
         private void NumericUpDownInt_ValueChanged(object sender, EventArgs e)
         {
-            try
+            if (checking == true)
             {
-                selectedUnit.Intelligence = ((int)numericUpDownInt.Value);
-                textBoxMana.Text = selectedUnit.MP.ToString();
-                textBoxAttackMana.Text = selectedUnit.manaAttack.ToString();
+                if (selectedUnit.points > 0)
+                {
+                    try
+                    {
+                        selectedUnit.Intelligence = ((int)numericUpDownInt.Value);
+                        textBoxMana.Text = selectedUnit.MP.ToString();
+                        textBoxAttackMana.Text = selectedUnit.manaAttack.ToString();
+                        selectedUnit.points--;
+                        textBoxPoints.Text = selectedUnit.points.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        selectedUnit.points++;
+                        numericUpDownInt.Value = selectedUnit.Intelligence;
+                    }
+                }
+                else
+                {
+                    numericUpDownInt.Value = selectedUnit.Intelligence;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("LIMIT");
+                try
+                {
+                    selectedUnit.Intelligence = ((int)numericUpDownInt.Value);
+                    textBoxMana.Text = selectedUnit.MP.ToString();
+                    textBoxAttackMana.Text = selectedUnit.manaAttack.ToString();
+                }
+                catch (Exception ex)
+                {
+                    numericUpDownInt.Value = selectedUnit.Intelligence;
+                }
             }
         }
 
@@ -119,10 +235,10 @@ namespace GameEditor
                 {
                     listBoxRes.Items.Add(selectedUnit.Name);
                     DBConnection.AddToDataBase(selectedUnit);
-                    numericUpDownStr.Value = numericUpDownStr.Minimum;
-                    numericUpDownCon.Value = numericUpDownCon.Minimum;
-                    numericUpDownDex.Value = numericUpDownDex.Minimum;
-                    numericUpDownInt.Value = numericUpDownInt.Minimum;
+                    panel1.Visible = false;
+                    panel2.Visible = false;
+                    panel3.Visible = false;
+                    listBoxMain.SetSelected(0, true);
                     textBoxName.Text = "";
                 }
                 catch (Exception ex)
@@ -139,7 +255,9 @@ namespace GameEditor
 
         private void ListBoxRes_SelectedValueChanged(object sender, EventArgs e)
         {
+            checking = false;
             listBoxItems.Items.Clear();
+            listBoxSkills.Items.Clear();
             if (listBoxRes.SelectedItems.Count > 0)
             {
                 selectedUnit = DBConnection.FindByName(listBoxRes.Text);
@@ -149,12 +267,21 @@ namespace GameEditor
                 numericUpDownDex.Value = selectedUnit.Dexterity;
                 numericUpDownCon.Value = selectedUnit.Constitution;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
+                numericUpDownExpa.Value = selectedUnit.CurrentExpa;
+                numericUpDownLevel.Value = selectedUnit.Level;
+                textBoxPoints.Text = selectedUnit.points.ToString();
+                listBoxSkills.Visible = true;
                 panelMain.Visible = false;
                 secondPanel.Visible = true;
                 foreach (var i in selectedUnit.inventory)
                 {
                     listBoxItems.Items.Add(i.ItemName);
                 }
+                foreach (var i in selectedUnit.skills)
+                {
+                    listBoxSkills.Items.Add(i.SkillName);
+                }
+                checking = true;
             }
         }
         private void ListUpdate()
@@ -185,6 +312,98 @@ namespace GameEditor
             string nameOfItem = thirdComboBox.SelectedItem.ToString();
             Item infoName = GameEditorLibrary.Units.InfoItem(nameOfItem);
             selectedUnit.AddToInventory(infoName);
+        }
+
+        private void NumericUpDownExpa_ValueChanged(object sender, EventArgs e)
+        {
+            selectedUnit.CurrentExpa = ((int)numericUpDownExpa.Value);
+            numericUpDownLevel.Value = selectedUnit.Level;
+            textBoxPoints.Text = selectedUnit.points.ToString();
+        }
+
+        private void NumericUpDownLevel_ValueChanged(object sender, EventArgs e)
+        {
+            if (selectedUnit.Level > 0 && selectedUnit.Level % 3 == 0)
+            {
+                switch (selectedUnit.typeOfUnit)
+                {
+                    case ("Warrior"):
+                        if (selectedUnit.skills.Count < selectedUnit.Level / 3)
+                        {
+                            panel1.Visible = true;
+                            skillsWarComboBox.Items.Clear();
+                            skillsWarComboBox.Items.Add($"InvisibilityX{selectedUnit.Level / 3}");
+                            skillsWarComboBox.Items.Add($"FireBallX{selectedUnit.Level / 3}");
+                            skillsWarComboBox.Items.Add($"Speed X5{selectedUnit.Level / 3}");
+                        }
+                        else 
+                        {
+                            panel1.Visible = false;
+                        }
+                        break;
+                    case ("Rogue"):
+                        if (selectedUnit.skills.Count < selectedUnit.Level / 3)
+                        {
+                            panel2.Visible = true;
+                            skillsRogComboBox.Items.Clear();
+                            skillsRogComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
+                            skillsRogComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
+                            skillsRogComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
+                        }
+                        else
+                        {
+                            panel2.Visible = false;
+                        }
+                        break;
+                    case ("Wizard"):
+                        if (selectedUnit.skills.Count < selectedUnit.Level / 3)
+                        {
+                            panel3.Visible = true;
+                            skillsWizComboBox.Items.Clear();
+                            skillsWizComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
+                            skillsWizComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
+                            skillsWizComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
+                        }
+                        else
+                        {
+                            panel3.Visible = false;
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                panel1.Visible = false;
+                panel2.Visible = false;
+                panel3.Visible = false;
+            }
+        }
+
+        private void SkillsWarComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Skill skill = new Skill(skillsWarComboBox.SelectedItem.ToString());
+            selectedUnit.AddToSkills(skill);
+            listBoxSkills.Visible = true;
+            listBoxSkills.Items.Add(skill.SkillName);
+            panel1.Visible = false;
+        }
+
+        private void SkillsRogComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Skill skill = new Skill(skillsRogComboBox.SelectedItem.ToString());
+            selectedUnit.AddToSkills(skill);
+            listBoxSkills.Visible = true;
+            listBoxSkills.Items.Add(skill.SkillName);
+            panel2.Visible = false;
+        }
+
+        private void SkillsWizComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Skill skill = new Skill(skillsWizComboBox.SelectedItem.ToString());
+            selectedUnit.AddToSkills(skill);
+            listBoxSkills.Visible = true;
+            listBoxSkills.Items.Add(skill.SkillName);
+            panel1.Visible = false;
         }
     }
 }
