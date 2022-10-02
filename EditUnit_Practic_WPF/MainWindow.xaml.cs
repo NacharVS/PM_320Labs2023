@@ -50,6 +50,9 @@ namespace EditUnit_Practic_WPF
             tbAtackPoint.Text = units[unit].atackPoint.ToString();
             tbMagicAtackPoint.Text = units[unit].magicAtackPoint.ToString();
             tbPhysicalProtectionPoint.Text = units[unit].physicalProtectionPoint.ToString();
+
+            lvlPb.Maximum = units[unit].lvl.necessaryExp;
+            lvlPb.Value = units[unit].lvl.exp;
         }
 
         private void dexBtnMax_Click(object sender, RoutedEventArgs e)
@@ -146,6 +149,24 @@ namespace EditUnit_Practic_WPF
                 units[0].UpdateHaracteristics();
                 UpdateCharacteristics(0);
             }
+        }
+
+        private void btn_100xp_Click(object sender, RoutedEventArgs e)
+        {
+            units[0].lvl.exp += 100;
+            UpdateCharacteristics(0);
+        }
+
+        private void btn_300xp_Click(object sender, RoutedEventArgs e)
+        {
+            units[0].lvl.exp += 300;
+            UpdateCharacteristics(0);
+        }
+
+        private void btn_1000xp_Click(object sender, RoutedEventArgs e)
+        {
+            units[0].lvl.exp += 1000;
+            UpdateCharacteristics(0);
         }
     }
 }

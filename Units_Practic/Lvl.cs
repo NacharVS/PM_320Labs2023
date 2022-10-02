@@ -12,21 +12,19 @@ namespace Units_Practic
         public int lvl;
         public int boostPoints;
 
-        private int _exp;
+        private int _exp = 0;
         public int exp {
             get { return _exp; }
             set
             {
-                if (value + _exp >= necessaryExp)
+                _exp = value;
+
+                if (_exp >= necessaryExp)
                 {
                     ++lvl;
                     boostPoints += 5;
-                    _exp = necessaryExp - value + _exp;
+                    _exp = _exp - necessaryExp;
                     necessaryExp += lvl * 1000;
-                }
-                else if (value + _exp < necessaryExp)
-                {
-                    _exp += value;
                 }
             }
         }
@@ -37,7 +35,6 @@ namespace Units_Practic
             lvl = 1;
             boostPoints = 5;
             necessaryExp = 1000;
-            exp = 0;
         }
     }
 }
