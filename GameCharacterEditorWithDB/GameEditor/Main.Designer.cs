@@ -595,9 +595,8 @@
             // 
             this.secondComboBox.FormattingEnabled = true;
             this.secondComboBox.Items.AddRange(new object[] {
-            "Bow",
-            "Axe",
-            "Sword"});
+            "Shuriken",
+            "MachineGun"});
             this.secondComboBox.Location = new System.Drawing.Point(172, 80);
             this.secondComboBox.Name = "secondComboBox";
             this.secondComboBox.Size = new System.Drawing.Size(191, 28);

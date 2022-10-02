@@ -8,7 +8,10 @@ namespace GameEditorLibrary
 {
     public class Item
     {
-        public Item() { }
+        public Item(string name) 
+        {
+            ItemName = name;
+        }
 
         public string ItemName { get; set; }
     }

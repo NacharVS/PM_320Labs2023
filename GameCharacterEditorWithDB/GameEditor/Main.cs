@@ -18,9 +18,6 @@ namespace GameEditor
             BsonClassMap.RegisterClassMap<Rogue>();
             BsonClassMap.RegisterClassMap<Wizard>();
             BsonClassMap.RegisterClassMap<Item>();
-            BsonClassMap.RegisterClassMap<Axe>();
-            BsonClassMap.RegisterClassMap<Sword>();
-            BsonClassMap.RegisterClassMap<Bow>();
             ListUpdate();
             panel1.Visible = false;
             panel2.Visible = false;
@@ -241,10 +238,7 @@ namespace GameEditor
                     listBoxMain.SetSelected(0, true);
                     textBoxName.Text = "";
                 }
-                catch (Exception ex)
-                {
-
-                }
+                catch (Exception ex) { }
             }
         }
 
@@ -296,22 +290,19 @@ namespace GameEditor
         private void FirstComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string nameOfItem = firstComboBox.SelectedItem.ToString();
-            Item infoName = GameEditorLibrary.Units.InfoItem(nameOfItem);
-            selectedUnit.AddToInventory(infoName);
+            selectedUnit.AddToInventory(new Item(nameOfItem));
         }
 
         private void SecondComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string nameOfItem = secondComboBox.SelectedItem.ToString();
-            Item infoName = GameEditorLibrary.Units.InfoItem(nameOfItem);
-            selectedUnit.AddToInventory(infoName);
+            selectedUnit.AddToInventory(new Item(nameOfItem));
         }
 
         private void ThirdComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string nameOfItem = thirdComboBox.SelectedItem.ToString();
-            Item infoName = GameEditorLibrary.Units.InfoItem(nameOfItem);
-            selectedUnit.AddToInventory(infoName);
+            selectedUnit.AddToInventory(new Item(nameOfItem));
         }
 
         private void NumericUpDownExpa_ValueChanged(object sender, EventArgs e)
@@ -334,7 +325,7 @@ namespace GameEditor
                             skillsWarComboBox.Items.Clear();
                             skillsWarComboBox.Items.Add($"InvisibilityX{selectedUnit.Level / 3}");
                             skillsWarComboBox.Items.Add($"FireBallX{selectedUnit.Level / 3}");
-                            skillsWarComboBox.Items.Add($"Speed X5{selectedUnit.Level / 3}");
+                            skillsWarComboBox.Items.Add($"Speed X{selectedUnit.Level / 3}");
                         }
                         else 
                         {
@@ -346,9 +337,9 @@ namespace GameEditor
                         {
                             panel2.Visible = true;
                             skillsRogComboBox.Items.Clear();
-                            skillsRogComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
-                            skillsRogComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
-                            skillsRogComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
+                            skillsRogComboBox.Items.Add($"VanishX{selectedUnit.Level / 3}");
+                            skillsRogComboBox.Items.Add($"StealthX{selectedUnit.Level / 3}");
+                            skillsRogComboBox.Items.Add($"DistractX{selectedUnit.Level / 3}");
                         }
                         else
                         {
@@ -361,8 +352,8 @@ namespace GameEditor
                             panel3.Visible = true;
                             skillsWizComboBox.Items.Clear();
                             skillsWizComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
-                            skillsWizComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
-                            skillsWizComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
+                            skillsWizComboBox.Items.Add($"Blood MageX{selectedUnit.Level / 3}");
+                            skillsWizComboBox.Items.Add($"Chill FogX{selectedUnit.Level / 3}");
                         }
                         else
                         {
