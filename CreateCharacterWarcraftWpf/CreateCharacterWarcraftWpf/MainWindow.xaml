@@ -5,15 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CreateCharacterWarcraftWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="601" ResizeMode="NoResize">
+        Title="MainWindow" Height="480" Width="601" >
     <Window.Background>
         <ImageBrush ImageSource="/Images/image.jpg"/>
     </Window.Background>
-    <Grid x:Name="MainForm">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="340*"/>
-            <ColumnDefinition Width="261*"/>
-        </Grid.ColumnDefinitions>
+    <Grid x:Name="MainForm" Margin="10,10,10,10">
         <TextBox x:Name="tbInfChsChr" HorizontalAlignment="Left" Margin="114,10,0,0" TextWrapping="Wrap" Text="Choose character:" VerticalAlignment="Top" Width="183" FontSize="30" IsReadOnly="True" FontFamily="Chiller" FontWeight="Bold" SelectionTextBrush="White">
             <TextBox.Foreground>
                 <ImageBrush ImageSource="/Images/image.jpg"/>
@@ -79,7 +75,20 @@
                 <ImageBrush ImageSource="/Images/image.jpg" Stretch="None"/>
             </TextBox.Foreground>
         </TextBox>
+        <TextBox x:Name="tbExp" HorizontalAlignment="Left" Margin="47,227,0,0" TextWrapping="Wrap" Text="Experience" VerticalAlignment="Top" Width="157" IsReadOnly="True" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+            <TextBox.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="None"/>
+            </TextBox.Foreground>
+        </TextBox>
         <TextBox x:Name="tbHp" HorizontalAlignment="Left" Margin="47,364,0,0" TextWrapping="Wrap" Text="HP:" VerticalAlignment="Top" Width="33" IsReadOnly="True" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+        </TextBox>
+        <TextBox x:Name="tbLvl" HorizontalAlignment="Left" Margin="47,334,0,0" TextWrapping="Wrap" Text="LVL:" VerticalAlignment="Top" Width="33" IsReadOnly="True" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="17" FontStyle="Italic" FontStretch="Medium">
             <TextBox.Background>
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </TextBox.Background>
@@ -145,7 +154,20 @@
                 <ImageBrush Stretch="None" ImageSource="/Images/image.jpg"/>
             </TextBox.Foreground>
         </TextBox>
+        <TextBox x:Name="tbExpInfo" HorizontalAlignment="Left" Margin="209,227,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="192" IsReadOnly="True" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium" Grid.ColumnSpan="2" TextChanged="tbExpInfo_TextChanged">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+            <TextBox.Foreground>
+                <ImageBrush Stretch="None" ImageSource="/Images/image.jpg"/>
+            </TextBox.Foreground>
+        </TextBox>
         <TextBox x:Name="tbHpInfo" HorizontalAlignment="Left" Margin="85,364,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="36" IsReadOnly="True" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+        </TextBox>
+        <TextBox x:Name="tbLvlInfo" HorizontalAlignment="Left" Margin="85,332,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="36" IsReadOnly="True" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium">
             <TextBox.Background>
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </TextBox.Background>
@@ -170,7 +192,7 @@
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </TextBox.Background>
         </TextBox>
-        <TextBox x:Name="tbInfo" HorizontalAlignment="Left" Margin="66,364,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="185" Height="90" IsReadOnly="True" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="6" FontStyle="Italic" FontStretch="Medium" Grid.Column="1">
+        <TextBox x:Name="tbInfo" HorizontalAlignment="Left" Margin="406,364,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="185" Height="90" IsReadOnly="True" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="6" FontStyle="Italic" FontStretch="Medium">
             <TextBox.Background>
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </TextBox.Background>
@@ -196,7 +218,7 @@
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
             </Button.Background>
         </Button>
-        <Button x:Name="btnClear" Content="Clear info" HorizontalAlignment="Left" Margin="4,426,0,0" VerticalAlignment="Top" Height="28" Width="57" Click="btnClear_Click" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="16" FontStyle="Italic" FontStretch="Medium" Grid.Column="1">
+        <Button x:Name="btnClear" Content="Clear info" HorizontalAlignment="Left" Margin="342,426,0,0" VerticalAlignment="Top" Height="28" Width="57" Click="btnClear_Click" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="16" FontStyle="Italic" FontStretch="Medium">
             <Button.Background>
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
             </Button.Background>
@@ -222,9 +244,17 @@
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
             </Button.Background>
         </Button>
-        <Image x:Name="pbCharacter" Source="Images/icon.gif" HorizontalAlignment="Left" Height="175" Margin="66,71,0,0" VerticalAlignment="Top" Width="150" Grid.Column="1">
-        </Image>
-
+        <Button x:Name="btnExp" Content="+" HorizontalAlignment="Left" Margin="16,226,0,0" VerticalAlignment="Top" Height="26" Width="26" FontWeight="Bold" FontSize="16" Click="btnExp_Click">
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
+            </Button.Background>
+        </Button>
+        <Image x:Name="pbCharacter" Source="Images/icon.gif" HorizontalAlignment="Left" Height="175" Margin="426,71,0,0" VerticalAlignment="Top" Width="150"/>
+        <Button x:Name="btnSkill" Content="Ability" HorizontalAlignment="Left" Margin="47,257,0,0" VerticalAlignment="Top" Height="26" Width="157" FontWeight="Bold" FontSize="16" Click="btnSkill_Click">
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
+            </Button.Background>
+        </Button>
     </Grid>
 
 </Window>

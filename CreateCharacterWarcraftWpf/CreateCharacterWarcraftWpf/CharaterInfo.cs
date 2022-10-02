@@ -55,7 +55,7 @@ namespace CreateCharacterWarcraftWpf
                                 int.Parse(data[26]), int.Parse(data[30]),
                                 250, int.Parse(data[34]),
                                 70, int.Parse(data[38]),
-                                100, int.Parse(data[42]), 50);
+                                100, int.Parse(data[42]), 50, 0, 1);
                             character.Add(unit);
                             break;
                         case "Rogue":
@@ -66,7 +66,7 @@ namespace CreateCharacterWarcraftWpf
                                 int.Parse(data[26]), int.Parse(data[30]),
                                 55, int.Parse(data[34]),
                                 250, int.Parse(data[38]),
-                                80, int.Parse(data[42]), 70);
+                                80, int.Parse(data[42]), 70, 0, 1);
                             character.Add(unit);
                             break;
                         case "Wizard":
@@ -77,7 +77,7 @@ namespace CreateCharacterWarcraftWpf
                                 int.Parse(data[26]), int.Parse(data[30]),
                                 45, int.Parse(data[34]),
                                 70, int.Parse(data[38]),
-                                60, int.Parse(data[42]), 250);
+                                60, int.Parse(data[42]), 250, 0, 1);
                             character.Add(unit);
                             break;
 
