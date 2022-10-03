@@ -32,5 +32,16 @@ namespace Labs320
             collection.ReplaceOne(x => x.Name == name, unit);
 
         }
+
+        public static void TestMethod()
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Example320");
+            var collection = database.GetCollection<Unit>("ExCollection");
+            var updateDefenition = Builders<Unit>.Update.AddToSet("inventory", new Item("paper", 10));
+            collection.UpdateMany(x => x.Age >= 27, updateDefenition);
+            
+
+        }
     }
 }

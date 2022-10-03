@@ -34,6 +34,9 @@ namespace Labs320
         public int DriverCard { get; set; }
 
         [BsonIgnoreIfNull]
+        public string WarTicket { get; set; }
+
+        [BsonIgnoreIfNull]
         public List<Item> inventory;
 
         public void AddToInventory(Item item)
