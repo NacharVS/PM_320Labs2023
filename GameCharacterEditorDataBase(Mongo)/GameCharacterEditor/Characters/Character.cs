@@ -24,10 +24,10 @@ namespace GameCharacterEditor
             get { return _strength; }
             set 
             {
-                if (value >= minStrength && value <= maxStrength)
-                {
-                    _strength = value;
-                }
+                if (value < minStrength || value > maxStrength)
+                    throw new Exception();
+
+                _strength = value;
             }
         }
 
@@ -40,10 +40,10 @@ namespace GameCharacterEditor
             get { return _dexterity; }
             set 
             {
-                if (value >= minDexterity && value <= maxDexterity)
-                {
-                    _dexterity = value;
-                }
+                if (value < minDexterity || value > maxDexterity)
+                    throw new Exception();
+
+                _dexterity = value;
             }
         }
 
@@ -56,10 +56,10 @@ namespace GameCharacterEditor
             get { return _constitution; }
             set 
             {
-                if (value >= minConstitution && value <= maxConstitution)
-                {
-                    _constitution = value;
-                }
+                if (value < minConstitution || value > maxConstitution)
+                    throw new Exception();
+
+                _constitution = value;
             }
         }
 
@@ -72,10 +72,10 @@ namespace GameCharacterEditor
             get { return _intelligence; }
             set 
             {
-                if (value >= minIntelligence && value <= maxIntelligence)
-                {
-                    _intelligence = value;
-                }
+                if (value < minIntelligence || value > maxIntelligence)
+                    throw new Exception();
+
+                _intelligence = value;
             }
         }
 
@@ -93,11 +93,22 @@ namespace GameCharacterEditor
         {
             equipment.Add(item);
         }
+
+        public List<string> equipmentList = new List<string>();
+        public void AddToEquipmentName(string item)
+        {
+            equipmentList.Add(item);
+        }
         [BsonIgnoreIfNull]
         public List<Skill> skill;
         public void AddToSkill(Skill item)
         {
             skill.Add(item);
+        }
+        public List<string> skillList = new List<string>();
+        public void AddToSkillName(string item)
+        {
+            skillList.Add(item);
         }
         public Character()
         {

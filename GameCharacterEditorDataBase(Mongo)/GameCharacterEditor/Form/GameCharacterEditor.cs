@@ -1,5 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using System;
 using System.Data.Common;
 
 namespace GameCharacterEditor
@@ -8,9 +9,9 @@ namespace GameCharacterEditor
     {
         private Character character;
         private string characterType;
-        private string equipmentName;
+        private Equipment equipment;
         private Skill skill;
-        private string skillName;
+        private bool skillBool;
         private int xp;
 
         public GameCharacterEditor()
@@ -18,13 +19,21 @@ namespace GameCharacterEditor
             InitializeComponent();
             BsonClassMap.RegisterClassMap<Character>();
             BsonClassMap.RegisterClassMap<Equipment>();
-            BsonClassMap.RegisterClassMap<Bow>();
-            BsonClassMap.RegisterClassMap<Dagger>();
-            BsonClassMap.RegisterClassMap<Mace>();
+            BsonClassMap.RegisterClassMap<Skill>();
             BsonClassMap.RegisterClassMap<Warrior>();
             BsonClassMap.RegisterClassMap<Rogue>();
             BsonClassMap.RegisterClassMap<Wizard>();
             ListUpdate();
+        }
+
+        private void ListUpdate()
+        {
+            var collection = DataBase.ImportData();
+
+            foreach (var c in collection)
+            {
+                SavedCharactersBox.Items.Add(c.Name);
+            }
         }
 
         private void Strength_Text_ValueChanged(object sender, EventArgs e)
@@ -33,10 +42,10 @@ namespace GameCharacterEditor
             {
                 try
                 {
-                    Point();
                     character.Strength = (int)Strength_Text.Value;
                     HP_Text.Value = character.HP;
                     Attack_Text.Value = character.Attack;
+                    Point();
                 }
                 catch(Exception ex)
                 {
@@ -54,10 +63,17 @@ namespace GameCharacterEditor
         {
             if (int.Parse(Points_Text.Text) > 0)
             {
-                Point();
-                character.Dexterity = (int)Dexterity_Text.Value;
-                PDef_Text.Value = character.PDef;
-                Attack_Text.Value = character.Attack;
+                try
+                {
+                    character.Dexterity = (int)Dexterity_Text.Value;
+                    PDef_Text.Value = character.PDef;
+                    Attack_Text.Value = character.Attack;
+                    Point();
+                }
+                catch
+                {
+                    Dexterity_Text.Value = character.Dexterity;
+                }
             }
             else
             {
@@ -69,10 +85,17 @@ namespace GameCharacterEditor
         {
             if (int.Parse(Points_Text.Text) > 0)
             {
-                Point();
-                character.Constitution = (int)Constitution_Text.Value;
-                HP_Text.Value = character.HP;
-                PDef_Text.Value = character.PDef;
+                try
+                {
+                    character.Constitution = (int)Constitution_Text.Value;
+                    HP_Text.Value = character.HP;
+                    PDef_Text.Value = character.PDef;
+                    Point();
+                }
+                catch
+                {
+                    Constitution_Text.Value = character.Constitution;
+                }
             }
             else
             {
@@ -84,10 +107,17 @@ namespace GameCharacterEditor
         {
             if (int.Parse(Points_Text.Text) > 0)
             {
-                Point();
-                character.Intelligence = (int)Intelligence_Text.Value;
-                MP_Text.Value = character.MP;
-                MPAttack_Text.Value = character.MPAttack;
+                try
+                {
+                    character.Intelligence = (int)Intelligence_Text.Value;
+                    MP_Text.Value = character.MP;
+                    MPAttack_Text.Value = character.MPAttack;
+                    Point();
+                }
+                catch
+                {
+                    Intelligence_Text.Value = character.Intelligence;
+                }
             }
             else
             {
@@ -141,6 +171,18 @@ namespace GameCharacterEditor
                     break;
             }
 
+            Strength_Text.Enabled = true;
+            Dexterity_Text.Enabled = true;
+            Constitution_Text.Enabled = true;
+            Intelligence_Text.Enabled = true;
+            Equipment_CheckBox.Enabled = true;
+
+            Name_Text.Enabled = true;
+            OK_Button.Enabled = true;
+            Save_Button.Enabled = true;
+            XP_Text.Enabled = true;
+            SavedCharactersBox.Enabled = false;
+
             xp = 0;
             Lvl_Text.Text = "0";
             XP_Text.Value = XP_Text.Minimum;
@@ -148,13 +190,18 @@ namespace GameCharacterEditor
             character.XPLvl = character.minXPLvl;
             character.XP = (int)XP_Text.Value;
 
+            Skill_CheckBox.Items.Clear();
+            Skill_CheckBox.Items.Add("Shild");
+            Skill_CheckBox.Items.Add("Flight");
+            Skill_CheckBox.Items.Add("Vision");
+            Skill_CheckBox.Items.Add("Speed");
+            Skill_CheckBox.Items.Add("Teleportation");
+            Skill_CheckBox.Items.Add("Invisibility");
+            Skill_CheckBox.Items.Remove(Skill_CheckBox.SelectedItem);
+
             Type_Lable.Text = character.Type;
             Points_Text.Text = character.Points.ToString();
             Name_Text.Text = "";
-
-            Bow_CheckBox.Checked = false;
-            Mace_CheckBox.Checked = false;
-            Dagger_CheckBox.Checked = false;
 
             Strength_Text.Value = character.Strength;
             Dexterity_Text.Value = character.Dexterity;
@@ -162,19 +209,87 @@ namespace GameCharacterEditor
             Intelligence_Text.Value = character.Intelligence;
         }
 
-        private void OK_Button_Click(object sender, EventArgs e)
+        private void Save_Button_Click(object sender, EventArgs e)
         {
+            SavedCharactersBox.Items.Clear();
             SavedCharactersBox.Items.Add(character.Name);
 
             if (character.Id != ObjectId.Empty)
-                DataBase.ReplaceByName(character);
+            {
+                DataBase.ReplaceByName(character.Name, character);
+            }
             else
                 DataBase.AddToDataBase(character);
+        }
 
-            Skills_ComboBox.Items.Remove(Skills_ComboBox.SelectedItem);
-            Skills_ComboBox.Visible = false;
+        private void Name_Text_TextChanged(object sender, EventArgs e)
+        {
+            character.Name = Name_Text.Text;
+        }
 
+        private void SavedCharactersBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            character = DataBase.FindByName(SavedCharactersBox.Text);
+
+            Type_Lable.Text = character.Type;
+            Points_Text.Text = character.Points.ToString();
+            Lvl_Text.Text = character.Lvl.ToString();
+            XP_Text.Value = character.XP;
+            Name_Text.Text = character.Name;
+            Strength_Text.Value = character.Strength;
+            Dexterity_Text.Value = character.Dexterity;
+            Constitution_Text.Value = character.Constitution;
+            Intelligence_Text.Value = character.Intelligence;
+
+            SavedCharactersBox.Enabled = false;
+
+            Rogue_Button.Enabled = false;
+            Warrior_Button.Enabled = false;
+            Wizard_Button.Enabled = false;
+
+            Strength_Text.Enabled = true;
+            Dexterity_Text.Enabled = true;
+            Constitution_Text.Enabled = true;
+            Intelligence_Text.Enabled = true;
+
+            OK_Button.Enabled = true;
+            Save_Button.Enabled = true;
+            XP_Text.Enabled = true;
+
+            Edit_Button.Visible = true;
+            Equipment_CheckBox.Visible = false;
+            Equipment_Text.Visible = true;
+            for (int i = 0; i < character.equipmentList.Count; i++)
+            {
+                Equipment_Text.Text += character.equipmentList[i] + " ";
+            }
+
+
+            Skill_Text.Text = "";
+            Skills_Lable.Visible = true;
+            Skill_Text.Visible = true;
+            for (int i = 0; i < character.skillList.Count; i++)
+            {
+                Skill_Text.Text += character.skillList[i] + " ";
+            }
+        }
+
+        private void OK_Button_Click(object sender, EventArgs e)
+        {
+            Skill_CheckBox.Visible = false;
+            Skills_Lable.Visible = false;
+            Skill_Text.Visible = false;
+
+            SavedCharactersBox.Enabled = true;
+            Rogue_Button.Enabled = true;
+            Warrior_Button.Enabled = true;
+            Wizard_Button.Enabled = true;
+
+            Type_Lable.Text = "CHARACTER";
             Name_Text.Text = "";
+            Lvl_Text.Text = "0";
+            Points_Text.Text = "0";
+            XP_Text.Value = 0;
 
             Strength_Text.Minimum = 0;
             Strength_Text.Value = 0;
@@ -203,83 +318,40 @@ namespace GameCharacterEditor
             MPAttack_Text.Minimum = 0;
             MPAttack_Text.Value = 0;
 
-            Bow_CheckBox.Checked = false;
-            Mace_CheckBox.Checked = false;
-            Dagger_CheckBox.Checked = false;
+            Equipment_Text.Visible = false;
+            Equipment_CheckBox.Visible = true;
+            Equipment_Text.Text = "";
+            Edit_Button.Visible = false;
         }
 
-        private void Name_Text_TextChanged(object sender, EventArgs e)
+        private void Skills_CheckBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            character.Name = Name_Text.Text;
-        }
-
-        private void SavedCharactersBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            character = DataBase.FindByName(SavedCharactersBox.Text);
-            Type_Lable.Text = character.Type;
-            Points_Text.Text = character.Points.ToString();
-            Lvl_Text.Text = character.Lvl.ToString();
-            XP_Text.Value = character.XP;
-            Name_Text.Text = character.Name;
-            Strength_Text.Value = character.Strength;
-            Dexterity_Text.Value = character.Dexterity;
-            Constitution_Text.Value = character.Constitution;
-            Intelligence_Text.Value = character.Intelligence;
-            Skill_Text.Text = character.skill.ToString();
-
-            foreach (var eq in character.equipment)
+            if(Skill_CheckBox.SelectedItem is not null)
             {
-                //MessageBox.Show(eq.TypeEquipment);
-                switch (eq.TypeEquipment)
-                {
-                    case "Bow":
-                        Bow_CheckBox2.Visible = true;
-                        Bow_CheckBox2.Checked = true;
-                        break;
-                    case "Mace":
-                        Mace_CheckBox2.Visible = true;
-                        Mace_CheckBox2.Checked = true;
-                        break;
-                    case "Dagger":
-                        Dagger_CheckBox2.Visible= true;
-                        Dagger_CheckBox2.Checked = true;
-                        break;
-                }
+                skill = new Skill(Skill_CheckBox.SelectedItem.ToString());
+                character.AddToSkillName(Skill_CheckBox.SelectedItem.ToString());
+                character.AddToSkill(skill);
+                skillBool = true;
+            }
+
+            if(skillBool)
+            {
+                Skill_CheckBox.Visible = false;
+                Skill_CheckBox.Items.Remove(Skill_CheckBox.SelectedItem);
+                skillBool = false;
             }
         }
-
-        private void ListUpdate()
+        private void Equipment_CheckBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var collection = DataBase.ImportData();
-
-            foreach (var c in collection)
-            {
-                SavedCharactersBox.Items.Add(c.Name);
-            }
+            equipment = new Equipment(Equipment_CheckBox.SelectedItem.ToString(), 10);
+            character.AddToEquipmentName(Equipment_CheckBox.SelectedItem.ToString());
+            character.AddToEquipment(equipment);
         }
 
-        private void Bow_CheckBox_CheckedChanged(object sender, EventArgs e)
+        private void Edit_Button_Click(object sender, EventArgs e)
         {
-            equipmentName = Bow_CheckBox.Text;
-            character.AddToEquipment(new Bow(equipmentName, 10));
-        }
-
-        private void Mace_CheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            equipmentName = Mace_CheckBox.Text;
-            character.AddToEquipment(new Mace(equipmentName, 10));
-        }
-
-        private void Dagger_CheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            equipmentName = Dagger_CheckBox.Text;
-            character.AddToEquipment(new Dagger(equipmentName, 10));
-        }
-
-        private void Skills_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Skill skill = new Skill(Skills_ComboBox.SelectedItem.ToString());
-            character.AddToSkill(skill);
+            Equipment_Text.Visible = false;
+            Equipment_CheckBox.Visible = true;
         }
 
         private void XP_Text_ValueChanged(object sender, EventArgs e)
@@ -287,7 +359,7 @@ namespace GameCharacterEditor
             character.XP += 500;
             xp = character.XPLvl + character.Lvl * 1000;
 
-            if (character.XP >= xp)
+            if (character.XP == xp)
             {
                 character.XPLvl = character.XP;
                 character.Lvl++;
@@ -296,32 +368,12 @@ namespace GameCharacterEditor
                 Points_Text.Text = character.Points.ToString();
             }
 
-            if(int.Parse(Lvl_Text.Text) % 3 == 0 && int.Parse(Lvl_Text.Text) != 0)
+            if(int.Parse(Lvl_Text.Text) % 3 == 0 && int.Parse(Lvl_Text.Text) != 0
+                && character.XP == character.XPLvl)
             {
-                MessageBox.Show("Choose any skill");
-                Skills_ComboBox.Visible = true;
-
-                /*Skills_Lable.Visible = true;
-                switch (Lvl_Text.Text)
-                {
-                    case "3":
-                        Fireballs_ÑheckBox.Visible = true;
-                        Invisibility_ÑheckBox.Visible = true;
-                        Noiselessness_CheckBox.Visible = true;
-                        break;
-                    case "6":
-                        Shild_ÑheckBox.Visible = true;
-                        Flight_ÑheckBox.Visible = true;
-                        MegaDamage_CheckBox.Visible = true;
-                        break;
-                    case "9":
-                        Vision_ÑheckBox.Visible = true;
-                        Speed_ÑheckBox.Visible = true;
-                        Teleportation_CheckBox.Visible = true;
-                        break;
-                }*/
+                Skills_Lable.Visible = true;
+                Skill_CheckBox.Visible = true;
             }
-            
         }
     }
 }

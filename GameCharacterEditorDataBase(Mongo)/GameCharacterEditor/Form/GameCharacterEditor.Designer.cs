@@ -48,19 +48,13 @@
             this.MPAttack_Text = new System.Windows.Forms.NumericUpDown();
             this.HP_Text = new System.Windows.Forms.NumericUpDown();
             this.MP_Text = new System.Windows.Forms.NumericUpDown();
-            this.OK_Button = new System.Windows.Forms.Button();
+            this.Save_Button = new System.Windows.Forms.Button();
             this.SavedCharactersBox = new System.Windows.Forms.ListBox();
             this.SavedCharacteers_Lable = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Name_Text = new System.Windows.Forms.TextBox();
             this.Type_Lable = new System.Windows.Forms.Label();
-            this.Bow_CheckBox = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.Mace_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Dagger_CheckBox = new System.Windows.Forms.CheckBox();
-            this.Bow_CheckBox2 = new System.Windows.Forms.CheckBox();
-            this.Mace_CheckBox2 = new System.Windows.Forms.CheckBox();
-            this.Dagger_CheckBox2 = new System.Windows.Forms.CheckBox();
+            this.Equipment_Lable = new System.Windows.Forms.Label();
             this.XP_Text = new System.Windows.Forms.NumericUpDown();
             this.HP_Label = new System.Windows.Forms.Label();
             this.Lvl_Lable = new System.Windows.Forms.Label();
@@ -68,9 +62,14 @@
             this.Lvl_Text = new System.Windows.Forms.Label();
             this.Points_Lable = new System.Windows.Forms.Label();
             this.Points_Text = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.Skills_ComboBox = new System.Windows.Forms.ComboBox();
+            this.OK_Button = new System.Windows.Forms.Button();
+            this.Edit_Button = new System.Windows.Forms.Button();
+            this.Equipment_Text = new System.Windows.Forms.TextBox();
+            this.Equipment_CheckBox = new System.Windows.Forms.CheckedListBox();
+            this.Skills_Lable = new System.Windows.Forms.Label();
             this.Skill_Text = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Skill_CheckBox = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.Intelligence_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Constitution_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Strength_Text)).BeginInit();
@@ -87,7 +86,7 @@
             // 
             this.Strength_Label.AutoSize = true;
             this.Strength_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Strength_Label.Location = new System.Drawing.Point(30, 191);
+            this.Strength_Label.Location = new System.Drawing.Point(288, 95);
             this.Strength_Label.Name = "Strength_Label";
             this.Strength_Label.Size = new System.Drawing.Size(85, 22);
             this.Strength_Label.TabIndex = 1;
@@ -97,7 +96,7 @@
             // 
             this.Dexterity_Label.AutoSize = true;
             this.Dexterity_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Dexterity_Label.Location = new System.Drawing.Point(30, 222);
+            this.Dexterity_Label.Location = new System.Drawing.Point(288, 126);
             this.Dexterity_Label.Name = "Dexterity_Label";
             this.Dexterity_Label.Size = new System.Drawing.Size(90, 22);
             this.Dexterity_Label.TabIndex = 2;
@@ -107,7 +106,7 @@
             // 
             this.Constitution_Label.AutoSize = true;
             this.Constitution_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Constitution_Label.Location = new System.Drawing.Point(30, 253);
+            this.Constitution_Label.Location = new System.Drawing.Point(288, 157);
             this.Constitution_Label.Name = "Constitution_Label";
             this.Constitution_Label.Size = new System.Drawing.Size(115, 22);
             this.Constitution_Label.TabIndex = 3;
@@ -117,7 +116,7 @@
             // 
             this.Intelligence_Label.AutoSize = true;
             this.Intelligence_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Intelligence_Label.Location = new System.Drawing.Point(30, 284);
+            this.Intelligence_Label.Location = new System.Drawing.Point(288, 188);
             this.Intelligence_Label.Name = "Intelligence_Label";
             this.Intelligence_Label.Size = new System.Drawing.Size(109, 22);
             this.Intelligence_Label.TabIndex = 4;
@@ -127,7 +126,7 @@
             // 
             this.MP_Label.AutoSize = true;
             this.MP_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.MP_Label.Location = new System.Drawing.Point(336, 192);
+            this.MP_Label.Location = new System.Drawing.Point(288, 251);
             this.MP_Label.Name = "MP_Label";
             this.MP_Label.Size = new System.Drawing.Size(45, 22);
             this.MP_Label.TabIndex = 6;
@@ -137,7 +136,7 @@
             // 
             this.PDef_Label.AutoSize = true;
             this.PDef_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.PDef_Label.Location = new System.Drawing.Point(336, 223);
+            this.PDef_Label.Location = new System.Drawing.Point(288, 282);
             this.PDef_Label.Name = "PDef_Label";
             this.PDef_Label.Size = new System.Drawing.Size(56, 22);
             this.PDef_Label.TabIndex = 7;
@@ -147,7 +146,7 @@
             // 
             this.Attack_Label.AutoSize = true;
             this.Attack_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Attack_Label.Location = new System.Drawing.Point(336, 254);
+            this.Attack_Label.Location = new System.Drawing.Point(288, 313);
             this.Attack_Label.Name = "Attack_Label";
             this.Attack_Label.Size = new System.Drawing.Size(70, 22);
             this.Attack_Label.TabIndex = 8;
@@ -156,8 +155,9 @@
             // Intelligence_Text
             // 
             this.Intelligence_Text.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Intelligence_Text.Enabled = false;
             this.Intelligence_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Intelligence_Text.Location = new System.Drawing.Point(168, 283);
+            this.Intelligence_Text.Location = new System.Drawing.Point(411, 189);
             this.Intelligence_Text.Name = "Intelligence_Text";
             this.Intelligence_Text.Size = new System.Drawing.Size(120, 25);
             this.Intelligence_Text.TabIndex = 19;
@@ -166,8 +166,9 @@
             // Constitution_Text
             // 
             this.Constitution_Text.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Constitution_Text.Enabled = false;
             this.Constitution_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Constitution_Text.Location = new System.Drawing.Point(168, 252);
+            this.Constitution_Text.Location = new System.Drawing.Point(411, 158);
             this.Constitution_Text.Name = "Constitution_Text";
             this.Constitution_Text.Size = new System.Drawing.Size(120, 25);
             this.Constitution_Text.TabIndex = 20;
@@ -176,8 +177,9 @@
             // Strength_Text
             // 
             this.Strength_Text.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Strength_Text.Enabled = false;
             this.Strength_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Strength_Text.Location = new System.Drawing.Point(168, 190);
+            this.Strength_Text.Location = new System.Drawing.Point(411, 96);
             this.Strength_Text.Name = "Strength_Text";
             this.Strength_Text.Size = new System.Drawing.Size(120, 25);
             this.Strength_Text.TabIndex = 21;
@@ -186,8 +188,9 @@
             // Dexterity_Text
             // 
             this.Dexterity_Text.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Dexterity_Text.Enabled = false;
             this.Dexterity_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Dexterity_Text.Location = new System.Drawing.Point(168, 221);
+            this.Dexterity_Text.Location = new System.Drawing.Point(411, 127);
             this.Dexterity_Text.Name = "Dexterity_Text";
             this.Dexterity_Text.Size = new System.Drawing.Size(120, 25);
             this.Dexterity_Text.TabIndex = 22;
@@ -198,7 +201,7 @@
             this.Rogue_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.Rogue_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Rogue_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Rogue_Button.Location = new System.Drawing.Point(30, 23);
+            this.Rogue_Button.Location = new System.Drawing.Point(12, 12);
             this.Rogue_Button.Name = "Rogue_Button";
             this.Rogue_Button.Size = new System.Drawing.Size(100, 30);
             this.Rogue_Button.TabIndex = 23;
@@ -211,7 +214,7 @@
             this.Wizard_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.Wizard_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Wizard_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Wizard_Button.Location = new System.Drawing.Point(242, 23);
+            this.Wizard_Button.Location = new System.Drawing.Point(224, 12);
             this.Wizard_Button.Name = "Wizard_Button";
             this.Wizard_Button.Size = new System.Drawing.Size(100, 30);
             this.Wizard_Button.TabIndex = 24;
@@ -224,7 +227,7 @@
             this.Warrior_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.Warrior_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Warrior_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Warrior_Button.Location = new System.Drawing.Point(136, 23);
+            this.Warrior_Button.Location = new System.Drawing.Point(118, 12);
             this.Warrior_Button.Name = "Warrior_Button";
             this.Warrior_Button.Size = new System.Drawing.Size(100, 30);
             this.Warrior_Button.TabIndex = 25;
@@ -236,7 +239,7 @@
             // 
             this.MPAttack_Label.AutoSize = true;
             this.MPAttack_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.MPAttack_Label.Location = new System.Drawing.Point(336, 285);
+            this.MPAttack_Label.Location = new System.Drawing.Point(288, 344);
             this.MPAttack_Label.Name = "MPAttack_Label";
             this.MPAttack_Label.Size = new System.Drawing.Size(103, 22);
             this.MPAttack_Label.TabIndex = 30;
@@ -247,7 +250,7 @@
             this.Attack_Text.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Attack_Text.Enabled = false;
             this.Attack_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Attack_Text.Location = new System.Drawing.Point(470, 253);
+            this.Attack_Text.Location = new System.Drawing.Point(411, 313);
             this.Attack_Text.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -262,7 +265,7 @@
             this.PDef_Text.Cursor = System.Windows.Forms.Cursors.Hand;
             this.PDef_Text.Enabled = false;
             this.PDef_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PDef_Text.Location = new System.Drawing.Point(470, 222);
+            this.PDef_Text.Location = new System.Drawing.Point(411, 282);
             this.PDef_Text.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -277,7 +280,7 @@
             this.MPAttack_Text.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MPAttack_Text.Enabled = false;
             this.MPAttack_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.MPAttack_Text.Location = new System.Drawing.Point(470, 285);
+            this.MPAttack_Text.Location = new System.Drawing.Point(411, 345);
             this.MPAttack_Text.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -292,7 +295,7 @@
             this.HP_Text.Cursor = System.Windows.Forms.Cursors.Hand;
             this.HP_Text.Enabled = false;
             this.HP_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.HP_Text.Location = new System.Drawing.Point(470, 160);
+            this.HP_Text.Location = new System.Drawing.Point(411, 220);
             this.HP_Text.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -307,7 +310,7 @@
             this.MP_Text.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MP_Text.Enabled = false;
             this.MP_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.MP_Text.Location = new System.Drawing.Point(470, 191);
+            this.MP_Text.Location = new System.Drawing.Point(411, 251);
             this.MP_Text.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -317,18 +320,19 @@
             this.MP_Text.Size = new System.Drawing.Size(120, 25);
             this.MP_Text.TabIndex = 42;
             // 
-            // OK_Button
+            // Save_Button
             // 
-            this.OK_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.OK_Button.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OK_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.OK_Button.Location = new System.Drawing.Point(674, 345);
-            this.OK_Button.Name = "OK_Button";
-            this.OK_Button.Size = new System.Drawing.Size(100, 30);
-            this.OK_Button.TabIndex = 43;
-            this.OK_Button.Text = "OK";
-            this.OK_Button.UseVisualStyleBackColor = false;
-            this.OK_Button.Click += new System.EventHandler(this.OK_Button_Click);
+            this.Save_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Save_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Save_Button.Enabled = false;
+            this.Save_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Save_Button.Location = new System.Drawing.Point(688, 417);
+            this.Save_Button.Name = "Save_Button";
+            this.Save_Button.Size = new System.Drawing.Size(100, 30);
+            this.Save_Button.TabIndex = 43;
+            this.Save_Button.Text = "Save";
+            this.Save_Button.UseVisualStyleBackColor = false;
+            this.Save_Button.Click += new System.EventHandler(this.Save_Button_Click);
             // 
             // SavedCharactersBox
             // 
@@ -336,9 +340,9 @@
             this.SavedCharactersBox.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
             this.SavedCharactersBox.FormattingEnabled = true;
             this.SavedCharactersBox.ItemHeight = 15;
-            this.SavedCharactersBox.Location = new System.Drawing.Point(631, 105);
+            this.SavedCharactersBox.Location = new System.Drawing.Point(619, 25);
             this.SavedCharactersBox.Name = "SavedCharactersBox";
-            this.SavedCharactersBox.Size = new System.Drawing.Size(143, 214);
+            this.SavedCharactersBox.Size = new System.Drawing.Size(169, 349);
             this.SavedCharactersBox.TabIndex = 46;
             this.SavedCharactersBox.SelectedIndexChanged += new System.EventHandler(this.SavedCharactersBox_SelectedIndexChanged);
             // 
@@ -346,7 +350,7 @@
             // 
             this.SavedCharacteers_Lable.AutoSize = true;
             this.SavedCharacteers_Lable.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.SavedCharacteers_Lable.Location = new System.Drawing.Point(641, 83);
+            this.SavedCharacteers_Lable.Location = new System.Drawing.Point(643, 5);
             this.SavedCharacteers_Lable.Name = "SavedCharacteers_Lable";
             this.SavedCharacteers_Lable.Size = new System.Drawing.Size(123, 17);
             this.SavedCharacteers_Lable.TabIndex = 47;
@@ -356,7 +360,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(30, 160);
+            this.label2.Location = new System.Drawing.Point(288, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 22);
             this.label2.TabIndex = 48;
@@ -365,8 +369,9 @@
             // Name_Text
             // 
             this.Name_Text.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.Name_Text.Enabled = false;
             this.Name_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Name_Text.Location = new System.Drawing.Point(168, 159);
+            this.Name_Text.Location = new System.Drawing.Point(411, 65);
             this.Name_Text.Name = "Name_Text";
             this.Name_Text.Size = new System.Drawing.Size(120, 25);
             this.Name_Text.TabIndex = 49;
@@ -377,110 +382,33 @@
             this.Type_Lable.AutoSize = true;
             this.Type_Lable.Font = new System.Drawing.Font("Swis721 BlkCn BT", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
             this.Type_Lable.ForeColor = System.Drawing.Color.Black;
-            this.Type_Lable.Location = new System.Drawing.Point(30, 77);
+            this.Type_Lable.Location = new System.Drawing.Point(12, 63);
             this.Type_Lable.Name = "Type_Lable";
             this.Type_Lable.Size = new System.Drawing.Size(105, 22);
             this.Type_Lable.TabIndex = 50;
             this.Type_Lable.Text = "CHARACTER";
             // 
-            // Bow_CheckBox
+            // Equipment_Lable
             // 
-            this.Bow_CheckBox.AutoSize = true;
-            this.Bow_CheckBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Bow_CheckBox.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Bow_CheckBox.Location = new System.Drawing.Point(166, 331);
-            this.Bow_CheckBox.Name = "Bow_CheckBox";
-            this.Bow_CheckBox.Size = new System.Drawing.Size(55, 21);
-            this.Bow_CheckBox.TabIndex = 51;
-            this.Bow_CheckBox.Text = "Bow";
-            this.Bow_CheckBox.UseVisualStyleBackColor = true;
-            this.Bow_CheckBox.CheckedChanged += new System.EventHandler(this.Bow_CheckBox_CheckedChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(30, 328);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 22);
-            this.label3.TabIndex = 52;
-            this.label3.Text = "Equipment:";
-            // 
-            // Mace_CheckBox
-            // 
-            this.Mace_CheckBox.AutoSize = true;
-            this.Mace_CheckBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Mace_CheckBox.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Mace_CheckBox.Location = new System.Drawing.Point(255, 331);
-            this.Mace_CheckBox.Name = "Mace_CheckBox";
-            this.Mace_CheckBox.Size = new System.Drawing.Size(61, 21);
-            this.Mace_CheckBox.TabIndex = 53;
-            this.Mace_CheckBox.Text = "Mace";
-            this.Mace_CheckBox.UseVisualStyleBackColor = true;
-            this.Mace_CheckBox.CheckedChanged += new System.EventHandler(this.Mace_CheckBox_CheckedChanged);
-            // 
-            // Dagger_CheckBox
-            // 
-            this.Dagger_CheckBox.AutoSize = true;
-            this.Dagger_CheckBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Dagger_CheckBox.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Dagger_CheckBox.Location = new System.Drawing.Point(344, 331);
-            this.Dagger_CheckBox.Name = "Dagger_CheckBox";
-            this.Dagger_CheckBox.Size = new System.Drawing.Size(71, 21);
-            this.Dagger_CheckBox.TabIndex = 54;
-            this.Dagger_CheckBox.Text = "Dagger";
-            this.Dagger_CheckBox.UseVisualStyleBackColor = true;
-            this.Dagger_CheckBox.CheckedChanged += new System.EventHandler(this.Dagger_CheckBox_CheckedChanged);
-            // 
-            // Bow_CheckBox2
-            // 
-            this.Bow_CheckBox2.AutoSize = true;
-            this.Bow_CheckBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Bow_CheckBox2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Bow_CheckBox2.Location = new System.Drawing.Point(166, 331);
-            this.Bow_CheckBox2.Name = "Bow_CheckBox2";
-            this.Bow_CheckBox2.Size = new System.Drawing.Size(55, 21);
-            this.Bow_CheckBox2.TabIndex = 55;
-            this.Bow_CheckBox2.Text = "Bow";
-            this.Bow_CheckBox2.UseVisualStyleBackColor = true;
-            this.Bow_CheckBox2.Visible = false;
-            // 
-            // Mace_CheckBox2
-            // 
-            this.Mace_CheckBox2.AutoSize = true;
-            this.Mace_CheckBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Mace_CheckBox2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Mace_CheckBox2.Location = new System.Drawing.Point(255, 331);
-            this.Mace_CheckBox2.Name = "Mace_CheckBox2";
-            this.Mace_CheckBox2.Size = new System.Drawing.Size(61, 21);
-            this.Mace_CheckBox2.TabIndex = 56;
-            this.Mace_CheckBox2.Text = "Mace";
-            this.Mace_CheckBox2.UseVisualStyleBackColor = true;
-            this.Mace_CheckBox2.Visible = false;
-            // 
-            // Dagger_CheckBox2
-            // 
-            this.Dagger_CheckBox2.AutoSize = true;
-            this.Dagger_CheckBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Dagger_CheckBox2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Dagger_CheckBox2.Location = new System.Drawing.Point(344, 331);
-            this.Dagger_CheckBox2.Name = "Dagger_CheckBox2";
-            this.Dagger_CheckBox2.Size = new System.Drawing.Size(71, 21);
-            this.Dagger_CheckBox2.TabIndex = 57;
-            this.Dagger_CheckBox2.Text = "Dagger";
-            this.Dagger_CheckBox2.UseVisualStyleBackColor = true;
-            this.Dagger_CheckBox2.Visible = false;
+            this.Equipment_Lable.AutoSize = true;
+            this.Equipment_Lable.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.Equipment_Lable.Location = new System.Drawing.Point(286, 407);
+            this.Equipment_Lable.Name = "Equipment_Lable";
+            this.Equipment_Lable.Size = new System.Drawing.Size(111, 22);
+            this.Equipment_Lable.TabIndex = 52;
+            this.Equipment_Lable.Text = "Equipments:";
             // 
             // XP_Text
             // 
             this.XP_Text.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.XP_Text.Enabled = false;
             this.XP_Text.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.XP_Text.Increment = new decimal(new int[] {
             500,
             0,
             0,
             0});
-            this.XP_Text.Location = new System.Drawing.Point(324, 75);
+            this.XP_Text.Location = new System.Drawing.Point(76, 158);
             this.XP_Text.Maximum = new decimal(new int[] {
             55000,
             0,
@@ -495,7 +423,7 @@
             // 
             this.HP_Label.AutoSize = true;
             this.HP_Label.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.HP_Label.Location = new System.Drawing.Point(336, 161);
+            this.HP_Label.Location = new System.Drawing.Point(288, 220);
             this.HP_Label.Name = "HP_Label";
             this.HP_Label.Size = new System.Drawing.Size(41, 22);
             this.HP_Label.TabIndex = 5;
@@ -505,7 +433,7 @@
             // 
             this.Lvl_Lable.AutoSize = true;
             this.Lvl_Lable.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Lvl_Lable.Location = new System.Drawing.Point(168, 77);
+            this.Lvl_Lable.Location = new System.Drawing.Point(12, 126);
             this.Lvl_Lable.Name = "Lvl_Lable";
             this.Lvl_Lable.Size = new System.Drawing.Size(50, 22);
             this.Lvl_Lable.TabIndex = 59;
@@ -515,7 +443,7 @@
             // 
             this.XP_Lable.AutoSize = true;
             this.XP_Lable.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.XP_Lable.Location = new System.Drawing.Point(278, 76);
+            this.XP_Lable.Location = new System.Drawing.Point(12, 156);
             this.XP_Lable.Name = "XP_Lable";
             this.XP_Lable.Size = new System.Drawing.Size(40, 22);
             this.XP_Lable.TabIndex = 60;
@@ -525,7 +453,7 @@
             // 
             this.Lvl_Text.AutoSize = true;
             this.Lvl_Text.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Lvl_Text.Location = new System.Drawing.Point(224, 78);
+            this.Lvl_Text.Location = new System.Drawing.Point(76, 125);
             this.Lvl_Text.Name = "Lvl_Text";
             this.Lvl_Text.Size = new System.Drawing.Size(20, 22);
             this.Lvl_Text.TabIndex = 61;
@@ -535,7 +463,7 @@
             // 
             this.Points_Lable.AutoSize = true;
             this.Points_Lable.Font = new System.Drawing.Font("Swis721 BlkCn BT", 12.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
-            this.Points_Lable.Location = new System.Drawing.Point(30, 112);
+            this.Points_Lable.Location = new System.Drawing.Point(12, 95);
             this.Points_Lable.Name = "Points_Lable";
             this.Points_Lable.Size = new System.Drawing.Size(58, 20);
             this.Points_Lable.TabIndex = 62;
@@ -545,75 +473,141 @@
             // 
             this.Points_Text.AutoSize = true;
             this.Points_Text.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Points_Text.Location = new System.Drawing.Point(94, 111);
+            this.Points_Text.Location = new System.Drawing.Point(76, 95);
             this.Points_Text.Name = "Points_Text";
             this.Points_Text.Size = new System.Drawing.Size(20, 22);
             this.Points_Text.TabIndex = 63;
             this.Points_Text.Text = "0";
             // 
-            // label1
+            // OK_Button
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(296, 112);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 22);
-            this.label1.TabIndex = 64;
+            this.OK_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.OK_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OK_Button.Enabled = false;
+            this.OK_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.OK_Button.Location = new System.Drawing.Point(689, 381);
+            this.OK_Button.Name = "OK_Button";
+            this.OK_Button.Size = new System.Drawing.Size(100, 30);
+            this.OK_Button.TabIndex = 77;
+            this.OK_Button.Text = "OK";
+            this.OK_Button.UseVisualStyleBackColor = false;
+            this.OK_Button.Click += new System.EventHandler(this.OK_Button_Click);
             // 
-            // Skills_ComboBox
+            // Edit_Button
             // 
-            this.Skills_ComboBox.FormattingEnabled = true;
-            this.Skills_ComboBox.Items.AddRange(new object[] {
+            this.Edit_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Edit_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Edit_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Edit_Button.Location = new System.Drawing.Point(537, 405);
+            this.Edit_Button.Name = "Edit_Button";
+            this.Edit_Button.Size = new System.Drawing.Size(56, 26);
+            this.Edit_Button.TabIndex = 82;
+            this.Edit_Button.Text = "Edit";
+            this.Edit_Button.UseVisualStyleBackColor = false;
+            this.Edit_Button.Visible = false;
+            this.Edit_Button.Click += new System.EventHandler(this.Edit_Button_Click);
+            // 
+            // Equipment_Text
+            // 
+            this.Equipment_Text.Location = new System.Drawing.Point(411, 405);
+            this.Equipment_Text.Multiline = true;
+            this.Equipment_Text.Name = "Equipment_Text";
+            this.Equipment_Text.Size = new System.Drawing.Size(120, 30);
+            this.Equipment_Text.TabIndex = 83;
+            this.Equipment_Text.Visible = false;
+            // 
+            // Equipment_CheckBox
+            // 
+            this.Equipment_CheckBox.Enabled = false;
+            this.Equipment_CheckBox.FormattingEnabled = true;
+            this.Equipment_CheckBox.Items.AddRange(new object[] {
+            "Bow",
+            "Mace",
+            "Dagger"});
+            this.Equipment_CheckBox.Location = new System.Drawing.Point(411, 389);
+            this.Equipment_CheckBox.Name = "Equipment_CheckBox";
+            this.Equipment_CheckBox.Size = new System.Drawing.Size(120, 58);
+            this.Equipment_CheckBox.TabIndex = 84;
+            this.Equipment_CheckBox.SelectedIndexChanged += new System.EventHandler(this.Equipment_CheckBox_SelectedIndexChanged);
+            // 
+            // Skills_Lable
+            // 
+            this.Skills_Lable.AutoSize = true;
+            this.Skills_Lable.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.Skills_Lable.Location = new System.Drawing.Point(12, 188);
+            this.Skills_Lable.Name = "Skills_Lable";
+            this.Skills_Lable.Size = new System.Drawing.Size(60, 22);
+            this.Skills_Lable.TabIndex = 85;
+            this.Skills_Lable.Text = "Skills:";
+            this.Skills_Lable.Visible = false;
+            // 
+            // Skill_Text
+            // 
+            this.Skill_Text.Location = new System.Drawing.Point(76, 189);
+            this.Skill_Text.Multiline = true;
+            this.Skill_Text.Name = "Skill_Text";
+            this.Skill_Text.Size = new System.Drawing.Size(120, 111);
+            this.Skill_Text.TabIndex = 87;
+            this.Skill_Text.Visible = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Enabled = false;
+            this.textBox1.Font = new System.Drawing.Font("Snap ITC", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.textBox1.Location = new System.Drawing.Point(12, 313);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(239, 134);
+            this.textBox1.TabIndex = 89;
+            this.textBox1.Text = "Game Character Editor";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Skill_CheckBox
+            // 
+            this.Skill_CheckBox.FormattingEnabled = true;
+            this.Skill_CheckBox.Items.AddRange(new object[] {
             "Shild",
             "Flight",
             "Vision",
             "Speed",
             "Teleportation",
             "Invisibility"});
-            this.Skills_ComboBox.Location = new System.Drawing.Point(470, 330);
-            this.Skills_ComboBox.Name = "Skills_ComboBox";
-            this.Skills_ComboBox.Size = new System.Drawing.Size(121, 23);
-            this.Skills_ComboBox.TabIndex = 75;
-            this.Skills_ComboBox.Text = "Skills";
-            this.Skills_ComboBox.Visible = false;
-            this.Skills_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Skills_ComboBox_SelectedIndexChanged);
-            // 
-            // Skill_Text
-            // 
-            this.Skill_Text.Location = new System.Drawing.Point(166, 367);
-            this.Skill_Text.Multiline = true;
-            this.Skill_Text.Name = "Skill_Text";
-            this.Skill_Text.Size = new System.Drawing.Size(249, 23);
-            this.Skill_Text.TabIndex = 76;
+            this.Skill_CheckBox.Location = new System.Drawing.Point(76, 188);
+            this.Skill_CheckBox.Name = "Skill_CheckBox";
+            this.Skill_CheckBox.Size = new System.Drawing.Size(120, 112);
+            this.Skill_CheckBox.TabIndex = 91;
+            this.Skill_CheckBox.Visible = false;
+            this.Skill_CheckBox.SelectedIndexChanged += new System.EventHandler(this.Skills_CheckBox_SelectedIndexChanged);
             // 
             // GameCharacterEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 454);
+            this.Controls.Add(this.Skill_CheckBox);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Skill_Text);
-            this.Controls.Add(this.Skills_ComboBox);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.Skills_Lable);
+            this.Controls.Add(this.Equipment_CheckBox);
+            this.Controls.Add(this.Equipment_Text);
+            this.Controls.Add(this.Edit_Button);
+            this.Controls.Add(this.OK_Button);
             this.Controls.Add(this.Points_Text);
             this.Controls.Add(this.Points_Lable);
             this.Controls.Add(this.Lvl_Text);
             this.Controls.Add(this.XP_Lable);
             this.Controls.Add(this.Lvl_Lable);
             this.Controls.Add(this.XP_Text);
-            this.Controls.Add(this.Dagger_CheckBox2);
-            this.Controls.Add(this.Mace_CheckBox2);
-            this.Controls.Add(this.Bow_CheckBox2);
-            this.Controls.Add(this.Dagger_CheckBox);
-            this.Controls.Add(this.Mace_CheckBox);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.Bow_CheckBox);
+            this.Controls.Add(this.Equipment_Lable);
             this.Controls.Add(this.Type_Lable);
             this.Controls.Add(this.Name_Text);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.SavedCharacteers_Lable);
             this.Controls.Add(this.SavedCharactersBox);
-            this.Controls.Add(this.OK_Button);
+            this.Controls.Add(this.Save_Button);
             this.Controls.Add(this.MP_Text);
             this.Controls.Add(this.HP_Text);
             this.Controls.Add(this.MPAttack_Text);
@@ -673,19 +667,13 @@
         private NumericUpDown MPAttack_Text;
         private NumericUpDown HP_Text;
         private NumericUpDown MP_Text;
-        private Button OK_Button;
+        private Button Save_Button;
         private ListBox SavedCharactersBox;
         private Label SavedCharacteers_Lable;
         private Label label2;
         private TextBox Name_Text;
         private Label Type_Lable;
-        private CheckBox Bow_CheckBox;
-        private Label label3;
-        private CheckBox Mace_CheckBox;
-        private CheckBox Dagger_CheckBox;
-        private CheckBox Bow_CheckBox2;
-        private CheckBox Mace_CheckBox2;
-        private CheckBox Dagger_CheckBox2;
+        private Label Equipment_Lable;
         private NumericUpDown XP_Text;
         private Label HP_Label;
         private Label Lvl_Lable;
@@ -693,8 +681,13 @@
         private Label Lvl_Text;
         private Label Points_Lable;
         private Label Points_Text;
-        private Label label1;
-        private ComboBox Skills_ComboBox;
+        private Button OK_Button;
+        private Button Edit_Button;
+        private TextBox Equipment_Text;
+        private CheckedListBox Equipment_CheckBox;
+        private Label Skills_Lable;
         private TextBox Skill_Text;
+        private TextBox textBox1;
+        private CheckedListBox Skill_CheckBox;
     }
 }

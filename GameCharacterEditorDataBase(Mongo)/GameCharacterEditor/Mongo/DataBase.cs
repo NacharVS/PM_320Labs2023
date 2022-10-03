@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -38,13 +39,14 @@ namespace GameCharacterEditor
             return list;
         }
 
-        public static void ReplaceByName(Character character)
+        public static void ReplaceByName(string name, Character character)
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("GameCharacterEditor");
             var collection = database.GetCollection<Character>("CharacterCollection");
-            var filter = new  BsonDocument("Id", character.Id);
-            collection.ReplaceOne(filter, character);
+            /*var filter = new BsonDocument("Id", character.Id);
+            collection.ReplaceOne(filter, character);*/
+            collection.ReplaceOne(x => x.Name == name, character);
         }
     }
 }
