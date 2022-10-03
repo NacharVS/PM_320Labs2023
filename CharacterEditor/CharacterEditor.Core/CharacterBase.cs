@@ -1,4 +1,5 @@
 ﻿using CharacterEditor.Core.Characteristics;
+using CharacterEditor.Core.Misc;
 
 namespace CharacterEditor.Core;
 
@@ -216,7 +217,7 @@ public abstract class CharacterBase
     private void OnLevelUp()
     {
         _skillPoints += SkillPointsPerLevel;
-        if (Level.CurrentLevel % AbilityGainLevelInterval == 0)
+        if (_abilities.Count < MaximumAbilityCount && Level.CurrentLevel % AbilityGainLevelInterval == 0)
             OnAbilityGain?.Invoke();
     }
 

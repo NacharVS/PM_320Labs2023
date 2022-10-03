@@ -2,6 +2,7 @@
 using CharacterEditor.Core.Classes;
 using CharacterEditor.Core.Db;
 using CharacterEditor.Core.Exceptions;
+using CharacterEditor.Core.Misc;
 using MongoDB.Driver;
 
 namespace CharacterEditor.MongoDB;

@@ -2,8 +2,8 @@
 
 namespace CharacterEditor.Core.Db;
 
-public interface IAbilityRepository
+public interface IItemRepository
 {
-    public IEnumerable<Ability> GetAllAbilities();
+    public IEnumerable<Item> GetAllItems();
     public void InitializeCollection();
 }

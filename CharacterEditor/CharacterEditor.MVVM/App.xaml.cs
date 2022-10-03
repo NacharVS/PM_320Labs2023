@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 using System.Windows;
 using CharacterEditor.Core.Db;
 using CharacterEditor.Core.Exceptions;
@@ -29,6 +24,8 @@ namespace CharacterEditor.MVVM
                 throw new NotFoundException("No database name"));
             CharacterRepository = new CharacterRepository(Connection);
             AbilityRepository = new AbilityRepository(Connection);
+            
+            AbilityRepository.InitializeCollection();
         }
     }
 }

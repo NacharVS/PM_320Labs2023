@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using CharacterEditor.Core;
 using CharacterEditor.Core.Classes;
 using CharacterEditor.Core.Db;
+using CharacterEditor.Core.Misc;
 using CharacterEditor.WPF.Components;
 using CharacterEditor.WPF.Windows;
 

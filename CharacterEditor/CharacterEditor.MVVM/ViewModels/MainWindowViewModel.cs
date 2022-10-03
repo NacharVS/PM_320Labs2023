@@ -8,6 +8,7 @@ using System.Windows.Input;
 using CharacterEditor.Core;
 using CharacterEditor.Core.Classes;
 using CharacterEditor.Core.Db;
+using CharacterEditor.Core.Misc;
 using CharacterEditor.MVVM.Utils;
 using CharacterEditor.MVVM.Utils.Commands;
 using CharacterEditor.MVVM.Utils.Parameters;
@@ -255,7 +256,9 @@ public class MainWindowViewModel : ViewModel
     #region UpdateCharacteristicValue
 
     public ICommand UpdateCharacteristicValue { get; }
-    private bool CanUpdateCharacteristicValueExecute(object p) => true;
+
+    private bool CanUpdateCharacteristicValueExecute(object p) =>
+        _currentCharacter is not null;
 
     private void OnUpdateCharacteristicValueExecuted(object p)
     {
@@ -303,7 +306,7 @@ public class MainWindowViewModel : ViewModel
         _currentCharacter.OnAbilityGain += GiveAbility;
         UpdateFields(UpdateFieldValues.All);
     }
-    
+
     private void SaveCurrentCharacter()
     {
         if (_currentCharacter!.Id is null)
@@ -349,7 +352,8 @@ public class MainWindowViewModel : ViewModel
         _repository = app.CharacterRepository;
         _abilityRepository = app.AbilityRepository;
 
-        UpdateCharacteristicValue = new LambdaCommand(OnUpdateCharacteristicValueExecuted,
+        UpdateCharacteristicValue = new LambdaCommand(
+            OnUpdateCharacteristicValueExecuted,
             CanUpdateCharacteristicValueExecute);
         CreateNewCharacterCommand = new LambdaCommand(
             OnCreateNewCharacterCommandExecuted,
@@ -362,7 +366,5 @@ public class MainWindowViewModel : ViewModel
             OnRemoveItemFromInventoryExecuted,
             CanRemoveItemFromInventoryExecute);
         AddXp = new LambdaCommand(OnAddXpExecuted, CanAddXpExecute);
-
-        _abilityRepository.InitializeCollection();
     }
 }

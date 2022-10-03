@@ -1,4 +1,6 @@
-﻿namespace CharacterEditor.Core.Db;
+﻿using CharacterEditor.Core.Misc;
+
+namespace CharacterEditor.Core.Db;
 
 public static class Defaults
 {

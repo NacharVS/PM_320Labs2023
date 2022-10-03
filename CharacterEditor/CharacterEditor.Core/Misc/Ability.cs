@@ -1,6 +1,6 @@
-﻿namespace CharacterEditor.Core;
+﻿namespace CharacterEditor.Core.Misc;
 
-public class Ability
+public class Ability : ICanChangeStats
 {
     public string? Name { get; set; }
     public int HealthChange { get; set; }

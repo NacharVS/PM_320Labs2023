@@ -1,4 +1,4 @@
-﻿using CharacterEditor.Core;
+﻿using CharacterEditor.Core.Misc;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using CharacterEditor.Core;
+using CharacterEditor.Core.Misc;
 
 namespace CharacterEditor.WPF.Windows
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CharacterEditor.MVVM.Utils;
 
 namespace CharacterEditor.MVVM.Utils;
 
