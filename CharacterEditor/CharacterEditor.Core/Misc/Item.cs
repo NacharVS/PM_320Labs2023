@@ -2,8 +2,8 @@
 
 public class Item : ICanChangeStats
 {
-    public string Name { get; set; } = string.Empty;
-    public string ClassName { get; set; } = string.Empty;
+    public string? Name { get; set; } = string.Empty;
+    public string? ClassName { get; set; } = string.Empty;
     public ItemType Type { get; set; }
     public string? TypeName => Enum.GetName(typeof(ItemType), Type);
     public int MinimumLevel { get; set; }

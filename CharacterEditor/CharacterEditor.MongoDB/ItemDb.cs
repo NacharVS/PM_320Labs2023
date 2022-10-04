@@ -8,10 +8,11 @@ public class ItemDb : CanChangeStatsDb
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
+    [BsonIgnoreIfNull]
     public string Id { get; internal set; } = null!;
 
     public string? Name { get; internal set; }
-    public string ClassName { get; internal set; }
+    public string? ClassName { get; internal set; }
     public ItemType Type { get; internal set; }
     public int MinimumLevel { get; internal set; }
 }

@@ -40,10 +40,6 @@ public class MainWindowViewModel : ViewModel
                 return;
             _selectedClass = value;
             CreateNewCharacter();
-            ExistingCharacters =
-                _repository.GetAllCharacterNamesByClass(
-                    _selectedClass?.Content as string ?? "");
-            OnPropertyChanged(nameof(ExistingCharacters));
         }
     }
 
@@ -304,8 +300,12 @@ public class MainWindowViewModel : ViewModel
         }
 
         UpdateFields(UpdateFieldValues.All);
+        ExistingCharacters =
+            _repository.GetAllCharacterNamesByClass(
+                _selectedClass?.Content as string ?? "");
         _currentCharacter!.OnAbilityGain += GiveAbility;
         _selectedCharacterInfo = null;
+        OnPropertyChanged(nameof(ExistingCharacters));
         OnPropertyChanged(nameof(SelectedCharacterInfo));
     }
 
