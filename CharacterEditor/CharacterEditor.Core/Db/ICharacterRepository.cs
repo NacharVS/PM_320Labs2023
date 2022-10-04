@@ -1,4 +1,6 @@
-﻿namespace CharacterEditor.Core.Db;
+﻿using CharacterEditor.Core.Misc;
+
+namespace CharacterEditor.Core.Db;
 
 public interface ICharacterRepository
 {
@@ -8,4 +10,6 @@ public interface ICharacterRepository
     public CharacterBase GetCharacter(string id);
     public void InsertCharacter(CharacterBase character);
     public void UpdateCharacter(string id, CharacterBase character);
+
+    public void UpdateInventory(string id, IEnumerable<Item> inventory);
 }

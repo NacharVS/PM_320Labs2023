@@ -13,9 +13,9 @@ public class ItemRepository : IItemRepository
         Items = connection.Database?.GetCollection<ItemDb>("Items")!;
     }
     
-    public IEnumerable<Item> GetAllItems()
+    public IEnumerable<Item> GetItemsByClass(string className)
     {
-        return Items.Find(x => true)
+        return Items.Find(x => x.ClassName == className)
             .ToEnumerable()
             .Select(x => new Item
             {
@@ -30,6 +30,23 @@ public class ItemRepository : IItemRepository
 
     public void InitializeCollection()
     {
-        throw new NotImplementedException();
+        foreach (var item in Defaults.DefaultItems)
+        {
+            var storedAbility = Items.Find(x => x.Name == item.Name)
+                .FirstOrDefault();
+            if (storedAbility is not null)
+                continue;
+
+            Items.InsertOne(new ItemDb
+            {
+                Name = item.Name, Type = item.Type,
+                AttackChange = item.AttackChange,
+                HealthChange = item.HealthChange,
+                ManaChange = item.ManaChange,
+                MagicalAttackChange = item.MagicalAttackChange,
+                PhysicalResistanceChange = item.PhysicalResistanceChange,
+                ClassName = item.ClassName, MinimumLevel = item.MinimumLevel
+            });
+        }
     }
 }

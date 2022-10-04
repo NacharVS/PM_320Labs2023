@@ -14,6 +14,7 @@ namespace CharacterEditor.MVVM
         private MongoConnection Connection { get; }
         public ICharacterRepository CharacterRepository { get; }
         public IAbilityRepository AbilityRepository { get; }
+        public IItemRepository ItemRepository { get; }
 
         public App()
         {
@@ -24,8 +25,10 @@ namespace CharacterEditor.MVVM
                 throw new NotFoundException("No database name"));
             CharacterRepository = new CharacterRepository(Connection);
             AbilityRepository = new AbilityRepository(Connection);
+            ItemRepository = new ItemRepository(Connection);
             
             AbilityRepository.InitializeCollection();
+            ItemRepository.InitializeCollection();
         }
     }
 }

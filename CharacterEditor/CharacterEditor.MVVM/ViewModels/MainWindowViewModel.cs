@@ -201,6 +201,9 @@ public class MainWindowViewModel : ViewModel
     {
         _currentCharacter!.DeleteFromInventory(SelectedItem!);
         OnPropertyChanged(nameof(Inventory));
+        UpdateFields(UpdateFieldValues.Stat);
+        if (_currentCharacter.Id != null)
+            _repository.UpdateInventory(_currentCharacter.Id, _currentCharacter.Inventory);
     }
 
     #endregion
@@ -214,12 +217,18 @@ public class MainWindowViewModel : ViewModel
 
     private void OnAddItemToInventoryExecuted(object p)
     {
-        var prompt = new TextPrompt();
+        var prompt = new AddItemWindow
+        {
+            DataContext = new AddItemWindowViewModel(_currentCharacter!)
+        };
         if (prompt.ShowDialog() == true)
         {
-            var item = new Item { Name = prompt.ResponseTextBox.Text };
-            _currentCharacter!.AddToInventory(item);
+            var item = prompt.ChooseItemListBox.SelectedItem as Item;
+            _currentCharacter!.AddToInventory(item!);
             OnPropertyChanged(nameof(Inventory));
+            UpdateFields(UpdateFieldValues.Stat);
+            if (_currentCharacter.Id != null)
+                _repository.UpdateInventory(_currentCharacter.Id, _currentCharacter.Inventory);
         }
     }
 
@@ -295,6 +304,7 @@ public class MainWindowViewModel : ViewModel
         }
 
         UpdateFields(UpdateFieldValues.All);
+        _currentCharacter!.OnAbilityGain += GiveAbility;
         _selectedCharacterInfo = null;
         OnPropertyChanged(nameof(SelectedCharacterInfo));
     }

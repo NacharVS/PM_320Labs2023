@@ -3,9 +3,9 @@
 public class Ability : ICanChangeStats
 {
     public string? Name { get; set; }
-    public int HealthChange { get; set; }
-    public int ManaChange { get; set; }
-    public int PhysicalResistanceChange { get; set; }
-    public int AttackChange { get; set; }
-    public int MagicalAttackChange { get; set; }
+    public int HealthChange { get; init; }
+    public int ManaChange { get; init; }
+    public int PhysicalResistanceChange { get; init; }
+    public int AttackChange { get; init; }
+    public int MagicalAttackChange { get; init; }
 }

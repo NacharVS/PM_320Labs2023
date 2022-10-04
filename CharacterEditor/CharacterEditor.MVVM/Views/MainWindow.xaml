@@ -176,7 +176,17 @@
                      HorizontalContentAlignment="Center"
                      BorderBrush="Black"
                      BorderThickness="1"
-                     FontSize="14" />
+                     FontSize="14" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding Name}"></Run>
+                            <Run Text=" | "></Run>
+                            <Run Text="{Binding TypeName, Mode=OneWay}"></Run>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <Button Grid.Row="4"
                     Grid.Column="1"
                     Command="{Binding AddItemToInventory}"

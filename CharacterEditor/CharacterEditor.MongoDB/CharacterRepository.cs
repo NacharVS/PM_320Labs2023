@@ -119,4 +119,12 @@ public class CharacterRepository : ICharacterRepository
                 })
         });
     }
+
+    public void UpdateInventory(string id, IEnumerable<Item> inventory)
+    {
+        var filter = Builders<CharacterDb>.Filter.Eq(x => x.Id, id);
+        var updateDefinition =
+            Builders<CharacterDb>.Update.Set(x => x.Inventory, inventory);
+        Characters.UpdateOne(filter, updateDefinition);
+    }
 }

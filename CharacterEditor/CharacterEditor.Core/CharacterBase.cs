@@ -129,13 +129,14 @@ public abstract class CharacterBase
         Level = new LevelInfo();
         Level.OnLevelUp += OnLevelUp;
         Level.CurrentExperience += experience;
-        OnAbilityAdd += (_, ability) =>
+        OnChangeStats += (_, entity, changeType) =>
         {
-            Health += ability.HealthChange;
-            AttackDamage += ability.AttackChange;
-            Mana += ability.ManaChange;
-            MagicalAttackDamage += ability.MagicalAttackChange;
-            PhysicalResistance += ability.PhysicalResistanceChange;
+            Health += entity.HealthChange * (int)changeType;
+            AttackDamage += entity.AttackChange * (int)changeType;
+            Mana += entity.ManaChange * (int)changeType;
+            MagicalAttackDamage += entity.MagicalAttackChange * (int)changeType;
+            PhysicalResistance +=
+                entity.PhysicalResistanceChange * (int)changeType;
         };
         OnStrengthChange += (_, args) =>
         {
@@ -176,7 +177,7 @@ public abstract class CharacterBase
         if (_abilities.Count < MaximumAbilityCount)
         {
             _abilities.Add(ability);
-            OnAbilityAdd?.Invoke(this, ability);
+            OnChangeStats?.Invoke(this, ability, StatChangeType.Positive);
         }
     }
 
@@ -185,12 +186,14 @@ public abstract class CharacterBase
         if (_inventory.Count < InventoryCapacity)
         {
             _inventory.Add(item);
+            OnChangeStats?.Invoke(this, item, StatChangeType.Positive);
         }
     }
 
     public void DeleteFromInventory(Item item)
     {
         _inventory.Remove(item);
+        OnChangeStats?.Invoke(this, item, StatChangeType.Negative);
     }
 
     protected void InitStats()
@@ -217,7 +220,8 @@ public abstract class CharacterBase
     private void OnLevelUp()
     {
         _skillPoints += SkillPointsPerLevel;
-        if (_abilities.Count < MaximumAbilityCount && Level.CurrentLevel % AbilityGainLevelInterval == 0)
+        if (_abilities.Count < MaximumAbilityCount &&
+            Level.CurrentLevel % AbilityGainLevelInterval == 0)
             OnAbilityGain?.Invoke();
     }
 
@@ -235,7 +239,7 @@ public abstract class CharacterBase
         return true;
     }
 
-    public event AbilityAddEventHandler? OnAbilityAdd;
+    public event UpdateStatEventHandler? OnChangeStats;
     public event AbilityGainEventHandler? OnAbilityGain;
     public event CharacteristicChangeEventHandler? OnStrengthChange;
     public event CharacteristicChangeEventHandler? OnDexterityChange;
@@ -246,7 +250,7 @@ public abstract class CharacterBase
 public delegate void CharacteristicChangeEventHandler(CharacterBase sender,
     CharacteristicChangeEventArgs args);
 
-public delegate void AbilityAddEventHandler(CharacterBase sender,
-    Ability ability);
+public delegate void UpdateStatEventHandler(CharacterBase sender,
+    ICanChangeStats entity, StatChangeType changeType);
 
 public delegate void AbilityGainEventHandler();

@@ -1,0 +1,44 @@
+﻿<Window x:Class="CharacterEditor.MVVM.Views.AddItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Add item" Height="400" Width="600"
+        FocusManager.FocusedElement="{Binding ElementName=ResponseTextBox}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="2*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Current level:"/>
+            <TextBlock Text="{Binding Character.Level.CurrentLevel}" HorizontalAlignment="Center" />
+        </StackPanel>
+        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ChooseItemListBox"
+                 ItemsSource="{Binding Items}"
+                 SelectedItem="{Binding SelectedItem}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Run Text="Required level: "></Run>
+                        <Run Text="{Binding MinimumLevel}"></Run>
+                        <Run Text="| Name: "></Run>
+                        <Run Text="{Binding Name}"></Run>
+                        <Run Text=" | Type:"></Run>
+                        <Run Text="{Binding TypeName, Mode=OneWay}"></Run>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Row="2" Grid.Column="1" Content="OK" Margin="0,10,0,10" VerticalAlignment="Center"
+                HorizontalAlignment="Center" Width="100"
+                Click="Button_Click" Command="{Binding OkCommand}" CommandParameter="" />
+    </Grid>
+</Window>

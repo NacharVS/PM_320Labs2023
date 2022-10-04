@@ -11,7 +11,7 @@
       <Page Update="Views\SelectAbilityWindow.xaml">
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Views\TextPrompt.xaml">
+      <Page Update="Views\AddItemWindow.xaml">
         <SubType>Designer</SubType>
       </Page>
     </ItemGroup>
@@ -21,7 +21,7 @@
         <SubType>Code</SubType>
         <DependentUpon>SelectAbilityWindow.xaml</DependentUpon>
       </Compile>
-      <Compile Update="Views\TextPrompt.xaml.cs">
+      <Compile Update="Views\AddItemWindow.xaml.cs">
         <SubType>Code</SubType>
         <DependentUpon>TextPrompt.xaml</DependentUpon>
       </Compile>

@@ -6,9 +6,9 @@ namespace CharacterEditor.MVVM.Views
     /// <summary>
     /// Interaction logic for TextPrompt.xaml
     /// </summary>
-    public partial class TextPrompt : Window
+    public partial class AddItemWindow : Window
     {
-        public TextPrompt()
+        public AddItemWindow()
         {
             InitializeComponent();
         }
