@@ -1,12 +1,12 @@
 ﻿namespace CharacterEditorCore.Items
 {
-    public class Boots : IItem
+    public class BodyArmor : IItem
     {
         public string Name { get; set; }    
 
-        public Boots()
+        public BodyArmor()
         {
-            Name = "Boots";
+            Name = "Body armor";
         }
     }
 }

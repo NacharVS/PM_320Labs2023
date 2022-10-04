@@ -49,7 +49,7 @@ namespace CharacterEditor
             switch(clickedBtn.Content)
             {
                 case "Boots":
-                    item = new Boots();
+                    item = new BodyArmor();
                     break;
                 case "Helmet":
                     item = new Helmet();

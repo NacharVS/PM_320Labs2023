@@ -154,6 +154,6 @@
         <Label x:Name="lblLvl" Content="" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
 
         <Label Content="Abilities" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-        <ListBox VerticalAlignment="Top" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Height="294" IsEnabled="False"/>
+        <ListBox x:Name="lbAbilities" VerticalAlignment="Top" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Height="294" IsEnabled="False"/>
     </Grid>
 </Window>

@@ -11,7 +11,7 @@ namespace CharacterEditorMongoDataBase
 
         public CharacterEditorContext()
         {
-            BsonClassMap.RegisterClassMap<Boots>();
+            BsonClassMap.RegisterClassMap<BodyArmor>();
             BsonClassMap.RegisterClassMap<Bow>();
             BsonClassMap.RegisterClassMap<Helmet>();
             BsonClassMap.RegisterClassMap<Knife>();

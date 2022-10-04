@@ -9,14 +9,14 @@ namespace CharacterEditorCore
     public class Ability
     {
         public string? Name { get; set; }
-        public double AttackChange { get; set; }
-        public double MagicalAttackChange { get; set; }
+        public int AttackChange { get; set; }
+        public int MagicalAttackChange { get; set; }
         public double ManaChange { get; set; }
-        public double HealthChange { get; set; }
+        public int HealthChange { get; set; }
         public double PhysicalDefChange { get; set; }
 
-        public Ability(string? name, double attackChange, double magicalAttackChange,
-            double manaChange, double healthChange, double physicalDefChange)
+        public Ability(string? name, int attackChange, int magicalAttackChange,
+            double manaChange, int healthChange, double physicalDefChange)
         {
             Name = name;
             AttackChange = attackChange;

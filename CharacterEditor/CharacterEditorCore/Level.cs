@@ -12,6 +12,7 @@ namespace CharacterEditorCore
         private int _level;
         private int _levelUpEdge;
         private int _growEdge;
+        public bool isNew = true;
         public delegate void OnLevelUpDelegate();
 
         public int CurrentLevel 

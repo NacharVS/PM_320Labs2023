@@ -13,6 +13,8 @@ namespace CharacterEditorCore
             set => _name = value;
         }
 
+        private delegate void AbilityAddDelegate(Ability ability);
+
         #region Characteristics
         private Characteristics _strength;
         public Characteristics Strength {
@@ -74,7 +76,7 @@ namespace CharacterEditorCore
         #endregion
 
         #region Stats
-        private int _lvlStatsChangeVal = 5;
+        private int _lvlCharacteristicsChangeVal = 5;
         private int _attackDamage;
         public int AttackDamage
         {
@@ -196,46 +198,46 @@ namespace CharacterEditorCore
             if (_abilities.Count < _abilitiesCapacity)
             {
                 _abilities.Add(ability);
+                OnAbilityAddEvent?.Invoke(ability);
             }
+        }
+        private void AddAbilityStats(Ability ability)
+        {
+            HealthPoint += ability.HealthChange;
+            ManaPoint += ability.ManaChange;
+            AttackDamage += ability.AttackChange;
+            MagicAttack += ability.MagicalAttackChange;
+            PhysicalDef += ability.PhysicalDefChange;
         }
         #endregion
 
         #region CalcStats
-        public void HealthPointCalc()
+
+        public void SetDefStats()
         {
             HealthPoint = _strength.Value * _strengthHpChange + _constitution.Value * _constitutionHpChange;
-        }
-        public void AttackDamageCalc()
-        {
             AttackDamage = _strength.Value * _strengthAttackChange + _dexterity.Value * _dexterityAttackChange;
-        }
-        public void ManaPointCalc()
-        {
             ManaPoint = _intelligence.Value * _intelligenceMpChange;
-        }
-        public void MagicAttackCalc()
-        {
             MagicAttack = _intelligence.Value * _intelligenceMagicAttackChange;
+            PhysicalDef = _dexterity.Value * _dexterityAttackChange + _constitution.Value * _constitutionPhysicalDefChange;
+
+            AbilityStatsCalc();
         }
-        public void PhysicalDefCalc()
+        private void AbilityStatsCalc()
         {
-            PhysicalDef = _dexterity.Value * _dexterityPhysicalDefChange + _constitution.Value * _constitutionPhysicalDefChange;
+            foreach (var ab in _abilities)
+            {
+                AddAbilityStats(ab);
+            }
         }
-        public void CalcStats()
+        public void AddCharacteristics()
         {
-            AttackDamageCalc();
-            HealthPointCalc();
-            ManaPointCalc();
-            MagicAttackCalc();
-            PhysicalDefCalc();
-        }
-        private void AddStats()
-        {
-            PhysicalDef += _lvlStatsChangeVal;
-            HealthPoint += _lvlStatsChangeVal;
-            ManaPoint += _lvlStatsChangeVal;
-            MagicAttack += _lvlStatsChangeVal;
-            AttackDamage += _lvlStatsChangeVal;
+            Constitution.Value += _lvlCharacteristicsChangeVal;
+            Intelligence.Value += _lvlCharacteristicsChangeVal;
+            Dexterity.Value += _lvlCharacteristicsChangeVal;
+            Strength.Value += _lvlCharacteristicsChangeVal;
+
+            SetDefStats();
         }
         #endregion
 
@@ -267,9 +269,11 @@ namespace CharacterEditorCore
 
             _inventory = new();
             _abilities = new();
-            Lvl.OnLevelUpEvent += AddStats;
 
-            CalcStats();
+            OnAbilityAddEvent +=AddAbilityStats;
+            SetDefStats();
         }
+
+        private event AbilityAddDelegate OnAbilityAddEvent;
     }
 }

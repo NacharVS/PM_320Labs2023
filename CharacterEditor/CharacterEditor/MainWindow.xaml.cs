@@ -32,6 +32,7 @@ namespace UnitsEditor
             cbExistCharacters.ItemsSource = CharContext.GetAllChars();
 
             ExpChangeEvent += FillCharacterInfo;
+            lbAbilities.DisplayMemberPath = "Name";
         }
 
         private void NewCharComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -43,6 +44,7 @@ namespace UnitsEditor
             var selectedCharacter = cbNewCharacters.SelectedItem.ToString();
             tbCharacterName.Text = "";
             cbExistCharacters.SelectedItem = null;
+            lbAbilities.Items.Clear();
 
             switch (selectedCharacter)
             {
@@ -59,11 +61,13 @@ namespace UnitsEditor
                     throw new Exception("Not correct Character!");
             }
 
-            CharacteristicChangeEvent += _selectedCharacter.CalcStats;
+            FillAbilities();
+            CharacteristicChangeEvent += _selectedCharacter.SetDefStats;
             CharacteristicChangeEvent += FillCharacterInfo;
-            _selectedCharacter.Lvl.OnLevelUpEvent += AddAbility;
-
+            _selectedCharacter.Lvl.OnLevelUpEvent += _selectedCharacter.AddCharacteristics;
             CharacteristicChangeEvent?.Invoke();
+
+            _selectedCharacter.Lvl.OnLevelUpEvent += AddAbility;
         }
 
         public void FillCharacterInfo()
@@ -76,6 +80,7 @@ namespace UnitsEditor
                 lbIntelligenceValue.Content = 0;
                 lblExp.Content = 0;
                 lblLvl.Content = 0;
+                lbAbilities.Items.Clear();
 
                 tbAttackDamageValue.Text = "0";
                 tbHealthValue.Text = "0";
@@ -183,16 +188,16 @@ namespace UnitsEditor
             }
             catch { }
         }
-        #endregion
 
         private void CharacteristicChange(object sender, RoutedEventArgs e)
         {
-            if(_selectedCharacter is null)
+            if (_selectedCharacter is null)
             {
                 return;
             }
             CharacteristicChangeEvent?.Invoke();
         }
+        #endregion
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -247,13 +252,15 @@ namespace UnitsEditor
                 {
                     _selectedCharacter = findCharacter;
                     cbNewCharacters.SelectedItem = null;
+                    lbAbilities.Items.Clear();
+                    FillAbilities();
 
-                    CharacteristicChangeEvent += _selectedCharacter.CalcStats;
+                    CharacteristicChangeEvent += _selectedCharacter.SetDefStats;
                     CharacteristicChangeEvent += FillCharacterInfo;
+                    _selectedCharacter.Lvl.OnLevelUpEvent += _selectedCharacter.AddCharacteristics;
+                    CharacteristicChangeEvent?.Invoke();
 
                     _selectedCharacter.Lvl.OnLevelUpEvent += AddAbility;
-
-                    CharacteristicChangeEvent?.Invoke();
                 }
             }
         }
@@ -314,14 +321,24 @@ namespace UnitsEditor
             
         }
 
-
-
         private void AddAbility()
         {
             if(_selectedCharacter.Lvl.CurrentLevel % 3 == 0)
             {
-                var abilitiesWindow = new Abilities(_selectedCharacter);
+                var abilitiesWindow = new Abilities(_selectedCharacter, this);
                 abilitiesWindow.Show();
+            }
+        }
+
+        private void FillAbilities()
+        {
+            if(_selectedCharacter is null)
+            {
+                return;
+            }
+            foreach(var ability in _selectedCharacter.Abilities)
+            {
+                lbAbilities.Items.Add(ability);
             }
         }
 
