@@ -17,13 +17,5 @@ namespace CharacterEditor.MVVM.Views
         {
             DialogResult = true;
         }
-
-        private void ResponseTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                DialogResult = true;
-            }
-        }
     }
 }

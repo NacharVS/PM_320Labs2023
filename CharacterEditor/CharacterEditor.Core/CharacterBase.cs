@@ -183,12 +183,15 @@ public abstract class CharacterBase
 
     public void AddToInventory(Item item)
     {
-        if (_inventory.Count < InventoryCapacity)
+        if (CanAddItem(item))
         {
             _inventory.Add(item);
             OnChangeStats?.Invoke(this, item, StatChangeType.Positive);
         }
     }
+
+    public bool CanAddItem(Item item) =>
+        _inventory.Count < InventoryCapacity && Inventory.FirstOrDefault(x => x.Type == item.Type) == null;
 
     public void DeleteFromInventory(Item item)
     {

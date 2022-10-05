@@ -18,7 +18,8 @@ public class AddItemWindowViewModel : ViewModel
 
     private bool CanOkCommandExecute(object p) => SelectedItem is not null &&
                                                   SelectedItem.MinimumLevel <=
-                                                  Character.Level.CurrentLevel;
+                                                  Character.Level.CurrentLevel
+                                                  && Character.CanAddItem(SelectedItem);
 
     public AddItemWindowViewModel(CharacterBase character)
     {
