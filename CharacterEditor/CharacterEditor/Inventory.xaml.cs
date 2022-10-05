@@ -1,11 +1,10 @@
 ﻿using CharacterEditorCore;
-using System.Collections.Generic;
 using System.Windows;
 using CharacterEditorCore.Items;
-using CharacterEditorMongoDataBase;
 using System.Windows.Controls;
+using CharacterEditorMongoDataBase;
 using UnitsEditor;
-using MongoDB.Bson.Serialization;
+using System.Linq;
 
 namespace CharacterEditor
 {
@@ -15,13 +14,32 @@ namespace CharacterEditor
     public partial class Inventory : Window
     {
         private BaseCharacteristics _selectedCharacter;
+        private MainWindow _mainWindow;
+        private delegate void ItemSelectedDelegate();
 
-        public Inventory(BaseCharacteristics selectedCharacter)
+        public Inventory(BaseCharacteristics selectedCharacter, MainWindow mainWindow)
         {
             InitializeComponent();
 
             _selectedCharacter = selectedCharacter;
+            _mainWindow = mainWindow;
+            OnItemSelectedEvent += _mainWindow.FillCharacterInfo;
             FillInventory();
+            FillItems();
+        }
+
+        private void FillItems()
+        {
+            lvItems.Items.Clear();
+            var freeItemsList = ItemsList.ItemList
+                .Where(x => _selectedCharacter.Inventory.FirstOrDefault
+                (z => z.Name == x.Name) is null);
+
+            foreach (var item in freeItemsList)
+            {
+                lvItems.Items.Add(item);
+            }
+            lvItems.InvalidateVisual();
         }
 
         private void FillInventory()
@@ -40,47 +58,57 @@ namespace CharacterEditor
             this.Close();
         }
 
-        private void AddItemBtn(object sender, RoutedEventArgs e)
-        {
-            var clickedBtn = (Button)sender;
-
-            IItem item;
-
-            switch(clickedBtn.Content)
-            {
-                case "Boots":
-                    item = new BodyArmor();
-                    break;
-                case "Helmet":
-                    item = new Helmet();
-                    break;
-                case "Knife":
-                    item = new Knife();
-                    break;
-                case "Pistol":
-                    item = new Pistol();
-                    break;
-                case "Bow":
-                    item = new Bow();
-                    break;
-                default:
-                    return;
-            }
-            _selectedCharacter.AddItem(item);
-            if(_selectedCharacter.InventCapacity > lbInventory.Items.Count)
-            {
-                lbInventory.Items.Add(item);
-            }
-
-            lblInventoryCapacity.Content = $"{_selectedCharacter.Inventory.Count} / {_selectedCharacter.InventCapacity}";
-        }
 
         private void lbInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            IItem deletedItem = (IItem)lbInventory.SelectedItem;
+            var deletedItem = (Item)lbInventory.SelectedItem;
+            if (deletedItem is null)
+            {
+                return;
+            }
             _selectedCharacter.RemoveItem(deletedItem);
+            OnItemSelectedEvent?.Invoke();
             lbInventory.Items.Remove(deletedItem);
             lblInventoryCapacity.Content = $"{_selectedCharacter.Inventory.Count} / {_selectedCharacter.InventCapacity}";
+            FillItems();
         }
+
+        private void lvItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (Item)lvItems.SelectedItem;
+            if(item is null)
+            { 
+                return;
+            }
+            _selectedCharacter.AddItem(item);
+            if (_selectedCharacter.InventCapacity > lbInventory.Items.Count && _selectedCharacter.Lvl.CurrentLevel >= item.MinimumLevel)
+            {
+                lbInventory.Items.Add(item);
+            }
+            OnItemSelectedEvent?.Invoke();
+            FillItems();
+
+            lblInventoryCapacity.Content = $"{_selectedCharacter.Inventory.Count} / {_selectedCharacter.InventCapacity}";
+            if(_mainWindow.tbCharacterName.Text == "")
+            {
+                return;
+            }
+            if(_mainWindow.cbNewCharacters.SelectedItem is null
+                && _mainWindow.cbExistCharacters.SelectedItem is null)
+            {
+                return;
+            }
+            if(_mainWindow.cbExistCharacters.SelectedItem is null)
+            {
+                _mainWindow.CharContext.AddCharacterToDb(_selectedCharacter);
+            }
+            if(_mainWindow.cbNewCharacters.SelectedItem is null)
+            {
+                _mainWindow.CharContext.UpdateInventory(
+            ((CharacterIdName)_mainWindow.cbExistCharacters.SelectedItem).Id,
+            _selectedCharacter);
+            }
+        }
+        private event ItemSelectedDelegate OnItemSelectedEvent;
     }
 }

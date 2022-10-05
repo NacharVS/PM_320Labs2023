@@ -52,6 +52,7 @@
             <Setter Property="Button.Foreground" Value="White"/>
             <EventSetter Event="Button.Click" Handler="ExpChangeBtn_Click"/>
         </Style>
+
     </Window.Resources>
     <Grid x:Name="GridMain" Background="#FFC4B7D7" Cursor="Arrow" ShowGridLines="False">
         <Grid.ColumnDefinitions>
@@ -69,7 +70,7 @@
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
-        
+
         <Button x:Name="btnPlusStrength" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="0" Click="BtnPlusStrength_Click" Background="ForestGreen"/>
         <Button x:Name="btnMinusStrength" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="0" Click="BtnMinusStrength_Click" Background="Red"/>
         <Label x:Name="lbStrength" Style="{StaticResource CharactersName}" Content="Strength" Grid.Row="5"/>
@@ -110,7 +111,7 @@
         </StackPanel>
 
         <Button Content="Inventory" Grid.Column="2" Grid.Row="2" Width="190" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" Background="LightBlue"/>
-        
+
         <Label x:Name="lbCharacterName" Style="{StaticResource CharactersName}" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Content="Character name"/>
         <TextBox x:Name="tbCharacterName" Grid.Column="2" Grid.Row="5" Height="30" Width="200" VerticalAlignment="Top" Margin="0,16,0,0"/>
 
@@ -128,7 +129,7 @@
 
         <Label x:Name="lbPhysicalDef" Style="{StaticResource StatsName}" Grid.Row="4" Grid.Column="3" Content="Physical defence"/>
         <TextBox x:Name="tbPhysicalDefValue" Grid.Column="3" Grid.Row="4" Style="{StaticResource StatsValue}"/>
-        <Label x:Name="WindowName" HorizontalAlignment="Left" Margin="0,24,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Character editor" RenderTransformOrigin="0.5,0.5" Width="400" Grid.Column="1" Grid.ColumnSpan="2" FontSize="22" FontWeight="Bold">
+        <Label x:Name="WindowName" HorizontalAlignment="Left" Margin="200,26,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Character editor" RenderTransformOrigin="0.5,0.5" Width="400" Grid.Column="1" Grid.ColumnSpan="3" FontSize="22" FontWeight="Bold">
         </Label>
 
         <Button x:Name="btnSaveButton" Grid.Column="3" Content="Save" HorizontalAlignment="Center" Margin="0,16,0,0" Grid.Row="5" VerticalAlignment="Top" Width="180" Height="30" Background="LightBlue" Click="SaveButton_Click"/>
@@ -147,13 +148,15 @@
             <Label x:Name="lblExp500" Content="Add 500 exp." HorizontalAlignment="Center" FontSize="20"/>
             <Button x:Name="ExpAdd5" Style="{StaticResource ExpChangeBtn}"/>
         </StackPanel>
-        
+
         <Label Content="Experience" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
         <Label Content="Level" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
         <Label x:Name="lblExp" Content="" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3"/>
         <Label x:Name="lblLvl" Content="" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
 
-        <Label Content="Abilities" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <Label Content="Abilities" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFE4D6F9"/>
         <ListBox x:Name="lbAbilities" VerticalAlignment="Top" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Height="294" IsEnabled="False"/>
+        <StackPanel Grid.Column="4" Grid.Row="1"/>
+        <StackPanel Grid.Column="4" Grid.Row="2"/>
     </Grid>
 </Window>

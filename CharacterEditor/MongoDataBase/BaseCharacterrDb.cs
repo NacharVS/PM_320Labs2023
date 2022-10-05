@@ -30,7 +30,7 @@ namespace CharacterEditorCore
         public int Constitution { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<IItem> Inventory { get; set; }
+        public List<Item> Inventory { get; set; }
 
         [BsonIgnoreIfNull]
         public List<Ability> Abilities { get; set; }

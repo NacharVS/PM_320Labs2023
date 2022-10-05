@@ -7,12 +7,6 @@
         mc:Ignorable="d"
         Title="Inventory" Height="450" Width="800">
     <Window.Resources>
-        <Style x:Key="AddItemBtn">
-            <Setter Property="Control.Background" Value="ForestGreen"/>
-            <Setter Property="Control.Foreground" Value="White"/>
-            <Setter Property="Control.FontSize" Value="20"/>
-            <EventSetter Event="Button.Click" Handler="AddItemBtn"/>
-        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -20,20 +14,19 @@
             <ColumnDefinition Width="400*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80*"/>
+            <RowDefinition Height="200*"/>
             <RowDefinition Height="370*"/>
         </Grid.RowDefinitions>
 
         <Button Content="Exit" Grid.Column="0" Grid.Row="1" Margin="5" Foreground="White" Background="#FFE4485E" FontSize="20" FontFamily="Century Gothic" FontWeight="Bold" Click="Button_Click"/>
-        
-        <UniformGrid Rows="1" Grid.Row="0" Grid.Column="1" Margin="8">
-            <Button Content="Boots" Style="{StaticResource AddItemBtn}"/>
-            <Button Content="Helmet" Style="{StaticResource AddItemBtn}"/>
-            <Button Content="Knife" Style="{StaticResource AddItemBtn}"/>
-            <Button Content="Pistol" Style="{StaticResource AddItemBtn}"/>
-            <Button Content="Bow" Style="{StaticResource AddItemBtn}"/>
-        </UniformGrid>
-        
+        <ListView x:Name="lvItems" Grid.Column="1" SelectionChanged="lvItems_SelectionChanged" FontSize="20">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="200">Name</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Item}" Width="200">Minimum level</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
         <ListBox x:Name="lbInventory" Margin="9" Grid.Row="1" Grid.Column="1" SelectionChanged="lbInventory_SelectionChanged" FontSize="20">
         </ListBox>
         

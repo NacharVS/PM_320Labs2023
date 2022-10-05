@@ -14,6 +14,7 @@ namespace CharacterEditorCore
         }
 
         private delegate void AbilityAddDelegate(Ability ability);
+        private delegate void ItemChangeDelegate(Item item, int changeType);
 
         #region Characteristics
         private Characteristics _strength;
@@ -154,8 +155,8 @@ namespace CharacterEditorCore
             get => _inventCapacity;
             private set => _inventCapacity = value;
         }
-        private List<IItem> _inventory;
-        public List<IItem> Inventory
+        private List<Item> _inventory;
+        public List<Item> Inventory
         {
             get => _inventory;
             set
@@ -166,16 +167,34 @@ namespace CharacterEditorCore
                 }
             }
         }
-        public void AddItem(IItem item)
+        public void AddItem(Item item)
         {
-            if (_inventory.Count < _inventCapacity)
+            if (_inventory.Count < _inventCapacity && Lvl.CurrentLevel >= item.MinimumLevel)
             {
                 _inventory.Add(item);
+                OnItemChangeEvent?.Invoke(item,1); // Add item in inventory type - 1
             }
         }
-        public void RemoveItem(IItem item)
+        public void RemoveItem(Item item)
         {
             _inventory.Remove(item);
+            OnItemChangeEvent?.Invoke(item, -1);// Add item in inventory type - (-1)
+        }
+
+        public void AddItemStat(Item item, int changeType)
+        {
+            HealthPoint += item.HPChange * changeType;
+            AttackDamage += item.AttackChange * changeType;
+            ManaPoint += item.ManaChange * changeType;
+            MagicAttack += item.MagicalAttackChange * changeType;
+            PhysicalDef += item.PdefChange * changeType;
+        }
+        private void ItemStatsCalc()
+        {
+            foreach (var item in _inventory)
+            {
+                AddItemStat(item,1);
+            }
         }
         #endregion
 
@@ -222,6 +241,7 @@ namespace CharacterEditorCore
             PhysicalDef = _dexterity.Value * _dexterityAttackChange + _constitution.Value * _constitutionPhysicalDefChange;
 
             AbilityStatsCalc();
+            ItemStatsCalc();
         }
         private void AbilityStatsCalc()
         {
@@ -271,9 +291,11 @@ namespace CharacterEditorCore
             _abilities = new();
 
             OnAbilityAddEvent +=AddAbilityStats;
+            OnItemChangeEvent += AddItemStat;
             SetDefStats();
         }
 
         private event AbilityAddDelegate OnAbilityAddEvent;
+        private event ItemChangeDelegate OnItemChangeEvent;
     }
 }

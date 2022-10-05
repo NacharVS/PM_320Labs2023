@@ -277,7 +277,7 @@ namespace UnitsEditor
                         tbCharacterName.Text = charInDb.Name;
 
                         _selectedCharacter.Name = tbCharacterName.Text;
-                        var inventWindow = new Inventory(_selectedCharacter);
+                        var inventWindow = new Inventory(_selectedCharacter, this);
                         inventWindow.Show();
                     }
                 }
@@ -285,7 +285,7 @@ namespace UnitsEditor
             if (cbNewCharacters.SelectedItem is not null)
             {
                 _selectedCharacter.Name = tbCharacterName.Text;
-                var inventWindow = new Inventory( _selectedCharacter);
+                var inventWindow = new Inventory( _selectedCharacter,this);
 
                 inventWindow.Show();
             }
@@ -344,5 +344,6 @@ namespace UnitsEditor
 
         private event CharacteristicChangeDelegate? CharacteristicChangeEvent;
         private event ExpChangeDelegate? ExpChangeEvent;
+
     }
 }
