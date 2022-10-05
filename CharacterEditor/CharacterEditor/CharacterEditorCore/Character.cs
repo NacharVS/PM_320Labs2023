@@ -2,10 +2,60 @@
 {
     public abstract class Character
     {
+        private const int _levelUpValue = 1000;
+        private int _currentLevelExperienceValue = 0;
         private delegate void _charactericticChangedDelegate();
         private _charactericticChangedDelegate _charactericticChangedEvent;
+        private delegate void OnLevelUp();
+        private  OnLevelUp OnLevelUpEvent;
+        public List<Ability> Abilities { get; set; }
+
+        private int _availableAbilityCount = 0;
         public Inventory Inventory { get; set; }
         public string Name { get; set; }
+        private int _level;
+        public int Level
+        {
+            get { return _level; }
+            private set
+            {
+                if (value < 1)
+                {
+                    _level = 1;
+                }
+                _level = value;
+            }
+        }
+
+        private int _experience;
+        public int Experience
+        {
+            get { return _experience; }
+            set
+            {
+                var temp = Experience;
+                if (value < 0)
+                {
+                    _experience = 0;
+                }
+ 
+                _experience = value;
+  
+
+                while (_experience >= Level * _levelUpValue + _currentLevelExperienceValue)
+                {
+                    _currentLevelExperienceValue = Level * _levelUpValue + _currentLevelExperienceValue;
+                    Level++;
+                    OnLevelUpEvent?.Invoke();
+                }
+
+                if (Level % 3 == 0)
+                {
+                    _availableAbilityCount++;
+                }
+            }
+        }
+
         private Characterictic _strength;
         public Characterictic Strength
         {
@@ -184,6 +234,32 @@
             return _intellisense.Value;
         }
 
+        private void UpdateCharacterictics()
+        {
+            SetStrengthValue(Strength.Value + 5);
+            SetDexterityValue(Dexterity.Value + 5);
+            SetConstitutionValue(Constitution.Value + 5);
+            SetIntellisenseValue(Intellisense.Value + 5);
+        }
+
+        public bool AddAbility(Ability ability)
+        {
+            if (_availableAbilityCount > 0)
+            {
+                _availableAbilityCount--;
+                Abilities.Add(ability);
+                SetStrengthValue(GetStrengthValue() + ability.StrengthChangeValue);
+                SetDexterityValue(GetDexterityValue() + ability.DexterityChangeValue);
+                SetConstitutionValue(GetConstitutionValue() + ability.ConstitutionChangeValue);
+                SetIntellisenseValue(GetIntellisenseValue() + ability.IntellisenseChangeValue);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         protected Character(Characterictic strength,
                             double strengthAttackChange,
                             double strengthHealthChange,
@@ -195,8 +271,12 @@
                             double constitutionPhysicalDefenceChange,
                             Characterictic intellisense,
                             double intellisenseManaChange,
-                            double intellisenseMagicalAttackChange)
+                            double intellisenseMagicalAttackChange,
+                            int experience)
         {
+            Level = 1;
+            Experience = experience;
+            Abilities = new List<Ability>();
             _strengthAttackChange = strengthAttackChange;
             _strengthHealthChange = strengthHealthChange;
             Strength = strength;
@@ -215,6 +295,7 @@
 
             Inventory = new Inventory();
 
+            OnLevelUpEvent += UpdateCharacterictics;
             _charactericticChangedEvent += CalculateCharacterictics;
             _charactericticChangedEvent?.Invoke();
         }

@@ -61,6 +61,10 @@ namespace CharacterEditor
                     return new Helmet();
                 case "Rifle":
                     return new Rifle();
+                case "Knife":
+                    return new Knife();
+                case "Bow":
+                    return new Bow();
                 default:
                     return null;
             }

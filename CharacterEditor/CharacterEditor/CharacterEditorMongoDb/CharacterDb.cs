@@ -13,6 +13,8 @@ namespace CharacterEditorMongoDb
         [BsonIgnoreIfNull]
         public string ClassName { get; set; }
         [BsonIgnoreIfDefault]
+        public int Experience { get; set; }
+        [BsonIgnoreIfDefault]
         public int Strength { get; set; }
         [BsonIgnoreIfDefault]
         public int Dexterity { get; set; }
@@ -26,7 +28,8 @@ namespace CharacterEditorMongoDb
         public CharacterDb(string name, string className, 
                             int strength, int dexterity, 
                             int constitution, int intellisense,
-                            List<IItem> items)
+                            List<IItem> items, int experience,
+                            List<Ability> abilities)
         {
             Name = name;
             ClassName = className;
@@ -35,6 +38,7 @@ namespace CharacterEditorMongoDb
             Constitution = constitution;
             Intellisense = intellisense;
             Items = items;
+            Experience = experience;
         }
     }
 }

@@ -45,8 +45,8 @@
                 <Button Content="Armor" Style="{StaticResource ItemBtn}" Grid.Column="0" Grid.Row="0"/>
                 <Button Content="Rifle" Style="{StaticResource ItemBtn}" Grid.Column="1" Grid.Row="0"/>
                 <Button Content="Helmet" Style="{StaticResource ItemBtn}" Grid.Column="2" Grid.Row="0"/>
-                <Button Content="Armor" Style="{StaticResource ItemBtn}" Grid.Column="3" Grid.Row="0"/>
-                <Button Content="Armor" Style="{StaticResource ItemBtn}" Grid.Column="4" Grid.Row="0"/>
+                <Button Content="Knife" Style="{StaticResource ItemBtn}" Grid.Column="3" Grid.Row="0"/>
+                <Button Content="Bow" Style="{StaticResource ItemBtn}" Grid.Column="4" Grid.Row="0"/>
             </Grid>
         </GroupBox>
         <GroupBox Name ="gbInventory" Header="Inventory" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,0,10,10">

@@ -13,6 +13,9 @@ namespace CharacterEditorMongoDb
             BsonClassMap.RegisterClassMap<Helmet>();
             BsonClassMap.RegisterClassMap<Armor>();
             BsonClassMap.RegisterClassMap<Rifle>();
+            BsonClassMap.RegisterClassMap<Bow>();
+            BsonClassMap.RegisterClassMap<Knife>();
+            BsonClassMap.RegisterClassMap<Ability>();
 
             var client = new MongoClient(connectionClient);
             var database = client.GetDatabase(databaseStr);
@@ -61,23 +64,26 @@ namespace CharacterEditorMongoDb
                     return new Warrior(dbCharacter.Strength,
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
-                                        dbCharacter.Intellisense)
+                                        dbCharacter.Intellisense,
+                                        dbCharacter.Experience)
                                         { Name = dbCharacter.Name,
-                                          Inventory = new Inventory(dbCharacter.Items) };
+                                          Inventory = new Inventory(dbCharacter.Items)};
                 case "Wizard":
                     return new Wizard(dbCharacter.Strength,
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
-                                        dbCharacter.Intellisense)
+                                        dbCharacter.Intellisense,
+                                        dbCharacter.Experience)
                                         { Name = dbCharacter.Name,
-                                          Inventory = new Inventory(dbCharacter.Items) };
+                                          Inventory = new Inventory(dbCharacter.Items)};
                 case "Rogue":
                     return new Rogue(dbCharacter.Strength,
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
-                                        dbCharacter.Intellisense)
+                                        dbCharacter.Intellisense,
+                                        dbCharacter.Experience)
                                         { Name = dbCharacter.Name,
-                                          Inventory = new Inventory(dbCharacter.Items) };
+                                          Inventory = new Inventory(dbCharacter.Items)};
                 default: return null;
             }
         }
@@ -95,7 +101,9 @@ namespace CharacterEditorMongoDb
                                 character.GetDexterityValue(),
                                 character.GetConstitutionValue(),
                                 character.GetIntellisenseValue(),
-                                character.Inventory.Items);
+                                character.Inventory.Items,
+                                character.Experience,
+                                character.Abilities);
         }
     }
 }
