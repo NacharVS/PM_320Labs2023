@@ -18,7 +18,8 @@ namespace CharacterEditorCore.Items
                 PdefChange = 20,
                 AttackChange = 1,
                 MagicalAttackChange = 0,
-                MinimumLevel = 1
+                MinimumLevel = 1,
+                ItemType = ItemType.Hemet
             },
             new()
             {
@@ -28,7 +29,8 @@ namespace CharacterEditorCore.Items
                 PdefChange = 50,
                 AttackChange = 1,
                 MagicalAttackChange = 0,
-                MinimumLevel = 3
+                MinimumLevel = 3,
+                ItemType = ItemType.Hemet
             },
 
             new()
@@ -39,7 +41,8 @@ namespace CharacterEditorCore.Items
                 PdefChange = 100,
                 AttackChange = 2,
                 MagicalAttackChange = 0,
-                MinimumLevel = 6
+                MinimumLevel = 6,
+                ItemType = ItemType.Hemet
             },
 
             new()
@@ -50,7 +53,8 @@ namespace CharacterEditorCore.Items
                 PdefChange = 40,
                 AttackChange = 1,
                 MagicalAttackChange = 0,
-                MinimumLevel = 1
+                MinimumLevel = 1,
+                ItemType = ItemType.Armor
             },
             new()
             {
@@ -60,7 +64,8 @@ namespace CharacterEditorCore.Items
                 PdefChange = 80,
                 AttackChange = 2,
                 MagicalAttackChange = 0,
-                MinimumLevel = 3
+                MinimumLevel = 3,
+                ItemType = ItemType.Armor
             },
 
             new()
@@ -72,6 +77,7 @@ namespace CharacterEditorCore.Items
                 AttackChange = 4,
                 MagicalAttackChange = 1,
                 MinimumLevel = 7
+                ItemType = ItemType.Armor
             },
 
             new()
@@ -83,6 +89,7 @@ namespace CharacterEditorCore.Items
                 AttackChange = 30,
                 MagicalAttackChange = 0,
                 MinimumLevel = 1
+                ItemType = ItemType.Weapon
             },
 
             new()
@@ -93,7 +100,8 @@ namespace CharacterEditorCore.Items
                 PdefChange = 0,
                 AttackChange = 60,
                 MagicalAttackChange = 0,
-                MinimumLevel = 3
+                MinimumLevel = 3,
+                ItemType = ItemType.Weapon
             },
 
             new()
@@ -104,7 +112,8 @@ namespace CharacterEditorCore.Items
                 PdefChange = 0,
                 AttackChange = 150,
                 MagicalAttackChange = 0,
-                MinimumLevel = 7
+                MinimumLevel = 7,
+                ItemType = ItemType.Weapon
             }
         };
     }

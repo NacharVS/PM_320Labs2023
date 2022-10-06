@@ -15,5 +15,6 @@ namespace CharacterEditorCore.Items
         public int AttackChange { get; set; }
         public int MagicalAttackChange { get; set; }
         public int MinimumLevel { get; set; }
+        public ItemType ItemType { get; set; }
     }
 }
