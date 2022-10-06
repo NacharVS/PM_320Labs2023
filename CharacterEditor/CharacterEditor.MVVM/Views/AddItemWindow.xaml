@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Add item" Height="400" Width="600"
-        FocusManager.FocusedElement="{Binding ElementName=ResponseTextBox}">
+        Title="Add item" Height="600" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -18,25 +17,30 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Current level:"/>
+            <TextBlock Text="Current level:" />
             <TextBlock Text="{Binding Character.Level.CurrentLevel}" HorizontalAlignment="Center" />
         </StackPanel>
-        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ChooseItemListBox"
-                 ItemsSource="{Binding Items}"
-                 SelectedItem="{Binding SelectedItem}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock>
-                        <Run Text="Required level: "></Run>
-                        <Run Text="{Binding MinimumLevel}"></Run>
-                        <Run Text="| Name: "></Run>
-                        <Run Text="{Binding Name}"></Run>
-                        <Run Text=" | Type:"></Run>
-                        <Run Text="{Binding TypeName, Mode=OneWay}"></Run>
-                    </TextBlock>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <DataGrid x:Name="SelectItemGrid"
+                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                  ItemsSource="{Binding Items}"
+                  SelectedItem="{Binding SelectedItem}"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  AlternatingRowBackground="LightGray"
+                  CanUserResizeColumns="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Required level" Binding="{Binding MinimumLevel}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Type" Binding="{Binding TypeName, Mode=OneWay}" />
+                <DataGridTextColumn Header="Strength" Binding="{Binding StrengthChange}" />
+                <DataGridTextColumn Header="Dexterity" Binding="{Binding DexterityChange}" />
+                <DataGridTextColumn Header="Constitution" Binding="{Binding ConstitutionChange}" />
+                <DataGridTextColumn Header="Intelligence" Binding="{Binding IntelligenceChange}" />
+                
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Grid.Row="2" Grid.Column="1" Content="OK" Margin="0,10,0,10" VerticalAlignment="Center"
                 HorizontalAlignment="Center" Width="100"
                 Click="Button_Click" Command="{Binding OkCommand}" CommandParameter="" />

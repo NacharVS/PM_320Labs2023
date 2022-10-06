@@ -307,7 +307,7 @@ public class MainWindowViewModel : ViewModel
         };
         if (prompt.ShowDialog() == true)
         {
-            var item = prompt.ChooseItemListBox.SelectedItem as Item;
+            var item = prompt.SelectItemGrid.SelectedItem as Item;
             _currentCharacter!.AddToInventory(item!);
             UpdateFields(UpdateFieldValues.Additional);
             OnPropertyChanged(nameof(Inventory));
