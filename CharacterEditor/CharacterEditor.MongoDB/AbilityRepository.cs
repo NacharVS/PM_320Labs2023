@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace CharacterEditor.MongoDB;
 
-public class AbilityRepository : IAbilityRepository
+public class AbilityRepository : RepositoryBase, IAbilityRepository
 {
     private IMongoCollection<AbilityDb> Abilities { get; }
 

@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace CharacterEditor.MongoDB;
 
-public class ItemRepository : IItemRepository
+public class ItemRepository : RepositoryBase, IItemRepository
 {
     private IMongoCollection<ItemDb> Items { get; }
 
@@ -17,20 +17,7 @@ public class ItemRepository : IItemRepository
     {
         return Items.Find(x => x.ClassName == className)
             .ToEnumerable()
-            .Select(x => new Item
-            {
-                Name = x.Name ?? String.Empty, AttackChange = x.AttackChange,
-                HealthChange = x.HealthChange,
-                ManaChange = x.ManaChange,
-                MagicalAttackChange = x.MagicalAttackChange,
-                PhysicalResistanceChange = x.PhysicalResistanceChange,
-                ClassName = x.ClassName, Type = x.Type,
-                MinimumLevel = x.MinimumLevel,
-                ConstitutionChange = x.ConstitutionChange,
-                DexterityChange = x.DexterityChange,
-                IntelligenceChange = x.IntelligenceChange,
-                StrengthChange = x.StrengthChange
-            });
+            .Select(x => ConvertItem(x));
     }
 
     public void InitializeCollection()

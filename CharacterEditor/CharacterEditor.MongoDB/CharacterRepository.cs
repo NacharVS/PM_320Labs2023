@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace CharacterEditor.MongoDB;
 
-public class CharacterRepository : ICharacterRepository
+public class CharacterRepository : RepositoryBase, ICharacterRepository
 {
     private IMongoCollection<CharacterDb> Characters { get; }
 
@@ -55,15 +55,9 @@ public class CharacterRepository : ICharacterRepository
         character.Constitution = dbChar.Constitution;
         character.Intelligence = dbChar.Intelligence;
         character.Inventory = dbChar.Inventory is not null
-            ? dbChar.Inventory.Select(x => new Item
-            {
-                Name = x.Name, AttackChange = x.AttackChange,
-                HealthChange = x.HealthChange, ManaChange = x.ManaChange,
-                MagicalAttackChange = x.MagicalAttackChange,
-                PhysicalResistanceChange = x.PhysicalResistanceChange,
-                Type = x.Type, ClassName = x.ClassName,
-                MinimumLevel = x.MinimumLevel
-            }).ToArray()
+            ? dbChar.Inventory
+                .Select(x => ConvertItem(x))
+                .ToArray()
             : Array.Empty<Item>();
         character.Abilities = dbChar.Abilities is not null
             ? dbChar.Abilities.Select(x => new Ability
@@ -90,15 +84,7 @@ public class CharacterRepository : ICharacterRepository
             ClassName = character.GetType().Name,
             Inventory = character.Inventory.Length == 0
                 ? null
-                : character.Inventory.Select(x => new ItemDb
-                {
-                    Name = x.Name, AttackChange = x.AttackChange,
-                    HealthChange = x.HealthChange, ManaChange = x.ManaChange,
-                    MagicalAttackChange = x.MagicalAttackChange,
-                    PhysicalResistanceChange = x.PhysicalResistanceChange,
-                    Type = x.Type, ClassName = x.ClassName,
-                    MinimumLevel = x.MinimumLevel
-                }),
+                : character.Inventory.Select(x => ConvertItem(x)),
             Abilities = character.Abilities.Length == 0
                 ? null
                 : character.Abilities.Select(x => new AbilityDb
@@ -123,15 +109,7 @@ public class CharacterRepository : ICharacterRepository
             ClassName = character.GetType().Name,
             Inventory = character.Inventory.Length == 0
                 ? null
-                : character.Inventory.Select(x => new ItemDb
-                {
-                    Name = x.Name, AttackChange = x.AttackChange,
-                    HealthChange = x.HealthChange, ManaChange = x.ManaChange,
-                    MagicalAttackChange = x.MagicalAttackChange,
-                    PhysicalResistanceChange = x.PhysicalResistanceChange,
-                    Type = x.Type, ClassName = x.ClassName,
-                    MinimumLevel = x.MinimumLevel
-                }),
+                : character.Inventory.Select(x => ConvertItem(x)),
             Abilities = character.Abilities.Length == 0
                 ? null
                 : character.Abilities.Select(x => new AbilityDb
@@ -149,15 +127,7 @@ public class CharacterRepository : ICharacterRepository
         var filter = Builders<CharacterDb>.Filter.Eq(x => x.Id, id);
         var updateDefinition =
             Builders<CharacterDb>.Update.Set(x => x.Inventory, inventory.Select(
-                x => new ItemDb
-                {
-                    Name = x.Name, AttackChange = x.AttackChange,
-                    HealthChange = x.HealthChange, ManaChange = x.ManaChange,
-                    MagicalAttackChange = x.MagicalAttackChange,
-                    PhysicalResistanceChange = x.PhysicalResistanceChange,
-                    Type = x.Type, ClassName = x.ClassName,
-                    MinimumLevel = x.MinimumLevel
-                }));
+                x => ConvertItem(x)));
         Characters.UpdateOne(filter, updateDefinition);
     }
 }
