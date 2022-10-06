@@ -12,7 +12,7 @@ public class ItemRepository : IItemRepository
     {
         Items = connection.Database?.GetCollection<ItemDb>("Items")!;
     }
-    
+
     public IEnumerable<Item> GetItemsByClass(string className)
     {
         return Items.Find(x => x.ClassName == className)
@@ -24,7 +24,12 @@ public class ItemRepository : IItemRepository
                 ManaChange = x.ManaChange,
                 MagicalAttackChange = x.MagicalAttackChange,
                 PhysicalResistanceChange = x.PhysicalResistanceChange,
-                ClassName=x.ClassName, Type = x.Type, MinimumLevel = x.MinimumLevel
+                ClassName = x.ClassName, Type = x.Type,
+                MinimumLevel = x.MinimumLevel,
+                ConstitutionChange = x.ConstitutionChange,
+                DexterityChange = x.DexterityChange,
+                IntelligenceChange = x.IntelligenceChange,
+                StrengthChange = x.StrengthChange
             });
     }
 
@@ -45,7 +50,11 @@ public class ItemRepository : IItemRepository
                 ManaChange = item.ManaChange,
                 MagicalAttackChange = item.MagicalAttackChange,
                 PhysicalResistanceChange = item.PhysicalResistanceChange,
-                ClassName = item.ClassName, MinimumLevel = item.MinimumLevel
+                ClassName = item.ClassName, MinimumLevel = item.MinimumLevel,
+                ConstitutionChange = item.ConstitutionChange,
+                DexterityChange = item.DexterityChange,
+                IntelligenceChange = item.IntelligenceChange,
+                StrengthChange = item.StrengthChange
             });
         }
     }

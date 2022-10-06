@@ -19,7 +19,10 @@ public static class UpdateFieldProperties
                 UpdateFieldValues.Level,
                 new[] { typeof(CharacterLevelAttribute) }
             },
-
+            {
+                UpdateFieldValues.Additional,
+                new[] { typeof(AdditionalAttribute) }
+            }
         };
 
     public static Type[] GetAttributes(UpdateFieldValues value)

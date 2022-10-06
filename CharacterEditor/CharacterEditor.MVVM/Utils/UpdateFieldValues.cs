@@ -4,5 +4,6 @@ public enum UpdateFieldValues
 {
     All = 1,
     Stat = 2,
-    Level = 3
+    Level = 3,
+    Additional = 4
 }

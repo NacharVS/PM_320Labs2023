@@ -43,7 +43,7 @@ public class MainWindowViewModel : ViewModel
         }
     }
 
-    public Item? SelectedItem { get; set; }
+    public Item? SelectedInventoryItem { get; set; }
 
     public CharacterTuple? SelectedCharacterInfo
     {
@@ -169,6 +169,91 @@ public class MainWindowViewModel : ViewModel
 
     #endregion
 
+    # region Additionals
+
+    [Additional]
+    [CharacterProperty]
+    [CharacterCharacteristic]
+    public int AdditionalStrength
+    {
+        get => _currentCharacter?.AdditionalStrength ?? 0;
+        set => OnPropertyChanged();
+    }
+
+    [Additional]
+    [CharacterProperty]
+    [CharacterCharacteristic]
+    public int AdditionalDexterity
+    {
+        get => _currentCharacter?.AdditionalDexterity ?? 0;
+        set => OnPropertyChanged();
+    }
+
+    [Additional]
+    [CharacterProperty]
+    [CharacterCharacteristic]
+    public int AdditionalConstitution
+    {
+        get => _currentCharacter?.AdditionalConstitution ?? 0;
+        set => OnPropertyChanged();
+    }
+
+    [Additional]
+    [CharacterProperty]
+    [CharacterCharacteristic]
+    public int AdditionalIntelligence
+    {
+        get => _currentCharacter?.AdditionalIntelligence ?? 0;
+        set => OnPropertyChanged();
+    }
+
+    [Additional]
+    [CharacterProperty]
+    [CharacterStat]
+    public double AdditionalHealth
+    {
+        get => _currentCharacter?.AdditionalHealth ?? 0;
+        set => OnPropertyChanged();
+    }
+
+    [Additional]
+    [CharacterProperty]
+    [CharacterStat]
+    public double AdditionalAttack
+    {
+        get => _currentCharacter?.AdditionalAttackDamage ?? 0;
+        set => OnPropertyChanged();
+    }
+
+    [Additional]
+    [CharacterProperty]
+    [CharacterStat]
+    public double AdditionalMana
+    {
+        get => _currentCharacter?.AdditionalMana ?? 0;
+        set => OnPropertyChanged();
+    }
+
+    [Additional]
+    [CharacterProperty]
+    [CharacterStat]
+    public double AdditionalMagicalAttack
+    {
+        get => _currentCharacter?.AdditionalMagicalAttackDamage ?? 0;
+        set => OnPropertyChanged();
+    }
+
+    [Additional]
+    [CharacterProperty]
+    [CharacterStat]
+    public double AdditionalPhysicalResist
+    {
+        get => _currentCharacter?.AdditionalPhysicalResistance ?? 0;
+        set => OnPropertyChanged();
+    }
+
+    #endregion
+
     #region Commands
 
     #region AddXp
@@ -192,15 +277,16 @@ public class MainWindowViewModel : ViewModel
     public ICommand RemoveItemFromInventory { get; }
 
     private bool CanRemoveItemFromInventoryExecute(object p) =>
-        _currentCharacter is not null && SelectedItem is not null;
+        _currentCharacter is not null && SelectedInventoryItem is not null;
 
     private void OnRemoveItemFromInventoryExecuted(object p)
     {
-        _currentCharacter!.DeleteFromInventory(SelectedItem!);
+        _currentCharacter!.DeleteFromInventory(SelectedInventoryItem!);
         OnPropertyChanged(nameof(Inventory));
         UpdateFields(UpdateFieldValues.Stat);
         if (_currentCharacter.Id != null)
-            _repository.UpdateInventory(_currentCharacter.Id, _currentCharacter.Inventory);
+            _repository.UpdateInventory(_currentCharacter.Id,
+                _currentCharacter.Inventory);
     }
 
     #endregion
@@ -222,10 +308,12 @@ public class MainWindowViewModel : ViewModel
         {
             var item = prompt.ChooseItemListBox.SelectedItem as Item;
             _currentCharacter!.AddToInventory(item!);
+            UpdateFields(UpdateFieldValues.Additional);
             OnPropertyChanged(nameof(Inventory));
             UpdateFields(UpdateFieldValues.Stat);
             if (_currentCharacter.Id != null)
-                _repository.UpdateInventory(_currentCharacter.Id, _currentCharacter.Inventory);
+                _repository.UpdateInventory(_currentCharacter.Id,
+                    _currentCharacter.Inventory);
         }
     }
 

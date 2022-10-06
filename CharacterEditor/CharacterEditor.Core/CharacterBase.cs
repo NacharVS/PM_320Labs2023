@@ -50,6 +50,8 @@ public abstract class CharacterBase
 
     public abstract CharacteristicsInfo CharacteristicsInfo { get; }
 
+    #region Characteristics
+
     public int Strength
     {
         get => _strength;
@@ -118,17 +120,104 @@ public abstract class CharacterBase
         }
     }
 
+    private int _additionalStrength;
+
+    public int AdditionalStrength
+    {
+        get => _additionalStrength;
+        private set
+        {
+            var difference = value - _additionalStrength;
+            _additionalStrength = value;
+            AdditionalHealth += difference *
+                                CharacteristicsInfo.StrengthInfo.HpChange;
+            AdditionalAttackDamage += difference *
+                                      CharacteristicsInfo.StrengthInfo
+                                          .AttackChange;
+        }
+    }
+
+    private int _additionalDexterity;
+
+    public int AdditionalDexterity
+    {
+        get => _additionalDexterity;
+        private set
+        {
+            var difference = value - _additionalDexterity;
+            _additionalDexterity = value;
+            AdditionalAttackDamage += difference *
+                                      CharacteristicsInfo.DexterityInfo
+                                          .AttackChange;
+            AdditionalPhysicalResistance += difference *
+                                            CharacteristicsInfo.DexterityInfo
+                                                .PhysicalDefenceChange;
+        }
+    }
+
+    private int _additionalConstitution;
+
+    public int AdditionalConstitution
+    {
+        get => _additionalConstitution;
+        private set
+        {
+            var difference = value - _additionalConstitution;
+            _additionalConstitution = value;
+            AdditionalHealth += difference *
+                                CharacteristicsInfo.ConstitutionInfo.HpChange;
+            AdditionalPhysicalResistance += difference * CharacteristicsInfo
+                .ConstitutionInfo.PhysicalDefenceChange;
+        }
+    }
+
+    private int _additionalIntelligence;
+
+    public int AdditionalIntelligence
+    {
+        get => _additionalIntelligence;
+        private set
+        {
+            var difference = value - _additionalIntelligence;
+            _additionalIntelligence = value;
+            AdditionalMana += difference *
+                              CharacteristicsInfo.IntelligenceInfo.ManaChange;
+            AdditionalMagicalAttackDamage += difference * CharacteristicsInfo
+                .IntelligenceInfo.MagicalAttackChange;
+        }
+    }
+
+    #endregion
+
+    #region Stats
+
     public double Health { get; private set; }
     public double Mana { get; private set; }
     public double AttackDamage { get; private set; }
     public double MagicalAttackDamage { get; private set; }
     public double PhysicalResistance { get; private set; }
 
+    public double AdditionalHealth { get; private set; }
+    public double AdditionalMana { get; private set; }
+    public double AdditionalAttackDamage { get; private set; }
+    public double AdditionalMagicalAttackDamage { get; private set; }
+    public double AdditionalPhysicalResistance { get; private set; }
+
+    #endregion
+
     protected CharacterBase(int experience = 0)
     {
         Level = new LevelInfo();
         Level.OnLevelUp += OnLevelUp;
         Level.CurrentExperience += experience;
+        OnItemAdd += item =>
+        {
+            AdditionalStrength += item.StrengthChange;
+            AdditionalDexterity += item.DexterityChange;
+            AdditionalConstitution += item.ConstitutionChange;
+            AdditionalIntelligence += item.IntelligenceChange;
+        };
+
         OnChangeStats += (_, entity, changeType) =>
         {
             Health += entity.HealthChange * (int)changeType;
@@ -172,6 +261,30 @@ public abstract class CharacterBase
         };
     }
 
+    # region Calcs
+
+    private double CalculateMana(int difference) => difference *
+                                                    CharacteristicsInfo
+                                                        .IntelligenceInfo
+                                                        .ManaChange;
+
+    private double CalculateMagicalAttack(int difference) => difference *
+        CharacteristicsInfo.IntelligenceInfo.MagicalAttackChange;
+
+    private double CalculateHealth(int difference) => difference *
+        (CharacteristicsInfo.StrengthInfo.HpChange +
+         CharacteristicsInfo.ConstitutionInfo.HpChange);
+
+    private double CalculatePhysicalResist(int difference) => difference *
+        (CharacteristicsInfo.DexterityInfo.PhysicalDefenceChange +
+         CharacteristicsInfo.ConstitutionInfo.PhysicalDefenceChange);
+
+    private double CalculateAttack(int difference) => difference *
+        (CharacteristicsInfo.StrengthInfo.AttackChange +
+         CharacteristicsInfo.DexterityInfo.AttackChange);
+
+    #endregion
+
     public void AddAbility(Ability ability)
     {
         if (_abilities.Count < MaximumAbilityCount)
@@ -186,12 +299,14 @@ public abstract class CharacterBase
         if (CanAddItem(item))
         {
             _inventory.Add(item);
+            OnItemAdd?.Invoke(item);
             OnChangeStats?.Invoke(this, item, StatChangeType.Positive);
         }
     }
 
     public bool CanAddItem(Item item) =>
-        _inventory.Count < InventoryCapacity && Inventory.FirstOrDefault(x => x.Type == item.Type) == null;
+        _inventory.Count < InventoryCapacity &&
+        Inventory.FirstOrDefault(x => x.Type == item.Type) == null;
 
     public void DeleteFromInventory(Item item)
     {
@@ -243,6 +358,7 @@ public abstract class CharacterBase
     }
 
     public event UpdateStatEventHandler? OnChangeStats;
+    public event ItemAddEventHandler? OnItemAdd;
     public event AbilityGainEventHandler? OnAbilityGain;
     public event CharacteristicChangeEventHandler? OnStrengthChange;
     public event CharacteristicChangeEventHandler? OnDexterityChange;
@@ -257,3 +373,5 @@ public delegate void UpdateStatEventHandler(CharacterBase sender,
     ICanChangeStats entity, StatChangeType changeType);
 
 public delegate void AbilityGainEventHandler();
+
+public delegate void ItemAddEventHandler(Item item);

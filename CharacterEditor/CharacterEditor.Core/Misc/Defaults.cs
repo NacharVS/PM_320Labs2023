@@ -72,55 +72,64 @@ public static class Defaults
         {
             Name = "Strong helmet", Type = ItemType.Helmet, AttackChange = 0,
             ClassName = nameof(Warrior), MinimumLevel = 3, HealthChange = 50,
-            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 15
+            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 15,
+            StrengthChange = 10, ConstitutionChange = 5, DexterityChange = 0, IntelligenceChange = 0
         },
         new()
         {
             Name = "Cuirass", Type = ItemType.Armor, AttackChange = 0,
             ClassName = nameof(Warrior), MinimumLevel = 5, HealthChange = 150,
-            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 35
+            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 35,
+            StrengthChange = 15, ConstitutionChange = 20, DexterityChange = -5, IntelligenceChange = 0
         },
         new()
         {
             Name = "Sword", Type = ItemType.Weapon, AttackChange = 100,
             ClassName = nameof(Warrior), MinimumLevel = 5, HealthChange = 0,
-            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 0
+            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 0,
+            StrengthChange = 10, ConstitutionChange = 0, DexterityChange = 0, IntelligenceChange = 0
         },
         new()
         {
             Name = "Funny hat", Type = ItemType.Helmet, AttackChange = 0,
             ClassName = nameof(Wizard), MinimumLevel = 2, HealthChange = 20,
-            ManaChange = 100, MagicalAttackChange = 50, PhysicalResistanceChange = 0
+            ManaChange = 100, MagicalAttackChange = 50, PhysicalResistanceChange = 0,
+            StrengthChange = 0, ConstitutionChange = 0, DexterityChange = 0, IntelligenceChange = 10
         },
         new()
         {
             Name = "Robe of Magi", Type = ItemType.Armor, AttackChange = 0,
             ClassName = nameof(Wizard), MinimumLevel = 5, HealthChange = 50,
-            ManaChange = 150, MagicalAttackChange = 30, PhysicalResistanceChange = 5
+            ManaChange = 150, MagicalAttackChange = 30, PhysicalResistanceChange = 5,
+            StrengthChange = 0, ConstitutionChange = 5, DexterityChange = 0, IntelligenceChange = 20
         },
         new()
         {
             Name = "Magic stick", Type = ItemType.Weapon, AttackChange = 5,
             ClassName = nameof(Wizard), MinimumLevel = 3, HealthChange = 50,
-            ManaChange = 50, MagicalAttackChange = 150, PhysicalResistanceChange = 0
+            ManaChange = 50, MagicalAttackChange = 150, PhysicalResistanceChange = 0,
+            StrengthChange = 0, ConstitutionChange = 5, DexterityChange = 5, IntelligenceChange = 30
         },
         new()
         {
             Name = "Hood", Type = ItemType.Helmet, AttackChange = 50,
             ClassName = nameof(Rogue), MinimumLevel = 3, HealthChange = 50,
-            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 5
+            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 5,
+            StrengthChange = 0, ConstitutionChange = 2, DexterityChange = 15, IntelligenceChange = 0
         },
         new()
         {
             Name = "Jacket", Type = ItemType.Armor, AttackChange = 70,
             ClassName = nameof(Rogue), MinimumLevel = 5, HealthChange = 150,
-            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 15
+            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = 15,
+            StrengthChange = 5, ConstitutionChange = 5, DexterityChange = 20, IntelligenceChange = 0
         },
         new()
         {
             Name = "Backstab knife", Type = ItemType.Weapon, AttackChange = 150,
             ClassName = nameof(Rogue), MinimumLevel = 3, HealthChange = 0,
-            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = -15
+            ManaChange = 0, MagicalAttackChange = 0, PhysicalResistanceChange = -15,
+            StrengthChange = 5, ConstitutionChange = -5, DexterityChange = 30, IntelligenceChange = 0
         },
     };
 }

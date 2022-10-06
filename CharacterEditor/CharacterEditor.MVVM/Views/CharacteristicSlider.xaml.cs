@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CharacterEditor.MVVM.Utils;
 using CharacterEditor.MVVM.Utils.Parameters;
 
 namespace CharacterEditor.MVVM.Views;
@@ -60,7 +62,33 @@ public partial class CharacteristicSlider : UserControl
         var c = d as CharacteristicSlider;
         if (c is null) return;
 
-        c.CharacteristicValue.Content = c.CharValue.ToString();
+        var additional = c.CharAdditionalValue == 0
+            ? ""
+            : $"{ApplicationUtils.GetSign(c.CharAdditionalValue)} {Math.Abs(c.CharAdditionalValue)}";
+        c.CharacteristicValue.Content = $"{c.CharValue} {additional}";
+    }
+    
+    public int CharAdditionalValue
+    {
+        get => (int)GetValue(CharAdditionalValueProperty);
+        set => SetValue(CharAdditionalValueProperty, value);
+    }
+
+    public static readonly DependencyProperty CharAdditionalValueProperty =
+        DependencyProperty.Register("CharAdditionalValue", typeof(int),
+            typeof(CharacteristicSlider),
+            new PropertyMetadata(default(int), OnCharAdditionalValuePropertyChanged));
+
+    private static void OnCharAdditionalValuePropertyChanged(DependencyObject d,
+        DependencyPropertyChangedEventArgs e)
+    {
+        var c = d as CharacteristicSlider;
+        if (c is null) return;
+
+        var additional = c.CharAdditionalValue == 0
+            ? ""
+            : $"{ApplicationUtils.GetSign(c.CharAdditionalValue)} {Math.Abs(c.CharAdditionalValue)}";
+        c.CharacteristicValue.Content = $"{c.CharValue} {additional}";
     }
 
     public string CharName

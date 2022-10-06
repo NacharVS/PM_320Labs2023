@@ -17,3 +17,7 @@ public class CharacterCharacteristicAttribute : Attribute
 public class CharacterLevelAttribute : Attribute
 {
 }
+
+public class AdditionalAttribute : Attribute
+{
+}

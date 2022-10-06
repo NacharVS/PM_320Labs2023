@@ -54,6 +54,7 @@
                 </Style>
             </StackPanel.Resources>
             <components:CharacteristicSlider CharValue="{Binding Strength, FallbackValue=0}"
+                                             CharAdditionalValue="{Binding AdditionalStrength}"
                                              x:Name="StrengthSlider"
                                              CharName="Strength"
                                              Margin="40,20,40,20"
@@ -61,16 +62,19 @@
             <components:CharacteristicSlider x:Name="DexteritySlider"
                                              CharName="Dexterity"
                                              CharValue="{Binding Dexterity, FallbackValue=0}"
+                                             CharAdditionalValue="{Binding AdditionalDexterity}"
                                              Margin="40,20,40,20"
                                              Command="{Binding UpdateCharacteristicValue}" />
             <components:CharacteristicSlider x:Name="ConstitutionSlider"
                                              CharName="Constitution"
                                              CharValue="{Binding Constitution, FallbackValue=0}"
+                                             CharAdditionalValue="{Binding AdditionalConstitution}"
                                              Margin="40,20,40,20"
                                              Command="{Binding UpdateCharacteristicValue}" />
             <components:CharacteristicSlider x:Name="IntelligenceSlider"
                                              CharName="Intelligence"
                                              CharValue="{Binding Intelligence, FallbackValue=0}"
+                                             CharAdditionalValue="{Binding AdditionalIntelligence}"
                                              Margin="40,20,40,20"
                                              Command="{Binding UpdateCharacteristicValue}" />
         </StackPanel>
@@ -103,6 +107,11 @@
                                 AttackValue="{Binding Attack}"
                                 MagicalAttackValue="{Binding MagicalAttack}"
                                 PhysicalResistValue="{Binding PhysicalResist}"
+                                AdditionalAttackValue="{Binding AdditionalAttack}"
+                                AdditionalHealthValue="{Binding AdditionalHealth}"
+                                AdditionalManaValue="{Binding AdditionalMana}"
+                                AdditionalMagicalAttackValue="{Binding AdditionalMagicalAttack}"
+                                AdditionalPhysicalResistValue="{Binding AdditionalPhysicalResist}"
                                 Grid.Column="3"
                                 HorizontalAlignment="Center" Margin="0,19,0,0"
                                 Grid.Row="1" VerticalAlignment="Center" Height="316" Grid.RowSpan="9" Width="137" />
@@ -171,7 +180,7 @@
                      Grid.RowSpan="3"
                      Grid.ColumnSpan="3"
                      ItemsSource="{Binding Inventory}"
-                     SelectedItem="{Binding SelectedItem}"
+                     SelectedItem="{Binding SelectedInventoryItem}"
                      d:ItemsSource="{d:SampleData ItemCount=5}"
                      HorizontalContentAlignment="Center"
                      BorderBrush="Black"
