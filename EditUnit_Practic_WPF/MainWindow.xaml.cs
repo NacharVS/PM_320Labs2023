@@ -27,7 +27,6 @@ namespace EditUnit_Practic_WPF
 
         public MainWindow()
         {
-            //units = new List<Unit>() {new Warrior(), new Wizard(), new Rogue() };
 
             InitializeComponent();
 

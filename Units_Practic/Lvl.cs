@@ -33,7 +33,7 @@ namespace Units_Practic
             {
                 _exp = value;
 
-                if (_exp >= necessaryExp)
+                while (_exp >= necessaryExp)
                 {
                     ++lvl;
                     boostPoints += 5;

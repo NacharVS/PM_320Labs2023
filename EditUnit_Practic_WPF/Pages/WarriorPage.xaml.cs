@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Units_Practic.Abilities;
 using Units_Practic.Characters;
 
 namespace EditUnit_Practic_WPF.Pages
@@ -53,6 +45,12 @@ namespace EditUnit_Practic_WPF.Pages
 
             lvlPb.Maximum = unit.lvl.necessaryExp;
             lvlPb.Value = unit.lvl.exp;
+
+            GetPotentialAbilities();
+            GetAbilities();
+
+            if (unit.lvl.abilitiesPoints > 0) cbPotentialAbilities.IsEnabled = true;
+            else cbPotentialAbilities.IsEnabled = false;
         }
 
         private void dexBtnMax_Click(object sender, RoutedEventArgs e)
@@ -151,22 +149,55 @@ namespace EditUnit_Practic_WPF.Pages
             }
         }
 
-        private void btn_100xp_Click(object sender, RoutedEventArgs e)
+        private void btn_500xp_Click(object sender, RoutedEventArgs e)
         {
-            unit.lvl.exp += 100;
+            unit.lvl.exp += 500;
             UpdateCharacteristics();
         }
 
-        private void btn_300xp_Click(object sender, RoutedEventArgs e)
+        private void btn_2500xp_Click(object sender, RoutedEventArgs e)
         {
-            unit.lvl.exp += 300;
+            unit.lvl.exp += 2500;
             UpdateCharacteristics();
         }
 
-        private void btn_1000xp_Click(object sender, RoutedEventArgs e)
+        private void btn_10000xp_Click(object sender, RoutedEventArgs e)
         {
-            unit.lvl.exp += 1000;
+            unit.lvl.exp += 10000;
             UpdateCharacteristics();
+        }
+
+        private void cbPotentialAbilities_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (Ability)cbPotentialAbilities.SelectedItem;
+
+            if (item == null) return;
+
+            unit.lvl.abilities.Add(item);
+            unit.lvl.potentialAbilities.Remove(item);
+            unit.lvl.abilitiesPoints -= 1;
+
+            UpdateCharacteristics();
+        }
+
+        private void GetPotentialAbilities()
+        {
+            cbPotentialAbilities.Items.Clear();
+
+            foreach (var ability in unit.lvl.potentialAbilities)
+            {
+                cbPotentialAbilities.Items.Add(ability);
+            }
+        }
+
+        private void GetAbilities()
+        {
+            cbAbility.Items.Clear();
+
+            foreach (var ability in unit.lvl.abilities)
+            {
+                cbAbility.Items.Add(ability);
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Units_Practic.Abilities
     {
         public Illusion()
         {
-            name = "illusion";
+            name = "Illusion";
         }
     }
 }

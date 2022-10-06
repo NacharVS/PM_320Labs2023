@@ -5,9 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:EditUnit_Practic_WPF.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="630" d:DesignWidth="870"
       Title="RoguePage" Initialized="Page_Initialized">
-
+    
     <Grid Background="#FF644887">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="22*"/>
