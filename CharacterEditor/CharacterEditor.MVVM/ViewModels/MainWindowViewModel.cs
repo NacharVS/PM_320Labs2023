@@ -283,6 +283,7 @@ public class MainWindowViewModel : ViewModel
     {
         _currentCharacter!.DeleteFromInventory(SelectedInventoryItem!);
         OnPropertyChanged(nameof(Inventory));
+        UpdateFields(UpdateFieldValues.Additional);
         UpdateFields(UpdateFieldValues.Stat);
         if (_currentCharacter.Id != null)
             _repository.UpdateInventory(_currentCharacter.Id,

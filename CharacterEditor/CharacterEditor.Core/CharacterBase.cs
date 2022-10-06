@@ -210,12 +210,12 @@ public abstract class CharacterBase
         Level = new LevelInfo();
         Level.OnLevelUp += OnLevelUp;
         Level.CurrentExperience += experience;
-        OnItemAdd += item =>
+        OnInventoryUpdate += (item, operation) =>
         {
-            AdditionalStrength += item.StrengthChange;
-            AdditionalDexterity += item.DexterityChange;
-            AdditionalConstitution += item.ConstitutionChange;
-            AdditionalIntelligence += item.IntelligenceChange;
+            AdditionalStrength += item.StrengthChange * (int)operation;
+            AdditionalDexterity += item.DexterityChange * (int)operation;
+            AdditionalConstitution += item.ConstitutionChange * (int)operation;
+            AdditionalIntelligence += item.IntelligenceChange * (int)operation;
         };
 
         OnChangeStats += (_, entity, changeType) =>
@@ -299,7 +299,7 @@ public abstract class CharacterBase
         if (CanAddItem(item))
         {
             _inventory.Add(item);
-            OnItemAdd?.Invoke(item);
+            OnInventoryUpdate?.Invoke(item, InventoryOperation.Add);
             OnChangeStats?.Invoke(this, item, StatChangeType.Positive);
         }
     }
@@ -311,6 +311,7 @@ public abstract class CharacterBase
     public void DeleteFromInventory(Item item)
     {
         _inventory.Remove(item);
+        OnInventoryUpdate?.Invoke(item, InventoryOperation.Remove);
         OnChangeStats?.Invoke(this, item, StatChangeType.Negative);
     }
 
@@ -358,7 +359,7 @@ public abstract class CharacterBase
     }
 
     public event UpdateStatEventHandler? OnChangeStats;
-    public event ItemAddEventHandler? OnItemAdd;
+    public event ItemAddEventHandler? OnInventoryUpdate;
     public event AbilityGainEventHandler? OnAbilityGain;
     public event CharacteristicChangeEventHandler? OnStrengthChange;
     public event CharacteristicChangeEventHandler? OnDexterityChange;
@@ -374,4 +375,4 @@ public delegate void UpdateStatEventHandler(CharacterBase sender,
 
 public delegate void AbilityGainEventHandler();
 
-public delegate void ItemAddEventHandler(Item item);
+public delegate void ItemAddEventHandler(Item item, InventoryOperation operation);
