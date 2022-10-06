@@ -58,34 +58,41 @@ namespace CharacterEditorMongoDb
                 return null;
             }
 
+            Character character;
+
             switch (dbCharacter.ClassName)
             {
                 case "Warrior":
-                    return new Warrior(dbCharacter.Strength,
+                    character = new Warrior(dbCharacter.Strength,
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
                                         dbCharacter.Intellisense,
-                                        dbCharacter.Experience)
-                                        { Name = dbCharacter.Name,
-                                          Inventory = new Inventory(dbCharacter.Items)};
+                                        dbCharacter.Experience,
+                                        dbCharacter.AvailableAbilityCount);
+                    break;
                 case "Wizard":
-                    return new Wizard(dbCharacter.Strength,
+                    character =  new Wizard(dbCharacter.Strength,
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
                                         dbCharacter.Intellisense,
-                                        dbCharacter.Experience)
-                                        { Name = dbCharacter.Name,
-                                          Inventory = new Inventory(dbCharacter.Items)};
+                                        dbCharacter.Experience,
+                                        dbCharacter.AvailableAbilityCount);
+                    break;
                 case "Rogue":
-                    return new Rogue(dbCharacter.Strength,
+                    character = new Rogue(dbCharacter.Strength,
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
                                         dbCharacter.Intellisense,
-                                        dbCharacter.Experience)
-                                        { Name = dbCharacter.Name,
-                                          Inventory = new Inventory(dbCharacter.Items)};
+                                        dbCharacter.Experience,
+                                        dbCharacter.AvailableAbilityCount);
+                    break;
                 default: return null;
             }
+
+            character.Name = dbCharacter.Name;
+            character.Inventory = new Inventory(dbCharacter.Items);
+            character.Abilities = dbCharacter.Abilities;
+            return character;
         }
 
         public bool ReplaceByName(string name, Character character)
@@ -103,7 +110,8 @@ namespace CharacterEditorMongoDb
                                 character.GetIntellisenseValue(),
                                 character.Inventory.Items,
                                 character.Experience,
-                                character.Abilities);
+                                character.Abilities,
+                                character.AvailableAbilityCount);
         }
     }
 }

@@ -8,9 +8,33 @@
         private _charactericticChangedDelegate _charactericticChangedEvent;
         private delegate void OnLevelUp();
         private  OnLevelUp OnLevelUpEvent;
-        public List<Ability> Abilities { get; set; }
+        private List<Ability> _abilities;
+        public List<Ability> Abilities
+        {
+            get { return _abilities; }
+            set
+            {
+                foreach (var ability in value)
+                {
+                    _abilities.Add(ability);
+                    FillAbilityData(ability);
+                }
+            }
+        }
 
         private int _availableAbilityCount = 0;
+        public int AvailableAbilityCount
+        {
+            get { return _availableAbilityCount;}
+            private set
+            {
+                if (value < 0)
+                {
+                    _availableAbilityCount = 0;
+                }
+                _availableAbilityCount = value;
+            }
+        }
         public Inventory Inventory { get; set; }
         public string Name { get; set; }
         private int _level;
@@ -33,7 +57,6 @@
             get { return _experience; }
             set
             {
-                var temp = Experience;
                 if (value < 0)
                 {
                     _experience = 0;
@@ -41,17 +64,11 @@
  
                 _experience = value;
   
-
                 while (_experience >= Level * _levelUpValue + _currentLevelExperienceValue)
                 {
                     _currentLevelExperienceValue = Level * _levelUpValue + _currentLevelExperienceValue;
                     Level++;
                     OnLevelUpEvent?.Invoke();
-                }
-
-                if (Level % 3 == 0)
-                {
-                    _availableAbilityCount++;
                 }
             }
         }
@@ -188,6 +205,8 @@
                                 Dexterity.Value * _dexterityPhysicalDefenceChange;
             Mana = Intellisense.Value * _intellisenseManaChange;
             MagicalAttackDamage = Intellisense.Value * _intellisenseMagicalAttackChange;
+
+            FillAllAbilityData();
         }
 
         public void SetStrengthValue(int value)
@@ -240,23 +259,50 @@
             SetDexterityValue(Dexterity.Value + 5);
             SetConstitutionValue(Constitution.Value + 5);
             SetIntellisenseValue(Intellisense.Value + 5);
+            _charactericticChangedEvent?.Invoke();
+        }
+
+        private void FillAbilityData(Ability ability)
+        {
+            AttackDamage += ability.AttackChangeValue;
+            Health += ability.HealthChangeValue;
+            PhysicalDefense += ability.PhysicalDefenceChangeValue;
+            Mana += ability.ManaChangeValue;
+            MagicalAttackDamage += ability.MagicalAttackChangeValue;
+        }
+        private void FillAllAbilityData()
+        {
+            foreach (var ability in _abilities)
+            {
+                FillAbilityData(ability);
+            }
         }
 
         public bool AddAbility(Ability ability)
         {
+            if (ability == null)
+            {
+                return false;
+            }
+
             if (_availableAbilityCount > 0)
             {
                 _availableAbilityCount--;
                 Abilities.Add(ability);
-                SetStrengthValue(GetStrengthValue() + ability.StrengthChangeValue);
-                SetDexterityValue(GetDexterityValue() + ability.DexterityChangeValue);
-                SetConstitutionValue(GetConstitutionValue() + ability.ConstitutionChangeValue);
-                SetIntellisenseValue(GetIntellisenseValue() + ability.IntellisenseChangeValue);
+                FillAbilityData(ability);
                 return true;
             }
             else
             {
                 return false;
+            }
+        }
+
+        private void CheckLevel()
+        {
+            if (Level % 3 == 0)
+            {
+                _availableAbilityCount++;
             }
         }
 
@@ -272,11 +318,14 @@
                             Characterictic intellisense,
                             double intellisenseManaChange,
                             double intellisenseMagicalAttackChange,
-                            int experience)
+                            int experience,
+                            int availableAbilityCount)
         {
             Level = 1;
             Experience = experience;
-            Abilities = new List<Ability>();
+            AvailableAbilityCount = availableAbilityCount;
+            _abilities = new List<Ability>();
+
             _strengthAttackChange = strengthAttackChange;
             _strengthHealthChange = strengthHealthChange;
             Strength = strength;
@@ -296,6 +345,7 @@
             Inventory = new Inventory();
 
             OnLevelUpEvent += UpdateCharacterictics;
+            OnLevelUpEvent += CheckLevel;
             _charactericticChangedEvent += CalculateCharacterictics;
             _charactericticChangedEvent?.Invoke();
         }

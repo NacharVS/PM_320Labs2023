@@ -112,7 +112,14 @@
         <Button Name="Btn100" Grid.Column="9" Grid.Row="2" Style="{StaticResource AllBtn}" FontSize="11" Click="Btn100_Click">+100</Button>
         <Button Name="Btn200" Grid.Column="10" Grid.Row="2" Style="{StaticResource AllBtn}" FontSize="11" Click="Btn200_Click">+200</Button>
         <Button Name="Btn500" Grid.Column="11" Grid.Row="2" Style="{StaticResource AllBtn}" FontSize="11" Click="Btn500_Click">+500</Button>
-        <ComboBox Name="cbAbilities" HorizontalAlignment="Center" Grid.Column="8" Grid.Row="3"  Grid.ColumnSpan="4" VerticalAlignment="Center" Width="120" FontSize="15" SelectionChanged="cbAbilities_SelectionChanged"/>
+        <ComboBox Name="cbAbilities" HorizontalAlignment="Center" Grid.Column="8" Grid.Row="3"  Grid.ColumnSpan="2" VerticalAlignment="Center" Width="120" FontSize="15"/>
+        <Button x:Name="btnAddAility" Content="Add Ability" Grid.Column="10" Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource AllBtn}" Width="100" Click="btnAddAility_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
         <ListBox Name="lbCharacterAbilities" Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="4" Margin="10,10,20,0" Grid.RowSpan="2"></ListBox>
 
         <Button x:Name="btnSave" Content="Save" Grid.Column="10" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource AllBtn}" Width="120" Click="btnSave_Click">

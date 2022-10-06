@@ -2,6 +2,7 @@
 using CharacterEditorMongoDb;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,10 +18,16 @@ namespace CharacterEditor
         private Character _currentCharacter;
         private ICharacterRepository _repository;
         private List<Ability> _abilities = new List<Ability>()
-                                                            {new Ability("SpiderHit",10, 0, 5, 0),
-                                                             new Ability("BrainStorming", 0, 10, 0, 10),
-                                                             new Ability("MongooseReaction", 5, 10, 5, 0),
-                                                             new Ability("HulkIntegration", 10, 10, 5, 0)};
+                                                            {new Ability("SpiderHit", 20, 10, 15, 5, 15),
+                                                             new Ability("BrainStorming", 15, 10, 10, 10, 25),
+                                                             new Ability("MongooseReaction", 20, 15, 20, 7, 20),
+                                                             new Ability("HulkIntegration", 30, 20, 30, 10, 10),
+                                                             new Ability("DevilEclipse", 10, 25, 20, 10, 35),
+                                                             new Ability("SparkPlug", 25, 30, 10, 5, 15),
+                                                             new Ability("StrongGuy", 40, 20, 30, 3, 5),
+                                                             new Ability("SecretMedicine", 5, 40, 10, 5, 15),
+                                                             new Ability("PowerShield", 10, 15, 40, 5, 5),
+                                                             new Ability("AirSupport", 15, 15, 15, 10, 40)};
         public delegate void CharactericticChangedDelegate();
         public event CharactericticChangedDelegate CharactericticChangedEvent;
         public delegate void CharacterUpdateDelegate();
@@ -29,9 +36,9 @@ namespace CharacterEditor
         public MainWindow()
         {
             InitializeComponent();
-            cbCharacters.ItemsSource = _characterNames;
-            
-            cbAbilities.DisplayMemberPath = "Name";
+            cbCharacters.ItemsSource = _characterNames;    
+            FillCBAbilities();
+            FillLBCharacterAbilities();
             CharactericticChangedEvent += UpdateCharacterInfo;
             CharacterUpdateEvent += UpdateExistingCharacters;
             try
@@ -82,18 +89,46 @@ namespace CharacterEditor
             constitution.Content = _currentCharacter.GetConstitutionValue();
             intellisense.Content = _currentCharacter.GetIntellisenseValue();
 
-            cbAbilities.ItemsSource = _abilities;  
+            Experience.Content = _currentCharacter.Experience;
+            Level.Content = _currentCharacter.Level;
+            FillCBAbilities();
+            FillLBCharacterAbilities();
+        }
+
+        private void FillCBAbilities()
+        {
+            if (_currentCharacter == null || _abilities == null)
+            {
+                return;
+            }
+
+            cbAbilities.Items.Clear();
+            foreach (var ability in _abilities)
+            {
+                if (_currentCharacter.Abilities.Find(x => x.Name == ability.Name) != null)
+                {
+                    continue;
+                }
+                cbAbilities.Items.Add(ability);
+            }
+
             cbAbilities.DisplayMemberPath = "Name";
-            cbAbilities.InvalidateVisual();
+        }
+
+        private void FillLBCharacterAbilities()
+        {
+            if (_currentCharacter == null || _currentCharacter.Abilities == null)
+            {
+                return;
+            }
+
             lbCharacterAbilities.Items.Clear();
             foreach (var ability in _currentCharacter.Abilities)
             {
                 lbCharacterAbilities.Items.Add(ability);
             }
-            lbCharacterAbilities.DisplayMemberPath = "Name";
 
-            Experience.Content = _currentCharacter.Experience;
-            Level.Content = _currentCharacter.Level;
+            lbCharacterAbilities.DisplayMemberPath = "Name";
         }
 
         private void CharactericticChangeButton_Click(object sender, RoutedEventArgs e)
@@ -252,6 +287,7 @@ namespace CharacterEditor
             cbCharacters.SelectedItem = character.GetType().Name;
             _currentCharacter = character;
             CharactericticChangedEvent?.Invoke();
+
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -327,11 +363,11 @@ namespace CharacterEditor
                 return;
             }
 
-            _currentCharacter.Experience += 3000;
+            _currentCharacter.Experience += 500;
             CharactericticChangedEvent?.Invoke();
         }
 
-        private void cbAbilities_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btnAddAility_Click(object sender, RoutedEventArgs e)
         {
             if (_currentCharacter == null)
             {
@@ -340,11 +376,17 @@ namespace CharacterEditor
 
             var ability = cbAbilities.SelectedItem as Ability;
 
+            if (ability == null)
+            {
+                return;
+            }
+
             if (_currentCharacter.AddAbility(ability))
             {
-                MessageBox.Show("Ability added!");
-                _abilities.Remove(ability);
+                cbAbilities.Items.Remove(ability);
+                cbAbilities.InvalidateVisual();
                 CharactericticChangedEvent?.Invoke();
+                MessageBox.Show("Ability added!");
             }
             else
             {
