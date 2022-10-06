@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.mainPan = new System.Windows.Forms.Panel();
+            this.panelOfArmor = new System.Windows.Forms.Panel();
+            this.listBoxOfBoots = new System.Windows.Forms.ListBox();
+            this.listBoxOfChestplates = new System.Windows.Forms.ListBox();
+            this.listBoxOfHelmets = new System.Windows.Forms.ListBox();
+            this.bootsLbl = new System.Windows.Forms.Label();
+            this.chestplateLbl = new System.Windows.Forms.Label();
+            this.helmetLbl = new System.Windows.Forms.Label();
+            this.armorLbl = new System.Windows.Forms.Label();
             this.listBoxSkills = new System.Windows.Forms.ListBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.skillsRogComboBox = new System.Windows.Forms.ComboBox();
@@ -79,6 +87,7 @@
             this.firstItemLbl = new System.Windows.Forms.Label();
             this.listBoxRes = new System.Windows.Forms.ListBox();
             this.mainPan.SuspendLayout();
+            this.panelOfArmor.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -95,7 +104,7 @@
             // mainPan
             // 
             this.mainPan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.mainPan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mainPan.Controls.Add(this.panelOfArmor);
             this.mainPan.Controls.Add(this.listBoxSkills);
             this.mainPan.Controls.Add(this.panel2);
             this.mainPan.Controls.Add(this.panel3);
@@ -131,27 +140,126 @@
             this.mainPan.Controls.Add(this.listBoxMain);
             this.mainPan.Controls.Add(this.panelMain);
             this.mainPan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPan.Location = new System.Drawing.Point(268, 0);
+            this.mainPan.Location = new System.Drawing.Point(164, 0);
             this.mainPan.Name = "mainPan";
-            this.mainPan.Size = new System.Drawing.Size(884, 592);
+            this.mainPan.Size = new System.Drawing.Size(1091, 592);
             this.mainPan.TabIndex = 0;
+            // 
+            // panelOfArmor
+            // 
+            this.panelOfArmor.Controls.Add(this.listBoxOfBoots);
+            this.panelOfArmor.Controls.Add(this.listBoxOfChestplates);
+            this.panelOfArmor.Controls.Add(this.listBoxOfHelmets);
+            this.panelOfArmor.Controls.Add(this.bootsLbl);
+            this.panelOfArmor.Controls.Add(this.chestplateLbl);
+            this.panelOfArmor.Controls.Add(this.helmetLbl);
+            this.panelOfArmor.Controls.Add(this.armorLbl);
+            this.panelOfArmor.Location = new System.Drawing.Point(839, 69);
+            this.panelOfArmor.Name = "panelOfArmor";
+            this.panelOfArmor.Size = new System.Drawing.Size(245, 405);
+            this.panelOfArmor.TabIndex = 40;
+            // 
+            // listBoxOfBoots
+            // 
+            this.listBoxOfBoots.FormattingEnabled = true;
+            this.listBoxOfBoots.ItemHeight = 20;
+            this.listBoxOfBoots.Items.AddRange(new object[] {
+            "-",
+            "Leather",
+            "Chainmail",
+            "Iron"});
+            this.listBoxOfBoots.Location = new System.Drawing.Point(15, 305);
+            this.listBoxOfBoots.Name = "listBoxOfBoots";
+            this.listBoxOfBoots.Size = new System.Drawing.Size(223, 84);
+            this.listBoxOfBoots.TabIndex = 32;
+            this.listBoxOfBoots.SelectedIndexChanged += new System.EventHandler(this.ListBoxOfBoots_SelectedIndexChanged);
+            // 
+            // listBoxOfChestplates
+            // 
+            this.listBoxOfChestplates.FormattingEnabled = true;
+            this.listBoxOfChestplates.ItemHeight = 20;
+            this.listBoxOfChestplates.Items.AddRange(new object[] {
+            "-",
+            "Leather",
+            "Chainmail",
+            "Iron"});
+            this.listBoxOfChestplates.Location = new System.Drawing.Point(15, 187);
+            this.listBoxOfChestplates.Name = "listBoxOfChestplates";
+            this.listBoxOfChestplates.Size = new System.Drawing.Size(223, 84);
+            this.listBoxOfChestplates.TabIndex = 31;
+            this.listBoxOfChestplates.SelectedIndexChanged += new System.EventHandler(this.ListBoxOfChestplates_SelectedIndexChanged);
+            // 
+            // listBoxOfHelmets
+            // 
+            this.listBoxOfHelmets.FormattingEnabled = true;
+            this.listBoxOfHelmets.ItemHeight = 20;
+            this.listBoxOfHelmets.Items.AddRange(new object[] {
+            "-",
+            "Leather",
+            "Chainmail",
+            "Iron"});
+            this.listBoxOfHelmets.Location = new System.Drawing.Point(12, 71);
+            this.listBoxOfHelmets.Name = "listBoxOfHelmets";
+            this.listBoxOfHelmets.Size = new System.Drawing.Size(226, 84);
+            this.listBoxOfHelmets.TabIndex = 30;
+            this.listBoxOfHelmets.SelectedIndexChanged += new System.EventHandler(this.ListBoxOfHelmets_SelectedIndexChanged);
+            // 
+            // bootsLbl
+            // 
+            this.bootsLbl.AutoSize = true;
+            this.bootsLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bootsLbl.Location = new System.Drawing.Point(12, 277);
+            this.bootsLbl.Name = "bootsLbl";
+            this.bootsLbl.Size = new System.Drawing.Size(58, 25);
+            this.bootsLbl.TabIndex = 29;
+            this.bootsLbl.Text = "Boots";
+            // 
+            // chestplateLbl
+            // 
+            this.chestplateLbl.AutoSize = true;
+            this.chestplateLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chestplateLbl.Location = new System.Drawing.Point(12, 158);
+            this.chestplateLbl.Name = "chestplateLbl";
+            this.chestplateLbl.Size = new System.Drawing.Size(95, 25);
+            this.chestplateLbl.TabIndex = 28;
+            this.chestplateLbl.Text = "Chestplate";
+            // 
+            // helmetLbl
+            // 
+            this.helmetLbl.AutoSize = true;
+            this.helmetLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.helmetLbl.Location = new System.Drawing.Point(12, 37);
+            this.helmetLbl.Name = "helmetLbl";
+            this.helmetLbl.Size = new System.Drawing.Size(69, 25);
+            this.helmetLbl.TabIndex = 27;
+            this.helmetLbl.Text = "Helmet";
+            // 
+            // armorLbl
+            // 
+            this.armorLbl.AutoSize = true;
+            this.armorLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.armorLbl.Location = new System.Drawing.Point(12, 2);
+            this.armorLbl.Name = "armorLbl";
+            this.armorLbl.Size = new System.Drawing.Size(63, 25);
+            this.armorLbl.TabIndex = 23;
+            this.armorLbl.Text = "Armor";
             // 
             // listBoxSkills
             // 
             this.listBoxSkills.FormattingEnabled = true;
             this.listBoxSkills.ItemHeight = 20;
-            this.listBoxSkills.Location = new System.Drawing.Point(468, 493);
+            this.listBoxSkills.Location = new System.Drawing.Point(442, 480);
             this.listBoxSkills.Name = "listBoxSkills";
-            this.listBoxSkills.Size = new System.Drawing.Size(397, 84);
+            this.listBoxSkills.Size = new System.Drawing.Size(391, 84);
             this.listBoxSkills.TabIndex = 39;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.skillsRogComboBox);
             this.panel2.Controls.Add(this.skillsRogLbl);
-            this.panel2.Location = new System.Drawing.Point(459, 421);
+            this.panel2.Location = new System.Drawing.Point(442, 421);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(409, 53);
+            this.panel2.Size = new System.Drawing.Size(391, 53);
             this.panel2.TabIndex = 25;
             // 
             // skillsRogComboBox
@@ -183,7 +291,7 @@
             this.panel3.Controls.Add(this.skillsWizLbl);
             this.panel3.Location = new System.Drawing.Point(462, 421);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(406, 53);
+            this.panel3.Size = new System.Drawing.Size(371, 53);
             this.panel3.TabIndex = 26;
             // 
             // skillsWizComboBox
@@ -215,7 +323,7 @@
             this.panel1.Controls.Add(this.skillsWarLbl);
             this.panel1.Location = new System.Drawing.Point(459, 422);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(406, 52);
+            this.panel1.Size = new System.Drawing.Size(374, 52);
             this.panel1.TabIndex = 38;
             // 
             // skillsWarComboBox
@@ -287,7 +395,7 @@
             0});
             this.numericUpDownLevel.Name = "numericUpDownLevel";
             this.numericUpDownLevel.ReadOnly = true;
-            this.numericUpDownLevel.Size = new System.Drawing.Size(183, 27);
+            this.numericUpDownLevel.Size = new System.Drawing.Size(166, 27);
             this.numericUpDownLevel.TabIndex = 34;
             this.numericUpDownLevel.ValueChanged += new System.EventHandler(this.NumericUpDownLevel_ValueChanged);
             // 
@@ -316,7 +424,7 @@
             this.secondPanel.Controls.Add(this.listBoxItems);
             this.secondPanel.Location = new System.Drawing.Point(442, 257);
             this.secondPanel.Name = "secondPanel";
-            this.secondPanel.Size = new System.Drawing.Size(423, 125);
+            this.secondPanel.Size = new System.Drawing.Size(391, 125);
             this.secondPanel.TabIndex = 30;
             // 
             // listBoxItems
@@ -348,7 +456,7 @@
             // 
             // okBtn
             // 
-            this.okBtn.Location = new System.Drawing.Point(359, 476);
+            this.okBtn.Location = new System.Drawing.Point(342, 455);
             this.okBtn.Name = "okBtn";
             this.okBtn.Size = new System.Drawing.Size(94, 25);
             this.okBtn.TabIndex = 19;
@@ -361,7 +469,7 @@
             this.textBoxAttackMana.Location = new System.Drawing.Point(328, 385);
             this.textBoxAttackMana.Name = "textBoxAttackMana";
             this.textBoxAttackMana.ReadOnly = true;
-            this.textBoxAttackMana.Size = new System.Drawing.Size(125, 27);
+            this.textBoxAttackMana.Size = new System.Drawing.Size(108, 27);
             this.textBoxAttackMana.TabIndex = 18;
             // 
             // attackManaLbl
@@ -550,7 +658,7 @@
             "Wizard"});
             this.listBoxMain.Location = new System.Drawing.Point(0, 0);
             this.listBoxMain.Name = "listBoxMain";
-            this.listBoxMain.Size = new System.Drawing.Size(880, 64);
+            this.listBoxMain.Size = new System.Drawing.Size(1091, 64);
             this.listBoxMain.TabIndex = 0;
             this.listBoxMain.SelectedIndexChanged += new System.EventHandler(this.ListBoxMain_SelectedIndexChanged);
             // 
@@ -565,7 +673,7 @@
             this.panelMain.Controls.Add(this.firstItemLbl);
             this.panelMain.Location = new System.Drawing.Point(442, 70);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(423, 182);
+            this.panelMain.Size = new System.Drawing.Size(391, 182);
             this.panelMain.TabIndex = 29;
             // 
             // thirdComboBox
@@ -653,7 +761,7 @@
             this.listBoxRes.ItemHeight = 20;
             this.listBoxRes.Location = new System.Drawing.Point(0, 0);
             this.listBoxRes.Name = "listBoxRes";
-            this.listBoxRes.Size = new System.Drawing.Size(268, 592);
+            this.listBoxRes.Size = new System.Drawing.Size(164, 592);
             this.listBoxRes.TabIndex = 1;
             this.listBoxRes.SelectedValueChanged += new System.EventHandler(this.ListBoxRes_SelectedValueChanged);
             // 
@@ -662,13 +770,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.ClientSize = new System.Drawing.Size(1152, 592);
+            this.ClientSize = new System.Drawing.Size(1255, 592);
             this.Controls.Add(this.mainPan);
             this.Controls.Add(this.listBoxRes);
             this.Name = "Main";
             this.Text = "Main";
             this.mainPan.ResumeLayout(false);
             this.mainPan.PerformLayout();
+            this.panelOfArmor.ResumeLayout(false);
+            this.panelOfArmor.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -740,5 +850,13 @@
         private ComboBox skillsWizComboBox;
         private Label skillsWizLbl;
         private ListBox listBoxSkills;
+        private Panel panelOfArmor;
+        private Label armorLbl;
+        private Label bootsLbl;
+        private Label chestplateLbl;
+        private Label helmetLbl;
+        private ListBox listBoxOfBoots;
+        private ListBox listBoxOfChestplates;
+        private ListBox listBoxOfHelmets;
     }
 }

@@ -54,9 +54,9 @@ namespace GameEditorLibrary
             get { return _expa; }
             set
             {
-                if (value - _expa ==  1000 + 1000 * _level)
+                if (value - _nexpa ==  1000 + 1000 * _level)
                 {
-                    _expa = value;
+                    _nexpa = value;
                     Level++;
                 }
                 _expa = value;
@@ -64,9 +64,13 @@ namespace GameEditorLibrary
         }
         public int points;
         private int _expa;
+        private int _nexpa;
         public List<Item> inventory;
         public List<Skill> skills;
         private int _level;
+        public Helmet helmet;
+        public Chestplate chestplate;
+        public Boots boots;
 
         public Unit() 
         { 
@@ -76,6 +80,7 @@ namespace GameEditorLibrary
             CurrentExpa = 0;
             points = 0;
             _expa = 0;
+            _nexpa = 0;
         }
 
         public void AddToInventory(Item item)

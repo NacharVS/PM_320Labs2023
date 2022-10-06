@@ -40,6 +40,11 @@ namespace GameEditor
                 numericUpDownCon.Value = selectedUnit.Constitution;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
                 numericUpDownExpa.Value = selectedUnit.CurrentExpa;
+                textBoxMana.Text = selectedUnit.MP.ToString();
+                textBoxAttackMana.Text = selectedUnit.manaAttack.ToString();
+                textBoxHP.Text = selectedUnit.HP.ToString();
+                textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                textBoxPDef.Text = selectedUnit.phDefention.ToString();
                 textBoxPoints.Text = selectedUnit.points.ToString();
                 numericUpDownLevel.Value = selectedUnit.Level;
                 listBoxRes.SelectedItems.Clear();
@@ -265,8 +270,18 @@ namespace GameEditor
                 numericUpDownInt.Value = selectedUnit.Intelligence;
                 numericUpDownExpa.Value = selectedUnit.CurrentExpa;
                 numericUpDownLevel.Value = selectedUnit.Level;
-                if (selectedUnit.points == 0) { textBoxPoints.Text = (selectedUnit.points).ToString(); }
-                else { textBoxPoints.Text = (selectedUnit.points - 5).ToString(); }
+                if (selectedUnit.helmet is not null) { listBoxOfHelmets.SelectedIndex = listBoxOfHelmets.Items.IndexOf(selectedUnit.helmet.Material); }
+                if (selectedUnit.chestplate is not null) { listBoxOfChestplates.SelectedIndex = listBoxOfChestplates.Items.IndexOf(selectedUnit.chestplate.Material); }
+                if (selectedUnit.boots is not null) { listBoxOfBoots.SelectedIndex = listBoxOfBoots.Items.IndexOf(selectedUnit.boots.Material); }
+                if (selectedUnit.points == 0) 
+                { 
+                    textBoxPoints.Text = (selectedUnit.points).ToString(); 
+                }
+                else 
+                {
+                    selectedUnit.points -= 5;
+                    textBoxPoints.Text = (selectedUnit.points).ToString(); 
+                }
                 numericUpDownExpa.Value = selectedUnit.CurrentExpa;
                 listBoxSkills.Visible = true;
                 panelMain.Visible = false;
@@ -355,7 +370,7 @@ namespace GameEditor
                         {
                             panel3.Visible = true;
                             skillsWizComboBox.Items.Clear();
-                            skillsWizComboBox.Items.Add($"Invisibility{selectedUnit.Level / 3}");
+                            skillsWizComboBox.Items.Add($"InvisibilityX{selectedUnit.Level / 3}");
                             skillsWizComboBox.Items.Add($"Blood MageX{selectedUnit.Level / 3}");
                             skillsWizComboBox.Items.Add($"Chill FogX{selectedUnit.Level / 3}");
                         }
@@ -399,6 +414,80 @@ namespace GameEditor
             listBoxSkills.Visible = true;
             listBoxSkills.Items.Add(skill.SkillName);
             panel1.Visible = false;
+        }
+
+        private void ListBoxOfHelmets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DBConnection.FindByName(selectedUnit.Name) != null && listBoxOfChestplates.SelectedItems.Count > 0)
+            {
+                if (selectedUnit.helmet != null)
+                {
+                    selectedUnit.helmet = new Helmet(listBoxOfHelmets.SelectedItem.ToString());
+                    selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), true);
+                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                    textBoxHP.Text = selectedUnit.HP.ToString();
+                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                }
+                else
+                {
+                    selectedUnit.helmet = new Helmet(listBoxOfHelmets.SelectedItem.ToString());
+                    selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), false);
+                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                    textBoxHP.Text = selectedUnit.HP.ToString();
+                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                }
+                DBConnection.Replace(selectedUnit);
+                listBoxOfHelmets.SelectedItems.Clear();
+            }
+        }
+
+        private void ListBoxOfChestplates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DBConnection.FindByName(selectedUnit.Name) != null && listBoxOfChestplates.SelectedItems.Count > 0)
+            {
+                if (selectedUnit.chestplate is null)
+                {
+                    selectedUnit.chestplate = new Chestplate(listBoxOfChestplates.SelectedItem.ToString());
+                    selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
+                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                    textBoxHP.Text = selectedUnit.HP.ToString();
+                }
+                else
+                {
+                    selectedUnit.chestplate.ChangeStatistic(selectedUnit, selectedUnit.chestplate.Material, false);
+                    selectedUnit.chestplate = new Chestplate(listBoxOfChestplates.SelectedItem.ToString());
+                    selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
+                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                    textBoxHP.Text = selectedUnit.HP.ToString();
+                }
+                DBConnection.Replace(selectedUnit);
+                listBoxOfChestplates.SelectedItems.Clear();
+            }
+        }
+
+        private void ListBoxOfBoots_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DBConnection.FindByName(selectedUnit.Name) != null && listBoxOfBoots.SelectedItems.Count > 0)
+            {
+                if (selectedUnit.boots != null)
+                {
+                    selectedUnit.boots = new Boots(listBoxOfBoots.SelectedItem.ToString());
+                    selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), true);
+                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                    textBoxHP.Text = selectedUnit.HP.ToString();
+                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                }
+                else
+                {
+                    selectedUnit.boots = new Boots(listBoxOfBoots.SelectedItem.ToString());
+                    selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), false);
+                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
+                    textBoxHP.Text = selectedUnit.HP.ToString();
+                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                }
+                DBConnection.Replace(selectedUnit);
+                listBoxOfBoots.SelectedItems.Clear();
+            }
         }
     }
 }
