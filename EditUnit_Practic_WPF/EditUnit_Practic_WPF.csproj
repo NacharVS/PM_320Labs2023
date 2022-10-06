@@ -21,12 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Icon.png" />
-    <Resource Include="png-clipart-world-of-warcraft-legion-warcraft-iii-the-frozen-throne-world-of-warcraft-battle-for-azeroth-blizzard-entertainment-game-others-game-video-game.png" />
-    <Resource Include="Rogue.png" />
-    <Resource Include="Warrior.png" />
-    <Resource Include="Wizard.png" />
-    <Resource Include="Wizard2.png" />
+    <Resource Include="Media\Icon.png" />
+    <Resource Include="Media\png-clipart-world-of-warcraft-legion-warcraft-iii-the-frozen-throne-world-of-warcraft-battle-for-azeroth-blizzard-entertainment-game-others-game-video-game.png" />
+    <Resource Include="Media\Rogue.png" />
+    <Resource Include="Media\Warrior.png" />
+    <Resource Include="Media\Wizard.png" />
+    <Resource Include="Media\Wizard2.png" />
   </ItemGroup>
 
 </Project>

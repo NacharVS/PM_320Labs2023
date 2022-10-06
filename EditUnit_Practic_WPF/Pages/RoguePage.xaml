@@ -19,7 +19,7 @@
             <RowDefinition Height="137*"/>
         </Grid.RowDefinitions>
 
-        <Image Margin="2,2,2,2" Source="/Rogue.png"/>
+        <Image Margin="2,2,2,2" Source="/Media/Rogue.png"/>
 
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,36,0,0" TextWrapping="Wrap" Text="Strength:" VerticalAlignment="Top" FontSize="16" Height="21" Width="64" Foreground="#FFB5BDB3"/>
         <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="149,36,0,0" VerticalAlignment="Top" Width="110">

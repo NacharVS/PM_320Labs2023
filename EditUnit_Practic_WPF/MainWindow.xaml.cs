@@ -23,11 +23,11 @@ namespace EditUnit_Practic_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Unit> units;
+        //public List<Unit> units;
 
         public MainWindow()
         {
-            units = new List<Unit>() {new Warrior(), new Wizard(), new Rogue() };
+            //units = new List<Unit>() {new Warrior(), new Wizard(), new Rogue() };
 
             InitializeComponent();
 

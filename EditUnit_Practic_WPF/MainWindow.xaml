@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EditUnit_Practic_WPF"
         xmlns:Units_Practic="clr-namespace:Units_Practic;assembly=Units_Practic" xmlns:Abilities="clr-namespace:Units_Practic.Abilities;assembly=Units_Practic" x:Class="EditUnit_Practic_WPF.MainWindow"
         mc:Ignorable="d"
-        Title="Edit unit" Height="675" Width="877" ResizeMode="CanMinimize" Icon="/Icon.png" >
+        Title="Edit unit" Height="675" Width="877" ResizeMode="CanMinimize" Icon="/Media/Icon.png" >
     <Grid>
         <TabControl>
             <TabItem x:Name="TbItWarrior" Header="Warrior">
