@@ -46,5 +46,17 @@ namespace GameEditor
             var collection = database.GetCollection<Unit>("CollectionOfUnits");
             collection.ReplaceOne(filter, unit);
         }
+
+        public static void Update(Unit unit)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("Galieva");
+            var filter = new BsonDocument("_id", unit._id);
+            var collection = database.GetCollection<Unit>("CollectionOfUnits");
+            var update = Builders<Unit>.Update.Set(x => x.helmet, unit.helmet)
+                                                             .Set(x => x.chestplate, unit.chestplate)
+                                                             .Set(x => x.boots, unit.boots);
+            collection.UpdateOne(filter, update);
+        }
     }
 }

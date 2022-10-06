@@ -40,13 +40,16 @@ namespace GameEditorLibrary
             {
                 if (value > 0)
                 {
+                    if (value < _level)
+                    {
+                        points -= 5;
+                    }
+                    else
+                    {
+                        points += 5;
+                    }
                     _level = value;
-                    points += 5;
                 }    
-                else
-                {
-                    _level = value;
-                }
             }
         }
         public int CurrentExpa
@@ -58,6 +61,11 @@ namespace GameEditorLibrary
                 {
                     _nexpa = value;
                     Level++;
+                    lvlc = true;
+                }
+                else
+                {
+                    lvlc = false;
                 }
                 _expa = value;
             }
@@ -65,6 +73,7 @@ namespace GameEditorLibrary
         public int points;
         private int _expa;
         private int _nexpa;
+        public bool lvlc;
         public List<Item> inventory;
         public List<Skill> skills;
         private int _level;
@@ -76,8 +85,6 @@ namespace GameEditorLibrary
         { 
             inventory =new List<Item>();
             skills =new List<Skill>();
-            Level = 0;
-            CurrentExpa = 0;
             points = 0;
             _expa = 0;
             _nexpa = 0;

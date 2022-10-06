@@ -28,6 +28,10 @@ namespace GameEditor
 
         private void ListBoxMain_SelectedIndexChanged(object sender, EventArgs e)
         {
+            listBoxOfBoots.SelectedItems.Clear();
+            listBoxOfChestplates.SelectedItems.Clear();
+            listBoxOfHelmets.SelectedItems.Clear();
+
             if (listBoxMain.SelectedItems.Count > 0)
             {
                 listBoxSkills.Items.Clear();
@@ -229,6 +233,9 @@ namespace GameEditor
         {
             if (listBoxMain.SelectedItems.Count == 0)
             {
+                if (selectedUnit.helmet is not null) { selectedUnit.helmet.ChangeStatistic(selectedUnit, selectedUnit.helmet.Material, false); }
+                if (selectedUnit.chestplate is not null) { selectedUnit.chestplate.ChangeStatistic(selectedUnit, selectedUnit.chestplate.Material, false); }
+                if (selectedUnit.boots is not null) { selectedUnit.boots.ChangeStatistic(selectedUnit, selectedUnit.boots.Material, false); }
                 DBConnection.Replace(selectedUnit);
             }
             else
@@ -259,6 +266,10 @@ namespace GameEditor
             listBoxItems.Items.Clear();
             listBoxSkills.Items.Clear();
             textBoxPoints.Clear();
+            listBoxOfBoots.SelectedItems.Clear();
+            listBoxOfChestplates.SelectedItems.Clear();
+            listBoxOfHelmets.SelectedItems.Clear();
+
             if (listBoxRes.SelectedItems.Count > 0)
             {
                 selectedUnit = DBConnection.FindByName(listBoxRes.Text);
@@ -268,11 +279,19 @@ namespace GameEditor
                 numericUpDownDex.Value = selectedUnit.Dexterity;
                 numericUpDownCon.Value = selectedUnit.Constitution;
                 numericUpDownInt.Value = selectedUnit.Intelligence;
-                numericUpDownExpa.Value = selectedUnit.CurrentExpa;
+                if (selectedUnit.lvlc == true) 
+                {
+                    selectedUnit.Level--;
+                }
                 numericUpDownLevel.Value = selectedUnit.Level;
-                if (selectedUnit.helmet is not null) { listBoxOfHelmets.SelectedIndex = listBoxOfHelmets.Items.IndexOf(selectedUnit.helmet.Material); }
-                if (selectedUnit.chestplate is not null) { listBoxOfChestplates.SelectedIndex = listBoxOfChestplates.Items.IndexOf(selectedUnit.chestplate.Material); }
-                if (selectedUnit.boots is not null) { listBoxOfBoots.SelectedIndex = listBoxOfBoots.Items.IndexOf(selectedUnit.boots.Material); }
+                numericUpDownExpa.Value = selectedUnit.CurrentExpa;
+
+                if (selectedUnit.helmet is not null) 
+                { listBoxOfHelmets.SelectedIndex = listBoxOfHelmets.Items.IndexOf(selectedUnit.helmet.Material); }
+                if (selectedUnit.chestplate is not null) 
+                { listBoxOfChestplates.SelectedIndex = listBoxOfChestplates.Items.IndexOf(selectedUnit.chestplate.Material); }
+                if (selectedUnit.boots is not null) 
+                { listBoxOfBoots.SelectedIndex = listBoxOfBoots.Items.IndexOf(selectedUnit.boots.Material); }
                 if (selectedUnit.points == 0) 
                 { 
                     textBoxPoints.Text = (selectedUnit.points).ToString(); 
@@ -418,9 +437,9 @@ namespace GameEditor
 
         private void ListBoxOfHelmets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (DBConnection.FindByName(selectedUnit.Name) != null && listBoxOfChestplates.SelectedItems.Count > 0)
+            if (DBConnection.FindByName(selectedUnit.Name) != null && listBoxOfHelmets.SelectedItems.Count > 0)
             {
-                if (selectedUnit.helmet != null)
+                if (selectedUnit.helmet is null || checking == false)
                 {
                     selectedUnit.helmet = new Helmet(listBoxOfHelmets.SelectedItem.ToString());
                     selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), true);
@@ -430,14 +449,14 @@ namespace GameEditor
                 }
                 else
                 {
+                    selectedUnit.helmet.ChangeStatistic(selectedUnit, selectedUnit.helmet.Material, false);
                     selectedUnit.helmet = new Helmet(listBoxOfHelmets.SelectedItem.ToString());
-                    selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), false);
+                    selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), true);
                     textBoxPDef.Text = selectedUnit.phDefention.ToString();
                     textBoxHP.Text = selectedUnit.HP.ToString();
                     textBoxAttack.Text = selectedUnit.attackDamage.ToString();
                 }
-                DBConnection.Replace(selectedUnit);
-                listBoxOfHelmets.SelectedItems.Clear();
+                DBConnection.Update(selectedUnit);
             }
         }
 
@@ -445,7 +464,7 @@ namespace GameEditor
         {
             if (DBConnection.FindByName(selectedUnit.Name) != null && listBoxOfChestplates.SelectedItems.Count > 0)
             {
-                if (selectedUnit.chestplate is null)
+                if (selectedUnit.chestplate is null || checking == false)
                 {
                     selectedUnit.chestplate = new Chestplate(listBoxOfChestplates.SelectedItem.ToString());
                     selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
@@ -460,8 +479,7 @@ namespace GameEditor
                     textBoxPDef.Text = selectedUnit.phDefention.ToString();
                     textBoxHP.Text = selectedUnit.HP.ToString();
                 }
-                DBConnection.Replace(selectedUnit);
-                listBoxOfChestplates.SelectedItems.Clear();
+                DBConnection.Update(selectedUnit);
             }
         }
 
@@ -469,7 +487,7 @@ namespace GameEditor
         {
             if (DBConnection.FindByName(selectedUnit.Name) != null && listBoxOfBoots.SelectedItems.Count > 0)
             {
-                if (selectedUnit.boots != null)
+                if (selectedUnit.boots is null || checking == false)
                 {
                     selectedUnit.boots = new Boots(listBoxOfBoots.SelectedItem.ToString());
                     selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), true);
@@ -479,14 +497,14 @@ namespace GameEditor
                 }
                 else
                 {
+                    selectedUnit.boots.ChangeStatistic(selectedUnit, selectedUnit.boots.Material, false);
                     selectedUnit.boots = new Boots(listBoxOfBoots.SelectedItem.ToString());
-                    selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), false);
+                    selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), true);
                     textBoxPDef.Text = selectedUnit.phDefention.ToString();
                     textBoxHP.Text = selectedUnit.HP.ToString();
                     textBoxAttack.Text = selectedUnit.attackDamage.ToString();
                 }
-                DBConnection.Replace(selectedUnit);
-                listBoxOfBoots.SelectedItems.Clear();
+                DBConnection.Update(selectedUnit);
             }
         }
     }
