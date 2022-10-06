@@ -13,19 +13,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Units_Practic.Characters;
+using Units_Practic;
 
 namespace EditUnit_Practic_WPF.Pages
 {
     /// <summary>
-    /// Interaction logic for WarriorPage.xaml
+    /// Interaction logic for WizardPage.xaml
     /// </summary>
-    public partial class WarriorPage : Page
+    public partial class WizardPage : Page
     {
         public Unit unit;
 
-        public WarriorPage()
+        public WizardPage()
         {
-            unit = new Warrior();
+            unit = new Wizard();
 
             InitializeComponent();
         }

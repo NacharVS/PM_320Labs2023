@@ -17,19 +17,18 @@ using Units_Practic.Characters;
 namespace EditUnit_Practic_WPF.Pages
 {
     /// <summary>
-    /// Interaction logic for WarriorPage.xaml
+    /// Interaction logic for RoguePage.xaml
     /// </summary>
-    public partial class WarriorPage : Page
+    public partial class RoguePage : Page
     {
         public Unit unit;
 
-        public WarriorPage()
+        public RoguePage()
         {
-            unit = new Warrior();
+            unit = new Rogue();
 
             InitializeComponent();
         }
-
         private void Page_Initialized(object sender, EventArgs e)
         {
             UpdateCharacteristics();

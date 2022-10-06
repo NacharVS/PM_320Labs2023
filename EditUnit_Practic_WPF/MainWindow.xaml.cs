@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EditUnit_Practic_WPF.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,145 +30,11 @@ namespace EditUnit_Practic_WPF
             units = new List<Unit>() {new Warrior(), new Wizard(), new Rogue() };
 
             InitializeComponent();
+
+            WarriorPage.NavigationService.Navigate(new WarriorPage());
+            RoguePage.NavigationService.Navigate(new RoguePage());
+            WizardPage.NavigationService.Navigate(new WizardPage());
         }
 
-        private void Window_Initialized(object sender, EventArgs e)
-        {
-            UpdateCharacteristics(0);
-        }
-
-        private void UpdateCharacteristics(int unit)
-        {
-            tbStrength.Text = units[unit].characteristics.strength.ToString();
-            tbDexterity.Text = units[unit].characteristics.dexterity.ToString();
-            tbConstitution.Text = units[unit].characteristics.constitution.ToString();
-            tbIntelligence.Text = units[unit].characteristics.intelligence.ToString();
-
-            tbHP.Text = units[unit].healthPoint.ToString();
-            tbMP.Text = units[unit].manaPoint.ToString();
-            tbLvl.Text = units[unit].lvl.lvl.ToString();
-            tbBoostPoints.Text =units[unit].lvl.boostPoints.ToString();
-
-            tbAtackPoint.Text = units[unit].atackPoint.ToString();
-            tbMagicAtackPoint.Text = units[unit].magicAtackPoint.ToString();
-            tbPhysicalProtectionPoint.Text = units[unit].physicalProtectionPoint.ToString();
-
-            lvlPb.Maximum = units[unit].lvl.necessaryExp;
-            lvlPb.Value = units[unit].lvl.exp;
-        }
-
-        private void dexBtnMax_Click(object sender, RoutedEventArgs e)
-        {
-            if (units[0].lvl.boostPoints > 0 && units[0].characteristics.dexterity + 1 <= units[0].characteristics.dexterityMax)
-            {
-                --units[0].lvl.boostPoints;
-                ++units[0].characteristics.dexterity;
-
-                units[0].UpdateHaracteristics();
-                UpdateCharacteristics(0);
-            }
-        }
-
-        private void dexBtnMin_Click(object sender, RoutedEventArgs e)
-        {
-            if (units[0].characteristics.dexterity - 1 >= units[0].characteristics.dexterityMin)
-            {
-                ++units[0].lvl.boostPoints;
-                --units[0].characteristics.dexterity;
-
-                units[0].UpdateHaracteristics();
-                UpdateCharacteristics(0);
-            }
-        }
-
-        private void strBtnMax_Click(object sender, RoutedEventArgs e)
-        {
-            if (units[0].lvl.boostPoints > 0 && units[0].characteristics.strength + 1 <= units[0].characteristics.strengthMax)
-            {
-                --units[0].lvl.boostPoints;
-                ++units[0].characteristics.strength;
-
-                units[0].UpdateHaracteristics();
-                UpdateCharacteristics(0);
-            }
-        }
-
-        private void strBtnMin_Click(object sender, RoutedEventArgs e)
-        {
-            if (units[0].characteristics.strength - 1 >= units[0].characteristics.strengthMin)
-            {
-                ++units[0].lvl.boostPoints;
-                --units[0].characteristics.strength;
-
-                units[0].UpdateHaracteristics();
-                UpdateCharacteristics(0);
-            }
-        }
-
-        private void consBtnMax_Click(object sender, RoutedEventArgs e)
-        {
-            if (units[0].lvl.boostPoints > 0 && units[0].characteristics.constitution + 1 <= units[0].characteristics.constitutionMax)
-            {
-                --units[0].lvl.boostPoints;
-                ++units[0].characteristics.constitution;
-
-                units[0].UpdateHaracteristics();
-                UpdateCharacteristics(0);
-            }
-        }
-
-        private void consBtnMin_Click(object sender, RoutedEventArgs e)
-        {
-            if (units[0].characteristics.constitution - 1 >= units[0].characteristics.constitutionMin)
-            {
-                ++units[0].lvl.boostPoints;
-                --units[0].characteristics.constitution;
-
-                units[0].UpdateHaracteristics();
-                UpdateCharacteristics(0);
-            }
-        }
-
-        private void intBtnMax_Click(object sender, RoutedEventArgs e)
-        {
-            if (units[0].lvl.boostPoints > 0 && units[0].characteristics.intelligence + 1 <= units[0].characteristics.intelligenceMax)
-            {
-                --units[0].lvl.boostPoints;
-                ++units[0].characteristics.intelligence;
-
-                units[0].UpdateHaracteristics();
-                UpdateCharacteristics(0);
-            }
-        }
-
-        private void intBtnMin_Click(object sender, RoutedEventArgs e)
-        {
-            if (units[0].characteristics.intelligence - 1 >= units[0].characteristics.intelligenceMin)
-            {
-                ++units[0].lvl.boostPoints;
-                --units[0].characteristics.intelligence;
-
-                units[0].UpdateHaracteristics();
-                UpdateCharacteristics(0);
-            }
-        }
-
-        private void btn_100xp_Click(object sender, RoutedEventArgs e)
-        {
-            units[0].lvl.exp += 100;
-            UpdateCharacteristics(0);
-        }
-
-        private void btn_300xp_Click(object sender, RoutedEventArgs e)
-        {
-            units[0].lvl.exp += 300;
-            UpdateCharacteristics(0);
-        }
-
-        private void btn_1000xp_Click(object sender, RoutedEventArgs e)
-        {
-            units[0].lvl.exp += 1000;
-            UpdateCharacteristics(0);
-        }
     }
 }
