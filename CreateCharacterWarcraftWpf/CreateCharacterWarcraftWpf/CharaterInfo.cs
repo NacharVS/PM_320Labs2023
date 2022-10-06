@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
 
 namespace CreateCharacterWarcraftWpf
 {
-    internal class CharaterInfo
+    public class CharaterInfo
     {
         private int idCharaterinfo;
         public static List<Character> character = new List<Character>();
@@ -34,6 +36,11 @@ namespace CreateCharacterWarcraftWpf
         public void clearInfo()
         {
             character.Clear();
+        }
+
+        public List<Character> returnList()
+        {
+            return character;
         }
 
         public void loadFile(string filename)
@@ -68,6 +75,7 @@ namespace CreateCharacterWarcraftWpf
                                 250, int.Parse(data[38]),
                                 80, int.Parse(data[42]), 70, 0, 1);
                             character.Add(unit);
+
                             break;
                         case "Wizard":
 
@@ -79,14 +87,64 @@ namespace CreateCharacterWarcraftWpf
                                 70, int.Parse(data[38]),
                                 60, int.Parse(data[42]), 250, 0, 1);
                             character.Add(unit);
-                            break;
 
+                            break;
                         default:
                             break;
                     }
                 }
             }
 
+        }
+
+        internal bool CheckName(string name)
+        {
+            if (character.Count != 0)
+            {
+                for (int i = 0; i < character.Count; i++)
+                {
+                    if (character[i].name == name)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public Character TakeUnit(string name)
+        {
+            Character unit = new Character("",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+            for (int i = 0; i < character.Count; i++)
+            {
+                if (character[i].name == name)
+                {
+                    unit = character[i];
+                }
+            }
+            return unit;
+        }
+
+        public void Change(Character unit, string name)
+        {
+            for (int i = 0; i < character.Count; i++)
+            {
+                if (character[i].name == name)
+                {
+                    character[i] = null;
+                    character[i] = unit;
+                }
+            }
+        }
+
+        public List<string> returnListName()
+        {
+            List<string> listName = new List<string>();
+            for (int i = 0; i < character.Count; i++)
+            {
+                listName.Add(character[i].name);
+            }
+            return listName; 
         }
     }
 }

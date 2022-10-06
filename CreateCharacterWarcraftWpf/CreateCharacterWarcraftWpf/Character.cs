@@ -1,9 +1,13 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace CreateCharacterWarcraftWpf
 {
     public class Character
     {
+        [BsonId]
+        public ObjectId _id;
         public string name;
         public int healthPoint;
         public int manaPoint;

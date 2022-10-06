@@ -1,4 +1,6 @@
 ﻿using Microsoft.Win32;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -16,13 +18,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace CreateCharacterWarcraftWpf
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         CharaterInfo newInfo = new CharaterInfo(1);
@@ -33,89 +33,19 @@ namespace CreateCharacterWarcraftWpf
         int levelUp = 1000;
         int expUp = 0;
 
-        public static void AddToDataBase(Character unit)
-        {
-            var client = new MongoClient("mongodb://localhost");
-            var database = client.GetDatabase("Example320");
-            var collection = database.GetCollection<Character>("ExCollection");
-            collection.InsertOne(unit);
-        }
-
-        public static void FindByName(string name)
-        {
-            var client = new MongoClient("mongodb://localhost");
-            var database = client.GetDatabase("Example320");
-            var collection = database.GetCollection<Character>("ExCollection");
-            var unit = collection.Find(x => x.name == name).FirstOrDefault();
-
-            //Console.WriteLine($"{unit?.name} {unit?.Age} {unit?._id} {unit?.DriverCard}");
-
-        }
-
-        public static void ReplaceByName(string name, Character unit)
-        {
-            var client = new MongoClient("mongodb://localhost");
-            var database = client.GetDatabase("Example320");
-            var collection = database.GetCollection<Character>("ExCollection");
-            //var filter = Builders<Unit>.Update.Set(name == "Jimmy")
-            collection.ReplaceOne(x => x.name == name, unit);
-
-        }
-
-        //Image Rogue = Image.FromFile("Rogue.gif");
-        //Image Wizard = Image.FromFile("Wizard.gif");
-        //Image Warrior = Image.FromFile("Warrior.gif");
         public MainWindow()
         {
             InitializeComponent();
+
+            btnCng.Visibility = Visibility.Hidden;
+
+            //lstBoxCharacters.ItemsSource = newInfo.returnListName();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            //pbAvatar.ImageLocation = "https://www.digiseller.ru/preview/887475/p1_3326088_78b1003d.gif";
-
-        }
 
         public void tbUntName_TextChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            if (tbUntName.Text == "")
-            {
-                MessageBox.Show("WriteName");
-                cmBxChooseCharacter.Text = ("Warrior");
-            }
-            else
-            {
-                Character unit;
-                if (cmBxChooseCharacter.SelectedIndex == 0)
-                {
-                    unit = new Warrior(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
-                        convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 250, takeNum(tbDexInfo.Text),
-                        70, takeNum(tbConInfo.Text), 100, takeNum(tbIntInfo.Text), 50, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
-                    newInfo.Add(unit);
-                    tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
-                }
-                else if (cmBxChooseCharacter.SelectedIndex == 1)
-                {
-                    unit = new Rogue(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
-                        convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 55, takeNum(tbDexInfo.Text),
-                        250, takeNum(tbConInfo.Text), 80, takeNum(tbIntInfo.Text), 70, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
-                    newInfo.Add(unit);
-                    tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
-                }
-                else if (cmBxChooseCharacter.SelectedIndex == 2)
-                {
-                    unit = new Wizard(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
-                        convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 45, takeNum(tbDexInfo.Text),
-                        70, takeNum(tbConInfo.Text), 60, takeNum(tbIntInfo.Text), 250, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
-                    newInfo.Add(unit);
-                    tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
-                }
-            }
         }
 
         public int convInt(string num)
@@ -292,6 +222,12 @@ namespace CreateCharacterWarcraftWpf
         {
             newInfo.clearInfo();
             newInfo.loadFile(filename);
+            loadToBox(newInfo.returnList);
+        }
+
+        private void loadToBox(Func<List<Character>> returnList)
+        {
+            
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -299,6 +235,11 @@ namespace CreateCharacterWarcraftWpf
             if (tbUntName.Text == "")
             {
                 MessageBox.Show("Write name");
+            }
+            else if (newInfo.CheckName(tbUntName.Text))
+            {
+                tbUntName.Clear();
+                MessageBox.Show("Name is using. Please rename");
             }
             else
             {
@@ -310,8 +251,8 @@ namespace CreateCharacterWarcraftWpf
                         70, takeNum(tbConInfo.Text), 100, takeNum(tbIntInfo.Text), 50, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
                     newInfo.Add(unit);
                     tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
-                    lstBoxCharacters.Items.Add(tbUntName.Text);
-                    AddToDataBase(unit);
+                    Mongo.AddToDataBase(unit);
+                    FillListBox();
                 }
                 else if (cmBxChooseCharacter.SelectedIndex == 1)
                 {
@@ -320,8 +261,8 @@ namespace CreateCharacterWarcraftWpf
                         250, takeNum(tbConInfo.Text), 80, takeNum(tbIntInfo.Text), 70, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
                     newInfo.Add(unit);
                     tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
-                    lstBoxCharacters.Items.Add(tbUntName.Text);
-                    AddToDataBase(unit);
+                    Mongo.AddToDataBase(unit);
+                    FillListBox();
                 }
                 else if (cmBxChooseCharacter.SelectedIndex == 2)
                 {
@@ -330,8 +271,8 @@ namespace CreateCharacterWarcraftWpf
                         70, takeNum(tbConInfo.Text), 60, takeNum(tbIntInfo.Text), 250, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
                     newInfo.Add(unit);
                     tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
-                    lstBoxCharacters.Items.Add(tbUntName.Text);
-                    AddToDataBase(unit);
+                    Mongo.AddToDataBase(unit);
+                    FillListBox();
                 }
             }
         }
@@ -384,7 +325,114 @@ namespace CreateCharacterWarcraftWpf
 
         private void tbUntName_TextChanged_1(object sender, TextChangedEventArgs e)
         {
+            
+        }
 
+        private void lstBoxCharacters_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lstBoxCharacters.Items.Count != 0)
+            {
+                btnAdd.Visibility = Visibility.Hidden;
+                btnCng.Visibility = Visibility.Visible;
+                Character unit = TakeUnit(lstBoxCharacters.SelectedValue.ToString());
+                writeInfo(unit);
+                tbUntName.Text = newInfo.TakeUnit(lstBoxCharacters.SelectedValue.ToString()).name;
+
+                cmBxChooseCharacter.Text = Convert.ToString(unit.GetType()).Substring(27);
+            }
+        }
+
+        private Character TakeUnit(string? name)
+        {
+            Character unit = new Character("", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+            var collection = Mongo.GetCollection();
+
+            var filter = new BsonDocument();
+            var collect = collection.Find(filter).ToList();
+            for(int i = 0; i < collect.Count; i++)
+            {
+                if (collect[i].name == name)
+                {
+                    unit = collect[i];
+                }
+            }
+
+            return unit;
+        }
+
+        private void btnCng_Click(object sender, RoutedEventArgs e)
+        {
+            Character unit = newInfo.TakeUnit(lstBoxCharacters.SelectedValue.ToString());
+
+            unit.intelligence = takeNum(tbIntInfo.Text);
+            unit.healthPoint = takeNum(tbIntInfo.Text);
+            unit.manaPoint = takeNum(tbMpInfo.Text);
+            unit.attack = takeNum(tbApInfo.Text);
+            unit.protDet = takeNum(tbPrDetInfo.Text);
+            unit.skillPoint = takeNum(tbSpInfo.Text);
+            unit.skillPoint = convInt(tbSpInfo.Text);
+            unit.strength = takeNum(tbStrInfo.Text);
+            unit.dexterity = takeNum(tbDexInfo.Text);
+            unit.constitution = takeNum(tbConInfo.Text);
+            unit.experience = takeNum(tbExpInfo.Text);
+            unit.level = takeNum(tbLvlInfo.Text);
+
+            Change(unit, lstBoxCharacters.SelectedValue.ToString());
+
+            //lstBoxCharacters.ItemsSource = newInfo.returnListName();
+            btnAdd.Visibility = Visibility.Visible;
+            btnCng.Visibility = Visibility.Hidden;
+        }
+
+        private void Change(Character unit, string? name)
+        {
+            var collection = Mongo.GetCollection();
+
+            var filter = new BsonDocument();
+            var collect = collection.Find(filter).ToList();
+            for(int i = 0; i < collect.Count; i++)
+            {
+                if (collect[i].name == name)
+                {
+                    collect[i].dexterity = unit.dexterity;
+                    collect[i].strength = unit.strength;
+                    collect[i].constitution = unit.constitution;
+                    collect[i].intelligence = unit.intelligence;
+                    collect[i].experience = unit.experience;
+                    collect[i].skillPoint = unit.skillPoint;
+                }
+            }
+            FillListBox();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            FillListBox();
+        }
+
+        
+
+        private void FillListBox()
+        {
+            lstBoxCharacters.Items.Clear();
+
+            var collection = Mongo.GetCollection();
+
+            var filter = new BsonDocument();
+            var collect = collection.Find(filter);
+            foreach (var doc in collect.ToList())
+            {
+                lstBoxCharacters.Items.Add(doc.name);
+            }
+        }
+
+        public static void ReplaceByName(string name, Character unit)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("GilaevWarcraft320");
+            var collection = database.GetCollection<Character>("ExCollection");
+            collection.ReplaceOne(x => x.name == name, unit);
         }
     }
 }
