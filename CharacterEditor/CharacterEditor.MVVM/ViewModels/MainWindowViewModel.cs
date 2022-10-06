@@ -136,6 +136,7 @@ public class MainWindowViewModel : ViewModel
 
     [CharacterProperty]
     [CharacterStat]
+    [CharacterLevel]
     public int SkillPoints => _currentCharacter?.SkillPoints ?? 0;
 
     [CharacterProperty]
