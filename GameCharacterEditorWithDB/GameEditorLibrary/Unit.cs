@@ -57,9 +57,9 @@ namespace GameEditorLibrary
             get { return _expa; }
             set
             {
-                if (value - _nexpa ==  1000 + 1000 * _level)
+                if (value - Nexpa ==  1000 + 1000 * _level)
                 {
-                    _nexpa = value;
+                    Nexpa = value;
                     Level++;
                     lvlc = true;
                 }
@@ -72,7 +72,7 @@ namespace GameEditorLibrary
         }
         public int points;
         private int _expa;
-        private int _nexpa;
+        public int Nexpa;
         public bool lvlc;
         public List<Item> inventory;
         public List<Skill> skills;
@@ -87,7 +87,7 @@ namespace GameEditorLibrary
             skills =new List<Skill>();
             points = 0;
             _expa = 0;
-            _nexpa = 0;
+            Nexpa = 0;
         }
 
         public void AddToInventory(Item item)

@@ -266,13 +266,13 @@ namespace GameEditor
             listBoxItems.Items.Clear();
             listBoxSkills.Items.Clear();
             textBoxPoints.Clear();
-            listBoxOfBoots.SelectedItems.Clear();
-            listBoxOfChestplates.SelectedItems.Clear();
-            listBoxOfHelmets.SelectedItems.Clear();
 
             if (listBoxRes.SelectedItems.Count > 0)
             {
                 selectedUnit = DBConnection.FindByName(listBoxRes.Text);
+                listBoxOfBoots.SelectedItems.Clear();
+                listBoxOfChestplates.SelectedItems.Clear();
+                listBoxOfHelmets.SelectedItems.Clear();
                 listBoxMain.SelectedItems.Clear();
                 textBoxName.Text = selectedUnit.Name;
                 numericUpDownStr.Value = selectedUnit.Strength;

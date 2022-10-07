@@ -25,7 +25,14 @@ namespace GameEditor
             var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("Galieva");
             var collection = database.GetCollection<Unit>("CollectionOfUnits");
-            var unit = collection.Find(x => x.Name == name).FirstOrDefault();
+            var pr = Builders<Unit>.Projection.
+            Exclude("phDefention").
+            Exclude("MP").
+            Exclude("HP").
+            Exclude("manaAttack").
+            Exclude("manaPoints").
+            Exclude("attackDamage");
+            var unit = collection.Find(x => x.Name == name).Project<Unit>(pr).FirstOrDefault();
             return unit;
         }
 
@@ -54,8 +61,8 @@ namespace GameEditor
             var filter = new BsonDocument("_id", unit._id);
             var collection = database.GetCollection<Unit>("CollectionOfUnits");
             var update = Builders<Unit>.Update.Set(x => x.helmet, unit.helmet)
-                                                             .Set(x => x.chestplate, unit.chestplate)
-                                                             .Set(x => x.boots, unit.boots);
+                                                   .Set(x => x.chestplate, unit.chestplate)
+                                                   .Set(x => x.boots, unit.boots);
             collection.UpdateOne(filter, update);
         }
     }
