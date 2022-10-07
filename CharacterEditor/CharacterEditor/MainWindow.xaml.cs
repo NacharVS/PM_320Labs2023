@@ -31,7 +31,7 @@ namespace UnitsEditor
             cbNewCharacters.ItemsSource = _characterNames;
             cbExistCharacters.ItemsSource = CharContext.GetAllChars();
 
-            ExpChangeEvent += FillCharacterInfo;
+            ExpChangeEvent += FillSkillPoints;
             lbAbilities.DisplayMemberPath = "Name";
         }
 
@@ -61,10 +61,12 @@ namespace UnitsEditor
                     throw new Exception("Not correct Character!");
             }
 
-            FillAbilities();
             CharacteristicChangeEvent += _selectedCharacter.SetDefStats;
             CharacteristicChangeEvent += FillCharacterInfo;
-            _selectedCharacter.Lvl.OnLevelUpEvent += _selectedCharacter.AddCharacteristics;
+            CharacteristicChangeEvent += FillItemsBuffs;
+            CharacteristicChangeEvent += FillAbilitiesBuffs;
+            CharacteristicChangeEvent += FillSkillPoints;
+            _selectedCharacter.Lvl.OnLevelUpEvent += _selectedCharacter.AddSkillPoints;
             CharacteristicChangeEvent?.Invoke();
 
             _selectedCharacter.Lvl.OnLevelUpEvent += AddAbility;
@@ -80,6 +82,7 @@ namespace UnitsEditor
                 lbIntelligenceValue.Content = 0;
                 lblExp.Content = 0;
                 lblLvl.Content = 0;
+                lbSkillPointsValue.Content = 0;
                 lbAbilities.Items.Clear();
 
                 tbAttackDamageValue.Text = "0";
@@ -96,8 +99,6 @@ namespace UnitsEditor
                 lbDexterityValue.Content = Convert.ToString(_selectedCharacter.Dexterity.Value);
                 lbConstitutionValue.Content = Convert.ToString(_selectedCharacter.Constitution.Value);
                 lbIntelligenceValue.Content = Convert.ToString(_selectedCharacter.Intelligence.Value);
-                lblExp.Content = Convert.ToString(_selectedCharacter.Lvl.CurrentExp);
-                lblLvl.Content = _selectedCharacter.Lvl.CurrentLevel;
 
                 tbAttackDamageValue.Text = Convert.ToString(_selectedCharacter.AttackDamage);
                 tbHealthValue.Text = Convert.ToString(_selectedCharacter.HealthPoint);
@@ -108,13 +109,64 @@ namespace UnitsEditor
             catch { }
         }
 
+        private void FillItemsBuffs()
+        {
+            if (_selectedCharacter is null) return;
+            foreach(var item in _selectedCharacter.Inventory)
+            {
+                lbStrengthValue.Content = (int.Parse((string)lbStrengthValue.Content) + item.StrengthChange).ToString();
+                lbDexterityValue.Content = (int.Parse((string)lbDexterityValue.Content) + item.DexterityChange).ToString();
+                lbConstitutionValue.Content = (int.Parse((string)lbConstitutionValue.Content) + item.ConstitutionChange).ToString();
+                lbIntelligenceValue.Content = (int.Parse((string)lbIntelligenceValue.Content) + item.IntelligenceChange).ToString();
+
+                switch (_selectedCharacter.GetType().Name)
+            {
+                case "Warrior":
+                    tbAttackDamageValue.Text = (int.Parse(tbAttackDamageValue.Text) + (item.AttackChange + 5 * item.StrengthChange + item.DexterityChange)).ToString();
+                    tbHealthValue.Text = (int.Parse(tbHealthValue.Text) + (item.HPChange + 2 * item.StrengthChange + 10 * item.ConstitutionChange)).ToString();
+                    tbManaValue.Text = (int.Parse(tbManaValue.Text) + (item.ManaChange + 5 * item.IntelligenceChange)).ToString();
+                    tbMagicAttackValue.Text = (int.Parse(tbMagicAttackValue.Text) + (item.MagicalAttackChange + item.IntelligenceChange)).ToString();
+                    tbPhysicalDefValue.Text = (int.Parse(tbPhysicalDefValue.Text) + (item.DexterityChange + 2 * item.ConstitutionChange + item.PdefChange)).ToString();
+                    break;
+                case "Rogue":
+                    tbAttackDamageValue.Text = (int.Parse(tbAttackDamageValue.Text) + (item.AttackChange + 2 * item.StrengthChange + 4 * item.DexterityChange)).ToString();
+                    tbHealthValue.Text = (int.Parse(tbHealthValue.Text) + (item.HPChange + item.StrengthChange + 6 * item.ConstitutionChange)).ToString();
+                    tbManaValue.Text = (int.Parse(tbManaValue.Text) + (item.ManaChange + 1.5 * item.IntelligenceChange)).ToString();
+                    tbMagicAttackValue.Text = (int.Parse(tbMagicAttackValue.Text) + (item.MagicalAttackChange + 2 * item.IntelligenceChange)).ToString();
+                    tbPhysicalDefValue.Text = (int.Parse(tbPhysicalDefValue.Text) +  (1.5 * item.DexterityChange + 0 * item.ConstitutionChange + item.PdefChange)).ToString();
+                    break;
+                case "Wizzard":
+                    tbAttackDamageValue.Text = (int.Parse(tbAttackDamageValue.Text) + (item.AttackChange + 3 * item.StrengthChange + 0 * item.DexterityChange)).ToString();
+                    tbHealthValue.Text = (int.Parse(tbHealthValue.Text) + (item.HPChange + item.StrengthChange + 3 * item.ConstitutionChange)).ToString();
+                    tbManaValue.Text = (int.Parse(tbManaValue.Text) + (item.ManaChange + 2 * item.IntelligenceChange)).ToString();
+                    tbMagicAttackValue.Text = (int.Parse(tbMagicAttackValue.Text) + (item.MagicalAttackChange + 5 * item.IntelligenceChange)).ToString();
+                    tbPhysicalDefValue.Text = (int.Parse(tbPhysicalDefValue.Text) + (0.5 * item.DexterityChange + 1 * item.ConstitutionChange + item.PdefChange)).ToString();
+                    break;
+                default:
+                    break;
+            }
+            }
+        }
+
+        private void FillSkillPoints()
+        {
+            lbSkillPointsValue.Content = _selectedCharacter.SkillPoints;
+            lblExp.Content = Convert.ToString(_selectedCharacter.Lvl.CurrentExp);
+            lblLvl.Content = _selectedCharacter.Lvl.CurrentLevel;
+        }
+
         #region CharacteristicsChangeBtns
         private void BtnPlusStrength_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                _selectedCharacter.Strength.Value += 1;
-                lbStrengthValue.Content = Convert.ToString(_selectedCharacter.Strength.Value);
+                if(_selectedCharacter.SkillPoints > 0)
+                {
+                    var temp = _selectedCharacter.Strength.Value;
+                    _selectedCharacter.Strength.Value += 1;
+                    if(temp != _selectedCharacter.Strength.Value) _selectedCharacter.SkillPoints -= 1;
+                    lbStrengthValue.Content = Convert.ToString(_selectedCharacter.Strength.Value);
+                }
             }
             catch { }
         }
@@ -123,7 +175,9 @@ namespace UnitsEditor
         {
             try
             {
+                var temp = _selectedCharacter.Strength.Value;
                 _selectedCharacter.Strength.Value -= 1;
+                if(temp != _selectedCharacter.Strength.Value) _selectedCharacter.SkillPoints += 1;
                 lbStrengthValue.Content = Convert.ToString(_selectedCharacter.Strength.Value);
             }
             catch { }
@@ -133,8 +187,13 @@ namespace UnitsEditor
         {
             try
             {
-                _selectedCharacter.Dexterity.Value += 1;
-                lbDexterityValue.Content = Convert.ToString(_selectedCharacter.Dexterity.Value);
+                if(_selectedCharacter.SkillPoints > 0)
+                {
+                    var temp = _selectedCharacter.Dexterity.Value;
+                    _selectedCharacter.Dexterity.Value += 1;
+                    if(temp != _selectedCharacter.Dexterity.Value) _selectedCharacter.SkillPoints -= 1;
+                    lbDexterityValue.Content = Convert.ToString(_selectedCharacter.Dexterity.Value);
+                }
             }
             catch { }
         }
@@ -143,7 +202,9 @@ namespace UnitsEditor
         {
             try
             {
+                var temp = _selectedCharacter.Dexterity.Value;
                 _selectedCharacter.Dexterity.Value -= 1;
+                if(temp != _selectedCharacter.Dexterity.Value)_selectedCharacter.SkillPoints += 1;
                 lbDexterityValue.Content = Convert.ToString(_selectedCharacter.Dexterity.Value); ;
             }
             catch { }
@@ -153,7 +214,9 @@ namespace UnitsEditor
         {
             try
             {
+                var temp = _selectedCharacter.Constitution.Value;
                 _selectedCharacter.Constitution.Value -= 1;
+                if(temp != _selectedCharacter.Constitution.Value) _selectedCharacter.SkillPoints += 1;
                 lbConstitutionValue.Content = Convert.ToString(_selectedCharacter.Constitution.Value);
             }
             catch { }
@@ -163,8 +226,13 @@ namespace UnitsEditor
         {
             try
             {
-                _selectedCharacter.Constitution.Value += 1;
-                lbConstitutionValue.Content = Convert.ToString(_selectedCharacter.Constitution.Value);
+                if(_selectedCharacter.SkillPoints > 0)
+                {
+                    var temp = _selectedCharacter.Constitution.Value;
+                    _selectedCharacter.Constitution.Value += 1;
+                    if(temp != _selectedCharacter.Constitution.Value) _selectedCharacter.SkillPoints -= 1;
+                    lbConstitutionValue.Content = Convert.ToString(_selectedCharacter.Constitution.Value);
+                }
             }
             catch { }
         }
@@ -173,8 +241,13 @@ namespace UnitsEditor
         {
             try
             {
-                _selectedCharacter.Intelligence.Value += 1;
-                lbIntelligenceValue.Content = Convert.ToString(_selectedCharacter.Intelligence.Value);
+                if(_selectedCharacter.SkillPoints > 0)
+                {
+                    var temp = _selectedCharacter.Intelligence.Value;
+                    _selectedCharacter.Intelligence.Value += 1;
+                    if(temp != _selectedCharacter.Intelligence.Value) _selectedCharacter.SkillPoints -= 1;
+                    lbIntelligenceValue.Content = Convert.ToString(_selectedCharacter.Intelligence.Value);
+                }
             }
             catch { }
         }
@@ -183,7 +256,9 @@ namespace UnitsEditor
         {
             try
             {
+                var temp = _selectedCharacter.Intelligence.Value;
                 _selectedCharacter.Intelligence.Value -= 1;
+                if(temp != _selectedCharacter.Intelligence.Value) _selectedCharacter.SkillPoints += 1;
                 lbIntelligenceValue.Content = Convert.ToString(_selectedCharacter.Intelligence.Value);
             }
             catch { }
@@ -257,7 +332,10 @@ namespace UnitsEditor
 
                     CharacteristicChangeEvent += _selectedCharacter.SetDefStats;
                     CharacteristicChangeEvent += FillCharacterInfo;
-                    _selectedCharacter.Lvl.OnLevelUpEvent += _selectedCharacter.AddCharacteristics;
+                    CharacteristicChangeEvent += FillItemsBuffs;
+                    CharacteristicChangeEvent += FillAbilitiesBuffs;
+                    CharacteristicChangeEvent += FillSkillPoints;
+                    _selectedCharacter.Lvl.OnLevelUpEvent += _selectedCharacter.AddSkillPoints;
                     CharacteristicChangeEvent?.Invoke();
 
                     _selectedCharacter.Lvl.OnLevelUpEvent += AddAbility;
@@ -339,6 +417,17 @@ namespace UnitsEditor
             foreach(var ability in _selectedCharacter.Abilities)
             {
                 lbAbilities.Items.Add(ability);
+            }
+        }
+        private void FillAbilitiesBuffs()
+        {
+            foreach (var ability in _selectedCharacter.Abilities)
+            {
+                tbAttackDamageValue.Text = (int.Parse(tbAttackDamageValue.Text) + ability.AttackChange).ToString();
+                tbHealthValue.Text = (int.Parse(tbHealthValue.Text) + ability.HealthChange).ToString();
+                tbManaValue.Text = (int.Parse(tbManaValue.Text) + ability.ManaChange).ToString();
+                tbMagicAttackValue.Text = (int.Parse(tbMagicAttackValue.Text) + ability.MagicalAttackChange).ToString();
+                tbPhysicalDefValue.Text = (int.Parse(tbPhysicalDefValue.Text) + ability.PhysicalDefChange).ToString();
             }
         }
 

@@ -77,7 +77,24 @@ namespace CharacterEditorCore
         #endregion
 
         #region Stats
+        private int _skillPoints = 100;
+        public int SkillPoints
+        {
+            get => _skillPoints;
+            set
+            {
+                if(value >= 0)
+                {
+                    _skillPoints = value;
+                }
+            }
+        }
         private int _lvlCharacteristicsChangeVal = 5;
+        public int LvlCharacteristicsChangeVal
+        {
+            get => _lvlCharacteristicsChangeVal;
+            set => _lvlCharacteristicsChangeVal = value;
+        }
         private int _attackDamage;
         public int AttackDamage
         {
@@ -180,22 +197,6 @@ namespace CharacterEditorCore
             _inventory.Remove(item);
             OnItemChangeEvent?.Invoke(item, -1);// Add item in inventory type - (-1)
         }
-
-        public void AddItemStat(Item item, int changeType)
-        {
-            HealthPoint += item.HPChange * changeType;
-            AttackDamage += item.AttackChange * changeType;
-            ManaPoint += item.ManaChange * changeType;
-            MagicAttack += item.MagicalAttackChange * changeType;
-            PhysicalDef += item.PdefChange * changeType;
-        }
-        private void ItemStatsCalc()
-        {
-            foreach (var item in _inventory)
-            {
-                AddItemStat(item,1);
-            }
-        }
         #endregion
 
         #region Abilities
@@ -220,14 +221,6 @@ namespace CharacterEditorCore
                 OnAbilityAddEvent?.Invoke(ability);
             }
         }
-        private void AddAbilityStats(Ability ability)
-        {
-            HealthPoint += ability.HealthChange;
-            ManaPoint += ability.ManaChange;
-            AttackDamage += ability.AttackChange;
-            MagicAttack += ability.MagicalAttackChange;
-            PhysicalDef += ability.PhysicalDefChange;
-        }
         #endregion
 
         #region CalcStats
@@ -239,25 +232,10 @@ namespace CharacterEditorCore
             ManaPoint = _intelligence.Value * _intelligenceMpChange;
             MagicAttack = _intelligence.Value * _intelligenceMagicAttackChange;
             PhysicalDef = _dexterity.Value * _dexterityAttackChange + _constitution.Value * _constitutionPhysicalDefChange;
-
-            AbilityStatsCalc();
-            ItemStatsCalc();
         }
-        private void AbilityStatsCalc()
+        public void AddSkillPoints()
         {
-            foreach (var ab in _abilities)
-            {
-                AddAbilityStats(ab);
-            }
-        }
-        public void AddCharacteristics()
-        {
-            Constitution.Value += _lvlCharacteristicsChangeVal;
-            Intelligence.Value += _lvlCharacteristicsChangeVal;
-            Dexterity.Value += _lvlCharacteristicsChangeVal;
-            Strength.Value += _lvlCharacteristicsChangeVal;
-
-            SetDefStats();
+            _skillPoints += 5;
         }
         #endregion
 
@@ -290,8 +268,6 @@ namespace CharacterEditorCore
             _inventory = new();
             _abilities = new();
 
-            OnAbilityAddEvent +=AddAbilityStats;
-            OnItemChangeEvent += AddItemStat;
             SetDefStats();
         }
 

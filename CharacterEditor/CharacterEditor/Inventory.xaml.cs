@@ -15,7 +15,7 @@ namespace CharacterEditor
     {
         private BaseCharacteristics _selectedCharacter;
         private MainWindow _mainWindow;
-        private delegate void ItemSelectedDelegate();
+        private delegate void ItemSelectedDelegate(int operationType, Item item);
 
         public Inventory(BaseCharacteristics selectedCharacter, MainWindow mainWindow)
         {
@@ -23,7 +23,7 @@ namespace CharacterEditor
 
             _selectedCharacter = selectedCharacter;
             _mainWindow = mainWindow;
-            OnItemSelectedEvent += _mainWindow.FillCharacterInfo;
+            OnItemSelectedEvent += FillItemsBuffs;
             FillInventory();
             FillItems();
         }
@@ -53,6 +53,41 @@ namespace CharacterEditor
             }
         }
 
+        private void FillItemsBuffs(int operationType, Item item)
+        {
+            _mainWindow.lbStrengthValue.Content = (int.Parse((string)_mainWindow.lbStrengthValue.Content) + item.StrengthChange * operationType).ToString();
+            _mainWindow.lbDexterityValue.Content = (int.Parse((string)_mainWindow.lbDexterityValue.Content) + item.DexterityChange * operationType).ToString();
+            _mainWindow.lbConstitutionValue.Content = (int.Parse((string)_mainWindow.lbConstitutionValue.Content) + item.ConstitutionChange * operationType).ToString();
+            _mainWindow.lbIntelligenceValue.Content = (int.Parse((string)_mainWindow.lbIntelligenceValue.Content) + item.IntelligenceChange * operationType).ToString();
+
+            switch (_selectedCharacter.GetType().Name)
+            {
+                case "Warrior":
+                    _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (item.AttackChange + 5 * item.StrengthChange + item.DexterityChange)).ToString();
+                    _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.HPChange + 2 * item.StrengthChange + 10 * item.ConstitutionChange)).ToString();
+                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (item.ManaChange + 5 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (item.MagicalAttackChange + item.IntelligenceChange)).ToString();
+                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (item.DexterityChange + 2 * item.ConstitutionChange + item.PdefChange)).ToString();
+                    break;
+                case "Rogue":
+                    _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (item.AttackChange + 2 * item.StrengthChange + 4 * item.DexterityChange)).ToString();
+                    _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.HPChange + item.StrengthChange + 6 * item.ConstitutionChange)).ToString();
+                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (item.ManaChange + 1.5 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (item.MagicalAttackChange + 2 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (1.5 * item.DexterityChange + 0 * item.ConstitutionChange + item.PdefChange)).ToString();
+                    break;
+                case "Wizzard":
+                    _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (item.AttackChange + 3 * item.StrengthChange + 0 * item.DexterityChange)).ToString();
+                    _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.HPChange + item.StrengthChange + 3 * item.ConstitutionChange)).ToString();
+                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (item.ManaChange + 2 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (item.MagicalAttackChange + 5 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (0.5 * item.DexterityChange + 1 * item.ConstitutionChange + item.PdefChange)).ToString();
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -66,8 +101,8 @@ namespace CharacterEditor
             {
                 return;
             }
+            OnItemSelectedEvent?.Invoke(-1, deletedItem);
             _selectedCharacter.RemoveItem(deletedItem);
-            OnItemSelectedEvent?.Invoke();
             lbInventory.Items.Remove(deletedItem);
             lblInventoryCapacity.Content = $"{_selectedCharacter.Inventory.Count} / {_selectedCharacter.InventCapacity}";
             FillItems();
@@ -84,10 +119,10 @@ namespace CharacterEditor
             if (_selectedCharacter.InventCapacity > lbInventory.Items.Count && _selectedCharacter.Lvl.CurrentLevel >= item.MinimumLevel)
             {
                 lbInventory.Items.Add(item);
+                OnItemSelectedEvent?.Invoke(1, item);
             }
-            OnItemSelectedEvent?.Invoke();
-            FillItems();
 
+            FillItems();
             lblInventoryCapacity.Content = $"{_selectedCharacter.Inventory.Count} / {_selectedCharacter.InventCapacity}";
             if(_mainWindow.tbCharacterName.Text == "")
             {
@@ -97,10 +132,6 @@ namespace CharacterEditor
                 && _mainWindow.cbExistCharacters.SelectedItem is null)
             {
                 return;
-            }
-            if(_mainWindow.cbExistCharacters.SelectedItem is null)
-            {
-                _mainWindow.CharContext.AddCharacterToDb(_selectedCharacter);
             }
             if(_mainWindow.cbNewCharacters.SelectedItem is null)
             {

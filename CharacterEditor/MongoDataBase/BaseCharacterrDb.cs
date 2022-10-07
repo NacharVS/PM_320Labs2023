@@ -13,6 +13,8 @@ namespace CharacterEditorCore
 
         [BsonIgnoreIfNull]
         public string? Name { get; set; }
+        [BsonIgnoreIfDefault]
+        public int SkillPoint { get; set; }
 
         [BsonIgnoreIfNull]
         public string? CharacterClassName { get; set; }

@@ -19,7 +19,11 @@ namespace CharacterEditorCore.Items
                 AttackChange = 1,
                 MagicalAttackChange = 0,
                 MinimumLevel = 1,
-                ItemType = ItemType.Hemet
+                ItemType = ItemType.Helmet,
+                StrengthChange = 2,
+                DexterityChange = 0,
+                ConstitutionChange = 1,
+                IntelligenceChange = 0
             },
             new()
             {
@@ -30,7 +34,11 @@ namespace CharacterEditorCore.Items
                 AttackChange = 1,
                 MagicalAttackChange = 0,
                 MinimumLevel = 3,
-                ItemType = ItemType.Hemet
+                ItemType = ItemType.Helmet,
+                StrengthChange = 4,
+                DexterityChange = 0,
+                ConstitutionChange = 2,
+                IntelligenceChange = 0
             },
 
             new()
@@ -42,7 +50,11 @@ namespace CharacterEditorCore.Items
                 AttackChange = 2,
                 MagicalAttackChange = 0,
                 MinimumLevel = 6,
-                ItemType = ItemType.Hemet
+                ItemType = ItemType.Helmet,
+                StrengthChange = 10,
+                DexterityChange = 1,
+                ConstitutionChange = 5,
+                IntelligenceChange = 0
             },
 
             new()
@@ -54,7 +66,11 @@ namespace CharacterEditorCore.Items
                 AttackChange = 1,
                 MagicalAttackChange = 0,
                 MinimumLevel = 1,
-                ItemType = ItemType.Armor
+                ItemType = ItemType.Armor,
+                StrengthChange = 1,
+                DexterityChange = 1,
+                ConstitutionChange = 1,
+                IntelligenceChange = 0
             },
             new()
             {
@@ -65,8 +81,12 @@ namespace CharacterEditorCore.Items
                 AttackChange = 2,
                 MagicalAttackChange = 0,
                 MinimumLevel = 3,
-                ItemType = ItemType.Armor
-            },
+                ItemType = ItemType.Armor,
+                StrengthChange = 5,
+                DexterityChange = 3,
+                ConstitutionChange = 2,
+                IntelligenceChange = 0
+             },
 
             new()
             {
@@ -76,8 +96,12 @@ namespace CharacterEditorCore.Items
                 PdefChange = 120,
                 AttackChange = 4,
                 MagicalAttackChange = 1,
-                MinimumLevel = 7
-                ItemType = ItemType.Armor
+                MinimumLevel = 7,
+                ItemType = ItemType.Armor,
+                StrengthChange = 20,
+                DexterityChange = 5,
+                ConstitutionChange = 3,
+                IntelligenceChange = 1
             },
 
             new()
@@ -88,32 +112,44 @@ namespace CharacterEditorCore.Items
                 PdefChange = 0,
                 AttackChange = 30,
                 MagicalAttackChange = 0,
-                MinimumLevel = 1
-                ItemType = ItemType.Weapon
+                MinimumLevel = 1,
+                ItemType = ItemType.Weapon,
+                StrengthChange = 0,
+                DexterityChange = 0,
+                ConstitutionChange = 3,
+                IntelligenceChange = 1
             },
 
             new()
             {
-                Name = "Ak-74",
+                Name = "Magic wand",
                 HPChange = 0,
                 ManaChange = 0,
                 PdefChange = 0,
                 AttackChange = 60,
                 MagicalAttackChange = 0,
                 MinimumLevel = 3,
-                ItemType = ItemType.Weapon
+                ItemType = ItemType.Weapon,
+                StrengthChange = 1,
+                DexterityChange = 3,
+                ConstitutionChange = 0,
+                IntelligenceChange = 4
             },
 
             new()
             {
-                Name = "AWP",
+                Name = "Dagon",
                 HPChange = 0,
                 ManaChange = 0,
                 PdefChange = 0,
                 AttackChange = 150,
                 MagicalAttackChange = 0,
                 MinimumLevel = 7,
-                ItemType = ItemType.Weapon
+                ItemType = ItemType.Weapon,
+                StrengthChange = 5,
+                DexterityChange = 5,
+                ConstitutionChange = 5,
+                IntelligenceChange = 5
             }
         };
     }

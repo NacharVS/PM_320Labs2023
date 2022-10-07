@@ -20,6 +20,7 @@ namespace CharacterEditorMongoDataBase
                 MongoDataBase.collection.InsertOne(new BaseCharacterrDb
                 {
                     Name = character.Name,
+                    SkillPoint = character.SkillPoints,
                     CharacterClassName = character.GetType().Name,
                     Strength = character.Strength.Value,
                     Dexterity = character.Dexterity.Value,
@@ -71,7 +72,8 @@ namespace CharacterEditorMongoDataBase
                     Intelligence = character.Intelligence.Value,
                     Inventory = character.Inventory,
                     Experience = character.Lvl.CurrentExp,
-                    Abilities = character.Abilities
+                    Abilities = character.Abilities,
+                    SkillPoint = character.SkillPoints
                 });
 
                 return true;
@@ -129,6 +131,7 @@ namespace CharacterEditorMongoDataBase
                         baseCharacter = new Wizard();
                         break;
                 }
+                baseCharacter.SkillPoints = characterDb.SkillPoint;
                 baseCharacter.Dexterity.Value = characterDb.Dexterity;
                 baseCharacter.Intelligence.Value = characterDb.Intelligence;
                 baseCharacter.Strength.Value = characterDb.Strength;

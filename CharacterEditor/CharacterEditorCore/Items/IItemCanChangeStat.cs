@@ -13,5 +13,11 @@ namespace CharacterEditorCore.Items
         public int PdefChange { get; set; }
         public int AttackChange { get; set; }
         public int MagicalAttackChange { get; set; }
+
+        public int StrengthChange { get; set; }
+        public int DexterityChange { get; set; }
+        public int ConstitutionChange { get; set; }
+        public int IntelligenceChange { get; set; }
+
     }
 }

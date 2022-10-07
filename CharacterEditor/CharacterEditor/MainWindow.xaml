@@ -71,6 +71,9 @@
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
 
+        <Label x:Name="lbSkillPoints" Content="Skill points" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="0,50,0,0"/>
+        <Label x:Name="lbSkillPointsValue" Content="0" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="0,50,0,0"/>
+        
         <Button x:Name="btnPlusStrength" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="0" Click="BtnPlusStrength_Click" Background="ForestGreen"/>
         <Button x:Name="btnMinusStrength" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="0" Click="BtnMinusStrength_Click" Background="Red"/>
         <Label x:Name="lbStrength" Style="{StaticResource CharactersName}" Content="Strength" Grid.Row="5"/>

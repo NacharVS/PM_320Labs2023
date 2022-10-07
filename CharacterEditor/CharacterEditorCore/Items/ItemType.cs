@@ -8,7 +8,7 @@ namespace CharacterEditorCore.Items
 {
     public enum ItemType
     {
-        Hemet = 1,
+        Helmet = 1,
         Armor = 2,
         Weapon = 3 
     }

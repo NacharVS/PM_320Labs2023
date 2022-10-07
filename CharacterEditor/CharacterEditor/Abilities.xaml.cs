@@ -31,7 +31,6 @@ namespace CharacterEditor
             _selectedCharacter = selectedCharacter;
             _mainWindow = mainWindow;
             OnAbilityChangeEvent += FillAbilities;
-            OnAbilityChangeEvent += _mainWindow.FillCharacterInfo;
 
             if(_selectedCharacter is null)
             {
@@ -57,13 +56,24 @@ namespace CharacterEditor
             var selectedAbility = (Ability)lvAbilities.SelectedItem;
 
             _selectedCharacter.AddAbility(selectedAbility);
-
+            FillAbilityBuffs(selectedAbility);
             _mainWindow.lbAbilities.DisplayMemberPath = "Name";
             _mainWindow.lbAbilities.Items.Add(selectedAbility);
 
             OnAbilityChangeEvent?.Invoke();
 
             this.Close();
+        }
+
+        private void FillAbilityBuffs(Ability ability)
+        {
+            if (_selectedCharacter is null) return;
+            if (_selectedCharacter.Abilities.Count < 1) return;
+            _mainWindow.tbAttackDamageValue.Text = Convert.ToString(int.Parse(_mainWindow.tbAttackDamageValue.Text) + ability.AttackChange);
+            _mainWindow.tbHealthValue.Text = Convert.ToString(int.Parse(_mainWindow.tbHealthValue.Text) + ability.HealthChange);
+            _mainWindow.tbManaValue.Text = Convert.ToString(int.Parse(_mainWindow.tbManaValue.Text) + ability.ManaChange);
+            _mainWindow.tbPhysicalDefValue.Text = Convert.ToString(int.Parse(_mainWindow.tbPhysicalDefValue.Text) + ability.PhysicalDefChange);
+            _mainWindow.tbMagicAttackValue.Text = Convert.ToString(int.Parse(_mainWindow.tbMagicAttackValue.Text) + ability.MagicalAttackChange);
         }
 
         private event AbilityChangeDelegate OnAbilityChangeEvent;
