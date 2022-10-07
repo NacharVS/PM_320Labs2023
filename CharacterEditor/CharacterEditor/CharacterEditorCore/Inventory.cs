@@ -2,20 +2,20 @@
 {
     public class Inventory
     {
-        public List<IItem> Items { get; private set; }
+        public List<Item> Items { get; private set; }
         private const int _inventoryCapacity = 10;
 
         public Inventory ()
         {
-            Items = new List<IItem>();
+            Items = new List<Item>();
             Items.Capacity = _inventoryCapacity;
         }
 
-        public Inventory(List<IItem> items)
+        public Inventory(List<Item> items)
         {
             if (items.Count > _inventoryCapacity)
             {
-                var arr = new IItem[_inventoryCapacity];
+                var arr = new Item[_inventoryCapacity];
                 items.CopyTo(0, arr, 0, _inventoryCapacity);
                 Items = arr.ToList();
             }
@@ -26,7 +26,7 @@
             }
         }
 
-        public void AddItem(IItem item)
+        public void AddItem(Item item)
         {
             if (item == null)
             {

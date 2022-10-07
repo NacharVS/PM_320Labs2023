@@ -1,12 +1,13 @@
 ﻿namespace CharacterEditorCore
 {
-    public class Helmet : IItem
+    public class Helmet : Item
     {
-        public string Name { get; set; }
-
-        public Helmet() 
+        public Helmet(string name, int strengthChange, int dexterityChange, 
+            int constitutionChange, int intellisenceChange) 
+            : base(strengthChange, dexterityChange, 
+                  constitutionChange, intellisenceChange)
         {
-            Name = GetType().Name;
+            Name = name;
         }
     }
 }

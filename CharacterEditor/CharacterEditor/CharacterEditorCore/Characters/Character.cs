@@ -1,13 +1,18 @@
-﻿namespace CharacterEditorCore
+﻿using CharacterEditorCore.Items;
+
+namespace CharacterEditorCore
 {
     public abstract class Character
     {
         private const int _levelUpValue = 1000;
-        private int _currentLevelExperienceValue = 0;
         private delegate void _charactericticChangedDelegate();
         private _charactericticChangedDelegate _charactericticChangedEvent;
+        private int _currentLevelExperienceValue = 0;
         private delegate void OnLevelUp();
         private  OnLevelUp OnLevelUpEvent;
+
+        public string Name { get; set; }
+
         private List<Ability> _abilities;
         public List<Ability> Abilities
         {
@@ -17,8 +22,19 @@
                 foreach (var ability in value)
                 {
                     _abilities.Add(ability);
-                    FillAbilityData(ability);
                 }
+            }
+        }
+
+        private Equipment _equipment;
+        public Equipment Equipment
+        {
+            get { return _equipment; }
+            set
+            {
+                _equipment.Weapon = value.Weapon;
+                _equipment.Breastplate = value.Breastplate;
+                _equipment.Helmet = value.Helmet;
             }
         }
 
@@ -35,8 +51,9 @@
                 _availableAbilityCount = value;
             }
         }
+
         public Inventory Inventory { get; set; }
-        public string Name { get; set; }
+
         private int _level;
         public int Level
         {
@@ -68,7 +85,7 @@
                 {
                     _currentLevelExperienceValue = Level * _levelUpValue + _currentLevelExperienceValue;
                     Level++;
-                    OnLevelUpEvent?.Invoke();
+                    OnLevelUpEvent?.Invoke();               
                 }
             }
         }
@@ -83,8 +100,8 @@
                 _charactericticChangedEvent?.Invoke();
             }
         }
-        private double _strengthAttackChange;
-        private double _strengthHealthChange;
+        public double StrengthAttackChange { get; private set; }
+        public double StrengthHealthChange { get; private set; }
 
         private Characterictic _dexterity;
         public Characterictic Dexterity
@@ -96,8 +113,8 @@
                 _charactericticChangedEvent?.Invoke();
             }
         }
-        private double _dexterityAttackChange;
-        private double _dexterityPhysicalDefenceChange;
+        public double DexterityAttackChange { get; private set; }
+        public double DexterityPhysicalDefenceChange { get; private set; }
 
         private Characterictic _constitution;
         public Characterictic Constitution
@@ -109,8 +126,8 @@
                 _charactericticChangedEvent?.Invoke();
             }
         }
-        private double _constitutionHealthChange;
-        private double _constitutionPhysicalDefenceChange;
+        public double ConstitutionHealthChange { get; private set; }
+        public double ConstitutionPhysicalDefenceChange { get; private set; }
 
         private Characterictic _intellisense;
         public Characterictic Intellisense
@@ -122,8 +139,8 @@
                 _charactericticChangedEvent?.Invoke();
             }
         }
-        private double _intellisenseManaChange;
-        private double _intellisenseMagicalAttackChange;
+        public double IntellisenseManaChange { get; private set; }
+        public double IntellisenseMagicalAttackChange { get; private set; }
 
         private double _mana;
         public double Mana
@@ -197,16 +214,14 @@
 
         private void CalculateCharacterictics()
         {
-            AttackDamage = Strength.Value * _strengthAttackChange + 
-                           Dexterity.Value * _dexterityAttackChange;
-            Health = Constitution.Value * _constitutionHealthChange + 
-                        Strength.Value * _strengthHealthChange;
-            PhysicalDefense = Constitution.Value * _constitutionPhysicalDefenceChange + 
-                                Dexterity.Value * _dexterityPhysicalDefenceChange;
-            Mana = Intellisense.Value * _intellisenseManaChange;
-            MagicalAttackDamage = Intellisense.Value * _intellisenseMagicalAttackChange;
-
-            FillAllAbilityData();
+            AttackDamage = Strength.Value * StrengthAttackChange +
+                           Dexterity.Value * DexterityAttackChange;
+            Health = Constitution.Value * ConstitutionHealthChange +
+                        Strength.Value * StrengthHealthChange;
+            PhysicalDefense = Constitution.Value * ConstitutionPhysicalDefenceChange +
+                                Dexterity.Value * DexterityPhysicalDefenceChange;
+            Mana = Intellisense.Value * IntellisenseManaChange;
+            MagicalAttackDamage = Intellisense.Value * IntellisenseMagicalAttackChange;
         }
 
         public void SetStrengthValue(int value)
@@ -253,29 +268,64 @@
             return _intellisense.Value;
         }
 
-        private void UpdateCharacterictics()
+        public int GetLevelCharactericticsValue()
         {
-            SetStrengthValue(Strength.Value + 5);
-            SetDexterityValue(Dexterity.Value + 5);
-            SetConstitutionValue(Constitution.Value + 5);
-            SetIntellisenseValue(Intellisense.Value + 5);
-            _charactericticChangedEvent?.Invoke();
+            return Level * 5;
         }
 
-        private void FillAbilityData(Ability ability)
+        public double GetAbilitiesAttackDamage()
         {
-            AttackDamage += ability.AttackChangeValue;
-            Health += ability.HealthChangeValue;
-            PhysicalDefense += ability.PhysicalDefenceChangeValue;
-            Mana += ability.ManaChangeValue;
-            MagicalAttackDamage += ability.MagicalAttackChangeValue;
-        }
-        private void FillAllAbilityData()
-        {
+            double sum = 0;
             foreach (var ability in _abilities)
             {
-                FillAbilityData(ability);
+                sum += ability.AttackChangeValue;
             }
+
+            return sum;
+        }
+
+        public double GetAbilitiesHealth()
+        {
+            double sum = 0;
+            foreach (var ability in _abilities)
+            {
+                sum += ability.HealthChangeValue;
+            }
+
+            return sum;
+        }
+
+        public double GetAbilitiesPhysicalDefense()
+        {
+            double sum = 0;
+            foreach (var ability in _abilities)
+            {
+                sum += ability.PhysicalDefenceChangeValue;
+            }
+
+            return sum;
+        }
+
+        public double GetAbilitiesMana()
+        {
+            double sum = 0;
+            foreach (var ability in _abilities)
+            {
+                sum += ability.ManaChangeValue;
+            }
+
+            return sum;
+        }
+
+        public double GetAbilitiesMagicalAttack()
+        {
+            double sum = 0;
+            foreach (var ability in _abilities)
+            {
+                sum += ability.MagicalAttackChangeValue;
+            }
+
+            return sum;
         }
 
         public bool AddAbility(Ability ability)
@@ -289,7 +339,6 @@
             {
                 _availableAbilityCount--;
                 Abilities.Add(ability);
-                FillAbilityData(ability);
                 return true;
             }
             else
@@ -304,6 +353,51 @@
             {
                 _availableAbilityCount++;
             }
+        }
+
+        public List<Helmet> GetAvailableHelmets()
+        {
+            List<Helmet> list = new List<Helmet>();
+
+            foreach (var item in Inventory.Items)
+            {
+                if (item is Helmet && item.Rang <= Equipment.MaxAvailableHelmetRang)
+                {
+                    list.Add(item as Helmet);
+                }
+            }
+
+            return list;
+        }
+
+        public List<Breastplate> GetAvailableBreastplates()
+        {
+            List<Breastplate> list = new List<Breastplate>();
+
+            foreach (var item in Inventory.Items)
+            {
+                if (item is Breastplate && item.Rang <= Equipment.MaxAvailablBreastplateRang)
+                {
+                    list.Add(item as Breastplate);
+                }
+            }
+
+            return list;
+        }
+
+        public List<Weapon> GetAvailableWeapons()
+        {
+            List<Weapon> list = new List<Weapon>();
+
+            foreach (var item in Inventory.Items)
+            {
+                if (item is Weapon && item.Rang <= Equipment.MaxAvailableWeaponRang)
+                {
+                    list.Add(item as Weapon);
+                }
+            }
+
+            return list;
         }
 
         protected Character(Characterictic strength,
@@ -326,28 +420,27 @@
             AvailableAbilityCount = availableAbilityCount;
             _abilities = new List<Ability>();
 
-            _strengthAttackChange = strengthAttackChange;
-            _strengthHealthChange = strengthHealthChange;
+            StrengthAttackChange = strengthAttackChange;
+            StrengthHealthChange = strengthHealthChange;
             Strength = strength;
 
-            _dexterityAttackChange = dexterityAttackChange;
-            _dexterityPhysicalDefenceChange = dexterityPhysicalDefenceChange;
+            DexterityAttackChange = dexterityAttackChange;
+            DexterityPhysicalDefenceChange = dexterityPhysicalDefenceChange;
             Dexterity = dexterity;
 
-            _constitutionHealthChange = constitutionHealthChange;
-            _constitutionPhysicalDefenceChange = constitutionPhysicalDefenceChange;
+            ConstitutionHealthChange = constitutionHealthChange;
+            ConstitutionPhysicalDefenceChange = constitutionPhysicalDefenceChange;
             Constitution = constitution;
 
-            _intellisenseMagicalAttackChange = intellisenseMagicalAttackChange;
-            _intellisenseManaChange = intellisenseManaChange;
+            IntellisenseMagicalAttackChange = intellisenseMagicalAttackChange;
+            IntellisenseManaChange = intellisenseManaChange;
             Intellisense = intellisense;
 
             Inventory = new Inventory();
 
-            OnLevelUpEvent += UpdateCharacterictics;
-            OnLevelUpEvent += CheckLevel;
             _charactericticChangedEvent += CalculateCharacterictics;
             _charactericticChangedEvent?.Invoke();
+            OnLevelUpEvent += CheckLevel;
         }
     }
 }

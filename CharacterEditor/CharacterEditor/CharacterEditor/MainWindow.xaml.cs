@@ -78,21 +78,21 @@ namespace CharacterEditor
             {
                 tbCharacterName.Text = _currentCharacter.Name;
             }
-            Attack.Content = _currentCharacter.AttackDamage;
-            Health.Content = _currentCharacter.Health;
-            PhysicalDefence.Content = _currentCharacter.PhysicalDefense;
-            Mana.Content = _currentCharacter.Mana;
-            MagicalAttack.Content = _currentCharacter.MagicalAttackDamage;
-
-            strength.Content = _currentCharacter.GetStrengthValue();
-            dexterity.Content = _currentCharacter.GetDexterityValue();
-            constitution.Content = _currentCharacter.GetConstitutionValue();
-            intellisense.Content = _currentCharacter.GetIntellisenseValue();
-
             Experience.Content = _currentCharacter.Experience;
             Level.Content = _currentCharacter.Level;
+
+            strength.Content = _currentCharacter.GetStrengthValue() 
+                                + _currentCharacter.GetLevelCharactericticsValue();
+            dexterity.Content = _currentCharacter.GetDexterityValue()
+                                + _currentCharacter.GetLevelCharactericticsValue();
+            constitution.Content = _currentCharacter.GetConstitutionValue()
+                                + _currentCharacter.GetLevelCharactericticsValue();
+            intellisense.Content = _currentCharacter.GetIntellisenseValue()
+                                + _currentCharacter.GetLevelCharactericticsValue();
+
             FillCBAbilities();
             FillLBCharacterAbilities();
+            CalculateCharacterictics();
         }
 
         private void FillCBAbilities()
@@ -144,35 +144,35 @@ namespace CharacterEditor
             switch (currentBtn.Name)
             {
                 case "strengthMinusBtn":
-                    previousValue = Convert.ToInt32(strength.Content);
+                    previousValue = _currentCharacter.GetStrengthValue();
                     _currentCharacter.SetStrengthValue(--previousValue);
                     break;
                 case "strengthPlusBtn":
-                    previousValue = Convert.ToInt32(strength.Content);
+                    previousValue = _currentCharacter.GetStrengthValue();
                     _currentCharacter.SetStrengthValue(++previousValue);
                     break;
                 case "dexterityMinusBtn":
-                    previousValue = Convert.ToInt32(dexterity.Content);
+                    previousValue = _currentCharacter.GetDexterityValue();
                     _currentCharacter.SetDexterityValue(--previousValue);
                     break;
                 case "dexterityPlusBtn":
-                    previousValue = Convert.ToInt32(dexterity.Content);
+                    previousValue = _currentCharacter.GetDexterityValue();
                     _currentCharacter.SetDexterityValue(++previousValue);
                     break;
                 case "constitutionMinusBtn":
-                    previousValue = Convert.ToInt32(constitution.Content);
+                    previousValue = _currentCharacter.GetConstitutionValue();
                     _currentCharacter.SetConstitutionValue(--previousValue);
                     break;
                 case "constitutionPlusBtn":
-                    previousValue = Convert.ToInt32(constitution.Content);
+                    previousValue = _currentCharacter.GetConstitutionValue();
                     _currentCharacter.SetConstitutionValue(++previousValue);
                     break;
                 case "intellisenseMinusBtn":
-                    previousValue = Convert.ToInt32(intellisense.Content);
+                    previousValue = _currentCharacter.GetIntellisenseValue();
                     _currentCharacter.SetIntellisenseValue(--previousValue);
                     break;
                 case "intellisensePlusBtn":
-                    previousValue = Convert.ToInt32(intellisense.Content);
+                    previousValue = _currentCharacter.GetIntellisenseValue();
                     _currentCharacter.SetIntellisenseValue(++previousValue);
                     break;
                 default:
@@ -392,6 +392,28 @@ namespace CharacterEditor
             {
                 MessageBox.Show("Failed to add ability!", "Warning!");
             }
+        }
+
+        private void CalculateCharacterictics()
+        {
+            var str = int.Parse(strength.Content.ToString());
+            var dex = int.Parse(dexterity.Content.ToString());
+            var con = int.Parse(constitution.Content.ToString());
+            var intel = int.Parse(intellisense.Content.ToString());
+
+            Attack.Content = str * _currentCharacter.StrengthAttackChange +
+                           dex * _currentCharacter.DexterityAttackChange + 
+                           _currentCharacter.GetAbilitiesAttackDamage();
+            Health.Content = con * _currentCharacter.ConstitutionHealthChange +
+                        str * _currentCharacter.StrengthHealthChange +
+                        _currentCharacter.GetAbilitiesHealth();
+            PhysicalDefence.Content = con * _currentCharacter.ConstitutionPhysicalDefenceChange +
+                                dex * _currentCharacter.DexterityPhysicalDefenceChange +
+                                _currentCharacter.GetAbilitiesPhysicalDefense();
+            Mana.Content = intel * _currentCharacter.IntellisenseManaChange +
+                         _currentCharacter.GetAbilitiesMana();
+            MagicalAttack.Content = intel * _currentCharacter.IntellisenseMagicalAttackChange +
+                                    _currentCharacter.GetAbilitiesMagicalAttack();
         }
     }
 }

@@ -1,12 +1,13 @@
-﻿namespace CharacterEditorCore
+﻿namespace CharacterEditorCore.Items
 {
-    public class Bow : IItem
+    public class Bow : Weapon
     {
-        public string Name { get; set; }
-
-        public Bow()
+        public Bow(string name, int strengthChange, int dexterityChange, 
+            int constitutionChange, int intellisenceChange, int damage) 
+            : base(strengthChange, dexterityChange, 
+                  constitutionChange, intellisenceChange, damage)
         {
-            Name = GetType().Name;
+            Name = name;
         }
     }
 }

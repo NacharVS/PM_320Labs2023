@@ -13,14 +13,14 @@ namespace CharacterEditor
     {
         private Character _character;
         private ICharacterRepository _repos;
-        private List<IItem> _items;
+        private List<Item> _items;
 
         public InventoryWindow(Character character, ICharacterRepository repos)
         {
             InitializeComponent();
             _character = character;
             _repos = repos;
-            _items = new List<IItem>();
+            _items = new List<Item>();
             _items.Capacity = _character.Inventory.Items.Capacity;
         }
 
@@ -51,12 +51,10 @@ namespace CharacterEditor
             
         }
 
-        private IItem CreateItem(string? type)
+        private Item CreateItem(string? type)
         {
             switch (type)
             {
-                case "Armor":
-                    return new Armor();
                 case "Helmet":
                     return new Helmet();
                 case "Rifle":
@@ -125,7 +123,7 @@ namespace CharacterEditor
             if (lbInventoryItems.SelectedItem != null)
             {
                 var item = lbInventoryItems.SelectedItem;
-                _items.Remove(item as IItem);
+                _items.Remove(item as Item);
                 lbInventoryItems.Items.Remove(lbInventoryItems.SelectedItem);         
             }
         }

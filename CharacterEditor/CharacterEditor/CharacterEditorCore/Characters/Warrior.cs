@@ -17,6 +17,8 @@
                                                 new Characterictic(20, constitution, 100), 10, 2,
                                                 new Characterictic(10, intellisense, 50), 1, 1, 
                                                 experience, availableAbilityCount)
-        { }
+        {
+            Equipment = new Items.Equipment(3, 3, 3);
+        }
     }
 }

@@ -13,13 +13,13 @@ var repos = new CharacterRepository("mongodb://localhost", "CharacterEditor");
 var rifle = new Rifle("Ak");
 var armor = new Armor("Armor");
 
-rog.Inventory = new Inventory(new List<IItem> { rifle, armor });
+rog.Inventory = new Inventory(new List<Item> { rifle, armor });
 
 repos.InsertCharacter(rog);
 
 var charac = repos.GetCharacterByName(rog.Name);
 
-foreach (IItem item in charac.Inventory.Items)
+foreach (Item item in charac.Inventory.Items)
 {
     Console.WriteLine($"{item.Name} {item.GetType().Name}");
 }

@@ -23,7 +23,7 @@ namespace CharacterEditorMongoDb
         [BsonIgnoreIfDefault]
         public int Intellisense { get; set; }
         [BsonIgnoreIfNull]
-        public List<IItem> Items { get; set; }
+        public List<Item> Items { get; set; }
         [BsonIgnoreIfNull]
         public List<Ability> Abilities { get; set; }
         [BsonIgnoreIfDefault]
@@ -32,7 +32,7 @@ namespace CharacterEditorMongoDb
         public CharacterDb(string name, string className, 
                             int strength, int dexterity, 
                             int constitution, int intellisense,
-                            List<IItem> items, int experience,
+                            List<Item> items, int experience,
                             List<Ability> abilities, int availableAbilityCount)
         {
             Name = name;

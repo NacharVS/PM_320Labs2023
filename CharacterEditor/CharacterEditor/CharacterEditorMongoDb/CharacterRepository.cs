@@ -11,10 +11,10 @@ namespace CharacterEditorMongoDb
         public CharacterRepository(string? connectionClient, string? databaseStr)
         {
             BsonClassMap.RegisterClassMap<Helmet>();
-            BsonClassMap.RegisterClassMap<Armor>();
             BsonClassMap.RegisterClassMap<Rifle>();
             BsonClassMap.RegisterClassMap<Bow>();
             BsonClassMap.RegisterClassMap<Knife>();
+            BsonClassMap.RegisterClassMap<Item>();
             BsonClassMap.RegisterClassMap<Ability>();
 
             var client = new MongoClient(connectionClient);
