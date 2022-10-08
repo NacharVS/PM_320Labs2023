@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Add item" Height="600" Width="800">
+        Title="Add item" Height="600" Width="800" ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -26,7 +26,6 @@
                   SelectedItem="{Binding SelectedItem}"
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
-                  AlternatingRowBackground="LightGray"
                   CanUserResizeColumns="False"
                   CanUserReorderColumns="False"
                   CanUserResizeRows="False">

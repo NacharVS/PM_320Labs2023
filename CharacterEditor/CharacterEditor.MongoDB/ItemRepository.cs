@@ -13,6 +13,13 @@ public class ItemRepository : RepositoryBase, IItemRepository
         Items = connection.Database?.GetCollection<ItemDb>("Items")!;
     }
 
+    public IEnumerable<Item> GetUniversalItems()
+    {
+        return Items.Find(x => x.Type == ItemType.Universal)
+            .ToEnumerable()
+            .Select(x => ConvertItem(x));
+    }
+
     public IEnumerable<Item> GetItemsByClass(string className)
     {
         return Items.Find(x => x.ClassName == className)
@@ -24,25 +31,12 @@ public class ItemRepository : RepositoryBase, IItemRepository
     {
         foreach (var item in Defaults.DefaultItems)
         {
-            var storedAbility = Items.Find(x => x.Name == item.Name)
+            var storedItem = Items.Find(x => x.Name == item.Name)
                 .FirstOrDefault();
-            if (storedAbility is not null)
+            if (storedItem is not null)
                 continue;
 
-            Items.InsertOne(new ItemDb
-            {
-                Name = item.Name, Type = item.Type,
-                AttackChange = item.AttackChange,
-                HealthChange = item.HealthChange,
-                ManaChange = item.ManaChange,
-                MagicalAttackChange = item.MagicalAttackChange,
-                PhysicalResistanceChange = item.PhysicalResistanceChange,
-                ClassName = item.ClassName, MinimumLevel = item.MinimumLevel,
-                ConstitutionChange = item.ConstitutionChange,
-                DexterityChange = item.DexterityChange,
-                IntelligenceChange = item.IntelligenceChange,
-                StrengthChange = item.StrengthChange
-            });
+            Items.InsertOne(ConvertItem(item));
         }
     }
 }

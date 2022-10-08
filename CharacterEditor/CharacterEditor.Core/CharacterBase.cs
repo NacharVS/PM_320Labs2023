@@ -3,6 +3,9 @@ using CharacterEditor.Core.Misc;
 
 namespace CharacterEditor.Core;
 
+/// <summary>
+/// Base character that contains all logic for Classes 
+/// </summary>
 public abstract class CharacterBase
 {
     private const int InventoryCapacity = 9;
@@ -19,9 +22,24 @@ public abstract class CharacterBase
     private int _constitution;
     private int _intelligence;
 
+    /// <summary>
+    /// Unique identifier for character
+    /// </summary>
     public string? Id { get; set; }
+    
+    /// <summary>
+    /// Character name
+    /// </summary>
     public string? Name { get; set; }
+    
+    /// <summary>
+    /// Class that contains all levelling logic
+    /// </summary>
     public LevelInfo Level { get; }
+    
+    /// <summary>
+    /// Skill points that can be spent on gaining Characteristics
+    /// </summary>
     public int SkillPoints => _skillPoints;
 
     public Ability[] Abilities

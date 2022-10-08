@@ -139,7 +139,7 @@ namespace CharacterEditor.WPF
             else
                 _repository.UpdateCharacter(_currentCharacter.Id,
                     _currentCharacter);
-            MessageBox.Show("Успешно!");
+            MessageBox.Show("Success!");
             CreateNewCharacter();
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CharacterEditor.Core;
@@ -27,7 +28,9 @@ public class AddItemWindowViewModel : ViewModel
         var repository = app.ItemRepository;
 
         Character = character;
-        Items = repository.GetItemsByClass(character.GetType().Name);
+        var classItems = repository.GetItemsByClass(character.GetType().Name);
+        var universalItems = repository.GetUniversalItems();
+        Items = classItems.Concat(universalItems);
 
         OkCommand = new LambdaCommand(_ => { }, CanOkCommandExecute);
     }

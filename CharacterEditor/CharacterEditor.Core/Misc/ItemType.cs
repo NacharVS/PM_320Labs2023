@@ -4,5 +4,6 @@ public enum ItemType
 {
     Armor = 1,
     Weapon = 2,
-    Helmet = 3
+    Helmet = 3,
+    Universal = 4
 }
