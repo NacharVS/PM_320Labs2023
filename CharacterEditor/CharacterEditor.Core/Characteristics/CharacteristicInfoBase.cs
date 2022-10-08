@@ -1,5 +1,8 @@
 ﻿namespace CharacterEditor.Core.Characteristics;
 
+/// <summary>
+///  Base class for characteristic's infos
+/// </summary>
 public abstract class CharacteristicInfoBase
 {
     public CharacteristicRange Range;

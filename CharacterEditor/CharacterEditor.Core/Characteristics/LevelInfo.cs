@@ -1,15 +1,24 @@
 ﻿namespace CharacterEditor.Core.Characteristics;
 
+/// <summary>
+/// Class that contains all levelling logic
+/// </summary>
 public class LevelInfo
 {
     private const int FirstLevelExp = 1000;
     private const int ExpScalePerLevel = 1000;
 
     private int _currentLevel = 1;
+    /// <summary>
+    /// Current character's level
+    /// </summary>
     public int CurrentLevel => _currentLevel;
 
     private int _currentExperience;
 
+    /// <summary>
+    /// Current level experience
+    /// </summary>
     public int CurrentExperience
     {
         get => _currentExperience;
@@ -30,17 +39,20 @@ public class LevelInfo
         }
     }
 
-    private int _totalExperience;
+    /// <summary>
+    /// Total experience gained
+    /// </summary>
+    public int TotalExperience { get; private set; }
 
-    public int TotalExperience
-    {
-        get => _totalExperience;
-        private set => _totalExperience = value;
-    }
-
+    /// <summary>
+    /// Experience needed to level up
+    /// </summary>
     public int ExperienceToGainLevel =>
         GetCurrentLevelExp();
 
+    /// <summary>
+    /// Experience character needs to gain to level up
+    /// </summary>
     public int ExperienceLeft => ExperienceToGainLevel - CurrentExperience;
 
     private int GetCurrentLevelExp()

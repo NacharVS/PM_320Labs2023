@@ -1,5 +1,8 @@
 ﻿namespace CharacterEditor.Core.Characteristics;
 
+/// <summary>
+/// Contains all character characteristics options (stat change, minimum and maximum limits)
+/// </summary>
 public class CharacteristicsInfo
 {
     public StrengthInfo StrengthInfo { get; }

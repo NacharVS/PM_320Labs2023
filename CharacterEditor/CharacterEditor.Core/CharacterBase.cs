@@ -8,7 +8,7 @@ namespace CharacterEditor.Core;
 /// </summary>
 public abstract class CharacterBase
 {
-    private const int InventoryCapacity = 9;
+    private const int InventoryCapacity = 5;
     private const int MaximumAbilityCount = 5;
     private const int SkillPointsPerLevel = 5;
     private const int DefaultSkillPoints = 50;
@@ -26,22 +26,25 @@ public abstract class CharacterBase
     /// Unique identifier for character
     /// </summary>
     public string? Id { get; set; }
-    
+
     /// <summary>
     /// Character name
     /// </summary>
     public string? Name { get; set; }
-    
+
     /// <summary>
     /// Class that contains all levelling logic
     /// </summary>
     public LevelInfo Level { get; }
-    
+
     /// <summary>
     /// Skill points that can be spent on gaining Characteristics
     /// </summary>
     public int SkillPoints => _skillPoints;
 
+    /// <summary>
+    /// Character's abilities array
+    /// </summary>
     public Ability[] Abilities
     {
         get => _abilities.ToArray();
@@ -54,6 +57,9 @@ public abstract class CharacterBase
         }
     }
 
+    /// <summary>
+    /// Character's items array
+    /// </summary>
     public Item[] Inventory
     {
         get => _inventory.ToArray();
@@ -66,6 +72,9 @@ public abstract class CharacterBase
         }
     }
 
+    /// <summary>
+    /// Contains all character characteristics options (stat change, minimum and maximum limits)
+    /// </summary>
     public abstract CharacteristicsInfo CharacteristicsInfo { get; }
 
     #region Characteristics
@@ -140,6 +149,9 @@ public abstract class CharacterBase
 
     private int _additionalStrength;
 
+    /// <summary>
+    /// Additional strength from items
+    /// </summary>
     public int AdditionalStrength
     {
         get => _additionalStrength;
@@ -157,6 +169,9 @@ public abstract class CharacterBase
 
     private int _additionalDexterity;
 
+    /// <summary>
+    /// Additional dexterity from items
+    /// </summary>
     public int AdditionalDexterity
     {
         get => _additionalDexterity;
@@ -175,6 +190,9 @@ public abstract class CharacterBase
 
     private int _additionalConstitution;
 
+    /// <summary>
+    /// Additional constitution from items
+    /// </summary>
     public int AdditionalConstitution
     {
         get => _additionalConstitution;
@@ -191,6 +209,9 @@ public abstract class CharacterBase
 
     private int _additionalIntelligence;
 
+    /// <summary>
+    /// Additional intelligence from items
+    /// </summary>
     public int AdditionalIntelligence
     {
         get => _additionalIntelligence;
@@ -215,10 +236,29 @@ public abstract class CharacterBase
     public double MagicalAttackDamage { get; private set; }
     public double PhysicalResistance { get; private set; }
 
+    /// <summary>
+    /// Additional health gained from additional characteristics
+    /// </summary>
     public double AdditionalHealth { get; private set; }
+
+    /// <summary>
+    /// Additional mana gained from additional characteristics
+    /// </summary>
     public double AdditionalMana { get; private set; }
+
+    /// <summary>
+    /// Additional attack gained from additional characteristics
+    /// </summary>
     public double AdditionalAttackDamage { get; private set; }
+
+    /// <summary>
+    /// Additional magical attack gained from additional characteristics
+    /// </summary>
     public double AdditionalMagicalAttackDamage { get; private set; }
+
+    /// <summary>
+    /// Additional physical resistance gained from additional characteristics
+    /// </summary>
     public double AdditionalPhysicalResistance { get; private set; }
 
     #endregion
@@ -279,30 +319,10 @@ public abstract class CharacterBase
         };
     }
 
-    # region Calcs
-
-    private double CalculateMana(int difference) => difference *
-                                                    CharacteristicsInfo
-                                                        .IntelligenceInfo
-                                                        .ManaChange;
-
-    private double CalculateMagicalAttack(int difference) => difference *
-        CharacteristicsInfo.IntelligenceInfo.MagicalAttackChange;
-
-    private double CalculateHealth(int difference) => difference *
-        (CharacteristicsInfo.StrengthInfo.HpChange +
-         CharacteristicsInfo.ConstitutionInfo.HpChange);
-
-    private double CalculatePhysicalResist(int difference) => difference *
-        (CharacteristicsInfo.DexterityInfo.PhysicalDefenceChange +
-         CharacteristicsInfo.ConstitutionInfo.PhysicalDefenceChange);
-
-    private double CalculateAttack(int difference) => difference *
-        (CharacteristicsInfo.StrengthInfo.AttackChange +
-         CharacteristicsInfo.DexterityInfo.AttackChange);
-
-    #endregion
-
+    /// <summary>
+    /// Add new ability to character
+    /// </summary>
+    /// <param name="ability">Ability to add</param>
     public void AddAbility(Ability ability)
     {
         if (_abilities.Count < MaximumAbilityCount)
@@ -312,6 +332,10 @@ public abstract class CharacterBase
         }
     }
 
+    /// <summary>
+    /// Add new item to character's inventory
+    /// </summary>
+    /// <param name="item">Item to add</param>
     public void AddToInventory(Item item)
     {
         if (CanAddItem(item))
@@ -322,11 +346,25 @@ public abstract class CharacterBase
         }
     }
 
+    /// <summary>
+    /// Check if item can be added
+    /// </summary>
+    /// <param name="item">Item to check can it be added</param>
+    /// <returns>Can this item be added to the inventory</returns>
     public bool CanAddItem(Item item) =>
-        _inventory.Count < InventoryCapacity &&
-        (item.Type == ItemType.Universal || item.Type != ItemType.Universal &&
-        Inventory.FirstOrDefault(x => x.Type == item.Type) == null);
+        !IsInventoryFull &&
+        (item.Type == ItemType.Universal
+         || Inventory.FirstOrDefault(x => x.Type == item.Type) == null);
 
+    /// <summary>
+    /// Check is inventory full
+    /// </summary>
+    public bool IsInventoryFull => _inventory.Count >= InventoryCapacity;
+
+    /// <summary>
+    /// Delete item from inventory
+    /// </summary>
+    /// <param name="item">Item to remove</param>
     public void DeleteFromInventory(Item item)
     {
         _inventory.Remove(item);
@@ -394,4 +432,5 @@ public delegate void UpdateStatEventHandler(CharacterBase sender,
 
 public delegate void AbilityGainEventHandler();
 
-public delegate void ItemAddEventHandler(Item item, InventoryOperation operation);
+public delegate void ItemAddEventHandler(Item item,
+    InventoryOperation operation);

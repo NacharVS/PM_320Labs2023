@@ -1,5 +1,8 @@
 ﻿namespace CharacterEditor.Core.Characteristics;
 
+/// <summary>
+/// Represents characteristic's maximum and minimum values
+/// </summary>
 public class CharacteristicRange
 {
     public int MinValue { get; init; }

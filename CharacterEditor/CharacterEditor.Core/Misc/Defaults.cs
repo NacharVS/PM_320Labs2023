@@ -2,6 +2,9 @@
 
 namespace CharacterEditor.Core.Misc;
 
+/// <summary>
+/// Default values for database-stored classes
+/// </summary>
 public static class Defaults
 {
     public static readonly Ability[] DefaultAbilities =

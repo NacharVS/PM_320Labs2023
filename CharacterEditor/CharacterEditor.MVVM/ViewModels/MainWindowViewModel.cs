@@ -297,7 +297,7 @@ public class MainWindowViewModel : ViewModel
     public ICommand AddItemToInventory { get; }
 
     private bool CanAddItemToInventoryExecute(object p) =>
-        _currentCharacter is not null;
+        _currentCharacter is not null && !_currentCharacter.IsInventoryFull;
 
     private void OnAddItemToInventoryExecuted(object p)
     {
