@@ -324,7 +324,8 @@ public abstract class CharacterBase
 
     public bool CanAddItem(Item item) =>
         _inventory.Count < InventoryCapacity &&
-        Inventory.FirstOrDefault(x => x.Type == item.Type) == null;
+        (item.Type == ItemType.Universal || item.Type != ItemType.Universal &&
+        Inventory.FirstOrDefault(x => x.Type == item.Type) == null);
 
     public void DeleteFromInventory(Item item)
     {
