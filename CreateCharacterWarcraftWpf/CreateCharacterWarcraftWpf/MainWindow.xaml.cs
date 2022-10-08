@@ -38,8 +38,6 @@ namespace CreateCharacterWarcraftWpf
             InitializeComponent();
 
             btnCng.Visibility = Visibility.Hidden;
-
-            //lstBoxCharacters.ItemsSource = newInfo.returnListName();
         }
 
 
@@ -186,6 +184,7 @@ namespace CreateCharacterWarcraftWpf
         }
         public void writeInfo(Character unit)
         {
+            tbUntName.Text = unit.name;
             tbHpInfo.Text = Convert.ToString(unit.healthPoint);
             tbMpInfo.Text = Convert.ToString(unit.manaPoint);
             tbApInfo.Text = Convert.ToString(unit.attack);
@@ -336,7 +335,7 @@ namespace CreateCharacterWarcraftWpf
                 btnCng.Visibility = Visibility.Visible;
                 Character unit = TakeUnit(lstBoxCharacters.SelectedValue.ToString());
                 writeInfo(unit);
-                tbUntName.Text = newInfo.TakeUnit(lstBoxCharacters.SelectedValue.ToString()).name;
+                tbUntName.Text = unit.name;
 
                 cmBxChooseCharacter.Text = Convert.ToString(unit.GetType()).Substring(27);
             }
@@ -363,8 +362,9 @@ namespace CreateCharacterWarcraftWpf
 
         private void btnCng_Click(object sender, RoutedEventArgs e)
         {
-            Character unit = newInfo.TakeUnit(lstBoxCharacters.SelectedValue.ToString());
+            Character unit = Mongo.TakeUnit(lstBoxCharacters.SelectedValue.ToString());
 
+            tbUntName.Text = unit.name;
             unit.intelligence = takeNum(tbIntInfo.Text);
             unit.healthPoint = takeNum(tbIntInfo.Text);
             unit.manaPoint = takeNum(tbMpInfo.Text);
@@ -378,32 +378,11 @@ namespace CreateCharacterWarcraftWpf
             unit.experience = takeNum(tbExpInfo.Text);
             unit.level = takeNum(tbLvlInfo.Text);
 
-            Change(unit, lstBoxCharacters.SelectedValue.ToString());
+            Mongo.ReplaceByName(unit.name, unit);
+            FillListBox();
 
-            //lstBoxCharacters.ItemsSource = newInfo.returnListName();
             btnAdd.Visibility = Visibility.Visible;
             btnCng.Visibility = Visibility.Hidden;
-        }
-
-        private void Change(Character unit, string? name)
-        {
-            var collection = Mongo.GetCollection();
-
-            var filter = new BsonDocument();
-            var collect = collection.Find(filter).ToList();
-            for(int i = 0; i < collect.Count; i++)
-            {
-                if (collect[i].name == name)
-                {
-                    collect[i].dexterity = unit.dexterity;
-                    collect[i].strength = unit.strength;
-                    collect[i].constitution = unit.constitution;
-                    collect[i].intelligence = unit.intelligence;
-                    collect[i].experience = unit.experience;
-                    collect[i].skillPoint = unit.skillPoint;
-                }
-            }
-            FillListBox();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -427,12 +406,6 @@ namespace CreateCharacterWarcraftWpf
             }
         }
 
-        public static void ReplaceByName(string name, Character unit)
-        {
-            var client = new MongoClient("mongodb://localhost");
-            var database = client.GetDatabase("GilaevWarcraft320");
-            var collection = database.GetCollection<Character>("ExCollection");
-            collection.ReplaceOne(x => x.name == name, unit);
-        }
+        
     }
 }

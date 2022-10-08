@@ -32,6 +32,23 @@ namespace CreateCharacterWarcraftWpf
 
             return collection;
         }
+        public static void ReplaceByName(string name, Character unit)
+        {
+            var filter = new BsonDocument("name", name);
+            var collection = db.GetCollection<Character>("ExCollection");
+            collection.ReplaceOne(filter, unit);
+        }
+
+        internal static Character TakeUnit(string? name)
+        {
+            var simpleProjection = Builders<Character>.Projection.
+            Exclude("healthPoint").
+            Exclude("attack").
+            Exclude("protDet");
+            var filter = Builders<Character>.Filter.Eq("name", name);
+            var collection = db.GetCollection<Character>("ExCollection");
+            return collection.Find(filter).Project<Character>(simpleProjection).FirstOrDefault();
+        }
     }
     
 }

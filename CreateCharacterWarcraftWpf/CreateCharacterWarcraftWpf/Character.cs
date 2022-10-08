@@ -6,7 +6,7 @@ namespace CreateCharacterWarcraftWpf
 {
     public class Character
     {
-        [BsonId]
+        [BsonIgnoreIfDefault]
         public ObjectId _id;
         public string name;
         public int healthPoint;
