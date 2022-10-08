@@ -209,11 +209,6 @@ namespace CreateCharacterWarcraftWpf
             tbIntInfo.Text = Convert.ToString(unit.intelligence) + " / " + Convert.ToString(unit.intelligenceMax);
         }
 
-        private void loadToBox(Func<List<Character>> returnList)
-        {
-            
-        }
-
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             if (tbUntName.Text == "")
@@ -300,12 +295,13 @@ namespace CreateCharacterWarcraftWpf
             {
                 btnAdd.Visibility = Visibility.Hidden;
                 btnCng.Visibility = Visibility.Visible;
-                Character unit = TakeUnit(lstBoxCharacters.SelectedValue.ToString());
+                var unit = TakeUnit(lstBoxCharacters.SelectedValue.ToString());
                 WriteInfo(unit);
                 tbUntName.Text = unit.name;
-
-                cmBxChooseCharacter.Text = Convert.ToString(unit.GetType()).Substring(27);
+                string type = Convert.ToString(unit.GetType()).Substring(27);
+                cmBxChooseCharacter.Text = type;
             }
+            
         }
 
         private Character TakeUnit(string? name)
