@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace GameEditorLibrary
 {
-    public class Helmet : IChangeStat
+    public class Chestplate
     {
         public string Material;
 
-        public Helmet(string material)
+        public Chestplate(string material)
         {
             Material = material;
         }
@@ -22,19 +22,17 @@ namespace GameEditorLibrary
                 switch (material)
                 {
                     case "Leather":
+                        unit.Strength += 2;
                         unit.phDefention += 20;
-                        unit.HP += 3;
-                        unit.attackDamage += 6;
+                        unit.HP += 5;
                         break;
                     case "Chainmail":
                         unit.phDefention += 40;
-                        unit.HP += 5;
-                        unit.attackDamage += 8;
+                        unit.HP += 10;
                         break;
                     case "Iron":
                         unit.phDefention += 60;
-                        unit.HP += 8;
-                        unit.attackDamage += 10;
+                        unit.HP += 20;
                         break;
                 }
             }
@@ -43,19 +41,17 @@ namespace GameEditorLibrary
                 switch (material)
                 {
                     case "Leather":
+                        unit.Strength -= 2;
                         unit.phDefention -= 20;
-                        unit.HP -= 3;
-                        unit.attackDamage -= 6;
+                        unit.HP -= 5;
                         break;
                     case "Chainmail":
                         unit.phDefention -= 40;
-                        unit.HP -= 5;
-                        unit.attackDamage -= 8;
+                        unit.HP -= 10;
                         break;
                     case "Iron":
                         unit.phDefention -= 60;
-                        unit.HP -= 8;
-                        unit.attackDamage -= 10;
+                        unit.HP -= 20;
                         break;
                 }
             }

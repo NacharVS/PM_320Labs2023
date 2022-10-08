@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace GameEditorLibrary
 {
-    public class Chestplate : IChangeStat
+    public class Helmet
     {
         public string Material;
 
-        public Chestplate(string material)
+        public Helmet(string material)
         {
             Material = material;
         }
@@ -23,15 +23,18 @@ namespace GameEditorLibrary
                 {
                     case "Leather":
                         unit.phDefention += 20;
-                        unit.HP += 5;
+                        unit.HP += 3;
+                        unit.attackDamage += 6;
                         break;
                     case "Chainmail":
                         unit.phDefention += 40;
-                        unit.HP += 10;
+                        unit.HP += 5;
+                        unit.attackDamage += 8;
                         break;
                     case "Iron":
                         unit.phDefention += 60;
-                        unit.HP += 20;
+                        unit.HP += 8;
+                        unit.attackDamage += 10;
                         break;
                 }
             }
@@ -41,15 +44,18 @@ namespace GameEditorLibrary
                 {
                     case "Leather":
                         unit.phDefention -= 20;
-                        unit.HP -= 5;
+                        unit.HP -= 3;
+                        unit.attackDamage -= 6;
                         break;
                     case "Chainmail":
                         unit.phDefention -= 40;
-                        unit.HP -= 10;
+                        unit.HP -= 5;
+                        unit.attackDamage -= 8;
                         break;
                     case "Iron":
                         unit.phDefention -= 60;
-                        unit.HP -= 20;
+                        unit.HP -= 8;
+                        unit.attackDamage -= 10;
                         break;
                 }
             }

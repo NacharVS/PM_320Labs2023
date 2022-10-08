@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEditorLibrary
 {
-    public class Boots : IChangeStat
+    public class Boots
     {
         public string Material;
 

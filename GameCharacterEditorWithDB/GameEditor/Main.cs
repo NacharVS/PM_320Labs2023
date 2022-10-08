@@ -468,6 +468,7 @@ namespace GameEditor
                 {
                     selectedUnit.chestplate = new Chestplate(listBoxOfChestplates.SelectedItem.ToString());
                     selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
+                    numericUpDownStr.Value = selectedUnit.Strength;
                     textBoxPDef.Text = selectedUnit.phDefention.ToString();
                     textBoxHP.Text = selectedUnit.HP.ToString();
                 }
@@ -476,6 +477,7 @@ namespace GameEditor
                     selectedUnit.chestplate.ChangeStatistic(selectedUnit, selectedUnit.chestplate.Material, false);
                     selectedUnit.chestplate = new Chestplate(listBoxOfChestplates.SelectedItem.ToString());
                     selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
+                    numericUpDownStr.Value = selectedUnit.Strength;
                     textBoxPDef.Text = selectedUnit.phDefention.ToString();
                     textBoxHP.Text = selectedUnit.HP.ToString();
                 }
