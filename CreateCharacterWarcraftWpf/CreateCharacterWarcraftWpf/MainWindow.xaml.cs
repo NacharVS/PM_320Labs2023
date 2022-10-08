@@ -164,25 +164,35 @@ namespace CreateCharacterWarcraftWpf
             Character unit;
             if (cmBxChooseCharacter.SelectedIndex == 0)
             {
-                unit = new Warrior("", 25, 0, 25, 15, 777, 30, 250, 15, 70, 20, 100, 10, 50, 0, 1);
+                unit = new Warrior("", 25, 0, 25, 15, 777, 30, 250, 15, 70, 20, 100, 10, 50, 0, 1, activeAbility);
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Warrior.gif"));
-                writeInfo(unit);
+                WriteInfo(unit);
 
             }
             else if (cmBxChooseCharacter.SelectedIndex == 1)
             {
-                unit = new Rogue("", 20, 5, 15, 20, 888, 15, 55, 30, 250, 20, 80, 15, 70, 0, 1);
+                unit = new Rogue("", 20, 5, 15, 20, 888, 15, 55, 30, 250, 20, 80, 15, 70, 0, 1, activeAbility);
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Rogue.gif"));
-                writeInfo(unit);
+                WriteInfo(unit);
             }
             else if (cmBxChooseCharacter.SelectedIndex == 2)
             {
-                unit = new Wizard("", 30, 25, 30, 5, 666, 10, 45, 20, 70, 15, 60, 35, 250, 0, 1);
+                unit = new Wizard("", 30, 25, 30, 5, 666, 10, 45, 20, 70, 15, 60, 35, 250, 0, 1, activeAbility);
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Wizard.gif"));
-                writeInfo(unit);
+                WriteInfo(unit);
+            }
+            ClearAbility(activeAbility);
+        }
+
+        private void ClearAbility(string[] activeAbility)
+        {
+            for(int i = 0; i < activeAbility.Length; i++)
+            {
+                activeAbility[i] = "";
             }
         }
-        public void writeInfo(Character unit)
+
+        public void WriteInfo(Character unit)
         {
             tbUntName.Text = unit.name;
             tbHpInfo.Text = Convert.ToString(unit.healthPoint);
@@ -194,34 +204,9 @@ namespace CreateCharacterWarcraftWpf
             tbLvlInfo.Text = Convert.ToString(unit.level);
 
             tbStrInfo.Text = Convert.ToString(unit.strength) + " / " + Convert.ToString(unit.strengthMax);
-
             tbDexInfo.Text = Convert.ToString(unit.dexterity) + " / " + Convert.ToString(unit.strengthMax);
-
             tbConInfo.Text = Convert.ToString(unit.constitution) + " / " + Convert.ToString(unit.constitutionMax);
-
             tbIntInfo.Text = Convert.ToString(unit.intelligence) + " / " + Convert.ToString(unit.intelligenceMax);
-        }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            if (saveFileDialog.ShowDialog() == true)
-                File.WriteAllText(saveFileDialog.FileName, tbInfo.Text);
-        }
-
-        private void btnLoad_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-                tbInfo.Text = File.ReadAllText(openFileDialog.FileName);
-            loadCharaters(openFileDialog.FileName);
-            MessageBox.Show("Файл открыт");
-        }
-        public void loadCharaters(string filename)
-        {
-            newInfo.clearInfo();
-            newInfo.loadFile(filename);
-            loadToBox(newInfo.returnList);
         }
 
         private void loadToBox(Func<List<Character>> returnList)
@@ -247,9 +232,8 @@ namespace CreateCharacterWarcraftWpf
                 {
                     unit = new Warrior(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
                         convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 250, takeNum(tbDexInfo.Text),
-                        70, takeNum(tbConInfo.Text), 100, takeNum(tbIntInfo.Text), 50, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
+                        70, takeNum(tbConInfo.Text), 100, takeNum(tbIntInfo.Text), 50, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility);
                     newInfo.Add(unit);
-                    tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
                     Mongo.AddToDataBase(unit);
                     FillListBox();
                 }
@@ -257,9 +241,8 @@ namespace CreateCharacterWarcraftWpf
                 {
                     unit = new Rogue(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
                         convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 55, takeNum(tbDexInfo.Text),
-                        250, takeNum(tbConInfo.Text), 80, takeNum(tbIntInfo.Text), 70, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
+                        250, takeNum(tbConInfo.Text), 80, takeNum(tbIntInfo.Text), 70, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility);
                     newInfo.Add(unit);
-                    tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
                     Mongo.AddToDataBase(unit);
                     FillListBox();
                 }
@@ -267,28 +250,12 @@ namespace CreateCharacterWarcraftWpf
                 {
                     unit = new Wizard(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
                         convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 45, takeNum(tbDexInfo.Text),
-                        70, takeNum(tbConInfo.Text), 60, takeNum(tbIntInfo.Text), 250, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text));
+                        70, takeNum(tbConInfo.Text), 60, takeNum(tbIntInfo.Text), 250, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility);
                     newInfo.Add(unit);
-                    tbInfo.Text += ("Add: " + unit.getInfo() + Environment.NewLine);
                     Mongo.AddToDataBase(unit);
                     FillListBox();
                 }
             }
-        }
-
-        private void btnInfo_Click(object sender, RoutedEventArgs e)
-        {
-            newInfo.getInfo(tbInfo);
-        }
-
-        private void btnClear_Click(object sender, RoutedEventArgs e)
-        {
-            tbInfo.Clear();
-        }
-
-        private void tbInfo_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void btnExp_Click(object sender, RoutedEventArgs e)
@@ -334,7 +301,7 @@ namespace CreateCharacterWarcraftWpf
                 btnAdd.Visibility = Visibility.Hidden;
                 btnCng.Visibility = Visibility.Visible;
                 Character unit = TakeUnit(lstBoxCharacters.SelectedValue.ToString());
-                writeInfo(unit);
+                WriteInfo(unit);
                 tbUntName.Text = unit.name;
 
                 cmBxChooseCharacter.Text = Convert.ToString(unit.GetType()).Substring(27);
@@ -343,7 +310,7 @@ namespace CreateCharacterWarcraftWpf
 
         private Character TakeUnit(string? name)
         {
-            Character unit = new Character("", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            Character unit = new Character("", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, activeAbility);
 
             var collection = Mongo.GetCollection();
 
@@ -405,7 +372,5 @@ namespace CreateCharacterWarcraftWpf
                 lstBoxCharacters.Items.Add(doc.name);
             }
         }
-
-        
     }
 }

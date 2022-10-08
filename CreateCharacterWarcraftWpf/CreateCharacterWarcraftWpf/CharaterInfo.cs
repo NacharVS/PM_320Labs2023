@@ -43,60 +43,6 @@ namespace CreateCharacterWarcraftWpf
             return character;
         }
 
-        public void loadFile(string filename)
-        {
-            using (var reader = new StreamReader(filename))
-            {
-                string s;
-                string[] data;
-                while ((s = reader.ReadLine()) != null)
-                {
-                    Character unit;
-                    data = s.Split(delimiterChars);
-                    switch (data[6])
-                    {
-                        case "Warrior":
-                            unit = new Warrior(data[2],
-                                int.Parse(data[10]), int.Parse(data[14]),
-                                int.Parse(data[18]), double.Parse(data[22]),
-                                int.Parse(data[26]), int.Parse(data[30]),
-                                250, int.Parse(data[34]),
-                                70, int.Parse(data[38]),
-                                100, int.Parse(data[42]), 50, 0, 1);
-                            character.Add(unit);
-                            break;
-                        case "Rogue":
-
-                            unit = new Rogue(data[2],
-                                int.Parse(data[10]), int.Parse(data[14]),
-                                int.Parse(data[18]), double.Parse(data[22]),
-                                int.Parse(data[26]), int.Parse(data[30]),
-                                55, int.Parse(data[34]),
-                                250, int.Parse(data[38]),
-                                80, int.Parse(data[42]), 70, 0, 1);
-                            character.Add(unit);
-
-                            break;
-                        case "Wizard":
-
-                            unit = new Wizard(data[2],
-                                int.Parse(data[10]), int.Parse(data[14]),
-                                int.Parse(data[18]), double.Parse(data[22]),
-                                int.Parse(data[26]), int.Parse(data[30]),
-                                45, int.Parse(data[34]),
-                                70, int.Parse(data[38]),
-                                60, int.Parse(data[42]), 250, 0, 1);
-                            character.Add(unit);
-
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-
-        }
-
         internal bool CheckName(string name)
         {
             if (character.Count != 0)
@@ -110,19 +56,6 @@ namespace CreateCharacterWarcraftWpf
                 }
             }
             return false;
-        }
-
-        public Character TakeUnit(string name)
-        {
-            Character unit = new Character("",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-            for (int i = 0; i < character.Count; i++)
-            {
-                if (character[i].name == name)
-                {
-                    unit = character[i];
-                }
-            }
-            return unit;
         }
 
         public void Change(Character unit, string name)

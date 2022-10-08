@@ -11,10 +11,10 @@
     </Window.Background>
     <Grid x:Name="MainForm" Margin="10,10,10,20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="182*"/>
-            <ColumnDefinition Width="305*"/>
+            <ColumnDefinition Width="186*"/>
+            <ColumnDefinition Width="301*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="tbInfChsChr" HorizontalAlignment="Left" Margin="46,10,0,0" TextWrapping="Wrap" Text="Choose character:" VerticalAlignment="Top" Width="191" FontSize="30" IsReadOnly="True" FontFamily="Chiller" FontWeight="Bold" SelectionTextBrush="White" Grid.Column="1" Height="37">
+        <TextBox x:Name="tbInfChsChr" HorizontalAlignment="Left" Margin="16,10,0,0" TextWrapping="Wrap" Text="Choose character:" VerticalAlignment="Top" Width="191" FontSize="30" IsReadOnly="True" FontFamily="Chiller" FontWeight="Bold" SelectionTextBrush="White" Height="37">
             <TextBox.Foreground>
                 <ImageBrush ImageSource="/Images/image.jpg"/>
             </TextBox.Foreground>
@@ -22,7 +22,7 @@
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </TextBox.Background>
         </TextBox>
-        <ComboBox x:Name="cmBxChooseCharacter" HorizontalAlignment="Left" Margin="242,10,0,0" VerticalAlignment="Top" Width="356" Height="42" FontSize="30" SelectionChanged="cmBxChooseCharacter_SelectionChanged" Opacity="0.5" FontFamily="Chiller" Grid.Column="1">
+        <ComboBox x:Name="cmBxChooseCharacter" HorizontalAlignment="Left" Margin="209,10,0,0" VerticalAlignment="Top" Width="488" Height="42" FontSize="30" SelectionChanged="cmBxChooseCharacter_SelectionChanged" Opacity="0.5" FontFamily="Chiller" Grid.ColumnSpan="2">
             <ComboBox.Foreground>
                 <ImageBrush ImageSource="/Images/image.jpg"/>
             </ComboBox.Foreground>
@@ -196,18 +196,8 @@
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </TextBox.Background>
         </TextBox>
-        <TextBox x:Name="tbInfo" HorizontalAlignment="Left" Margin="377,71,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="221" Height="180" IsReadOnly="True" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="6" FontStyle="Italic" FontStretch="Medium" Grid.Column="1">
-            <TextBox.Background>
-                <SolidColorBrush Color="White" Opacity="0.5"/>
-            </TextBox.Background>
-        </TextBox>
 
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="377,410,0,0" VerticalAlignment="Top" Height="28" Width="108" Click="btnSave_Click" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium" Grid.Column="1">
-            <Button.Background>
-                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="488,410,0,0" VerticalAlignment="Top" Height="28" Width="110" Click="btnLoad_Click" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium" Grid.Column="1">
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="114,329,0,0" VerticalAlignment="Top" Height="28" Width="219" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium" Grid.Column="1">
             <Button.Background>
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
             </Button.Background>
@@ -217,17 +207,7 @@
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
             </Button.Background>
         </Button>
-        <Button x:Name="btnCng" Content="Change" HorizontalAlignment="Left" Margin="59,257,0,0" VerticalAlignment="Top" Height="57" Width="151" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium" Click="btnCng_Click" Grid.Column="1">
-            <Button.Background>
-                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnInfo" Content="Info" HorizontalAlignment="Left" Margin="377,257,0,0" VerticalAlignment="Top" Height="57" Width="102" Click="btnInfo_Click" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium" Grid.Column="1">
-            <Button.Background>
-                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnClear" Content="Clear info" HorizontalAlignment="Left" Margin="484,258,0,0" VerticalAlignment="Top" Height="56" Width="112" Click="btnClear_Click" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="16" FontStyle="Italic" FontStretch="Medium" Grid.Column="1">
+        <Button x:Name="btnCng" Content="Change" HorizontalAlignment="Left" Margin="52,256,0,0" VerticalAlignment="Top" Height="57" Width="152" FontFamily="Chiller" FontWeight="UltraBlack" FontSize="20" FontStyle="Italic" FontStretch="Medium" Click="btnCng_Click" Grid.Column="1">
             <Button.Background>
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
             </Button.Background>
