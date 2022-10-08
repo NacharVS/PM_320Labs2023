@@ -11,6 +11,7 @@ namespace CharacterEditor
     /// <summary>
     /// Interaction logic for Inventory.xaml
     /// </summary>
+    
     public partial class Inventory : Window
     {
         private BaseCharacteristics _selectedCharacter;
@@ -60,28 +61,34 @@ namespace CharacterEditor
             _mainWindow.lbConstitutionValue.Content = (int.Parse((string)_mainWindow.lbConstitutionValue.Content) + item.ConstitutionChange * operationType).ToString();
             _mainWindow.lbIntelligenceValue.Content = (int.Parse((string)_mainWindow.lbIntelligenceValue.Content) + item.IntelligenceChange * operationType).ToString();
 
+            _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * item.AttackChange).ToString();
+            _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * item.HPChange).ToString();
+            _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * item.ManaChange).ToString();
+            _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * item.MagicalAttackChange).ToString();
+            _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * item.PdefChange).ToString();
+
             switch (_selectedCharacter.GetType().Name)
             {
                 case "Warrior":
-                    _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (item.AttackChange + 5 * item.StrengthChange + item.DexterityChange)).ToString();
-                    _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.HPChange + 2 * item.StrengthChange + 10 * item.ConstitutionChange)).ToString();
-                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (item.ManaChange + 5 * item.IntelligenceChange)).ToString();
-                    _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (item.MagicalAttackChange + item.IntelligenceChange)).ToString();
-                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (item.DexterityChange + 2 * item.ConstitutionChange + item.PdefChange)).ToString();
+                    _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (5 * item.StrengthChange + item.DexterityChange)).ToString();
+                    _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (2 * item.StrengthChange + 10 * item.ConstitutionChange)).ToString();
+                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (5 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (item.IntelligenceChange)).ToString();
+                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (item.DexterityChange + 2 * item.ConstitutionChange)).ToString();
                     break;
                 case "Rogue":
-                    _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (item.AttackChange + 2 * item.StrengthChange + 4 * item.DexterityChange)).ToString();
-                    _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.HPChange + item.StrengthChange + 6 * item.ConstitutionChange)).ToString();
-                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (item.ManaChange + 1.5 * item.IntelligenceChange)).ToString();
-                    _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (item.MagicalAttackChange + 2 * item.IntelligenceChange)).ToString();
-                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (1.5 * item.DexterityChange + 0 * item.ConstitutionChange + item.PdefChange)).ToString();
+                    _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (2 * item.StrengthChange + 4 * item.DexterityChange)).ToString();
+                    _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.StrengthChange + 6 * item.ConstitutionChange)).ToString();
+                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (1.5 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (2 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (1.5 * item.DexterityChange + 0 * item.ConstitutionChange)).ToString();
                     break;
                 case "Wizzard":
-                    _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (item.AttackChange + 3 * item.StrengthChange + 0 * item.DexterityChange)).ToString();
-                    _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.HPChange + item.StrengthChange + 3 * item.ConstitutionChange)).ToString();
-                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (item.ManaChange + 2 * item.IntelligenceChange)).ToString();
-                    _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (item.MagicalAttackChange + 5 * item.IntelligenceChange)).ToString();
-                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (0.5 * item.DexterityChange + 1 * item.ConstitutionChange + item.PdefChange)).ToString();
+                    _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (3 * item.StrengthChange + 0 * item.DexterityChange)).ToString();
+                    _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.StrengthChange + 3 * item.ConstitutionChange)).ToString();
+                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (2 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (5 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (0.5 * item.DexterityChange + 1 * item.ConstitutionChange)).ToString();
                     break;
                 default:
                     break;
@@ -106,6 +113,21 @@ namespace CharacterEditor
             lbInventory.Items.Remove(deletedItem);
             lblInventoryCapacity.Content = $"{_selectedCharacter.Inventory.Count} / {_selectedCharacter.InventCapacity}";
             FillItems();
+            if (_mainWindow.tbCharacterName.Text == "")
+            {
+                return;
+            }
+            if (_mainWindow.cbNewCharacters.SelectedItem is null
+                && _mainWindow.cbExistCharacters.SelectedItem is null)
+            {
+                return;
+            }
+            if (_mainWindow.cbNewCharacters.SelectedItem is null)
+            {
+                _mainWindow.CharContext.UpdateInventory(
+            ((CharacterIdName)_mainWindow.cbExistCharacters.SelectedItem).Id,
+            _selectedCharacter);
+            }
         }
 
         private void lvItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -115,9 +137,10 @@ namespace CharacterEditor
             { 
                 return;
             }
-            _selectedCharacter.AddItem(item);
-            if (_selectedCharacter.InventCapacity > lbInventory.Items.Count && _selectedCharacter.Lvl.CurrentLevel >= item.MinimumLevel)
+            if (_selectedCharacter.InventCapacity > lbInventory.Items.Count && _selectedCharacter.Lvl.CurrentLevel >= item.MinimumLevel
+                && _selectedCharacter.Inventory.FirstOrDefault(x => x.ItemType == item.ItemType) is null)
             {
+                _selectedCharacter.AddItem(item);
                 lbInventory.Items.Add(item);
                 OnItemSelectedEvent?.Invoke(1, item);
             }

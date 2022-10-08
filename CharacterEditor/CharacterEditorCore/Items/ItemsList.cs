@@ -150,6 +150,22 @@ namespace CharacterEditorCore.Items
                 DexterityChange = 5,
                 ConstitutionChange = 5,
                 IntelligenceChange = 5
+            },
+
+            new()
+            {
+                Name = "Shovel",
+                HPChange = 0,
+                ManaChange = 0,
+                PdefChange = 0,
+                AttackChange = 0,
+                MagicalAttackChange = 0,
+                MinimumLevel = 1,
+                ItemType = ItemType.Tool,
+                StrengthChange = 0,
+                DexterityChange = 0,
+                ConstitutionChange = 0,
+                IntelligenceChange = 0
             }
         };
     }

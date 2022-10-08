@@ -24,6 +24,7 @@
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="200">Name</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=MinimumLevel}" Width="200">Minimum level</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ItemType}" Width="200">Type</GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

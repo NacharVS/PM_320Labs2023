@@ -10,6 +10,7 @@ namespace CharacterEditorCore.Items
     {
         Helmet = 1,
         Armor = 2,
-        Weapon = 3 
+        Weapon = 3,
+        Tool = 4
     }
 }
