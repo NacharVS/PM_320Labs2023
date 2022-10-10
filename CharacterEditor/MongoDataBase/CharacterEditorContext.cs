@@ -12,6 +12,7 @@ namespace CharacterEditorMongoDataBase
         public CharacterEditorContext()
         {
             BsonClassMap.RegisterClassMap<Ability>();
+            BsonClassMap.RegisterClassMap<Item>();
         }
         public bool AddCharacterToDb(BaseCharacteristics character)
         {

@@ -436,8 +436,13 @@ namespace UnitsEditor
             }
         }
 
+        private void btnMathInfo_Click(object sender, RoutedEventArgs e)
+        {
+            var matchInfoPage = new MathInfo(CharContext);
+            MainFrame.Navigate(matchInfoPage);
+        }
+
         private event CharacteristicChangeDelegate? CharacteristicChangeEvent;
         private event ExpChangeDelegate? ExpChangeEvent;
-
     }
 }
