@@ -1,22 +1,23 @@
-﻿using Editor.Core.Enums;
+﻿using Editor.Core.Abilities;
+using Editor.Core.Characters.interfaces;
 using Editor.Core.Helpers;
-using Editor.Core.Abilities;
 using Editor.Core.Inventory;
+using Editor.Core.Stats;
 
-namespace Editor.Core
+namespace Editor.Core.Characters
 {
-    public abstract class Character
+    public abstract class Character : IHaveName
     {
         public BaseStatBoundary StatsBoundary;
         public string? Name { get; set; }
-        public List<InventoryItem> Inventory { get; set; }
+        public List<InventoryItem?> Inventory { get; set; }
         public double HealthPoints { get; set; }
         public double ManaPoints { get; set; }
         public double PhysicalDamage { get; set; }
         public double MagicDamage { get; set; }
         public double PhysicalDefense { get; set; }
         public double MagicDefense { get; set; }
-        
+
         public IEnumerable<Ability?>? Abilities { get; internal set; }
 
         private int _strength;
@@ -27,8 +28,8 @@ namespace Editor.Core
         private int _level = 1;
         public int InventoryCapacity { get; set; }
 
-        public Character (BaseStatBoundary statsBoundary, int availableSkillPoints, 
-            int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory)
+        public Character(BaseStatBoundary statsBoundary, int availableSkillPoints,
+            int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory)
         {
             StatsBoundary = statsBoundary;
             AvailableSkillPoints = availableSkillPoints;
@@ -79,61 +80,52 @@ namespace Editor.Core
 
         public int Strength
         {
-            get
-            {
-                return _strength;
-            }
+            get { return _strength; }
             set
             {
                 if (value <= StatsBoundary.MaxStrength && value >= StatsBoundary.MinStrength)
                 {
                     var difference = value - _strength;
 
-                    OnStrengthChange?.Invoke(this, 
-                        new StatChangeArgs(difference,difference > 1 || difference < -1));
+                    OnStrengthChange?.Invoke(this,
+                        new StatChangeArgs(difference, difference > 1 || difference < -1));
                 }
             }
         }
+
         public int Dexterity
         {
-            get
-            {
-                return _dexterity;
-            }
+            get { return _dexterity; }
             set
             {
                 if (value <= StatsBoundary.MaxDexterity && value >= StatsBoundary.MinDexterity)
                 {
                     var difference = value - _dexterity;
 
-                    OnDexterityChange?.Invoke(this, 
+                    OnDexterityChange?.Invoke(this,
                         new StatChangeArgs(difference, difference > 1 || difference < -1));
                 }
             }
         }
+
         public int Constitution
         {
-            get
-            {
-                return _constitution;
-            }
+            get { return _constitution; }
             set
             {
                 if (value <= StatsBoundary.MaxConstitution && value >= StatsBoundary.MinConstitution)
                 {
                     var difference = value - _constitution;
 
-                    OnConstitutionChange?.Invoke(this, 
+                    OnConstitutionChange?.Invoke(this,
                         new StatChangeArgs(difference, difference > 1 || difference < -1));
                 }
             }
         }
+
         public int Intelligence
         {
-            get
-            {
-                return _intelligence;
-            }
+            get { return _intelligence; }
             set
             {
                 if (value <= StatsBoundary.MaxIntelligence && value >= StatsBoundary.MinIntelligence)
@@ -148,21 +140,16 @@ namespace Editor.Core
 
         public int Experience
         {
-            get
-            {
-                return _experience;
-            }
+            get { return _experience; }
             set => OnExperienceChange?.Invoke(this, new ExpChangeArgs(value));
         }
 
         public int Level
         {
-            get
-            {
-                return _level;
-            }
+            get { return _level; }
             set => OnLevelChange?.Invoke(this, new LevelChangeArgs(value));
         }
+
         public int AvailableSkillPoints { get; set; }
 
         private void CheckSkillPoints(Character sender, StatChangeArgs args)
@@ -184,6 +171,7 @@ namespace Editor.Core
                 AvailableSkillPoints += args.Difference != 0 ? 1 : 0;
             }
         }
+
         private void CalculateLevel(Character sender, ExpChangeArgs args)
         {
             var exp = 0;
@@ -196,6 +184,7 @@ namespace Editor.Core
                 {
                     break;
                 }
+
                 ++level;
             }
 
@@ -203,24 +192,68 @@ namespace Editor.Core
             _experience = args.Amount;
         }
 
-        public void AddItemToInventory(InventoryItem item)
+        public void AddItemToInventory(InventoryItem? item)
         {
             if (Inventory.Count >= InventoryCapacity)
             {
                 throw new Exception("Max capacity");
             }
+
             Inventory.Add(item);
+
+            if (item != null)
+            {
+                OnInventoryChange?.Invoke(this, new InventoryChangeArgs(item));
+            }
         }
 
         public void RemoveItemFromInventory(string name)
         {
-            Inventory.Remove(Inventory.FirstOrDefault(x => x.Name == name));
+            var item = Inventory.FirstOrDefault(x => x?.Name == name);
+
+            Inventory.Remove(item);
+            if (item != null)
+            {
+                OnInventoryChange?.Invoke(this, new InventoryChangeArgs(item));
+            }
+        }
+
+        public CharacterStats GetStats()
+        {
+            var equipment = GetEquipment();
+
+            var equipments = equipment as Equipment[] ?? equipment.ToArray();
+            
+            return new CharacterStats(
+                _strength,
+                _constitution,
+                _dexterity,
+                _intelligence,
+                HealthPoints + equipments.Sum(x => x.HealthPoints),
+                ManaPoints + equipments.Sum(x => x.ManaPoints),
+                PhysicalDamage + equipments.Sum(x => x.PhysicalDamage),
+                PhysicalDefense + equipments.Sum(x => x.PhysicalDefense),
+                MagicDamage + equipments.Sum(x => x.MagicDamage),
+                MagicDefense + equipments.Sum(x => x.MagicDefense),
+                _level
+            );
+        }
+
+        public IEnumerable<Equipment> GetEquipment()
+        {
+            return Inventory
+                .Where(x => x?.GetType() == typeof(Equipment) && ((Equipment)x).IsEquipped)
+                .Select(x => (Equipment)x!)
+                .ToArray();
         }
 
         public delegate void HandleStatChange(Character sender, StatChangeArgs args);
+
         public delegate void HandleExperienceChange(Character sender, ExpChangeArgs args);
 
         public delegate void HandleLevelChange(Character sender, LevelChangeArgs args);
+
+        public delegate void HandleInventoryChange(Character sender, InventoryChangeArgs args);
 
         public event HandleStatChange? OnStrengthChange;
         public event HandleStatChange? OnDexterityChange;
@@ -228,5 +261,6 @@ namespace Editor.Core
         public event HandleStatChange? OnIntelligenceChange;
         public event HandleExperienceChange? OnExperienceChange;
         public event HandleLevelChange? OnLevelChange;
+        public event HandleInventoryChange? OnInventoryChange;
     }
 }

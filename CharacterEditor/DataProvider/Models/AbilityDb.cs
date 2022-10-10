@@ -1,14 +1,10 @@
-﻿using Editor.Core;
-using Editor.Core.Abilities;
+﻿using Editor.Core.Abilities;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace DataProvider
+namespace DataProvider.Models
 {
-    public class AbilityDb
+    public class AbilityDb : BaseModel
     {
-        [BsonId]
-        public string Id { get; set; }
-        public string? Name { get; set; }
         public int RequiredLevel { get; set; }
 
         public AbilityDb(string id, string? name, int requiredLevel)

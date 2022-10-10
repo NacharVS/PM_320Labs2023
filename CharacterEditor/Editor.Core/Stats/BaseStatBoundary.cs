@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Editor.Core.Enums
+﻿namespace Editor.Core.Stats
 {
     public abstract class BaseStatBoundary
     {

@@ -1,6 +1,9 @@
+using Editor.Core.Characters;
+using Editor.Core.Characters.interfaces;
+
 namespace Editor.Core.Abilities;
 
-public class Ability
+public class Ability : IHaveName
 {
     public string? Name { get; set; }
     public int RequiredLevel { get; set; }

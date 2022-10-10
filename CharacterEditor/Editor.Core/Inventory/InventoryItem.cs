@@ -1,6 +1,8 @@
-﻿namespace Editor.Core.Inventory
+﻿using Editor.Core.Characters.interfaces;
+
+namespace Editor.Core.Inventory
 {
-    public class InventoryItem
+    public class InventoryItem : IHaveName
     {
         public string? Name { get; set; }
 

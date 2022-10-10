@@ -1,4 +1,4 @@
-﻿namespace Editor.Core.Enums;
+﻿namespace Editor.Core.Stats;
 
 public class WarriorStatBoundary : BaseStatBoundary
 {

@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Editor.Core.Abilities;
-using Editor.Core.Enums;
+﻿using Editor.Core.Abilities;
 using Editor.Core.Helpers;
 using Editor.Core.Inventory;
+using Editor.Core.Stats;
 
-namespace Editor.Core;
+namespace Editor.Core.Characters;
 
-public class Rogue : Character
+public class Warrior : Character
 {
-    public Rogue(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory) 
-        : base(new RogueStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
+    public Warrior(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory) 
+        : base(new WarriorStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize();
     }
-    
-    public Rogue(int availableSkillPoints, int experience, int strength, int dexterity, 
-        int constitution, int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory)
-        : base(new RogueStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
+
+    public Warrior(int availableSkillPoints, int experience, int strength, int dexterity, 
+        int constitution, int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory)
+        : base(new WarriorStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize(true);
         
@@ -39,8 +34,8 @@ public class Rogue : Character
                 return;
             }
 
-            HealthPoints += args.Difference;
-            PhysicalDamage += args.Difference * 2;
+            HealthPoints += args.Difference * 2;
+            PhysicalDamage += args.Difference * 5;
         };
 
         OnDexterityChange += delegate (Character _, StatChangeArgs args)
@@ -50,8 +45,8 @@ public class Rogue : Character
                 return;
             }
 
-            PhysicalDamage += args.Difference * 4;
-            PhysicalDefense += args.Difference * 1.5;
+            PhysicalDamage += args.Difference;
+            PhysicalDefense += args.Difference;
         };
 
         OnConstitutionChange += delegate (Character _, StatChangeArgs args)
@@ -61,7 +56,8 @@ public class Rogue : Character
                 return;
             }
 
-            HealthPoints += args.Difference * 6;
+            HealthPoints += args.Difference * 10;
+            PhysicalDefense += args.Difference * 2;
         };
 
         OnIntelligenceChange += delegate (Character _, StatChangeArgs args)
@@ -71,8 +67,8 @@ public class Rogue : Character
                 return;
             }
 
-            MagicDamage += args.Difference * 2;
-            ManaPoints += args.Difference * 1.5;
+            MagicDamage += args.Difference;
+            ManaPoints += args.Difference;
         };
 
         if (!ignoreStatsBoundary)

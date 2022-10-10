@@ -4,8 +4,11 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using DataProvider;
+using DataProvider.Domain.Impl;
+using DataProvider.Models;
 using Editor.Core;
 using Editor.Core.Abilities;
+using Editor.Core.Characters;
 using Editor.Core.Inventory;
 
 namespace Editor.WPF

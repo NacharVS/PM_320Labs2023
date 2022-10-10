@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Editor.Core.Abilities;
-using Editor.Core.Enums;
+﻿using Editor.Core.Abilities;
 using Editor.Core.Helpers;
 using Editor.Core.Inventory;
+using Editor.Core.Stats;
 
-namespace Editor.Core;
+namespace Editor.Core.Characters;
 
 public class Wizard : Character
 {
-    public Wizard(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory) 
+    public Wizard(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory) 
         : base(new WizardStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize();
     }
     
     public Wizard(int availableSkillPoints, int experience, int strength, int dexterity, int constitution, 
-        int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory)
+        int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory)
         : base(new WizardStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize(true);

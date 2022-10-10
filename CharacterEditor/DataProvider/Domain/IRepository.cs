@@ -1,4 +1,4 @@
-﻿namespace DataProvider.Interfaces;
+﻿namespace DataProvider.Domain;
 
 public interface IRepository<T>
 {

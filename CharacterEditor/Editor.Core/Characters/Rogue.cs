@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Editor.Core.Abilities;
-using Editor.Core.Enums;
+﻿using Editor.Core.Abilities;
 using Editor.Core.Helpers;
 using Editor.Core.Inventory;
+using Editor.Core.Stats;
 
-namespace Editor.Core;
+namespace Editor.Core.Characters;
 
-public class Warrior : Character
+public class Rogue : Character
 {
-    public Warrior(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory) 
-        : base(new WarriorStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
+    public Rogue(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory) 
+        : base(new RogueStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize();
     }
-
-    public Warrior(int availableSkillPoints, int experience, int strength, int dexterity, 
-        int constitution, int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem> inventory)
-        : base(new WarriorStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
+    
+    public Rogue(int availableSkillPoints, int experience, int strength, int dexterity, 
+        int constitution, int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory)
+        : base(new RogueStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize(true);
         
@@ -39,8 +34,8 @@ public class Warrior : Character
                 return;
             }
 
-            HealthPoints += args.Difference * 2;
-            PhysicalDamage += args.Difference * 5;
+            HealthPoints += args.Difference;
+            PhysicalDamage += args.Difference * 2;
         };
 
         OnDexterityChange += delegate (Character _, StatChangeArgs args)
@@ -50,8 +45,8 @@ public class Warrior : Character
                 return;
             }
 
-            PhysicalDamage += args.Difference;
-            PhysicalDefense += args.Difference;
+            PhysicalDamage += args.Difference * 4;
+            PhysicalDefense += args.Difference * 1.5;
         };
 
         OnConstitutionChange += delegate (Character _, StatChangeArgs args)
@@ -61,8 +56,7 @@ public class Warrior : Character
                 return;
             }
 
-            HealthPoints += args.Difference * 10;
-            PhysicalDefense += args.Difference * 2;
+            HealthPoints += args.Difference * 6;
         };
 
         OnIntelligenceChange += delegate (Character _, StatChangeArgs args)
@@ -72,8 +66,8 @@ public class Warrior : Character
                 return;
             }
 
-            MagicDamage += args.Difference;
-            ManaPoints += args.Difference;
+            MagicDamage += args.Difference * 2;
+            ManaPoints += args.Difference * 1.5;
         };
 
         if (!ignoreStatsBoundary)

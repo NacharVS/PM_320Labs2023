@@ -1,15 +1,13 @@
 ﻿using Editor.Core;
 using Editor.Core.Abilities;
+using Editor.Core.Characters;
 using Editor.Core.Inventory;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace DataProvider
+namespace DataProvider.Models
 {
-    public class CharacterDb
+    public class CharacterDb : BaseModel
     {
-        [BsonId]
-        public string Id { get; set; }
-        public string? Name { get; set; }
         public int Strength { get; set; }
         public int Dexterity { get; set; }
         public int Constitution { get; set; }
@@ -17,7 +15,7 @@ namespace DataProvider
         public int AvailableSkillPoints { get; set; }
         public int Experience { get; set; }
         public List<Ability?>? Abilities { get; set; }
-        public List<InventoryItem> Inventory { get; set; }
+        public List<InventoryItem?> Inventory { get; set; }
 
         public string Class;
 

@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Editor.Core\Editor.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>
