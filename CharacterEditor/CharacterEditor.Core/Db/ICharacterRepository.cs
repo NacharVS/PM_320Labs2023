@@ -4,7 +4,7 @@ namespace CharacterEditor.Core.Db;
 
 public interface ICharacterRepository
 {
-    public IEnumerable<CharacterTuple> GetAllCharacterNamesByClass(
+    public IEnumerable<ShortCharacter> GetAllCharacterNamesByClass(
         string characterClass);
 
     public CharacterBase GetCharacter(string id);
@@ -12,4 +12,5 @@ public interface ICharacterRepository
     public void UpdateCharacter(string id, CharacterBase character);
 
     public void UpdateInventory(string id, IEnumerable<Item> inventory);
+    public IEnumerable<ShortCharacter> GetMatchParticipants(int minLevel = 0, int maxLevel = 1000);
 }

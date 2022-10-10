@@ -9,6 +9,7 @@ public class LevelInfo
     private const int ExpScalePerLevel = 1000;
 
     private int _currentLevel = 1;
+
     /// <summary>
     /// Current character's level
     /// </summary>
@@ -55,11 +56,11 @@ public class LevelInfo
     /// </summary>
     public int ExperienceLeft => ExperienceToGainLevel - CurrentExperience;
 
-    private int GetCurrentLevelExp()
+    public static int GetLevelXp(int level)
     {
         var res = FirstLevelExp;
         var xpToLevelUp = ExpScalePerLevel;
-        var currentLevel = CurrentLevel;
+        var currentLevel = level;
         while (currentLevel > 1)
         {
             xpToLevelUp += ExpScalePerLevel;
@@ -68,6 +69,16 @@ public class LevelInfo
         }
 
         return res;
+    }
+
+    private int GetCurrentLevelExp()
+    {
+        return GetLevelXp(CurrentLevel);
+    }
+
+    public LevelInfo(int totalExperience = 0)
+    {
+        CurrentExperience += totalExperience;
     }
 
     public event LevelUpEventHandler? OnLevelUp;

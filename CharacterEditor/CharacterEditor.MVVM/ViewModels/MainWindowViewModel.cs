@@ -27,7 +27,7 @@ public class MainWindowViewModel : ViewModel
     private CharacterBase? _currentCharacter;
 
     private ContentControl? _selectedClass;
-    private CharacterTuple? _selectedCharacterInfo;
+    private ShortCharacter? _selectedCharacterInfo;
 
     #region Properties
 
@@ -45,7 +45,7 @@ public class MainWindowViewModel : ViewModel
 
     public Item? SelectedInventoryItem { get; set; }
 
-    public CharacterTuple? SelectedCharacterInfo
+    public ShortCharacter? SelectedCharacterInfo
     {
         get => _selectedCharacterInfo;
         set
@@ -57,7 +57,7 @@ public class MainWindowViewModel : ViewModel
         }
     }
 
-    public IEnumerable<CharacterTuple>? ExistingCharacters { get; private set; }
+    public IEnumerable<ShortCharacter>? ExistingCharacters { get; private set; }
 
     #endregion
 

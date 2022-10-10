@@ -19,6 +19,6 @@ public class Item : ICanChangeStats, ICanChangeCharacteristics
 
     public override string ToString()
     {
-        return Name;
+        return Name ?? string.Empty;
     }
 }

@@ -116,7 +116,7 @@ namespace CharacterEditor.WPF
             SelectionChangedEventArgs e)
         {
             var combobox = sender as ComboBox;
-            var value = combobox!.SelectedValue as CharacterTuple;
+            var value = combobox!.SelectedValue as ShortCharacter;
 
             if (value is null)
                 return;

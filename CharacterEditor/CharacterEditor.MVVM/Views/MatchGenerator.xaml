@@ -1,0 +1,17 @@
+﻿<Page x:Class="CharacterEditor.MVVM.Views.MatchGenerator"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:CharacterEditor.MVVM.Views"
+      xmlns:vms="clr-namespace:CharacterEditor.MVVM.ViewModels"
+      mc:Ignorable="d"
+      Title="MatchGenerator" Height="450" Width="800">
+    <Page.DataContext>
+        <vms:MatchPageViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Label Content="AAAAAAAAAAA" FontSize="64" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <Button Content="back" FontSize="64" VerticalAlignment="Center" HorizontalAlignment="Center" Click="ButtonBase_OnClick"/>
+    </Grid>
+</Page>

@@ -1,4 +1,5 @@
 ﻿using CharacterEditor.Core;
+using CharacterEditor.Core.Characteristics;
 using CharacterEditor.Core.Classes;
 using CharacterEditor.Core.Db;
 using CharacterEditor.Core.Exceptions;
@@ -17,14 +18,14 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
             connection.Database?.GetCollection<CharacterDb>("Characters")!;
     }
 
-    public IEnumerable<CharacterTuple> GetAllCharacterNamesByClass(
+    public IEnumerable<ShortCharacter> GetAllCharacterNamesByClass(
         string characterClass)
     {
         return Characters
             .Find(x =>
                 x.ClassName != null && x.ClassName.Equals(characterClass))
             .ToEnumerable()
-            .Select(x => new CharacterTuple
+            .Select(x => new ShortCharacter(x.Experience)
                 { Id = x.Id, Name = x.Name ?? String.Empty });
     }
 
@@ -129,5 +130,22 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
             Builders<CharacterDb>.Update.Set(x => x.Inventory, inventory.Select(
                 x => ConvertItem(x)));
         Characters.UpdateOne(filter, updateDefinition);
+    }
+
+    public IEnumerable<ShortCharacter> GetMatchParticipants(int minLevel = 0,
+        int maxLevel = 1000)
+    {
+        var filter = Builders<CharacterDb>.Filter.Gte(x => x.Experience,
+                         LevelInfo.GetLevelXp(minLevel)) &
+                     Builders<CharacterDb>.Filter.Lte(x => x.Experience,
+                         LevelInfo.GetLevelXp(maxLevel));
+
+        return Characters.Find(filter)
+            .SortBy(x => x.Experience)
+            .ToList()
+            .Select(x => new ShortCharacter(x.Experience)
+            {
+                Id = x.Id, Name = String.Empty
+            });
     }
 }

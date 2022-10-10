@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterEditor.MongoDB", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterEditor.MVVM", "CharacterEditor.MVVM\CharacterEditor.MVVM.csproj", "{C501CA72-18A3-49D9-8AD5-CEB49181CB21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterEditor.Core.Tests", "CharacterEditor.Core.Tests\CharacterEditor.Core.Tests.csproj", "{AFA70488-1EDE-47E6-95D4-A4078B93F8AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{C501CA72-18A3-49D9-8AD5-CEB49181CB21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C501CA72-18A3-49D9-8AD5-CEB49181CB21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C501CA72-18A3-49D9-8AD5-CEB49181CB21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA70488-1EDE-47E6-95D4-A4078B93F8AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA70488-1EDE-47E6-95D4-A4078B93F8AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA70488-1EDE-47E6-95D4-A4078B93F8AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA70488-1EDE-47E6-95D4-A4078B93F8AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
