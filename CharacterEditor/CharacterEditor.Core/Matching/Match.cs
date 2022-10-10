@@ -11,6 +11,9 @@ public class Match
     public Team TeamB { get; }
     public DateTime DateStarted { get; } = DateTime.Now;
 
+    public bool AreTeamsBalanced => TeamsBalanced();
+    public bool AreTeamsReady => TeamsReady();
+
     public Match(ICharacterRepository repository, string teamAName = "",
         string teamBName = "") : this(teamAName, teamBName)
     {
@@ -38,6 +41,7 @@ public class Match
         if (heroes.Length < Team.MaximumParticipants * 2)
             throw new Exception("Not enough players");
 
+        ClearTeamPlayers();
         for (int i = 0, j = 1, c = 0;
              c < Team.MaximumParticipants;
              ++c, ++i, ++j)
@@ -45,6 +49,28 @@ public class Match
             TeamA.AddCharacter(heroes[i]);
             TeamB.AddCharacter(heroes[j]);
         }
+    }
+
+    private void ClearTeamPlayers()
+    {
+        TeamA.Characters = Array.Empty<ShortCharacter>();
+        TeamB.Characters = Array.Empty<ShortCharacter>();
+    }
+
+    private double AveragesDifference =>
+        TeamA.Characters.Average(x => x.Level) -
+        TeamB.Characters.Average(x => x.Level);
+
+    private bool TeamsBalanced()
+    {
+        return AveragesDifference < MaximumLevelDifference;
+    }
+
+    private bool TeamsReady()
+    {
+        return TeamsBalanced() &&
+               TeamA.Characters.Length == Team.MaximumParticipants &&
+               TeamB.Characters.Length == Team.MaximumParticipants;
     }
 
     private ShortCharacter[] FilterByLevelDifference(
