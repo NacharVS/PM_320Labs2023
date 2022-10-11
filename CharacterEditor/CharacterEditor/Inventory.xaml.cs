@@ -15,10 +15,10 @@ namespace CharacterEditor
     public partial class Inventory : Window
     {
         private BaseCharacteristics _selectedCharacter;
-        private MainWindow _mainWindow;
+        private MainPage _mainWindow;
         private delegate void ItemSelectedDelegate(int operationType, Item item);
 
-        public Inventory(BaseCharacteristics selectedCharacter, MainWindow mainWindow)
+        public Inventory(BaseCharacteristics selectedCharacter, MainPage mainWindow)
         {
             InitializeComponent();
 

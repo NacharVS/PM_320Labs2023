@@ -1,0 +1,164 @@
+﻿<Page x:Class="CharacterEditor.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CharacterEditor"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainPage">
+    <Page.Resources>
+        <Style x:Key="CharacteristicChangeButton">
+            <Setter Property="Control.Height" Value="50"/>
+            <Setter Property="Control.Foreground" Value="White"/>
+            <Setter Property="Control.Width" Value="50"/>
+            <Setter Property="Control.VerticalAlignment" Value="Top"/>
+            <Setter Property="Control.Margin" Value="5"/>
+            <EventSetter Event="Button.Click" Handler="CharacteristicChange"/>
+        </Style>
+        <Style x:Key="CharactersName">
+            <Setter Property="Control.Height" Value="50"/>
+            <Setter Property="Control.HorizontalAlignment" Value="Center"/>
+            <Setter Property="Control.VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Label.HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Label.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Label.FontSize" Value="20"/>
+            <Setter Property="Control.Margin" Value="5"/>
+        </Style>
+        <Style x:Key="CharactersValue" BasedOn="{StaticResource CharactersName}">
+            <Setter Property="Control.VerticalAlignment" Value="Top"/>
+            <Setter Property="Label.Content" Value="0"/>
+        </Style>
+
+        <Style x:Key="StatsName" BasedOn="{StaticResource CharactersName}">
+            <Setter Property="Control.VerticalAlignment" Value="Top"/>
+            <Setter Property="Control.Height" Value="40"/>
+        </Style>
+
+        <Style x:Key="StatsValue">
+            <Setter Property="TextBox.Text" Value="0"/>
+            <Setter Property="TextBox.HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="TextBox.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="TextBox.VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Control.Width" Value="190"/>
+            <Setter Property="Control.Height" Value="30"/>
+            <Setter Property="Control.Margin" Value="0,40,0,0"/>
+            <Setter Property="Control.IsEnabled" Value="False"/>
+        </Style>
+        <Style x:Key="ExpChangeBtn">
+            <Setter Property="Control.Width" Value="40"/>
+            <Setter Property="Control.Height" Value="40"/>
+            <Setter Property="Button.Content" Value="+"/>
+            <Setter Property="Control.Background" Value="ForestGreen"/>
+            <Setter Property="Button.Foreground" Value="White"/>
+            <EventSetter Event="Button.Click" Handler="ExpChangeBtn_Click"/>
+        </Style>
+    </Page.Resources>
+    <Grid x:Name="GridMain" Background="#FFC4B7D7" Cursor="Arrow" ShowGridLines="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="200*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="lbSkillPoints" Content="Skill points" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="0,50,0,0"/>
+        <Label x:Name="lbSkillPointsValue" Content="0" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Margin="0,50,0,0"/>
+
+        <Button x:Name="btnPlusStrength" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="0" Click="BtnPlusStrength_Click" Background="ForestGreen"/>
+        <Button x:Name="btnMinusStrength" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="0" Click="BtnMinusStrength_Click" Background="Red"/>
+        <Label x:Name="lbStrength" Style="{StaticResource CharactersName}" Content="Strength" Grid.Row="5"/>
+        <Label x:Name="lbStrengthValue" Style="{StaticResource CharactersValue}" Grid.Row="6"/>
+
+        <Button x:Name="btnPlusDexterity" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="1" Click="BtnPlusDexterity_Click" Background="ForestGreen"/>
+        <Button x:Name="btnMinusDexterity" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="1" Click="BtnMinusDexterity_Click" Background="Red"/>
+        <Label x:Name="lbDexterity" Style="{StaticResource CharactersName}" Content="Dexterity" Grid.Row="5" Grid.Column="1"/>
+        <Label x:Name="lbDexterityValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="1"/>
+
+        <Button x:Name="btnPlusConstitution" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="2" Click="BtnPlusConstitution_Click" Background="ForestGreen"/>
+        <Button x:Name="btnMinusConstitution" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="2" Click="BtnMinusConstitution_Click" Background="Red"/>
+        <Label x:Name="lbConstitution" Style="{StaticResource CharactersName}" Content="Constitution" Grid.Row="5" Grid.Column="2"/>
+        <Label x:Name="lbConstitutionValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="2" />
+
+        <Button x:Name="btnPlusIntelligence" Content="+" HorizontalAlignment="Right" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="3" Click="BtnPlusIntelligence_Click" Background="ForestGreen"/>
+        <Button x:Name="btnMinusIntelligence" Content="-" HorizontalAlignment="Left" Style="{StaticResource CharacteristicChangeButton}" Grid.Row="6" Grid.Column="3" Click="BtnMinusIntelligence_Click" Background="Red"/>
+        <Label x:Name="lbIntelligence" Style="{StaticResource CharactersName}" Content="Intelligence" Grid.Row="5" Grid.Column="3"/>
+        <Label x:Name="lbIntelligenceValue" Style="{StaticResource CharactersValue}" Grid.Row="6" Grid.Column="3"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom">
+            <Label x:Name="lbNewCharacter" Style="{StaticResource StatsName}" Content="New Character" Height="40" Margin="0"/>
+            <ComboBox x:Name="cbNewCharacters" HorizontalAlignment="Center" VerticalAlignment="Top" Width="190" Height="30" SelectionChanged="NewCharComboBox_SelectionChanged"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <Label x:Name="lbExistCharacter" Style="{StaticResource StatsName}" Content="Existing Character" Margin="0"/>
+            <ComboBox x:Name="cbExistCharacters" HorizontalAlignment="Center" VerticalAlignment="Top" Width="190" Height="30" SelectionChanged="ExtCharComboBox_SelectionChanged" Grid.RowSpan="2" Grid.Row="2">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="50" Text="{Binding Path=Name}" />
+                            <TextBlock Width="180" Text="{Binding Path=Id}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <Button Content="Inventory" Grid.Column="2" Grid.Row="2" Width="190" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" Background="LightBlue"/>
+
+        <Label x:Name="lbCharacterName" Style="{StaticResource CharactersName}" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Content="Character name"/>
+        <TextBox x:Name="tbCharacterName" Grid.Column="2" Grid.Row="5" Height="30" Width="200" VerticalAlignment="Top" Margin="0,16,0,0"/>
+
+        <Label x:Name="lbHealth" Style="{StaticResource StatsName}" Grid.Row="0" Grid.Column="3" Content="Health" Margin="0,93,0,0"/>
+        <TextBox x:Name="tbHealthValue" Grid.Column="3" Grid.Row="0" Style="{StaticResource StatsValue}"/>
+
+        <Label x:Name="lbMana" Style="{StaticResource StatsName}" Grid.Row="1" Grid.Column="3" Content="Mana"/>
+        <TextBox x:Name="tbManaValue" Grid.Column="3" Grid.Row="1" Style="{StaticResource StatsValue}"/>
+
+        <Label x:Name="lbAttackDamage" Style="{StaticResource StatsName}" Grid.Row="2" Grid.Column="3" Content="Attack Damage"/>
+        <TextBox x:Name="tbAttackDamageValue" Grid.Column="3" Grid.Row="2" Style="{StaticResource StatsValue}"/>
+
+        <Label x:Name="lbMagicAttack" Style="{StaticResource StatsName}" Grid.Row="3" Grid.Column="3" Content="Magic attack"/>
+        <TextBox x:Name="tbMagicAttackValue" Grid.Column="3" Grid.Row="3" Style="{StaticResource StatsValue}"/>
+
+        <Label x:Name="lbPhysicalDef" Style="{StaticResource StatsName}" Grid.Row="4" Grid.Column="3" Content="Physical defence"/>
+        <TextBox x:Name="tbPhysicalDefValue" Grid.Column="3" Grid.Row="4" Style="{StaticResource StatsValue}"/>
+        <Label x:Name="WindowName" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Character editor" RenderTransformOrigin="0.5,0.5" Width="400" Grid.Column="2" FontSize="22" FontWeight="Bold"/>
+
+        <Button x:Name="btnSaveButton" Grid.Column="3" Content="Save" HorizontalAlignment="Center" Margin="0,16,0,0" Grid.Row="5" VerticalAlignment="Top" Width="180" Height="30" Background="LightBlue" Click="SaveButton_Click"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+            <Label x:Name="lblExp100" Content="Add 100 exp." HorizontalAlignment="Center" FontSize="20"/>
+            <Button x:Name="ExpAdd1" Style="{StaticResource ExpChangeBtn}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+            <Label x:Name="lblExp200" Content="Add 200 exp." HorizontalAlignment="Center" FontSize="20"/>
+            <Button x:Name="ExpAdd2" Style="{StaticResource ExpChangeBtn}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+            <Label x:Name="lblExp500" Content="Add 500 exp." HorizontalAlignment="Center" FontSize="20"/>
+            <Button x:Name="ExpAdd5" Style="{StaticResource ExpChangeBtn}"/>
+        </StackPanel>
+
+        <Label Content="Experience" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+        <Label Content="Level" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+        <Label x:Name="lblExp" Content="" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3"/>
+        <Label x:Name="lblLvl" Content="" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
+
+        <Label Content="Abilities" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFE4D6F9"/>
+        <ListBox x:Name="lbAbilities" VerticalAlignment="Top" Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Height="294" IsEnabled="False"/>
+        <Button x:Name="btnMathInfo" Grid.Column="4" Grid.Row="3" Content="MATCH" FontSize="20" Background="LightBlue" Margin="0,45,0,28" Grid.RowSpan="2" Click="btnMathInfo_Click"/>
+    </Grid>
+</Page>

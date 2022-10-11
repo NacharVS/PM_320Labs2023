@@ -22,9 +22,9 @@ namespace CharacterEditor
     public partial class Abilities : Window
     {
         private BaseCharacteristics _selectedCharacter;
-        private MainWindow _mainWindow;
+        private MainPage _mainWindow;
         private delegate void AbilityChangeDelegate();
-        public Abilities(BaseCharacteristics selectedCharacter, MainWindow mainWindow)
+        public Abilities(BaseCharacteristics selectedCharacter, MainPage mainWindow)
         {
             InitializeComponent();
 
