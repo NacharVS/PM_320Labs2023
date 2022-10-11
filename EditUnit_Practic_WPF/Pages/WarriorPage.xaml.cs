@@ -23,6 +23,7 @@ namespace EditUnit_Practic_WPF.Pages
             unit = new Warrior();
 
             InitializeComponent();
+            this.ShowsNavigationUI = false;
         }
 
         private void Page_Initialized(object sender, EventArgs e)
@@ -236,7 +237,7 @@ namespace EditUnit_Practic_WPF.Pages
             }
         }
 
-        private void btn_SaveUnit_Click(object sender, RoutedEventArgs e)
+        public void btn_SaveUnit_Click(object sender, RoutedEventArgs e)
         {
             if (tbName.Text == "")
             {
@@ -259,7 +260,7 @@ namespace EditUnit_Practic_WPF.Pages
             UpdateCharacteristics();
         }
 
-        private void btn_ClearUnit_Click(object sender, RoutedEventArgs e)
+        public void btn_ClearUnit_Click(object sender, RoutedEventArgs e)
         {
             unit = new Warrior();
             UpdateCharacteristics();

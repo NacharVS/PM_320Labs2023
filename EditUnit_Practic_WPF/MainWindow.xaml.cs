@@ -23,18 +23,39 @@ namespace EditUnit_Practic_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        //public List<Unit> units;
+        public Unit unit;
 
         public MainWindow()
         {
-
             InitializeComponent();
 
-            WarriorPage.NavigationService.Navigate(new WarriorPage());
-            RoguePage.NavigationService.Navigate(new RoguePage());
-            WizardPage.NavigationService.Navigate(new WizardPage());
+            EditPage.NavigationService.Navigate(new EditPage());
             MatchPage.NavigationService.Navigate(new MatchPage());
         }
 
+        private void WarriorItem_Click(object sender, RoutedEventArgs e)
+        {
+            EditPage.NavigationService.Navigate(new WarriorPage());
+        }
+
+        private void RogueItem_Click(object sender, RoutedEventArgs e)
+        {
+            EditPage.NavigationService.Navigate(new RoguePage());
+        }
+
+        private void WizardItem_Click(object sender, RoutedEventArgs e)
+        {
+            EditPage.NavigationService.Navigate(new WizardPage());
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

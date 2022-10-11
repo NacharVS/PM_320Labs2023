@@ -6,17 +6,20 @@
         xmlns:local="clr-namespace:EditUnit_Practic_WPF"
         xmlns:Units_Practic="clr-namespace:Units_Practic;assembly=Units_Practic" xmlns:Abilities="clr-namespace:Units_Practic.Abilities;assembly=Units_Practic" x:Class="EditUnit_Practic_WPF.MainWindow"
         mc:Ignorable="d"
-        Title="Edit unit" Height="675" Width="877" ResizeMode="CanMinimize" Icon="/Media/Icon.png" >
+        Title="Edit unit" MinHeight="675" Height="675" MinWidth="877" Width="877" ResizeMode="CanResize" Icon="/Media/Icon.png" >
     <Grid>
-        <TabControl>
-            <TabItem x:Name="TbItWarrior" Header="Warrior">
-                <Frame Name="WarriorPage"/>
-            </TabItem>
-            <TabItem x:Name="TbItRogue" Header="Rogue">
-                <Frame Name="RoguePage"/>
-            </TabItem>
-            <TabItem x:Name="TbItWizard" Header="Wizard">
-                <Frame Name="WizardPage"/>
+        <Menu HorizontalAlignment="Left" Width="37">
+            <MenuItem Header="Units">
+                <MenuItem Header="Warrior" Click="WarriorItem_Click"/>
+                <MenuItem Header="Rogue" Click="RogueItem_Click"/>
+                <MenuItem Header="Wizard" Click="WizardItem_Click" />
+            </MenuItem>
+            <MenuItem Header="Save" Click="Save_Click"></MenuItem>
+            <MenuItem Header="Clear" Click="Clear_Click"></MenuItem>
+        </Menu>
+        <TabControl Margin="37,0,0,0">
+            <TabItem x:Name="TbItEdit" Header="Edit">
+                <Frame Name="EditPage" NavigationUIVisibility="Hidden"/>
             </TabItem>
             <TabItem x:Name="TbItMatch" Header="Match">
                 <Frame Name="MatchPage"/>
