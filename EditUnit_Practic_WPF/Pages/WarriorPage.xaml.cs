@@ -1,10 +1,13 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 using Units_Practic.Abilities;
 using Units_Practic.Characters;
+using Units_Practic.MongoDb;
 
 namespace EditUnit_Practic_WPF.Pages
 {
@@ -48,6 +51,7 @@ namespace EditUnit_Practic_WPF.Pages
 
             GetPotentialAbilities();
             GetAbilities();
+            GetUnits();
 
             if (unit.lvl.abilitiesPoints > 0) cbPotentialAbilities.IsEnabled = true;
             else cbPotentialAbilities.IsEnabled = false;
@@ -180,6 +184,18 @@ namespace EditUnit_Practic_WPF.Pages
             UpdateCharacteristics();
         }
 
+        private void cbUnits_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (Unit)cbUnits.SelectedItem;
+
+            if (item == null) return;
+
+            unit = item;
+            tbName.Text = unit.name; 
+
+            UpdateCharacteristics();
+        }
+
         private void GetPotentialAbilities()
         {
             cbPotentialAbilities.Items.Clear();
@@ -190,6 +206,26 @@ namespace EditUnit_Practic_WPF.Pages
             }
         }
 
+        private void GetUnits()
+        {
+            cbUnits.Items.Clear();
+
+            try
+            {
+                var cursor = MongoDb.collection.Find(new BsonDocument());
+                {
+                    foreach (var doc in cursor.ToList())
+                    {
+                        var unit = new Warrior();
+                        unit = (Warrior)doc;
+
+                        cbUnits.Items.Add(unit);
+                    }
+                }
+            }
+            catch { }
+        }
+
         private void GetAbilities()
         {
             cbAbility.Items.Clear();
@@ -198,6 +234,41 @@ namespace EditUnit_Practic_WPF.Pages
             {
                 cbAbility.Items.Add(ability);
             }
+        }
+
+        private void btn_SaveUnit_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbName.Text == "")
+            {
+                MessageBox.Show("Enter a name!");
+                return;
+            }
+
+            unit.name = tbName.Text;
+
+            if (cbUnits.SelectedItem != null)
+            {
+                if (cbUnits.SelectedItem.ToString() == unit.ToString()) MongoDb.ReplaceOneInDataBase(unit);
+            }
+            
+            if (MongoDb.FindById(unit._id.ToString()) is null) MongoDb.AddToDataBase(unit);
+            else MongoDb.ReplaceOneInDataBase(unit);
+
+            MessageBox.Show($"{unit.name} is saved.");
+
+            UpdateCharacteristics();
+        }
+
+        private void btn_ClearUnit_Click(object sender, RoutedEventArgs e)
+        {
+            unit = new Warrior();
+            UpdateCharacteristics();
+            tbName.Text = unit.name;
+        }
+
+        private void cbUnits_Initialized(object sender, EventArgs e)
+        {
+            MongoDb.Connect_cbUnits();
         }
     }
 }

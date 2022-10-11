@@ -1,4 +1,5 @@
-﻿using Units_Practic.Abilities;
+﻿using MongoDB.Bson;
+using Units_Practic.Abilities;
 
 namespace Units_Practic.Characters
 {
@@ -11,6 +12,9 @@ namespace Units_Practic.Characters
 
     public abstract class Unit
     {
+        public ObjectId _id;
+
+        public string name;
         public double healthPoint;
         public double manaPoint;
         public Characteristics characteristics;
@@ -23,6 +27,11 @@ namespace Units_Practic.Characters
         public Unit()
         {
             lvl = new Lvl();
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
 
         public void UpdateHaracteristics()
