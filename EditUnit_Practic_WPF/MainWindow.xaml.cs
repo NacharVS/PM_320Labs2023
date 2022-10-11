@@ -33,6 +33,7 @@ namespace EditUnit_Practic_WPF
             WarriorPage.NavigationService.Navigate(new WarriorPage());
             RoguePage.NavigationService.Navigate(new RoguePage());
             WizardPage.NavigationService.Navigate(new WizardPage());
+            MatchPage.NavigationService.Navigate(new MatchPage());
         }
 
     }

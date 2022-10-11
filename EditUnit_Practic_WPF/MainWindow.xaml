@@ -18,6 +18,9 @@
             <TabItem x:Name="TbItWizard" Header="Wizard">
                 <Frame Name="WizardPage"/>
             </TabItem>
+            <TabItem x:Name="TbItMatch" Header="Match">
+                <Frame Name="MatchPage"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
