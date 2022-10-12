@@ -37,7 +37,7 @@ namespace Editor.Core.Characters
             Abilities = abilities;
             Name = name;
             Inventory = inventory;
-            InventoryCapacity = 15;
+            InventoryCapacity = 25;
 
             CalculateLevel(this, new ExpChangeArgs(experience));
 
@@ -222,29 +222,72 @@ namespace Editor.Core.Characters
         {
             var equipment = GetEquipment();
 
-            var equipments = equipment as Equipment[] ?? equipment.ToArray();
-            
             return new CharacterStats(
-                _strength,
-                _constitution,
-                _dexterity,
-                _intelligence,
-                HealthPoints + equipments.Sum(x => x.HealthPoints),
-                ManaPoints + equipments.Sum(x => x.ManaPoints),
-                PhysicalDamage + equipments.Sum(x => x.PhysicalDamage),
-                PhysicalDefense + equipments.Sum(x => x.PhysicalDefense),
-                MagicDamage + equipments.Sum(x => x.MagicDamage),
-                MagicDefense + equipments.Sum(x => x.MagicDefense),
+                _strength + equipment.Sum(x => x.Strength),
+                _constitution + equipment.Sum(x => x.Constitution),
+                _dexterity + equipment.Sum(x => x.Dexterity),
+                _intelligence + equipment.Sum(x => x.Intelligence),
+                HealthPoints + equipment.Sum(x => x.HealthPoints),
+                ManaPoints + equipment.Sum(x => x.ManaPoints),
+                PhysicalDamage + equipment.Sum(x => x.PhysicalDamage),
+                PhysicalDefense + equipment.Sum(x => x.PhysicalDefense),
+                MagicDamage + equipment.Sum(x => x.MagicDamage),
+                MagicDefense + equipment.Sum(x => x.MagicDefense),
                 _level
             );
         }
 
-        public IEnumerable<Equipment> GetEquipment()
+        public List<Equipment> GetEquipment()
         {
             return Inventory
                 .Where(x => x?.GetType() == typeof(Equipment) && ((Equipment)x).IsEquipped)
                 .Select(x => (Equipment)x!)
-                .ToArray();
+                .ToList();
+        }
+
+        public InventoryItem? GetInventoryItem(string name)
+        {
+            return Inventory.FirstOrDefault(x => x.Name == name);
+        }
+
+        public void EquipItem(string equipment)
+        {
+            try
+            {
+                var equp = ((Equipment)Inventory.FirstOrDefault(x => x.Name == equipment)!);
+
+                if (equp.RequiredConstitution > _constitution
+                    || equp.RequiredStrength > _strength
+                    || equp.RequiredDexterity > _dexterity
+                    || equp.RequiredIntelligence > _intelligence)
+                {
+                    throw new Exception("Character is too weak for this equipment");
+                }
+
+                if (GetEquipment().Any(x => x.Slot == equp.Slot && x.IsEquipped))
+                {
+                    throw new Exception("This slot already set");
+                }
+
+                equp.IsEquipped = true;
+            }
+            catch (NullReferenceException)
+            {
+                throw new Exception("Equipment did not found");
+            }
+        }
+
+        public void UnequipItem(string equipment)
+        {
+            try
+            {
+                (GetEquipment()?.FirstOrDefault(x => x.Name == equipment))!.IsEquipped = false;
+            }
+            catch (NullReferenceException)
+            {
+                throw new Exception("Equipment did not found");
+            }
+
         }
 
         public delegate void HandleStatChange(Character sender, StatChangeArgs args);

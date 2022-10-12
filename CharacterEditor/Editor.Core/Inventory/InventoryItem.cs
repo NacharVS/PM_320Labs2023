@@ -10,5 +10,10 @@ namespace Editor.Core.Inventory
         {
             Name = name;
         }
+
+        public virtual string GetDescription()
+        {
+            return $"Name: {Name}";
+        }
     }
 }

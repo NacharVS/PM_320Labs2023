@@ -14,6 +14,10 @@ public class EquipmentDb : BaseModel
     public int RequiredIntelligence { get; set; }
     public int EquipmentLevel { get; set; }
     
+    public int Strength { get; set; }
+    public int Dexterity { get; set; }
+    public int Constitution { get; set; }
+    public int Intelligence { get; set; }
     public double HealthPoints { get; set; }
     public double ManaPoints { get; set; }
     public double PhysicalDamage { get; set; }
@@ -59,5 +63,9 @@ public class EquipmentDb : BaseModel
         MagicDamage = equipment.MagicDamage;
         PhysicalDefense = equipment.PhysicalDefense;
         MagicDefense = equipment.MagicDefense;
+        Strength = equipment.Strength;
+        Dexterity = equipment.Dexterity;
+        Constitution = equipment.Constitution;
+        Intelligence = equipment.Intelligence;
     }
 }

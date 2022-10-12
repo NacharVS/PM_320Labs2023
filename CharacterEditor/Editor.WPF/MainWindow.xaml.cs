@@ -5,8 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using DataProvider;
 using DataProvider.Domain.Impl;
+using DataProvider.Migrations;
 using DataProvider.Models;
-using Editor.Core;
 using Editor.Core.Abilities;
 using Editor.Core.Characters;
 using Editor.Core.Inventory;
@@ -20,6 +20,7 @@ namespace Editor.WPF
     {
         private MongoProvider<Character> _characterProvider;
         private MongoProvider<Ability> _abilityProvider;
+        private MongoProvider<Equipment> _equipmentProvider;
 
         private Character? _currentCharacter;
         private const int StartSkillPoints = 5;
@@ -56,43 +57,59 @@ namespace Editor.WPF
             switch (chosenCharacterName)
             {
                 case "Warrior":
-                    _currentCharacter = new Warrior(StartSkillPoints, 0, _starterAbilities, null, new List<InventoryItem>());
+                    _currentCharacter = new Warrior(StartSkillPoints, 0, _starterAbilities, null, 
+                        new List<InventoryItem?>(_equipmentProvider.LoadAll()));
                     InitializeEvents();
                     break;
                 case "Rogue":
-                    _currentCharacter = new Rogue(StartSkillPoints, 0, _starterAbilities, null, new List<InventoryItem>());
+                    _currentCharacter = new Rogue(StartSkillPoints, 0, _starterAbilities, null, 
+                        new List<InventoryItem?>(_equipmentProvider.LoadAll()));
                     InitializeEvents();
                     break;
                 case "Wizard":
-                    _currentCharacter = new Wizard(StartSkillPoints, 0, _starterAbilities, null, new List<InventoryItem>());
+                    _currentCharacter = new Wizard(StartSkillPoints, 0, _starterAbilities, null, 
+                        new List<InventoryItem?>(_equipmentProvider.LoadAll()));
                     InitializeEvents();
                     break;
-            };
+            }
+
             FillData();
             InitializeInventory();
         }
 
         private void FillData()
         {
+            var stats = _currentCharacter.GetStats();
+
             lbSkillPointsVal.Content = _currentCharacter?.AvailableSkillPoints;
 
-            lbStrengthVal.Content = _currentCharacter?.Strength;
-            lbDexterityVal.Content = _currentCharacter?.Dexterity;
-            lbConstitutionVal.Content = _currentCharacter?.Constitution;
-            lbIntelligenceVal.Content = _currentCharacter?.Intelligence;
+            lbStrengthVal.Content = stats.Strength;
+            lbDexterityVal.Content = stats.Dexterity;
+            lbConstitutionVal.Content = stats.Constitution;
+            lbIntelligenceVal.Content = stats.Intelligence;
 
-            lbHPVal.Content = _currentCharacter?.HealthPoints;
-            lbMPVal.Content = _currentCharacter?.ManaPoints;
+            lbHPVal.Content = stats.Health;
+            lbMPVal.Content = stats.Mana;
 
-            lbPAtkVal.Content = _currentCharacter?.PhysicalDamage;
-            lbPDefVal.Content = _currentCharacter?.PhysicalDefense;
-            lbMAtkVal.Content = _currentCharacter?.MagicDamage;
-            lbMDefVal.Content = _currentCharacter?.MagicDefense;
+            lbPAtkVal.Content = stats.PhysicalDamage;
+            lbPDefVal.Content = stats.PhysicalDefense;
+            lbMAtkVal.Content = stats.MagicDamage;
+            lbMDefVal.Content = stats.MagicDefense;
 
             tbName.Text = _currentCharacter?.Name;
 
             lbExpPoints.Content = _currentCharacter.Experience;
             lbLevel.Content = _currentCharacter.Level;
+
+            lbHelmet.Content = _currentCharacter?.GetEquipment()
+                .FirstOrDefault(x => x.IsEquipped && x.Slot == EquipmentSlot.Helmet)
+                ?.Name;
+            lbBody.Content = _currentCharacter?.GetEquipment()
+                .FirstOrDefault(x => x.IsEquipped && x.Slot == EquipmentSlot.Body)
+                ?.Name;
+            lbWeapon.Content = _currentCharacter?.GetEquipment()
+                .FirstOrDefault(x => x.IsEquipped && x.Slot == EquipmentSlot.RightHand)
+                ?.Name;
 
             InitializeAbilitiesList(_currentCharacter?.Abilities?.Where(x => x?.IsApplied == false));
         }
@@ -217,7 +234,7 @@ namespace Editor.WPF
                     {
                         btnChooseAbility.IsEnabled = true;
                     }
-                    lbAvailableSkillPoints.Content = _currentCharacter.AvailableSkillPoints;
+                    lbSkillPointsVal.Content = _currentCharacter.AvailableSkillPoints;
                 };
             }
         }
@@ -225,10 +242,13 @@ namespace Editor.WPF
         private void InitializeProviders()
         {
             _characterProvider = new MongoProvider<Character>(new CharacterRepository(new
-                MongoConnection<CharacterDb>("mongodb://localhost", "Characters", "CharactersCollection")));
+                MongoConnection<CharacterDb>("mongodb://localhost", "Characters", "Characters")));
 
             _abilityProvider = new MongoProvider<Ability>(new AbilityRepository(new
-                MongoConnection<AbilityDb>("mongodb://localhost", "Abilities", "AbilitiesCollection")));
+                MongoConnection<AbilityDb>("mongodb://localhost", "Characters", "Abilities")));
+
+            _equipmentProvider = new MongoProvider<Equipment>(new EquipmentRepository(
+                new MongoConnection<EquipmentDb>("mongodb://localhost", "Characters", "Equipment")));
         }
 
         private void InitializeAbilitiesList(IEnumerable<Ability> abilities)
@@ -288,10 +308,64 @@ namespace Editor.WPF
             if (_currentCharacter != null && value != null)
             {
                 _currentCharacter.RemoveItemFromInventory(value);
-                comboInventory.Items.Remove(tbInvItem.Text);
+                comboInventory.Items.Remove(comboInventory.SelectionBoxItem);
                 tbInvItem.Text = "";
                 lbInvCapacity.Content = (_currentCharacter?.InventoryCapacity - _currentCharacter?.Inventory.Count);
             }
+        }
+
+        private void btnEquip_Click(object sender, RoutedEventArgs e)
+        {
+            string? value = (string?)comboInventory.SelectedItem;
+            if (value != null)
+            {
+                try
+                {
+                    _currentCharacter?.EquipItem(value);
+                    FillData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Choose item to equip");
+            }
+            
+        }
+
+        private void btnunequip_Click(object sender, RoutedEventArgs e)
+        {
+            string? value = (string?)comboInventory.SelectedItem;
+            if (value != null)
+            {
+                try
+                {
+                    _currentCharacter?.UnequipItem(value);
+                    FillData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Choose item to unequip");
+            }
+        }
+
+        private void Inventory_Selection_changed(object sender, SelectionChangedEventArgs e)
+        {
+            textItemDescr.Text = _currentCharacter?.GetInventoryItem(comboInventory.SelectedItem?.ToString() ?? string.Empty)?.GetDescription();
+        }
+
+        private void btn_Up_Migrations_Click(object sender, RoutedEventArgs e)
+        {
+            new InitAbilities().Up();
+            new InitEquipment().Up();
         }
     }
 }

@@ -7,6 +7,7 @@ public class EquipmentRepository : BaseRepository<Equipment, EquipmentDb>
 {
     public EquipmentRepository(MongoConnection<EquipmentDb> connection) : base(connection)
     {
+
     }
 
     protected override Equipment? InitializeEntity(EquipmentDb model)
@@ -17,6 +18,7 @@ public class EquipmentRepository : BaseRepository<Equipment, EquipmentDb>
     protected override Equipment? CastToEntity(EquipmentDb model)
     {
         return new Equipment(
+            model.Slot,
             model.Name,
             model.RequiredStrength,
             model.RequiredDexterity,
@@ -28,7 +30,11 @@ public class EquipmentRepository : BaseRepository<Equipment, EquipmentDb>
             model.PhysicalDamage,
             model.MagicDamage,
             model.PhysicalDefense,
-            model.MagicDefense
+            model.MagicDefense,
+            model.Strength,
+            model.Constitution,
+            model.Dexterity,
+            model.Intelligence
         );
     }
 }

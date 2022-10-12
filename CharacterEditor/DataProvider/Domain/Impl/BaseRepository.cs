@@ -77,18 +77,9 @@ public abstract class BaseRepository<TEntity, TModel> : IRepository<TEntity>
 
     private TModel GetModelInstance(TEntity entity)
     {
-        return
-            (TModel)typeof(TModel)
-                .GetConstructor(types: new[]
-                {
-                    typeof(string), 
-                    typeof(TEntity)
-                })
-                ?.Invoke(typeof(TEntity), new []
-                {
-                    Guid.NewGuid().ToString(), 
-                    (object)entity!
-                })!;
+        return ((TModel)Activator.
+            CreateInstance(typeof(TModel), Guid.NewGuid().ToString(), entity!)!)!;
+
     }
 
     protected abstract TEntity? InitializeEntity(TModel model);

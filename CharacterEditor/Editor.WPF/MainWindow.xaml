@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Editor.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="635" Width="990">
     <Grid>
-        <ComboBox x:Name="comboCharacter" HorizontalAlignment="Left" Margin="108,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboCharacter_SelectionChanged">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="341*"/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="comboCharacter" HorizontalAlignment="Left" Margin="108,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboCharacter_SelectionChanged" Grid.ColumnSpan="2">
             <ComboBoxItem Content="Warrior"/>
             <ComboBoxItem Content="Rogue"/>
             <ComboBoxItem Content="Wizard"/>
@@ -17,51 +21,63 @@
         <Label x:Name="lbStrength_Copy" Content="Dexterity:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbStrength_Copy1" Content="Constitution:" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbStrength_Copy2" Content="Intelligence:" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnDecrStrength" Content="&lt;" HorizontalAlignment="Left" Margin="108,58,0,0" VerticalAlignment="Top" Click="btnDecrStrength_Click"/>
-        <Button x:Name="btnDecrDexterity" Content="&lt;" HorizontalAlignment="Left" Margin="108,89,0,0" VerticalAlignment="Top" Click="btnDecrDexterity_Click"/>
-        <Button x:Name="btnDecrConstitution" Content="&lt;" HorizontalAlignment="Left" Margin="108,120,0,0" VerticalAlignment="Top" Click="btnDecrConstitution_Click"/>
-        <Button x:Name="btnDecrIntelligence" Content="&lt;" HorizontalAlignment="Left" Margin="108,151,0,0" VerticalAlignment="Top" Click="btnDecrIntelligence_Click"/>
-        <Button x:Name="btnIncrStrength" Content="&gt;" HorizontalAlignment="Left" Margin="168,58,0,0" VerticalAlignment="Top" Click="btnIncrStrength_Click"/>
-        <Button x:Name="btnIncrDexterity" Content="&gt;" HorizontalAlignment="Left" Margin="168,89,0,0" VerticalAlignment="Top" Click="btnIncrDexterity_Click"/>
-        <Button x:Name="btnIncrConstitution" Content="&gt;" HorizontalAlignment="Left" Margin="168,120,0,0" VerticalAlignment="Top" Click="btnIncrConstitution_Click"/>
-        <Button x:Name="btnIncrIntelligence" Content="&gt;" HorizontalAlignment="Left" Margin="168,151,0,0" VerticalAlignment="Top" Click="btnIncrIntelligence_Click"/>
-        <Label x:Name="lbIntelligenceVal" Content="0" HorizontalAlignment="Left" Margin="130,148,0,0" VerticalAlignment="Top" Width="29"/>
-        <Label x:Name="lbAvailableSkillPoints" Content="Available skill points:" HorizontalAlignment="Left" Margin="259,55,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbSkillPointsVal" Content="0" HorizontalAlignment="Left" Margin="383,55,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbConstitutionVal" Content="0" HorizontalAlignment="Left" Margin="130,117,0,0" VerticalAlignment="Top" Width="29"/>
-        <Label x:Name="lbDexterityVal" Content="0" HorizontalAlignment="Left" Margin="130,86,0,0" VerticalAlignment="Top" Width="29"/>
-        <Label x:Name="lbStrengthVal" Content="0" HorizontalAlignment="Left" Margin="130,55,0,0" VerticalAlignment="Top" Width="29"/>
+        <Button x:Name="btnDecrStrength" Content="&lt;" HorizontalAlignment="Left" Margin="108,58,0,0" VerticalAlignment="Top" Click="btnDecrStrength_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnDecrDexterity" Content="&lt;" HorizontalAlignment="Left" Margin="108,89,0,0" VerticalAlignment="Top" Click="btnDecrDexterity_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnDecrConstitution" Content="&lt;" HorizontalAlignment="Left" Margin="108,120,0,0" VerticalAlignment="Top" Click="btnDecrConstitution_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnDecrIntelligence" Content="&lt;" HorizontalAlignment="Left" Margin="108,151,0,0" VerticalAlignment="Top" Click="btnDecrIntelligence_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnIncrStrength" Content="&gt;" HorizontalAlignment="Left" Margin="50,58,0,0" VerticalAlignment="Top" Click="btnIncrStrength_Click" Grid.Column="1"/>
+        <Button x:Name="btnIncrDexterity" Content="&gt;" HorizontalAlignment="Left" Margin="50,89,0,0" VerticalAlignment="Top" Click="btnIncrDexterity_Click" Grid.Column="1"/>
+        <Button x:Name="btnIncrConstitution" Content="&gt;" HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top" Click="btnIncrConstitution_Click" Grid.Column="1"/>
+        <Button x:Name="btnIncrIntelligence" Content="&gt;" HorizontalAlignment="Left" Margin="50,151,0,0" VerticalAlignment="Top" Click="btnIncrIntelligence_Click" Grid.Column="1"/>
+        <Label x:Name="lbIntelligenceVal" Content="0" HorizontalAlignment="Left" Margin="12,148,0,0" VerticalAlignment="Top" Width="29" Grid.Column="1"/>
+        <Label x:Name="lbAvailableSkillPoints" Content="Available skill points:" HorizontalAlignment="Left" Margin="141,55,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lbSkillPointsVal" Content="0" HorizontalAlignment="Left" Margin="265,55,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lbConstitutionVal" Content="0" HorizontalAlignment="Left" Margin="12,117,0,0" VerticalAlignment="Top" Width="29" Grid.Column="1"/>
+        <Label x:Name="lbDexterityVal" Content="0" HorizontalAlignment="Left" Margin="12,86,0,0" VerticalAlignment="Top" Width="29" Grid.Column="1"/>
+        <Label x:Name="lbStrengthVal" Content="0" HorizontalAlignment="Left" Margin="12,55,0,0" VerticalAlignment="Top" Width="29" Grid.Column="1"/>
         <Label x:Name="lbHP" Content="HP:" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbMP" Content="MP:" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy5" Content="PAtk:" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy6" Content="PDef:" HorizontalAlignment="Left" Margin="10,284,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy7" Content="MAtk:" HorizontalAlignment="Left" Margin="130,253,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy8" Content="MDef:" HorizontalAlignment="Left" Margin="130,284,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbPAtkVal" Content="0" HorizontalAlignment="Left" Margin="51,253,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbPDefVal" Content="0" HorizontalAlignment="Left" Margin="51,284,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbMAtkVal" Content="0" HorizontalAlignment="Left" Margin="176,253,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbMDefVal" Content="0" HorizontalAlignment="Left" Margin="176,284,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbMPVal" Content="0" HorizontalAlignment="Left" Margin="51,222,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbHPVal" Content="0" HorizontalAlignment="Left" Margin="51,191,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnSave" Content="Save character" HorizontalAlignment="Left" Margin="671,58,0,0" VerticalAlignment="Top" Click="btnSave_Click"/>
-        <Button x:Name="btnLoad" Content="Load character" HorizontalAlignment="Left" Margin="671,89,0,0" VerticalAlignment="Top" Click="btnLoad_Click"/>
-        <Button x:Name="btnDelete" Content="Delete saved" HorizontalAlignment="Left" Margin="671,120,0,0" VerticalAlignment="Top" Click="btnDelete_Click"/>
-        <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="539,59,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="lbAvailableSkillPoints_Copy" Content="Current experience:" HorizontalAlignment="Left" Margin="259,86,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbAvailableSkillPoints_Copy1" Content="Current level:" HorizontalAlignment="Left" Margin="259,120,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbExpPoints" Content="0" HorizontalAlignment="Left" Margin="383,86,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbLevel" Content="0" HorizontalAlignment="Left" Margin="383,120,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnAddExp" Content="Add experience" HorizontalAlignment="Left" Margin="539,191,0,0" VerticalAlignment="Top" Click="btnAddExp_Click"/>
-        <TextBox x:Name="tbExpAmount" HorizontalAlignment="Left" Margin="632,192,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnChooseAbility" Content="Choose ability" HorizontalAlignment="Left" Margin="539,225,0,0" VerticalAlignment="Top" Click="btnChooseAbility_Click" IsEnabled="False"/>
-        <ComboBox x:Name="comboAbilities" ItemsSource="{Binding Path=_characterAbilities}" SelectedValue="{Binding _characterAbility}" HorizontalAlignment="Left" Margin="632,224,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="comboInventory" HorizontalAlignment="Left" Margin="632,257,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="lbAvailableSkillPoints_Copy2" Content="Inventory items:" HorizontalAlignment="Left" Margin="523,255,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnAddInvItem" Content="Add new item:" HorizontalAlignment="Left" Margin="537,308,0,0" VerticalAlignment="Top" Click="btnAddInvItem_Click"/>
-        <TextBox x:Name="tbInvItem" HorizontalAlignment="Left" Margin="634,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnRemoveInvItem" Content="Remove current item" HorizontalAlignment="Left" Margin="637,332,0,0" VerticalAlignment="Top" Click="btnRemoveInvItem_Click"/>
-        <Label x:Name="lbAvailableSkillPoints_Copy3" Content="Left space:" HorizontalAlignment="Left" Margin="533,277,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbInvCapacity" Content="" HorizontalAlignment="Left" Margin="632,277,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy7" Content="MAtk:" HorizontalAlignment="Left" Margin="12,253,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="label_Copy8" Content="MDef:" HorizontalAlignment="Left" Margin="12,284,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lbPAtkVal" Content="0" HorizontalAlignment="Center" Margin="0,253,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbPDefVal" Content="0" HorizontalAlignment="Center" Margin="0,284,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbMAtkVal" Content="0" HorizontalAlignment="Left" Margin="58,253,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lbMDefVal" Content="0" HorizontalAlignment="Left" Margin="58,284,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lbMPVal" Content="0" HorizontalAlignment="Center" Margin="0,222,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbHPVal" Content="0" HorizontalAlignment="Center" Margin="0,191,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnSave" Content="Save character" HorizontalAlignment="Left" Margin="485,69,0,0" VerticalAlignment="Top" Click="btnSave_Click" Grid.Column="1"/>
+        <Button x:Name="btnLoad" Content="Load character" HorizontalAlignment="Left" Margin="485,100,0,0" VerticalAlignment="Top" Click="btnLoad_Click" Grid.Column="1"/>
+        <Button x:Name="btnDelete" Content="Delete saved" HorizontalAlignment="Left" Margin="485,131,0,0" VerticalAlignment="Top" Click="btnDelete_Click" Grid.Column="1"/>
+        <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="353,70,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <Label x:Name="lbAvailableSkillPoints_Copy" Content="Current experience:" HorizontalAlignment="Left" Margin="141,86,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lbAvailableSkillPoints_Copy1" Content="Current level:" HorizontalAlignment="Left" Margin="141,120,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lbExpPoints" Content="0" HorizontalAlignment="Left" Margin="265,86,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lbLevel" Content="0" HorizontalAlignment="Left" Margin="265,120,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Button x:Name="btnAddExp" Content="Add experience" HorizontalAlignment="Left" Margin="353,202,0,0" VerticalAlignment="Top" Click="btnAddExp_Click" Grid.Column="1"/>
+        <TextBox x:Name="tbExpAmount" HorizontalAlignment="Left" Margin="446,203,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <Button x:Name="btnChooseAbility" Content="Choose ability" HorizontalAlignment="Left" Margin="353,236,0,0" VerticalAlignment="Top" Click="btnChooseAbility_Click" IsEnabled="False" Grid.Column="1"/>
+        <ComboBox x:Name="comboAbilities" ItemsSource="{Binding Path=_characterAbilities}" SelectedValue="{Binding _characterAbility}" HorizontalAlignment="Left" Margin="446,235,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <ComboBox x:Name="comboInventory" HorizontalAlignment="Left" Margin="446,268,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" SelectionChanged="Inventory_Selection_changed"/>
+        <Label x:Name="lbAvailableSkillPoints_Copy2" Content="Inventory items:" HorizontalAlignment="Left" Margin="337,266,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Button x:Name="btnAddInvItem" Content="Add new item:" HorizontalAlignment="Left" Margin="351,319,0,0" VerticalAlignment="Top" Click="btnAddInvItem_Click" Grid.Column="1"/>
+        <TextBox x:Name="tbInvItem" HorizontalAlignment="Left" Margin="448,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <Button x:Name="btnRemoveInvItem" Content="Remove current item" HorizontalAlignment="Left" Margin="351,344,0,0" VerticalAlignment="Top" Click="btnRemoveInvItem_Click" Grid.Column="1"/>
+        <Label x:Name="lbAvailableSkillPoints_Copy3" Content="Left space:" HorizontalAlignment="Left" Margin="347,288,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lbInvCapacity" Content="" HorizontalAlignment="Left" Margin="446,288,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="275" Margin="10,43,0,0" VerticalAlignment="Top" Width="426"/>
+        <Button x:Name="btnEquip" Grid.Column="1" Content="Equip" HorizontalAlignment="Left" Margin="481,344,0,0" VerticalAlignment="Top" Click="btnEquip_Click"/>
+        <Label x:Name="label" Content="Helmet:" HorizontalAlignment="Left" Margin="11,329,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy" Content="Body:" HorizontalAlignment="Left" Margin="11,360,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy1" Content="Weapon:" HorizontalAlignment="Left" Margin="11,391,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbHelmet" Content="None" HorizontalAlignment="Left" Margin="74,328,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbBody" Content="None" HorizontalAlignment="Left" Margin="74,360,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbWeapon" Content="None" HorizontalAlignment="Left" Margin="74,391,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnunequip" Grid.Column="1" Content="Unequip" HorizontalAlignment="Left" Margin="526,344,0,0" VerticalAlignment="Top" Click="btnunequip_Click"/>
+        <Label x:Name="label1" Grid.Column="1" Content="Item  description:" HorizontalAlignment="Left" Margin="617,196,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textItemDescr" Grid.Column="1" HorizontalAlignment="Left" Margin="617,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="270" Width="152"/>
+        <Button x:Name="btn_Up_Migrations" Grid.Column="1" Content="Update db" HorizontalAlignment="Left" Margin="766,9,0,0" VerticalAlignment="Top" Click="btn_Up_Migrations_Click"/>
 
     </Grid>
 </Window>
