@@ -8,9 +8,10 @@ public class Match
     private const int MaximumBalanceAttempts = 50;
     private readonly ICharacterRepository? _repository;
 
-    public Team TeamA { get; }
-    public Team TeamB { get; }
-    public DateTime DateStarted { get; } = DateTime.Now;
+    public string? Id { get; set; }
+    public Team TeamA { get; init; }
+    public Team TeamB { get; init; }
+    public DateTime DateStarted { get; set; }
 
     public bool AreTeamsBalanced => TeamsBalanced();
     public bool AreTeamsReady => TeamsReady();
@@ -25,6 +26,11 @@ public class Match
     {
         TeamA = new Team { Name = teamAName };
         TeamB = new Team { Name = teamBName };
+    }
+
+    public void StartMatch()
+    {
+        DateStarted = DateTime.Now;
     }
 
     public void AutoGenerateTeams()

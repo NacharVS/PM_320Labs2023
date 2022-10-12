@@ -17,6 +17,7 @@ namespace CharacterEditor.MVVM.Views
         {
             InitializeComponent();
             Loaded += OnNavigatedTo;
+            _nextPage = new MatchGenerator();
         }
 
         private void OnNavigatedTo(object sender, RoutedEventArgs e)
@@ -27,8 +28,6 @@ namespace CharacterEditor.MVVM.Views
         {
             if (NavigationService is null)
                 return;
-
-            _nextPage = new MatchGenerator();
             NavigationService.Navigate(_nextPage);
         }
     }

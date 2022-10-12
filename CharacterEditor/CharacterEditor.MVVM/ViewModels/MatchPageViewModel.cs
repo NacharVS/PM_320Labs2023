@@ -15,7 +15,10 @@ namespace CharacterEditor.MVVM.ViewModels;
 
 public class MatchPageViewModel : ViewModel
 {
+    private const string TeamAName = "Orange";
+    private const string TeamBName = "Blue";
     private readonly ICharacterRepository _repository;
+    private readonly IMatchRepository _matchRepository;
     private Match? _match;
 
     public Match? Match
@@ -29,7 +32,7 @@ public class MatchPageViewModel : ViewModel
         get => _match?.TeamA;
         set => OnPropertyChanged();
     }
-    
+
     public CharacterInfo? TeamASelectedCharacter { get; set; }
 
     public Team? TeamB
@@ -37,9 +40,8 @@ public class MatchPageViewModel : ViewModel
         get => _match?.TeamB;
         set => OnPropertyChanged();
     }
-    
-    public CharacterInfo? TeamBSelectedCharacter { get; set; }
 
+    public CharacterInfo? TeamBSelectedCharacter { get; set; }
 
     public ICommand RemoveFromTeamCommand { get; }
 
@@ -50,7 +52,7 @@ public class MatchPageViewModel : ViewModel
     {
         var team = GetTeamByParameter(p);
         var item = GetSelectedItemByTeamParameter(p);
-        team.RemoveCharacter(item);
+        team.RemoveCharacter(item!);
         UpdatePage();
     }
 
@@ -68,13 +70,11 @@ public class MatchPageViewModel : ViewModel
                 TeamA!.Characters.Concat(TeamB!.Characters).Select(x => x.Id)
                     .ToArray())
         };
-        if (prompt.ShowDialog() == true)
-        {
-            team.AddCharacter(
-                (prompt.DataContext as AddCharacterWindowViewModel)!
-                .SelectedItem!);
-            UpdatePage();
-        }
+        if (prompt.ShowDialog() != true) return;
+        team.AddCharacter(
+            (prompt.DataContext as AddCharacterWindowViewModel)!
+            .SelectedItem!);
+        UpdatePage();
     }
 
     private void UpdatePage()
@@ -84,10 +84,46 @@ public class MatchPageViewModel : ViewModel
         OnPropertyChanged(nameof(Match));
     }
 
+    public ICommand ClearMatchCommand { get; }
+    private bool CanClearMatchCommandExecute(object p) => true;
+
+    private void OnClearMatchCommandExecuted(object p)
+    {
+        _match = new Match(_repository, TeamAName, TeamBName);
+        UpdatePage();
+    }
+
+    public ICommand StartMatchCommand { get; }
+
+    private bool CanStartMatchCommandExecute(object p) =>
+        _match is not null && _match.AreTeamsReady &&
+        _match.DateStarted == default;
+
+    private void OnStartMatchCommandExecuted(object p)
+    {
+        _match!.StartMatch();
+        _matchRepository.SaveMatch(_match);
+        MessageBox.Show("Match saved!");
+        ClearMatchCommand.Execute("");
+    }
+
+    public ICommand LoadMatchInfoCommand { get; }
+    private bool CanLoadMatchInfoExecute(object p) => true;
+
+    private void OnLoadMatchInfoExecuted(object p)
+    {
+        var prompt = new LoadMatchWindow();
+        if (prompt.ShowDialog() != true) return;
+        var info = (prompt.DataContext as LoadMatchWindowViewModel)!
+            .SelectedItem!;
+        _match = _matchRepository.GetMatch(info.Id);
+        UpdatePage();
+    }
+
     public ICommand AutoGenerateMatchCommand { get; }
 
     private bool CanAutoGenerateMatchCommandExecute(object p) =>
-        _match is not null;
+        _match is not null && _match.DateStarted == default;
 
     private void OnAutoGenerateMatchCommandExecuted(object p)
     {
@@ -115,7 +151,7 @@ public class MatchPageViewModel : ViewModel
                 throw new Exception();
         }
     }
-    
+
     private CharacterInfo? GetSelectedItemByTeamParameter(object p)
     {
         string param = p as string ?? throw new Exception();
@@ -134,8 +170,9 @@ public class MatchPageViewModel : ViewModel
     {
         var app = (App)Application.Current;
         _repository = app.CharacterRepository;
+        _matchRepository = app.MatchRepository;
 
-        _match = new Match(_repository, "Orange", "Blue");
+        _match = new Match(_repository, TeamAName, TeamBName);
         AutoGenerateMatchCommand = new LambdaCommand(
             OnAutoGenerateMatchCommandExecuted,
             CanAutoGenerateMatchCommandExecute);
@@ -143,5 +180,11 @@ public class MatchPageViewModel : ViewModel
             CanAddToTeamCommandExecute);
         RemoveFromTeamCommand = new LambdaCommand(
             OnRemoveFromTeamCommandExecuted, CanRemoveFromTeamCommandExecute);
+        ClearMatchCommand = new LambdaCommand(OnClearMatchCommandExecuted,
+            CanClearMatchCommandExecute);
+        StartMatchCommand = new LambdaCommand(OnStartMatchCommandExecuted,
+            CanStartMatchCommandExecute);
+        LoadMatchInfoCommand = new LambdaCommand(OnLoadMatchInfoExecuted,
+            CanLoadMatchInfoExecute);
     }
 }

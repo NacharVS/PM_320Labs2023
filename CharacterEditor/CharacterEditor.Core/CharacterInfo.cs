@@ -4,10 +4,10 @@ namespace CharacterEditor.Core;
 
 public class CharacterInfo
 {
-    public string Id { get; init; } = String.Empty;
-    public string Name { get; init; } = String.Empty;
+    public string Id { get; init; } = string.Empty;
+    public string Name { get; init; } = string.Empty;
     public string ClassName { get; init; } = string.Empty;
-    public int Level { get; }
+    public int Level { get; init; }
 
     public CharacterInfo(int xp = 0)
     {

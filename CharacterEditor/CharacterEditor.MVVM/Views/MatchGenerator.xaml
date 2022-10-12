@@ -115,5 +115,9 @@
             <Button HorizontalAlignment="Center" Content="Add to Team B" Width="200" Command="{Binding AddToTeamCommand}" CommandParameter="TeamB"/>
             <Button HorizontalAlignment="Center" Content="Remove from Team B" Width="200" Command="{Binding RemoveFromTeamCommand}" CommandParameter="TeamB"/>
         </StackPanel>
+        
+        <Button Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Content="Clear" Command="{Binding ClearMatchCommand}" CommandParameter=""/>
+        <Button Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" Content="Start match" Command="{Binding StartMatchCommand}" CommandParameter=""/>
+        <Button Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" Content="Load match info" Command="{Binding LoadMatchInfoCommand}" CommandParameter=""/>
     </Grid>
 </Page>

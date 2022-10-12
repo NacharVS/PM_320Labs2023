@@ -15,6 +15,7 @@ namespace CharacterEditor.MVVM
         public ICharacterRepository CharacterRepository { get; }
         public IAbilityRepository AbilityRepository { get; }
         public IItemRepository ItemRepository { get; }
+        public IMatchRepository MatchRepository { get; }
 
         public App()
         {
@@ -26,6 +27,7 @@ namespace CharacterEditor.MVVM
             CharacterRepository = new CharacterRepository(Connection);
             AbilityRepository = new AbilityRepository(Connection);
             ItemRepository = new ItemRepository(Connection);
+            MatchRepository = new MatchRepository(Connection);
             
             AbilityRepository.InitializeCollection();
             ItemRepository.InitializeCollection();
