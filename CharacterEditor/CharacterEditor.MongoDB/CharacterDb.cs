@@ -1,4 +1,4 @@
-﻿using CharacterEditor.Core.Misc;
+﻿using CharacterEditor.Core.Matching;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -19,4 +19,5 @@ public class CharacterDb
     [BsonIgnoreIfDefault] public int Experience { get; internal set; }
     [BsonIgnoreIfDefault] public IEnumerable<ItemDb>? Inventory { get; internal set; }
     [BsonIgnoreIfDefault] public IEnumerable<AbilityDb>? Abilities { get; internal set; }
+    [BsonIgnoreIfDefault] public IEnumerable<MatchInfo>? MatchHistory { get; internal set; }
 }

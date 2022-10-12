@@ -103,6 +103,13 @@ public class MatchPageViewModel : ViewModel
     {
         _match!.StartMatch();
         _matchRepository.SaveMatch(_match);
+        var info = new MatchInfo
+            { DateStarted = _match.DateStarted };
+        foreach (var character in TeamA!.Characters.Concat(TeamB!.Characters))
+        {
+            _repository.UpdateMatchHistory(character.Id, info);
+        }
+
         MessageBox.Show("Match saved!");
         ClearMatchCommand.Execute("");
     }

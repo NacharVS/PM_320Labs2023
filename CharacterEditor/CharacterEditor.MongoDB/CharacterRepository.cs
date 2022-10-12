@@ -3,6 +3,7 @@ using CharacterEditor.Core.Characteristics;
 using CharacterEditor.Core.Classes;
 using CharacterEditor.Core.Db;
 using CharacterEditor.Core.Exceptions;
+using CharacterEditor.Core.Matching;
 using CharacterEditor.Core.Misc;
 using MongoDB.Driver;
 
@@ -83,6 +84,9 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
                 PhysicalResistanceChange = x.PhysicalResistanceChange
             }).ToArray()
             : Array.Empty<Ability>();
+        character.MatchHistory = dbChar.MatchHistory is not null
+            ? dbChar.MatchHistory.ToArray()
+            : Array.Empty<MatchInfo>();
 
         return character;
     }
@@ -143,6 +147,15 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
         var updateDefinition =
             Builders<CharacterDb>.Update.Set(x => x.Inventory, inventory.Select(
                 x => ConvertItem(x)));
+        Characters.UpdateOne(filter, updateDefinition);
+    }
+
+    public void UpdateMatchHistory(string id, MatchInfo matchInfo)
+    {
+        var filter = Builders<CharacterDb>.Filter.Eq(x => x.Id, id);
+        var updateDefinition =
+            Builders<CharacterDb>.Update.AddToSet(x => x.MatchHistory,
+                matchInfo);
         Characters.UpdateOne(filter, updateDefinition);
     }
 

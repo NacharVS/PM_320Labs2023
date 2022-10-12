@@ -1,4 +1,5 @@
 ﻿using CharacterEditor.Core.Characteristics;
+using CharacterEditor.Core.Matching;
 using CharacterEditor.Core.Misc;
 
 namespace CharacterEditor.Core;
@@ -17,6 +18,7 @@ public abstract class Character
     private int _skillPoints = DefaultSkillPoints;
     private readonly List<Ability> _abilities = new();
     private readonly List<Item> _inventory = new();
+    private readonly List<MatchInfo> _matchHistory = new();
     private int _strength;
     private int _dexterity;
     private int _constitution;
@@ -41,6 +43,26 @@ public abstract class Character
     /// Skill points that can be spent on gaining Characteristics
     /// </summary>
     public int SkillPoints => _skillPoints;
+
+    /// <summary>
+    /// Matches that this character was involved into
+    /// </summary>
+    public MatchInfo[] MatchHistory
+    {
+        get => _matchHistory.ToArray();
+        set
+        {
+            foreach (var matchInfo in value)
+            {
+                AddMatchHistory(matchInfo);
+            }
+        }
+    }
+
+    public void AddMatchHistory(MatchInfo matchInfo)
+    {
+        _matchHistory.Add(matchInfo);
+    }
 
     /// <summary>
     /// Character's abilities array

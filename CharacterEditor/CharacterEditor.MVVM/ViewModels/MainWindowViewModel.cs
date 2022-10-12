@@ -367,6 +367,18 @@ public class MainWindowViewModel : ViewModel
 
         UpdateFields(UpdateFieldValues.Stat);
     }
+    
+    public ICommand ShowMatchHistory { get; }
+    private bool CanShowMatchHistoryExecute(object p) => _currentCharacter is not null;
+
+    private void OnShowMatchHistoryExecuted(object p)
+    {
+        var window = new MatchHistoryWindow
+        {
+            DataContext = _currentCharacter
+        };
+        window.ShowDialog();
+    }
 
     #endregion
 
@@ -466,5 +478,7 @@ public class MainWindowViewModel : ViewModel
             OnRemoveItemFromInventoryExecuted,
             CanRemoveItemFromInventoryExecute);
         AddXp = new LambdaCommand(OnAddXpExecuted, CanAddXpExecute);
+        ShowMatchHistory = new LambdaCommand(OnShowMatchHistoryExecuted,
+            CanShowMatchHistoryExecute);
     }
 }
