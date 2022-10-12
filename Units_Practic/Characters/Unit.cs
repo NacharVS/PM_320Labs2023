@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using Units_Practic.Abilities;
 
 namespace Units_Practic.Characters
@@ -9,7 +10,7 @@ namespace Units_Practic.Characters
         Rogue,
         Wizard
     }
-
+    [BsonDiscriminator("Unit")]
     public class Unit
     {
         public ObjectId _id;

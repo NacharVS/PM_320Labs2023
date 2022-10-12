@@ -1,19 +1,6 @@
 ﻿using EditUnit_Practic_WPF.Pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson.Serialization;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Units_Practic;
 using Units_Practic.Characters;
 
 namespace EditUnit_Practic_WPF
@@ -23,11 +10,13 @@ namespace EditUnit_Practic_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Unit unit;
-
         public MainWindow()
         {
             InitializeComponent();
+            BsonClassMap.RegisterClassMap<Unit>();
+            BsonClassMap.RegisterClassMap<Warrior>();
+            BsonClassMap.RegisterClassMap<Rogue>();
+            BsonClassMap.RegisterClassMap<Wizard>();
 
             EditPage.NavigationService.Navigate(new EditPage());
             MatchPage.NavigationService.Navigate(new MatchPage());

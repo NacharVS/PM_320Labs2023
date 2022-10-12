@@ -8,87 +8,104 @@
       d:DesignHeight="630" d:DesignWidth="870"
       Title="WizardPage" Initialized="Page_Initialized">
 
-    <Grid Background="#FFB23F2B">
+    <Grid Background="#FF3E4348">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="22*"/>
-            <ColumnDefinition Width="45*" MinWidth="585"/>
+            <ColumnDefinition Width="55*" MaxWidth="274"/>
+            <ColumnDefinition Width="112*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="257*"/>
-            <RowDefinition Height="237*"/>
+            <RowDefinition Height="233*"/>
+            <RowDefinition Height="260*"/>
             <RowDefinition Height="137*"/>
         </Grid.RowDefinitions>
 
         <Image Margin="2,2,2,2" Source="/Media/Wizard.png"/>
 
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,36,0,0" TextWrapping="Wrap" Text="Strength:" VerticalAlignment="Top" FontSize="16" Height="21" Width="64" Foreground="#FFB5BDB3"/>
-        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="149,36,0,0" VerticalAlignment="Top" Width="110">
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="21,24,0,0" TextWrapping="Wrap" Text="Strength:" VerticalAlignment="Top" FontSize="16" Height="21" Width="64" Foreground="#FFB5BDB3"/>
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="121,24,0,0" VerticalAlignment="Top" Width="110">
             <Button x:Name="strBtnMin" Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="20" Click="strBtnMin_Click"/>
             <Button x:Name="strBtnMax" Content="+" HorizontalAlignment="Left" Margin="90,1,0,0" VerticalAlignment="Top" Height="20" Width="20" Click="strBtnMax_Click"/>
             <TextBlock x:Name="tbStrength" HorizontalAlignment="Center" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="16" Foreground="#FFB5BDB3"/>
         </Grid>
 
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,86,0,0" TextWrapping="Wrap" Text="Dexterity:" VerticalAlignment="Top" FontSize="16" Height="21" Width="67" Foreground="#FFB5BDB3"/>
-        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="149,86,0,0" VerticalAlignment="Top" Width="110">
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="21,74,0,0" TextWrapping="Wrap" Text="Dexterity:" VerticalAlignment="Top" FontSize="16" Height="21" Width="67" Foreground="#FFB5BDB3"/>
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="121,74,0,0" VerticalAlignment="Top" Width="110">
             <Button x:Name="dexBtnMin" Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="20" Click="dexBtnMin_Click"/>
             <Button x:Name="dexBtnMax" Content="+" HorizontalAlignment="Left" Margin="90,0,0,1" VerticalAlignment="Bottom" Height="20" Width="20" Click="dexBtnMax_Click"/>
             <TextBlock x:Name="tbDexterity" HorizontalAlignment="Center" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="16" Foreground="#FFB5BDB3"/>
         </Grid>
 
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,136,0,0" TextWrapping="Wrap" Text="Constitution:" VerticalAlignment="Top" FontSize="16" Height="21" Width="90" Foreground="#FFB5BDB3"/>
-        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="149,136,0,0" VerticalAlignment="Top" Width="110">
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="21,124,0,0" TextWrapping="Wrap" Text="Constitution:" VerticalAlignment="Top" FontSize="16" Height="21" Width="90" Foreground="#FFB5BDB3"/>
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="121,124,0,0" VerticalAlignment="Top" Width="110">
             <Button x:Name="consBtnMin" Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="20" Click="consBtnMin_Click"/>
             <Button x:Name="consBtnMax" Content="+" HorizontalAlignment="Left" Margin="90,0,0,0" VerticalAlignment="Center" Height="20" Width="20" Click="consBtnMax_Click"/>
             <TextBlock x:Name="tbConstitution" HorizontalAlignment="Center" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="16" Foreground="#FFB5BDB3"/>
         </Grid>
 
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="49,186,0,0" TextWrapping="Wrap" Text="Intelligence:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Foreground="#FFB5BDB3"/>
-        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="149,186,0,0" VerticalAlignment="Top" Width="110">
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="21,174,0,0" TextWrapping="Wrap" Text="Intelligence:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Foreground="#FFB5BDB3"/>
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="121,174,0,0" VerticalAlignment="Top" Width="110">
             <Button x:Name="intBtnMin" Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="20" Click="intBtnMin_Click"/>
             <Button x:Name="intBtnMax" Content="+" HorizontalAlignment="Left" Margin="90,0,0,0" VerticalAlignment="Center" Height="20" Width="20" Click="intBtnMax_Click"/>
             <TextBlock x:Name="tbIntelligence" HorizontalAlignment="Center" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="16" Foreground="#FFB5BDB3"/>
         </Grid>
 
-        <Grid HorizontalAlignment="Center" Height="226" Grid.Row="1" VerticalAlignment="Center" Width="282">
+        <Grid Height="249" Grid.Row="1" Width="274">
 
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" FontSize="16" Height="21" Width="52" Margin="15,17,0,0" Foreground="#FFB5BDB3"/>
-            <TextBox x:Name="tbName" MaxLength="25" HorizontalAlignment="Left" Margin="80,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" Background="#FFB5BDB3"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="HP:" VerticalAlignment="Top" FontSize="16" Height="21" Width="27" Margin="15,50,0,0" Foreground="#FFB5BDB3"/>
-            <TextBlock x:Name="tbHP" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="53,50,0,0" Foreground="#FFB5BDB3" Width="27" Height="21"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="MP:" VerticalAlignment="Top" FontSize="16" Height="21" Width="27" Margin="15,79,0,0" Foreground="#FFB5BDB3"/>
-            <TextBlock x:Name="tbMP" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="53,79,0,0" Foreground="#FFB5BDB3" Width="27" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" FontSize="16" Height="21" Width="52" Margin="14,16,0,0" Foreground="#FFB5BDB3"/>
+            <TextBox x:Name="tbName" MaxLength="25" HorizontalAlignment="Left" Margin="80,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" Background="#FFB5BDB3"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="HP:" VerticalAlignment="Top" FontSize="16" Height="21" Width="27" Margin="15,46,0,0" Foreground="#FFB5BDB3"/>
+            <TextBlock x:Name="tbHP" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="53,46,0,0" Foreground="#FFB5BDB3" Width="54" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="MP:" VerticalAlignment="Top" FontSize="16" Height="22" Width="27" Margin="15,72,0,0" Foreground="#FFB5BDB3"/>
+            <TextBlock x:Name="tbMP" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="53,72,0,0" Foreground="#FFB5BDB3" Width="54" Height="22"/>
 
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="LvL:" VerticalAlignment="Top" FontSize="16" Height="21" Width="27" Margin="15,129,0,0" Foreground="#FFB5BDB3"/>
-            <TextBlock x:Name="tbLvl" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="53,129,0,0" Foreground="#FFB5BDB3" Width="27" Height="21"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Boost points:" VerticalAlignment="Top" FontSize="16" Height="21" Width="92" Margin="15,157,0,0" Foreground="#FFB5BDB3"/>
-            <TextBlock x:Name="tbBoostPoints" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="118,157,0,0" Foreground="#FFB5BDB3" Width="27" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="LvL:" VerticalAlignment="Top" FontSize="16" Height="21" Width="27" Margin="15,149,0,0" Foreground="#FFB5BDB3"/>
+            <TextBlock x:Name="tbLvl" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="53,149,0,0" Foreground="#FFB5BDB3" Width="27" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Boost points:" VerticalAlignment="Top" FontSize="16" Height="21" Width="92" Margin="15,176,0,0" Foreground="#FFB5BDB3"/>
+            <TextBlock x:Name="tbBoostPoints" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="118,176,0,0" Foreground="#FFB5BDB3" Width="27" Height="21"/>
 
-            <Grid Margin="80,125,15,72" >
-                <ProgressBar x:Name="lvlPb" Value="39" Background="#FFB5BDB3" BorderThickness="0" BorderBrush="#FFB5BDB3" Foreground="#FF2DC930" Margin="0,7,0,5" />
+            <Grid Margin="80,145,15,0" VerticalAlignment="Top" Height="30" >
+                <ProgressBar x:Name="lvlPb" Value="39" Background="#FFB5BDB3" BorderThickness="0" BorderBrush="#FFB5BDB3" Foreground="#FF2DC930" Margin="0,6,0,6" />
                 <TextBlock Text="{Binding Value, ElementName=lvlPb, StringFormat=\{0:0\}}" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="5,0,0,0" />
                 <TextBlock Text="{Binding Maximum, ElementName=lvlPb, StringFormat=\{0:0\}}" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White" Margin="0,0,5,0" />
             </Grid>
 
-            <Button x:Name="btn_100xp" Content="+100xp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="70" Click="btn_100xp_Click" Margin="14,186,0,0" Background="#FFB5BDB3"/>
-            <Button x:Name="btn_300xp" Content="+300xp" HorizontalAlignment="Center" VerticalAlignment="Top" Height="23" Width="70" Click="btn_300xp_Click" Margin="0,186,0,0" Background="#FFB5BDB3"/>
-            <Button x:Name="btn_1000xp" Content="+1000xp" VerticalAlignment="Top" Height="23" Click="btn_1000xp_Click" Margin="197,186,15,0" Background="#FFB5BDB3"/>
+            <Button x:Name="btn_500xp" Content="+500xp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="70" Click="btn_500xp_Click" Margin="14,213,0,0" Background="#FFB5BDB3"/>
+            <Button x:Name="btn_2500xp" Content="+2500xp" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="70" Click="btn_2500xp_Click" Margin="109,213,0,0" Background="#FFB5BDB3"/>
+            <Button x:Name="btn_10000xp" Content="+10000xp" VerticalAlignment="Top" Height="23" Click="btn_10000xp_Click" Margin="202,213,0,0" Background="#FFB5BDB3" HorizontalAlignment="Left"/>
 
         </Grid>
-        <Grid HorizontalAlignment="Center" Height="127" Grid.Row="2" VerticalAlignment="Top" Width="282" Margin="0,8,0,0">
+        <Grid HorizontalAlignment="Center" Height="139" Grid.Row="2" VerticalAlignment="Center" Width="282">
 
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atack point:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Foreground="#FFB5BDB3" Margin="17,11,0,0"/>
-            <TextBlock x:Name="tbAtackPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="116,11,0,0" Foreground="#FFB5BDB3" Width="27" Height="21"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Magic atack point:" VerticalAlignment="Top" FontSize="16" Height="21" Width="130" Margin="17,44,0,0" Foreground="#FFB5BDB3"/>
-            <TextBlock x:Name="tbMagicAtackPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="158,44,0,0" Foreground="#FFB5BDB3" Width="26" Height="21"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Physical protection point:" VerticalAlignment="Top" FontSize="16" Height="21" Width="179" Margin="17,81,0,0" Foreground="#FFB5BDB3"/>
-            <TextBlock x:Name="tbPhysicalProtectionPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="208,81,0,0" Foreground="#FFB5BDB3" Width="26" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atack point:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Foreground="#FFB5BDB3" Margin="17,21,0,0"/>
+            <TextBlock x:Name="tbAtackPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="116,21,0,0" Foreground="#FFB5BDB3" Width="54" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Magic atack point:" VerticalAlignment="Top" FontSize="16" Height="21" Width="130" Margin="17,56,0,0" Foreground="#FFB5BDB3"/>
+            <TextBlock x:Name="tbMagicAtackPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="158,56,0,0" Foreground="#FFB5BDB3" Width="54" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Physical protection point:" VerticalAlignment="Top" FontSize="16" Height="21" Width="179" Margin="17,91,0,0" Foreground="#FFB5BDB3"/>
+            <TextBlock x:Name="tbPhysicalProtectionPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="208,91,0,0" Foreground="#FFB5BDB3" Width="54" Height="21"/>
         </Grid>
 
-        <GridSplitter HorizontalAlignment="Left" Height="6" VerticalAlignment="Bottom" Width="871" Grid.ColumnSpan="2" Grid.RowSpan="2" IsEnabled="False" Background="#FFB5BDB3"/>
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Height="631" Grid.RowSpan="3" VerticalAlignment="Top" Width="6" Background="#FFB5BDB3"/>
-        <GridSplitter HorizontalAlignment="Left" Height="6" VerticalAlignment="Top" Width="871" Grid.ColumnSpan="2" IsEnabled="False" Grid.Row="1" Grid.RowSpan="2" Background="#FFB5BDB3"/>
-
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="70" Margin="389,37,0,0" Grid.Row="2" TextWrapping="Wrap" Text="тут сейв и лоад" VerticalAlignment="Top" Width="151" TextAlignment="Center"/>
-
+        <GridSplitter HorizontalAlignment="Stretch" Height="6" VerticalAlignment="Bottom" Grid.ColumnSpan="2" IsEnabled="False" Background="#FFB5BDB3" Panel.ZIndex="10" Grid.Row="1" Margin="0,0,-36,0"/>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.RowSpan="3" Width="6" Background="#FFB5BDB3" Panel.ZIndex="10" Margin="0,0,0,-1"/>
+        <GridSplitter HorizontalAlignment="Stretch" Height="6" VerticalAlignment="Top" Grid.ColumnSpan="2" IsEnabled="False" Grid.Row="1" Background="#FFB5BDB3" Panel.ZIndex="10" Margin="0,0,-36,0"/>
+        <ComboBox x:Name="cbPotentialAbilities" Grid.Column="1" Height="22" Margin="0,23,15,0" VerticalAlignment="Top" Width="158" HorizontalAlignment="Right" SelectionChanged="cbPotentialAbilities_SelectionChanged"/>
+        <ComboBox x:Name="cbAbility" Grid.Column="1" Height="22" Margin="0,73,15,0" VerticalAlignment="Top" Width="158" HorizontalAlignment="Right"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="0,24,178,0" TextWrapping="Wrap" Text="Potential abilities:" VerticalAlignment="Top" FontSize="16" Height="21" Width="124" Foreground="#FFB5BDB3"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="0,74,178,0" TextWrapping="Wrap" Text="Abilities:" VerticalAlignment="Top" FontSize="16" Height="21" Width="124" Foreground="#FFB5BDB3"/>
+        <ListView Grid.Column="1" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="3,3,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Title</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Width="100">Company</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}">Price</GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.Resources>
+            </ListView.Resources>
+        </ListView>
+        <Button x:Name="btn_SaveUnit" Content="Save" VerticalAlignment="Top" Height="26" Click="btn_SaveUnit_Click" Margin="0,89,15,0" Background="#FFB5BDB3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58"/>
+        <Button x:Name="btn_ClearUnit" Content="Clear" VerticalAlignment="Top" Height="26" Click="btn_ClearUnit_Click" Margin="0,97,115,0" Background="#FFB5BDB3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58" Visibility="Hidden"/>
+        <ComboBox x:Name="cbUnits" Grid.Column="1" Height="22" Margin="121,18,0,0" VerticalAlignment="Top" Width="158" HorizontalAlignment="Left" SelectionChanged="cbUnits_SelectionChanged" Grid.Row="2" Initialized="cbUnits_Initialized" Visibility="Hidden"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="22,17,0,0" TextWrapping="Wrap" Text="Saved units:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Foreground="#FFB5BDB3" Grid.Row="2" Visibility="Hidden"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="21,92,0,0" TextWrapping="Wrap" Text="Type:        Wizard" VerticalAlignment="Top" FontSize="16" Height="21" Width="126" Foreground="#FFB5BDB3" Grid.Row="2"/>
     </Grid>
 </Page>

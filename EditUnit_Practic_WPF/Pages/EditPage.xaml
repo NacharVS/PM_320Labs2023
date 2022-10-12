@@ -16,7 +16,8 @@
         </Grid.RowDefinitions>
         <StackPanel>
             <TextBlock HorizontalAlignment="Left" Margin="15,5,0,0" Text="Unit Type:" VerticalAlignment="Top" FontSize="16" Foreground="#FFB5BDB3" />
-            <ComboBox x:Name="cbTypeUnits" Margin="15,5,0,0" Height="22" Width="184" HorizontalAlignment="Left" >
+            <ComboBox x:Name="cbTypeUnits" Margin="15,5,0,0" Height="22" Width="184" HorizontalAlignment="Left" SelectionChanged="cbTypeUnits_SelectionChanged" >
+                <ComboBoxItem Content="All Units"/>
                 <ComboBoxItem Content="Warrior"/>
                 <ComboBoxItem Content="Rogue"/>
                 <ComboBoxItem Content="Wizard"/>
@@ -27,8 +28,8 @@
         <GridSplitter HorizontalAlignment="Stretch" Height="6" VerticalAlignment="Top" IsEnabled="False" Background="#FFB5BDB3" Panel.ZIndex="10" Margin="0,130,0,0"/>
 
         <Grid Grid.Row="1">
-            <TextBlock HorizontalAlignment="Left" Margin="15,5,0,0" Text="All Units:" VerticalAlignment="Top" FontSize="16" Foreground="#FFB5BDB3" />
-            <ListBox x:Name="lbUnits" Margin="15,35,15,0" MinHeight="373" Initialized="lbUnits_Initialized" ScrollViewer.CanContentScroll="False"/>
+            <TextBlock HorizontalAlignment="Left" Margin="15,5,0,0" Text="Units:" VerticalAlignment="Top" FontSize="16" Foreground="#FFB5BDB3" />
+            <ListBox x:Name="lbUnits" Margin="15,35,15,0" MinHeight="373" Initialized="lbUnits_Initialized" />
         </Grid>
 
         <Button x:Name="btn_EditUnit" Content="Edit" Click="btn_EditUnit_Click" Margin="20,0,0,0" Background="#FFB5BDB3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="45" Height="24"/>
