@@ -9,11 +9,12 @@ public class TestLevel
     {
         const int expToGain = 6000;
         const int expectedResult = 3;
-        
+
         LevelInfo levelInfo = new LevelInfo(expToGain);
-        
-        Assert.That(levelInfo.CurrentLevel, Is.EqualTo(expectedResult), "Level value is bad");
-        Assert.Pass($"{nameof(TestLevelFromExpConstructor)} passed");
+
+        Assert.That(levelInfo.CurrentLevel, Is.EqualTo(expectedResult),
+            "Level value is bad");
+        Assert.Pass();
     }
 
     [Test]
@@ -28,11 +29,13 @@ public class TestLevel
         for (int i = 0; i < repeatCount; ++i)
         {
             levelInfo.CurrentExperience += expPortion;
-            Assert.That(levelInfo.TotalExperience, Is.EqualTo(expPortion * (i + 1)), "Wrong xp count");
+            Assert.That(levelInfo.TotalExperience,
+                Is.EqualTo(expPortion * (i + 1)), "Wrong xp count");
         }
-        
-        Assert.That(levelInfo.TotalExperience, Is.EqualTo(expectedResult), "Wrong xp count");
-        Assert.Pass($"{nameof(TestLevelTotalExperience)} passed");
+
+        Assert.That(levelInfo.TotalExperience, Is.EqualTo(expectedResult),
+            "Wrong xp count");
+        Assert.Pass();
     }
 
     [Test]
@@ -42,11 +45,11 @@ public class TestLevel
         const int expectedResult = 1000 + 2000 + 3000 + 4000 + 5000;
 
         var res = LevelInfo.GetLevelXp(level);
-        
+
         Assert.That(res, Is.EqualTo(expectedResult), "Wrong xp counted");
-        Assert.Pass($"{nameof(TestLevelXpCount)} passed");
+        Assert.Pass();
     }
-    
+
     [Test]
     public void TestLevelXpCountByAdding()
     {
@@ -55,8 +58,9 @@ public class TestLevel
 
         var levelInfo = new LevelInfo();
         levelInfo.CurrentExperience += experienceToGain;
-        
-        Assert.That(levelInfo.CurrentLevel, Is.EqualTo(expectedResult), "Wrong xp counted");
-        Assert.Pass($"{nameof(TestLevelXpCountByAdding)} passed");
+
+        Assert.That(levelInfo.CurrentLevel, Is.EqualTo(expectedResult),
+            "Wrong xp counted");
+        Assert.Pass();
     }
 }

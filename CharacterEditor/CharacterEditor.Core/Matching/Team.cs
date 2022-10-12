@@ -5,9 +5,9 @@ public class Team
     public const int MaximumParticipants = 6;
 
     public string Name { get; init; } = string.Empty;
-    private readonly List<ShortCharacter> _characters;
+    private readonly List<CharacterInfo> _characters;
 
-    public ShortCharacter[] Characters
+    public CharacterInfo[] Characters
     {
         get => _characters.ToArray();
         set
@@ -17,11 +17,11 @@ public class Team
         }
     }
 
-    public void AddCharacter(ShortCharacter shortCharacter)
+    public void AddCharacter(CharacterInfo characterInfo)
     {
         if (_characters.Count < MaximumParticipants)
         {
-            _characters.Add(shortCharacter);
+            _characters.Add(characterInfo);
         }
     }
 

@@ -34,7 +34,7 @@ public class Match
         AutoGenerateTeams(_repository.GetMatchParticipants());
     }
 
-    public void AutoGenerateTeams(IEnumerable<ShortCharacter> characters)
+    public void AutoGenerateTeams(IEnumerable<CharacterInfo> characters)
     {
         var heroes = FilterByLevelDifference(characters);
 
@@ -44,7 +44,7 @@ public class Match
         ClearTeamPlayers();
         for (int i = 0, j = 1, c = 0;
              c < Team.MaximumParticipants;
-             ++c, ++i, ++j)
+             ++c, i+=2, j+=2)
         {
             TeamA.AddCharacter(heroes[i]);
             TeamB.AddCharacter(heroes[j]);
@@ -53,8 +53,8 @@ public class Match
 
     private void ClearTeamPlayers()
     {
-        TeamA.Characters = Array.Empty<ShortCharacter>();
-        TeamB.Characters = Array.Empty<ShortCharacter>();
+        TeamA.Characters = Array.Empty<CharacterInfo>();
+        TeamB.Characters = Array.Empty<CharacterInfo>();
     }
 
     private double AveragesDifference =>
@@ -63,7 +63,7 @@ public class Match
 
     private bool TeamsBalanced()
     {
-        return AveragesDifference < MaximumLevelDifference;
+        return Math.Abs(AveragesDifference) < MaximumLevelDifference;
     }
 
     private bool TeamsReady()
@@ -73,8 +73,8 @@ public class Match
                TeamB.Characters.Length == Team.MaximumParticipants;
     }
 
-    private ShortCharacter[] FilterByLevelDifference(
-        IEnumerable<ShortCharacter> characters)
+    private CharacterInfo[] FilterByLevelDifference(
+        IEnumerable<CharacterInfo> characters)
     {
         var sortedChars = characters.OrderByDescending(x => x.Level).ToArray();
 
@@ -85,8 +85,10 @@ public class Match
         var resultSlice = slices.FirstOrDefault(x => x.Count == longestSlice) ??
                           throw new Exception("Could not generate slices");
 
-        return sortedChars.AsSpan()
-            .Slice(resultSlice.IndexFrom, resultSlice.Count).ToArray();
+        return sortedChars
+            .AsSpan()
+            .Slice(resultSlice.IndexFrom, resultSlice.Count)
+            .ToArray();
     }
 
     private SliceInfo[] GetSlices(int[] map)
@@ -108,7 +110,7 @@ public class Match
         return slices.ToArray();
     }
 
-    private int[] GenerateDifferenceMap(ShortCharacter[] sortedCharacters)
+    private int[] GenerateDifferenceMap(CharacterInfo[] sortedCharacters)
     {
         List<int> map = new() { 0 };
         for (int i = 0; i < sortedCharacters.Length - 1; ++i)

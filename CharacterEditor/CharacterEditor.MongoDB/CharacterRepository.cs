@@ -18,15 +18,18 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
             connection.Database?.GetCollection<CharacterDb>("Characters")!;
     }
 
-    public IEnumerable<ShortCharacter> GetAllCharacterNamesByClass(
+    public IEnumerable<CharacterInfo> GetAllCharacterNamesByClass(
         string characterClass)
     {
         return Characters
             .Find(x =>
                 x.ClassName != null && x.ClassName.Equals(characterClass))
             .ToEnumerable()
-            .Select(x => new ShortCharacter(x.Experience)
-                { Id = x.Id, Name = x.Name ?? String.Empty });
+            .Select(x => new CharacterInfo(x.Experience)
+            {
+                Id = x.Id, Name = x.Name ?? String.Empty,
+                ClassName = x.ClassName ?? string.Empty
+            });
     }
 
     public CharacterBase GetCharacter(string id)
@@ -132,7 +135,7 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
         Characters.UpdateOne(filter, updateDefinition);
     }
 
-    public IEnumerable<ShortCharacter> GetMatchParticipants(int minLevel = 0,
+    public IEnumerable<CharacterInfo> GetMatchParticipants(int minLevel = 0,
         int maxLevel = 1000)
     {
         var filter = Builders<CharacterDb>.Filter.Gte(x => x.Experience,
@@ -143,9 +146,10 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
         return Characters.Find(filter)
             .SortBy(x => x.Experience)
             .ToList()
-            .Select(x => new ShortCharacter(x.Experience)
+            .Select(x => new CharacterInfo(x.Experience)
             {
-                Id = x.Id, Name = String.Empty
+                Id = x.Id, Name = String.Empty,
+                ClassName = x.ClassName ?? string.Empty
             });
     }
 }

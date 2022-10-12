@@ -2,13 +2,14 @@
 
 namespace CharacterEditor.Core;
 
-public class ShortCharacter
+public class CharacterInfo
 {
     public string Id { get; init; } = String.Empty;
     public string Name { get; init; } = String.Empty;
+    public string ClassName { get; init; } = string.Empty;
     public int Level { get; }
 
-    public ShortCharacter(int xp = 0)
+    public CharacterInfo(int xp = 0)
     {
         Level = new LevelInfo(xp).CurrentLevel;
     }
