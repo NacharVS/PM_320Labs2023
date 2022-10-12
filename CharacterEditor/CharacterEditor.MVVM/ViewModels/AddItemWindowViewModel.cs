@@ -11,7 +11,7 @@ namespace CharacterEditor.MVVM.ViewModels;
 
 public class AddItemWindowViewModel : ViewModel
 {
-    public CharacterBase Character { get; set; }
+    public Character Character { get; set; }
     public IEnumerable<Item> Items { get; set; }
     public Item? SelectedItem { get; set; }
 
@@ -22,7 +22,7 @@ public class AddItemWindowViewModel : ViewModel
                                                   Character.Level.CurrentLevel
                                                   && Character.CanAddItem(SelectedItem);
 
-    public AddItemWindowViewModel(CharacterBase character)
+    public AddItemWindowViewModel(Character character)
     {
         var app = (App)Application.Current;
         var repository = app.ItemRepository;

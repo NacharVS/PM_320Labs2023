@@ -12,7 +12,7 @@ namespace CharacterEditor.WPF.Windows
     {
         public Ability SelectedAbility { get; private set; } = null!;
 
-        public SelectAbilityWindow(CharacterBase character, Ability[] abilities)
+        public SelectAbilityWindow(Character character, Ability[] abilities)
         {
             InitializeComponent();
 

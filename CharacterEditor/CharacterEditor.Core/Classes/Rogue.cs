@@ -2,7 +2,7 @@
 
 namespace CharacterEditor.Core.Classes;
 
-public class Rogue : CharacterBase
+public class Rogue : Character
 {
     public sealed override CharacteristicsInfo CharacteristicsInfo { get; }
 

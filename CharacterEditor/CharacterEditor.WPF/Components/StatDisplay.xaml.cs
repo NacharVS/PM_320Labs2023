@@ -11,7 +11,7 @@ public partial class StatDisplay : UserControl
         InitializeComponent();
     }
 
-    public void UpdateValues(CharacterBase character)
+    public void UpdateValues(Character character)
     {
         HealthTextBox.Text = character.Health.ToString(CultureInfo.InvariantCulture);
         AttackTextBox.Text = character.AttackDamage.ToString(CultureInfo.InvariantCulture);

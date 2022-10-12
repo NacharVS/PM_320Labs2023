@@ -2,7 +2,7 @@
 
 namespace CharacterEditor.Core.Classes;
 
-public class Wizard : CharacterBase
+public class Wizard : Character
 {
     public sealed override CharacteristicsInfo CharacteristicsInfo { get; }
     private static readonly CharacteristicRange StrengthRange = new(10, 45);

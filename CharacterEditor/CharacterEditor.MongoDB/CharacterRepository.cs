@@ -43,11 +43,11 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
             });
     }
 
-    public CharacterBase GetCharacter(string id)
+    public Character GetCharacter(string id)
     {
         var dbChar = Characters.Find(x => x.Id == id).FirstOrDefault() ??
                      throw new NotFoundException();
-        CharacterBase character;
+        Character character;
         switch (dbChar.ClassName)
         {
             case "Warrior":
@@ -87,7 +87,7 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
         return character;
     }
 
-    public void InsertCharacter(CharacterBase character)
+    public void InsertCharacter(Character character)
     {
         Characters.InsertOne(new CharacterDb
         {
@@ -112,7 +112,7 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
         });
     }
 
-    public void UpdateCharacter(string id, CharacterBase character)
+    public void UpdateCharacter(string id, Character character)
     {
         Characters.ReplaceOne(x => x.Id == id, new CharacterDb
         {

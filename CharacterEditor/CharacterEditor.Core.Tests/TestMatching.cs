@@ -38,7 +38,7 @@ public class TestMatching
     [Test]
     public void TestAutoGeneration()
     {
-        var chars = new CharacterBase[]
+        var chars = new Character[]
         {
             new Rogue(Level3), new Rogue(Level5), new Warrior(Level5),
             new Wizard(Level7),
@@ -66,7 +66,7 @@ public class TestMatching
     [Test]
     public void TestAutoGenerationWithHighLevels()
     {
-        var chars = new CharacterBase[]
+        var chars = new Character[]
         {
             new Rogue(Level3), new Rogue(Level5), new Warrior(Level5),
             new Wizard(Level7),
@@ -95,7 +95,7 @@ public class TestMatching
     [Test]
     public void TestAutoGenerationWithHighLevelsShouldFail()
     {
-        var chars = new CharacterBase[]
+        var chars = new Character[]
         {
             new Rogue(Level3), new Rogue(Level5), new Warrior(Level5),
             new Wizard(Level5), new Wizard(Level5), new Wizard(Level5),

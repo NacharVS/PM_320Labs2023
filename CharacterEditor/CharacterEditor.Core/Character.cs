@@ -6,7 +6,7 @@ namespace CharacterEditor.Core;
 /// <summary>
 /// Base character that contains all logic for Classes 
 /// </summary>
-public abstract class CharacterBase
+public abstract class Character
 {
     private const int InventoryCapacity = 5;
     private const int MaximumAbilityCount = 5;
@@ -263,7 +263,7 @@ public abstract class CharacterBase
 
     #endregion
 
-    protected CharacterBase(int experience = 0)
+    protected Character(int experience = 0)
     {
         Level = new LevelInfo();
         Level.OnLevelUp += OnLevelUp;
@@ -424,10 +424,10 @@ public abstract class CharacterBase
     public event CharacteristicChangeEventHandler? OnIntelligenceChange;
 }
 
-public delegate void CharacteristicChangeEventHandler(CharacterBase sender,
+public delegate void CharacteristicChangeEventHandler(Character sender,
     CharacteristicChangeEventArgs args);
 
-public delegate void UpdateStatEventHandler(CharacterBase sender,
+public delegate void UpdateStatEventHandler(Character sender,
     ICanChangeStats entity, StatChangeType changeType);
 
 public delegate void AbilityGainEventHandler();

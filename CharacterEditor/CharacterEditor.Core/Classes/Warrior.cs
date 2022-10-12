@@ -2,7 +2,7 @@
 
 namespace CharacterEditor.Core.Classes;
 
-public class Warrior : CharacterBase
+public class Warrior : Character
 {
     public sealed override CharacteristicsInfo CharacteristicsInfo { get; }
 

@@ -24,7 +24,7 @@ public class MainWindowViewModel : ViewModel
     private readonly ICharacterRepository _repository;
     private readonly IAbilityRepository _abilityRepository;
 
-    private CharacterBase? _currentCharacter;
+    private Character? _currentCharacter;
 
     private ContentControl? _selectedClass;
     private CharacterInfo? _selectedCharacterInfo;

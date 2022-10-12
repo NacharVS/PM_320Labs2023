@@ -16,7 +16,7 @@ namespace CharacterEditor.WPF
     /// </summary>
     public partial class MainWindow
     {
-        private CharacterBase? _currentCharacter;
+        private Character? _currentCharacter;
 
         private readonly ICharacterRepository _repository;
         private readonly IAbilityRepository _abilityRepository;
