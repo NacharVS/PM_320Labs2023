@@ -25,8 +25,18 @@ public class Team
         }
     }
 
+    public void ClearCharacters()
+    {
+        _characters.Clear();
+    }
+
     public Team()
     {
         _characters = new();
+    }
+
+    public void RemoveCharacter(CharacterInfo character)
+    {
+        _characters.Remove(character);
     }
 }

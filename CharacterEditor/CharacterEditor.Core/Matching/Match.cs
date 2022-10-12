@@ -5,6 +5,7 @@ namespace CharacterEditor.Core.Matching;
 public class Match
 {
     private const int MaximumLevelDifference = 2;
+    private const int MaximumBalanceAttempts = 50;
     private readonly ICharacterRepository? _repository;
 
     public Team TeamA { get; }
@@ -40,21 +41,29 @@ public class Match
 
         if (heroes.Length < Team.MaximumParticipants * 2)
             throw new Exception("Not enough players");
-
-        ClearTeamPlayers();
-        for (int i = 0, j = 1, c = 0;
-             c < Team.MaximumParticipants;
-             ++c, i+=2, j+=2)
+        var rnd = new Random();
+        var balanceAttempt = 0;
+        do
         {
-            TeamA.AddCharacter(heroes[i]);
-            TeamB.AddCharacter(heroes[j]);
-        }
+            ClearTeamPlayers();
+            rnd.Shuffle(heroes);
+            for (int i = 0, j = 1, c = 0;
+                 c < Team.MaximumParticipants;
+                 ++c, i += 2, j += 2)
+            {
+                TeamA.AddCharacter(heroes[i]);
+                TeamB.AddCharacter(heroes[j]);
+            }
+            balanceAttempt++;
+            if (balanceAttempt == MaximumBalanceAttempts)
+                throw new Exception("Could not auto-generate teams");
+        } while (!AreTeamsReady);
     }
 
     private void ClearTeamPlayers()
     {
-        TeamA.Characters = Array.Empty<CharacterInfo>();
-        TeamB.Characters = Array.Empty<CharacterInfo>();
+        TeamA.ClearCharacters();
+        TeamB.ClearCharacters();
     }
 
     private double AveragesDifference =>
@@ -63,7 +72,14 @@ public class Match
 
     private bool TeamsBalanced()
     {
-        return Math.Abs(AveragesDifference) < MaximumLevelDifference;
+        try
+        {
+            return Math.Abs(AveragesDifference) < MaximumLevelDifference;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     private bool TeamsReady()

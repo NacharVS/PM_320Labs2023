@@ -32,6 +32,17 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
             });
     }
 
+    public IEnumerable<CharacterInfo> GetAllCharacters()
+    {
+        return Characters.Find(x => true)
+            .ToEnumerable()
+            .Select(x => new CharacterInfo(x.Experience)
+            {
+                Id = x.Id, Name = x.Name ?? string.Empty,
+                ClassName = x.ClassName ?? string.Empty
+            });
+    }
+
     public CharacterBase GetCharacter(string id)
     {
         var dbChar = Characters.Find(x => x.Id == id).FirstOrDefault() ??
@@ -143,12 +154,12 @@ public class CharacterRepository : RepositoryBase, ICharacterRepository
                      Builders<CharacterDb>.Filter.Lte(x => x.Experience,
                          LevelInfo.GetLevelXp(maxLevel));
 
-        return Characters.Find(filter)
+        return Characters.Find(x => true)
             .SortBy(x => x.Experience)
             .ToList()
             .Select(x => new CharacterInfo(x.Experience)
             {
-                Id = x.Id, Name = String.Empty,
+                Id = x.Id, Name = x.Name ?? string.Empty,
                 ClassName = x.ClassName ?? string.Empty
             });
     }

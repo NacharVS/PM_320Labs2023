@@ -3,15 +3,117 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CharacterEditor.MVVM.Views"
       xmlns:vms="clr-namespace:CharacterEditor.MVVM.ViewModels"
       mc:Ignorable="d"
       Title="MatchGenerator" Height="450" Width="800">
     <Page.DataContext>
-        <vms:MatchPageViewModel/>
+        <vms:MatchPageViewModel />
     </Page.DataContext>
     <Grid>
-        <Label Content="AAAAAAAAAAA" FontSize="64" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <Button Content="back" FontSize="64" VerticalAlignment="Center" HorizontalAlignment="Center" Click="ButtonBase_OnClick"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="1" Content="Back" HorizontalAlignment="Left" Click="ButtonBase_OnClick" />
+
+        <Button
+            Grid.Row="0"
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            Content="Auto-generate match"
+            Command="{Binding AutoGenerateMatchCommand}"
+            CommandParameter="" />
+
+        <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Run Text="Teams are balanced: " />
+            <Run Text="{Binding Match.AreTeamsBalanced, FallbackValue=False, Mode=OneWay}" />
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Run Text="Teams are ready to match: " />
+            <Run Text="{Binding Match.AreTeamsReady, FallbackValue=False, Mode=OneWay}" />
+        </TextBlock>
+
+        <Label
+            Grid.Row="0"
+            Grid.Column="1"
+            Content="{Binding TeamA.Name, FallbackValue=Team A}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="26" />
+        <ListBox
+            Grid.Column="1"
+            Grid.Row="1"
+            Grid.RowSpan="4"
+            Background="Orange"
+            ItemsSource="{Binding TeamA.Characters, FallbackValue=No source defined}"
+            SelectedItem="{Binding TeamASelectedCharacter}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5 0 5 0">
+                            <Run Text="Level: " />
+                            <Run Text="{Binding Level, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding ClassName}" Margin="5 0 5 0" />
+                        <TextBlock Margin="5 0 5 0">
+                            <Run Text="Name: " />
+                            <Run Text="{Binding Name, Mode=OneWay}" />
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" Margin="0 5 0 5">
+            <Button HorizontalAlignment="Center" Content="Add to Team A" Width="200" Command="{Binding AddToTeamCommand}" CommandParameter="TeamA"/>
+            <Button HorizontalAlignment="Center" Content="Remove from Team A" Width="200" Command="{Binding RemoveFromTeamCommand}" CommandParameter="TeamA"/>
+        </StackPanel>
+        
+        <Label
+            Grid.Row="0"
+            Grid.Column="3"
+            Content="{Binding TeamB.Name, FallbackValue=Team B}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="26" />
+        <ListBox
+            Grid.Column="3"
+            Grid.Row="1"
+            Grid.RowSpan="4"
+            Background="Blue"
+            ItemsSource="{Binding TeamB.Characters, FallbackValue=No source defined}"
+            SelectedItem="{Binding TeamBSelectedCharacter}"
+            Foreground="White">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5 0 5 0">
+                            <Run Text="Level: " />
+                            <Run Text="{Binding Level, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding ClassName}" Margin="5 0 5 0" />
+                        <TextBlock Margin="5 0 5 0">
+                            <Run Text="Name: " />
+                            <Run Text="{Binding Name, Mode=OneWay}" />
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center" Margin="0 5 0 5">
+            <Button HorizontalAlignment="Center" Content="Add to Team B" Width="200" Command="{Binding AddToTeamCommand}" CommandParameter="TeamB"/>
+            <Button HorizontalAlignment="Center" Content="Remove from Team B" Width="200" Command="{Binding RemoveFromTeamCommand}" CommandParameter="TeamB"/>
+        </StackPanel>
     </Grid>
 </Page>
