@@ -9,15 +9,29 @@
       Title="EditPage" ShowsNavigationUI="False" KeepAlive="False">
 
     <Grid Background="#FF3E4348">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="22*"/>
-            <ColumnDefinition Width="45*" MinWidth="585"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="233*"/>
-            <RowDefinition Height="260*"/>
-            <RowDefinition Height="137*"/>
+            <RowDefinition Height="141*"/>
+            <RowDefinition Height="421*"/>
+            <RowDefinition Height="68*"/>
         </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock HorizontalAlignment="Left" Margin="15,5,0,0" Text="Unit Type:" VerticalAlignment="Top" FontSize="16" Foreground="#FFB5BDB3" />
+            <ComboBox x:Name="cbTypeUnits" Margin="15,5,0,0" Height="22" Width="184" HorizontalAlignment="Left" >
+                <ComboBoxItem Content="Warrior"/>
+                <ComboBoxItem Content="Rogue"/>
+                <ComboBoxItem Content="Wizard"/>
+            </ComboBox>
+        </StackPanel>
+        <Button x:Name="btn_NewUnit" Content="New" Click="btn_NewUnit_Click" Margin="219,31,0,0" Background="#FFB5BDB3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="45" Height="23"/>
 
+        <GridSplitter HorizontalAlignment="Stretch" Height="6" VerticalAlignment="Top" IsEnabled="False" Background="#FFB5BDB3" Panel.ZIndex="10" Margin="0,130,0,0"/>
+
+        <Grid Grid.Row="1">
+            <TextBlock HorizontalAlignment="Left" Margin="15,5,0,0" Text="All Units:" VerticalAlignment="Top" FontSize="16" Foreground="#FFB5BDB3" />
+            <ListBox x:Name="lbUnits" Margin="15,35,15,0" MinHeight="373" Initialized="lbUnits_Initialized" ScrollViewer.CanContentScroll="False"/>
+        </Grid>
+
+        <Button x:Name="btn_EditUnit" Content="Edit" Click="btn_EditUnit_Click" Margin="20,0,0,0" Background="#FFB5BDB3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="45" Height="24"/>
+        <Button x:Name="btn_DeleteUnit" Content="Delete" Click="btn_DeleteUnit_Click" Margin="89,0,0,0" Background="#FFB5BDB3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="45" Height="24"/>
     </Grid>
 </Page>

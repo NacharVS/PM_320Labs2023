@@ -33,19 +33,22 @@ namespace EditUnit_Practic_WPF
             MatchPage.NavigationService.Navigate(new MatchPage());
         }
 
-        private void WarriorItem_Click(object sender, RoutedEventArgs e)
+        public void WarriorItem_Click(object sender, RoutedEventArgs e)
         {
             EditPage.NavigationService.Navigate(new WarriorPage());
+            tabControl.SelectedIndex = 0;
         }
 
-        private void RogueItem_Click(object sender, RoutedEventArgs e)
+        public void RogueItem_Click(object sender, RoutedEventArgs e)
         {
             EditPage.NavigationService.Navigate(new RoguePage());
+            tabControl.SelectedIndex = 0;
         }
 
-        private void WizardItem_Click(object sender, RoutedEventArgs e)
+        public void WizardItem_Click(object sender, RoutedEventArgs e)
         {
             EditPage.NavigationService.Navigate(new WizardPage());
+            tabControl.SelectedIndex = 0;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -56,6 +59,12 @@ namespace EditUnit_Practic_WPF
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void MainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            EditPage.NavigationService.Navigate(new EditPage());
+            tabControl.SelectedIndex = 0;
         }
     }
 }

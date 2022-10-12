@@ -31,6 +31,14 @@ namespace EditUnit_Practic_WPF.Pages
             InitializeComponent();
         }
 
+        public WizardPage(Unit unit)
+        {
+            this.unit = unit;
+
+            InitializeComponent();
+            tbName.Text = unit.name;
+        }
+
         private void Page_Initialized(object sender, EventArgs e)
         {
             UpdateCharacteristics();

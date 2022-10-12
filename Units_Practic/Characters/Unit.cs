@@ -10,7 +10,7 @@ namespace Units_Practic.Characters
         Wizard
     }
 
-    public abstract class Unit
+    public class Unit
     {
         public ObjectId _id;
 

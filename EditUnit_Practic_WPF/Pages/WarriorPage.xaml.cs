@@ -23,7 +23,14 @@ namespace EditUnit_Practic_WPF.Pages
             unit = new Warrior();
 
             InitializeComponent();
-            this.ShowsNavigationUI = false;
+        }
+
+        public WarriorPage(Unit unit)
+        {
+            this.unit = unit;
+
+            InitializeComponent();
+            tbName.Text = unit.name;
         }
 
         private void Page_Initialized(object sender, EventArgs e)

@@ -102,11 +102,11 @@
             <ListView.Resources>
             </ListView.Resources>
         </ListView>
-        <Button x:Name="btn_SaveUnit" Content="Save" VerticalAlignment="Top" Height="26" Click="btn_SaveUnit_Click" Margin="0,97,15,0" Background="#FFB5BDB3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58"/>
-        <Button x:Name="btn_ClearUnit" Content="Clear" VerticalAlignment="Top" Height="26" Click="btn_ClearUnit_Click" Margin="0,97,115,0" Background="#FFB5BDB3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58"/>
-        <ComboBox x:Name="cbUnits" Grid.Column="1" Height="22" Margin="121,18,0,0" VerticalAlignment="Top" Width="158" HorizontalAlignment="Left" SelectionChanged="cbUnits_SelectionChanged" Grid.Row="2" Initialized="cbUnits_Initialized"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="22,17,0,0" TextWrapping="Wrap" Text="Saved units:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Foreground="#FFB5BDB3" Grid.Row="2"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="22,93,0,0" TextWrapping="Wrap" Text="Type:        Warrior" VerticalAlignment="Top" FontSize="16" Height="21" Width="136" Foreground="#FFB5BDB3" Grid.Row="2"/>
+        <Button x:Name="btn_SaveUnit" Content="Save" VerticalAlignment="Top" Height="26" Click="btn_SaveUnit_Click" Margin="0,89,15,0" Background="#FFB5BDB3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58"/>
+        <Button x:Name="btn_ClearUnit" Content="Clear" VerticalAlignment="Top" Height="26" Click="btn_ClearUnit_Click" Margin="0,97,115,0" Background="#FFB5BDB3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58" Visibility="Hidden"/>
+        <ComboBox x:Name="cbUnits" Grid.Column="1" Height="22" Margin="121,18,0,0" VerticalAlignment="Top" Width="158" HorizontalAlignment="Left" SelectionChanged="cbUnits_SelectionChanged" Grid.Row="2" Initialized="cbUnits_Initialized" Visibility="Hidden"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="22,17,0,0" TextWrapping="Wrap" Text="Saved units:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Foreground="#FFB5BDB3" Grid.Row="2" Visibility="Hidden"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="21,92,0,0" TextWrapping="Wrap" Text="Type:        Warrior" VerticalAlignment="Top" FontSize="16" Height="21" Width="126" Foreground="#FFB5BDB3" Grid.Row="2"/>
 
     </Grid>
 </Page>
