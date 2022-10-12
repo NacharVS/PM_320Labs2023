@@ -83,8 +83,8 @@ namespace GameEditorLibrary
 
         public Unit() 
         { 
-            inventory =new List<Item>();
-            skills =new List<Skill>();
+            inventory = new List<Item>();
+            skills = new List<Skill>();
             points = 0;
             _expa = 0;
             Nexpa = 0;

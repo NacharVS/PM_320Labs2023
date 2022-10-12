@@ -23,7 +23,16 @@ namespace GameEditor
             panel2.Visible = false;
             panel3.Visible = false;
             listBoxMain.SetSelected(0, true);
+        }
 
+        public Main(string name)
+        {
+            InitializeComponent();
+            ListUpdate();
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+            listBoxRes.SelectedIndex = listBoxRes.Items.IndexOf(name);
         }
 
         private void ListBoxMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -79,7 +88,6 @@ namespace GameEditor
                         textBoxAttack.Text = selectedUnit.attackDamage.ToString();
                         textBoxHP.Text = selectedUnit.HP.ToString();
                         selectedUnit.points--;
-
                     }
                     catch (Exception ex)
                     {
@@ -126,7 +134,6 @@ namespace GameEditor
                     {
                         selectedUnit.points++;
                         numericUpDownDex.Value = selectedUnit.Dexterity;
-
                     }
                 }
                 else
@@ -274,6 +281,7 @@ namespace GameEditor
                 listBoxOfChestplates.SelectedItems.Clear();
                 listBoxOfHelmets.SelectedItems.Clear();
                 listBoxMain.SelectedItems.Clear();
+
                 textBoxName.Text = selectedUnit.Name;
                 numericUpDownStr.Value = selectedUnit.Strength;
                 numericUpDownDex.Value = selectedUnit.Dexterity;
@@ -293,9 +301,7 @@ namespace GameEditor
                 if (selectedUnit.boots is not null) 
                 { listBoxOfBoots.SelectedIndex = listBoxOfBoots.Items.IndexOf(selectedUnit.boots.Material); }
                 if (selectedUnit.points == 0) 
-                { 
-                    textBoxPoints.Text = (selectedUnit.points).ToString(); 
-                }
+                { textBoxPoints.Text = (selectedUnit.points).ToString(); }
                 else 
                 {
                     selectedUnit.points -= 5;
@@ -443,18 +449,14 @@ namespace GameEditor
                 {
                     selectedUnit.helmet = new Helmet(listBoxOfHelmets.SelectedItem.ToString());
                     selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), true);
-                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
-                    textBoxHP.Text = selectedUnit.HP.ToString();
-                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                    UpdateStat();
                 }
                 else
                 {
                     selectedUnit.helmet.ChangeStatistic(selectedUnit, selectedUnit.helmet.Material, false);
                     selectedUnit.helmet = new Helmet(listBoxOfHelmets.SelectedItem.ToString());
                     selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), true);
-                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
-                    textBoxHP.Text = selectedUnit.HP.ToString();
-                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                    UpdateStat();
                 }
                 DBConnection.Update(selectedUnit);
             }
@@ -468,18 +470,14 @@ namespace GameEditor
                 {
                     selectedUnit.chestplate = new Chestplate(listBoxOfChestplates.SelectedItem.ToString());
                     selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
-                    numericUpDownStr.Value = selectedUnit.Strength;
-                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
-                    textBoxHP.Text = selectedUnit.HP.ToString();
+                    UpdateStat();
                 }
                 else
                 {
                     selectedUnit.chestplate.ChangeStatistic(selectedUnit, selectedUnit.chestplate.Material, false);
                     selectedUnit.chestplate = new Chestplate(listBoxOfChestplates.SelectedItem.ToString());
                     selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
-                    numericUpDownStr.Value = selectedUnit.Strength;
-                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
-                    textBoxHP.Text = selectedUnit.HP.ToString();
+                    UpdateStat();
                 }
                 DBConnection.Update(selectedUnit);
             }
@@ -493,21 +491,36 @@ namespace GameEditor
                 {
                     selectedUnit.boots = new Boots(listBoxOfBoots.SelectedItem.ToString());
                     selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), true);
-                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
-                    textBoxHP.Text = selectedUnit.HP.ToString();
-                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                    UpdateStat();
                 }
                 else
                 {
                     selectedUnit.boots.ChangeStatistic(selectedUnit, selectedUnit.boots.Material, false);
                     selectedUnit.boots = new Boots(listBoxOfBoots.SelectedItem.ToString());
                     selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), true);
-                    textBoxPDef.Text = selectedUnit.phDefention.ToString();
-                    textBoxHP.Text = selectedUnit.HP.ToString();
-                    textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+                    UpdateStat();
                 }
                 DBConnection.Update(selectedUnit);
             }
+        }
+
+        private void UpdateStat()
+        {
+            numericUpDownStr.Value = selectedUnit.Strength;
+            numericUpDownCon.Value = selectedUnit.Constitution;
+            numericUpDownDex.Value = selectedUnit.Dexterity;
+            numericUpDownInt.Value = selectedUnit.Intelligence;
+            textBoxPDef.Text = selectedUnit.phDefention.ToString();
+            textBoxHP.Text = selectedUnit.HP.ToString();
+            textBoxMana.Text = selectedUnit.MP.ToString();
+            textBoxAttack.Text = selectedUnit.attackDamage.ToString();
+            textBoxAttackMana.Text = selectedUnit.manaAttack.ToString();
+        }
+
+        private void GameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SecondForm frm = new SecondForm(this, listBoxRes);
+            frm.Show();
         }
     }
 }

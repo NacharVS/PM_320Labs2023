@@ -20,6 +20,14 @@ namespace GameEditor
             collection.InsertOne(unit);
         }
 
+        public static void AddMatchToDataBase(Match match)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("Galieva");
+            var collection = database.GetCollection<Match>("CollectionOfMatches");
+            collection.InsertOne(match);
+        }
+
         public static Unit FindByName(string name)
         {
             var client = new MongoClient("mongodb://localhost:27017");

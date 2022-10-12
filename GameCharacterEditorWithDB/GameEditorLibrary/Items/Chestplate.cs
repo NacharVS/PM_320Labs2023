@@ -17,44 +17,64 @@ namespace GameEditorLibrary
 
         public void ChangeStatistic(Unit unit, string material, bool boo)
         {
-            if (boo)
+            try
             {
-                switch (material)
+                if (boo)
                 {
-                    case "Leather":
-                        unit.Strength += 2;
-                        unit.phDefention += 20;
-                        unit.HP += 5;
-                        break;
-                    case "Chainmail":
-                        unit.phDefention += 40;
-                        unit.HP += 10;
-                        break;
-                    case "Iron":
-                        unit.phDefention += 60;
-                        unit.HP += 20;
-                        break;
+                    switch (material)
+                    {
+                        case "Leather":
+                            unit.Strength += 1;
+                            unit.Constitution += 1;
+                            unit.phDefention += 1;
+                            unit.HP += 1;
+                            unit.MP += 1;
+                            break;
+                        case "Chainmail":
+                            unit.Strength += 2;
+                            unit.Constitution += 2;
+                            unit.phDefention += 2;
+                            unit.HP += 2;
+                            unit.MP += 2;
+                            break;
+                        case "Iron":
+                            unit.Strength += 3;
+                            unit.Constitution += 3;
+                            unit.phDefention += 3;
+                            unit.HP += 3;
+                            unit.MP += 3;
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (material)
+                    {
+                        case "Leather":
+                            unit.Strength -= 1;
+                            unit.Constitution -= 1;
+                            unit.phDefention -= 1;
+                            unit.HP -= 1;
+                            unit.MP -= 1;
+                            break;
+                        case "Chainmail":
+                            unit.Strength -= 2;
+                            unit.Constitution -= 2;
+                            unit.phDefention -= 2;
+                            unit.HP -= 2;
+                            unit.MP -= 2;
+                            break;
+                        case "Iron":
+                            unit.Strength -= 3;
+                            unit.Constitution -= 3;
+                            unit.phDefention -= 3;
+                            unit.HP -= 3;
+                            unit.MP -= 3;
+                            break;
+                    }
                 }
             }
-            else
-            {
-                switch (material)
-                {
-                    case "Leather":
-                        unit.Strength -= 2;
-                        unit.phDefention -= 20;
-                        unit.HP -= 5;
-                        break;
-                    case "Chainmail":
-                        unit.phDefention -= 40;
-                        unit.HP -= 10;
-                        break;
-                    case "Iron":
-                        unit.phDefention -= 60;
-                        unit.HP -= 20;
-                        break;
-                }
-            }
+            catch (Exception ex) { }
         }
     }
 }

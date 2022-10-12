@@ -86,6 +86,8 @@
             this.secondItemLbl = new System.Windows.Forms.Label();
             this.firstItemLbl = new System.Windows.Forms.Label();
             this.listBoxRes = new System.Windows.Forms.ListBox();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPan.SuspendLayout();
             this.panelOfArmor.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -99,11 +101,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStr)).BeginInit();
             this.panelMain.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPan
             // 
-            this.mainPan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.mainPan.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.mainPan.Controls.Add(this.panelOfArmor);
             this.mainPan.Controls.Add(this.listBoxSkills);
             this.mainPan.Controls.Add(this.panel2);
@@ -140,13 +143,14 @@
             this.mainPan.Controls.Add(this.listBoxMain);
             this.mainPan.Controls.Add(this.panelMain);
             this.mainPan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPan.Location = new System.Drawing.Point(164, 0);
+            this.mainPan.Location = new System.Drawing.Point(164, 28);
             this.mainPan.Name = "mainPan";
-            this.mainPan.Size = new System.Drawing.Size(1091, 592);
+            this.mainPan.Size = new System.Drawing.Size(1091, 582);
             this.mainPan.TabIndex = 0;
             // 
             // panelOfArmor
             // 
+            this.panelOfArmor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelOfArmor.Controls.Add(this.listBoxOfBoots);
             this.panelOfArmor.Controls.Add(this.listBoxOfChestplates);
             this.panelOfArmor.Controls.Add(this.listBoxOfHelmets);
@@ -255,6 +259,7 @@
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.skillsRogComboBox);
             this.panel2.Controls.Add(this.skillsRogLbl);
             this.panel2.Location = new System.Drawing.Point(442, 421);
@@ -421,6 +426,7 @@
             // 
             // secondPanel
             // 
+            this.secondPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.secondPanel.Controls.Add(this.listBoxItems);
             this.secondPanel.Location = new System.Drawing.Point(442, 257);
             this.secondPanel.Name = "secondPanel";
@@ -664,6 +670,7 @@
             // 
             // panelMain
             // 
+            this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelMain.Controls.Add(this.thirdComboBox);
             this.panelMain.Controls.Add(this.thirdItemLbl);
             this.panelMain.Controls.Add(this.secondComboBox);
@@ -759,20 +766,40 @@
             this.listBoxRes.Dock = System.Windows.Forms.DockStyle.Left;
             this.listBoxRes.FormattingEnabled = true;
             this.listBoxRes.ItemHeight = 20;
-            this.listBoxRes.Location = new System.Drawing.Point(0, 0);
+            this.listBoxRes.Location = new System.Drawing.Point(0, 28);
             this.listBoxRes.Name = "listBoxRes";
-            this.listBoxRes.Size = new System.Drawing.Size(164, 592);
+            this.listBoxRes.Size = new System.Drawing.Size(164, 582);
             this.listBoxRes.TabIndex = 1;
             this.listBoxRes.SelectedValueChanged += new System.EventHandler(this.ListBoxRes_SelectedValueChanged);
+            // 
+            // menuStrip
+            // 
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gameToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(1255, 28);
+            this.menuStrip.TabIndex = 2;
+            this.menuStrip.Text = "menuStrip1";
+            // 
+            // gameToolStripMenuItem
+            // 
+            this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+            this.gameToolStripMenuItem.Text = "Match";
+            this.gameToolStripMenuItem.Click += new System.EventHandler(this.GameToolStripMenuItem_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.ClientSize = new System.Drawing.Size(1255, 592);
+            this.ClientSize = new System.Drawing.Size(1255, 610);
             this.Controls.Add(this.mainPan);
             this.Controls.Add(this.listBoxRes);
+            this.Controls.Add(this.menuStrip);
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "Main";
             this.Text = "Main";
             this.mainPan.ResumeLayout(false);
@@ -794,7 +821,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStr)).EndInit();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -858,5 +888,7 @@
         private ListBox listBoxOfBoots;
         private ListBox listBoxOfChestplates;
         private ListBox listBoxOfHelmets;
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem gameToolStripMenuItem;
     }
 }
