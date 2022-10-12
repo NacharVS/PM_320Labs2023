@@ -44,9 +44,18 @@ namespace GameCharacterEditor
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("GameCharacterEditor");
             var collection = database.GetCollection<Character>("CharacterCollection");
-            /*var filter = new BsonDocument("Id", character.Id);
-            collection.ReplaceOne(filter, character);*/
             collection.ReplaceOne(x => x.Name == name, character);
+        }
+
+        public static void UpdateByName(string name, Character character)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("GameCharacterEditor");
+            var collection = database.GetCollection<Character>("CharacterCollection");
+            var updateDefenition = Builders<Character>.Update.Set(x => x.chainmail, character.chainmail)
+                .Set(x => x.helmet, character.helmet)
+                .Set(x => x.shild, character.shild);
+            collection.UpdateOne(x => x.Name == name, updateDefenition);
         }
     }
 }

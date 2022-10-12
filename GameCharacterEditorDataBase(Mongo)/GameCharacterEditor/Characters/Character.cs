@@ -14,6 +14,13 @@ namespace GameCharacterEditor
         public ObjectId Id;
         public string Type { get; set; }
         public string Name { get; set; }
+        public int Points { get; set; }
+
+        public int minLvl { get; set; } = 1;
+        public int Lvl { get; set; } = 1;
+        public int minXPLvl { get; set; }
+        public int XPLvl { get; set; }
+        public int XP { get; set; }
 
         // Сила
         public int minStrength;
@@ -85,8 +92,6 @@ namespace GameCharacterEditor
         public decimal Attack { get; set; } // Атака (урон)
         public decimal MPAttack { get; set; } // Магическая атака
 
-        public int Points { get; set; }
-
         [BsonIgnoreIfNull]
         public List<Equipment> equipment;
         public void AddToEquipment(Equipment item)
@@ -99,6 +104,7 @@ namespace GameCharacterEditor
         {
             equipmentList.Add(item);
         }
+
         [BsonIgnoreIfNull]
         public List<Skill> skill;
         public void AddToSkill(Skill item)
@@ -110,16 +116,28 @@ namespace GameCharacterEditor
         {
             skillList.Add(item);
         }
+
+        [BsonIgnoreIfNull]
+        public List<Armor> armor;
+        public void AddToArmor(Armor item)
+        {
+            armor.Add(item);
+        }
+        public List<string> armorList = new List<string>();
+        public void AddToArmorName(string item)
+        {
+            armorList.Add(item);
+        }
+
         public Character()
         {
             equipment = new List<Equipment>();
             skill = new List<Skill>();
+            armor = new List<Armor>();
         }
 
-        public int minLvl { get; set; } = 1;
-        public int Lvl { get; set; } = 1;
-        public int minXPLvl { get; set; } 
-        public int XPLvl { get; set; }
-        public int XP { get; set; }
+        public ChainMail chainmail;
+        public Helmet helmet;
+        public Shild shild;
     }
 }
