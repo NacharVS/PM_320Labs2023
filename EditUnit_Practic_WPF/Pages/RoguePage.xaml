@@ -49,7 +49,7 @@
             <TextBlock x:Name="tbIntelligence" HorizontalAlignment="Center" TextWrapping="Wrap" Text="0" VerticalAlignment="Center" FontSize="16" Foreground="#FFB5BDB3"/>
         </Grid>
 
-        <Grid Height="249" Grid.Row="1" Width="274">
+        <Grid Height="249" Grid.Row="1" Width="274" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" FontSize="16" Height="21" Width="52" Margin="14,16,0,0" Foreground="#FFB5BDB3"/>
             <TextBox x:Name="tbName" MaxLength="25" HorizontalAlignment="Left" Margin="80,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" Background="#FFB5BDB3"/>
