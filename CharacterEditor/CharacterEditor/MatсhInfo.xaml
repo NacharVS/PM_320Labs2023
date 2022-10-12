@@ -19,36 +19,59 @@
             <ColumnDefinition Width="200*"/>
             <ColumnDefinition Width="200*"/>
         </Grid.ColumnDefinitions>
+
+        <Button x:Name="btnExit" Content="Exit" Grid.Row="1" Grid.Column="0" Click="btnExit_Click"/>
+        
         <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Button Grid.Column="2" FontSize="20" Content="Auto generation" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Bottom"/>
+            <Button x:Name="btnAutoGeneration" FontSize="20" Content="Auto generation" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Bottom" Background="Firebrick" Click="btnAutoGeneration_Click"/>
+            <Button x:Name="btnStartMatch" FontSize="20" Content="Start Match" HorizontalAlignment="Right" Margin="90,5,5,5" VerticalAlignment="Bottom" Background="LightBlue"/>
         </StackPanel>
 
         <Label Content="Characters" FontSize="20" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,263,0"/>
         <StackPanel  Grid.Column="1" Grid.Row="1" >
-            <ListView x:Name="lvCharactersList" FontSize="20" Width="248" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView x:Name="lvCharactersList" FontSize="15" Width="248" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="90">Name</GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Lvl.CurrentLevel}" Width="90">Level</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="70">Name</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Level}" Width="50">Level</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=ClassName}" Width="90">Class</GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
             <StackPanel Orientation="Horizontal" Width="248">
-                <Button x:Name="btnAddTeamA" Content="Add to Team A" Margin="5" HorizontalAlignment="Left"  VerticalAlignment="Center" FontSize="17"/>
-                <Button x:Name="btnAddTeamB" Content="Add to Team B" Margin="5" HorizontalAlignment="Left"  VerticalAlignment="Center" FontSize="17"/>
+                <Button x:Name="btnAddTeamA" Content="Add to Team A" Margin="5" HorizontalAlignment="Left"  VerticalAlignment="Center" FontSize="17" Click="btnAddTeamA_Click"/>
+                <Button x:Name="btnAddTeamB" Content="Add to Team B" Margin="5" HorizontalAlignment="Left"  VerticalAlignment="Center" FontSize="17" Click="btnAddTeamB_Click"/>
             </StackPanel>
+            <Label x:Name="lblTeamBalance" Content="BALANCED" Background="ForestGreen" FontSize="20" HorizontalContentAlignment="Center"/>
         </StackPanel>
 
-        <Button x:Name="btnExit" Content="Exit" Grid.Row="1" Grid.Column="0" Click="btnExit_Click"/>
         <StackPanel Grid.Row="1" Grid.Column="2">
             <Label Content="Team A" FontSize="20" HorizontalAlignment="Center"></Label>
-            <ListBox x:Name="lbTeamAList" d:ItemsSource="{d:SampleData ItemCount=10}" FontSize="20"/>
-            <Button x:Name="btnRemoveTeamA" Content="Remove" VerticalAlignment="Bottom"/>
+            <ListBox x:Name="lbTeamAList" FontSize="20">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="100" Text="{Binding Path = Name}"/>
+                            <TextBlock Width="30" Text="{Binding Path = Level}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button x:Name="btnRemoveTeamA" Content="Remove" VerticalAlignment="Bottom" Click="btnRemoveTeamA_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="3">
             <Label Content="Team B" FontSize="20" HorizontalAlignment="Center"></Label>
-            <ListBox x:Name="lbTeamBList" d:ItemsSource="{d:SampleData ItemCount=10}" FontSize="20"/>
-            <Button x:Name="btnRemoveTeamB" Content="Remove" VerticalAlignment="Bottom"/>
+            <ListBox x:Name="lbTeamBList" FontSize="20">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="100" Text="{Binding Path = Name}"/>
+                            <TextBlock Width="30" Text="{Binding Path = Level}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button x:Name="btnRemoveTeamB" Content="Remove" VerticalAlignment="Bottom" Click="btnRemoveTeamB_Click"/>
         </StackPanel>
     </Grid>
 </Page>

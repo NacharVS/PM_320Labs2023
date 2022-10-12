@@ -71,8 +71,8 @@ namespace CharacterEditor
             if (_selectedCharacter.Abilities.Count < 1) return;
             _mainWindow.tbAttackDamageValue.Text = Convert.ToString(int.Parse(_mainWindow.tbAttackDamageValue.Text) + ability.AttackChange);
             _mainWindow.tbHealthValue.Text = Convert.ToString(int.Parse(_mainWindow.tbHealthValue.Text) + ability.HealthChange);
-            _mainWindow.tbManaValue.Text = Convert.ToString(int.Parse(_mainWindow.tbManaValue.Text) + ability.ManaChange);
-            _mainWindow.tbPhysicalDefValue.Text = Convert.ToString(int.Parse(_mainWindow.tbPhysicalDefValue.Text) + ability.PhysicalDefChange);
+            _mainWindow.tbManaValue.Text = Convert.ToString(Convert.ToDouble(_mainWindow.tbManaValue.Text) + ability.ManaChange);
+            _mainWindow.tbPhysicalDefValue.Text = Convert.ToString(Convert.ToDouble(_mainWindow.tbPhysicalDefValue.Text) + ability.PhysicalDefChange);
             _mainWindow.tbMagicAttackValue.Text = Convert.ToString(int.Parse(_mainWindow.tbMagicAttackValue.Text) + ability.MagicalAttackChange);
         }
 

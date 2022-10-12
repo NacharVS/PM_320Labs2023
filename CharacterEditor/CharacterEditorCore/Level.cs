@@ -10,8 +10,8 @@ namespace CharacterEditorCore
     {
         private int _exp;
         private int _level;
-        private int _levelUpEdge;
-        private int _growEdge;
+        private int _levelUpEdge = 1000;
+        private int _growEdge = 1000;
         public bool isNew = true;
         public delegate void OnLevelUpDelegate();
 
@@ -39,14 +39,15 @@ namespace CharacterEditorCore
         {
             _level = 1;
             _exp = 0;
-            _levelUpEdge = 1000;
-            _growEdge = 1000;
+        }
+        public Level(int exp)
+        {
+            CurrentExp = exp;
         }
         public void AddExp(int value)
         {
             CurrentExp = CurrentExp + value;
         }
-
         public event OnLevelUpDelegate OnLevelUpEvent;
     }
 }

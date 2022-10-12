@@ -1,4 +1,5 @@
 ﻿using CharacterEditorCore;
+using CharacterEditorCore.DataBase;
 using CharacterEditorCore.Items;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -6,7 +7,7 @@ using MongoDB.Driver;
 
 namespace CharacterEditorMongoDataBase
 {
-    public class CharacterEditorContext
+    public class CharacterEditorContext : ICharacterRep
     {
 
         public CharacterEditorContext()
@@ -18,7 +19,7 @@ namespace CharacterEditorMongoDataBase
         {
             try
             {
-                MongoDataBase.collection.InsertOne(new BaseCharacterrDb
+                MongoDataBase.charactersCollection.InsertOne(new BaseCharacterrDb
                 {
                     Name = character.Name,
                     SkillPoint = character.SkillPoints,
@@ -50,7 +51,7 @@ namespace CharacterEditorMongoDataBase
                 var updateDefinition =
                     Builders<BaseCharacterrDb>.Update.Set(x => 
                                              x.Inventory, character.Inventory);
-                MongoDataBase.collection.UpdateOne(filter, updateDefinition);
+                MongoDataBase.charactersCollection.UpdateOne(filter, updateDefinition);
                 return true;
             }
             catch
@@ -62,7 +63,7 @@ namespace CharacterEditorMongoDataBase
         {
             try
             {
-                MongoDataBase.collection.ReplaceOne(x => x.Id == characterId,
+                MongoDataBase.charactersCollection.ReplaceOne(x => x.Id == characterId,
                 new BaseCharacterrDb
                 {
                     Name = character.Name,
@@ -90,14 +91,15 @@ namespace CharacterEditorMongoDataBase
             List<CharacterIdName> res = new();
             try
             {
-                var characters = MongoDataBase.collection.Find(new BsonDocument()).ToList();
+                var characters = MongoDataBase.charactersCollection.Find(new BsonDocument()).ToList();
 
                 foreach (var character in characters)
                 {
-                    res.Add(new CharacterIdName
+                    res.Add(new CharacterIdName(character.Experience)
                     {
                         Id = character.Id,
-                        Name = character.Name
+                        Name = character.Name,
+                        ClassName = character.CharacterClassName
                     });
                 }
                 return res;
@@ -113,7 +115,7 @@ namespace CharacterEditorMongoDataBase
             try
             {
                 BaseCharacteristics baseCharacter = null;
-                var characterDb = MongoDataBase.collection.Find(x => x.Id == characterId).FirstOrDefault();
+                var characterDb = MongoDataBase.charactersCollection.Find(x => x.Id == characterId).FirstOrDefault();
 
                 if(characterDb is null)
                 {

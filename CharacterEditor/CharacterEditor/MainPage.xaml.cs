@@ -442,9 +442,9 @@ namespace CharacterEditor
             {
                 tbAttackDamageValue.Text = (int.Parse(tbAttackDamageValue.Text) + ability.AttackChange).ToString();
                 tbHealthValue.Text = (int.Parse(tbHealthValue.Text) + ability.HealthChange).ToString();
-                tbManaValue.Text = (int.Parse(tbManaValue.Text) + ability.ManaChange).ToString();
+                tbManaValue.Text = (Convert.ToDouble(tbManaValue.Text) + ability.ManaChange).ToString();
                 tbMagicAttackValue.Text = (int.Parse(tbMagicAttackValue.Text) + ability.MagicalAttackChange).ToString();
-                tbPhysicalDefValue.Text = (int.Parse(tbPhysicalDefValue.Text) + ability.PhysicalDefChange).ToString();
+                tbPhysicalDefValue.Text = (Convert.ToDouble(tbPhysicalDefValue.Text) + ability.PhysicalDefChange).ToString();
             }
         }
 
