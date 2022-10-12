@@ -47,7 +47,7 @@ namespace GameCharacterEditor
                     Attack_Text.Value = character.Attack;
                     PointMinus();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     PointPlus();
                     Strength_Text.Value = character.Strength;
@@ -191,6 +191,7 @@ namespace GameCharacterEditor
             Name_Text.Enabled = true;
             OK_Button.Enabled = true;
             Save_Button.Enabled = true;
+            GO_Button.Enabled = true;   
             XP_Text.Enabled = true;
             Armor_ListBox.Enabled = true;
             SavedCharactersBox.Enabled = false;
@@ -200,7 +201,7 @@ namespace GameCharacterEditor
             XP_Text.Value = XP_Text.Minimum;
             character.Lvl = character.minLvl;
             character.XPLvl = character.minXPLvl;
-            character.XP = (int)XP_Text.Value; 
+            character.XP = (int)XP_Text.Value;
 
             Skill_CheckBox.Items.Clear();
             Skill_CheckBox.Items.Add("Shild");
@@ -343,7 +344,7 @@ namespace GameCharacterEditor
 
         private void Skills_CheckBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(Skill_CheckBox.SelectedItem is not null)
+            if (Skill_CheckBox.SelectedItem is not null)
             {
                 skill = new Skill(Skill_CheckBox.SelectedItem.ToString());
                 character.AddToSkillName(Skill_CheckBox.SelectedItem.ToString());
@@ -351,7 +352,7 @@ namespace GameCharacterEditor
                 skillBool = true;
             }
 
-            if(skillBool)
+            if (skillBool)
             {
                 Skill_CheckBox.Visible = false;
                 Skill_CheckBox.Items.Remove(Skill_CheckBox.SelectedItem);
@@ -385,7 +386,7 @@ namespace GameCharacterEditor
                 Points_Text.Text = character.Points.ToString();
             }
 
-            if(int.Parse(Lvl_Text.Text) % 3 == 0 && int.Parse(Lvl_Text.Text) != 0
+            if (int.Parse(Lvl_Text.Text) % 3 == 0 && int.Parse(Lvl_Text.Text) != 0
                 && character.XP == character.XPLvl)
             {
                 Skills_Lable.Visible = true;
@@ -433,6 +434,12 @@ namespace GameCharacterEditor
             }
 
             DataBase.UpdateByName(SavedCharactersBox.Text, character);
+        }
+
+        private void GO_Button_Click(object sender, EventArgs e)
+        {
+            MatchCreator matchForm = new MatchCreator();
+            matchForm.Show();
         }
     }
 }

@@ -74,6 +74,7 @@
             this.Armor_ListBox = new System.Windows.Forms.ListBox();
             this.Material_ListBox = new System.Windows.Forms.ListBox();
             this.Armor_Text = new System.Windows.Forms.TextBox();
+            this.GO_Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Intelligence_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Constitution_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Strength_Text)).BeginInit();
@@ -634,12 +635,27 @@
             this.Armor_Text.TabIndex = 96;
             this.Armor_Text.Visible = false;
             // 
+            // GO_Button
+            // 
+            this.GO_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.GO_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GO_Button.Enabled = false;
+            this.GO_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.GO_Button.Location = new System.Drawing.Point(689, 459);
+            this.GO_Button.Name = "GO_Button";
+            this.GO_Button.Size = new System.Drawing.Size(100, 30);
+            this.GO_Button.TabIndex = 97;
+            this.GO_Button.Text = "GO";
+            this.GO_Button.UseVisualStyleBackColor = false;
+            this.GO_Button.Click += new System.EventHandler(this.GO_Button_Click);
+            // 
             // GameCharacterEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 493);
+            this.Controls.Add(this.GO_Button);
             this.Controls.Add(this.Armor_ListBox);
             this.Controls.Add(this.Material_ListBox);
             this.Controls.Add(this.Armor_Label);
@@ -750,5 +766,6 @@
         private ListBox Armor_ListBox;
         private ListBox Material_ListBox;
         private TextBox Armor_Text;
+        private Button GO_Button;
     }
 }
