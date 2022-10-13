@@ -27,9 +27,9 @@ namespace CreateCharacterWarcraftWpf
     {
         CharaterInfo newInfo = new CharaterInfo(1);
         char[] delimiterChars = { ' ', '/' };
-        string[] ability = { "Create fog", "Create snow", "Acceleration", "Кefractoriness", "Night vision",
+        string[] ability = { "Create fog", "Create snow", "Acceleration", "Night vision",
             "Ghost mode", "Resurrection"};
-        string[] activeAbility = new string[7];
+        string[] activeAbility = new string[6];
         int levelUp = 1000;
         int expUp = 0;
 
@@ -161,6 +161,7 @@ namespace CreateCharacterWarcraftWpf
 
         private void cmBxChooseCharacter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ClearAbility(activeAbility);
             Character unit;
             if (cmBxChooseCharacter.SelectedIndex == 0)
             {
@@ -181,7 +182,6 @@ namespace CreateCharacterWarcraftWpf
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Wizard.gif"));
                 WriteInfo(unit);
             }
-            ClearAbility(activeAbility);
         }
 
         private void ClearAbility(string[] activeAbility)
@@ -207,6 +207,10 @@ namespace CreateCharacterWarcraftWpf
             tbDexInfo.Text = Convert.ToString(unit.dexterity) + " / " + Convert.ToString(unit.strengthMax);
             tbConInfo.Text = Convert.ToString(unit.constitution) + " / " + Convert.ToString(unit.constitutionMax);
             tbIntInfo.Text = Convert.ToString(unit.intelligence) + " / " + Convert.ToString(unit.intelligenceMax);
+
+            tbExpInfo.Text = Convert.ToString(unit.experience);
+            tbLvlInfo.Text = Convert.ToString(unit.level);
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -250,7 +254,11 @@ namespace CreateCharacterWarcraftWpf
                     Mongo.AddToDataBase(unit);
                     FillListBox();
                 }
+                levelUp = 1000;
+                expUp = 0;
             }
+
+            ClearAbility(activeAbility);
         }
 
         private void btnExp_Click(object sender, RoutedEventArgs e)
@@ -264,29 +272,20 @@ namespace CreateCharacterWarcraftWpf
                     tbLvlInfo.Text = Convert.ToString(Convert.ToInt32(tbLvlInfo.Text) + 1);
                     levelUp = levelUp + 1000;
                     expUp = Convert.ToInt32(tbExpInfo.Text);
-                    activeAbility[Convert.ToInt32(tbLvlInfo.Text) - 1] = ability[Convert.ToInt32(tbLvlInfo.Text) - 1];
+                    activeAbility[Convert.ToInt32(tbLvlInfo.Text) - 2] = ability[Convert.ToInt32(tbLvlInfo.Text) - 2];
                 }
             }
         }
-
-        private void tbExpInfo_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
+        
 
         private void btnSkill_Click(object sender, RoutedEventArgs e)
         {
             string line = "";
-            for(int i = 0; i < activeAbility.Length; i++)
+            for(int i = 0; i + 1 < Convert.ToInt32(tbLvlInfo.Text); i++)
             {
-                line = line + activeAbility[i] + "\n";
+                line = line + ability[i] + "\n";
             }
             MessageBox.Show(line);
-        }
-
-        private void tbUntName_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-            
         }
 
         private void lstBoxCharacters_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -340,20 +339,24 @@ namespace CreateCharacterWarcraftWpf
             unit.constitution = takeNum(tbConInfo.Text);
             unit.experience = takeNum(tbExpInfo.Text);
             unit.level = takeNum(tbLvlInfo.Text);
+            unit.activeAbility = activeAbility;
 
             Mongo.ReplaceByName(unit.name, unit);
             FillListBox();
 
+            levelUp = 1000;
+            expUp = 0;
+
             btnAdd.Visibility = Visibility.Visible;
             btnCng.Visibility = Visibility.Hidden;
+
+            ClearAbility(activeAbility);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FillListBox();
         }
-
-        
 
         private void FillListBox()
         {

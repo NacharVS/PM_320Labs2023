@@ -136,7 +136,7 @@
             </TextBox.Background>
         </TextBox>
 
-        <TextBox x:Name="tbUntName" HorizontalAlignment="Left" Margin="209,71,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="192" FontFamily="Hobo Std" FontWeight="UltraBlack" FontSize="20" FontStretch="Medium" Grid.ColumnSpan="2" TextChanged="tbUntName_TextChanged_1" Height="25">
+        <TextBox x:Name="tbUntName" HorizontalAlignment="Left" Margin="209,71,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="192" FontFamily="Hobo Std" FontWeight="UltraBlack" FontSize="20" FontStretch="Medium" Grid.ColumnSpan="2" Height="25">
             <TextBox.Background>
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </TextBox.Background>
@@ -176,7 +176,7 @@
                 <ImageBrush Stretch="None" ImageSource="/Images/image.jpg"/>
             </TextBox.Foreground>
         </TextBox>
-        <TextBox x:Name="tbExpInfo" HorizontalAlignment="Left" Margin="209,227,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="192" IsReadOnly="True" FontFamily="Hobo Std" FontWeight="UltraBlack" FontSize="20" FontStretch="Medium" Grid.ColumnSpan="2" TextChanged="tbExpInfo_TextChanged" Height="25">
+        <TextBox x:Name="tbExpInfo" HorizontalAlignment="Left" Margin="209,227,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="192" IsReadOnly="True" FontFamily="Hobo Std" FontWeight="UltraBlack" FontSize="20" FontStretch="Medium" Grid.ColumnSpan="2"  Height="25">
             <TextBox.Background>
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </TextBox.Background>
@@ -249,7 +249,7 @@
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
             </Button.Background>
         </Button>
-        <Button x:Name="btnCng" Content="Change" HorizontalAlignment="Left" Margin="46,258,0,0" VerticalAlignment="Top" Height="57" Width="164" FontFamily="Hobo Std" FontWeight="UltraBlack" FontSize="20" FontStretch="Medium" Click="btnCng_Click" Grid.Column="1">
+        <Button x:Name="btnCng" Content="Change" HorizontalAlignment="Left" Margin="46,270,0,0" VerticalAlignment="Top" Height="57" Width="164" FontFamily="Hobo Std" FontWeight="UltraBlack" FontSize="20" FontStretch="Medium" Click="btnCng_Click" Grid.Column="1">
             <Button.Background>
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </Button.Background>

@@ -24,7 +24,7 @@ namespace CreateCharacterWarcraftWpf
         public int intelligenceMax;
         public int experience;
         public int level;
-        string[] activeAbility = new string[7];
+        public string[] activeAbility = new string[6];
 
         public Character(string name, int healthPoint, int manaPoint, int attack, double protDet, int skillPoint, int strength, int strengthMax,
             int dexterity, int dexterityMax, int constitution, int constitutionMax, int intelligence,
