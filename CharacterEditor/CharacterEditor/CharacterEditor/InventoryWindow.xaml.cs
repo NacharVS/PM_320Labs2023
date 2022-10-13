@@ -1,4 +1,5 @@
 ﻿using CharacterEditorCore;
+using CharacterEditorCore.Items;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +33,9 @@ namespace CharacterEditor
                 var character = CreateItem(btn.Content.ToString());
 
                 if (_items.Count < _items.Capacity)
-                { 
+                {
+                    var win = new ItemRangSelectWindow(character);
+                    win.ShowDialog();
                     _items.Add(character);
                     lbInventoryItems.Items.Add(character);
                                  
@@ -55,14 +58,16 @@ namespace CharacterEditor
         {
             switch (type)
             {
-                case "Helmet":
-                    return new Helmet();
-                case "Rifle":
-                    return new Rifle();
-                case "Knife":
-                    return new Knife();
-                case "Bow":
-                    return new Bow();
+                case "Breastplate - 1":
+                    return new Breastplate(type, 2, 3, 5, 0);
+                case "Helmet - 1":
+                    return new Helmet(type, 2, 3, 5, 0);
+                case "Ak - 74":
+                    return new Rifle(type, 10, 3, 0, 0, 200);
+                case "Knife - 1":
+                    return new Knife(type, 7, 5, 3, 0, 100);
+                case "Bow - 1":
+                    return new Bow(type, 5, 3, 3, 0, 80);
                 default:
                     return null;
             }

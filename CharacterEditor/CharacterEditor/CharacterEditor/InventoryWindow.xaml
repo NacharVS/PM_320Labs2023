@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CharacterEditor"
         mc:Ignorable="d"
-        Title="InventoryWindow" Height="400" Width="500" Background="#FFB0E7EC" Loaded="Window_Loaded">
+        Title="InventoryWindow" Height="400" Width="500" Background="#FFB0E7EC" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="AllBtn" TargetType="Button">
             <Style.Resources>
@@ -42,11 +42,11 @@
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Armor" Style="{StaticResource ItemBtn}" Grid.Column="0" Grid.Row="0"/>
-                <Button Content="Rifle" Style="{StaticResource ItemBtn}" Grid.Column="1" Grid.Row="0"/>
-                <Button Content="Helmet" Style="{StaticResource ItemBtn}" Grid.Column="2" Grid.Row="0"/>
-                <Button Content="Knife" Style="{StaticResource ItemBtn}" Grid.Column="3" Grid.Row="0"/>
-                <Button Content="Bow" Style="{StaticResource ItemBtn}" Grid.Column="4" Grid.Row="0"/>
+                <Button Content="Breastplate - 1" Style="{StaticResource ItemBtn}" Grid.Column="0" Grid.Row="0"/>
+                <Button Content="Ak - 74" Style="{StaticResource ItemBtn}" Grid.Column="1" Grid.Row="0"/>
+                <Button Content="Helmet - 1" Style="{StaticResource ItemBtn}" Grid.Column="2" Grid.Row="0"/>
+                <Button Content="Knife - 1" Style="{StaticResource ItemBtn}" Grid.Column="3" Grid.Row="0"/>
+                <Button Content="Bow - 1" Style="{StaticResource ItemBtn}" Grid.Column="4" Grid.Row="0"/>
             </Grid>
         </GroupBox>
         <GroupBox Name ="gbInventory" Header="Inventory" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,0,10,10">

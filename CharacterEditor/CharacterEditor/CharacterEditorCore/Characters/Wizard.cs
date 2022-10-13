@@ -6,7 +6,9 @@
                               new Characterictic(20, 70), 0, 0.5,
                               new Characterictic(15, 60), 3, 1,
                               new Characterictic(35, 250), 2, 5, 0, 0)
-        { }
+        {
+            Equipment = new Items.Equipment(2, 1, 2);
+        }
 
         public Wizard (int strength,
                        int dexterity,

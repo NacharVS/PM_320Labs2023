@@ -9,7 +9,7 @@ namespace CharacterEditorCore
         private _charactericticChangedDelegate _charactericticChangedEvent;
         private int _currentLevelExperienceValue = 0;
         private delegate void OnLevelUp();
-        private  OnLevelUp OnLevelUpEvent;
+        private OnLevelUp OnLevelUpEvent;
 
         public string Name { get; set; }
 
@@ -32,16 +32,14 @@ namespace CharacterEditorCore
             get { return _equipment; }
             set
             {
-                _equipment.Weapon = value.Weapon;
-                _equipment.Breastplate = value.Breastplate;
-                _equipment.Helmet = value.Helmet;
+                _equipment = value;
             }
         }
 
         private int _availableAbilityCount = 0;
         public int AvailableAbilityCount
         {
-            get { return _availableAbilityCount;}
+            get { return _availableAbilityCount; }
             private set
             {
                 if (value < 0)
@@ -78,14 +76,14 @@ namespace CharacterEditorCore
                 {
                     _experience = 0;
                 }
- 
+
                 _experience = value;
-  
+
                 while (_experience >= Level * _levelUpValue + _currentLevelExperienceValue)
                 {
                     _currentLevelExperienceValue = Level * _levelUpValue + _currentLevelExperienceValue;
                     Level++;
-                    OnLevelUpEvent?.Invoke();               
+                    OnLevelUpEvent?.Invoke();
                 }
             }
         }
@@ -400,6 +398,94 @@ namespace CharacterEditorCore
             return list;
         }
 
+        public int GetEquipmentStrength()
+        {
+            int strength = 0;
+
+            if (Equipment.Helmet != null)
+            {
+                strength += Equipment.Helmet.StrengthChangeValue;
+            }
+
+            if (Equipment.Weapon != null)
+            {
+                strength += Equipment.Weapon.StrengthChangeValue;
+            }
+
+            if (Equipment.Breastplate != null)
+            {
+                strength += Equipment.Breastplate.StrengthChangeValue;
+            }
+
+            return strength;
+        }
+
+        public int GetEquipmentDexterity()
+        {
+            int dexterity = 0;
+
+            if (Equipment.Helmet != null)
+            {
+                dexterity += Equipment.Helmet.DexterityChangeValue;
+            }
+
+            if (Equipment.Weapon != null)
+            {
+                dexterity += Equipment.Weapon.DexterityChangeValue;
+            }
+
+            if (Equipment.Breastplate != null)
+            {
+                dexterity += Equipment.Breastplate.DexterityChangeValue;
+            }
+
+            return dexterity;
+        }
+
+        public int GetEquipmentConstitution()
+        {
+            int constitution = 0;
+
+            if (Equipment.Helmet != null)
+            {
+                constitution += Equipment.Helmet.ConstitutionChangeValue;
+            }
+
+            if (Equipment.Weapon != null)
+            {
+                constitution += Equipment.Weapon.ConstitutionChangeValue;
+            }
+
+            if (Equipment.Breastplate != null)
+            {
+                constitution += Equipment.Breastplate.ConstitutionChangeValue;
+            }
+
+            return constitution;
+        }
+
+        public int GetEquipmentIntellisence()
+        {
+            int intellisence = 0;
+
+            if (Equipment.Helmet != null)
+            {
+                intellisence += Equipment.Helmet.IntellisenceChangeValue;
+            }
+
+            if (Equipment.Weapon != null)
+            {
+                intellisence += Equipment.Weapon.IntellisenceChangeValue;
+            }
+
+            if (Equipment.Breastplate != null)
+            {
+                intellisence += Equipment.Breastplate.IntellisenceChangeValue;
+            }
+
+            return intellisence;
+        }
+
         protected Character(Characterictic strength,
                             double strengthAttackChange,
                             double strengthHealthChange,
@@ -437,6 +523,7 @@ namespace CharacterEditorCore
             Intellisense = intellisense;
 
             Inventory = new Inventory();
+            _equipment = new Equipment(3, 3, 3);
 
             _charactericticChangedEvent += CalculateCharacterictics;
             _charactericticChangedEvent?.Invoke();

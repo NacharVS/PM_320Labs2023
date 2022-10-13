@@ -1,4 +1,5 @@
 ﻿using CharacterEditorCore;
+using CharacterEditorCore.Items;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -28,12 +29,15 @@ namespace CharacterEditorMongoDb
         public List<Ability> Abilities { get; set; }
         [BsonIgnoreIfDefault]
         public int AvailableAbilityCount { get; set; }
+        [BsonIgnoreIfNull]
+        public Equipment Equipment { get; set; }
 
         public CharacterDb(string name, string className, 
                             int strength, int dexterity, 
                             int constitution, int intellisense,
                             List<Item> items, int experience,
-                            List<Ability> abilities, int availableAbilityCount)
+                            List<Ability> abilities, int availableAbilityCount,
+                            Equipment equipment)
         {
             Name = name;
             ClassName = className;
@@ -45,6 +49,7 @@ namespace CharacterEditorMongoDb
             Experience = experience;
             Abilities = abilities;
             AvailableAbilityCount = availableAbilityCount;
+            Equipment = equipment;
         }
     }
 }

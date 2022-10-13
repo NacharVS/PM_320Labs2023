@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CharacterEditor"
         mc:Ignorable="d"
-        Title="Character Editor" Height="400" Width="1150" Background="#FFB0E7EC" MinHeight="450" MinWidth="750" Loaded="MainWindow1_Loaded">
+        Title="Character Editor" Height="400" Width="1150" Background="#FFB0E7EC" MinHeight="450" MinWidth="750" Loaded="MainWindow1_Loaded" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="AllBtn" TargetType="Button">
             <Style.Resources>
@@ -137,6 +137,13 @@
             </Button.Resources>
         </Button>
         <Button x:Name="btnInventory" Content="Inventory" Grid.Column="7" Grid.Row="6" Style="{StaticResource AllBtn}" Width="120" Click="btnInventory_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="btnEquipment" Content="Equipment" Grid.Column="6" Grid.Row="6" Style="{StaticResource AllBtn}" Width="110" Click="btnEquipment_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>

@@ -1,4 +1,6 @@
 ﻿using CharacterEditorCore;
+using CharacterEditorCore.Items;
+using CharacterEditorCore.Team;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
@@ -16,6 +18,9 @@ namespace CharacterEditorMongoDb
             BsonClassMap.RegisterClassMap<Knife>();
             BsonClassMap.RegisterClassMap<Item>();
             BsonClassMap.RegisterClassMap<Ability>();
+            BsonClassMap.RegisterClassMap<Weapon>();
+            BsonClassMap.RegisterClassMap<Breastplate>();
+            BsonClassMap.RegisterClassMap<Equipment>();
 
             var client = new MongoClient(connectionClient);
             var database = client.GetDatabase(databaseStr);
@@ -92,12 +97,32 @@ namespace CharacterEditorMongoDb
             character.Name = dbCharacter.Name;
             character.Inventory = new Inventory(dbCharacter.Items);
             character.Abilities = dbCharacter.Abilities;
+            character.Equipment = dbCharacter.Equipment;
             return character;
         }
 
         public bool ReplaceByName(string name, Character character)
         {
             return _characters.ReplaceOne(x => x.Name == name, CreateCharacterDb(character)).ModifiedCount > 0;
+        }
+
+        public List<MatchCharacterInfo> GetAllCharacters()
+        {
+            var chars = _characters.Find<CharacterDb>(x => true).ToList();
+
+            var result = new List<MatchCharacterInfo>();
+
+            foreach(var character in chars)
+            {
+                result.Add(new MatchCharacterInfo()
+                {
+                    Name = character.Name,
+                    Id = character._id.ToString(),
+                    Level = LevelInfo.GetLevel(character.Experience)
+                });
+            }
+
+            return result;
         }
 
         private CharacterDb CreateCharacterDb(Character character)
@@ -111,7 +136,8 @@ namespace CharacterEditorMongoDb
                                 character.Inventory.Items,
                                 character.Experience,
                                 character.Abilities,
-                                character.AvailableAbilityCount);
+                                character.AvailableAbilityCount,
+                                character.Equipment);
         }
     }
 }

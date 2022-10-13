@@ -6,49 +6,12 @@
         private const int _maxRang = 3;
         public delegate void OnRangChange();
         public event OnRangChange OnRangChangeEvent;
-        public string Name { get; protected set; }
-        private int _strengthChangeValue;
-        public int StrengthChangeValue 
-        {
-            get { return _strengthChangeValue; }
-            set
-            {
-                _strengthChangeValue = value * Rang;
-            }
-        }
-        private int _dexterityChangeValue;
-        public int DexterityChangeValue
-        {
-            get { return _dexterityChangeValue; }
-            set 
-            {
-                _dexterityChangeValue = value * Rang;
-            }
-        }
-        private int _constitutionChangeValue;
-        public int ConstitutionChangeValue
-        {
-            get { return _constitutionChangeValue; }
-            set
-            {
-                _constitutionChangeValue = value * Rang;
-            }
-        }
-        private int _intellisenceChangeValue;
-        public int IntellisenceChangeValue
-        {
-            get { return _intellisenceChangeValue; }
-            set
-            {
-                _intellisenceChangeValue = value * Rang;
-            }
-        }
 
         private int _rang;
         public int Rang
         {
             get { return _rang; }
-            private set
+            set
             { 
                 if (value <= _minRang)
                 {
@@ -65,24 +28,38 @@
                 OnRangChangeEvent?.Invoke();
             }
         }
+        public string Name { get; protected set; }
+        private int _strengthChangeValue;
+        public int StrengthChangeValue { get; private set; }
+        private int _dexterityChangeValue;
+        public int DexterityChangeValue { get; private set; }
+        private int _constitutionChangeValue;
+        public int ConstitutionChangeValue { get; private set; }
+        private int _intellisenceChangeValue;
+        public int IntellisenceChangeValue { get; private set; }
 
         protected Item(int strengthChange, int dexterityChange,
                        int constitutionChange, int intellisenceChange)
         {
             OnRangChangeEvent += UpdateCharacterictics;
             Rang = _minRang;
-            StrengthChangeValue = strengthChange;
-            DexterityChangeValue = dexterityChange;
-            ConstitutionChangeValue = constitutionChange;
-            IntellisenceChangeValue = intellisenceChange;
+            _strengthChangeValue = strengthChange;
+            _dexterityChangeValue = dexterityChange;
+            _constitutionChangeValue = constitutionChange;
+            _intellisenceChangeValue = intellisenceChange;
         }
 
         private void UpdateCharacterictics()
         {
-            StrengthChangeValue = _strengthChangeValue;
-            DexterityChangeValue = _dexterityChangeValue;
-            ConstitutionChangeValue = _constitutionChangeValue;
-            IntellisenceChangeValue = _intellisenceChangeValue;
+            StrengthChangeValue = _strengthChangeValue * Rang;
+            DexterityChangeValue = _dexterityChangeValue * Rang;
+            ConstitutionChangeValue = _constitutionChangeValue * Rang;
+            IntellisenceChangeValue = _intellisenceChangeValue * Rang;
+        }
+
+        public int GetMaxRang()
+        {
+            return _maxRang;    
         }
     }
 }

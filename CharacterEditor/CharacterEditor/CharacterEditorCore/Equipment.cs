@@ -12,6 +12,12 @@
             get { return _helmet; }
             set
             {
+                if (value == null)
+                {
+                    _helmet = value;
+                    return;
+                }
+
                 if (value.Rang <= MaxAvailableHelmetRang)
                 {
                     _helmet = value;
@@ -25,6 +31,12 @@
             get { return _breastplate; }
             set
             {
+                if (value == null)
+                {
+                    _breastplate = value;
+                    return;
+                }
+
                 if (value.Rang <= MaxAvailablBreastplateRang)
                 {
                     _breastplate = value;
@@ -38,6 +50,12 @@
             get { return _weapon; }
             set
             {
+                if (value == null)
+                {
+                    _weapon = value;
+                    return;
+                }
+
                 if (value.Rang <= MaxAvailableWeaponRang)
                 {
                     _weapon = value;

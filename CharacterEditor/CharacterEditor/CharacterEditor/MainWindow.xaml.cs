@@ -1,8 +1,6 @@
 ﻿using CharacterEditorCore;
 using CharacterEditorMongoDb;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -82,13 +80,17 @@ namespace CharacterEditor
             Level.Content = _currentCharacter.Level;
 
             strength.Content = _currentCharacter.GetStrengthValue() 
-                                + _currentCharacter.GetLevelCharactericticsValue();
+                                + _currentCharacter.GetLevelCharactericticsValue()
+                                + _currentCharacter.GetEquipmentStrength();
             dexterity.Content = _currentCharacter.GetDexterityValue()
-                                + _currentCharacter.GetLevelCharactericticsValue();
+                                + _currentCharacter.GetLevelCharactericticsValue()
+                                + _currentCharacter.GetEquipmentDexterity();
             constitution.Content = _currentCharacter.GetConstitutionValue()
-                                + _currentCharacter.GetLevelCharactericticsValue();
+                                + _currentCharacter.GetLevelCharactericticsValue()
+                                + _currentCharacter.GetEquipmentConstitution();
             intellisense.Content = _currentCharacter.GetIntellisenseValue()
-                                + _currentCharacter.GetLevelCharactericticsValue();
+                                + _currentCharacter.GetLevelCharactericticsValue()
+                                + _currentCharacter.GetEquipmentIntellisence();
 
             FillCBAbilities();
             FillLBCharacterAbilities();
@@ -414,6 +416,18 @@ namespace CharacterEditor
                          _currentCharacter.GetAbilitiesMana();
             MagicalAttack.Content = intel * _currentCharacter.IntellisenseMagicalAttackChange +
                                     _currentCharacter.GetAbilitiesMagicalAttack();
+        }
+
+        private void btnEquipment_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentCharacter == null)
+            {
+                return;
+            }
+
+            var equipmentWindow = new Equipment(_currentCharacter);
+            equipmentWindow.ShowDialog();
+            CharactericticChangedEvent?.Invoke();
         }
     }
 }
