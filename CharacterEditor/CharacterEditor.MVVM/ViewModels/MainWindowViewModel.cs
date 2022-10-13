@@ -367,9 +367,11 @@ public class MainWindowViewModel : ViewModel
 
         UpdateFields(UpdateFieldValues.Stat);
     }
-    
+
     public ICommand ShowMatchHistory { get; }
-    private bool CanShowMatchHistoryExecute(object p) => _currentCharacter is not null;
+
+    private bool CanShowMatchHistoryExecute(object p) =>
+        _currentCharacter is not null && _currentCharacter.Id is not null;
 
     private void OnShowMatchHistoryExecuted(object p)
     {
