@@ -24,6 +24,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0" Grid.Column="1" Content="Back" HorizontalAlignment="Left" Click="ButtonBase_OnClick" />
@@ -39,10 +40,6 @@
         <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Run Text="Teams are balanced: " />
             <Run Text="{Binding Match.AreTeamsBalanced, FallbackValue=False, Mode=OneWay}" />
-        </TextBlock>
-        <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Run Text="Teams are ready to match: " />
-            <Run Text="{Binding Match.AreTeamsReady, FallbackValue=False, Mode=OneWay}" />
         </TextBlock>
 
         <Label
@@ -75,9 +72,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" Margin="0 5 0 5">
+        <StackPanel Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="0 5 0 5">
             <Button HorizontalAlignment="Center" Content="Add to Team A" Width="200" Command="{Binding AddToTeamCommand}" CommandParameter="TeamA"/>
             <Button HorizontalAlignment="Center" Content="Remove from Team A" Width="200" Command="{Binding RemoveFromTeamCommand}" CommandParameter="TeamA"/>
+            <Button HorizontalAlignment="Center" Content="Show character" Width="200" Command="{Binding ShowCharacterCommand}" CommandParameter="TeamA" Click="ButtonBase_OnClick"/>
         </StackPanel>
         
         <Label
@@ -111,9 +109,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center" Margin="0 5 0 5">
+        <StackPanel Grid.Row="5" Grid.Column="3" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="0 5 0 5">
             <Button HorizontalAlignment="Center" Content="Add to Team B" Width="200" Command="{Binding AddToTeamCommand}" CommandParameter="TeamB"/>
             <Button HorizontalAlignment="Center" Content="Remove from Team B" Width="200" Command="{Binding RemoveFromTeamCommand}" CommandParameter="TeamB"/>
+            <Button HorizontalAlignment="Center" Content="Show character" Width="200" Command="{Binding ShowCharacterCommand}" CommandParameter="TeamB" Click="ButtonBase_OnClick"/>
         </StackPanel>
         
         <Button Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Content="Clear" Command="{Binding ClearMatchCommand}" CommandParameter=""/>

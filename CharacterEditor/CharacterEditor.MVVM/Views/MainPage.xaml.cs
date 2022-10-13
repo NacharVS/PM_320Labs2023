@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using CharacterEditor.MVVM.ViewModels;
-using CharacterEditor.MVVM.ViewModels.Base;
 
 namespace CharacterEditor.MVVM.Views
 {
@@ -10,8 +9,8 @@ namespace CharacterEditor.MVVM.Views
     /// </summary>
     public partial class MainPage : Page
     {
-        private ViewModel _viewModel => (MainWindowViewModel)DataContext;
-        private Page? _nextPage;
+        private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
+        private readonly Page? _nextPage;
         
         public MainPage()
         {
@@ -22,6 +21,7 @@ namespace CharacterEditor.MVVM.Views
 
         private void OnNavigatedTo(object sender, RoutedEventArgs e)
         {
+            ViewModel.UpdateCharacter();
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

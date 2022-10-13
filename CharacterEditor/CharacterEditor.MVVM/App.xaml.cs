@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Windows;
+using CharacterEditor.Core;
 using CharacterEditor.Core.Db;
 using CharacterEditor.Core.Exceptions;
 using CharacterEditor.MongoDB;
@@ -16,6 +17,7 @@ namespace CharacterEditor.MVVM
         public IAbilityRepository AbilityRepository { get; }
         public IItemRepository ItemRepository { get; }
         public IMatchRepository MatchRepository { get; }
+        public Character? Character { get; set; }
 
         public App()
         {

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using CharacterEditor.Core;
-using CharacterEditor.Core.Db;
+﻿using System.Windows;
 
 namespace CharacterEditor.MVVM.Views;
 

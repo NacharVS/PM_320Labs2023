@@ -46,7 +46,7 @@ public class MatchPageViewModel : ViewModel
     public ICommand RemoveFromTeamCommand { get; }
 
     private bool CanRemoveFromTeamCommandExecute(object p) =>
-        _match is not null && GetSelectedItemByTeamParameter(p) is not null;
+        _match is not null && _match.DateStarted == default && GetSelectedItemByTeamParameter(p) is not null;
 
     private void OnRemoveFromTeamCommandExecuted(object p)
     {
@@ -58,7 +58,7 @@ public class MatchPageViewModel : ViewModel
 
     public ICommand AddToTeamCommand { get; }
 
-    private bool CanAddToTeamCommandExecute(object p) => _match is not null &&
+    private bool CanAddToTeamCommandExecute(object p) => _match is not null  && _match.DateStarted == default &&
         GetTeamByParameter(p).Characters.Length != Team.MaximumParticipants;
 
     private void OnAddToTeamCommandExecuted(object p)
@@ -96,7 +96,7 @@ public class MatchPageViewModel : ViewModel
     public ICommand StartMatchCommand { get; }
 
     private bool CanStartMatchCommandExecute(object p) =>
-        _match is not null && _match.AreTeamsReady &&
+        _match is not null && _match.AreTeamsBalanced &&
         _match.DateStarted == default;
 
     private void OnStartMatchCommandExecuted(object p)
@@ -143,6 +143,16 @@ public class MatchPageViewModel : ViewModel
         {
             MessageBox.Show(e.Message);
         }
+    }
+    
+    public ICommand ShowCharacterCommand { get; }
+
+    private bool CanShowCharacterCommandExecute(object p) =>
+        _match is not null && GetSelectedItemByTeamParameter(p) is not null;
+
+    private void OnShowCharacterCommandExecuted(object p)
+    {
+        ((App)Application.Current).Character = _repository.GetCharacter(GetSelectedItemByTeamParameter(p)!.Id);
     }
 
     private Team GetTeamByParameter(object p)
@@ -193,5 +203,7 @@ public class MatchPageViewModel : ViewModel
             CanStartMatchCommandExecute);
         LoadMatchInfoCommand = new LambdaCommand(OnLoadMatchInfoExecuted,
             CanLoadMatchInfoExecute);
+        ShowCharacterCommand = new LambdaCommand(OnShowCharacterCommandExecuted,
+            CanShowCharacterCommandExecute);
     }
 }

@@ -390,7 +390,10 @@ public class MainWindowViewModel : ViewModel
 
     private void CreateNewCharacter()
     {
-        switch (_selectedClass!.Content)
+        if (_selectedClass is null)
+            return;
+
+        switch (_selectedClass.Content)
         {
             case "Warrior":
                 _currentCharacter = new Warrior();
@@ -482,5 +485,13 @@ public class MainWindowViewModel : ViewModel
         AddXp = new LambdaCommand(OnAddXpExecuted, CanAddXpExecute);
         ShowMatchHistory = new LambdaCommand(OnShowMatchHistoryExecuted,
             CanShowMatchHistoryExecute);
+    }
+
+    public void UpdateCharacter()
+    {
+        var appChar = ((App)Application.Current).Character;
+        if (appChar is not null)
+            _currentCharacter = appChar;
+        UpdateFields(UpdateFieldValues.All);
     }
 }
