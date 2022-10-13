@@ -336,7 +336,7 @@ namespace GameCharacterEditor
                 Skill_Text.Text += character.skillList[i] + " ";
             }
 
-            Material_ListBox.Visible = false;
+            Material_ComboBox.Visible = false;
             Armor_ListBox.Visible = false;
             Armor_Text.Visible = true;
             Armor_Text.Text = Armor_ListBox.SelectedItem.ToString();
@@ -396,16 +396,17 @@ namespace GameCharacterEditor
 
         private void Armor_ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Material_ListBox.Visible = true;
-            Armor_ListBox.Visible = false;
+            Material_ComboBox.Visible = true;/*
+            Armor_ListBox.Visible = false;*/
         }
 
-        private void Material_ListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void Material_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (Armor_ListBox.SelectedItem)
+            switch (Armor_ListBox.SelectedItem.ToString())
             {
                 case "Chain mail":
-                    character.chainmail = new ChainMail(Material_ListBox.SelectedItem.ToString());
+                    character.chainmail = new ChainMail(Material_ComboBox.SelectedItem.ToString());
+                    character.chainmail.CheckChainMail(character, Material_ComboBox.SelectedItem.ToString());
                     Strength_Text.Value = character.Strength;
                     Dexterity_Text.Value = character.Dexterity;
                     HP_Text.Value = character.HP;
@@ -414,7 +415,8 @@ namespace GameCharacterEditor
                     Attack_Text.Value = character.Attack;
                     break;
                 case "Helmet":
-                    character.helmet = new Helmet(Material_ListBox.SelectedItem.ToString());
+                    character.helmet = new Helmet(Material_ComboBox.SelectedItem.ToString());
+                    character.helmet.CheckHelmet(character, Material_ComboBox.SelectedItem.ToString());
                     Strength_Text.Value = character.Strength;
                     Intelligence_Text.Value = character.Intelligence;
                     HP_Text.Value = character.HP;
@@ -423,7 +425,8 @@ namespace GameCharacterEditor
                     Attack_Text.Value = character.Attack;
                     break;
                 case "Shild":
-                    character.shild = new Shild(Material_ListBox.SelectedItem.ToString());
+                    character.shild = new Shild(Material_ComboBox.SelectedItem.ToString());
+                    character.shild.CheckShild(character, Material_ComboBox.SelectedItem.ToString());
                     Strength_Text.Value = character.Strength;
                     Dexterity_Text.Value = character.Dexterity;
                     HP_Text.Value = character.HP;

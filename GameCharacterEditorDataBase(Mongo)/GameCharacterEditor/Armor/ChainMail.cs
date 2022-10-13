@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace GameCharacterEditor
 {
-    class ChainMail : Armor
+    class ChainMail
     {
         public string Material { get; set; }
 
-        public ChainMail(string material) : base(material)
+        public ChainMail(string material)
         {
             Material = material;
         }

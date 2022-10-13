@@ -34,6 +34,11 @@
             this.TeamType_Label = new System.Windows.Forms.Label();
             this.AutoTeam_Button = new System.Windows.Forms.Button();
             this.Choos_Label = new System.Windows.Forms.Label();
+            this.FirstTeam_ListBox = new System.Windows.Forms.ListBox();
+            this.SecondTeam_ListBox = new System.Windows.Forms.ListBox();
+            this.SecondTeam_Label = new System.Windows.Forms.Label();
+            this.FirstTeam_Label = new System.Windows.Forms.Label();
+            this.Generate_Button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SavedCharacteers_Lable
@@ -106,19 +111,85 @@
             this.Choos_Label.Text = "Choosing a character for the team";
             this.Choos_Label.Visible = false;
             // 
-            // Match
+            // FirstTeam_ListBox
+            // 
+            this.FirstTeam_ListBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FirstTeam_ListBox.Enabled = false;
+            this.FirstTeam_ListBox.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FirstTeam_ListBox.FormattingEnabled = true;
+            this.FirstTeam_ListBox.ItemHeight = 15;
+            this.FirstTeam_ListBox.Location = new System.Drawing.Point(321, 210);
+            this.FirstTeam_ListBox.Name = "FirstTeam_ListBox";
+            this.FirstTeam_ListBox.Size = new System.Drawing.Size(169, 94);
+            this.FirstTeam_ListBox.TabIndex = 82;
+            this.FirstTeam_ListBox.Visible = false;
+            // 
+            // SecondTeam_ListBox
+            // 
+            this.SecondTeam_ListBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SecondTeam_ListBox.Enabled = false;
+            this.SecondTeam_ListBox.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SecondTeam_ListBox.FormattingEnabled = true;
+            this.SecondTeam_ListBox.ItemHeight = 15;
+            this.SecondTeam_ListBox.Location = new System.Drawing.Point(519, 210);
+            this.SecondTeam_ListBox.Name = "SecondTeam_ListBox";
+            this.SecondTeam_ListBox.Size = new System.Drawing.Size(169, 94);
+            this.SecondTeam_ListBox.TabIndex = 83;
+            this.SecondTeam_ListBox.Visible = false;
+            // 
+            // SecondTeam_Label
+            // 
+            this.SecondTeam_Label.AutoSize = true;
+            this.SecondTeam_Label.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.SecondTeam_Label.Location = new System.Drawing.Point(556, 185);
+            this.SecondTeam_Label.Name = "SecondTeam_Label";
+            this.SecondTeam_Label.Size = new System.Drawing.Size(91, 17);
+            this.SecondTeam_Label.TabIndex = 84;
+            this.SecondTeam_Label.Text = "Second team";
+            this.SecondTeam_Label.Visible = false;
+            // 
+            // FirstTeam_Label
+            // 
+            this.FirstTeam_Label.AutoSize = true;
+            this.FirstTeam_Label.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.FirstTeam_Label.Location = new System.Drawing.Point(365, 185);
+            this.FirstTeam_Label.Name = "FirstTeam_Label";
+            this.FirstTeam_Label.Size = new System.Drawing.Size(75, 17);
+            this.FirstTeam_Label.TabIndex = 85;
+            this.FirstTeam_Label.Text = "First team";
+            this.FirstTeam_Label.Visible = false;
+            // 
+            // Generate_Button
+            // 
+            this.Generate_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Generate_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Generate_Button.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Generate_Button.Location = new System.Drawing.Point(321, 109);
+            this.Generate_Button.Name = "Generate_Button";
+            this.Generate_Button.Size = new System.Drawing.Size(367, 42);
+            this.Generate_Button.TabIndex = 86;
+            this.Generate_Button.Text = "Start generating teams";
+            this.Generate_Button.UseVisualStyleBackColor = false;
+            this.Generate_Button.Visible = false;
+            // 
+            // MatchCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Generate_Button);
+            this.Controls.Add(this.FirstTeam_Label);
+            this.Controls.Add(this.SecondTeam_Label);
+            this.Controls.Add(this.SecondTeam_ListBox);
+            this.Controls.Add(this.FirstTeam_ListBox);
             this.Controls.Add(this.Choos_Label);
             this.Controls.Add(this.AutoTeam_Button);
             this.Controls.Add(this.TeamType_Label);
             this.Controls.Add(this.CustomTeam_Button);
             this.Controls.Add(this.SavedCharacteers_Lable);
             this.Controls.Add(this.SavedCharactersBox);
-            this.Name = "Match";
+            this.Name = "MatchCreator";
             this.Text = "Match";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -133,5 +204,10 @@
         private Label TeamType_Label;
         private Button AutoTeam_Button;
         private Label Choos_Label;
+        private ListBox FirstTeam_ListBox;
+        private ListBox SecondTeam_ListBox;
+        private Label SecondTeam_Label;
+        private Label FirstTeam_Label;
+        private Button Generate_Button;
     }
 }

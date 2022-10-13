@@ -72,9 +72,9 @@
             this.Skill_CheckBox = new System.Windows.Forms.CheckedListBox();
             this.Armor_Label = new System.Windows.Forms.Label();
             this.Armor_ListBox = new System.Windows.Forms.ListBox();
-            this.Material_ListBox = new System.Windows.Forms.ListBox();
             this.Armor_Text = new System.Windows.Forms.TextBox();
             this.GO_Button = new System.Windows.Forms.Button();
+            this.Material_ComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.Intelligence_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Constitution_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Strength_Text)).BeginInit();
@@ -603,28 +603,13 @@
             this.Armor_ListBox.ItemHeight = 15;
             this.Armor_ListBox.Items.AddRange(new object[] {
             "Chain mail",
-            "Helmet ",
+            "Helmet",
             "Shild"});
             this.Armor_ListBox.Location = new System.Drawing.Point(411, 440);
             this.Armor_ListBox.Name = "Armor_ListBox";
             this.Armor_ListBox.Size = new System.Drawing.Size(120, 49);
             this.Armor_ListBox.TabIndex = 93;
             this.Armor_ListBox.SelectedIndexChanged += new System.EventHandler(this.Armor_ListBox_SelectedIndexChanged);
-            // 
-            // Material_ListBox
-            // 
-            this.Material_ListBox.FormattingEnabled = true;
-            this.Material_ListBox.ItemHeight = 15;
-            this.Material_ListBox.Items.AddRange(new object[] {
-            "Copper",
-            "Silver",
-            "Gold"});
-            this.Material_ListBox.Location = new System.Drawing.Point(411, 440);
-            this.Material_ListBox.Name = "Material_ListBox";
-            this.Material_ListBox.Size = new System.Drawing.Size(120, 49);
-            this.Material_ListBox.TabIndex = 95;
-            this.Material_ListBox.Visible = false;
-            this.Material_ListBox.SelectedIndexChanged += new System.EventHandler(this.Material_ListBox_SelectedIndexChanged);
             // 
             // Armor_Text
             // 
@@ -649,15 +634,28 @@
             this.GO_Button.UseVisualStyleBackColor = false;
             this.GO_Button.Click += new System.EventHandler(this.GO_Button_Click);
             // 
+            // Material_ComboBox
+            // 
+            this.Material_ComboBox.FormattingEnabled = true;
+            this.Material_ComboBox.Items.AddRange(new object[] {
+            "Copper",
+            "Silver",
+            "Gold"});
+            this.Material_ComboBox.Location = new System.Drawing.Point(537, 451);
+            this.Material_ComboBox.Name = "Material_ComboBox";
+            this.Material_ComboBox.Size = new System.Drawing.Size(121, 23);
+            this.Material_ComboBox.TabIndex = 98;
+            this.Material_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Material_ComboBox_SelectedIndexChanged);
+            // 
             // GameCharacterEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 493);
+            this.Controls.Add(this.Material_ComboBox);
             this.Controls.Add(this.GO_Button);
             this.Controls.Add(this.Armor_ListBox);
-            this.Controls.Add(this.Material_ListBox);
             this.Controls.Add(this.Armor_Label);
             this.Controls.Add(this.Skill_CheckBox);
             this.Controls.Add(this.textBox1);
@@ -764,8 +762,9 @@
         private CheckedListBox Skill_CheckBox;
         private Label Armor_Label;
         private ListBox Armor_ListBox;
-        private ListBox Material_ListBox;
         private TextBox Armor_Text;
         private Button GO_Button;
+        private ComboBox Material_ListBox;
+        private ComboBox Material_ComboBox;
     }
 }

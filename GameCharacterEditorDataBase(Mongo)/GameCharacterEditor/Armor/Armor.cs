@@ -8,7 +8,6 @@ namespace GameCharacterEditor
 {
     class Armor
     {
-        public string ArmorName { get; set; }
         public string ArmorMaterial { get; set; }
 
         public Armor (string material)

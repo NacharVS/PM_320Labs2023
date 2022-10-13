@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace GameCharacterEditor
 {
-    class Shild : Armor
+    class Shild
     {
         public string Material { get; set; }
 
-        public Shild(string material) : base(material) 
+        public Shild(string material)
         { 
             Material = material; 
         }
