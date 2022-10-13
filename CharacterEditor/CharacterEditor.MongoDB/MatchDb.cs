@@ -11,7 +11,10 @@ public class MatchDb
     [BsonIgnoreIfNull]
     public string Id { get; init; }
 
-    [BsonIgnoreIfDefault] public DateTime DateStarted { get; init; }
+    [BsonIgnoreIfDefault]
+    [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+    public DateTime DateStarted { get; init; }
+
     public Team TeamA { get; init; }
     public Team TeamB { get; init; }
 }
