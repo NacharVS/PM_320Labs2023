@@ -56,10 +56,6 @@ public class TestMatching
         Assert.That(match.TeamB.Characters.Length,
             Is.EqualTo(Team.MaximumParticipants),
             "Not enough participants generated");
-        Assert.False(match.TeamA.Characters.Contains(chars[0]),
-            "Wrong character added");
-        Assert.False(match.TeamA.Characters.Contains(chars[0]),
-            "Wrong character added");
         Assert.Pass();
     }
 
