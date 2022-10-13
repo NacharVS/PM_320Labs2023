@@ -6,11 +6,12 @@ namespace CharacterCreator.Data.Models;
 
 public class AbilityDbModel
 {
+    [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
 
     [BsonIgnoreIfNull] public string? Name { get; set; }
-    [BsonIgnoreIfDefault] public int RequiredLevel { get; init; }
+    [BsonIgnoreIfDefault] public int RequiredLevel { get; set; }
     [BsonIgnoreIfDefault] public int HealthChangeValue { get; set; }
     [BsonIgnoreIfDefault] public int ManaChangeValue { get; set; }
     [BsonIgnoreIfDefault] public int ManaAttackChangeValue { get; set; }

@@ -1,37 +1,37 @@
+
 using CharacterCreator.Core.Characteristics;
 
 namespace CharacterCreator.Core;
 
-public class Warrior : Character
+public class Rogue : Character
 {
-    private const double STRENGTH_ATTACK_CHANGE = 5;
-    private const double STRENGTH_HP_CHANGE = 2;
-    private CharacteristicBoundary _strength = new CharacteristicBoundary(30, 250);
+    private const double STRENGTH_ATTACK_CHANGE = 2;
+    private const double STRENGTH_HP_CHANGE = 1;
+    private CharacteristicBoundary _strength = new (15, 55);
     
-    private const double DEXTERITY_ATTACK_CHANGE = 1;
-    private const double DEXTERITY_PHYS_DEFENSE_CHANGE = 1;
-    private CharacteristicBoundary _dexterity = new CharacteristicBoundary(15, 70);
+    private const double DEXTERITY_ATTACK_CHANGE = 4;
+    private const double DEXTERITY_PHYS_DEFENSE_CHANGE = 1.5;
+    private CharacteristicBoundary _dexterity = new (30, 250);
     
-    private const double CONSTITUTION_HP_CHANGE = 10;
-    private const double CONSTITUTION_PHYS_DEFENSE_CHANGE = 2;
-    private CharacteristicBoundary _constitution = new CharacteristicBoundary(20, 100);
+    private const double CONSTITUTION_HP_CHANGE = 6;
+    private CharacteristicBoundary _constitution = new (20, 80);
     
-    private const double INTELLIGENCE_MANA_CHANGE = 1;
+    private const double INTELLIGENCE_MANA_CHANGE = 1.5;
     private const double INTELLIGENCE_MAGICAL_ATTACK_CHANGE = 1;
-    private CharacteristicBoundary _intelligence = new CharacteristicBoundary(10, 50);
+    private CharacteristicBoundary _intelligence = new (15, 70);
 
-    public Warrior(int exp = 0)
+    public Rogue(int exp = 0)
     {
-        Stats = new Stats(_strength, _dexterity, _intelligence, _constitution);
-        Initialize(exp);
-
+        BoundaryStats = new BoundaryStats(_strength, _dexterity, _intelligence, _constitution);
+        
         HealthPoint = STRENGTH_HP_CHANGE * _strength.MinValue + CONSTITUTION_HP_CHANGE * _constitution.MinValue;
         PhysAttack = STRENGTH_ATTACK_CHANGE * _strength.MinValue + DEXTERITY_ATTACK_CHANGE * _dexterity.MinValue;
-        PhysDefense = DEXTERITY_PHYS_DEFENSE_CHANGE * _dexterity.MinValue +
-                      CONSTITUTION_PHYS_DEFENSE_CHANGE * _constitution.MinValue;
+        PhysDefense = DEXTERITY_PHYS_DEFENSE_CHANGE * _dexterity.MinValue;
         Mana = INTELLIGENCE_MANA_CHANGE * _intelligence.MinValue;
         MagicalAttack = INTELLIGENCE_MAGICAL_ATTACK_CHANGE * _intelligence.MinValue;
         
+        Initialize(exp);
+
         OnDexterityChangeEvent += DexterityChange;
         OnStrengthChangeEvent += StrengthChange;
         OnConstitutionChangeEvent += ConstitutionChange;
@@ -53,7 +53,6 @@ public class Warrior : Character
     public void ConstitutionChange(double value)
     {
         HealthPoint += CONSTITUTION_HP_CHANGE * value;
-        PhysDefense += CONSTITUTION_PHYS_DEFENSE_CHANGE * value;
     }
 
     public void IntelligenceChange(double value)

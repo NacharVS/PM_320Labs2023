@@ -14,22 +14,27 @@ namespace CharacterCreator.Core
     public partial class MainWindow : Window
     {
         private Character? _selectedCharacter;
-        private ICharacterRepository _characterRepository;
+
+        private IRepository<Character> _characterRepository;
+        private IRepository<Equipment> _equipmentRepository;
         private IAbilityRepository _abilityRepository;
+
 
         public MainWindow()
         {
             InitializeComponent();
-            
+
             _abilityRepository = new AbilityRepository(((App)Application.Current).abilityDbConnection);
             _characterRepository = new CharacterRepository(((App)Application.Current).characterDbConnection);
+            _equipmentRepository = new EquipmentRepository(((App)Application.Current).equipmentDbConnection);
+
+            ((EquipmentRepository)_equipmentRepository).AddDefaultEquipments();
             _abilityRepository.AddDefaultAbilities();
 
             OnDataChangedEvent += UpdateAvailableAbilities;
             OnDataChangedEvent += UpdateInventory;
             OnDataChangedEvent += UpdateExperienceView;
             OnDataChangedEvent += UpdateStatsView;
-            
         }
 
         private void CharacterClassList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -47,6 +52,7 @@ namespace CharacterCreator.Core
                     _selectedCharacter = new Wizard();
                     break;
             }
+
             if (_selectedCharacter is null)
                 return;
 
@@ -74,7 +80,7 @@ namespace CharacterCreator.Core
             if (_selectedCharacter is null)
                 return;
 
-            _characterRepository.InsertOrUpdate(_selectedCharacter);
+            _characterRepository.Update(_selectedCharacter, _selectedCharacter.Id ?? "");
 
             MessageBox.Show("Done");
         }
@@ -84,7 +90,7 @@ namespace CharacterCreator.Core
         {
             if (_selectedCharacter != null)
             {
-                _characterRepository.DeleteCharacter(_selectedCharacter.Id);
+                _characterRepository.Delete(_selectedCharacter.Id);
                 MessageBox.Show("Done");
             }
         }
@@ -94,10 +100,11 @@ namespace CharacterCreator.Core
             if (_selectedCharacter is null)
                 return;
 
-
-            Item item = new Item { Name = ItemNameTextBox.Text };
-            _selectedCharacter.AddItemToInventory(item);
-            UpdateInventory();
+            ItemStorage storage = new ItemStorage(_selectedCharacter);
+            if (storage.ShowDialog() == false)
+            {
+                UpdateInventory();
+            }
         }
 
         private void RemoveInventoryBtn_OnClick(object sender, RoutedEventArgs e)
@@ -105,8 +112,8 @@ namespace CharacterCreator.Core
             if (_selectedCharacter is null || InventoryListBox.SelectedItem is null)
                 return;
 
-            _selectedCharacter.RemoveItemFromInventory((Item)InventoryListBox.SelectedItem);
-            UpdateInventory();
+            _selectedCharacter.RemoveItemFromInventory((Equipment)InventoryListBox.SelectedItem);
+            OnDataChangedEvent?.Invoke();
         }
 
         private void ExpUpBtn_OnCLick(object sender, RoutedEventArgs e)
@@ -129,7 +136,7 @@ namespace CharacterCreator.Core
 
         private void AvailableAbilities_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Ability chosenAbility = (Ability) ((ComboBox) e.Source).SelectedItem;
+            Ability chosenAbility = (Ability)((ComboBox)e.Source).SelectedItem;
             if (chosenAbility is null)
                 return;
             RequiredLvlLabel.Content = chosenAbility.RequiredLevel + " lvl";
@@ -139,19 +146,19 @@ namespace CharacterCreator.Core
         {
             if (_selectedCharacter is null)
                 return;
-            
-            Ability chosenAbility = (Ability) AvailableAbilities.SelectedItem;
+
+            Ability chosenAbility = (Ability)AvailableAbilities.SelectedItem;
 
             if (!_selectedCharacter.AddAbility(chosenAbility))
             {
                 MessageBox.Show("Слишком низкий уровень");
                 return;
             }
-            
+
             OnDataChangedEvent?.Invoke();
         }
-        
-        
+
+
         private void AddedAbilities_OnDropDownOpened(object sender, EventArgs e)
         {
             AddedAbilities.Items.Clear();
@@ -162,14 +169,12 @@ namespace CharacterCreator.Core
 
             AddedAbilities.DisplayMemberPath = "Name";
         }
-                
+
         private void AvailableAbilities_OnDropDownOpened(object? sender, EventArgs e)
         {
             UpdateAvailableAbilities();
         }
-        
-        private delegate void OnDataChangedDelegate();
-        private event OnDataChangedDelegate OnDataChangedEvent;
+
 
 
         #region UpdateData
@@ -177,7 +182,7 @@ namespace CharacterCreator.Core
         private void UpdateAvailableAbilities()
         {
             AvailableAbilities.Items.Clear();
-
+            
             if (_selectedCharacter!.Abilities.Count > 0)
             {
                 foreach (Ability a in _abilityRepository.GetAllAbilities())
@@ -195,31 +200,31 @@ namespace CharacterCreator.Core
                     AvailableAbilities.Items.Add(a);
                 }
             }
-            
+
             AvailableAbilities.DisplayMemberPath = "Name";
         }
-        
+
         private void UpdateInventory()
         {
             InventoryListBox.ItemsSource = _selectedCharacter!.Inventory.ToArray();
             InventoryListBox.InvalidateVisual();
         }
-        
-        
+
+
         private void UpdateStatsView()
         {
             AvailableSkillPointsValueLabel.Content = _selectedCharacter.SkillPoints;
             NameTextBox.Text = _selectedCharacter.Name;
-            StrengthValueLabel.Content = _selectedCharacter?.Strength;
-            DexterityValueLabel.Content = _selectedCharacter?.Dexterity;
-            ConstitutionValueLabel.Content = _selectedCharacter?.Constitution;
-            IntelligenceValueLabel.Content = _selectedCharacter?.Intelligence;
+            StrengthValueLabel.Content = _selectedCharacter?.TotalStats.Strength;
+            DexterityValueLabel.Content = _selectedCharacter?.TotalStats.Dexterity;
+            ConstitutionValueLabel.Content = _selectedCharacter?.TotalStats.Constitution;
+            IntelligenceValueLabel.Content = _selectedCharacter?.TotalStats.Intelligence;
 
-            HPValueLabel.Content = _selectedCharacter?.HealthPoint;
-            ManaValueLabel.Content = _selectedCharacter?.Mana;
-            PhysAttackValueLabel.Content = _selectedCharacter?.PhysAttack;
-            PhysDefenseValueLabel.Content = _selectedCharacter?.PhysDefense;
-            MagicalAttackValueLabel.Content = _selectedCharacter?.MagicalAttack;
+            HPValueLabel.Content = _selectedCharacter?.TotalStats.HealthPoint;
+            ManaValueLabel.Content = _selectedCharacter?.TotalStats.ManaPoint;
+            PhysAttackValueLabel.Content = _selectedCharacter?.TotalStats.PhysAttack;
+            PhysDefenseValueLabel.Content = _selectedCharacter?.TotalStats.PhysDefense;
+            MagicalAttackValueLabel.Content = _selectedCharacter?.TotalStats.MagicalAttack;
         }
 
         private void UpdateExperienceView()
@@ -228,17 +233,35 @@ namespace CharacterCreator.Core
             NextLvlExpValue.Content = _selectedCharacter.Level.NextLevelExp;
             LvlValue.Content = _selectedCharacter.Level.CurrentLvl;
         }
-        
-        
+
+
         private void CharactersListUpdate(string className)
         {
-            CharactersList.ItemsSource = _characterRepository.GetAllByClassName(className);
+            CharactersList.ItemsSource = ((CharacterRepository)_characterRepository).GetAllByClassName(className);
             CharactersList.DisplayMemberPath = "Name";
         }
 
+        private void UpdateEquipments(ComboBox cb, EquipmentType et)
+        {
+            int selectedItemIndex = cb.SelectedIndex;
+            
+            cb.Items.Clear();
+            BaseItem[] availableEquipments = _selectedCharacter.Inventory.FindAll(x => x.Type == et).ToArray();
+            foreach (BaseItem item in availableEquipments)
+            {
+                cb.Items.Add(item);
+            }
+            
+            cb.InvalidateVisual();
+            
+            cb.SelectedIndex = selectedItemIndex;
+            cb.DisplayMemberPath = "Name";
+        }
+
         #endregion
-        
+
         #region StatChanges
+
         private void StrengthIncrementBtn_Click(object sender, RoutedEventArgs e)
         {
             _selectedCharacter.Strength += 1;
@@ -248,7 +271,7 @@ namespace CharacterCreator.Core
         private void StrengthDecrementBtn_Click(object sender, RoutedEventArgs e)
         {
             _selectedCharacter.Strength -= 1;
-            OnDataChangedEvent?.Invoke();   
+            OnDataChangedEvent?.Invoke();
         }
 
         private void DexterityIncrementBtn_Click(object sender, RoutedEventArgs e)
@@ -286,8 +309,73 @@ namespace CharacterCreator.Core
             _selectedCharacter.Intelligence -= 1;
             OnDataChangedEvent?.Invoke();
         }
+
+        private void ChestplateChangeComboBox_OnDropDownOpened(object? sender, EventArgs e)
+        {
+            UpdateEquipments((ComboBox)sender, EquipmentType.Chestplate);
+        }
         
+        private void HelmetChangeComboBox_OnDropDownOpened(object? sender, EventArgs e)
+        {
+            ComboBox? cb = (ComboBox) sender;
+            UpdateEquipments(cb, EquipmentType.Helmet);
+        }
+
+        private void WeaponChangeComboBox_OnDropDownOpened(object? sender, EventArgs e)
+        {
+            ComboBox? cb = (ComboBox) sender;
+            UpdateEquipments(cb, EquipmentType.Weapon);
+        }
+
         #endregion
 
+        private void HelmetChangeComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ItemBoxSelectionChanged((ComboBox) sender);
+        }
+        private void WeaponChangeComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ItemBoxSelectionChanged((ComboBox) sender);
+        }
+        private void ChestplateChangeComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ItemBoxSelectionChanged((ComboBox) sender);
+        }
+
+        public void ChangeIsEquipped(Equipment eq)
+        {
+            eq.IsEquipped = !eq.IsEquipped;
+        }
+        
+        private delegate void OnDataChangedDelegate();
+        private event OnDataChangedDelegate OnDataChangedEvent;
+
+
+        
+
+        private void ItemBoxSelectionChanged(ComboBox cb)
+        {
+            Equipment equipment = (Equipment) cb.SelectedItem;  
+            
+            if (equipment is null)
+                return;
+
+            if (!_selectedCharacter.CanEquip(equipment.Type))
+            {
+                cb.SelectedIndex = -1;
+            }
+
+            if (!_selectedCharacter.CheckItemConvergence(equipment))
+            {
+                MessageBox.Show("Предмет имеет высокие характеристики!");
+                cb.SelectedIndex = -1;
+                return;
+            }
+            
+            ChangeIsEquipped(equipment);
+            OnDataChangedEvent?.Invoke();
+        }
+
+        
     }
 }

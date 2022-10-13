@@ -6,7 +6,7 @@ using MongoDB.Driver;
 
 namespace CharacterCreator.Data.Repositories;
 
-public class CharacterRepository : ICharacterRepository
+public class CharacterRepository : IRepository<Character>
 {
     private DbConnection<CharacterDbModel> _dbConnection;
 
@@ -14,7 +14,8 @@ public class CharacterRepository : ICharacterRepository
     {
         _dbConnection = connection;
     }
-    public Character GetCharacterById(string id)
+
+    public Character GetEntityById(string id)
     {
         try
         {
@@ -27,7 +28,7 @@ public class CharacterRepository : ICharacterRepository
         }
     }
 
-    public IEnumerable<Character> GetAllCharacters()
+    public IEnumerable<Character> GetAllEntities()
     {
         try
         {
@@ -51,6 +52,7 @@ public class CharacterRepository : ICharacterRepository
         try
         {
             var result = _dbConnection.Collection.Find(x => x.ClassName == className);
+            result.ToList();
             var charactersList = new List<Character>();
             foreach (var characterDbModel in result.ToList())
             {
@@ -65,31 +67,31 @@ public class CharacterRepository : ICharacterRepository
         }
     }
 
-    public void InsertCharacter(Character character)
+    public void Save(Character character)
     {
         _dbConnection.Collection.InsertOne(new CharacterDbModel(character));
     }
 
     public void UpdateCharacter(Character character, string id)
     {
-        _dbConnection.Collection.ReplaceOne(x => x.Id == id, 
+        _dbConnection.Collection.ReplaceOne(x => x.Id == id,
             new CharacterDbModel(id, character));
     }
 
-    public void InsertOrUpdate(Character character)
+    public void Update(Character character, string id)
     {
         if (character.Id is null)
         {
-            InsertCharacter(character);
+            Save(character);
         }
         else
         {
             UpdateCharacter(character, character.Id);
         }
     }
-    
 
-    public void DeleteCharacter(string id)
+
+    public void Delete(string id)
     {
         _dbConnection.Collection.DeleteOne(x => x.Id == id);
     }
@@ -97,7 +99,7 @@ public class CharacterRepository : ICharacterRepository
 
     private Character CreateCharacterFromModel(CharacterDbModel model)
     {
-        Character? character = new();
+        Character? character = null;
         switch (model.ClassName)
         {
             case "Warrior":
@@ -109,8 +111,6 @@ public class CharacterRepository : ICharacterRepository
             case "Rogue":
                 character = new Rogue(model.Experience);
                 break;
-            default:
-                break;
         }
 
         character.Name = model.Name;
@@ -120,7 +120,12 @@ public class CharacterRepository : ICharacterRepository
         character.Intelligence = model.Intelligence;
         character.Strength = model.Strength;
         character.SkillPoints = model.SkillPoints;
-        character.Inventory = model.Inventory.ToList();
+        
+        foreach (Equipment item in model.Inventory)
+        {
+            character.AddItemToInventory(item);
+        }
+
         foreach (Ability a in model.Abilities)
         {
             character.AddAbility(a);

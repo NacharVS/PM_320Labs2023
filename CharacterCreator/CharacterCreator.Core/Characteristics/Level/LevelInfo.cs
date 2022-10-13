@@ -37,7 +37,7 @@ public class LevelInfo
 
     public int TotalExperience => GetTotalExperience();
 
-    public int GetTotalExperience()
+    private int GetTotalExperience()
     {
         int totalExp = 0;
         int level = 1;

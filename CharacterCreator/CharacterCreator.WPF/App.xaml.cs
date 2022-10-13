@@ -17,6 +17,7 @@ namespace CharacterCreator.Core
     {
         public DbConnection<CharacterDbModel> characterDbConnection;
         public DbConnection<AbilityDbModel> abilityDbConnection;
+        public DbConnection<EquipmentDbModel> equipmentDbConnection;
 
         public App()
         {
@@ -29,6 +30,11 @@ namespace CharacterCreator.Core
                 ConfigurationManager.AppSettings["MongoDbConnectionString"],
                 ConfigurationManager.AppSettings["MongoDbName"],
                 ConfigurationManager.AppSettings["MongoAbilityCollectionName"]);
+            
+            equipmentDbConnection = new DbConnection<EquipmentDbModel>(
+                ConfigurationManager.AppSettings["MongoDbConnectionString"],
+                ConfigurationManager.AppSettings["MongoDbName"],
+                ConfigurationManager.AppSettings["MongoEquipmentCollectionName"]);
         }
     }
 }

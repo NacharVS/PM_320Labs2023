@@ -13,12 +13,12 @@ public class CharacterDbModel
 
     [BsonIgnoreIfDefault] public string? ClassName { get; set; }
     [BsonIgnoreIfDefault] public string Name { get; set; }
-    public double Strength { get; set; }
+    [BsonIgnoreIfDefault] public double Strength { get; set; }
     [BsonIgnoreIfDefault] public double Dexterity { get; set; }
     [BsonIgnoreIfDefault] public double Intelligence { get; set; }
     [BsonIgnoreIfDefault] public double Constitution { get; set; }
     [BsonIgnoreIfDefault] public int SkillPoints { get; set; }
-    [BsonIgnoreIfDefault] public IEnumerable<Item> Inventory { get; set; }
+    [BsonIgnoreIfDefault] public IEnumerable<BaseItem> Inventory { get; set; }
 
     [BsonIgnoreIfDefault] public int Experience { get; set; }
     [BsonIgnoreIfDefault] public IEnumerable<Ability> Abilities { get; set; }
