@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPFcharacteristic.WPF"
         xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="WPFcharacteristic.WPF.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="600" Width="850">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="61*"/>
@@ -26,7 +26,7 @@
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,280,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Dexterity" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,304,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Constitution" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,328,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Intelligence" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
-        <ComboBox x:Name="EntityBox" Grid.Column="1" HorizontalAlignment="Left" Margin="278,185,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="Entity_SelectionChanged" FontFamily="Poor Richard" FontSize="16">
+        <ComboBox x:Name="EntityBox" Grid.Column="1" HorizontalAlignment="Left" Margin="278,185,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="Entity_SelectionChanged" FontFamily="Poor Richard" FontSize="16" BorderThickness="0,0,0,0">
             <System:String>Warrior</System:String>
             <System:String>Rogue</System:String>
             <System:String>Wizard</System:String>
@@ -39,27 +39,27 @@
         <TextBlock x:Name="Intelligence" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="130,327,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Background="#FFEBEBEB" TextAlignment="Center" Text=""/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="505,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="Health" FontSize="16" FontFamily="Poor Richard"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="505,272,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="Mana" FontFamily="Poor Richard" FontSize="16"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="505,294,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Physical attack" FontFamily="Poor Richard" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="505,294,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Text="Physical attack" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="505,316,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Magic attack" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="505,360,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Text="Magic defense" FontFamily="Poor Richard" FontSize="16"/>
         <TextBlock x:Name="Strength" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="130,255,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Background="#FFEBEBEB" TextAlignment="Center"/>
-        <TextBlock x:Name="Health" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="626,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center"/>
-        <TextBlock x:Name="Mana" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="626,272,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center"/>
-        <TextBlock x:Name="PhysicalAttack" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="626,294,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center"/>
-        <TextBlock x:Name="MagicAttack" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="626,316,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center"/>
-        <TextBlock x:Name="PhysicalDefense" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="626,338,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center"/>
-        <TextBlock x:Name="MagicDefense" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="626,360,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center"/>
+        <TextBlock x:Name="Health" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="618,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" TextAlignment="Center" Background="#FFE5E5E5"/>
+        <TextBlock x:Name="Mana" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="618,272,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" TextAlignment="Center" Background="#FFE5E5E5"/>
+        <TextBlock x:Name="PhysicalAttack" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="618,294,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" TextAlignment="Center" Background="#FFE5E5E5"/>
+        <TextBlock x:Name="MagicAttack" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="618,316,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" TextAlignment="Center" Background="#FFE5E5E5"/>
+        <TextBlock x:Name="PhysicalDefense" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="618,338,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" TextAlignment="Center" Background="#FFE5E5E5"/>
+        <TextBlock x:Name="MagicDefense" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="618,360,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" TextAlignment="Center" Background="#FFE5E5E5"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="63,147,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontFamily="Poor Richard" TextAlignment="Center" FontSize="16" Text="Warrior"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="293,147,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontFamily="Poor Richard" TextAlignment="Center" FontSize="16" Text="Rogue"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="542,145,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="93" FontFamily="Poor Richard" TextAlignment="Center" FontSize="16" Text="Wizard"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="505,338,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Text="Physical defense" FontFamily="Poor Richard" FontSize="16"/>
         <Button x:Name="StrengthPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="176,255,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="StrengthPlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
-        <Button x:Name="SaveDataBase" Grid.Column="1" Content="Save" HorizontalAlignment="Left" Margin="300,444,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="42" Click="SaveDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
-        <Button x:Name="InsertDataBase" Grid.Column="1" Content="Receive" HorizontalAlignment="Left" Margin="368,444,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="52" Click="InsertDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF" RenderTransformOrigin="0.481,0.592"/>
-        <Button x:Name="ReplaceDataBase" Grid.Column="1" Content="Replace" HorizontalAlignment="Left" Margin="211,444,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="52" Click="ReplaceDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,376,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
-        <Button x:Name="InvenotyPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="219,376,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="InventoryPlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
-        <TextBox x:Name="Inventory" Grid.Column="1" HorizontalAlignment="Left" Height="43" Margin="97,376,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Background="#FFEBEBEB" BorderBrush="#FFEBEBEB"/>
+        <Button x:Name="SaveDataBase" Grid.Column="1" Content="Save" HorizontalAlignment="Left" Margin="300,444,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="42" Click="SaveDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF" FontFamily="Poor Richard" FontSize="14"/>
+        <Button x:Name="InsertDataBase" Grid.Column="1" Content="Receive" HorizontalAlignment="Left" Margin="368,444,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="52" Click="InsertDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF" RenderTransformOrigin="0.481,0.592" FontFamily="Poor Richard" FontSize="14"/>
+        <Button x:Name="ReplaceDataBase" Grid.Column="1" Content="Replace" HorizontalAlignment="Left" Margin="211,444,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="52" Click="ReplaceDataBase_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF" FontFamily="Poor Richard" FontSize="14"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="16,364,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
+        <Button x:Name="InvenotyPlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="202,364,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="InventoryPlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
+        <TextBox x:Name="Inventory" Grid.Column="1" HorizontalAlignment="Left" Height="43" Margin="97,364,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Background="#FFEBEBEB" BorderBrush="#FFEBEBEB"/>
         <TextBlock x:Name="Level" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="403,187,0,0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Width="40" Background="#FFB4D9FF" Foreground="Black" Text="0" TextAlignment="Center" FontFamily="Calibri" FontSize="14"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="505,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="Health" FontSize="16" FontFamily="Poor Richard"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="450,188,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="LVL" FontSize="16" FontFamily="Poor Richard"/>
@@ -67,7 +67,26 @@
         <TextBlock x:Name="Expirience" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="330,257,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" Background="#FFEBEBEB" TextAlignment="Center"/>
         <Button x:Name="ExpiriencePlus" Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="376,257,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="18" Click="ExpiriencePlus_Click" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="249,286,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Abilities" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16"/>
-        <ComboBox x:Name="Abilities" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="330,284,0,0" Grid.Row="1" VerticalAlignment="Top" Width="93" BorderBrush="#FFE5E5E5" SelectionChanged="Abilities_SelectionChanged"/>
+        <ComboBox x:Name="Abilities" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="330,284,0,0" Grid.Row="1" VerticalAlignment="Top" Width="93" BorderBrush="#FFE5E5E5" SelectionChanged="Abilities_SelectionChanged" BorderThickness="0,0,0,0"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="339,314,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Armor" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16" TextAlignment="Center"/>
+        <ComboBox x:Name="Helms" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="330,335,0,0" Grid.Row="1" VerticalAlignment="Top" Width="132" BorderBrush="#FFE5E5E5" SelectionChanged="Helm_SelectionChanged" BorderThickness="0,0,0,0"/>
+        <ComboBox x:Name="Breastplates" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="330,361,0,0" Grid.Row="1" VerticalAlignment="Top" Width="132" BorderBrush="#FFE5E5E5" SelectionChanged="Breastplates_SelectionChanged" BorderThickness="0,0,0,0"/>
+        <ComboBox x:Name="Sabatons" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="330,387,0,0" Grid.Row="1" VerticalAlignment="Top" Width="132" BorderBrush="#FFE5E5E5" SelectionChanged="Sabatons_SelectionChanged" BorderThickness="0,0,0,0"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="249,337,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Helm" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="249,362,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Breastplate" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16" TextAlignment="Left"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="249,388,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Sabatons" VerticalAlignment="Top" Width="76" FontFamily="Poor Richard" FontSize="16" TextAlignment="Left"/>
+        <TextBlock x:Name="HealthArmor" Grid.Column="1" Height="17" Margin="667,251,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" Background="#FFE5E5E5" Text="0" HorizontalAlignment="Left" Width="27"/>
+        <TextBlock x:Name="ManaArmor" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="667,273,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center" Background="#FFE5E5E5" Text="0"/>
+        <TextBlock x:Name="PhysicalAttackArmor" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="667,295,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center" Background="#FFE5E5E5" Text="0"/>
+        <TextBlock x:Name="MagicAttackArmor" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="667,317,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center" Background="#FFE5E5E5" Text="0"/>
+        <TextBlock x:Name="PhysicalDefenseArmor" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="667,339,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center" Background="#FFE5E5E5" Text="0"/>
+        <TextBlock x:Name="MagicDefenseArmor" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="667,361,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" TextAlignment="Center" Background="#FFE5E5E5" Text="0"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="658,249,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="8" Text="+" FontSize="14" FontFamily="Calibri" TextAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="658,272,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="8" Text="+" FontSize="14" FontFamily="Calibri" TextAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="658,294,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="8" Text="+" FontSize="14" FontFamily="Calibri" TextAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="658,316,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="8" Text="+" FontSize="14" FontFamily="Calibri" TextAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="658,338,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="8" Text="+" FontSize="14" FontFamily="Calibri" TextAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="658,359,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="8" Text="+" FontSize="14" FontFamily="Calibri" TextAlignment="Center"/>
 
     </Grid>
 </Window>

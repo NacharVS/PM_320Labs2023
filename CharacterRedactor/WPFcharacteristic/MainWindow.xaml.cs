@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using WPFcharacterictic.Core;
 using WPFcharacterictic.Core.BaseEntitys;
 using MongoDBwpf;
+using WPFcharacterictic.Core.BaseArmor;
 
 namespace WPFcharacteristic.WPF
 {
@@ -24,6 +25,7 @@ namespace WPFcharacteristic.WPF
     public partial class MainWindow : Window
     {
         Entity entity;
+        private List<Armor> _equipment = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -36,35 +38,23 @@ namespace WPFcharacteristic.WPF
             {
                 case "Warrior":
                     entity = new Warrior();
-
-                    foreach (var ability in entity.Abilities)
-                    {
-                        Abilities.Items.Add(ability.Key);
-                    }
-                    Refresh();
                     break;
                 case "Rogue":
                     entity = new Rogue();
-
-                    foreach (var ability in entity.Abilities)
-                    {
-                        Abilities.Items.Add(ability.Key);
-                    }
-                    Refresh();
-
                     break;
                 case "Wizard":
                     entity = new Wizard();
-
-                    foreach (var ability in entity.Abilities)
-                    {
-                        Abilities.Items.Add(ability.Key);
-                    }
-
-                    Refresh();
-
                     break;
             }
+
+            Abilities.Items.Clear();
+            foreach (var ability in entity.Abilities)
+            {
+                Abilities.Items.Add(ability.Key);
+            }
+
+            LoadEquipment();
+            Refresh();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -134,7 +124,7 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
-                MongoDBwpf.MongoDBwpf.AddToDataBase(entity);
+                MongoDBwpf.MongoDBwpf<Entity>.AddToDataBase(entity, "Units");
                 MessageBox.Show("Готово!");
             }
             catch (Exception)
@@ -146,7 +136,7 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
-                MongoDBwpf.MongoDBwpf.ReplaceByName(entity.Name, entity);
+                MongoDBwpf.MongoDBwpf<Entity>.ReplaceByName(entity.Name, entity, "Units");
                 MessageBox.Show("Готово!");
             }
             catch (Exception)
@@ -158,7 +148,7 @@ namespace WPFcharacteristic.WPF
         {
             try
             {
-                entity = MongoDBwpf.MongoDBwpf.FindByName(EntityBox.Text);
+                entity = MongoDBwpf.MongoDBwpf<Entity>.FindByName(EntityBox.Text, "Units");
 
                 Refresh();
 
@@ -213,6 +203,70 @@ namespace WPFcharacteristic.WPF
                 MessageBox.Show("Персонаж не выбран");
             }
         }
+        private void Helm_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var item = (Armor)Helms.SelectedItem;
+                if (entity.ArmorCompatibilityCheck((Armor?)item))
+                {
+                    entity.Helmet = item;
+                    RefreshEquipment(item);
+                }
+                else 
+                {
+                    throw new Exception("Броня имеет другой класс");
+                }
+                Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
+        }
+        private void Breastplates_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var item = (Armor)Breastplates.SelectedItem;
+                if (entity.ArmorCompatibilityCheck((Armor?)item))
+                {
+                    entity.BodyArmor = item;
+                    RefreshEquipment(item);
+                }
+                else 
+                {
+                    throw new Exception("Броня имеет другой класс");
+                }
+                Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
+        }
+        private void Sabatons_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var item = (Armor)Sabatons.SelectedItem;
+                if (entity.ArmorCompatibilityCheck((Armor?)item))
+                {
+                    entity.Feet = item;
+                    HealthArmor.Text = Convert.ToString(Convert.ToInt32(HealthArmor.Text) + entity.Helmet.Health);
+                    RefreshEquipment(item);
+                }
+                else 
+                {
+                    throw new Exception("Броня имеет другой класс");
+                }
+                Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
+        }
 
         private void Refresh() 
         {
@@ -230,6 +284,62 @@ namespace WPFcharacteristic.WPF
             MagicAttack.Text = entity.MagicAttack.ToString();
             PhysicalDefense.Text = entity.PhysicalDefense.ToString();
             MagicDefense.Text = entity.MagicDefense.ToString();
+        }
+
+        private void RefreshEquipment(Armor armor)
+        {
+            HealthArmor.Text = (armor.Health + Convert.ToInt32(HealthArmor.Text)).ToString();
+            ManaArmor.Text = (armor.Mana + Convert.ToDouble(ManaArmor.Text)).ToString();
+            PhysicalAttackArmor.Text = (armor.PhysicalAttack + Convert.ToDouble(PhysicalAttackArmor.Text)).ToString();
+            PhysicalDefenseArmor.Text = (armor.PhysicalDefense + Convert.ToDouble(PhysicalDefenseArmor.Text)).ToString();
+            MagicAttackArmor.Text = (armor.MagicAttack + Convert.ToDouble(MagicAttackArmor.Text)).ToString();
+            MagicDefenseArmor.Text = (armor.MagicDefense + Convert.ToDouble(MagicDefenseArmor.Text)).ToString();
+        }
+
+        private void LoadEquipment()
+        {
+            _equipment = MongoDBwpf<Armor>.GetAll("Armor");
+
+            foreach (var i in _equipment.FindAll(x => x.Type == ArmorType.Helmet))
+            {
+                Helms.Items.Add(i);
+            }
+
+            foreach (var i in _equipment.FindAll(x => x.Type == ArmorType.Body))
+            {
+                Breastplates.Items.Add(i);
+            }
+
+            foreach (var i in _equipment.FindAll(x => x.Type == ArmorType.Feet))
+            {
+                Sabatons.Items.Add(i);
+            }
+        }
+
+        private void CreateArmors()
+        {
+            Armor Berets = new Armor("Berets", ArmorType.Feet, 8, 0, 3, 0, 1, 0, "Warrior");
+            Armor Boots = new Armor("Boots with wings", ArmorType.Feet, 8, 0, 0, 3, 0, 1, "Wizard");
+            Armor ThiefBoots = new Armor("Thief boots", ArmorType.Feet, 5, 0, 0, 2, 5, 0, "Rogue");
+
+            Armor Chainmail = new Armor("Chainmail", ArmorType.Body, 13, 0, 0, 0, 8, 0, "Warrior");
+            Armor RegularCloak = new Armor("Regular cloak", ArmorType.Body, 5, 0, 0, 0, 3, 0, "Entity");
+            Armor DragonJacket = new Armor("Dragon jacket", ArmorType.Body, 7, 0, 0, 0, 5, 10, "Wizard");
+
+            Armor VikingHelmet = new Armor("Viking helmet", ArmorType.Helmet, 8, 0,0,0,5,0, "Warrior");
+            Armor CatHat = new Armor("Cat hat", ArmorType.Helmet, 50,0,0,0,0,20, "Rogue");
+            Armor Crown = new Armor("Crown", ArmorType.Helmet, 0,0,0,0,0,50, "Entity");
+
+            MongoDBwpf<Armor>.AddToDataBase(Berets, "Armor");
+            MongoDBwpf<Armor>.AddToDataBase(Boots, "Armor");
+            MongoDBwpf<Armor>.AddToDataBase(ThiefBoots, "Armor");
+            MongoDBwpf<Armor>.AddToDataBase(Chainmail, "Armor");
+            MongoDBwpf<Armor>.AddToDataBase(RegularCloak, "Armor");
+            MongoDBwpf<Armor>.AddToDataBase(DragonJacket, "Armor");
+            MongoDBwpf<Armor>.AddToDataBase(VikingHelmet, "Armor");
+            MongoDBwpf<Armor>.AddToDataBase(CatHat, "Armor");
+            MongoDBwpf<Armor>.AddToDataBase(Crown, "Armor");
+
         }
     }
 }

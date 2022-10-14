@@ -1,7 +1,7 @@
 ﻿using Interfaces;
 using Weapons;
 
-namespace Core
+namespace Units
 {
     public class Shooter
     {

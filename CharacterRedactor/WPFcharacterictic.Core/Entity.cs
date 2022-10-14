@@ -1,12 +1,28 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using WPFcharacterictic.Core.BaseArmor;
+using WPFcharacterictic.Core.interfaces;
 
 namespace WPFcharacterictic.Core
 {
-    public class Entity
+    public class Entity : IHaveName
     {
         public delegate void ChangedСharacteristics();
         [BsonId]
+        //id и имя
         public string Id { get; set; }
+
+        public Armor Helmet { get; set; }
+        public Armor BodyArmor { get; set; }
+        public Armor Feet { get; set; }
+
+        string _name;
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        //Инвентарь
 
         public List<InventoryItem> InventoryItems = new List<InventoryItem>();
         int _maxCountInventoryItem;
@@ -15,6 +31,8 @@ namespace WPFcharacterictic.Core
             get { return _maxCountInventoryItem; }
             set { _maxCountInventoryItem = value; }
         }
+
+        //Разовые способности
 
         Dictionary<string, bool> _abilities = new Dictionary<string, bool>
         {
@@ -35,8 +53,11 @@ namespace WPFcharacterictic.Core
             get { return _abilities; }
             set { _abilities = value; }
         }
+
         int _pointAbility;
         int _pointAbilityLvl = 1;
+
+        //Опыт и уровень
 
         int _expirience = 0;
         int _expNewLvl = 1000;
@@ -64,6 +85,8 @@ namespace WPFcharacterictic.Core
             }
         }
 
+        //Базовые способности
+
         public int MaxStrength;
         public int MinStrength;
         public int MaxDexterity;
@@ -79,9 +102,10 @@ namespace WPFcharacterictic.Core
         public int Constitution;
         public int Intelligence;
 
-        //
-        protected int _health;
-        public int Health 
+        //Прокачиваемые скилы 
+
+        protected double _health;
+        public double Health 
         { 
             get { return _health; }
             private protected set { _health = value; }
@@ -117,12 +141,6 @@ namespace WPFcharacterictic.Core
             private protected set { _magicDefense = value; }
         }
 
-        string _name;
-        public string Name 
-        {
-            get { return _name; }
-            private protected set { _name = value; }
-        }
 
         public Entity()
         {
@@ -218,6 +236,11 @@ namespace WPFcharacterictic.Core
         }
         public virtual void IncreasedIntelligence()
         {
+        }
+
+        public virtual bool ArmorCompatibilityCheck(Armor armor)
+        {
+            return false;
         }
     }
 }

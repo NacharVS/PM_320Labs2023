@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="rogue.jpg" />
+    <None Remove="warrior.jpg" />
+    <None Remove="wizard.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MongoDBwpf\MongoDBwpf.csproj" />
+    <ProjectReference Include="..\WPFcharacterictic.Core\WPFcharacterictic.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="rogue.jpg" />
+    <Resource Include="warrior.jpg" />
+    <Resource Include="wizard.png" />
+  </ItemGroup>
+
+</Project>

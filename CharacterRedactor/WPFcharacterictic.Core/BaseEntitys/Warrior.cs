@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFcharacterictic.Core.BaseArmor;
 
 namespace WPFcharacterictic.Core.BaseEntitys
 {
@@ -74,6 +75,16 @@ namespace WPFcharacterictic.Core.BaseEntitys
                 MagicAttack += 1;
                 AvailablePoints--;
             }
+        }
+
+        public override bool ArmorCompatibilityCheck(Armor armor)
+        {
+            if (armor.WhoCan is "Warrior" || armor.WhoCan is "Entity")
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

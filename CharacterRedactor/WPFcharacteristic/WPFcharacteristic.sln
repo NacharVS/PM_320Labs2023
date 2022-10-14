@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFcharacteristic.WPF", "WPFcharacteristic.WPF.csproj", "{0CF11C26-37BD-4CDF-A308-BBEA5006E9A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFcharacterictic.WPF", "WPFcharacterictic.WPF.csproj", "{0CF11C26-37BD-4CDF-A308-BBEA5006E9A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{20316AFE-5A07-49B4-B662-590394D83F9B} = {20316AFE-5A07-49B4-B662-590394D83F9B}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFcharacterictic.Core", "..\WPFcharacterictic.Core\WPFcharacterictic.Core.csproj", "{20316AFE-5A07-49B4-B662-590394D83F9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDBwpf", "..\MongoDBwpf\MongoDBwpf.csproj", "{62988761-E7EE-4A93-962A-3CA835583A81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBwpf", "..\MongoDBwpf\MongoDBwpf.csproj", "{62988761-E7EE-4A93-962A-3CA835583A81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

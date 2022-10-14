@@ -1,4 +1,4 @@
-﻿namespace inventoryItem
+﻿namespace InventoryItems
 {
     public class Class1
     {

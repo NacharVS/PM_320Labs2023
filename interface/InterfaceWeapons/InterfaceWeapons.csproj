@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Core\Units.csproj" />
     <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
     <ProjectReference Include="..\Weapons\Weapons.csproj" />
   </ItemGroup>
