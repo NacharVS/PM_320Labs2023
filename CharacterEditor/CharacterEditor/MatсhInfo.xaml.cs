@@ -148,7 +148,7 @@ namespace CharacterEditor
 
         private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
-            frameMatch.Navigate(new MatchLoad());
+            frameMatch.Navigate(new MatchLoad(_charContext));
         }
 
         private void btnStartMatch_Click(object sender, RoutedEventArgs e)

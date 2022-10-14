@@ -20,7 +20,7 @@
             <ColumnDefinition Width="220*"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="btnExit" Content="Exit" Grid.Row="1" Grid.Column="0"/>
+        <Button x:Name="btnExit" Content="Exit" Grid.Row="1" Grid.Column="0" Click="btnExit_Click"/>
 
         <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="2"/>
 
@@ -34,13 +34,13 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Load" Height="40" Background="LightBlue" FontSize="20" Click="Button_Click"/>
-            <Button x:Name="btnShowCharacter" Content="ShowCharacter" Height="40" Background="DarkCyan" FontSize="20" Click="btnShowCharacter_Click"/>
+            <Button Content="Show match" Height="40" Background="LightBlue" FontSize="20" Click="Button_Click"/>
+            <Button x:Name="btnShowCharacter" Content="Show Character" Height="40" Background="DarkCyan" FontSize="20" Click="btnShowCharacter_Click"/>
         </StackPanel>
 
         <Label Grid.Row="0" Grid.Column="2" Content="Team A" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center"></Label>
         <StackPanel Grid.Row="1" Grid.Column="2">
-            <ListBox x:Name="lbTeamAList" FontSize="20" IsEnabled="False">
+            <ListBox x:Name="lbTeamAList" FontSize="20">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -53,7 +53,7 @@
         </StackPanel>
         <Label Grid.Row="0" Grid.Column="3" Content="Team B" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center"></Label>
         <StackPanel Grid.Row="1" Grid.Column="3">
-            <ListBox x:Name="lbTeamBList" FontSize="20" IsEnabled="False">
+            <ListBox x:Name="lbTeamBList" FontSize="20">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -64,5 +64,6 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
+        <Frame Grid.ColumnSpan="4" Grid.RowSpan="2" x:Name="matchLoadFrame"/>
     </Grid>
 </Page>

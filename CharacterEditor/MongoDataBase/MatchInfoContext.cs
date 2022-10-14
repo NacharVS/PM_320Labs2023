@@ -67,7 +67,7 @@ namespace CharacterEditorMongoDataBase
                 {
                     FirstTeam = match.FirstTeam,
                     SecondTeam = match.SecondTeam,
-                    Time = DateTime.Now
+                    Time = match.Time
                 }
                 );
                 return true;

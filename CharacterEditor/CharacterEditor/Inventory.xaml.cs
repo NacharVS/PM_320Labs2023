@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using CharacterEditorMongoDataBase;
 using UnitsEditor;
 using System.Linq;
+using System;
 
 namespace CharacterEditor
 {
@@ -63,32 +64,32 @@ namespace CharacterEditor
 
             _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * item.AttackChange).ToString();
             _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * item.HPChange).ToString();
-            _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * item.ManaChange).ToString();
+            _mainWindow.tbManaValue.Text = (Convert.ToDouble(_mainWindow.tbManaValue.Text) + operationType * item.ManaChange).ToString();
             _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * item.MagicalAttackChange).ToString();
-            _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * item.PdefChange).ToString();
+            _mainWindow.tbPhysicalDefValue.Text = (Convert.ToDouble(_mainWindow.tbPhysicalDefValue.Text) + operationType * item.PdefChange).ToString();
 
             switch (_selectedCharacter.GetType().Name)
             {
                 case "Warrior":
                     _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (5 * item.StrengthChange + item.DexterityChange)).ToString();
                     _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (2 * item.StrengthChange + 10 * item.ConstitutionChange)).ToString();
-                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (5 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbManaValue.Text = (Convert.ToDouble(_mainWindow.tbManaValue.Text) + operationType * (5 * item.IntelligenceChange)).ToString();
                     _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (item.IntelligenceChange)).ToString();
-                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (item.DexterityChange + 2 * item.ConstitutionChange)).ToString();
+                    _mainWindow.tbPhysicalDefValue.Text = (Convert.ToDouble(_mainWindow.tbPhysicalDefValue.Text) + operationType * (item.DexterityChange + 2 * item.ConstitutionChange)).ToString();
                     break;
                 case "Rogue":
                     _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (2 * item.StrengthChange + 4 * item.DexterityChange)).ToString();
                     _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.StrengthChange + 6 * item.ConstitutionChange)).ToString();
-                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (1.5 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbManaValue.Text = (Convert.ToDouble(_mainWindow.tbManaValue.Text) + operationType * (1.5 * item.IntelligenceChange)).ToString();
                     _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (2 * item.IntelligenceChange)).ToString();
-                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (1.5 * item.DexterityChange + 0 * item.ConstitutionChange)).ToString();
+                    _mainWindow.tbPhysicalDefValue.Text = (Convert.ToDouble(_mainWindow.tbPhysicalDefValue.Text) + operationType * (1.5 * item.DexterityChange + 0 * item.ConstitutionChange)).ToString();
                     break;
                 case "Wizzard":
                     _mainWindow.tbAttackDamageValue.Text = (int.Parse(_mainWindow.tbAttackDamageValue.Text) + operationType * (3 * item.StrengthChange + 0 * item.DexterityChange)).ToString();
                     _mainWindow.tbHealthValue.Text = (int.Parse(_mainWindow.tbHealthValue.Text) + operationType * (item.StrengthChange + 3 * item.ConstitutionChange)).ToString();
-                    _mainWindow.tbManaValue.Text = (int.Parse(_mainWindow.tbManaValue.Text) + operationType * (2 * item.IntelligenceChange)).ToString();
+                    _mainWindow.tbManaValue.Text = (Convert.ToDouble(_mainWindow.tbManaValue.Text) + operationType * (2 * item.IntelligenceChange)).ToString();
                     _mainWindow.tbMagicAttackValue.Text = (int.Parse(_mainWindow.tbMagicAttackValue.Text) + operationType * (5 * item.IntelligenceChange)).ToString();
-                    _mainWindow.tbPhysicalDefValue.Text = (int.Parse(_mainWindow.tbPhysicalDefValue.Text) + operationType * (0.5 * item.DexterityChange + 1 * item.ConstitutionChange)).ToString();
+                    _mainWindow.tbPhysicalDefValue.Text = (Convert.ToDouble(_mainWindow.tbPhysicalDefValue.Text) + operationType * (0.5 * item.DexterityChange + 1 * item.ConstitutionChange)).ToString();
                     break;
                 default:
                     break;

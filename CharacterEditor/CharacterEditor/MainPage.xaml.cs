@@ -132,32 +132,32 @@ namespace CharacterEditor
 
                 tbAttackDamageValue.Text = (int.Parse(tbAttackDamageValue.Text) + item.AttackChange).ToString();
                 tbHealthValue.Text = (int.Parse(tbHealthValue.Text) + item.HPChange).ToString();
-                tbManaValue.Text = (int.Parse(tbManaValue.Text) + item.ManaChange).ToString();
+                tbManaValue.Text = (Convert.ToDouble(tbManaValue.Text) + item.ManaChange).ToString();
                 tbMagicAttackValue.Text = (int.Parse(tbMagicAttackValue.Text) + item.MagicalAttackChange).ToString();
-                tbPhysicalDefValue.Text = (int.Parse(tbPhysicalDefValue.Text) + item.PdefChange).ToString();
+                tbPhysicalDefValue.Text = (Convert.ToDouble(tbPhysicalDefValue.Text) + item.PdefChange).ToString();
 
                 switch (_selectedCharacter.GetType().Name)
                 {
                     case "Warrior":
                         tbAttackDamageValue.Text = (int.Parse(tbAttackDamageValue.Text) + (5 * item.StrengthChange + item.DexterityChange)).ToString();
                         tbHealthValue.Text = (int.Parse(tbHealthValue.Text) + (2 * item.StrengthChange + 10 * item.ConstitutionChange)).ToString();
-                        tbManaValue.Text = (int.Parse(tbManaValue.Text) + (5 * item.IntelligenceChange)).ToString();
+                        tbManaValue.Text = (Convert.ToDouble(tbManaValue.Text) + (5 * item.IntelligenceChange)).ToString();
                         tbMagicAttackValue.Text = (int.Parse(tbMagicAttackValue.Text) + (item.IntelligenceChange)).ToString();
-                        tbPhysicalDefValue.Text = (int.Parse(tbPhysicalDefValue.Text) + (item.DexterityChange + 2 * item.ConstitutionChange)).ToString();
+                        tbPhysicalDefValue.Text = (Convert.ToDouble(tbPhysicalDefValue.Text) + (item.DexterityChange + 2 * item.ConstitutionChange)).ToString();
                         break;
                     case "Rogue":
                         tbAttackDamageValue.Text = (int.Parse(tbAttackDamageValue.Text) + (2 * item.StrengthChange + 4 * item.DexterityChange)).ToString();
                         tbHealthValue.Text = (int.Parse(tbHealthValue.Text) + (item.StrengthChange + 6 * item.ConstitutionChange)).ToString();
-                        tbManaValue.Text = (int.Parse(tbManaValue.Text) + (1.5 * item.IntelligenceChange)).ToString();
+                        tbManaValue.Text = (Convert.ToDouble(tbManaValue.Text) + (1.5 * item.IntelligenceChange)).ToString();
                         tbMagicAttackValue.Text = (int.Parse(tbMagicAttackValue.Text) + (2 * item.IntelligenceChange)).ToString();
-                        tbPhysicalDefValue.Text = (int.Parse(tbPhysicalDefValue.Text) + (1.5 * item.DexterityChange + 0 * item.ConstitutionChange)).ToString();
+                        tbPhysicalDefValue.Text = (Convert.ToDouble(tbPhysicalDefValue.Text) + (1.5 * item.DexterityChange + 0 * item.ConstitutionChange)).ToString();
                         break;
                     case "Wizzard":
                         tbAttackDamageValue.Text = (int.Parse(tbAttackDamageValue.Text) + (3 * item.StrengthChange + 0 * item.DexterityChange)).ToString();
                         tbHealthValue.Text = (int.Parse(tbHealthValue.Text) + (item.StrengthChange + 3 * item.ConstitutionChange)).ToString();
-                        tbManaValue.Text = (int.Parse(tbManaValue.Text) + (2 * item.IntelligenceChange)).ToString();
+                        tbManaValue.Text = (Convert.ToDouble(tbManaValue.Text) + (2 * item.IntelligenceChange)).ToString();
                         tbMagicAttackValue.Text = (int.Parse(tbMagicAttackValue.Text) + (5 * item.IntelligenceChange)).ToString();
-                        tbPhysicalDefValue.Text = (int.Parse(tbPhysicalDefValue.Text) + (0.5 * item.DexterityChange + 1 * item.ConstitutionChange)).ToString();
+                        tbPhysicalDefValue.Text = (Convert.ToDouble(tbPhysicalDefValue.Text) + (0.5 * item.DexterityChange + 1 * item.ConstitutionChange)).ToString();
                         break;
                     default:
                         break;

@@ -1,4 +1,6 @@
-﻿using CharacterEditorCore.Match;
+﻿using CharacterEditorCore;
+using CharacterEditorCore.DataBase;
+using CharacterEditorCore.Match;
 using CharacterEditorMongoDataBase;
 using System;
 using System.Collections.Generic;
@@ -23,10 +25,12 @@ namespace CharacterEditor
     public partial class MatchLoad : Page
     {
         private readonly MatchInfoContext _matchContext;
-        public MatchLoad()
+        private readonly ICharacterRep _charContext;
+        public MatchLoad(ICharacterRep charContext)
         {
             InitializeComponent();
             _matchContext = new();
+            _charContext = charContext;
             lvMatchesList.ItemsSource = _matchContext.GetAllMatches();
         }
 
@@ -56,7 +60,38 @@ namespace CharacterEditor
 
         private void btnShowCharacter_Click(object sender, RoutedEventArgs e)
         {
+            CharacterIdName character;
+            if (lbTeamAList.SelectedItem is null &&
+                lbTeamBList.SelectedItem is null)
+            {
+                return;
+            }
 
+            if (lbTeamAList.SelectedItem is null &&
+                lbTeamBList.SelectedItem is not null)
+            {
+                character = lbTeamBList.SelectedItem as CharacterIdName;
+                NavigationService.Navigate(new MatchCharacterInfo(_charContext, character));
+            }
+
+            if (lbTeamBList.SelectedItem is null &&
+                lbTeamAList.SelectedItem is not null)
+            {
+                character = lbTeamAList.SelectedItem as CharacterIdName;
+                NavigationService.Navigate(new MatchCharacterInfo(_charContext, character));
+            }
+
+            if(lbTeamBList.SelectedItem is not null &&
+                lbTeamAList.SelectedItem is not null)
+            {
+                lbTeamAList.SelectedItem = null;
+                lbTeamBList.SelectedItem = null;
+            }
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
