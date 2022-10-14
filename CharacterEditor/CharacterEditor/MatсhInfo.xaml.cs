@@ -24,6 +24,7 @@ namespace CharacterEditor
     public partial class MathInfo : Page
     {
         private readonly CharacterEditorContext _charContext;
+        private readonly MatchInfoContext _matchContext;
         public MatchInfo _match;
         private delegate void TeamCharactersChangeDelegate();
 
@@ -32,7 +33,8 @@ namespace CharacterEditor
             InitializeComponent();
 
             _charContext = charContext;
-            
+            _matchContext = new MatchInfoContext();
+
             lvCharactersList.ItemsSource = _charContext.GetAllChars();
             _match = new(new MatchInfoContext(), _charContext);
             OnTeamCharactersChange += FillBalanced;
@@ -84,20 +86,23 @@ namespace CharacterEditor
             if(_match.TeamsBlanceCheck())
             {
                 lblTeamBalance.Content = "BALANCED";
-                lblTeamBalance.Background = new BrushConverter().ConvertFromString("Green") as Brush;
+                lblTeamBalance.Background = new BrushConverter()
+                    .ConvertFromString("Green") as Brush;
             }
             else
             {
                 lblTeamBalance.Content = "DISBALANCED";
-                lblTeamBalance.Background = new BrushConverter().ConvertFromString("Red") as Brush;
+                lblTeamBalance.Background = new BrushConverter()
+                    .ConvertFromString("Red") as Brush;
             }
         }
 
-        private event TeamCharactersChangeDelegate OnTeamCharactersChange;
-
         private void btnAutoGeneration_Click(object sender, RoutedEventArgs e)
         {
+            lbTeamAList.Items.Clear();
+            lbTeamBList.Items.Clear();
             _match.AutoGenerate();
+            OnTeamCharactersChange?.Invoke();
             FillTeamsList();
         }
 
@@ -123,11 +128,12 @@ namespace CharacterEditor
             }
             _match.FirstTeam.Remove(deletedCharacter);
             lbTeamAList.Items.Remove(deletedCharacter);
+            OnTeamCharactersChange?.Invoke();
         }
 
         private void btnRemoveTeamB_Click(object sender, RoutedEventArgs e)
         {
-            var deletedCharacter = (CharacterIdName)lbTeamAList.SelectedItem;
+            var deletedCharacter = (CharacterIdName)lbTeamBList.SelectedItem;
 
             if (deletedCharacter is null)
             {
@@ -135,6 +141,30 @@ namespace CharacterEditor
             }
             _match.SecondTeam.Remove(deletedCharacter);
             lbTeamBList.Items.Remove(deletedCharacter);
+            OnTeamCharactersChange?.Invoke();
+        }
+
+        private event TeamCharactersChangeDelegate OnTeamCharactersChange;
+
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            frameMatch.Navigate(new MatchLoad());
+        }
+
+        private void btnStartMatch_Click(object sender, RoutedEventArgs e)
+        {
+            if (_match is null)
+            {
+                return;
+            }
+            if(_match.TeamsBlanceCheck())
+            {
+                _match.StartMatch();
+                _matchContext.SaveMatch(_match);
+            }
+            _match = new MatchInfo(_matchContext, _charContext);
+            lbTeamAList.Items.Clear();
+            lbTeamBList.Items.Clear();
         }
     }
 }

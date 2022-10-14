@@ -10,6 +10,7 @@ namespace CharacterEditorCore.Match
         private readonly IMatchRep _matchInfoContext;
         private readonly ICharacterRep _charContext;
 
+        public string Id { get; set; }
         private List<CharacterIdName> _firstTeam;
         public List<CharacterIdName> FirstTeam
         {
@@ -175,6 +176,11 @@ namespace CharacterEditorCore.Match
             }
             return FirstTeam.Average(z => z.Level)
                 - SecondTeam.Average(z => z.Level);
+        }
+
+        public void StartMatch()
+        {
+            Time = DateTime.Now;
         }
     }
 }

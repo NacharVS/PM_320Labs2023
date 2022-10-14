@@ -2,13 +2,14 @@
 using CharacterEditorCore;
 using CharacterEditorCore.DataBase;
 using CharacterEditorCore.Match;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace CharacterEditorMongoDataBase
 {
     public class MatchInfoContext : IMatchRep
     {
-        public MatchInfo Match(string Id)
+        public MatchInfo GetMatch(string Id)
         {
             try
             {
@@ -21,6 +22,7 @@ namespace CharacterEditorMongoDataBase
                 }
                 return new MatchInfo
                 {
+                    Id = matchInDb.Id,
                     FirstTeam = matchInDb.FirstTeam is not null ? matchInDb.FirstTeam : new List<CharacterIdName>(),
                     SecondTeam = matchInDb.SecondTeam is not null ? matchInDb.SecondTeam : new List<CharacterIdName>(),
                     Time = matchInDb.Time
@@ -29,6 +31,31 @@ namespace CharacterEditorMongoDataBase
             catch
             {
                 return null;
+            }
+        }
+
+        public List<MatchInfo> GetAllMatches()
+        {
+            List<MatchInfo> res = new();
+            try
+            {
+                var matches = MongoDataBase.matchCollection.Find(new BsonDocument()).ToList();
+
+                foreach (var match in matches)
+                {
+                    res.Add(new MatchInfo
+                    {
+                        Id = match.Id,
+                        FirstTeam = match.FirstTeam,
+                        SecondTeam = match.SecondTeam,
+                        Time= match.Time
+                    });
+                }
+                return res;
+            }
+            catch
+            {
+                return res;
             }
         }
 

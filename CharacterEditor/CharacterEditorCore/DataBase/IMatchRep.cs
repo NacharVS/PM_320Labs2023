@@ -10,6 +10,6 @@ namespace CharacterEditorCore.DataBase
     public interface IMatchRep
     {
         public bool SaveMatch(MatchInfo match);
-        public MatchInfo Match(string Id);
+        public MatchInfo GetMatch(string Id);
     }
 }

@@ -16,6 +16,7 @@ namespace CharacterEditorMongoDataBase
         [BsonIgnoreIfNull]
         public List<CharacterIdName> SecondTeam { get; set; }
         [BsonIgnoreIfNull]
+        [BsonDateTimeOptions(Kind =DateTimeKind.Local)]
         public DateTime Time { get; set; }
     }
 }
