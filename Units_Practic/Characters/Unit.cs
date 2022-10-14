@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Units_Practic.Abilities;
+using Units_Practic.Items;
 
 namespace Units_Practic.Characters
 {
@@ -24,6 +25,8 @@ namespace Units_Practic.Characters
         public double atackPoint;
         public double physicalProtectionPoint;
         public double magicAtackPoint;
+
+        public List<Item> inventory;
 
         public Unit()
         {
