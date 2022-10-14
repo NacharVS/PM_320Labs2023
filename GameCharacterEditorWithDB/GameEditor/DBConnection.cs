@@ -28,6 +28,23 @@ namespace GameEditor
             collection.InsertOne(match);
         }
 
+        public static Match ImportMatchData(int num)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("Galieva");
+            var collection = database.GetCollection<Match>("CollectionOfMatches");
+            var match = collection.Find(x => x.number == num).FirstOrDefault();
+            return match;
+        }
+        public static List<Match> ImportAllMatchData()
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("Galieva");
+            var collection = database.GetCollection<Match>("CollectionOfMatches");
+            var list = collection.Find(new BsonDocument()).ToList();
+            return list;
+        }
+
         public static Unit FindByName(string name)
         {
             var client = new MongoClient("mongodb://localhost:27017");

@@ -27,6 +27,11 @@ namespace GameEditor
             {
                 listBoxOfUnits.Items.Add(i);
             }
+            List<Match> list = DBConnection.ImportAllMatchData();
+            foreach (Match match in list)
+            {
+                listBoxOfMatches.Items.Add(match.number);
+            }
             ToolStripMenuItem firstMenuItem = new ToolStripMenuItem("Добавить в первую команду");
             ToolStripMenuItem secondMenuItem = new ToolStripMenuItem("Добавить во вторую команду");
             ToolStripMenuItem removeOneMenuItem = new ToolStripMenuItem("Удалить из первой команды");
@@ -46,19 +51,24 @@ namespace GameEditor
             openUnitMenuItem.Click += OpenUnitMenuItem_Click;
             openUnitTwoMenuItem.Click += OpenUnitMenuItem_Click;
             startBtn.Visible = false;
-
         }
 
         void SecondMenuItem_Click(object sender, EventArgs e)
         {
-            listBoxTeamTwo.Items.Add(listBoxOfUnits.SelectedItem.ToString());
-            SecondTeamChangedEvent();
+            if (listBoxTeamTwo.Items.Count < 6)
+            {
+                listBoxTeamTwo.Items.Add(listBoxOfUnits.SelectedItem.ToString());
+                SecondTeamChangedEvent();
+            }
         }
 
         void FirstMenuItem_Click(object sender, EventArgs e)
         {
-            listBoxTeamOne.Items.Add(listBoxOfUnits.SelectedItem.ToString());
-            FirstTeamChangedEvent();
+            if (listBoxTeamOne.Items.Count < 6)
+            {
+                listBoxTeamOne.Items.Add(listBoxOfUnits.SelectedItem.ToString());
+                FirstTeamChangedEvent();
+            }
         }
 
         void OpenUnitMenuItem_Click(object sender, EventArgs e)
@@ -159,6 +169,7 @@ namespace GameEditor
 
         private void StartBtn_Click(object sender, EventArgs e)
         {
+            match = new Match(textBoxNumberMatch.Text);
             foreach (var i in listBoxTeamOne.Items)
             {
                 match.firstTeam.Add(i.ToString());
@@ -168,6 +179,59 @@ namespace GameEditor
                 match.secondTeam.Add(i.ToString());
             }
             DBConnection.AddMatchToDataBase(match);
+            listBoxOfMatches.Items.Add(match.number);
+        }
+
+        private void AutoBtn_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            while (listBoxTeamOne.Items.Count < 6)
+            {
+                int index = rnd.Next(0, listBoxOfUnits.Items.Count);
+                listBoxTeamOne.Items.Add(listBoxOfUnits.Items[index]);
+                FirstTeamChangedEvent();
+                listBoxOfUnits.Items.Remove(listBoxOfUnits.Items[index]);
+            }
+            while (listBoxTeamTwo.Items.Count < 6)
+            {
+                int indexTwo = rnd.Next(0, listBoxOfUnits.Items.Count);
+                listBoxTeamTwo.Items.Add(listBoxOfUnits.Items[indexTwo]);
+                SecondTeamChangedEvent();
+                listBoxOfUnits.Items.Remove(listBoxOfUnits.Items[indexTwo]);
+            }
+            if (!(Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) <= 2))
+            {
+                foreach (var i in listBoxTeamOne.Items)
+                {
+                    listBoxOfUnits.Items.Add(i);
+                    listBoxTeamOne.Items.Remove(i);
+                }
+                foreach (var i in listBoxTeamTwo.Items)
+                {
+                    listBoxOfUnits.Items.Add(i);
+                    listBoxTeamTwo.Items.Remove(i);
+                }
+                textBoxOne.Text = "";
+                textBoxTwo.Text = "";
+                AutoBtn_Click(sender, e);
+            }
+        }
+
+        private void ListBoxOfMatches_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int number = Convert.ToInt32(listBoxOfMatches.SelectedItem.ToString());
+            match = DBConnection.ImportMatchData(number);
+            foreach (var i in match.firstTeam)
+            {
+                listBoxTeamOne.Items.Add(i.ToString());
+                FirstTeamChangedEvent();
+            }
+            foreach (var i in match.secondTeam)
+            {
+                listBoxTeamTwo.Items.Add(i.ToString());
+                SecondTeamChangedEvent();
+            }
+            textBoxNumberMatch.Text = match.number.ToString();
         }
     }
 }
