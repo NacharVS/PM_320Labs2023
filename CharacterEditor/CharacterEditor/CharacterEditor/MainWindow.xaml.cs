@@ -30,6 +30,7 @@ namespace CharacterEditor
         public event CharactericticChangedDelegate CharactericticChangedEvent;
         public delegate void CharacterUpdateDelegate();
         public event CharacterUpdateDelegate CharacterUpdateEvent;
+        private DBConnection _connection;
 
         public MainWindow()
         {
@@ -41,7 +42,8 @@ namespace CharacterEditor
             CharacterUpdateEvent += UpdateExistingCharacters;
             try
             {
-                _repository = new CharacterRepository("mongodb://localhost", "CharacterEditor");
+                _connection = new DBConnection("mongodb://localhost", "CharacterEditor");
+                _repository = new CharacterRepository(_connection);
             }
             catch
             {
@@ -428,6 +430,12 @@ namespace CharacterEditor
             var equipmentWindow = new Equipment(_currentCharacter);
             equipmentWindow.ShowDialog();
             CharactericticChangedEvent?.Invoke();
+        }
+
+        private void btnMatch_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new MatchWindow(_repository, _connection);
+            win.ShowDialog();
         }
     }
 }

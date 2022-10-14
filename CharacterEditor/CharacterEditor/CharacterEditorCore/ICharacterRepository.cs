@@ -1,12 +1,10 @@
-﻿using CharacterEditorCore.Team;
-
-namespace CharacterEditorCore
+﻿namespace CharacterEditorCore
 {
     public interface ICharacterRepository
     {
         public List<string> GetCharacterNames();
 
-        public List<MatchCharacterInfo> GetAllCharacters();
+        public List<Match.MatchCharacterInfo> GetAllCharacters();
 
         public void InsertCharacter(Character character);
 

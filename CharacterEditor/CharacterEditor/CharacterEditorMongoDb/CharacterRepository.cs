@@ -1,6 +1,6 @@
 ﻿using CharacterEditorCore;
 using CharacterEditorCore.Items;
-using CharacterEditorCore.Team;
+using CharacterEditorCore.Match;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
@@ -10,7 +10,7 @@ namespace CharacterEditorMongoDb
     {
         private IMongoCollection<CharacterDb> _characters;
 
-        public CharacterRepository(string? connectionClient, string? databaseStr)
+        public CharacterRepository(DBConnection dbConnection)
         {
             BsonClassMap.RegisterClassMap<Helmet>();
             BsonClassMap.RegisterClassMap<Rifle>();
@@ -22,10 +22,7 @@ namespace CharacterEditorMongoDb
             BsonClassMap.RegisterClassMap<Breastplate>();
             BsonClassMap.RegisterClassMap<Equipment>();
 
-            var client = new MongoClient(connectionClient);
-            var database = client.GetDatabase(databaseStr);
-
-            _characters = database.GetCollection<CharacterDb>("Characters");
+            _characters = dbConnection.Connection.GetCollection<CharacterDb>("Characters");
         }
 
         public List<string> GetCharacterNames()
@@ -62,7 +59,12 @@ namespace CharacterEditorMongoDb
             {
                 return null;
             }
+            
+            return CreateCharacter(dbCharacter);
+        }
 
+        private Character CreateCharacter(CharacterDb dbCharacter)
+        {
             Character character;
 
             switch (dbCharacter.ClassName)
@@ -76,7 +78,7 @@ namespace CharacterEditorMongoDb
                                         dbCharacter.AvailableAbilityCount);
                     break;
                 case "Wizard":
-                    character =  new Wizard(dbCharacter.Strength,
+                    character = new Wizard(dbCharacter.Strength,
                                         dbCharacter.Dexterity,
                                         dbCharacter.Constitution,
                                         dbCharacter.Intellisense,
@@ -98,6 +100,7 @@ namespace CharacterEditorMongoDb
             character.Inventory = new Inventory(dbCharacter.Items);
             character.Abilities = dbCharacter.Abilities;
             character.Equipment = dbCharacter.Equipment;
+
             return character;
         }
 
@@ -138,6 +141,13 @@ namespace CharacterEditorMongoDb
                                 character.Abilities,
                                 character.AvailableAbilityCount,
                                 character.Equipment);
+        }
+
+        public Character GetCharacterById(string id)
+        {
+            return CreateCharacter(_characters
+                .Find(x => x._id.ToString() == id)
+                .FirstOrDefault());
         }
     }
 }
