@@ -86,34 +86,24 @@ namespace EditUnit_Practic_WPF.Pages
         {
             lbUnits.Items.Clear();
 
-            try
-            {
-                var cursor = MongoDb.collection.Find(new BsonDocument()).ToList();
-                {
-                    foreach (var doc in cursor)
-                    {
-                        lbUnits.Items.Add(doc);
-                    }
-                }
-            }
-            catch { }
-        }
-
-        private void lbUnits_Initialized(object sender, EventArgs e)
-        {
-            MongoDb.Connect_cbUnits();
-            GetUnits();
-        }
-
-        private void cbTypeUnits_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
             switch (cbTypeUnits.SelectedIndex)
             {
                 case 0:
-                    GetUnits();
+
+                    try
+                    {
+                        var cursor = MongoDb.collection.Find(new BsonDocument()).ToList();
+                        {
+                            foreach (var doc in cursor)
+                            {
+                                lbUnits.Items.Add(doc);
+                            }
+                        }
+                    }
+                    catch { }
                     break;
+
                 case 1:
-                    lbUnits.Items.Clear();
 
                     try
                     {
@@ -129,7 +119,6 @@ namespace EditUnit_Practic_WPF.Pages
                     break;
 
                 case 2:
-                    lbUnits.Items.Clear();
 
                     try
                     {
@@ -145,7 +134,6 @@ namespace EditUnit_Practic_WPF.Pages
                     break;
 
                 case 3:
-                    lbUnits.Items.Clear();
 
                     try
                     {
@@ -160,6 +148,17 @@ namespace EditUnit_Practic_WPF.Pages
                     catch { }
                     break;
             }
+        }
+
+        private void lbUnits_Initialized(object sender, EventArgs e)
+        {
+            MongoDb.Connect_cbUnits();
+            GetUnits();
+        }
+
+        private void cbTypeUnits_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GetUnits();
         }
     }
 }
