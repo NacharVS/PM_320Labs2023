@@ -29,7 +29,8 @@ namespace CreateCharacterWarcraftWpf
         char[] delimiterChars = { ' ', '/' };
         string[] ability = { "Create fog", "Create snow", "Acceleration", "Night vision",
             "Ghost mode", "Resurrection"};
-        string[] activeAbility = new string[6];
+        List<string> activeAbility = new List<string>();
+        //string[] activeAbility = new string[6];
         int levelUp = 1000;
         int expUp = 0;
         List<string> inventory = new List<string>();
@@ -186,12 +187,9 @@ namespace CreateCharacterWarcraftWpf
             }
         }
 
-        private void ClearAbility(string[] activeAbility)
+        private void ClearAbility(List<string> activeAbility)
         {
-            for(int i = 0; i < activeAbility.Length; i++)
-            {
-                activeAbility[i] = "";
-            }
+            activeAbility.Clear();
         }
 
         public void WriteInfo(Character unit)
@@ -281,7 +279,7 @@ namespace CreateCharacterWarcraftWpf
                     tbLvlInfo.Text = Convert.ToString(Convert.ToInt32(tbLvlInfo.Text) + 1);
                     levelUp = levelUp + 1000;
                     expUp = Convert.ToInt32(tbExpInfo.Text);
-                    activeAbility[Convert.ToInt32(tbLvlInfo.Text) - 2] = ability[Convert.ToInt32(tbLvlInfo.Text) - 2];
+                    activeAbility.Add(ability[Convert.ToInt32(tbLvlInfo.Text) - 2]);
                 }
             }
         }
@@ -300,6 +298,7 @@ namespace CreateCharacterWarcraftWpf
         {
             if (lstBoxCharacters.Items.Count != 0)
             {
+
                 btnAdd.Visibility = Visibility.Hidden;
                 btnCng.Visibility = Visibility.Visible;
                 var unit = TakeUnit(lstBoxCharacters.SelectedValue.ToString());

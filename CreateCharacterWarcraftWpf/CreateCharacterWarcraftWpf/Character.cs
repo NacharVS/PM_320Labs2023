@@ -25,12 +25,12 @@ namespace CreateCharacterWarcraftWpf
         public int intelligenceMax;
         public int experience;
         public int level;
-        public string[] activeAbility = new string[6];
+        public List<string> activeAbility = new List<string>();
         public List<string> inventory = new List<string>();
 
         public Character(string name, int healthPoint, int manaPoint, int attack, double protDet, int skillPoint, int strength, int strengthMax,
             int dexterity, int dexterityMax, int constitution, int constitutionMax, int intelligence,
-            int intelligenceMax, int experience, int level, string[] activeAbility, List<string> inventory)
+            int intelligenceMax, int experience, int level, List<string> activeAbility, List<string> inventory)
         {
             this.name = name;
             this.healthPoint = healthPoint;
