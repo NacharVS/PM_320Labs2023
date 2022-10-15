@@ -163,11 +163,11 @@ namespace CharacterEditor
                 if(_matchContext.SaveMatch(_match))
                 {
                     MessageBox.Show("Save succesfull!");
+                    lbTeamAList.Items.Clear();
+                    lbTeamBList.Items.Clear();
+                    _match = new MatchInfo(_matchContext, _charContext);
                 }
             }
-            _match = new MatchInfo(_matchContext, _charContext);
-            lbTeamAList.Items.Clear();
-            lbTeamBList.Items.Clear();
         }
     }
 }
