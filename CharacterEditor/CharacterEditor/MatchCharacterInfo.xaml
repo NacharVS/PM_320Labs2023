@@ -54,12 +54,12 @@
 
         <StackPanel Grid.Column="1">
             <StackPanel Orientation="Horizontal">
-                <Label Content="Strength" FontSize="20" Grid.ColumnSpan="2"/>
+                <Label Content="Strength: " FontSize="20" Grid.ColumnSpan="2"/>
                 <Label x:Name="lblStrengthVal" FontSize="20"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Dexterity" FontSize="20" Grid.ColumnSpan="2"/>
+                <Label Content="Dexterity: " FontSize="20" Grid.ColumnSpan="2"/>
                 <Label x:Name="lblDexterityVal" FontSize="20"/>
             </StackPanel>
 
@@ -69,17 +69,17 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Intelligence" FontSize="20" Grid.ColumnSpan="2"/>
+                <Label Content="Intelligence: " FontSize="20" Grid.ColumnSpan="2"/>
                 <Label x:Name="lblIntelligenceVal" FontSize="20"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Experience" FontSize="20" Grid.ColumnSpan="2"/>
+                <Label Content="Experience: " FontSize="20" Grid.ColumnSpan="2"/>
                 <Label x:Name="lblExpVal" FontSize="20" Grid.ColumnSpan="2"/>
             </StackPanel>
             
             <StackPanel Orientation="Horizontal">
-                <Label Content="Level" FontSize="20" Grid.ColumnSpan="2"/>
+                <Label Content="Level: " FontSize="20" Grid.ColumnSpan="2"/>
                 <Label x:Name="lblLvlVal" FontSize="20" Grid.ColumnSpan="2"/>
             </StackPanel>
         </StackPanel>

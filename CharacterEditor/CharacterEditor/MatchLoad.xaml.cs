@@ -36,7 +36,13 @@ namespace CharacterEditor
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var match = _matchContext.GetMatch(((MatchInfo)lvMatchesList.SelectedItem).Id);
+            var selectedMatch = (MatchInfo)lvMatchesList.SelectedItem;
+            if(selectedMatch is null)
+            {
+                return;
+            }
+
+            var match = _matchContext.GetMatch((selectedMatch.Id));
             if(match is null)
             {
                 return;

@@ -160,7 +160,10 @@ namespace CharacterEditor
             if(_match.TeamsBlanceCheck())
             {
                 _match.StartMatch();
-                _matchContext.SaveMatch(_match);
+                if(_matchContext.SaveMatch(_match))
+                {
+                    MessageBox.Show("Save succesfull!");
+                }
             }
             _match = new MatchInfo(_matchContext, _charContext);
             lbTeamAList.Items.Clear();
