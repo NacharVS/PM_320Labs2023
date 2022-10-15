@@ -32,6 +32,7 @@ namespace CreateCharacterWarcraftWpf
         string[] activeAbility = new string[6];
         int levelUp = 1000;
         int expUp = 0;
+        List<string> inventory = new List<string>();
 
         public MainWindow()
         {
@@ -161,24 +162,25 @@ namespace CreateCharacterWarcraftWpf
 
         private void cmBxChooseCharacter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            lstBoxInventory.Items.Clear();
             ClearAbility(activeAbility);
             Character unit;
             if (cmBxChooseCharacter.SelectedIndex == 0)
             {
-                unit = new Warrior("", 25, 0, 25, 15, 777, 30, 250, 15, 70, 20, 100, 10, 50, 0, 1, activeAbility);
+                unit = new Warrior("", 25, 0, 25, 15, 777, 30, 250, 15, 70, 20, 100, 10, 50, 0, 1, activeAbility, inventory);
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Warrior.gif"));
                 WriteInfo(unit);
 
             }
             else if (cmBxChooseCharacter.SelectedIndex == 1)
             {
-                unit = new Rogue("", 20, 5, 15, 20, 888, 15, 55, 30, 250, 20, 80, 15, 70, 0, 1, activeAbility);
+                unit = new Rogue("", 20, 5, 15, 20, 888, 15, 55, 30, 250, 20, 80, 15, 70, 0, 1, activeAbility, inventory);
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Rogue.gif"));
                 WriteInfo(unit);
             }
             else if (cmBxChooseCharacter.SelectedIndex == 2)
             {
-                unit = new Wizard("", 30, 25, 30, 5, 666, 10, 45, 20, 70, 15, 60, 35, 250, 0, 1, activeAbility);
+                unit = new Wizard("", 30, 25, 30, 5, 666, 10, 45, 20, 70, 15, 60, 35, 250, 0, 1, activeAbility, inventory);
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Wizard.gif"));
                 WriteInfo(unit);
             }
@@ -211,6 +213,11 @@ namespace CreateCharacterWarcraftWpf
             tbExpInfo.Text = Convert.ToString(unit.experience);
             tbLvlInfo.Text = Convert.ToString(unit.level);
 
+           foreach(var item in unit.inventory)
+            {
+                lstBoxInventory.Items.Add(item);
+            }
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -231,7 +238,7 @@ namespace CreateCharacterWarcraftWpf
                 {
                     unit = new Warrior(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
                         convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 250, takeNum(tbDexInfo.Text),
-                        70, takeNum(tbConInfo.Text), 100, takeNum(tbIntInfo.Text), 50, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility);
+                        70, takeNum(tbConInfo.Text), 100, takeNum(tbIntInfo.Text), 50, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility, inventory);
                     newInfo.Add(unit);
                     Mongo.AddToDataBase(unit);
                     FillListBox();
@@ -240,7 +247,7 @@ namespace CreateCharacterWarcraftWpf
                 {
                     unit = new Rogue(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
                         convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 55, takeNum(tbDexInfo.Text),
-                        250, takeNum(tbConInfo.Text), 80, takeNum(tbIntInfo.Text), 70, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility);
+                        250, takeNum(tbConInfo.Text), 80, takeNum(tbIntInfo.Text), 70, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility, inventory);
                     newInfo.Add(unit);
                     Mongo.AddToDataBase(unit);
                     FillListBox();
@@ -249,13 +256,15 @@ namespace CreateCharacterWarcraftWpf
                 {
                     unit = new Wizard(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
                         convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 45, takeNum(tbDexInfo.Text),
-                        70, takeNum(tbConInfo.Text), 60, takeNum(tbIntInfo.Text), 250, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility);
+                        70, takeNum(tbConInfo.Text), 60, takeNum(tbIntInfo.Text), 250, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility, inventory);
                     newInfo.Add(unit);
                     Mongo.AddToDataBase(unit);
                     FillListBox();
                 }
                 levelUp = 1000;
                 expUp = 0;
+                inventory.Clear();
+                lstBoxInventory.Items.Clear();
             }
 
             ClearAbility(activeAbility);
@@ -276,7 +285,6 @@ namespace CreateCharacterWarcraftWpf
                 }
             }
         }
-        
 
         private void btnSkill_Click(object sender, RoutedEventArgs e)
         {
@@ -305,7 +313,7 @@ namespace CreateCharacterWarcraftWpf
 
         private Character TakeUnit(string? name)
         {
-            Character unit = new Character("", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, activeAbility);
+            Character unit = new Character("", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, activeAbility, inventory);
 
             var collection = Mongo.GetCollection();
 
@@ -324,6 +332,8 @@ namespace CreateCharacterWarcraftWpf
 
         private void btnCng_Click(object sender, RoutedEventArgs e)
         {
+            lstBoxInventory.Items.Clear();
+
             Character unit = Mongo.TakeUnit(lstBoxCharacters.SelectedValue.ToString());
 
             tbUntName.Text = unit.name;
@@ -340,12 +350,14 @@ namespace CreateCharacterWarcraftWpf
             unit.experience = takeNum(tbExpInfo.Text);
             unit.level = takeNum(tbLvlInfo.Text);
             unit.activeAbility = activeAbility;
+            unit.inventory = unit.inventory.Concat(inventory).ToList();
 
             Mongo.ReplaceByName(unit.name, unit);
             FillListBox();
 
             levelUp = 1000;
             expUp = 0;
+            inventory.Clear();
 
             btnAdd.Visibility = Visibility.Visible;
             btnCng.Visibility = Visibility.Hidden;
@@ -370,6 +382,12 @@ namespace CreateCharacterWarcraftWpf
             {
                 lstBoxCharacters.Items.Add(doc.name);
             }
+        }
+
+        private void btnAddItem_Click(object sender, RoutedEventArgs e)
+        {
+            inventory.Add(tbTitleItem.Text);
+            lstBoxInventory.Items.Add(tbTitleItem.Text);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace CreateCharacterWarcraftWpf
 {
@@ -25,10 +26,11 @@ namespace CreateCharacterWarcraftWpf
         public int experience;
         public int level;
         public string[] activeAbility = new string[6];
+        public List<string> inventory = new List<string>();
 
         public Character(string name, int healthPoint, int manaPoint, int attack, double protDet, int skillPoint, int strength, int strengthMax,
             int dexterity, int dexterityMax, int constitution, int constitutionMax, int intelligence,
-            int intelligenceMax, int experience, int level, string[] activeAbility)
+            int intelligenceMax, int experience, int level, string[] activeAbility, List<string> inventory)
         {
             this.name = name;
             this.healthPoint = healthPoint;
@@ -47,6 +49,7 @@ namespace CreateCharacterWarcraftWpf
             this.experience = experience;
             this.level = level;
             this.activeAbility = activeAbility;
+            this.inventory = inventory;
         }
 
         public string getInfo()
