@@ -32,6 +32,12 @@ namespace GameEditor
             {
                 listBoxOfMatches.Items.Add(match.number);
             }
+            AddToolStrips();
+            startBtn.Visible = false;
+        }
+
+        private void AddToolStrips()
+        {
             ToolStripMenuItem firstMenuItem = new ToolStripMenuItem("Добавить в первую команду");
             ToolStripMenuItem secondMenuItem = new ToolStripMenuItem("Добавить во вторую команду");
             ToolStripMenuItem removeOneMenuItem = new ToolStripMenuItem("Удалить из первой команды");
@@ -50,7 +56,6 @@ namespace GameEditor
             removeTwoMenuItem.Click += RemoveTwoMenuItem_Click;
             openUnitMenuItem.Click += OpenUnitMenuItem_Click;
             openUnitTwoMenuItem.Click += OpenUnitMenuItem_Click;
-            startBtn.Visible = false;
         }
 
         void SecondMenuItem_Click(object sender, EventArgs e)
@@ -87,16 +92,22 @@ namespace GameEditor
 
         void RemoveOneMenuItem_Click(object sender, EventArgs e)
         {
-            listBoxOfUnits.Items.Add(listBoxTeamOne.SelectedItem.ToString());
-            listBoxTeamOne.Items.Remove(listBoxTeamOne.SelectedItem);
-            FirstTeamChangedEvent();
+            if (!(listBoxOfMatches.SelectedItems.Count > 0))
+            {
+                listBoxOfUnits.Items.Add(listBoxTeamOne.SelectedItem.ToString());
+                listBoxTeamOne.Items.Remove(listBoxTeamOne.SelectedItem);
+                FirstTeamChangedEvent();
+            }
         }
 
         void RemoveTwoMenuItem_Click(object sender, EventArgs e)
         {
-            listBoxOfUnits.Items.Add(listBoxTeamTwo.SelectedItem.ToString());
-            listBoxTeamTwo.Items.Remove(listBoxTeamTwo.SelectedItem);
-            SecondTeamChangedEvent();
+            if (!(listBoxOfMatches.SelectedItems.Count > 0))
+            {
+                listBoxOfUnits.Items.Add(listBoxTeamTwo.SelectedItem.ToString());
+                listBoxTeamTwo.Items.Remove(listBoxTeamTwo.SelectedItem);
+                SecondTeamChangedEvent();
+            }
         }
 
         void FirstTeamChangedEvent()
@@ -112,12 +123,16 @@ namespace GameEditor
                     count++;
                 }
 
-                textBoxOne.Text = (lvls / count).ToString();
+                textBoxOne.Text = ((double)(lvls / count)).ToString();
                 listBoxOfUnits.Items.Remove(listBoxOfUnits.SelectedItem);
             }
             else if (listBoxTeamOne.Items.Count == 0)
             {
                 textBoxOne.Text = "";
+            }
+            if (listBoxTeamOne.Items.Count != 6 && listBoxTeamTwo.Items.Count != 6)
+            {
+                startBtn.Visible = false;
             }
         }
 
@@ -134,12 +149,16 @@ namespace GameEditor
                     count++;
                 }
 
-                textBoxTwo.Text = (lvls / count).ToString();
+                textBoxTwo.Text = ((double)(lvls / count)).ToString();
                 listBoxOfUnits.Items.Remove(listBoxOfUnits.SelectedItem);
             }
             else if (listBoxTeamTwo.Items.Count == 0)
             {
                 textBoxTwo.Text = "";
+            }
+            if (listBoxTeamOne.Items.Count != 6 && listBoxTeamTwo.Items.Count != 6)
+            {
+                startBtn.Visible = false;
             }
         }
 
@@ -167,19 +186,26 @@ namespace GameEditor
             }
         }
 
-        private void StartBtn_Click(object sender, EventArgs e)
+        private void StartBtn_Click(object sender, EventArgs e) 
         {
-            match = new Match(textBoxNumberMatch.Text);
-            foreach (var i in listBoxTeamOne.Items)
+            if (DBConnection.ImportMatchData(Convert.ToInt32(textBoxNumberMatch.Text)) is null)
             {
-                match.firstTeam.Add(i.ToString());
+                match = new Match(textBoxNumberMatch.Text);
+                foreach (var i in listBoxTeamOne.Items)
+                {
+                    match.firstTeam.Add(i.ToString());
+                }
+                foreach (var i in listBoxTeamTwo.Items)
+                {
+                    match.secondTeam.Add(i.ToString());
+                }
+                DBConnection.AddMatchToDataBase(match);
+                listBoxOfMatches.Items.Add(match.number);
             }
-            foreach (var i in listBoxTeamTwo.Items)
+            else
             {
-                match.secondTeam.Add(i.ToString());
+                MessageBox.Show("Матч с таким номером существует");
             }
-            DBConnection.AddMatchToDataBase(match);
-            listBoxOfMatches.Items.Add(match.number);
         }
 
         private void AutoBtn_Click(object sender, EventArgs e)
@@ -201,37 +227,106 @@ namespace GameEditor
             }
             if (!(Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) <= 2))
             {
-                foreach (var i in listBoxTeamOne.Items)
-                {
-                    listBoxOfUnits.Items.Add(i);
-                    listBoxTeamOne.Items.Remove(i);
-                }
-                foreach (var i in listBoxTeamTwo.Items)
-                {
-                    listBoxOfUnits.Items.Add(i);
-                    listBoxTeamTwo.Items.Remove(i);
-                }
-                textBoxOne.Text = "";
-                textBoxTwo.Text = "";
+                DeleteInfo();
                 AutoBtn_Click(sender, e);
             }
         }
 
         private void ListBoxOfMatches_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int number = Convert.ToInt32(listBoxOfMatches.SelectedItem.ToString());
-            match = DBConnection.ImportMatchData(number);
-            foreach (var i in match.firstTeam)
+            if (listBoxOfMatches.SelectedItems.Count > 0)
             {
-                listBoxTeamOne.Items.Add(i.ToString());
-                FirstTeamChangedEvent();
+                if (listBoxTeamOne.Items.Count != 0 && listBoxTeamTwo.Items.Count != 0 && listBoxOfMatches.SelectedItems.Count > 0)
+                {
+                    while (listBoxTeamOne.Items.Count != 0)
+                    {
+                        listBoxTeamOne.Items.Remove(listBoxTeamOne.Items[0]);
+                    }
+                    while (listBoxTeamTwo.Items.Count != 0)
+                    {
+                        listBoxTeamTwo.Items.Remove(listBoxTeamTwo.Items[0]);
+                    }
+                }
+                else if ((listBoxTeamOne.Items.Count != 0 || listBoxTeamTwo.Items.Count != 0) && listBoxOfMatches.SelectedItems.Count > 0)
+                {
+                    while (listBoxTeamOne.Items.Count != 0)
+                    {
+                        listBoxOfUnits.Items.Add(listBoxTeamOne.Items[0]);
+                        listBoxTeamOne.Items.Remove(listBoxTeamOne.Items[0]);
+                    }
+                    while (listBoxTeamTwo.Items.Count != 0)
+                    {
+                        listBoxOfUnits.Items.Add(listBoxTeamTwo.Items[0]);
+                        listBoxTeamTwo.Items.Remove(listBoxTeamTwo.Items[0]);
+                    }
+                }
+                int number = Convert.ToInt32(listBoxOfMatches.SelectedItem.ToString());
+                match = DBConnection.ImportMatchData(number);
+
+                foreach (var i in match.firstTeam)
+                {
+                    listBoxTeamOne.Items.Add(i.ToString());
+                    FirstTeamChangedEvent();
+                }
+                foreach (var i in match.secondTeam)
+                {
+                    listBoxTeamTwo.Items.Add(i.ToString());
+                    SecondTeamChangedEvent();
+                }
+                textBoxNumberMatch.Text = match.number.ToString();
+                startBtn.Visible = false;
             }
-            foreach (var i in match.secondTeam)
+        }
+
+        private void DeleteInfo()
+        {
+            foreach (var i in listBoxTeamOne.Items)
             {
-                listBoxTeamTwo.Items.Add(i.ToString());
-                SecondTeamChangedEvent();
+                listBoxOfUnits.Items.Add(i);
+                listBoxTeamOne.Items.Remove(i);
             }
-            textBoxNumberMatch.Text = match.number.ToString();
+            foreach (var i in listBoxTeamTwo.Items)
+            {
+                listBoxOfUnits.Items.Add(i);
+                listBoxTeamTwo.Items.Remove(i);
+            }
+            textBoxOne.Text = "";
+            textBoxTwo.Text = "";
+        }
+
+        private void RemoveBtn_Click(object sender, EventArgs e)
+        {
+            if (listBoxOfMatches.SelectedItems.Count > 0)
+            {
+                while (listBoxTeamOne.Items.Count != 0)
+                {
+                    listBoxTeamOne.Items.Remove(listBoxTeamOne.Items[0]);
+                }
+                while (listBoxTeamTwo.Items.Count != 0)
+                {
+                    listBoxTeamTwo.Items.Remove(listBoxTeamTwo.Items[0]);
+                }
+                textBoxNumberMatch.Text = "";
+                textBoxOne.Text = "";
+                textBoxTwo.Text = "";
+                listBoxOfMatches.SelectedItems.Clear();
+            }
+            else
+            {
+                while (listBoxTeamOne.Items.Count != 0)
+                {
+                    listBoxOfUnits.Items.Add(listBoxTeamOne.Items[0]);
+                    listBoxTeamOne.Items.Remove(listBoxTeamOne.Items[0]);
+                }
+                while (listBoxTeamTwo.Items.Count != 0)
+                {
+                    listBoxOfUnits.Items.Add(listBoxTeamTwo.Items[0]);
+                    listBoxTeamTwo.Items.Remove(listBoxTeamTwo.Items[0]);
+                }
+                textBoxNumberMatch.Text = "";
+                textBoxOne.Text = "";
+                textBoxTwo.Text = "";
+            }
         }
     }
 }

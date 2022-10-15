@@ -44,6 +44,7 @@
             this.autoBtn = new System.Windows.Forms.Button();
             this.listBoxOfMatches = new System.Windows.Forms.ListBox();
             this.textBoxNumberMatch = new System.Windows.Forms.TextBox();
+            this.removeBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBoxOfUnits
@@ -178,12 +179,23 @@
             this.textBoxNumberMatch.Size = new System.Drawing.Size(125, 27);
             this.textBoxNumberMatch.TabIndex = 11;
             // 
+            // removeBtn
+            // 
+            this.removeBtn.Location = new System.Drawing.Point(356, 292);
+            this.removeBtn.Name = "removeBtn";
+            this.removeBtn.Size = new System.Drawing.Size(94, 29);
+            this.removeBtn.TabIndex = 12;
+            this.removeBtn.Text = "Remove";
+            this.removeBtn.UseVisualStyleBackColor = true;
+            this.removeBtn.Click += new System.EventHandler(this.RemoveBtn_Click);
+            // 
             // SecondForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.removeBtn);
             this.Controls.Add(this.textBoxNumberMatch);
             this.Controls.Add(this.listBoxOfMatches);
             this.Controls.Add(this.autoBtn);
@@ -220,5 +232,6 @@
         private Button autoBtn;
         private ListBox listBoxOfMatches;
         private TextBox textBoxNumberMatch;
+        private Button removeBtn;
     }
 }

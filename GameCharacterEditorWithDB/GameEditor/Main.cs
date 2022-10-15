@@ -29,6 +29,7 @@ namespace GameEditor
         {
             InitializeComponent();
             ListUpdate();
+            gameToolStripMenuItem.Visible = false;
             panel1.Visible = false;
             panel2.Visible = false;
             panel3.Visible = false;
@@ -506,6 +507,7 @@ namespace GameEditor
 
         private void UpdateStat()
         {
+            checking = false;
             numericUpDownStr.Value = selectedUnit.Strength;
             numericUpDownCon.Value = selectedUnit.Constitution;
             numericUpDownDex.Value = selectedUnit.Dexterity;
@@ -515,6 +517,7 @@ namespace GameEditor
             textBoxMana.Text = selectedUnit.MP.ToString();
             textBoxAttack.Text = selectedUnit.attackDamage.ToString();
             textBoxAttackMana.Text = selectedUnit.manaAttack.ToString();
+            checking = true;
         }
 
         private void GameToolStripMenuItem_Click(object sender, EventArgs e)

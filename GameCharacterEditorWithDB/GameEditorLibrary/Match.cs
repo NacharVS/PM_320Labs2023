@@ -13,11 +13,13 @@ namespace GameEditorLibrary
         [BsonIgnoreIfDefault]
         public ObjectId _id;
         public int number;
+        public DateTime dateTime;
         public List<string> firstTeam;
         public List<string> secondTeam;
 
         public Match(string num)
         {
+            dateTime = DateTime.Now;
             number = Convert.ToInt32(num);
             firstTeam = new List<string>();
             secondTeam = new List<string>();

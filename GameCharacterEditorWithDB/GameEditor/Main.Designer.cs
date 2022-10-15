@@ -687,9 +687,7 @@
             // 
             this.thirdComboBox.FormattingEnabled = true;
             this.thirdComboBox.Items.AddRange(new object[] {
-            "Bow",
-            "Axe",
-            "Sword"});
+            "Shild"});
             this.thirdComboBox.Location = new System.Drawing.Point(172, 118);
             this.thirdComboBox.Name = "thirdComboBox";
             this.thirdComboBox.Size = new System.Drawing.Size(191, 28);
