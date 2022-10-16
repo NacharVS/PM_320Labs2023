@@ -138,6 +138,6 @@ namespace GameCharacterEditor
 
         public ChainMail chainmail;
         public Helmet helmet;
-        public Shild shild;
+        public Shield shild;
     }
 }

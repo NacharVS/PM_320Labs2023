@@ -413,7 +413,7 @@
             0,
             0,
             0});
-            this.XP_Text.Location = new System.Drawing.Point(76, 158);
+            this.XP_Text.Location = new System.Drawing.Point(76, 126);
             this.XP_Text.Maximum = new decimal(new int[] {
             55000,
             0,
@@ -438,7 +438,7 @@
             // 
             this.Lvl_Lable.AutoSize = true;
             this.Lvl_Lable.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Lvl_Lable.Location = new System.Drawing.Point(12, 126);
+            this.Lvl_Lable.Location = new System.Drawing.Point(12, 94);
             this.Lvl_Lable.Name = "Lvl_Lable";
             this.Lvl_Lable.Size = new System.Drawing.Size(50, 22);
             this.Lvl_Lable.TabIndex = 59;
@@ -448,7 +448,7 @@
             // 
             this.XP_Lable.AutoSize = true;
             this.XP_Lable.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.XP_Lable.Location = new System.Drawing.Point(12, 156);
+            this.XP_Lable.Location = new System.Drawing.Point(12, 124);
             this.XP_Lable.Name = "XP_Lable";
             this.XP_Lable.Size = new System.Drawing.Size(40, 22);
             this.XP_Lable.TabIndex = 60;
@@ -458,7 +458,7 @@
             // 
             this.Lvl_Text.AutoSize = true;
             this.Lvl_Text.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Lvl_Text.Location = new System.Drawing.Point(76, 125);
+            this.Lvl_Text.Location = new System.Drawing.Point(76, 93);
             this.Lvl_Text.Name = "Lvl_Text";
             this.Lvl_Text.Size = new System.Drawing.Size(20, 22);
             this.Lvl_Text.TabIndex = 61;
@@ -468,7 +468,7 @@
             // 
             this.Points_Lable.AutoSize = true;
             this.Points_Lable.Font = new System.Drawing.Font("Swis721 BlkCn BT", 12.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
-            this.Points_Lable.Location = new System.Drawing.Point(12, 95);
+            this.Points_Lable.Location = new System.Drawing.Point(123, 64);
             this.Points_Lable.Name = "Points_Lable";
             this.Points_Lable.Size = new System.Drawing.Size(58, 20);
             this.Points_Lable.TabIndex = 62;
@@ -478,7 +478,7 @@
             // 
             this.Points_Text.AutoSize = true;
             this.Points_Text.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Points_Text.Location = new System.Drawing.Point(76, 95);
+            this.Points_Text.Location = new System.Drawing.Point(187, 64);
             this.Points_Text.Name = "Points_Text";
             this.Points_Text.Size = new System.Drawing.Size(20, 22);
             this.Points_Text.TabIndex = 63;
@@ -539,7 +539,7 @@
             // 
             this.Skills_Lable.AutoSize = true;
             this.Skills_Lable.Font = new System.Drawing.Font("Times New Roman", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.Skills_Lable.Location = new System.Drawing.Point(12, 188);
+            this.Skills_Lable.Location = new System.Drawing.Point(12, 156);
             this.Skills_Lable.Name = "Skills_Lable";
             this.Skills_Lable.Size = new System.Drawing.Size(60, 22);
             this.Skills_Lable.TabIndex = 85;
@@ -548,7 +548,7 @@
             // 
             // Skill_Text
             // 
-            this.Skill_Text.Location = new System.Drawing.Point(76, 189);
+            this.Skill_Text.Location = new System.Drawing.Point(76, 157);
             this.Skill_Text.Multiline = true;
             this.Skill_Text.Name = "Skill_Text";
             this.Skill_Text.Size = new System.Drawing.Size(120, 111);
@@ -561,7 +561,7 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Enabled = false;
             this.textBox1.Font = new System.Drawing.Font("Snap ITC", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(12, 342);
+            this.textBox1.Location = new System.Drawing.Point(12, 325);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(239, 134);
@@ -573,13 +573,13 @@
             // 
             this.Skill_CheckBox.FormattingEnabled = true;
             this.Skill_CheckBox.Items.AddRange(new object[] {
-            "Shild",
+            "Barrier",
             "Flight",
             "Vision",
             "Speed",
             "Teleportation",
             "Invisibility"});
-            this.Skill_CheckBox.Location = new System.Drawing.Point(76, 188);
+            this.Skill_CheckBox.Location = new System.Drawing.Point(76, 156);
             this.Skill_CheckBox.Name = "Skill_CheckBox";
             this.Skill_CheckBox.Size = new System.Drawing.Size(120, 112);
             this.Skill_CheckBox.TabIndex = 91;
@@ -604,7 +604,7 @@
             this.Armor_ListBox.Items.AddRange(new object[] {
             "Chain mail",
             "Helmet",
-            "Shild"});
+            "Shield"});
             this.Armor_ListBox.Location = new System.Drawing.Point(411, 440);
             this.Armor_ListBox.Name = "Armor_ListBox";
             this.Armor_ListBox.Size = new System.Drawing.Size(120, 49);
@@ -624,7 +624,6 @@
             // 
             this.GO_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.GO_Button.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GO_Button.Enabled = false;
             this.GO_Button.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.GO_Button.Location = new System.Drawing.Point(689, 459);
             this.GO_Button.Name = "GO_Button";
@@ -645,6 +644,7 @@
             this.Material_ComboBox.Name = "Material_ComboBox";
             this.Material_ComboBox.Size = new System.Drawing.Size(121, 23);
             this.Material_ComboBox.TabIndex = 98;
+            this.Material_ComboBox.Visible = false;
             this.Material_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Material_ComboBox_SelectedIndexChanged);
             // 
             // GameCharacterEditor

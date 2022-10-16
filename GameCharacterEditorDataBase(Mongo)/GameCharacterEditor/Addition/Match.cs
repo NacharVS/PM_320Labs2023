@@ -39,8 +39,10 @@ namespace GameCharacterEditor
                 lvlSecondTeam += character.Lvl;
             }
 
-            return Math.Abs((lvlFirstTeam - lvlSecondTeam) / 
-                (FirstTeam.Count + SecondTeam.Count)) < 2;
+            int balanceOne = lvlFirstTeam / FirstTeam.Count;
+            int balanceTwo = lvlSecondTeam / SecondTeam.Count;    
+
+            return Math.Abs(balanceOne - balanceTwo) < 2;
         }
     }
 }

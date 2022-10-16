@@ -26,6 +26,13 @@ namespace GameCharacterEditor
             ListUpdate();
         }
 
+        public GameCharacterEditor(string name)
+        {
+            InitializeComponent();
+            ListUpdate();
+            SavedCharactersBox.SelectedIndex = SavedCharactersBox.Items.IndexOf(name);
+        }
+
         private void ListUpdate()
         {
             var collection = DataBase.ImportData();
@@ -204,7 +211,7 @@ namespace GameCharacterEditor
             character.XP = (int)XP_Text.Value;
 
             Skill_CheckBox.Items.Clear();
-            Skill_CheckBox.Items.Add("Shild");
+            Skill_CheckBox.Items.Add("Barrier");
             Skill_CheckBox.Items.Add("Flight");
             Skill_CheckBox.Items.Add("Vision");
             Skill_CheckBox.Items.Add("Speed");
@@ -229,8 +236,15 @@ namespace GameCharacterEditor
 
         private void Save_Button_Click(object sender, EventArgs e)
         {
+            /*if (character.Name is null)
+            {
+                MessageBox.Show("Teams are not balansed or dont have characters!",
+                    "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }*/
+
             SavedCharactersBox.Items.Clear();
             SavedCharactersBox.Items.Add(character.Name);
+            ListUpdate();
 
             if (character.Id != ObjectId.Empty)
             {
@@ -242,7 +256,8 @@ namespace GameCharacterEditor
 
         private void OK_Button_Click(object sender, EventArgs e)
         {
-            Skill_CheckBox.Visible = false;
+            Application.Restart();
+            /*Skill_CheckBox.Visible = false;
             Skills_Lable.Visible = false;
             Skill_Text.Visible = false;
 
@@ -287,7 +302,7 @@ namespace GameCharacterEditor
             Equipment_Text.Visible = false;
             Equipment_CheckBox.Visible = true;
             Equipment_Text.Text = "";
-            Edit_Button.Visible = false;
+            Edit_Button.Visible = false;*/
         }
 
         private void SavedCharactersBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -339,7 +354,6 @@ namespace GameCharacterEditor
             Material_ComboBox.Visible = false;
             Armor_ListBox.Visible = false;
             Armor_Text.Visible = true;
-            Armor_Text.Text = Armor_ListBox.SelectedItem.ToString();
         }
 
         private void Skills_CheckBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -354,6 +368,7 @@ namespace GameCharacterEditor
 
             if (skillBool)
             {
+                Skills_Lable.Visible = false;
                 Skill_CheckBox.Visible = false;
                 Skill_CheckBox.Items.Remove(Skill_CheckBox.SelectedItem);
                 skillBool = false;
@@ -370,6 +385,7 @@ namespace GameCharacterEditor
         {
             Equipment_Text.Visible = false;
             Equipment_CheckBox.Visible = true;
+            Equipment_CheckBox.Enabled = true;
         }
 
         private void XP_Text_ValueChanged(object sender, EventArgs e)
@@ -396,8 +412,7 @@ namespace GameCharacterEditor
 
         private void Armor_ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Material_ComboBox.Visible = true;/*
-            Armor_ListBox.Visible = false;*/
+            Material_ComboBox.Visible = true;
         }
 
         private void Material_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -424,8 +439,8 @@ namespace GameCharacterEditor
                     PDef_Text.Value = character.PDef;
                     Attack_Text.Value = character.Attack;
                     break;
-                case "Shild":
-                    character.shild = new Shild(Material_ComboBox.SelectedItem.ToString());
+                case "Shield":
+                    character.shild = new Shield(Material_ComboBox.SelectedItem.ToString());
                     character.shild.CheckShild(character, Material_ComboBox.SelectedItem.ToString());
                     Strength_Text.Value = character.Strength;
                     Dexterity_Text.Value = character.Dexterity;

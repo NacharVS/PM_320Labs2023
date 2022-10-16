@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameCharacterEditor
 {
-    class Shild
+    class Shield : Armor
     {
-        public string Material { get; set; }
-
-        public Shild(string material)
-        { 
-            Material = material; 
-        }
+        public Shield(string material) : base(material) { }
 
         public void CheckShild(Character character, string material)
         {

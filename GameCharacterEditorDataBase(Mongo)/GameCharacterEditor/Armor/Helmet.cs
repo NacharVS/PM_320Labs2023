@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameCharacterEditor
 {
-    class Helmet
+    class Helmet : Armor
     {
-        public string Material { get; set; }
-
-        public Helmet(string material)
-        {
-            Material = material;
-        }
+        public Helmet(string material) : base(material) { }
 
         public void CheckHelmet(Character character, string material) 
         {
