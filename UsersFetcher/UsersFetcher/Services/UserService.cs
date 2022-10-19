@@ -6,7 +6,7 @@ public class UserService
 {
     public Task<User[]> GetUsers()
     {
-        return Task.FromResult(Enumerable.Range(1, 1).Select(_ => new User
+        return Task.FromResult(Enumerable.Range(1, Random.Shared.Next(1, 10)).Select(_ => new User
         {
             Age = Random.Shared.Next(14, 60),
             Login = GenerateLogin()
