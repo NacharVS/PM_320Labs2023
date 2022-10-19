@@ -44,13 +44,13 @@ namespace WPFcharacterictic.Core.BaseArmor
             get { return _magicAttack; }
             private protected set { _magicAttack = value; }
         }
-        public double _physicalDefense;
+        protected double _physicalDefense;
         public double PhysicalDefense
         {
             get { return _physicalDefense; }
             private protected set { _physicalDefense = value; }
         }
-        public double _magicDefense;
+        protected double _magicDefense;
         public double MagicDefense
         {
             get { return _magicDefense; }

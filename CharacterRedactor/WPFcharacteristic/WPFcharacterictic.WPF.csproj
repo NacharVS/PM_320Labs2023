@@ -24,4 +24,8 @@
     <Resource Include="wizard.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Windows\" />
+  </ItemGroup>
+
 </Project>

@@ -141,7 +141,6 @@ namespace WPFcharacterictic.Core
             private protected set { _magicDefense = value; }
         }
 
-
         public Entity()
         {
             Id = Guid.NewGuid().ToString();

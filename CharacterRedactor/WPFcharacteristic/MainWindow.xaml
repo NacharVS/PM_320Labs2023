@@ -87,6 +87,8 @@
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="658,316,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="8" Text="+" FontSize="14" FontFamily="Calibri" TextAlignment="Center"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="658,338,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="8" Text="+" FontSize="14" FontFamily="Calibri" TextAlignment="Center"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="658,359,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="8" Text="+" FontSize="14" FontFamily="Calibri" TextAlignment="Center"/>
-
+        <Button x:Name="Go" Grid.Column="1" Content="Go" HorizontalAlignment="Left" Margin="445,444,0,0" Grid.Row="1" VerticalAlignment="Top" Height="20" Width="43" BorderBrush="#FFB4D9FF" Background="#FFB4D9FF" RenderTransformOrigin="0.481,0.592" FontFamily="Poor Richard" FontSize="14" Click="GoCompetition_Click"/>
+        <Frame x:Name="MainFrame" Grid.ColumnSpan="3" Grid.RowSpan="3"></Frame>
     </Grid>
+
 </Window>

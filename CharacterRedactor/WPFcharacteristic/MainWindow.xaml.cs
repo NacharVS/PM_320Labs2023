@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WPFcharacterictic.Core;
 using WPFcharacterictic.Core.BaseEntitys;
 using MongoDBwpf;
 using WPFcharacterictic.Core.BaseArmor;
+using WPFcharacterictic.WPF;
 
 namespace WPFcharacteristic.WPF
 {
@@ -29,7 +20,6 @@ namespace WPFcharacteristic.WPF
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         private void Entity_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -284,6 +274,9 @@ namespace WPFcharacteristic.WPF
             MagicAttack.Text = entity.MagicAttack.ToString();
             PhysicalDefense.Text = entity.PhysicalDefense.ToString();
             MagicDefense.Text = entity.MagicDefense.ToString();
+
+            
+
         }
 
         private void RefreshEquipment(Armor armor)
@@ -340,6 +333,18 @@ namespace WPFcharacteristic.WPF
             MongoDBwpf<Armor>.AddToDataBase(CatHat, "Armor");
             MongoDBwpf<Armor>.AddToDataBase(Crown, "Armor");
 
+        }
+
+        private void GoCompetition_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainFrame.Navigate(new Competition());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
