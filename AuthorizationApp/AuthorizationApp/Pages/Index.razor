@@ -1,9 +1,11 @@
 ﻿@page "/"
+@using AuthorizationApp.Services
+@inject IUserIdentityService UserIdentityService
 
-<PageTitle>Index</PageTitle>
-
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?"/>
+@if (UserIdentityService.CurrentUser is null)
+{
+    <AuthorizationPage/>
+}
+else
+{
+}

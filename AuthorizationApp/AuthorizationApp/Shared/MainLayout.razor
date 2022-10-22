@@ -1,16 +1,18 @@
-﻿@inherits LayoutComponentBase
+﻿@using AuthorizationApp.Services
+@inherits LayoutComponentBase
+@inject IUserIdentityService UserIdentityService
 
 <PageTitle>AuthorizationApp</PageTitle>
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
-
     <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+        @if (UserIdentityService.CurrentUser is not null)
+        {
+            var user = UserIdentityService.CurrentUser;
+            <div class="top-row px-4">
+                <span>Hello, <NavLink href="/MyCabinet">@user.Name @user.Surname</NavLink></span>
+            </div>
+        }
 
         <article class="content px-4">
             @Body

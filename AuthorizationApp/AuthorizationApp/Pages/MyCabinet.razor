@@ -1,0 +1,31 @@
+﻿@page "/MyCabinet"
+@using AuthorizationApp.Services
+@inject IUserIdentityService UserIdentityService
+@inject NavigationManager NavigationManager
+@inject Services.IAuthorizationService AuthorizationService;
+
+<h3>MyCabinet</h3>
+@if (UserIdentityService.CurrentUser is not null)
+{
+    var user = UserIdentityService.CurrentUser;
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@user.Name @user.Surname</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Email: @user.Email</li>
+            <li class="list-group-item">Login: @user.Login</li>
+        </ul>
+        <div class="card-body">
+            <NavLink @onclick="_ => AuthorizationService.Logout()" href="/AuthorizationPage">Logout</NavLink>
+        </div>
+    </div>
+}
+else
+{
+    NavigationManager.NavigateTo("/AuthorizationPage");
+}
+
+@code {
+
+}

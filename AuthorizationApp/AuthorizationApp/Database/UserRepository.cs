@@ -12,9 +12,9 @@ public class UserRepository : IUserRepository
         _users = connection.Database?.GetCollection<UserDb>("Users")!;
     }
 
-    public User GetUser(string id)
+    public User GetUser(string login)
     {
-        var res = _users.Find(x => x.Id == id).FirstOrDefault();
+        var res = _users.Find(x => x.Login == login).FirstOrDefault();
         return new User { Email = res.Email, Login = res.Login, Name = res.Name, Surname = res.Surname };
     }
 
@@ -33,5 +33,10 @@ public class UserRepository : IUserRepository
     public byte[] GetEncryptedPasswordByLogin(string login)
     {
         return _users.Find(x => x.Login == login).FirstOrDefault().Password;
+    }
+
+    public bool IsUserRegistered(string login)
+    {
+        return _users.Find(x => x.Login == login).FirstOrDefault() is not null;
     }
 }

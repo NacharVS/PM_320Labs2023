@@ -1,0 +1,16 @@
+﻿@page "/MainPage"
+@using AuthorizationApp.Services
+@inject IUserIdentityService UserIdentityService
+@inject NavigationManager NavigationManager
+
+@if (UserIdentityService.CurrentUser is null)
+{
+    NavigationManager.NavigateTo("/AuthorizationPage");
+}
+<div class="page">
+    <h3>MainPage</h3>
+</div>
+
+@code {
+
+}

@@ -1,0 +1,58 @@
+﻿@page "/AuthorizationPage"
+@using AuthorizationApp.Data
+@inject Services.IAuthorizationService AuthorizationService;
+@inject Services.IUserIdentityService UserIdentityService
+@inject NavigationManager NavigationManager
+@inject ILogger<AuthorizationPage> Logger;
+
+@if (UserIdentityService.CurrentUser is not null)
+{
+    NavigationManager.NavigateTo("/MainPage");
+}
+
+<PageTitle>Authorization</PageTitle>
+<h3>Authorization</h3>
+<EditForm Model="@_loginCredentials" OnValidSubmit="@CheckAuthorization">
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+        <InputText @bind-Value="@_loginCredentials.Login" type="text" id="form2Example1" class="form-control"/>
+        <label class="form-label" for="form2Example1">Email address</label>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+        <InputText @bind-Value="@_loginCredentials.Password" type="password" id="form2Example2" class="form-control"/>
+        <label class="form-label" for="form2Example2">Password</label>
+    </div>
+
+    <!-- Submit button -->
+    <input type="submit" class="btn btn-primary btn-block mb-4" value="Sign in"/>
+
+    <!-- Register buttons -->
+    <div class="text-center">
+        <p>Not a member? <NavLink href="RegistrationPage">Register</NavLink></p>
+    </div>
+    
+    @if (!IsCorrectLogin)
+    {
+        <div class="alert alert-danger" role="alert">
+            Wrong email or password!
+        </div>
+    }
+</EditForm>
+
+@code {
+    private bool IsCorrectLogin = true;
+    private LoginCredentials _loginCredentials = new();
+
+    private void CheckAuthorization()
+    {
+        if (!AuthorizationService.Authorize(_loginCredentials))
+        {
+            IsCorrectLogin = false;
+            return;
+        }
+        IsCorrectLogin = true;
+    }
+
+}
