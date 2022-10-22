@@ -1,0 +1,51 @@
+﻿@page "/registration"
+
+@inherits Authorization.Services.UserService
+
+@using Authorization.Module;
+
+	<div style="padding: 15px">
+		<label for="username">Name</label>
+		<InputText id="username" @bind-Value="user.Name"/>
+	</div>
+	<div style="padding: 15px">
+		<label for="lastname">Last Name</label>
+		<InputText id="lastname" @bind-Value="user.LastName"/>
+	</div>
+	<div style="padding: 15px">
+		<label for="email">Email</label>
+		<InputText id="email" @bind-Value="user.Email"/>
+	</div>
+	<div style="padding: 15px">
+		<label for="loginuser">Login</label>
+		<InputText id="loginuser" @bind-Value="user.Login"/>
+	</div>
+	<div style="padding: 15px">
+		<label for="passworduser">Password</label>
+		<InputText id="passworduser" @bind-Value="user.Password"/>
+	</div>
+	<div style="padding: 15px">
+		<label>Repeat password</label>
+		@repeatPassword= <input>
+
+		@if (user.Password != repeatPassword)
+		{
+			<p style="color:red">Passwords do not match</p>
+		}
+		@if (user.Password == repeatPassword)
+		{
+			<p style="color:green">Passwords match</p>
+		}
+	</div>
+	<div style="padding: 15px">
+		<button style="color:#fff;background-color:#0d6efd;border-color:#0d6efd; border-radius:6px">
+			<NavLink href="login" style="color:white; text-decoration:none">
+				@MongoDB.AddToDataBase(user)
+					Registration
+			</NavLink>
+		</button>
+	</div>
+
+@code {
+	private User user = new User();
+}
