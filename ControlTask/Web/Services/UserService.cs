@@ -5,7 +5,7 @@ namespace Web.Services;
 
 public class UserService
 {
-    public List<User> AuthorizedUsers = new();
+    public static List<User> AuthorizedUsers = new();
     
     public async Task<User?> GetUser(string login)
     {
@@ -14,9 +14,7 @@ public class UserService
 
     public async Task SaveUser(User user)
     {
-        await Database.SaveUser(user);
-        UpdateAuthorizedUsers(user);
-    }
+        await Database.SaveUser(user); }
 
     public void UpdateAuthorizedUsers(User user, bool remove=false)
     {

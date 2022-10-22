@@ -3,6 +3,8 @@
 @using Core.Entities
 @inject UserService UserService;
 @inject SessionService SessionService;
+@inject NavigationManager NavigationManager
+@inject AppState AppState
 
 <PageTitle>Main page</PageTitle>
 
@@ -105,10 +107,14 @@ else
             && _email != null)
         {
             await UserService.SaveUser(new User(_name, _surname, _email, _login, _password));
+            await AuthorizeUser();
+            
+            _notCompletedLines = false;
+            _userNotFound = false;
         }
         else
         {
-            _notCompletedLines = true;
+            _userNotFound = true;
         }
     }
 
@@ -121,6 +127,13 @@ else
             {
                 _userNotFound = true;
             }
+            else
+            {
+                _userNotFound = false;
+                AppState.SetCurrentUser(user);
+                NavigationManager.NavigateTo("/account");
+            }
+            _notCompletedLines = false;
         }
         else
         {

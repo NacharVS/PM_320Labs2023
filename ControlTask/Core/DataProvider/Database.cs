@@ -17,7 +17,8 @@ public static class Database
     {
         var result = await MongoDatabase.GetCollection<User>("User")
             .FindAsync(x => x.Login == login);
-        
-        return result.Current.FirstOrDefault();
+
+        await result.MoveNextAsync();
+        return result.Current?.FirstOrDefault();
     }
 }

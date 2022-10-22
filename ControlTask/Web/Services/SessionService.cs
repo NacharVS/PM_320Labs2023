@@ -6,7 +6,7 @@ namespace Web.Services;
 public class SessionService
 {
     private User? _currentUser;
-    private UserService _userService;
+    private readonly UserService _userService;
 
     public SessionService(UserService userService)
     {
@@ -40,7 +40,7 @@ public class SessionService
     public Task LogOut()
     {
         _currentUser = null;
-        return Task.CompletedTask;
         _userService.UpdateAuthorizedUsers(_currentUser, true);
+        return Task.CompletedTask;
     }
 }

@@ -2,6 +2,7 @@
 @using Core.Entities
 @inherits LayoutComponentBase
 @inject SessionService SessionService
+@inject AppState AppState
 
 <PageTitle>Web</PageTitle>
 
@@ -12,7 +13,7 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="/account" target="_blank">@_currentUser?.Name @_currentUser?.Surname</a>
+            <a href="/account" target="_blank">@AppState.CurrentUser?.Name @AppState.CurrentUser?.Surname</a>
         </div>
 
         <article class="content px-4">
