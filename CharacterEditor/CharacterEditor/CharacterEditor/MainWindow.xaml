@@ -157,5 +157,12 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Button x:Name="btnMatchesHistory" Content="Matches History" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="6" Style="{StaticResource AllBtn}" Width="110" Click="btnMatchesHistory_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

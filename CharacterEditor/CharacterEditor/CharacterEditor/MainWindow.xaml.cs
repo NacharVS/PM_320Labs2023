@@ -427,7 +427,7 @@ namespace CharacterEditor
                 return;
             }
 
-            var equipmentWindow = new Equipment(_currentCharacter);
+            var equipmentWindow = new Equipment(_currentCharacter, _repository);
             equipmentWindow.ShowDialog();
             CharactericticChangedEvent?.Invoke();
         }
@@ -435,6 +435,12 @@ namespace CharacterEditor
         private void btnMatch_Click(object sender, RoutedEventArgs e)
         {
             var win = new MatchWindow(_repository, _connection);
+            win.ShowDialog();
+        }
+
+        private void btnMatchesHistory_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new MatchesHistoryWindow(_connection, _repository);
             win.ShowDialog();
         }
     }

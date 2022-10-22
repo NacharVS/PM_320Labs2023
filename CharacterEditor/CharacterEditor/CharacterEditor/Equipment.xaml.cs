@@ -9,6 +9,7 @@ namespace CharacterEditor
     /// </summary>
     public partial class Equipment : Window
     {
+        private ICharacterRepository _repos;
         private Character _character;
         private Helmet _currentHelmet;
         private Breastplate _currentBreasplate;
@@ -18,11 +19,11 @@ namespace CharacterEditor
         public CharactericticUpdateDelegate CharactericticUpdate;
 
 
-        public Equipment(Character character)
+        public Equipment(Character character, ICharacterRepository repos)
         {
             InitializeComponent();
             _character = character;
-
+            _repos = repos;
             CharactericticUpdate += UpdateCurrentItems;
         }
 
@@ -157,6 +158,8 @@ namespace CharacterEditor
                 _character.Inventory.Items.Remove(_currentHelmet);
                 _character.Inventory.Items.Remove(_currentBreasplate);
                 _character.Inventory.Items.Remove(_currentWeapon);
+                _repos.UpdateInventory(_character.Name, _character);
+                _repos.UpdateEquipment(_character.Name, _character);
                 MessageBox.Show("Equipment successfully saved!");
                 this.Close();
             }

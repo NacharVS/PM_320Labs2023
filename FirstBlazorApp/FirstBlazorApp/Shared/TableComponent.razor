@@ -1,0 +1,47 @@
+﻿@using FirstBlazorApp.Data
+
+@if (Users == null)
+{
+	<p><em>Loading...</em></p>
+}
+else if (Users.Count() == 1)
+{
+	<div class="card" style="width: 300px">
+		<div class="card-body">
+			<h5 class="card-title">User Info</h5>
+			<h6 class="card-text">Surname: @Users[0].Surname</h6>
+			<h6 class="card-text">Name: @Users[0].Name</h6>
+			<h6 class="card-text">Email: @Users[0].Email</h6>
+			<h6 class="card-text">Age: @Users[0].Age</h6>
+		</div>
+	</div>
+}
+else
+{
+  <table class="table">
+	  <thead>
+		<tr>
+		  <th scope="col">Name</th>
+		  <th scope="col">Surname</th>
+		  <th scope="col">Email</th>
+		  <th scope="col">Age</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		  @foreach(var user in Users)
+			{
+				<tr>
+					<td>@user.Name</td>
+					<td>@user.Surname</td>
+					<td>@user.Email</td>
+					<td>@user.Age</td>
+				</tr>
+			}
+		</tbody>
+  </table>
+}
+
+@code {
+	[Parameter]
+	public User[] Users { get; set; }
+}

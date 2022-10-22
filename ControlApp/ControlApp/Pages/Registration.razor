@@ -1,0 +1,98 @@
+﻿@page "/registration"
+
+@using ControlApp.Data
+
+<h3>Registration</h3>
+
+<div class="form-group">
+    <label for="login">Login</label>
+    <input class="form-control" id="login" placeholder="Login" @bind-value="@_login">
+    @if(_login == "")
+    {
+        <div class="alert alert-warning">
+            Login cannot be empty!
+        </div>
+    }
+</div>
+<div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password" @bind-value="@_password">
+    @if(_password == "")
+    {
+        <div class="alert alert-warning">
+            Password cannot be empty!
+        </div>
+    }
+</div>
+<div class="form-group">
+    <label for="passwordCheck">Password Check</label>
+    <input type="password" class="form-control" placeholder="Password" @bind-value="@_passwordCheck">
+    @if(_passwordCheck != _password)
+    {
+        <div class="alert alert-warning">
+            Passwords don`t match!
+        </div>
+    }
+</div>
+<div class="form-group">
+    <label for="name">Name</label>
+    <input class="form-control" placeholder="Name" @bind-value="@_name">
+</div>
+<div class="form-group">
+    <label>Surname</label>
+    <input class="form-control" placeholder="Surname" @bind-value="@_surname">
+</div>
+<div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" placeholder="Email" @bind-value="@_email">
+</div>
+<button type="button" class="btn btn-primary" @onclick="RegistrationUser">Registration</button>
+
+@code {
+    private UserService _userService;
+    private User[] _users;
+    private string _login;
+    private string _password;
+    private string _passwordCheck;
+    private string _name;
+    private string _surname;
+    private string _email;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _userService = new UserService("mongodb://localhost", "Users");
+    }
+
+    private bool CheckFields()
+    {
+        return _login != "" &&
+               _password != "" &&
+               _passwordCheck != "" &&
+               _password == _passwordCheck;
+    }
+
+    private void RegistrationUser()
+    {
+        if (CheckFields())
+        {
+            var user = new User()
+                {
+                    Name = _name,
+                    Surname = _surname,
+                    Email = _email,
+                    Login = _login,
+                    Password = _password
+                };
+            _userService.AddUser(user);
+
+            _login = "";
+            _password = "";
+            _passwordCheck = "";
+            _name = "";
+            _surname = "";
+            _email = "";
+
+            _userService.CurrentUser = user;
+        }
+    }
+}

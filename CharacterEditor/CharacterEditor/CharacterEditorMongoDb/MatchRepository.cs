@@ -24,5 +24,10 @@ namespace CharacterEditorMongoDb
         {
             return _matches.Find(x => true).ToList();
         }
+
+        public MatchDB GetMatchById(string? id)
+        {
+            return _matches.Find(x => x.Id == id).FirstOrDefault();
+        }
     }
 }

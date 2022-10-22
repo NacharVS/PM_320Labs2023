@@ -13,5 +13,10 @@
         public Character GetCharacterByName(string name);
 
         public bool ReplaceByName(string name, Character character);
+
+        public Character GetCharacterById(string id);
+
+        public void UpdateInventory(string name, Character character);
+        public void UpdateEquipment(string name, Character character);
     }
 }

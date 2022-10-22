@@ -1,0 +1,7 @@
+﻿@page "/userdata"
+
+@using FirstBlazorApp.Data
+
+<h1>User Data</h1>
+
+<TableComponent Users="@UserService.GetUser()"/>

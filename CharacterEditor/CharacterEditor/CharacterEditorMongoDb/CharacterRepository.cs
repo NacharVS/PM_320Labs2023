@@ -120,7 +120,7 @@ namespace CharacterEditorMongoDb
                 result.Add(new MatchCharacterInfo()
                 {
                     Name = character.Name,
-                    Id = character._id.ToString(),
+                    Id = character.Id,
                     Level = LevelInfo.GetLevel(character.Experience)
                 });
             }
@@ -146,8 +146,28 @@ namespace CharacterEditorMongoDb
         public Character GetCharacterById(string id)
         {
             return CreateCharacter(_characters
-                .Find(x => x._id.ToString() == id)
+                .Find(x => x.Id == id)
                 .FirstOrDefault());
+        }
+
+        public void UpdateInventory(string name, Character character)
+        {
+            var filter = Builders<CharacterDb>.Filter.Eq(x => x.Name, name);
+
+            var currentCharacter = CreateCharacterDb(character);
+            var updateDefinition = Builders<CharacterDb>.Update.Set(x => x.Items, currentCharacter.Items);
+
+            _characters.UpdateOne(filter, updateDefinition);
+        }
+
+        public void UpdateEquipment(string name, Character character)
+        {
+            var filter = Builders<CharacterDb>.Filter.Eq(x => x.Name, name);
+
+            var currentCharacter = CreateCharacterDb(character);
+            var updateDefinition = Builders<CharacterDb>.Update.Set(x => x.Equipment, currentCharacter.Equipment);
+
+            _characters.UpdateOne(filter, updateDefinition);
         }
     }
 }

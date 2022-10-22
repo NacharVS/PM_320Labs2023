@@ -7,8 +7,10 @@ namespace CharacterEditorMongoDb
 {
     public class CharacterDb
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         [BsonIgnoreIfDefault]
-        public ObjectId _id;
+        public string? Id { get; set; }
         [BsonIgnoreIfNull]
         public string Name { get; set; }
         [BsonIgnoreIfNull]

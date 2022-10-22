@@ -84,6 +84,8 @@ namespace CharacterEditor
                     _character.Inventory.AddItem(item);
                     lbInventoryItems.InvalidateVisual();
                 }
+
+                _repos.UpdateInventory(_character.Name, _character);
                 MessageBox.Show("Inventory successfully saved!");
                 this.Close();
             }
