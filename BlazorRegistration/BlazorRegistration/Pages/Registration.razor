@@ -6,34 +6,33 @@
 
 <h1>Registration</h1>
 
-<p>Login:</p>
-<input type="text" id="Login" />
-<p>Password</p>
-<input type="password" id="Password"/>
-<p>Password reapet:</p>
-<input type="password" id="PasswordRepeat"/>
-<p>Surname:</p>
-<input type="text" id="Surname"/>
-<p>Name:</p>
-<input type="text" id="Name" />
-<p>EMail:</p>
-<input type="text" id="EMail"/>
+<EditForm Model="@users" OnValidSubmit="@Reg" class="mx-1 mx-md-4">
 
-<button type="button" class="btn btn-primary" @onclick="Reg">Registration</button>
+<p>Login:</p>
+<input type="" id="Login" @bind-value="@users.Login"/>
+<p>Password:</p>
+<input type="password" id="Password" @bind-value="@users.Password"/>
+<p>Password repeat:</p>
+<input type="password" id="PasswordRepeat" @bind-value="@users.PasswordRepeat"/>
+<p>Surname:</p>
+<input type="text" id="Surname" @bind-value="@users.Surname" />
+<p>Name:</p>
+<input type="text" id="Name" @bind-value="@users.Name" />
+<p>EMail:</p>
+<input type="text" id="EMail" @bind-value="@users.EMail" />
+
+<input type="submit" class="btn btn-primary btn-lg" value="Reg" />
+
+</EditForm>
 
 @code {
-    private User[]? users;
-    private DataBase data;
-    private string login;
-    private int password;
-    private int passwordRepeat;
-    private string surname;
-    private string name;
-    private string email;
+    private User users = new User();
 
     public void Reg()
     {
-        User user = new User(login, password, passwordRepeat, surname, name, email);
-        DataBase.AddToDataBase(user);
+        if (users.Password == users.PasswordRepeat)
+        {
+            DataBase.AddToDataBase(users);
+        }
     }
 }
