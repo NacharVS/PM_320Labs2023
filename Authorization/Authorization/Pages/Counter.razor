@@ -1,0 +1,48 @@
+﻿@page "/Registration"
+@using MongoDB.Driver
+@using Authorization.Data
+
+@inject NavigationManager Navigation
+
+<PageTitle>Registration</PageTitle>
+
+<h1>Registration</h1>
+
+<input type="text" name="fName" @bind-value="fName" placeholder="Enter a user first name"/>
+<input type="text" name="lName" @bind-value="lName" placeholder="Enter a user last name"/>
+<input type="text" name="mail" @bind-value="mail" placeholder="Enter a user mail"/>
+<input type="text" name="login" @bind-value="login" placeholder="Enter a user login"/>
+<input type="password" name="password" @bind-value="password" placeholder="Enter a user password"/>
+<input type="password" name="repeatedPassword" @bind-value="repeatedPassword" placeholder="Repeat a user password"/>
+<button class="btn btn-primary" @onclick="Registration">Registrate</button>
+<p>Error message: @erMessage</p>
+
+@code
+{
+    private string fName;
+    private string lName;
+    private string mail;
+    private string login;
+    private string password;
+    private string repeatedPassword;
+    private string erMessage;
+    private User user;
+
+    private void Registration()
+    {
+        if (password != repeatedPassword)
+        {
+            erMessage = "passwords don't match";
+        }
+        else if (fName == "" || lName == "" || mail == "" || login == "" || password == "")
+        {
+            erMessage = "not all fields are filled in";
+        }
+        else
+        {
+            user = new User(fName, lName, mail, login, password);
+            MongoConnection.AddToDb((user));
+            Navigation.NavigateTo("/Authorization");
+        }
+    }  
+}

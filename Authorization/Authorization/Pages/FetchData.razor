@@ -1,0 +1,42 @@
+﻿@page "/Authorization"
+
+@using Authorization.Data
+@inject NavigationManager Navigation
+
+<h1>Authorization</h1>
+
+<p>Enter a user login and password or registrate a new user</p>
+<input type="text" name="login" @bind-value="login" placeholder="Enter a login"/>
+<input type="password" name="password" @bind-value="password" placeholder="Enter a password"/>
+<p>
+    <button class="btn btn-primary" @onclick="Login">Login</button>
+    <button class="btn btn-primary" @onclick="Registration">Registration</button>
+</p>
+<p>Error message: @errMessage</p>
+
+@code
+{
+    private string login;
+    private string password;
+    private string errMessage;
+    
+    private void Login()
+    {
+        var user = MongoConnection.Login(login, password);
+        if (user == null)
+        {
+            errMessage = "User not found";
+        }
+        else
+        {
+            user.IsOnline = true;
+
+            Navigation.NavigateTo("/Profile");
+        }
+    }
+    
+    private void Registration()
+    {
+        Navigation.NavigateTo("/Registration");
+    }
+}

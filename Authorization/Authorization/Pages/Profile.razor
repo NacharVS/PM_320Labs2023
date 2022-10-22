@@ -1,0 +1,30 @@
+﻿@page "/Profile"
+
+@using Authorization.Data
+@inject NavigationManager Navigation
+
+<PageTitle>Profile</PageTitle>
+
+<h3>Profile</h3>
+<NavLink class="nav-link" href="/Authorization">
+    <button class="btn btn-primary">Exit</button>
+</NavLink>
+<p>Online users</p>
+@foreach (var user in users)
+{
+    
+}
+
+@code {
+    private List<User> users;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        users = MongoConnection.GetOnlineUsers();
+    }
+    
+    private void Exit()
+    {
+        Navigation.NavigateTo("/Authorization");
+    }
+}
