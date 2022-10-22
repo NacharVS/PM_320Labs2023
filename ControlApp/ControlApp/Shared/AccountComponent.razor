@@ -1,5 +1,7 @@
 ﻿@using ControlApp.Data
 
+@inject NavigationManager _navigation
+
 <div class="card" style="width: 300px">
 		<div class="card-body">
 			<h5 class="card-title">User Info</h5>
@@ -7,9 +9,15 @@
 			<h6 class="card-text">Name: @User.Name</h6>
 			<h6 class="card-text">Email: @User.Email</h6>
 		</div>
-	</div>
+</div>
+<button class="btn btn-primary" @onclick="@Exit">Exit</button>
 
 @code {
 	[Parameter]
 	public User User { get; set; }
+
+	private void Exit()
+	{
+		_navigation.NavigateTo("/");
+	}
 }
