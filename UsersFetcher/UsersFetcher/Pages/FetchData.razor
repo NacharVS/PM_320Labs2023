@@ -1,0 +1,54 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Users</PageTitle>
+
+@using UsersFetcher.Models
+@using UsersFetcher.Services
+@inject UserService UserService
+
+<h1>Users list</h1>
+
+@if (_users == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (_users.Length > 1)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Login</th>
+            <th>Age</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in _users)
+        {
+            <tr>
+                <td>@user.Login</td>
+                <td>@user.Age</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div style="border: 1px solid black;padding: 15px 15px 0;display: inline-block;width: fit-content;">
+        <p>User login: @_users[0].Login</p>
+        <p>User Age: @_users[0].Age</p>
+    </div>
+    
+}
+
+@code {
+    private User[]? _users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _users = await UserService.GetUsers();
+    }
+
+}

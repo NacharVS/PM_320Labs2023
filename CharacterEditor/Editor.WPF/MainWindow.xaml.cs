@@ -26,7 +26,6 @@ namespace Editor.WPF
         private const int StartSkillPoints = 5;
 
         private IEnumerable<Ability?>? _starterAbilities;
-
         public MainWindow()
         {
             InitializeComponent();
