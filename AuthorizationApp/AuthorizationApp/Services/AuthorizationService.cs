@@ -17,6 +17,11 @@ public class AuthorizationService : IAuthorizationService
         _identityService = identityService;
     }
 
+    public IEnumerable<User> GetLoggedUsers()
+    {
+        return _repository.GetLoggedUsers();
+    }
+
     public bool Register(User user)
     {
         if (_repository.IsUserRegistered(user.Login))

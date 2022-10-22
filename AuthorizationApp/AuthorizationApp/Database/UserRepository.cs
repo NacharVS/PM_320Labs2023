@@ -39,4 +39,10 @@ public class UserRepository : IUserRepository
     {
         return _users.Find(x => x.Login == login).FirstOrDefault() is not null;
     }
+
+    public IEnumerable<User> GetLoggedUsers()
+    {
+        return _users.Find(x => true).ToEnumerable().Select(x => new User
+            { Email = x.Email, Login = x.Login, Name = x.Name, Surname = x.Surname });
+    }
 }

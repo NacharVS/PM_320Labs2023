@@ -8,4 +8,5 @@ public interface IUserRepository
     public bool CreateUser(User user);
     public byte[] GetEncryptedPasswordByLogin(string login);
     public bool IsUserRegistered(string login);
+    public IEnumerable<User> GetLoggedUsers();
 }

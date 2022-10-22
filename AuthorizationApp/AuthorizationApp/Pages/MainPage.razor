@@ -2,6 +2,7 @@
 @using AuthorizationApp.Services
 @inject IUserIdentityService UserIdentityService
 @inject NavigationManager NavigationManager
+@inject Services.IAuthorizationService AuthorizationService;
 
 @if (UserIdentityService.CurrentUser is null)
 {
@@ -9,6 +10,12 @@
 }
 <div class="page">
     <h3>MainPage</h3>
+    Logged users:
+    @foreach (var loggedUser in AuthorizationService.GetLoggedUsers())
+    {
+        <p>Login: @loggedUser.Login Name: @loggedUser.Name @loggedUser.Surname</p>
+    }
+
 </div>
 
 @code {
