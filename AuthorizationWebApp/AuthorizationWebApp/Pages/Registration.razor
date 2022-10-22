@@ -1,0 +1,103 @@
+﻿@page "/Registration"
+@inject UserService _userService;
+@inject User _currentUser;
+
+<h3>Registration</h3>
+
+<div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <form>
+        <div class="form-outline mb-4">
+            <input type="text" id="form3Example1cg" class="form-control form-control-lg" @bind-value="_userName"/>
+            <label class="form-label" for="form3Example1cg">Your Name</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="text" id="form3Example2cg" class="form-control form-control-lg" @bind-value="_userSurname"/>
+            <label class="form-label" for="form3Example1cg">Your Surname</label>
+        </div>
+
+        <div class="form-outline mb-4">
+            <input type="email" id="form3Example3cg" class="form-control form-control-lg" @bind-value="_userMail"/>
+            <label class="form-label" for="form3Example3cg">Your Email</label>
+        </div>
+        
+        <div class="form-outline mb-4">
+            <input type="email" id="form3Example5cg" class="form-control form-control-lg" @bind-value="_userLogin"/>
+            <label class="form-label" for="form3Example3cg">Your Login</label>
+        </div>
+
+        <div class="form-outline mb-4">
+            <input type="password" id="form3Example4cg" class="form-control form-control-lg" @bind-value="_userPassword"/>
+            <label class="form-label" for="form3Example4cg">Password</label>
+        </div>
+
+        <div class="form-outline mb-4">
+            <input type="password" id="form3Example4cdg" class="form-control form-control-lg" @bind-value="_userPasswordRepeat"/>
+            <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+        </div>
+        
+        @if (_userPassword != _userPasswordRepeat)
+        {
+            <div class="alert alert-primary">Passwords not contains!!!</div>
+        }
+
+        <div class="d-flex justify-content-center">
+            <button type="button"
+                    class="btn btn-success btn-dark" @onclick="Regisrate">Register</button>
+        </div>
+
+        <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="Authorization"
+                                                                                class="fw-bold text-body"><u>Login here</u></a></p>
+        
+        <div class="alert alert-primary" id="alertDiv" hidden="@fieldsCheck">Fill all fields!!!</div>
+    </form>
+</div>
+@code {
+
+    private string? _userName;
+    private string? _userSurname;
+    private string? _userLogin;
+    private string? _userPassword;
+    private string? _userPasswordRepeat;
+    private string? _userMail;
+
+    private bool fieldsCheck = true;
+
+    private void Regisrate()
+    {
+        CheckFields();
+        if (_userPassword == _userPasswordRepeat &&
+            _userLogin is not null && _userPassword is not null)
+        {
+            _currentUser = new User
+            {
+                Name = _userName,
+                Surname = _userSurname,
+                Login = _userLogin,
+                Password = _userPassword,
+                Mail = _userMail
+            };
+            _userService.SaveUser(_currentUser);
+            
+            _userLogin = null;
+            _userName = null;
+            _userSurname = "";
+            _userMail = "";
+            _userPassword = "";
+            _userPasswordRepeat = "";
+        }
+    }
+
+    private void CheckFields()
+    {
+        if (_userLogin is null || _userPassword is null
+            || _userName is null || _userMail is null
+            || _userSurname is null || _userPasswordRepeat is null)
+        {
+            fieldsCheck = false;
+        }
+        else
+        {
+            fieldsCheck = true;
+        }
+    }
+}
