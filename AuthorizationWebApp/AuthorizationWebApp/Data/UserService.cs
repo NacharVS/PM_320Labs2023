@@ -4,7 +4,7 @@ namespace AuthorizationWebApp.Data;
 
 public class UserService
 {
-    public User User;
+    public User currentUser = new User();
     
     private static readonly MongoClient client = new MongoClient("mongodb://localhost");
     private static readonly IMongoDatabase db = client.GetDatabase("UsersDb");
@@ -25,12 +25,12 @@ public class UserService
     {
         try
         {
-            User = usersCollection.Find(x => x.Login == Login).FirstOrDefault();
+            currentUser = usersCollection.Find(x => x.Login == Login).FirstOrDefault();
         }
         catch (Exception e)
         {
         }
 
-        return User;
+        return currentUser;
     }
 }

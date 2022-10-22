@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@inject User _currentUser
+@inject UserService UserService
 
 <PageTitle>AuthorizationWebApp</PageTitle>
 
@@ -11,14 +11,9 @@
     <main>
         <div class="top-row px-4">
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-            <a href="Cabinet">Cabinet</a>
-            @if (_currentUser is not null)
+            @if (UserService.currentUser.Login is not null)
             {
-                <a href="Cabinet">@_currentUser.Name</a>
-            }
-            else
-            {
-                <a href="#!">Cabinet</a>
+                <a href="Cabinet">@UserService.currentUser.Name</a>
             }
         </div>
 
