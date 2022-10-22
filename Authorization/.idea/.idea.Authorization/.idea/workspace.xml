@@ -11,6 +11,11 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1abb2696c3e0194fd5bb62254c37a28878e46192b53fe8ad2df3f329e6f77ee/MvcServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b8583cb77a276fb9dbb7a8c129291eddb743424cae4f212cdbb0b092cd44115e/IMongoCollection.cs" root0="SKIP_HIGHLIGHTING" />
@@ -77,7 +82,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1666415481839</updated>
-      <workItem from="1666415488325" duration="11424000" />
+      <workItem from="1666415488325" duration="11732000" />
     </task>
     <servers />
   </component>
