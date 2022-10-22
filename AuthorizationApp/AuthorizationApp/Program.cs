@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using AuthorizationApp.Data;
+using AuthorizationApp.Database;
+using AuthorizationApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton(_ => new MongoConnection("mongodb://localhost", "AuthorizationApp"));
+builder.Services.AddSingleton<IAuthorizationService, AuthorizationService>();
+builder.Services.AddSingleton<IPasswordEncryptionService, PasswordEncryptionService>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
