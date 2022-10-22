@@ -14,13 +14,13 @@ public class UserService
         "Davis", "Ross", "Hunter", "Lambert", "Scott"
     };
     
-    public Task<Data.User[]> GetUserAsync(DateTime startDate)
+    public List<User> GetUsersList ()
     {
-        return Task.FromResult(Enumerable.Range(1, 5).Select(index => new Data.User
+        return Enumerable.Range(1, Random.Shared.Next(1, 10)).Select(index => new User
         {
-            Name = Names[Random.Shared.Next(Names.Length)],
             Surname = Surnames[Random.Shared.Next(Surnames.Length)],
+            Name = Names[Random.Shared.Next(Names.Length)],
             Age = Random.Shared.Next(19,51)
-        }).ToArray());
+        }).ToList();
     }
 }

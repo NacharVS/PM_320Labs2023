@@ -1,0 +1,46 @@
+@using BlazorApp.Data
+
+@if (Users.Count() == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (Users.Count() > 1)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Surname</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Users)
+            {
+                <tr>
+                    <td>@item.Surname</td>
+                    <td>@item.Name</td>
+                    <td>@item.Age</td>
+                    <td> </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Surname: @user.Surname</p>
+    <p>Name: @user.Name</p>
+    <p>Age: @user.Age</p>
+}
+
+@code {
+
+    [Parameter]
+    public List<User>? Users { get; set; }
+
+    public User? user;
+}
