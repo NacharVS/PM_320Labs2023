@@ -1,0 +1,32 @@
+﻿@using Web.Services
+@using Core.Entities
+@inherits LayoutComponentBase
+@inject SessionService SessionService
+
+<PageTitle>Web</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu/>
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="/account" target="_blank">@_currentUser?.Name @_currentUser?.Surname</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code 
+{
+    private User? _currentUser;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _currentUser = await SessionService.GetCurrentUser();
+    }
+}
