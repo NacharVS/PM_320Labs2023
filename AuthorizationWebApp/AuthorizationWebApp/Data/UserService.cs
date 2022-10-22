@@ -10,14 +10,16 @@ public class UserService
     private static readonly IMongoDatabase db = client.GetDatabase("UsersDb");
     private readonly IMongoCollection<User> usersCollection = db.GetCollection<User>("Users");
     
-    public void SaveUser(User user)
+    public bool SaveUser(User user)
     {
         try
         {
             usersCollection.InsertOne(user);
+            return true;
         }
         catch (Exception e)
         {
+            return false;
         }
     }
 

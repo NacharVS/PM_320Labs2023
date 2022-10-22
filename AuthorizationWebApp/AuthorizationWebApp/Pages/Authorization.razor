@@ -1,6 +1,6 @@
 ﻿@page "/Authorization"
 @inject UserService _UserService;
-@inject User _currentUser;
+@inject IJSRuntime JS
 
 <h3>Authorization</h3>
 <form>
@@ -12,7 +12,7 @@
         <input type="text" id="form3Example2cg" class="form-control form-control-lg" @bind-value="_userPassword"/>
         <label class="form-label" for="form3Example1cg">Your Password</label>
     </div>
-    
+
     <button class="btn btn-dark" @onclick="UserLogin">Login</button>
 </form>
 
@@ -26,7 +26,11 @@
             _userPassword is not null)
         {
             _UserService.currentUser = _UserService.UserLogin(_userLogin);
-
+            if (_UserService.currentUser is null)
+            {
+                JS.InvokeVoidAsync("alert", "No such user in DB!");
+            }
+            JS.InvokeVoidAsync("alert", "Authorization has succesfull!");
             _userLogin = null;
             _userPassword = null;
         }

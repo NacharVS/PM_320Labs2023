@@ -5,11 +5,12 @@
     <projectFile profileName="IIS Express">AuthorizationWebApp/AuthorizationWebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2103e97-a384-4090-a183-17e77e34e547" name="Changes" comment="not work right">
+    <list default="true" id="d2103e97-a384-4090-a183-17e77e34e547" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AuthorizationWebApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AuthorizationWebApp/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Data/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Data/UserService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Authorization.razor" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Authorization.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Cabinet.razor" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Cabinet.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Registration.razor" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Registration.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Shared/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Shared/MainLayout.razor" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,8 +34,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cff4d35895d3db30db86a0ec21297ac77589b961f6e219dede5a24aff0bb3b8d/ComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e4aeff2964b57fa3d88b3b827c8344358321bf183055702dd3aed52b8f7c97/ComponentState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f32dbb6125c4ccb0a4a4d75751846e451658f838bfed7ff4f88157f4fa7f0/MethodBase.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/User/source/repos/PM_320Labs2023/AuthorizationWebApp/AuthorizationWebApp/Pages/_Host.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/User/source/repos/PM_320Labs2023/AuthorizationWebApp/AuthorizationWebApp/_Imports.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/User/source/repos/PM_320Labs2023/AuthorizationWebApp/AuthorizationWebApp/Pages/Authorization.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/User/source/repos/PM_320Labs2023/AuthorizationWebApp/AuthorizationWebApp/Pages/Authorization.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -45,14 +46,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.AuthorizationWebApp">
     <configuration name="AuthorizationWebApp" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/AuthorizationWebApp/AuthorizationWebApp.csproj" />
@@ -93,7 +94,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1666415294151</updated>
-      <workItem from="1666415333792" duration="11568000" />
+      <workItem from="1666415333792" duration="11585000" />
+      <workItem from="1666427513064" duration="1810000" />
     </task>
     <task id="LOCAL-00001" summary="Create Project">
       <created>1666415445399</created>
@@ -116,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666426548713</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Finish Versioin">
+      <created>1666427371620</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666427371620</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +149,7 @@
     <MESSAGE value="Create Project" />
     <MESSAGE value="Add registration and authorization" />
     <MESSAGE value="not work right" />
-    <option name="LAST_COMMIT_MESSAGE" value="not work right" />
+    <MESSAGE value="Finish Versioin" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finish Versioin" />
   </component>
 </project>

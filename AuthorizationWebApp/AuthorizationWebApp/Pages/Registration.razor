@@ -1,6 +1,7 @@
 ﻿@page "/Registration"
 @inject UserService _userService;
 @inject User _currentUser;
+@inject IJSRuntime JS
 
 <h3>Registration</h3>
 
@@ -76,14 +77,21 @@
                 Password = _userPassword,
                 Mail = _userMail
             };
-            _userService.SaveUser(_currentUser);
+            if (_userService.SaveUser(_currentUser))
+            {
+                JS.InvokeVoidAsync("alert", "Registration has succesfull!");
             
-            _userLogin = null;
-            _userName = null;
-            _userSurname = "";
-            _userMail = "";
-            _userPassword = "";
-            _userPasswordRepeat = "";
+                _userLogin = null;
+                _userName = null;
+                _userSurname = null;
+                _userMail = null;
+                _userPassword = null;
+                _userPasswordRepeat = null;
+            }
+            else
+            {
+                JS.InvokeVoidAsync("alert", "User with this login has registred, change onther login, please");
+            }
         }
     }
 

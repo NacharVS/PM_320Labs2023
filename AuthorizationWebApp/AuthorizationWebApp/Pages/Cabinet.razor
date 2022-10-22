@@ -2,21 +2,22 @@
 @inject UserService UserService;
 <h3>Cabinet</h3>
 
-@if (UserService.currentUser.Login is not null)
+@if (UserService.currentUser is not null &&
+     UserService.currentUser.Login is not null)
 {
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">@UserService.currentUser.Name</h5>
-            <h5 class="card-title">@UserService.currentUser.Surname</h5>
-            <p class="card-text">@UserService.currentUser.Mail</p>
-            <p class="card-text">@UserService.currentUser.Login</p>
+            <h5 class="card-title">Name: @UserService.currentUser.Name</h5>
+            <h5 class="card-title">Surname" @UserService.currentUser.Surname</h5>
+            <p class="card-text">Mail: @UserService.currentUser.Mail</p>
+            <p class="card-text">Login: @UserService.currentUser.Login</p>
             <button btn btn-dark @onclick="LogOut">Log out</button>
         </div>
     </div>
 }
 else if(UserService.currentUser is null)
 {
-    <div class="alert alert-primary">Warn!</div>
+    <div class="alert alert-primary">Log in Please!</div>
 }
 
 @code {
