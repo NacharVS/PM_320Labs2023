@@ -10,6 +10,7 @@ namespace GameCharacterEditor
     {
         public List<Character> FirstTeam { get; set; } = new List<Character> ();
         public List<Character> SecondTeam { get; set; } = new List<Character> ();
+        public int NumberMatch { get; set; }
 
         public void  AddCharacter(Character character, int team)
         {
@@ -24,19 +25,19 @@ namespace GameCharacterEditor
             }
         }
 
-        private bool Balance()
+        public bool Balance()
         {
             int lvlFirstTeam = 0;
             int lvlSecondTeam = 0;
 
             foreach (var character in FirstTeam)
             {
-                lvlFirstTeam += character.Lvl;
+                lvlFirstTeam += DataBase.FindCharacterByName(character.ToString()).Lvl;
             }
 
             foreach (var character in SecondTeam)
             {
-                lvlSecondTeam += character.Lvl;
+                lvlSecondTeam += DataBase.FindCharacterByName(character.ToString()).Lvl;
             }
 
             int balanceOne = lvlFirstTeam / FirstTeam.Count;

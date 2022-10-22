@@ -11,7 +11,8 @@ namespace GameCharacterEditor
 {
     class DataBase
     {
-        public static void AddToDataBase(Character character)
+        //Character
+        public static void AddCharacterToDataBase(Character character)
         {
             MongoClient client = new MongoClient("mongodb://localhost");
             IMongoDatabase database = client.GetDatabase("GameCharacterEditor");
@@ -19,7 +20,7 @@ namespace GameCharacterEditor
             collection.InsertOne(character);
         }
 
-        public static Character FindByName(string name)
+        public static Character FindCharacterByName(string name)
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("GameCharacterEditor");
@@ -29,7 +30,7 @@ namespace GameCharacterEditor
             return character;
         }
 
-        public static List<Character> ImportData()
+        public static List<Character> ImportCharacterDataBase()
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("GameCharacterEditor");
@@ -39,7 +40,7 @@ namespace GameCharacterEditor
             return list;
         }
 
-        public static void ReplaceByName(string name, Character character)
+        public static void ReplaceCharacterByName(string name, Character character)
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("GameCharacterEditor");
@@ -47,7 +48,7 @@ namespace GameCharacterEditor
             collection.ReplaceOne(x => x.Name == name, character);
         }
 
-        public static void UpdateByName(string name, Character character)
+        public static void UpdateCharacterByName(string name, Character character)
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("GameCharacterEditor");
@@ -56,6 +57,35 @@ namespace GameCharacterEditor
                 .Set(x => x.helmet, character.helmet)
                 .Set(x => x.shild, character.shild);
             collection.UpdateOne(x => x.Name == name, updateDefenition);
+        }
+
+        //Match
+        public static void AddMatchToDataBase(Match match)
+        {
+            MongoClient client = new MongoClient("mongodb://localhost");
+            IMongoDatabase database = client.GetDatabase("Matches");
+            var collection = database.GetCollection<Match>("TeamsCollection");
+            collection.InsertOne(match);
+        }
+
+        public static Match FindMatchByNumber(int number)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Matches");
+            var collection = database.GetCollection<Match>("TeamsCollection");
+            var character = collection.Find(x => x.NumberMatch == number).FirstOrDefault();
+
+            return character;
+        }
+
+        public static List<Match> ImportMatchDataBase()
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Matches");
+            var collection = database.GetCollection<Match>("TeamsCollection");
+            var list = collection.Find(new BsonDocument()).ToList();
+
+            return list;
         }
     }
 }

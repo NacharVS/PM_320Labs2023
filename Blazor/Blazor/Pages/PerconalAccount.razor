@@ -1,0 +1,29 @@
+﻿@page "/account"
+
+<PageTitle>Personal account</PageTitle>
+
+@using Blazor.Data
+@inject UserService UsersService
+
+<h1>Registration</h1>
+
+Welcome to your new app.
+
+@*<SurveyPrompt Title="How is Blazor working for you?"/>*@
+
+<p>Login:</p>
+<input type="text" />
+<p>Password</p>
+<input type="text" />
+<p>Password reapet:</p>
+<input type="password" />
+<p>Surname:</p>
+<input type="text" />
+<p>Name:</p>
+<input type="text" />
+<p>Mail:</p>
+<input type="text" />
+
+@code {
+    private Data.User[]? users;
+}

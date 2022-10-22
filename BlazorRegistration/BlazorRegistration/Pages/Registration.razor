@@ -1,0 +1,39 @@
+﻿@page "/registration"
+
+<PageTitle>Personal account</PageTitle>
+
+@using BlazorRegistration.Data
+
+<h1>Registration</h1>
+
+<p>Login:</p>
+<input type="text" id="Login" />
+<p>Password</p>
+<input type="password" id="Password"/>
+<p>Password reapet:</p>
+<input type="password" id="PasswordRepeat"/>
+<p>Surname:</p>
+<input type="text" id="Surname"/>
+<p>Name:</p>
+<input type="text" id="Name" />
+<p>EMail:</p>
+<input type="text" id="EMail"/>
+
+<button type="button" class="btn btn-primary" @onclick="Reg">Registration</button>
+
+@code {
+    private User[]? users;
+    private DataBase data;
+    private string login;
+    private int password;
+    private int passwordRepeat;
+    private string surname;
+    private string name;
+    private string email;
+
+    public void Reg()
+    {
+        User user = new User(login, password, passwordRepeat, surname, name, email);
+        DataBase.AddToDataBase(user);
+    }
+}

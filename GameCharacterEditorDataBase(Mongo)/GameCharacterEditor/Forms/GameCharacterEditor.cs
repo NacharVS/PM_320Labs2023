@@ -35,7 +35,7 @@ namespace GameCharacterEditor
 
         private void ListUpdate()
         {
-            var collection = DataBase.ImportData();
+            var collection = DataBase.ImportCharacterDataBase();
 
             foreach (var c in collection)
             {
@@ -248,10 +248,10 @@ namespace GameCharacterEditor
 
             if (character.Id != ObjectId.Empty)
             {
-                DataBase.ReplaceByName(character.Name, character);
+                DataBase.ReplaceCharacterByName(character.Name, character);
             }
             else
-                DataBase.AddToDataBase(character);
+                DataBase.AddCharacterToDataBase(character);
         }
 
         private void OK_Button_Click(object sender, EventArgs e)
@@ -307,7 +307,7 @@ namespace GameCharacterEditor
 
         private void SavedCharactersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            character = DataBase.FindByName(SavedCharactersBox.Text);
+            character = DataBase.FindCharacterByName(SavedCharactersBox.Text);
 
             Type_Lable.Text = character.Type;
             Points_Text.Text = character.Points.ToString();
@@ -451,7 +451,7 @@ namespace GameCharacterEditor
                     break;
             }
 
-            DataBase.UpdateByName(SavedCharactersBox.Text, character);
+            DataBase.UpdateCharacterByName(SavedCharactersBox.Text, character);
         }
 
         private void GO_Button_Click(object sender, EventArgs e)
