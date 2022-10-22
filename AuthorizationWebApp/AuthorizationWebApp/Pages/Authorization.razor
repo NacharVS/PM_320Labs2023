@@ -13,19 +13,20 @@
         <label class="form-label" for="form3Example1cg">Your Password</label>
     </div>
     
-    <button class="btn btn-dark" @onclick="Login">Login</button>
+    <button class="btn btn-dark" @onclick="UserLogin">Login</button>
 </form>
 
 @code {
     private string? _userLogin;
     private string? _userPassword;
 
-    private void Login()
+    private void UserLogin()
     {
         if (_userLogin is not null &&
             _userPassword is not null)
         {
-            _currentUser = _UserService.Login(_userLogin);
+            _currentUser = _UserService.UserLogin(_userLogin);
+
             _userLogin = null;
             _userPassword = null;
         }

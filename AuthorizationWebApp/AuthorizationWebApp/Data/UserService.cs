@@ -21,10 +21,8 @@ public class UserService
         }
     }
 
-    public User Login(string Login)
+    public User UserLogin(string Login)
     {
-        User = null;
-
         try
         {
             User = usersCollection.Find(x => x.Login == Login).FirstOrDefault();

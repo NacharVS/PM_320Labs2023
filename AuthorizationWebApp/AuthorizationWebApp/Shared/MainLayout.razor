@@ -11,7 +11,15 @@
     <main>
         <div class="top-row px-4">
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-            <a href="Cabinet">@_currentUser.Name</a>
+            <a href="Cabinet">Cabinet</a>
+            @if (_currentUser is not null)
+            {
+                <a href="Cabinet">@_currentUser.Name</a>
+            }
+            else
+            {
+                <a href="#!">Cabinet</a>
+            }
         </div>
 
         <article class="content px-4">

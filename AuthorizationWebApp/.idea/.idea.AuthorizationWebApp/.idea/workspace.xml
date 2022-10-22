@@ -5,18 +5,16 @@
     <projectFile profileName="IIS Express">AuthorizationWebApp/AuthorizationWebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2103e97-a384-4090-a183-17e77e34e547" name="Changes" comment="Create Project">
-      <change afterPath="$PROJECT_DIR$/AuthorizationWebApp/Data/User.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthorizationWebApp/Data/UserService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Authorization.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Registration.razor" afterDir="false" />
+    <list default="true" id="d2103e97-a384-4090-a183-17e77e34e547" name="Changes" comment="Add registration and authorization">
+      <change afterPath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Cabinet.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AuthorizationWebApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AuthorizationWebApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/AuthorizationWebApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/AuthorizationWebApp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/App.razor" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/App.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Data/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Data/UserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Authorization.razor" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Pages/Authorization.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Pages/_Host.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Pages/_Host.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Pages/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Pages/_Layout.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Shared/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Shared/MainLayout.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/Shared/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/Shared/NavMenu.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthorizationWebApp/_Imports.razor" beforeDir="false" afterPath="$PROJECT_DIR$/AuthorizationWebApp/_Imports.razor" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,11 +22,21 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1af51483c9bf18871cce649b9f966dd7be686536f998c33bba3c5fc4adea4a0/Task.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2092594986cef463403359ef7a2b70c093702cde2d09da41faa694648726f8c/ThreadPoolWorkQueue.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea95343b9387b73062a9b61b7538f826c54ce3529632b4472ba4494044d23/AsyncTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5b6f21dd3037c6cc87243756ae223f26fab716d0c9f2d5876f776ca7d9c64/MongoCollectionBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5bdc1f468ff811ead6ce2a42751fa64e712edcec0b8fad57be2ce014b85e5d/PortableThreadPool.WorkerThread.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5fead5fbf2bee3da1b9f378a09d78479a62db80dae1e1c6453efdb0bc92a8/String.Comparison.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8e74803b88261fc723cfb0c2383759429dc5ef4fddf2ec9ade5f02b983c81e3/EventCallbackWorkItem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9a3e639d94986eddab1a9a78d348cfaa4f59bc1e3a8cbc3bd46e01ed6f2/Timer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9ff6e15065aca4366778dbe1a1b71b9164dea3534b71e1795c33fd6f159f52/RuntimeType.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c1da7b6c7c71a954fe3eb2531c6476711b3e6d93a8d76795386d326bb9dbc/ExecutionContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cf91eb35ab781c324ad4fa382dce85631ec37cf3813529f7c92208d866c851/TaskContinuation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cff4d35895d3db30db86a0ec21297ac77589b961f6e219dede5a24aff0bb3b8d/ComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e4aeff2964b57fa3d88b3b827c8344358321bf183055702dd3aed52b8f7c97/ComponentState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f32dbb6125c4ccb0a4a4d75751846e451658f838bfed7ff4f88157f4fa7f0/MethodBase.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/User/source/repos/PM_320Labs2023/AuthorizationWebApp/AuthorizationWebApp/_Imports.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -87,7 +95,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1666415294151</updated>
-      <workItem from="1666415333792" duration="7869000" />
+      <workItem from="1666415333792" duration="10870000" />
     </task>
     <task id="LOCAL-00001" summary="Create Project">
       <created>1666415445399</created>
@@ -96,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666415445399</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add registration and authorization">
+      <created>1666423363245</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666423363245</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,6 +133,27 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Create Project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create Project" />
+    <MESSAGE value="Add registration and authorization" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add registration and authorization" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AuthorizationWebApp/Shared/MainLayout.razor</url>
+          <line>13</line>
+          <properties documentPath="C:\Users\User\source\repos\PM_320Labs2023\AuthorizationWebApp\AuthorizationWebApp\Shared\MainLayout.razor" initialLine="13" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

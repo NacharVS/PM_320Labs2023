@@ -1,0 +1,28 @@
+﻿@page "/Cabinet"
+@inject User _currentUser;
+<h3>Cabinet</h3>
+
+@if (_currentUser.Login is not null)
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@_currentUser.Name</h5>
+            <h5 class="card-title">@_currentUser.Surname</h5>
+            <p class="card-text">@_currentUser.Mail</p>
+            <p class="card-text">@_currentUser.Login</p>
+            <button btn btn-dark @onclick="LogOut">Log out</button>
+        </div>
+    </div>
+}
+else if(_currentUser is null)
+{
+    <div class="alert alert-primary"></div>
+}
+
+@code {
+
+    private void LogOut()
+    {
+        _currentUser = null;
+    }
+}
