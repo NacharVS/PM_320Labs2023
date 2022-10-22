@@ -2,6 +2,8 @@
 
 @using ControlApp.Data
 
+@inject NavigationManager _navigation
+
 <h3>Registration</h3>
 
 <div class="form-group">
@@ -92,7 +94,7 @@
             _surname = "";
             _email = "";
 
-            _userService.CurrentUser = user;
+            _navigation.NavigateTo("/login");
         }
     }
 }

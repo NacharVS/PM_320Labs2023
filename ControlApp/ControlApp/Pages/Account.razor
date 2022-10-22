@@ -1,0 +1,9 @@
+﻿@page "/account"
+
+@using ControlApp.Data
+
+@inject User _currentUser
+
+<h3>Account</h3>
+<AccountComponent User="@_currentUser"></AccountComponent>
+

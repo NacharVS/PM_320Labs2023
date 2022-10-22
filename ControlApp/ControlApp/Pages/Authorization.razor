@@ -1,4 +1,10 @@
-﻿<h3>Authorization</h3>
+﻿@page "/login"
+
+@using ControlApp.Data
+
+@inject NavigationManager _navigation
+
+<h3>Authorization</h3>
 
 <div class="form-group">
     <label for="login">Login</label>
@@ -8,15 +14,47 @@
     <label for="password">Password</label>
     <input type="password" class="form-control" placeholder="Password" @bind-value="@_password">
 </div>
-<button class="btn btn-primary" @onclick="">Log in</button>
+<button class="btn btn-primary" @onclick="@LogIn">Log in</button>
+@if(_isLogInSuccessful)
+{
+    <div class="alert alert-success">
+        Successful log in!
+    </div>
+}
+@if(_isLogInSuccessful)
+{
+    <AccountComponent User="@_user"></AccountComponent>
+}
 
 @code {
     private string _login;
     private string _password;
-    private UserServ
+    private UserService _userService;
+    private User _user;
+    private bool _isLogInSuccessful;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        _userService = new UserService("mongodb://localhost", "Users");
+    }
 
     private void LogIn()
     {
-        
+        try
+        {
+            var user = _userService.GetUserByLogin(_login, _password);
+            if (user != null)
+            {
+                _isLogInSuccessful = true;
+                _user = user;
+                return;
+            }
+            _isLogInSuccessful = false;
+        }
+        catch
+        {
+            _isLogInSuccessful = false;
+        }
     }
 }
