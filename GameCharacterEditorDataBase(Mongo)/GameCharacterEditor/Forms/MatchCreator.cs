@@ -13,20 +13,18 @@ namespace GameCharacterEditor
 {
     public partial class MatchCreator : Form
     {
-        private Match match = new Match();
-        private Character character;
-        private List<Character> characters = new List<Character>();
+        private Match match;
+        private Character character = new Character();
         private int numberTeam;
-        private int min = 1000000;
-        private int max = 0;
         public MatchCreator()
         {
             InitializeComponent();
-            ListUpdate();
+            CharacterListUpdate();
+            MatchListUpdate();
             //AddToolStrips();
         }
 
-        private void ListUpdate()
+        private void CharacterListUpdate()
         {
             var collection = DataBase.ImportCharacterDataBase();
 
@@ -36,14 +34,16 @@ namespace GameCharacterEditor
             }
         }
 
-        /*public void AddToolStrips()
+        private void MatchListUpdate()
         {
-            ToolStripMenuItem removeOneItem = new ToolStripMenuItem("Удалить");
-            contextMenuStrip.Items.AddRange(new[] { removeOneItem });
-            FirstTeam_ListBox.ContextMenuStrip = contextMenuStrip;
-            removeOneItem.Click += FirstTeam_ListBox_SelectedIndexChanged;
-        }*/
+            var collection = DataBase.ImportMatchDataBase();
 
+            foreach (var c in collection)
+            {
+                Match_ListBox.Items.Add(c.NumberMatch);
+            }
+        }
+        
         public void Display()
         {
             TeamType_Label.Visible = false;
@@ -58,7 +58,8 @@ namespace GameCharacterEditor
             ClearFirst_Button.Visible = true;
             ClearSecond_Button.Visible = true;
             HoldMatch_Button.Visible = true;
-            MatchNumber.Value = int.Parse(Match_ListBox.Items.Count.ToString());
+            MatchNumber.Visible = true;
+            Balance_Text.Visible = true;
         }
 
         private void AutoTeam_Button_Click(object sender, EventArgs e)
@@ -69,15 +70,20 @@ namespace GameCharacterEditor
 
         private void AutoGenerate_Button_Click(object sender, EventArgs e)
         {
-            ClearFirst_Button_Click(sender, e);
-            ClearSecond_Button_Click(sender, e);
+            match = new Match();
             Random rnd = new Random();
             int characterIndex = 0;
 
+            if (FirstTeam_ListBox.Items.Count > 0 && 
+                SecondTeam_ListBox.Items.Count > 0)
+            {
+                ClearFirst_Button_Click(sender, e);
+                ClearSecond_Button_Click(sender, e);
+            }
+            
             while (FirstTeam_ListBox.Items.Count < 6)
             {
                 numberTeam = 1;
-                match.AddCharacter(character, numberTeam);
                 characterIndex = rnd.Next(0, SavedCharactersBox.Items.Count);
                 FirstTeam_ListBox.Items.Add(SavedCharactersBox.Items[characterIndex]);
                 SavedCharactersBox.Items.Remove(SavedCharactersBox.Items[characterIndex]);
@@ -86,13 +92,25 @@ namespace GameCharacterEditor
             while (SecondTeam_ListBox.Items.Count < 6)
             {
                 numberTeam = 2;
-                match.AddCharacter(character, numberTeam);
                 characterIndex = rnd.Next(0, SavedCharactersBox.Items.Count);
                 SecondTeam_ListBox.Items.Add(SavedCharactersBox.Items[characterIndex]);
                 SavedCharactersBox.Items.Remove(SavedCharactersBox.Items[characterIndex]);
             }
-
+            AddingLists();
             Balance();
+        }
+
+        private void AddingLists()
+        {
+            foreach (var character in FirstTeam_ListBox.Items)
+            {
+                match.FirstTeam.Add(character.ToString());
+            }
+
+            foreach (var character in SecondTeam_ListBox.Items)
+            {
+                match.SecondTeam.Add(character.ToString());
+            }
         }
 
         private void CustomTeam_Button_Click(object sender, EventArgs e)
@@ -117,18 +135,6 @@ namespace GameCharacterEditor
 
             SavedCharactersBox.Items.Remove(SavedCharactersBox.Text);
             Balance();
-        }
-
-        public void Balance()
-        {
-            if (match.Balance())
-            {
-                Balance_Text.Text = "Balance";
-            }
-            else
-            {
-                Balance_Text.Text = "X";
-            }
         }
 
         private void ClearFirst_Button_Click(object sender, EventArgs e)
@@ -202,38 +208,73 @@ namespace GameCharacterEditor
 
         private void Match_ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            match = DataBase.FindMatchByNumber((int)Match_ListBox.SelectedItem);
 
+            foreach (var character in match.FirstTeam)
+            {
+                FirstTeam_ListBox.Items.Add(character);
+            }
+            foreach (var character in match.SecondTeam)
+            {
+                SecondTeam_ListBox.Items.Add(character);
+            }
+
+            SavedCharactersBox.Items.Remove(SavedCharactersBox.Text);
+            Balance();
         }
 
         private void HoldMatch_Button_Click(object sender, EventArgs e)
         {
             Match_ListBox.Items.Clear();
-            //GetNumberMatch();
-            if (Match_ListBox.Items.Count > 0)
-            {
-                Match_ListBox.Items.Add(MatchNumber.Value);
-            }
-            ListUpdate();
+            Match_ListBox.Items.Add(match.NumberMatch);
+            MatchListUpdate();
             DataBase.AddMatchToDataBase(match);
         }
 
         private void MatchNumber_ValueChanged(object sender, EventArgs e)
         {
-
+            match.NumberMatch = (int)MatchNumber.Value;
         }
 
-
-
-        /*public void GetNumberMatch()
+        public void Balance()
         {
-            for (int i = 0; i < Match_ListBox.Items.Count; i++)
+            if (BalanceCheck())
             {
-                if (int.Parse(Match_ListBox.Items[i].ToString()) > min)
-                {
-                    min = int.Parse(Match_ListBox.Items[i].ToString());
-                    match.NumberMatch = min;
-                }
+                Balance_Text.Text = "Balance";
             }
+            else
+            {
+                Balance_Text.Text = "X";
+            }
+        }
+
+        public bool BalanceCheck()
+        {
+            int lvlFirstTeam = 0;
+            int lvlSecondTeam = 0;
+
+            foreach (var character in FirstTeam_ListBox.Items)
+            {
+                lvlFirstTeam += DataBase.FindCharacterByName(character.ToString()).Lvl;
+            }
+
+            foreach (var character in SecondTeam_ListBox.Items)
+            {
+                lvlSecondTeam += DataBase.FindCharacterByName(character.ToString()).Lvl;
+            }
+
+            int balanceOne = lvlFirstTeam / FirstTeam_ListBox.Items.Count;
+            int balanceTwo = lvlSecondTeam / SecondTeam_ListBox.Items.Count;
+
+            return Math.Abs(balanceOne - balanceTwo) < 2;
+        }
+
+        /*public void AddToolStrips()
+        {
+            ToolStripMenuItem removeOneItem = new ToolStripMenuItem("Удалить");
+            contextMenuStrip.Items.AddRange(new[] { removeOneItem });
+            FirstTeam_ListBox.ContextMenuStrip = contextMenuStrip;
+            removeOneItem.Click += FirstTeam_ListBox_SelectedIndexChanged;
         }*/
     }
 }

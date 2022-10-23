@@ -254,7 +254,6 @@
             // Match_ListBox
             // 
             this.Match_ListBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Match_ListBox.Enabled = false;
             this.Match_ListBox.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
             this.Match_ListBox.FormattingEnabled = true;
             this.Match_ListBox.ItemHeight = 15;
@@ -293,12 +292,12 @@
             // MatchNumber
             // 
             this.MatchNumber.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.MatchNumber.Enabled = false;
             this.MatchNumber.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MatchNumber.Location = new System.Drawing.Point(445, 358);
             this.MatchNumber.Name = "MatchNumber";
             this.MatchNumber.Size = new System.Drawing.Size(120, 25);
             this.MatchNumber.TabIndex = 94;
+            this.MatchNumber.Visible = false;
             this.MatchNumber.ValueChanged += new System.EventHandler(this.MatchNumber_ValueChanged);
             // 
             // Balance_Text
@@ -310,6 +309,7 @@
             this.Balance_Text.Name = "Balance_Text";
             this.Balance_Text.Size = new System.Drawing.Size(120, 25);
             this.Balance_Text.TabIndex = 95;
+            this.Balance_Text.Visible = false;
             // 
             // MatchCreator
             // 
