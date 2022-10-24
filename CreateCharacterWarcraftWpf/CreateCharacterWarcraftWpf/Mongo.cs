@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,9 @@ namespace CreateCharacterWarcraftWpf
             Exclude("healthPoint").
             Exclude("attack").
             Exclude("protDet");
+            BsonClassMap.RegisterClassMap<Warrior>();
+            BsonClassMap.RegisterClassMap<Rogue>();
+            BsonClassMap.RegisterClassMap<Wizard>();
             var filter = Builders<Character>.Filter.Eq("name", name);
             var collection = db.GetCollection<Character>("ExCollection");
             return collection.Find(filter).Project<Character>(simpleProjection).FirstOrDefault();

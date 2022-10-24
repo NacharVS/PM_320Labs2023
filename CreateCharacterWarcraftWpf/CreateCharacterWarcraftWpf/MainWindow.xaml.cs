@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,6 @@ namespace CreateCharacterWarcraftWpf
         string[] ability = { "Create fog", "Create snow", "Acceleration", "Night vision",
             "Ghost mode", "Resurrection"};
         List<string> activeAbility = new List<string>();
-        //string[] activeAbility = new string[6];
         int levelUp = 1000;
         int expUp = 0;
         List<string> inventory = new List<string>();
@@ -39,13 +39,11 @@ namespace CreateCharacterWarcraftWpf
         {
             InitializeComponent();
 
+            BsonClassMap.RegisterClassMap<Warrior>();
+            BsonClassMap.RegisterClassMap<Rogue>();
+            BsonClassMap.RegisterClassMap<Wizard>();
+
             btnCng.Visibility = Visibility.Hidden;
-        }
-
-
-        public void tbUntName_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         public int convInt(string num)
@@ -215,7 +213,6 @@ namespace CreateCharacterWarcraftWpf
             {
                 lstBoxInventory.Items.Add(item);
             }
-
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -298,16 +295,35 @@ namespace CreateCharacterWarcraftWpf
         {
             if (lstBoxCharacters.Items.Count != 0)
             {
+                var unit = TakeUnit(lstBoxCharacters.SelectedValue.ToString());
 
+                if (cmBxChooseCharacter.SelectedIndex == 0)
+                {
+                    pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Warrior.gif"));
+
+                }
+                else if (cmBxChooseCharacter.SelectedIndex == 1)
+                {
+                    pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Rogue.gif"));
+                }
+                else if (unit.ToString() == "")
+                {
+                    pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Wizard.gif"));
+                }
+                MessageBox.Show(unit.ToString());
                 btnAdd.Visibility = Visibility.Hidden;
                 btnCng.Visibility = Visibility.Visible;
-                var unit = TakeUnit(lstBoxCharacters.SelectedValue.ToString());
+
                 WriteInfo(unit);
                 tbUntName.Text = unit.name;
                 string type = Convert.ToString(unit.GetType()).Substring(27);
                 cmBxChooseCharacter.Text = type;
             }
-            
+        }
+
+        private string takeTypeCharacter(Type type)
+        {
+            return Convert.ToString(type).Substring(21);
         }
 
         private Character TakeUnit(string? name)
