@@ -1,9 +1,15 @@
 ﻿@page "/AuthorizationPage"
 @using AuthorizationApp.Data
+@using Microsoft.IdentityModel.Tokens
+@using System.Text
+@using System.IdentityModel.Tokens.Jwt
+@using AuthorizationApp.Services
 @inject Services.IAuthorizationService AuthorizationService;
-@inject Services.IUserIdentityService UserIdentityService
+@inject IUserIdentityService UserIdentityService
 @inject NavigationManager NavigationManager
 @inject ILogger<AuthorizationPage> Logger;
+@inject IConfiguration Configuration;
+@inject ILocalStorageService LocalStorageService;
 
 @if (UserIdentityService.CurrentUser is not null)
 {
@@ -32,8 +38,8 @@
     <div class="text-center">
         <p>Not a member? <NavLink href="RegistrationPage">Register</NavLink></p>
     </div>
-    
-    @if (!IsCorrectLogin)
+
+    @if (!_isCorrectLogin)
     {
         <div class="alert alert-danger" role="alert">
             Wrong email or password!
@@ -42,17 +48,18 @@
 </EditForm>
 
 @code {
-    private bool IsCorrectLogin = true;
+    private bool _isCorrectLogin = true;
     private LoginCredentials _loginCredentials = new();
 
     private void CheckAuthorization()
     {
         if (!AuthorizationService.Authorize(_loginCredentials))
         {
-            IsCorrectLogin = false;
+            _isCorrectLogin = false;
             return;
         }
-        IsCorrectLogin = true;
+        _isCorrectLogin = true;
     }
+
 
 }
