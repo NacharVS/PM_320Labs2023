@@ -27,9 +27,13 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!await UserIdentityService.TryGetCurrentUser())
+        if (firstRender)
         {
-            NavigationManager.NavigateTo("/AuthorizationPage");
+            if (!await UserIdentityService.TryGetCurrentUser())
+            {
+                NavigationManager.NavigateTo("/AuthorizationPage");
+            }
+            StateHasChanged();
         }
     }
 

@@ -17,7 +17,7 @@ public class EncryptionService : IEncryptionService
             Encoding.UTF8.GetBytes(configuration["Encryption:AnalogKey"]));
     }
 
-    public byte[] EncryptPassword(string? password)
+    public byte[] EncryptPassword(string password)
     {
         return _encryptor.ComputeHash(Encoding.UTF8.GetBytes(password));
     }

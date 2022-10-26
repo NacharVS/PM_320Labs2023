@@ -114,6 +114,9 @@
 
     private async Task Register()
     {
+        if (_password is null)
+            return;
+        
         if (_password != _repeatpassword)
         {
             _passwordsAreEqual = false;
