@@ -32,6 +32,8 @@ else if (Users.Count() > 1)
 }
 else
 {
+    user = Users.First();
+    
     <p>Surname: @user.Surname</p>
     <p>Name: @user.Name</p>
     <p>Age: @user.Age</p>
