@@ -9,6 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<DataBase>();
+builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 
 var app = builder.Build();
 

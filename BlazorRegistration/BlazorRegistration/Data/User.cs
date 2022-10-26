@@ -8,17 +8,18 @@ public class User
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
     [BsonIgnoreIfDefault]
+    public string? Id { get; set; }
+    [BsonIgnoreIfNull]
     public string Login { get; set; }
-    [BsonIgnoreIfDefault]
+    [BsonIgnoreIfNull]
     public string Password { get; set; }
-    [BsonIgnoreIfDefault]
+    [BsonIgnoreIfNull]
     public string PasswordRepeat { get; set; }
-    [BsonIgnoreIfDefault]
+    [BsonIgnoreIfNull]
     public string Surname { get; set; }
-    [BsonIgnoreIfDefault]
+    [BsonIgnoreIfNull]
     public string Name { get; set; }
-    [BsonIgnoreIfDefault]
+    [BsonIgnoreIfNull]
     public string EMail { get; set; }
 }
