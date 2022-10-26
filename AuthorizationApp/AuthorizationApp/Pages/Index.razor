@@ -1,12 +1,14 @@
 ﻿@page "/"
 @using AuthorizationApp.Services
 @inject IUserIdentityService UserIdentityService
+@inject NavigationManager NavigationManager;
 
-@if (UserIdentityService.CurrentUser is null)
-{
-    <AuthorizationPage/>
-}
-else
-{
-    <MainPage/>
+
+@code {
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        NavigationManager.NavigateTo(UserIdentityService.CurrentUser is not null ? "/MainPage" : "/AuthorizationPage");
+    }
+
 }

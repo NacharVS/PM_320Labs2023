@@ -1,6 +1,7 @@
 ﻿@using AuthorizationApp.Services
 @inherits LayoutComponentBase
 @inject IUserIdentityService UserIdentityService
+@inject NavigationManager NavigationManager;
 
 
 <PageTitle>AuthorizationApp</PageTitle>
@@ -20,3 +21,16 @@
         </article>
     </main>
 </div>
+
+
+@code {
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!await UserIdentityService.TryGetCurrentUser())
+        {
+            NavigationManager.NavigateTo("/AuthorizationPage");
+        }
+    }
+
+}

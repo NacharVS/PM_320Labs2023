@@ -1,9 +1,8 @@
 ﻿@page "/RegistrationPage"
 @using AuthorizationApp.Data
 @inject Services.IAuthorizationService AuthorizationService;
-@inject Services.IPasswordEncryptionService PasswordEncryptionService;
+@inject Services.IEncryptionService EncryptionService;
 @inject Services.IUserIdentityService UserIdentityService
-@inject ILogger<AuthorizationPage> Logger;
 @inject NavigationManager NavigationManager
 <h3>RegistrationPage</h3>
 @if (UserIdentityService.CurrentUser is not null)
@@ -58,7 +57,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <InputText @bind-Value="@password" type="password" id="form3Example4c" class="form-control"/>
+                                            <InputText @bind-Value="@_password" type="password" id="form3Example4c" class="form-control"/>
                                             <label class="form-label" for="form3Example4c">Password</label>
                                         </div>
                                     </div>
@@ -66,7 +65,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <InputText @bind-Value="@repeatpassword" type="password" id="form3Example4cd" class="form-control"/>
+                                            <InputText @bind-Value="@_repeatpassword" type="password" id="form3Example4cd" class="form-control"/>
                                             <label class="form-label" for="form3Example4cd">Repeat your password</label>
                                         </div>
                                     </div>
@@ -77,14 +76,14 @@
 
                                 </EditForm>
 
-                                @if (IsExistingUser)
+                                @if (_isExistingUser)
                                 {
                                     <div class="alert alert-danger" role="alert">
                                         User already exists!
                                     </div>
                                 }
 
-                                @if (!PasswordsAreEqual)
+                                @if (!_passwordsAreEqual)
                                 {
                                     <div class="alert alert-danger" role="alert">
                                         Passwords don't match!
@@ -107,25 +106,25 @@
 </section>
 
 @code {
-    private User _user = new User();
-    private string password;
-    private string repeatpassword;
-    private bool IsExistingUser;
-    private bool PasswordsAreEqual = true;
+    private readonly User _user = new();
+    private string? _password;
+        private string? _repeatpassword;
+    private bool _isExistingUser;
+    private bool _passwordsAreEqual = true;
 
-    private void Register()
+    private async Task Register()
     {
-        if (password != repeatpassword)
+        if (_password != _repeatpassword)
         {
-            PasswordsAreEqual = false;
+            _passwordsAreEqual = false;
             return;
         }
 
-        PasswordsAreEqual = true;
-        _user.Password = PasswordEncryptionService.EncryptPassword(password);
-        if (!AuthorizationService.Register(_user))
+        _passwordsAreEqual = true;
+        _user.Password = EncryptionService.EncryptPassword(_password);
+        if (!await AuthorizationService.Register(_user))
         {
-            IsExistingUser = true;
+            _isExistingUser = true;
             return;
         }
         NavigationManager.NavigateTo("/AuthorizationPage");

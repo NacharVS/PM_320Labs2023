@@ -6,10 +6,10 @@ namespace AuthorizationApp.Services;
 public class AuthorizationService : IAuthorizationService
 {
     private readonly IUserRepository _repository;
-    private readonly IPasswordEncryptionService _encryptionService;
+    private readonly IEncryptionService _encryptionService;
     private readonly IUserIdentityService _identityService;
 
-    public AuthorizationService(IUserRepository repository, IPasswordEncryptionService encryptionService,
+    public AuthorizationService(IUserRepository repository, IEncryptionService encryptionService,
         IUserIdentityService identityService)
     {
         _repository = repository;
@@ -22,17 +22,17 @@ public class AuthorizationService : IAuthorizationService
         return _repository.GetLoggedUsers();
     }
 
-    public bool Register(User user)
+    public async Task<bool> Register(User user)
     {
         if (_repository.IsUserRegistered(user.Login))
         {
             return false;
         }
 
-        return _repository.CreateUser(user);
+        return await _repository.CreateUser(user);
     }
 
-    public bool Authorize(LoginCredentials loginCredentials)
+    public async Task<bool> Authorize(LoginCredentials loginCredentials)
     {
         if (!_repository.IsUserRegistered(loginCredentials.Login))
         {
@@ -42,13 +42,12 @@ public class AuthorizationService : IAuthorizationService
         var password = _repository.GetEncryptedPasswordByLogin(loginCredentials.Login);
         if (!_encryptionService.EncryptPassword(loginCredentials.Password).SequenceEqual(password))
             return false;
-        AuthorizedUsersCounter.AuthorizedUsersCount++;
-        _identityService.CurrentUser = _repository.GetUser(loginCredentials.Login);
-        return true;
+        var res = await _identityService.TrySetCurrentUser(loginCredentials.Login);
+        return res;
     }
 
-    public void Logout()
+    public async Task Logout()
     {
-        _identityService.CurrentUser = null;
+        await _identityService.Logout();
     }
 }

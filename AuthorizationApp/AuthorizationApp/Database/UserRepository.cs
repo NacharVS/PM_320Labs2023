@@ -18,12 +18,12 @@ public class UserRepository : IUserRepository
         return new User { Email = res.Email, Login = res.Login, Name = res.Name, Surname = res.Surname };
     }
 
-    public bool CreateUser(User user)
+    public async Task<bool> CreateUser(User user)
     {
         if (user.Password is null)
             return false;
 
-        _users.InsertOne(new UserDb
+        await _users.InsertOneAsync(new UserDb
         {
             Email = user.Email, Login = user.Login, Name = user.Name, Password = user.Password, Surname = user.Surname
         });

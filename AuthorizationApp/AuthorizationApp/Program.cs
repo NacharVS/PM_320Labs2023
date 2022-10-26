@@ -1,6 +1,7 @@
 using AuthorizationApp.Data;
 using AuthorizationApp.Database;
 using AuthorizationApp.Services;
+using IAuthorizationService = AuthorizationApp.Services.IAuthorizationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddSingleton(_ => new MongoConnection("mongodb://localhost", "A
 builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 builder.Services.AddScoped<IUserIdentityService, UserIdentityService>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
-builder.Services.AddSingleton<IPasswordEncryptionService, PasswordEncryptionService>();
+builder.Services.AddSingleton<IEncryptionService, EncryptionService>();
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 
 var app = builder.Build();

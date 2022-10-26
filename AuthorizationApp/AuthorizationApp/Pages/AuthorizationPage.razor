@@ -1,15 +1,9 @@
 ﻿@page "/AuthorizationPage"
 @using AuthorizationApp.Data
-@using Microsoft.IdentityModel.Tokens
-@using System.Text
-@using System.IdentityModel.Tokens.Jwt
 @using AuthorizationApp.Services
 @inject Services.IAuthorizationService AuthorizationService;
 @inject IUserIdentityService UserIdentityService
 @inject NavigationManager NavigationManager
-@inject ILogger<AuthorizationPage> Logger;
-@inject IConfiguration Configuration;
-@inject ILocalStorageService LocalStorageService;
 
 @if (UserIdentityService.CurrentUser is not null)
 {
@@ -49,16 +43,17 @@
 
 @code {
     private bool _isCorrectLogin = true;
-    private LoginCredentials _loginCredentials = new();
+    private readonly LoginCredentials _loginCredentials = new();
 
-    private void CheckAuthorization()
+    private async Task CheckAuthorization()
     {
-        if (!AuthorizationService.Authorize(_loginCredentials))
+        if (!await AuthorizationService.Authorize(_loginCredentials))
         {
             _isCorrectLogin = false;
             return;
         }
         _isCorrectLogin = true;
+        NavigationManager.NavigateTo("/MainPage");
     }
 
 

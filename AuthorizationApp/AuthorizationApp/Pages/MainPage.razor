@@ -1,13 +1,7 @@
 ﻿@page "/MainPage"
 @using AuthorizationApp.Services
-@inject IUserIdentityService UserIdentityService
-@inject NavigationManager NavigationManager
 @inject Services.IAuthorizationService AuthorizationService;
 
-@if (UserIdentityService.CurrentUser is null)
-{
-    NavigationManager.NavigateTo("/AuthorizationPage");
-}
 <div class="page">
     <h3>MainPage</h3>
     Logged users:
@@ -17,7 +11,3 @@
     }
 
 </div>
-
-@code {
-
-}
