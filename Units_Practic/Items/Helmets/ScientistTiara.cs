@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Units_Practic.Items.Helmets
 {
-    public class IronHelmet : Item, IHelmet, IChangeStats, INecessaryCharacteristics
+    public class ScientistTiara : Item, IHelmet, IChangeStats, INecessaryCharacteristics
     {
-        public double healthPointChange { get ; init ; }
+        public double healthPointChange { get; init; }
         public double manaPointChange { get; init; }
         public double atackPointChange { get; init; }
         public double physicalProtectionPointChange { get; init; }
@@ -19,20 +19,20 @@ namespace Units_Practic.Items.Helmets
         public int necessaryConstitution { get; init; }
         public int necessaryIntelligence { get; init; }
 
-        public IronHelmet()
+        public ScientistTiara()
         {
-            name = "Iron Helmet";
+            name = "Scientist Tiara";
 
-            healthPointChange = 30;
-            manaPointChange = 0 ;
-            atackPointChange = 0 ;
-            physicalProtectionPointChange = 1500;
-            magicAtackPointChange = 0;
+            healthPointChange = 0;
+            manaPointChange = 250;
+            atackPointChange = 0;
+            physicalProtectionPointChange = 10;
+            magicAtackPointChange = 500;
 
-            necessaryStrength = 30;
-            necessaryDexterity= 15;
+            necessaryStrength = 10;
+            necessaryDexterity = 10;
             necessaryConstitution = 20;
-            necessaryIntelligence = 10;
+            necessaryIntelligence = 50;
         }
     }
 }

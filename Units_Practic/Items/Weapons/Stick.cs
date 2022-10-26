@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Units_Practic.Items.Helmets
+namespace Units_Practic.Items.Weapons
 {
-    public class IronHelmet : Item, IHelmet, IChangeStats, INecessaryCharacteristics
+    public class Stick : Item, IWeapon, IChangeStats, INecessaryCharacteristics
     {
-        public double healthPointChange { get ; init ; }
+        public double healthPointChange { get; init; }
         public double manaPointChange { get; init; }
         public double atackPointChange { get; init; }
         public double physicalProtectionPointChange { get; init; }
@@ -19,20 +19,20 @@ namespace Units_Practic.Items.Helmets
         public int necessaryConstitution { get; init; }
         public int necessaryIntelligence { get; init; }
 
-        public IronHelmet()
+        public Stick()
         {
-            name = "Iron Helmet";
+            name = "Stick";
 
-            healthPointChange = 30;
-            manaPointChange = 0 ;
-            atackPointChange = 0 ;
-            physicalProtectionPointChange = 1500;
-            magicAtackPointChange = 0;
+            healthPointChange = 5;
+            manaPointChange = 50;
+            atackPointChange = 0;
+            physicalProtectionPointChange = 0;
+            magicAtackPointChange = 80;
 
-            necessaryStrength = 30;
-            necessaryDexterity= 15;
+            necessaryStrength = 10;
+            necessaryDexterity = 20;
             necessaryConstitution = 20;
-            necessaryIntelligence = 10;
+            necessaryIntelligence = 45;
         }
     }
 }

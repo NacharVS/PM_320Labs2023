@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Units_Practic.Items
 {
-    public class Item
+    public abstract class Item
     {
         public string name;
 
@@ -15,9 +15,6 @@ namespace Units_Practic.Items
             this.name = name;
         }
 
-        public override string ToString()
-        {
-            return name;
-        }
+        public Item() { }
     }
 }
