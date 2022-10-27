@@ -1,7 +1,9 @@
 ﻿@page "/MyCabinet"
 @using AuthorizationApp.Services
+@using AuthorizationApp.Services.Interfaces
+@using IAuthorizationService = AuthorizationApp.Services.Interfaces.IAuthorizationService
 @inject IUserIdentityService UserIdentityService
-@inject Services.IAuthorizationService AuthorizationService;
+@inject IAuthorizationService AuthorizationService;
 
 <h3>My Cabinet</h3>
 @if (UserIdentityService.CurrentUser is not null)

@@ -1,8 +1,10 @@
 ﻿@page "/RegistrationPage"
 @using AuthorizationApp.Data
-@inject Services.IAuthorizationService AuthorizationService;
-@inject Services.IEncryptionService EncryptionService;
-@inject Services.IUserIdentityService UserIdentityService
+@using AuthorizationApp.Services.Interfaces
+@using IAuthorizationService = AuthorizationApp.Services.Interfaces.IAuthorizationService
+@inject IAuthorizationService AuthorizationService;
+@inject IEncryptionService EncryptionService;
+@inject IUserIdentityService UserIdentityService
 @inject NavigationManager NavigationManager
 <h3>RegistrationPage</h3>
 @if (UserIdentityService.CurrentUser is not null)

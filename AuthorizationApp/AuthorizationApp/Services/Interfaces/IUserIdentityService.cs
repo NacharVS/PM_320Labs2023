@@ -1,6 +1,6 @@
 ﻿using AuthorizationApp.Data;
 
-namespace AuthorizationApp.Services;
+namespace AuthorizationApp.Services.Interfaces;
 
 public interface IUserIdentityService
 {

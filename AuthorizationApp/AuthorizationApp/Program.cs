@@ -1,7 +1,7 @@
 using AuthorizationApp.Data;
 using AuthorizationApp.Database;
 using AuthorizationApp.Services;
-using IAuthorizationService = AuthorizationApp.Services.IAuthorizationService;
+using AuthorizationApp.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

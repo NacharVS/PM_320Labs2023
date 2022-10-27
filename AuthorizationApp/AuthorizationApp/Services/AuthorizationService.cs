@@ -1,5 +1,6 @@
 ﻿using AuthorizationApp.Data;
 using AuthorizationApp.Database;
+using AuthorizationApp.Services.Interfaces;
 
 namespace AuthorizationApp.Services;
 

@@ -1,6 +1,7 @@
 ﻿@page "/MainPage"
 @using AuthorizationApp.Services
-@inject Services.IAuthorizationService AuthorizationService;
+@using IAuthorizationService = AuthorizationApp.Services.Interfaces.IAuthorizationService
+@inject IAuthorizationService AuthorizationService;
 
 <div class="page">
     <h3>MainPage</h3>

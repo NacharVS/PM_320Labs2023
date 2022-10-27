@@ -1,7 +1,9 @@
 ﻿@page "/AuthorizationPage"
 @using AuthorizationApp.Data
 @using AuthorizationApp.Services
-@inject Services.IAuthorizationService AuthorizationService;
+@using AuthorizationApp.Services.Interfaces
+@using IAuthorizationService = AuthorizationApp.Services.Interfaces.IAuthorizationService
+@inject IAuthorizationService AuthorizationService;
 @inject IUserIdentityService UserIdentityService
 @inject NavigationManager NavigationManager
 
