@@ -7,7 +7,7 @@
 
 @code {
 
-    protected async override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         NavigationManager.NavigateTo(UserIdentityService.CurrentUser is not null ? "/MainPage" : "/AuthorizationPage");
     }

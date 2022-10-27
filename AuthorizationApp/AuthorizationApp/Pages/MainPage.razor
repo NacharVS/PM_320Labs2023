@@ -1,7 +1,8 @@
 ﻿@page "/MainPage"
-@using AuthorizationApp.Services
+@using AuthorizationApp.Services.Interfaces
 @using IAuthorizationService = AuthorizationApp.Services.Interfaces.IAuthorizationService
 @inject IAuthorizationService AuthorizationService;
+@inject IImageService ImageService;
 
 <div class="page">
     <h3>MainPage</h3>
@@ -11,4 +12,31 @@
         <p>Login: @loggedUser.Login Name: @loggedUser.Name @loggedUser.Surname</p>
     }
 
+    Images:
+    @if (_imagesInitialized)
+    {
+        @foreach (var file in _images)
+        {
+            <div class="card" style="width: 18rem;">
+                <img src="images/@file" class="card-img-top" alt="No such image found">
+                <div class="card-body">
+                    <a href="images/@file" download="@file" class="btn btn-primary">Download</a>
+                </div>
+            </div>
+        }
+    }
 </div>
+
+@code {
+
+    private bool _imagesInitialized;
+    private IEnumerable<string> _images;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _images = await ImageService.GetAllImages();
+        _imagesInitialized = true;
+    }
+
+
+}

@@ -15,6 +15,8 @@ builder.Services.AddScoped<IUserIdentityService, UserIdentityService>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IEncryptionService, EncryptionService>();
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
+builder.Services.AddSingleton<IFileService, FileService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
 
