@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Units_Practic.Items.Helmets
 {
-    public class RogueGuildHood : Item, IHelmet, IChangeStats, INecessaryCharacteristics
+    public class RogueGuildHood : Helmet, IChangeStats, INecessaryCharacteristics
     {
         public double healthPointChange { get; init; }
         public double manaPointChange { get; init; }

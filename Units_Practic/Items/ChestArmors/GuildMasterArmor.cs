@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Units_Practic.Items.ChestArmors
-{//
-    public class GuildMasterArmor : Item, IChestArmor, IChangeStats, INecessaryCharacteristics
+{
+    public class GuildMasterArmor : ChestArmor, IChangeStats, INecessaryCharacteristics
     {
         public double healthPointChange { get; init; }
         public double manaPointChange { get; init; }

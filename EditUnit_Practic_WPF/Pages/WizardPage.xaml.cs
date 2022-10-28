@@ -1,28 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Units_Practic.Characters;
-using Units_Practic;
-using MongoDB.Bson;
-using Units_Practic.Abilities;
-using Units_Practic.MongoDb;
 using MongoDB.Driver;
+using Units_Practic.Abilities;
+using Units_Practic.Characters;
+using Units_Practic.MongoDb;
+using Units_Practic.Items;
+using System.Linq;
+using System.Windows.Data;
 
 namespace EditUnit_Practic_WPF.Pages
 {
     /// <summary>
-    /// Interaction logic for WizardPage.xaml
+    /// Interaction logic for WarriorPage.xaml
     /// </summary>
     public partial class WizardPage : Page
     {
@@ -46,6 +37,7 @@ namespace EditUnit_Practic_WPF.Pages
         private void Page_Initialized(object sender, EventArgs e)
         {
             UpdateCharacteristics();
+            GetItems();
         }
 
         private void UpdateCharacteristics()
@@ -73,6 +65,11 @@ namespace EditUnit_Practic_WPF.Pages
 
             if (unit.lvl.abilitiesPoints > 0) cbPotentialAbilities.IsEnabled = true;
             else cbPotentialAbilities.IsEnabled = false;
+
+            ListInventory.ItemsSource = unit.inventory;
+            // workaround
+            ListInventory.Visibility = Visibility.Hidden;
+            ListInventory.Visibility = Visibility.Visible;
         }
 
         private void dexBtnMax_Click(object sender, RoutedEventArgs e)
@@ -254,6 +251,16 @@ namespace EditUnit_Practic_WPF.Pages
             }
         }
 
+        private void GetItems()
+        {
+            cbAvailableItems.Items.Clear();
+
+            foreach (var item in Unit.avaibleItems)
+            {
+                cbAvailableItems.Items.Add(item);
+            }
+        }
+
         public void btn_SaveUnit_Click(object sender, RoutedEventArgs e)
         {
             if (tbName.Text == "")
@@ -287,6 +294,26 @@ namespace EditUnit_Practic_WPF.Pages
         private void cbUnits_Initialized(object sender, EventArgs e)
         {
             MongoDb.Connect_cbUnits();
+        }
+
+        private void btn_AddItem_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (Item)cbAvailableItems.SelectedItem;
+
+            if (item == null) return;
+            unit.inventory.Add(item);
+
+            UpdateCharacteristics();
+        }
+
+        private void btn_DeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (Item)ListInventory.SelectedItem;
+
+            if (item == null) return;
+            unit.inventory.Remove(item);
+
+            UpdateCharacteristics();
         }
     }
 }

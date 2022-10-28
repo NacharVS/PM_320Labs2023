@@ -6,5 +6,8 @@ using System.Threading.Tasks;
 
 namespace Units_Practic.Items
 {
-    public interface IWeapon { }
+    public interface IEquipment
+    {
+        public bool equip { get; set; }
+    }
 }

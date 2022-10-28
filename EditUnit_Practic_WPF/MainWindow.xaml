@@ -16,8 +16,6 @@
                 <Separator/>
                 <MenuItem Header="Main menu" Click="MainMenu_Click" />
             </MenuItem>
-            <MenuItem Header="Save" Click="Save_Click"></MenuItem>
-            <MenuItem Header="Clear" Click="Clear_Click"></MenuItem>
         </Menu>
         <TabControl x:Name="tabControl" Margin="37,0,0,0">
             <TabItem x:Name="TbItEdit" Header="Edit">

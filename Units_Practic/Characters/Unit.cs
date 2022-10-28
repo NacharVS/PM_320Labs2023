@@ -1,7 +1,12 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
 using Units_Practic.Abilities;
 using Units_Practic.Items;
+using Units_Practic.Items.ChestArmors;
+using Units_Practic.Items.Helmets;
+using Units_Practic.Items.OtherItems;
+using Units_Practic.Items.Weapons;
 
 namespace Units_Practic.Characters
 {
@@ -12,7 +17,7 @@ namespace Units_Practic.Characters
         Wizard
     }
     [BsonDiscriminator("Unit")]
-    public class Unit
+    public abstract class Unit
     {
         public ObjectId _id;
 
@@ -26,7 +31,14 @@ namespace Units_Practic.Characters
         public double physicalProtectionPoint;
         public double magicAtackPoint;
 
-        public List<Item> inventory;
+        public List<Item> inventory = new List<Item>();
+        public static List<Item> avaibleItems = new List<Item>
+        {
+                new RogueGuildHood(), new RogueGuildArmor(), new IronDaggers(),
+                new IronHelmet(), new IronChestArmor(), new IronSword(),
+                new ScientistTiara(), new GuildMasterArmor(), new Stick(),
+                new Apple(), new Bread(), new Leather()
+        };
 
         public Unit()
         {

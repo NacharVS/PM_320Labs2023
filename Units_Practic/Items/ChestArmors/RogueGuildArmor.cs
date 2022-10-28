@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Units_Practic.Items.ChestArmors
 {
-    public class RogueGuildArmor : Item, IChestArmor, IChangeStats, INecessaryCharacteristics
+    public class RogueGuildArmor : ChestArmor, IChangeStats, INecessaryCharacteristics
     {
         public double healthPointChange { get; init; }
         public double manaPointChange { get; init; }

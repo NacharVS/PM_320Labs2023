@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Units_Practic.Items.Weapons
 {
-    public class IronSword : Item, IWeapon, IChangeStats, INecessaryCharacteristics
+    public class IronSword : Weapon, IChangeStats, INecessaryCharacteristics
     {
         public double healthPointChange { get; init; }
         public double manaPointChange { get; init; }

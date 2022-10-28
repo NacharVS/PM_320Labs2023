@@ -40,16 +40,6 @@ namespace EditUnit_Practic_WPF
             tabControl.SelectedIndex = 0;
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void Clear_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void MainMenu_Click(object sender, RoutedEventArgs e)
         {
             EditPage.NavigationService.Navigate(new EditPage());

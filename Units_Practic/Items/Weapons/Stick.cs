@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Units_Practic.Items.Weapons
 {
-    public class Stick : Item, IWeapon, IChangeStats, INecessaryCharacteristics
+    public class Stick : Weapon, IChangeStats, INecessaryCharacteristics
     {
         public double healthPointChange { get; init; }
         public double manaPointChange { get; init; }

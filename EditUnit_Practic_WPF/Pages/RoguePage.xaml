@@ -74,14 +74,13 @@
             <Button x:Name="btn_10000xp" Content="+10000xp" VerticalAlignment="Top" Height="23" Click="btn_10000xp_Click" Margin="202,213,0,0" Background="#FFB5BDB3" HorizontalAlignment="Left"/>
 
         </Grid>
-        <Grid HorizontalAlignment="Center" Height="139" Grid.Row="2" VerticalAlignment="Center" Width="282">
-
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atack point:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Foreground="#FFB5BDB3" Margin="17,21,0,0"/>
-            <TextBlock x:Name="tbAtackPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="116,21,0,0" Foreground="#FFB5BDB3" Width="54" Height="21"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Magic atack point:" VerticalAlignment="Top" FontSize="16" Height="21" Width="130" Margin="17,56,0,0" Foreground="#FFB5BDB3"/>
-            <TextBlock x:Name="tbMagicAtackPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="158,56,0,0" Foreground="#FFB5BDB3" Width="54" Height="21"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Physical protection point:" VerticalAlignment="Top" FontSize="16" Height="21" Width="179" Margin="17,91,0,0" Foreground="#FFB5BDB3"/>
-            <TextBlock x:Name="tbPhysicalProtectionPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="208,91,0,0" Foreground="#FFB5BDB3" Width="54" Height="21"/>
+        <Grid HorizontalAlignment="Center" Height="139" Grid.Row="2" Width="282">
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Atack point (AP):" VerticalAlignment="Top" FontSize="16" Height="21" Width="118" Foreground="#FFB5BDB3" Margin="17,21,0,0"/>
+            <TextBlock x:Name="tbAtackPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="140,21,0,0" Foreground="#FFB5BDB3" Width="33" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Magic atack point (MAP):" VerticalAlignment="Top" FontSize="16" Height="21" Width="179" Margin="17,56,0,0" Foreground="#FFB5BDB3"/>
+            <TextBlock x:Name="tbMagicAtackPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="201,56,0,0" Foreground="#FFB5BDB3" Width="33" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Physical protection point (PPP):" VerticalAlignment="Top" FontSize="16" Height="21" Width="222" Margin="17,91,0,0" Foreground="#FFB5BDB3"/>
+            <TextBlock x:Name="tbPhysicalProtectionPoint" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16" Margin="244,91,0,0" Foreground="#FFB5BDB3" Width="33" Height="21"/>
         </Grid>
 
         <GridSplitter HorizontalAlignment="Stretch" Height="6" VerticalAlignment="Bottom" Grid.ColumnSpan="2" IsEnabled="False" Background="#FFB5BDB3" Panel.ZIndex="10" Grid.Row="1" Margin="0,0,-36,0"/>
@@ -91,21 +90,51 @@
         <ComboBox x:Name="cbAbility" Grid.Column="1" Height="22" Margin="0,73,15,0" VerticalAlignment="Top" Width="158" HorizontalAlignment="Right"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="0,24,178,0" TextWrapping="Wrap" Text="Potential abilities:" VerticalAlignment="Top" FontSize="16" Height="21" Width="124" Foreground="#FFB5BDB3"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="0,74,178,0" TextWrapping="Wrap" Text="Abilities:" VerticalAlignment="Top" FontSize="16" Height="21" Width="124" Foreground="#FFB5BDB3"/>
-        <ListView Grid.Column="1" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="3,3,0,0">
+
+        <ListView x:Name="ListInventory" Grid.Column="1" Grid.Row="1" Foreground="#FF3E4348" BorderBrush="#FF3E4348" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Title</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Width="100">Company</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}">Price</GridViewColumn>
+                    <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding name}"></GridViewColumn>
+                    <GridViewColumn Header="HP Change" Width="75" DisplayMemberBinding="{Binding healthPointChange}"></GridViewColumn>
+                    <GridViewColumn Header="MP Change" Width="75" DisplayMemberBinding="{Binding manaPointChange}"></GridViewColumn>
+                    <GridViewColumn Header="AP Change" Width="75" DisplayMemberBinding="{Binding atackPointChange}"></GridViewColumn>
+                    <GridViewColumn Header="PPP Change" Width="75" DisplayMemberBinding="{Binding physicalProtectionPointChange}"></GridViewColumn>
+                    <GridViewColumn Header="MAP Change" Width="75" DisplayMemberBinding="{Binding magicAtackPointChange}"></GridViewColumn>
+                    <GridViewColumn Header="Necessary Strength" Width="150" DisplayMemberBinding="{Binding necessaryStrength}"></GridViewColumn>
+                    <GridViewColumn Header="Necessary Dexterity" Width="150" DisplayMemberBinding="{Binding necessaryDexterity}"></GridViewColumn>
+                    <GridViewColumn Header="Necessary Constitution" Width="150" DisplayMemberBinding="{Binding necessaryConstitution}"></GridViewColumn>
+                    <GridViewColumn Header="Necessary Intelligence" Width="150" DisplayMemberBinding="{Binding necessaryIntelligence}"></GridViewColumn>
+
+                    <GridViewColumn Header="Equip" Width="86">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox x:Name="chB_equip" IsChecked="{Binding equip}"/>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding type}" Value="{x:Null}">
+                                        <Setter TargetName="chB_equip" Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
                 </GridView>
             </ListView.View>
-            <ListView.Resources>
-            </ListView.Resources>
         </ListView>
+
         <Button x:Name="btn_SaveUnit" Content="Save" VerticalAlignment="Top" Height="26" Click="btn_SaveUnit_Click" Margin="0,89,15,0" Background="#FFB5BDB3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58"/>
         <Button x:Name="btn_ClearUnit" Content="Clear" VerticalAlignment="Top" Height="26" Click="btn_ClearUnit_Click" Margin="0,97,115,0" Background="#FFB5BDB3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58" Visibility="Hidden"/>
         <ComboBox x:Name="cbUnits" Grid.Column="1" Height="22" Margin="121,18,0,0" VerticalAlignment="Top" Width="158" HorizontalAlignment="Left" SelectionChanged="cbUnits_SelectionChanged" Grid.Row="2" Initialized="cbUnits_Initialized" Visibility="Hidden"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="22,17,0,0" TextWrapping="Wrap" Text="Saved units:" VerticalAlignment="Top" FontSize="16" Height="21" Width="85" Foreground="#FFB5BDB3" Grid.Row="2" Visibility="Hidden"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="21,92,0,0" TextWrapping="Wrap" Text="Type:        Rogue" VerticalAlignment="Top" FontSize="16" Height="21" Width="126" Foreground="#FFB5BDB3" Grid.Row="2"/>
+
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="22,17,0,0" Grid.Row="2" VerticalAlignment="Top" Width="361" Background="#00000000">
+
+            <ComboBox x:Name="cbAvailableItems" Height="22" Margin="129,0,0,0" VerticalAlignment="Center" Width="158" HorizontalAlignment="Left"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Available items:" VerticalAlignment="Center" FontSize="16" Height="21" Width="124" Foreground="#FFB5BDB3"/>
+            <Button x:Name="btn_AddItem" Content="Add" VerticalAlignment="Center" Height="26" Click="btn_AddItem_Click" Margin="303,0,0,0" Background="#FFB5BDB3" HorizontalAlignment="Left" Width="58"/>
+        </Grid>
+        <Button x:Name="btn_DeleteItem" Content="Delete" VerticalAlignment="Top" Height="26" Click="btn_DeleteItem_Click" Margin="0,18,15,0" Background="#FFB5BDB3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58"/>
+
     </Grid>
 </Page>
