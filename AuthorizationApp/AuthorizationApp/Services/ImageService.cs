@@ -14,7 +14,7 @@ public class ImageService : IImageService
     {
         _fileService = fileService;
         _fileSystem = new GridFSBucket(connection.Database);
-        AddImagesToDb();
+        // AddImagesToDb();
     }
 
     public async Task<IEnumerable<string>> GetAllImages()

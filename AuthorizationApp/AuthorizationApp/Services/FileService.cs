@@ -45,7 +45,7 @@ public class FileService : IFileService
 
     public async Task DownloadFileToPath(string filename, string path)
     {
-        await using var stream = File.Create(path);
+        await using var stream = new FileStream(path, FileMode.CreateNew);
         await _fileSystem.DownloadToStreamByNameAsync(filename, stream);
     }
 

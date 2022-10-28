@@ -30,11 +30,11 @@
 @code {
 
     private bool _imagesInitialized;
-    private IEnumerable<string> _images;
+    private List<string> _images;
 
     protected override async Task OnInitializedAsync()
     {
-        _images = await ImageService.GetAllImages();
+        _images = (await ImageService.GetAllImages()).ToList();
         _imagesInitialized = true;
     }
 

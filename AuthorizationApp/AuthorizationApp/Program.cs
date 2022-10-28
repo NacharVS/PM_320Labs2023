@@ -1,3 +1,4 @@
+using AuthorizationApp;
 using AuthorizationApp.Data;
 using AuthorizationApp.Database;
 using AuthorizationApp.Services;
@@ -17,6 +18,7 @@ builder.Services.AddSingleton<IEncryptionService, EncryptionService>();
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 builder.Services.AddSingleton<IFileService, FileService>();
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddHostedService<ImageHostedService>();
 
 var app = builder.Build();
 
