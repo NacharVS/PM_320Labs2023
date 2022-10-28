@@ -5,12 +5,8 @@ using MongoDB.Driver;
 namespace BlazorRegistration.Data;
     public class DataBase
     {
-        private LocalStorageService _localStorageService;
-        private DataBase(LocalStorageService localStorageService)
-        {
-            _localStorageService = localStorageService;
-        }
-
+        public User? CurrentUser { get; set; }
+        
         public static void AddToDataBase(User user)
         {
             MongoClient client = new MongoClient("mongodb://localhost");
@@ -26,9 +22,5 @@ namespace BlazorRegistration.Data;
             var user = collection.Find(x => x.Login == login).FirstOrDefault();
 
             return user;
-        }
-        private void SaveUser(User user)
-        {
-            _localStorageService.SetAsync<User>(user.Login, user);
         }
     }

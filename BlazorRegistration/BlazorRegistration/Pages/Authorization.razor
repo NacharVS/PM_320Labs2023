@@ -3,6 +3,9 @@
 <PageTitle>Authorization</PageTitle>
 
 @using BlazorRegistration.Data
+@inject DataBase dataBase
+@inject IJSRuntime JS
+@inject ILocalStorageService localStorageService
 
 <h1>Authorization</h1>
 
@@ -15,39 +18,29 @@
 
     <input type="submit" class="btn btn-primary btn-lg" value="Log In" />
 
-    @if (!error)
+    @if (user is not null)
     {
-        @foreach (var user in users)
-        {
-            <p>Surname: @user.Surname</p>
-            <p>Name: @user.Name</p>
-        }
-    }
-    else
-    {
-        <p>There is no such user in the database</p>
+        <p>Surname: @user.Surname</p>
+        <p>Name: @user.Name</p>
     }
     
 </EditForm>
 
 @code {
     private User user = new User();
-    private List<User> users = new List<User>();
-    bool error;
 
     public void LogIn()
     {
-        error = false;
         if (user.Login != null && user.Password != null)
         {
             user = DataBase.FindByLogin(user.Login);
             if (user != null)
             {
-                users.Add(user);
+                localStorageService.SetAsync<User>("Authorization", user);
             }
             else
             {
-                error = true;
+                JS.InvokeVoidAsync("alert", "There is no such user in the database");
             }
         }
     }
