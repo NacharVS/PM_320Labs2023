@@ -224,16 +224,6 @@ namespace EditUnit_Practic_WPF.Pages
             }
         }
 
-        private void GetItems()
-        {
-            cbAvailableItems.Items.Clear();
-
-            foreach (var item in Unit.avaibleItems)
-            {
-                cbAvailableItems.Items.Add(item);
-            }
-        }
-
         public void btn_SaveUnit_Click(object sender, RoutedEventArgs e)
         {
             if (tbName.Text == "")
@@ -256,26 +246,6 @@ namespace EditUnit_Practic_WPF.Pages
         {
             unit.UpdateAvaibleItems();
 
-            var item = (Item)cbAvailableItems.SelectedItem;
-
-            if (item == null) return;
-            unit.inventory.Add(item);
-
-            UpdateCharacteristics();
-        }
-
-        private void btn_DeleteItem_Click(object sender, RoutedEventArgs e)
-        {
-            var item = (Item)ListInventory.SelectedItem;
-
-            if (item == null) return;
-            unit.inventory.Remove(item);
-
-            UpdateCharacteristics();
-        }
-
-        private void btn_AddItem_Click(object sender, RoutedEventArgs e)
-        {
             var item = (Item)cbAvailableItems.SelectedItem;
 
             if (item == null) return;
