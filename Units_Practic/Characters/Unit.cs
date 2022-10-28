@@ -32,17 +32,24 @@ namespace Units_Practic.Characters
         public double magicAtackPoint;
 
         public List<Item> inventory = new List<Item>();
-        public static List<Item> avaibleItems = new List<Item>
-        {
-                new RogueGuildHood(), new RogueGuildArmor(), new IronDaggers(),
-                new IronHelmet(), new IronChestArmor(), new IronSword(),
-                new ScientistTiara(), new GuildMasterArmor(), new Stick(),
-                new Apple(), new Bread(), new Leather()
-        };
+        public List<Item> avaibleItems;
 
         public Unit()
         {
             lvl = new Lvl();
+
+            UpdateAvaibleItems();
+        }
+
+        public void UpdateAvaibleItems()
+        {
+            avaibleItems = new List<Item>
+            {
+                new RogueGuildHood(), new RogueGuildArmor(), new IronDaggers(),
+                new IronHelmet(), new IronChestArmor(), new IronSword(),
+                new ScientistTiara(), new GuildMasterArmor(), new Stick(),
+                new Apple(), new Bread(), new Leather()
+            };
         }
 
         public override string ToString()

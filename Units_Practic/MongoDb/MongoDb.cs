@@ -37,14 +37,5 @@ namespace Units_Practic.MongoDb
         {
             return collection;
         }
-
-        public static void Connect_cbUnits()
-        {
-            var unit = new Warrior();
-            unit.name = "tempUnit";
-
-            AddToDataBase(unit);
-            DeleteFromDataBase(unit);
-        }
     }
 }

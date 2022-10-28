@@ -18,7 +18,7 @@ namespace Units_Practic.Items
     [BsonDiscriminator("Item")]
     public abstract class Item
     {
-        public ObjectId _id;
+        public ObjectId _id = ObjectId.GenerateNewId();
         public string name { get; set; }
         public TypeItem? type { get; set; }
 

@@ -2,13 +2,10 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using MongoDB.Driver;
 using Units_Practic.Abilities;
 using Units_Practic.Characters;
 using Units_Practic.MongoDb;
 using Units_Practic.Items;
-using System.Linq;
-using System.Windows.Data;
 
 namespace EditUnit_Practic_WPF.Pages
 {
@@ -37,7 +34,6 @@ namespace EditUnit_Practic_WPF.Pages
         private void Page_Initialized(object sender, EventArgs e)
         {
             UpdateCharacteristics();
-            GetItems();
         }
 
         private void UpdateCharacteristics()
@@ -61,15 +57,14 @@ namespace EditUnit_Practic_WPF.Pages
 
             GetPotentialAbilities();
             GetAbilities();
-            GetUnits();
+            GetItems();
 
             if (unit.lvl.abilitiesPoints > 0) cbPotentialAbilities.IsEnabled = true;
             else cbPotentialAbilities.IsEnabled = false;
 
-            ListInventory.ItemsSource = unit.inventory;
             // workaround
-            ListInventory.Visibility = Visibility.Hidden;
-            ListInventory.Visibility = Visibility.Visible;
+            ListInventory.ItemsSource = null;
+            ListInventory.ItemsSource = unit.inventory;
         }
 
         private void dexBtnMax_Click(object sender, RoutedEventArgs e)
@@ -199,18 +194,6 @@ namespace EditUnit_Practic_WPF.Pages
             UpdateCharacteristics();
         }
 
-        private void cbUnits_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var item = (Unit)cbUnits.SelectedItem;
-
-            if (item == null) return;
-
-            unit = item;
-            tbName.Text = unit.name;
-
-            UpdateCharacteristics();
-        }
-
         private void GetPotentialAbilities()
         {
             cbPotentialAbilities.Items.Clear();
@@ -219,26 +202,6 @@ namespace EditUnit_Practic_WPF.Pages
             {
                 cbPotentialAbilities.Items.Add(ability);
             }
-        }
-
-        private void GetUnits()
-        {
-            cbUnits.Items.Clear();
-
-            try
-            {
-                var cursor = MongoDb.collection.Find(new BsonDocument());
-                {
-                    foreach (var doc in cursor.ToList())
-                    {
-                        var unit = new Warrior();
-                        unit = (Warrior)doc;
-
-                        cbUnits.Items.Add(unit);
-                    }
-                }
-            }
-            catch { }
         }
 
         private void GetAbilities()
@@ -255,7 +218,7 @@ namespace EditUnit_Practic_WPF.Pages
         {
             cbAvailableItems.Items.Clear();
 
-            foreach (var item in Unit.avaibleItems)
+            foreach (var item in unit.avaibleItems)
             {
                 cbAvailableItems.Items.Add(item);
             }
@@ -271,11 +234,6 @@ namespace EditUnit_Practic_WPF.Pages
 
             unit.name = tbName.Text;
 
-            if (cbUnits.SelectedItem != null)
-            {
-                if (cbUnits.SelectedItem.ToString() == unit.ToString()) MongoDb.ReplaceOneInDataBase(unit);
-            }
-
             if (MongoDb.FindById(unit._id.ToString()) is null) MongoDb.AddToDataBase(unit);
             else MongoDb.ReplaceOneInDataBase(unit);
 
@@ -284,20 +242,10 @@ namespace EditUnit_Practic_WPF.Pages
             UpdateCharacteristics();
         }
 
-        public void btn_ClearUnit_Click(object sender, RoutedEventArgs e)
-        {
-            unit = new Warrior();
-            UpdateCharacteristics();
-            tbName.Text = unit.name;
-        }
-
-        private void cbUnits_Initialized(object sender, EventArgs e)
-        {
-            MongoDb.Connect_cbUnits();
-        }
-
         private void btn_AddItem_Click(object sender, RoutedEventArgs e)
         {
+            unit.UpdateAvaibleItems();
+
             var item = (Item)cbAvailableItems.SelectedItem;
 
             if (item == null) return;
