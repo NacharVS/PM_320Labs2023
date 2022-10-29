@@ -27,5 +27,16 @@ namespace BlazorApp7.Data
                 gridFS.DownloadToStreamByName("ggg.jpg", fs);
             }
         }
+        private async Task LoadFiles(InputFileChangeEventArgs e)
+        {
+            foreach (var file in e.GetMultipleFiles(e.FileCount))
+            {
+                _loadedFiles.Add(file);
+                Stream stream = file.OpenReadStream();
+                await service.UploadImageToDb(stream);
+                stream.Dispose();
+            }
+
+        }
     }
 }
