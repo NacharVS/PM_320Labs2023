@@ -7,6 +7,8 @@ namespace AuthorizationApp.Services;
 
 public class ImageService : IImageService
 {
+    private const string PathToSave = "wwwroot/images";
+
     private readonly GridFSBucket _fileSystem;
     private readonly IFileService _fileService;
 
@@ -14,7 +16,6 @@ public class ImageService : IImageService
     {
         _fileService = fileService;
         _fileSystem = new GridFSBucket(connection.Database);
-        // AddImagesToDb();
     }
 
     public async Task<IEnumerable<string>> GetAllImages()
@@ -22,6 +23,18 @@ public class ImageService : IImageService
         return (await _fileSystem.FindAsync(FilterDefinition<GridFSFileInfo>.Empty))
             .ToEnumerable()
             .Select(x => x.Filename);
+    }
+
+    public async Task InitializeImages()
+    {
+        Directory.CreateDirectory(PathToSave);
+        var images = (await GetAllImages()).ToList();
+        foreach (var image in images)
+        {
+            var file = PathToSave + $"/{image}";
+            if (!File.Exists(file))
+                await _fileService.DownloadFileToPath(image, file);
+        }
     }
 
     private void AddImagesToDb()

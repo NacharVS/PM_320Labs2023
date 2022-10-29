@@ -4,36 +4,50 @@
 @inject IAuthorizationService AuthorizationService;
 @inject IImageService ImageService;
 
-<div class="page">
-    <h3>MainPage</h3>
-    Logged users:
-    @foreach (var loggedUser in AuthorizationService.GetLoggedUsers())
-    {
-        <p>Login: @loggedUser.Login Name: @loggedUser.Name @loggedUser.Surname</p>
-    }
-
-    Images:
-    @if (_imagesInitialized)
-    {
-        @foreach (var file in _images)
+<h3>MainPage</h3>
+<div class="page" style="display:flex;">
+    <div>
+        Logged users:
+        @foreach (var loggedUser in AuthorizationService.GetLoggedUsers())
         {
+            <p>Login: @loggedUser.Login Name: @loggedUser.Name @loggedUser.Surname</p>
+        }
+    </div>
+    <div>
+        Images:
+        @if (_imagesInitialized)
+        {
+            <table>
+                @foreach (var file in _images)
+                {
+                    var currentFile = file;
+                    <tr>
+                        <td>@file</td>
+                        <td>
+                            <a class="btn btn-primary" @onclick="() => _currentImageSelected = currentFile">Show</a>
+                        </td>
+                    </tr>
+                }
+            </table>
             <div class="card" style="width: 18rem;">
-                <img src="images/@file" class="card-img-top" alt="No such image found">
+                <img src="images/@_currentImageSelected" class="card-img-top" alt="No such image found">
                 <div class="card-body">
-                    <a href="images/@file" download="@file" class="btn btn-primary">Download</a>
+                    <a href="images/@_currentImageSelected" download="@_currentImageSelected" class="btn btn-primary">Download</a>
                 </div>
             </div>
         }
-    }
+    </div>
 </div>
 
 @code {
 
     private bool _imagesInitialized;
     private List<string> _images;
+    private string _currentImageSelected;
 
     protected override async Task OnInitializedAsync()
     {
+        await ImageService.InitializeImages();
         _images = (await ImageService.GetAllImages()).ToList();
         _imagesInitialized = true;
     }

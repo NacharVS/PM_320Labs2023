@@ -21,17 +21,9 @@ public class ImageHostedService : IHostedService
         try
         {
             using var scope = _serviceProvider.CreateScope();
-            var fileService = scope.ServiceProvider.GetService<IFileService>()!;
             var imageService = scope.ServiceProvider.GetService<IImageService>()!;
 
-            Directory.CreateDirectory(PathToSave);
-            var images = (await imageService.GetAllImages()).ToList();
-            foreach (var image in images)
-            {
-                var file = PathToSave + $"/{image}";
-                if (!File.Exists(file))
-                    await fileService.DownloadFileToPath(image, file);
-            }
+            await imageService.InitializeImages();
 
             _logger.Log(LogLevel.Information, "Картинки подгружены");
         }
