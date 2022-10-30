@@ -1,0 +1,36 @@
+﻿@page "/account"
+
+<PageTitle>Account details</PageTitle>
+
+@using Web.Services
+@using Core.Entities
+@inject SessionService SessionService;
+@inject NavigationManager NavigationManager;
+
+<h1>Account details</h1>
+
+<div style="border: 1px solid black; max-width: 50%">
+    <p>Name: @_currentUser?.Name</p>
+    <p>Surname: @_currentUser?.Surname</p>
+    <p>Login: @_currentUser?.Login</p>
+    <p>Email: @_currentUser?.Email</p>
+    <p>Password: @_currentUser?.PasswordHash</p>
+</div>
+<button class="btn btn-primary" @onclick="LogOut">Log out</button>
+
+@code {
+    private User? _currentUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _currentUser = await SessionService.GetCurrentUser();
+    }
+
+    private void LogOut()
+    {
+        SessionService.LogOut();
+        
+        NavigationManager.NavigateTo("/");
+    }
+
+}

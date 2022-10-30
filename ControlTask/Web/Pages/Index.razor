@@ -1,0 +1,143 @@
+﻿@page "/"
+@using Web.Services
+@using Core.Entities
+@inject UserService UserService;
+@inject SessionService SessionService;
+@inject NavigationManager NavigationManager
+@inject AppState AppState
+
+<PageTitle>Main page</PageTitle>
+
+@if (_isAuthorization)
+{
+    <div>
+        <h2>Authorization</h2>
+
+        <div style="max-width: 60%">
+            <div class="input-group mb-1">
+                <input @bind="@_login" @oninput="@(ui => { _login = (string?)ui.Value; })"
+                       type="text" class="form-control" placeholder="Login" aria-label="Login" aria-describedby="Login">
+            </div>
+            <div class="input-group mb-1">
+                <input @bind="@_password" @oninput="@(ui => { _password = (string?)ui.Value; })"
+                       keytype="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password">
+            </div>
+            <button class="btn btn-primary" @onclick="AuthorizeUser">Authorize</button>
+        </div>
+        @if (_userNotFound)
+                {
+                    <p>
+                        user not not found or login-email pair is wrong
+                    </p>
+                }
+        @if (_notCompletedLines)
+        {
+            <p>
+                Please, fill all lines
+            </p>
+        }
+        <p>Don't have account? <button class="btn btn-primary small" @onclick="TogglePage">Register</button></p>
+    </div>
+}
+else
+{
+    <div>
+        <h2>Registration</h2>
+
+        <div style="max-width: 60%">
+            <div class="input-group mb-1">
+                <input @bind="@_name" @oninput="@(ui => { _name = (string?)ui.Value; })"
+                       type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="name"><br/>
+            </div>
+            <div class="input-group mb-1">
+                <input @bind="@_surname" @oninput="@(ui => { _surname = (string?)ui.Value; })"
+                       type="text" class="form-control" placeholder="Surname" aria-label="Surname" aria-describedby="surname">
+            </div>
+            <div class="input-group mb-1">
+                <input @bind="@_email" @oninput="@(ui => { _email = (string?)ui.Value; })"
+                       type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email">
+            </div>
+            <div class="input-group mb-1">
+                <input @bind="@_login" @oninput="@(ui => { _login = (string?)ui.Value; })"
+                       type="text" class="form-control" placeholder="Login" aria-label="Login" aria-describedby="Login">
+            </div>
+            <div class="input-group mb-1">
+                <input @bind="@_password" @oninput="@(ui => { _password = (string?)ui.Value; })"
+                       type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password">
+            </div>
+            <div class="input-group mb-1">
+                <input @bind="@_repeatPassword" @oninput="@(ui => { _repeatPassword = (string?)ui.Value; })"
+                       type="password" class="form-control" placeholder="Repeat password" aria-label="Repeat password" aria-describedby="Repeat password">
+            </div>
+            <button class="btn btn-primary" @onclick="RegisterUser">Register</button>
+        </div>
+        @if (_notCompletedLines)
+        {
+            <p>
+                Please, fill all lines
+            </p>
+        }
+        <p>Already have account? <button class="btn btn-primary small" @onclick="TogglePage">Authorize</button></p>
+    </div>
+}
+
+@code
+{
+    private string? _login;
+    private string? _password;
+    private string? _repeatPassword;
+    private string? _name;
+    private string? _surname;
+    private string? _email;
+
+    private bool _isAuthorization = true;
+    private bool _notCompletedLines = false;
+    private bool _userNotFound = false;
+
+    public void TogglePage()
+    {
+        _isAuthorization = !_isAuthorization;
+    }
+
+    public async Task RegisterUser()
+    {
+        if (_password == _repeatPassword && _password != null 
+            && _login != null 
+            && _name != null && _surname != null 
+            && _email != null)
+        {
+            await UserService.SaveUser(new User(_name, _surname, _email, _login, _password));
+            await AuthorizeUser();
+            
+            _notCompletedLines = false;
+            _userNotFound = false;
+        }
+        else
+        {
+            _userNotFound = true;
+        }
+    }
+
+    public async Task AuthorizeUser()
+    {
+        if (_login != null && _password != null)
+        {
+            var user = await SessionService.AuthorizeUser(_login, _password);
+            if (user == null)
+            {
+                _userNotFound = true;
+            }
+            else
+            {
+                _userNotFound = false;
+                AppState.SetCurrentUser(user);
+                NavigationManager.NavigateTo("/account");
+            }
+            _notCompletedLines = false;
+        }
+        else
+        {
+            _notCompletedLines = true;
+        }
+    }
+}
