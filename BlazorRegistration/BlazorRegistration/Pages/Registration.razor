@@ -3,6 +3,7 @@
 <PageTitle>Personal account</PageTitle>
 
 @using BlazorRegistration.Data
+@inject DataBase dataBase
 
 <h1>Registration</h1>
 
@@ -32,7 +33,7 @@
     {
         if (users.Password == users.PasswordRepeat)
         {
-            DataBase.AddToDataBase(users);
+            dataBase.AddToDataBase(users);
         }
     }
 }

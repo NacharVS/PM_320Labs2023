@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @using BlazorRegistration.Data
 @inject DataBase dataBase
+@inject ILocalStorageService localStorageService
 
 <PageTitle>Personal account</PageTitle>
 
@@ -11,7 +12,7 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">dataBase.CurrentUser.Name</a>
+            <a href="/account" target="_blank">@dataBase.CurrentUser?.Surname @dataBase.CurrentUser?.Name</a>
         </div>
 
         <article class="content px-4">

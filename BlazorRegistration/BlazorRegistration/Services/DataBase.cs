@@ -7,14 +7,14 @@ namespace BlazorRegistration.Data;
     {
         public User? CurrentUser { get; set; }
         
-        public static void AddToDataBase(User user)
+        public void AddToDataBase(User user)
         {
             MongoClient client = new MongoClient("mongodb://localhost");
             IMongoDatabase database = client.GetDatabase("Registration");
             var collection = database.GetCollection<User>("UsersList");
             collection.InsertOne(user);
         }
-        public static User FindByLogin(string login)
+        public User FindByLogin(string login)
         {
             MongoClient client = new MongoClient("mongodb://localhost");
             IMongoDatabase database = client.GetDatabase("Registration");

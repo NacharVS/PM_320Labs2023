@@ -1,0 +1,24 @@
+﻿@page "/account"
+
+<PageTitle>Personal account</PageTitle>
+
+@using BlazorRegistration.Data
+@inject DataBase dataBase
+@inject NavigationManager novigation
+
+<h3>PersonalAccount</h3>
+
+<EditForm Model="@user" OnValidSubmit="@LogOut" class="mx-1 mx-md-4">
+    <p>Surname: @dataBase.CurrentUser?.Surname</p>
+    <p>Name: @dataBase.CurrentUser?.Name</p>
+    <input type="submit" class="btn btn-primary btn-lg" value="Log Out" />
+</EditForm>
+
+@code {
+    public User user = new User();
+    public void LogOut()
+    {
+        dataBase.CurrentUser = null;
+        novigation.NavigateTo("/");
+    }
+}

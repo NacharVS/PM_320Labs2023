@@ -18,10 +18,10 @@
 
     <input type="submit" class="btn btn-primary btn-lg" value="Log In" />
 
-    @if (user is not null)
+    @if (dataBase.CurrentUser is not null)
     {
-        <p>Surname: @user.Surname</p>
-        <p>Name: @user.Name</p>
+        <p>Surname: @dataBase.CurrentUser.Surname</p>
+        <p>Name: @dataBase.CurrentUser.Name</p>
     }
     
 </EditForm>
@@ -33,10 +33,11 @@
     {
         if (user.Login != null && user.Password != null)
         {
-            user = DataBase.FindByLogin(user.Login);
-            if (user != null)
+            dataBase.CurrentUser = dataBase.FindByLogin(user.Login);
+            
+            if (dataBase.CurrentUser != null)
             {
-                localStorageService.SetAsync<User>("Authorization", user);
+                localStorageService.SetAsync<User>("Authorization", dataBase.CurrentUser);
             }
             else
             {
