@@ -5,10 +5,28 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:EditUnit_Practic_WPF.Pages"
       mc:Ignorable="d"
-      d:DesignHeight="630" d:DesignWidth="870"
-      Title="MatchPage" Initialized="Page_Initialized">
+      d:DesignHeight="630" d:DesignWidth="835"
+      Title="MatchPage" ShowsNavigationUI="False" Initialized="Page_Initialized">
 
-    <Grid>
-        
+    <Grid Background="#FF3E4348" x:Name="form_matchForm">
+        <Grid HorizontalAlignment="Left" Height="578" Margin="33,9,0,0" VerticalAlignment="Top">
+            <ListBox x:Name="lb_allCharacters" d:ItemsSource="{d:SampleData ItemCount=20}" Width="190" FontSize="16" HorizontalAlignment="Center" Margin="0,49,0,0" PreviewMouseLeftButtonDown="lb_allCharacters_PreviewMouseLeftButtonDown" PreviewMouseRightButtonDown="lb_allCharacters_PreviewMouseRightButtonDown"/>
+            <Label Content="Characters:"  Width="100" Height="30" HorizontalContentAlignment="Center" FontSize="16" HorizontalAlignment="Left" Margin="0,14,0,0" Foreground="#FFB5BDB3" VerticalAlignment="Top"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="217" Margin="346,21,0,0" VerticalAlignment="Top">
+            <ListBox x:Name="lb_firstTeam" d:ItemsSource="{d:SampleData ItemCount=6}"  Width="160" Height="180" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,37,0,0" PreviewKeyDown="lb_firstTeam_PreviewKeyDown"/>
+            <Label Content="First team" Width="100" Height="30"  FontSize="16" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFB5BDB3" Margin="0,2,0,0"/>
+        </Grid>
+        <Grid HorizontalAlignment="Right" Height="215" Margin="0,23,137,0" VerticalAlignment="Top">
+            <ListBox x:Name="lb_secondTeam" d:ItemsSource="{d:SampleData ItemCount=6}" Width="160" Height="180" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,35,0,0" PreviewKeyDown="lb_secondTeam_PreviewKeyDown"/>
+            <Label Content="Second team" Width="110" Height="30" FontSize="16" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFB5BDB3"/>
+        </Grid>
+        <Button x:Name="btn_StartMatch" Content="Start match" FontSize="16" Height="40" Width="110" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,46,43" Click="btn_StartMatch_Click" />
+        <Button x:Name="btn_AutoFill" Content="Auto fill teams" Width="120" Height="40"  FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="338,339,0,0" Click="btn_AutoFill_Click" />
+        <TextBlock x:Name="txt_FirstTeamAverLvl" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="256,106,0,0" Width="51" FontSize="16" Foreground="#FFB5BDB3"/>
+        <Label Content="Average lvl:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="236,70,0,0" FontSize="16" Foreground="#FFB5BDB3"/>
+        <TextBlock x:Name="txt_SecondTeamAverLvl" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,106,46,0" Width="50" FontSize="16" Foreground="#FFB5BDB3"/>
+        <Label Content="Average lvl:" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,70,26,0" FontSize="16" Foreground="#FFB5BDB3"/>
+        <Button Visibility="Hidden" x:Name="btn_ShowMatchesHistory" Content="Show matches history" Width="172" Height="40"  FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="663,590,0,0" Click="btn_ShowMatchesHistory_Click" />
     </Grid>
 </Page>

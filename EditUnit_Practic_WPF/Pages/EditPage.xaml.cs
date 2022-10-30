@@ -152,7 +152,7 @@ namespace EditUnit_Practic_WPF.Pages
 
         private void lbUnits_Initialized(object sender, EventArgs e)
         {
-            MongoDb.Connect_cbUnits();
+            MongoDb.Connect_lbUnits();
             GetUnits();
         }
 

@@ -45,5 +45,10 @@ namespace EditUnit_Practic_WPF
             EditPage.NavigationService.Navigate(new EditPage());
             tabControl.SelectedIndex = 0;
         }
+
+        private void TbItMatch_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MatchPage.NavigationService.Navigate(new MatchPage());
+        }
     }
 }

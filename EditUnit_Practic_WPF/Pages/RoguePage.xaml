@@ -107,11 +107,14 @@
                     <GridViewColumn Header="Equip" Width="86">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox x:Name="chB_equip" IsChecked="{Binding equip}"/>
+                                <CheckBox x:Name="chB_equip" IsChecked="{Binding equip}" Checked="chB_equip_Checked"/>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding type}" Value="{x:Null}">
                                         <Setter TargetName="chB_equip" Property="Visibility" Value="Hidden"/>
                                     </DataTrigger>
+                                    <!--<DataTrigger Binding="{Binding equip}" Value="True">
+                                        <Setter TargetName="chB_equip" Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>-->
                                 </DataTemplate.Triggers>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

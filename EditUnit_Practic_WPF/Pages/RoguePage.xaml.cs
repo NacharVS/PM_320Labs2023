@@ -263,5 +263,11 @@ namespace EditUnit_Practic_WPF.Pages
 
             UpdateCharacteristics();
         }
+
+        private void chB_equip_Checked(object sender, RoutedEventArgs e)
+        {
+            //var item = ListInventory.SelectedItem;
+            //MessageBox.Show(item.ToString());
+        }
     }
 }
