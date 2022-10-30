@@ -198,21 +198,23 @@ namespace CreateCharacterWarcraftWpf
             tbApInfo.Text = Convert.ToString(unit.attack);
             tbSpInfo.Text = Convert.ToString(unit.skillPoint);
             tbPrDetInfo.Text = Convert.ToString(unit.protDet);
-            tbExpInfo.Text = Convert.ToString(unit.experience);
             tbLvlInfo.Text = Convert.ToString(unit.level);
+
+            tbExpInfo.Text = (unit.experience).ToString();
+            tbLvlInfo.Text = (unit.level).ToString();
 
             tbStrInfo.Text = Convert.ToString(unit.strength) + " / " + Convert.ToString(unit.strengthMax);
             tbDexInfo.Text = Convert.ToString(unit.dexterity) + " / " + Convert.ToString(unit.strengthMax);
             tbConInfo.Text = Convert.ToString(unit.constitution) + " / " + Convert.ToString(unit.constitutionMax);
             tbIntInfo.Text = Convert.ToString(unit.intelligence) + " / " + Convert.ToString(unit.intelligenceMax);
 
-            tbExpInfo.Text = Convert.ToString(unit.experience);
-            tbLvlInfo.Text = Convert.ToString(unit.level);
+            
 
            foreach(var item in unit.inventory)
             {
                 lstBoxInventory.Items.Add(item);
             }
+           
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -314,10 +316,12 @@ namespace CreateCharacterWarcraftWpf
                 btnAdd.Visibility = Visibility.Hidden;
                 btnCng.Visibility = Visibility.Visible;
 
-                WriteInfo(unit);
-                tbUntName.Text = unit.name;
                 string type = Convert.ToString(unit.GetType()).Substring(27);
                 cmBxChooseCharacter.Text = type;
+
+                tbUntName.Text = unit.name;
+                WriteInfo(unit);
+
             }
         }
 
@@ -403,6 +407,21 @@ namespace CreateCharacterWarcraftWpf
         {
             inventory.Add(tbTitleItem.Text);
             lstBoxInventory.Items.Add(tbTitleItem.Text);
+        }
+
+        private void btnHelmet_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnArmor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnWeapon_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

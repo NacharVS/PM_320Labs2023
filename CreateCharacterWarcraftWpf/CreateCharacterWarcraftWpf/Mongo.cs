@@ -40,15 +40,12 @@ namespace CreateCharacterWarcraftWpf
             collection.ReplaceOne(filter, unit);
         }
 
-        internal static Character TakeUnit(string? name)
+        public static Character TakeUnit(string? name)
         {
             var simpleProjection = Builders<Character>.Projection.
             Exclude("healthPoint").
             Exclude("attack").
             Exclude("protDet");
-            BsonClassMap.RegisterClassMap<Warrior>();
-            BsonClassMap.RegisterClassMap<Rogue>();
-            BsonClassMap.RegisterClassMap<Wizard>();
             var filter = Builders<Character>.Filter.Eq("name", name);
             var collection = db.GetCollection<Character>("ExCollection");
             return collection.Find(filter).Project<Character>(simpleProjection).FirstOrDefault();
