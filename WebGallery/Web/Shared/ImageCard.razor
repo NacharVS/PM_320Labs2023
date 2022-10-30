@@ -1,0 +1,15 @@
+﻿@using Web.Services
+@inject FileService FileService
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="../../upload/@ImageName" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">@ImageName</h5>
+        <a href="#" @onclick="() => FileService.DownloadImage(ImageName ?? String.Empty)" class="btn btn-primary">Download</a>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? ImageName { get; set; }
+}
