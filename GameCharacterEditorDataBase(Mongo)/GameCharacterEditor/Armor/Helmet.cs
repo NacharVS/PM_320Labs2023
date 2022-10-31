@@ -15,28 +15,28 @@ namespace GameCharacterEditor
             switch (material)
             {
                 case "Copper":
-                    character.Strength += 10;
-                    character.Intelligence += 30;
-                    character.HP += 30;
-                    character.MP += 30;
-                    character.PDef = 10;
-                    character.Attack = 10;
+                    character.Strength += 1;
+                    character.Intelligence += 1;
+                    character.HP += 1;
+                    character.MP += 1;
+                    character.PDef = 1;
+                    character.Attack = 1;
                     break;
                 case "Silver":
-                    character.Strength += 20;
-                    character.Intelligence += 40;
-                    character.HP += 40;
-                    character.MP += 40;
-                    character.PDef = 20;
-                    character.Attack = 20;
+                    character.Strength += 2;
+                    character.Intelligence += 2;
+                    character.HP += 2;
+                    character.MP += 2;
+                    character.PDef = 2;
+                    character.Attack = 2;
                     break;
                 case "Gold":
-                    character.Strength += 30;
-                    character.Intelligence += 50;
-                    character.HP += 50;
-                    character.MP += 50;
-                    character.PDef = 30;
-                    character.Attack = 30;
+                    character.Strength += 3;
+                    character.Intelligence += 3;
+                    character.HP += 3;
+                    character.MP += 3;
+                    character.PDef = 3;
+                    character.Attack = 3;
                     break;
             }
         }
