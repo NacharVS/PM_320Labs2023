@@ -3,6 +3,7 @@
 @using IAuthorizationService = AuthorizationApp.Services.Interfaces.IAuthorizationService
 @inject IAuthorizationService AuthorizationService;
 @inject IImageService ImageService;
+@inject IFileService FileService;
 
 <h3>MainPage</h3>
 <div class="page" style="display:flex;">
@@ -29,13 +30,19 @@
                     </tr>
                 }
             </table>
-            <div class="card" style="width: 18rem;">
-                <img src="images/@_currentImageSelected" class="card-img-top" alt="No such image found">
-                <div class="card-body">
-                    <a href="images/@_currentImageSelected" download="@_currentImageSelected" class="btn btn-primary">Download</a>
+            if (!string.IsNullOrEmpty(_currentImageSelected))
+            {
+                <div class="card" style="width: 18rem;">
+                    <img src="images/@_currentImageSelected" class="card-img-top" alt="No such image found">
+                    <div class="card-body">
+                        <a href="images/@_currentImageSelected" download="@_currentImageSelected" class="btn btn-primary">Download</a>
+                    </div>
                 </div>
-            </div>
+            }
         }
+    </div>
+    <div>
+        <InputFile OnChange="@LoadFiles" multiple></InputFile>
     </div>
 </div>
 
@@ -43,7 +50,7 @@
 
     private bool _imagesInitialized;
     private List<string> _images;
-    private string _currentImageSelected;
+    private string? _currentImageSelected;
 
     protected override async Task OnInitializedAsync()
     {
@@ -52,5 +59,18 @@
         _imagesInitialized = true;
     }
 
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        foreach (var file in e.GetMultipleFiles(e.FileCount))
+        {
+            Stream stream = file.OpenReadStream(20000000);
+            await FileService.UploadFileAsync(file.Name, stream);
+            await stream.DisposeAsync();
+        }
+        await ImageService.InitializeImages();
+        _images = (await ImageService.GetAllImages()).ToList();
+        StateHasChanged();
+    }
 
 }

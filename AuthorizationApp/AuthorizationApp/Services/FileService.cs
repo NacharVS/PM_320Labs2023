@@ -7,6 +7,8 @@ namespace AuthorizationApp.Services;
 
 public class FileService : IFileService
 {
+    private const string PathToSave = "wwwroot/images";
+
     private readonly GridFSBucket _fileSystem;
 
     public FileService(MongoConnection connection)
@@ -18,6 +20,11 @@ public class FileService : IFileService
     {
         var filename = Path.GetFileName(path);
         await UploadFileAsync(filename, path);
+    }
+
+    public async Task UploadFileAsync(string filename, Stream file)
+    {
+        await _fileSystem.UploadFromStreamAsync(filename, file);
     }
 
     public void UploadFile(string filename, string path)
@@ -35,6 +42,12 @@ public class FileService : IFileService
     public bool FileExists(string filename)
     {
         return _fileSystem.Find(FilterDefinition<GridFSFileInfo>.Empty).ToEnumerable().Any(x => x.Filename == filename);
+    }
+
+    public async Task DownloadFileFromStream(string filename, Stream stream)
+    {
+        var fs = new FileStream(PathToSave + $"/{filename}", FileMode.CreateNew);
+        await _fileSystem.DownloadToStreamAsync(filename, fs);
     }
 
     public async Task UploadFileAsync(string filename, string path)
