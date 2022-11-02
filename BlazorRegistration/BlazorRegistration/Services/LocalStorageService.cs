@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace BlazorRegistration.Data
+namespace BlazorRegistration.Services
 {
     public class LocalStorageService : ILocalStorageService
     {

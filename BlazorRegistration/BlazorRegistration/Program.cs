@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using BlazorRegistration.Data;
+using BlazorRegistration.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<DataBase>();
 builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
+builder.Services.AddScoped<FileSystemService>();
 
 var app = builder.Build();
 

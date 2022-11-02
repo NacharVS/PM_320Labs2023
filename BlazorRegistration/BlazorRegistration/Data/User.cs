@@ -1,4 +1,4 @@
-﻿using BlazorRegistration.Shared;
+﻿using BlazorRegistration.Services;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 

@@ -1,8 +1,9 @@
 ﻿
 using MongoDB.Bson;
 using MongoDB.Driver;
+using BlazorRegistration.Data;
 
-namespace BlazorRegistration.Data;
+namespace BlazorRegistration.Services;
     public class DataBase
     {
         public User? CurrentUser { get; set; }
