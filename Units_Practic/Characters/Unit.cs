@@ -34,6 +34,8 @@ namespace Units_Practic.Characters
         public List<Item> inventory = new List<Item>();
         public List<Item> avaibleItems;
 
+        public Equipment equipment;
+
         public Unit()
         {
             lvl = new Lvl();

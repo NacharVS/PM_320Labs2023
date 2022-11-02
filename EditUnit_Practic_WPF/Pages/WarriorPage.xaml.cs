@@ -5,6 +5,8 @@ using Units_Practic.Abilities;
 using Units_Practic.Characters;
 using Units_Practic.MongoDb;
 using Units_Practic.Items;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace EditUnit_Practic_WPF.Pages
 {
@@ -252,6 +254,8 @@ namespace EditUnit_Practic_WPF.Pages
             unit.inventory.Add(item);
 
             UpdateCharacteristics();
+
+            //tbAtackPoint.Text 
         }
 
         private void btn_DeleteItem_Click(object sender, RoutedEventArgs e)
@@ -262,6 +266,59 @@ namespace EditUnit_Practic_WPF.Pages
             unit.inventory.Remove(item);
 
             UpdateCharacteristics();
+        }
+
+        private void btn_EquipItem_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (Item)ListInventory.SelectedItem;
+
+            if (item == null) return;
+
+            EquipItem(item);
+            UpdateCharacteristics();
+        }
+
+        private void ShowEquip(IChangeStats item)
+        {
+            tbHP_Change.Text = tbHP_Change.Text == "" ? $"{item.healthPointChange}" : $"{Convert.ToDouble(tbHP_Change.Text) + item.healthPointChange}";
+            tbMP_Change.Text = tbMP_Change.Text == "" ? $"{item.manaPointChange}" : $"{Convert.ToDouble(tbMP_Change.Text) + item.manaPointChange}";
+
+            tbAtackPoint_Change.Text = tbAtackPoint_Change.Text == "" ? $"{item.atackPointChange}" 
+                : $"{Convert.ToDouble(tbAtackPoint_Change.Text) + item.atackPointChange}";
+            tbMagicAtackPoint_Change.Text = tbMagicAtackPoint_Change.Text == "" ? $"{item.magicAtackPointChange}" 
+                : $"{Convert.ToDouble(tbMagicAtackPoint_Change.Text) + item.magicAtackPointChange}";
+            tbPhysicalProtectionPoint_Change.Text = tbPhysicalProtectionPoint_Change.Text == "" ? $"{item.physicalProtectionPointChange}" 
+                : $"{Convert.ToDouble(tbPhysicalProtectionPoint_Change.Text) + item.physicalProtectionPointChange}";
+
+        }
+
+        private void EquipItem(Item item)
+        {
+            if (item is IEquipment)
+            {
+                switch (item)
+                {
+                    case Helmet:
+                        unit.equipment.helmet = (Helmet)item;
+                        //unit.equipment.helmet.equip = true;
+
+                        ShowEquip((IChangeStats)unit.equipment.helmet);
+                        break;
+
+                    case ChestArmor:
+                        unit.equipment.armor = (ChestArmor)item;
+
+                        ShowEquip((IChangeStats)unit.equipment.armor);
+                        break;
+
+                    case Weapon:
+                        unit.equipment.weapon = (Weapon)item;
+
+                        ShowEquip((IChangeStats)unit.equipment.weapon);
+                        break;
+
+                }
+            }
         }
     }
 }
