@@ -65,6 +65,10 @@ namespace EditUnit_Practic_WPF.Pages
             // workaround
             ListInventory.ItemsSource = null;
             ListInventory.ItemsSource = unit.inventory;
+
+            ShowEquip((IChangeStats)unit.equipment.helmet);
+            ShowEquip((IChangeStats)unit.equipment.armor);
+            ShowEquip((IChangeStats)unit.equipment.weapon);
         }
 
         private void dexBtnMax_Click(object sender, RoutedEventArgs e)
@@ -264,10 +268,120 @@ namespace EditUnit_Practic_WPF.Pages
             UpdateCharacteristics();
         }
 
-        private void chB_equip_Checked(object sender, RoutedEventArgs e)
+        private void btn_EquipItem_Click(object sender, RoutedEventArgs e)
         {
-            //var item = ListInventory.SelectedItem;
-            //MessageBox.Show(item.ToString());
+            var item = (Item)ListInventory.SelectedItem;
+
+            if (item == null) return;
+
+            EquipItem(item);
+            UpdateCharacteristics();
+        }
+
+        private void ShowEquip(IChangeStats item)
+        {
+            if (item == null) return;
+
+            tbHP_Change.Text = $"{Convert.ToDouble(tbHP_Change.Text) + item.healthPointChange}";
+            tbMP_Change.Text = $"{Convert.ToDouble(tbMP_Change.Text) + item.manaPointChange}";
+
+            tbAtackPoint_Change.Text = $"{Convert.ToDouble(tbAtackPoint_Change.Text) + item.atackPointChange}";
+            tbMagicAtackPoint_Change.Text = $"{Convert.ToDouble(tbMagicAtackPoint_Change.Text) + item.magicAtackPointChange}";
+            tbPhysicalProtectionPoint_Change.Text = $"{Convert.ToDouble(tbPhysicalProtectionPoint_Change.Text) + item.physicalProtectionPointChange}";
+        }
+
+        private void HideEquip(IChangeStats item)
+        {
+            tbHP_Change.Text = $"{Convert.ToDouble(tbHP_Change.Text) - item.healthPointChange}";
+            tbMP_Change.Text = $"{Convert.ToDouble(tbMP_Change.Text) - item.manaPointChange}";
+
+            tbAtackPoint_Change.Text = $"{Convert.ToDouble(tbAtackPoint_Change.Text) - item.atackPointChange}";
+            tbMagicAtackPoint_Change.Text = $"{Convert.ToDouble(tbMagicAtackPoint_Change.Text) - item.magicAtackPointChange}";
+            tbPhysicalProtectionPoint_Change.Text = $"{Convert.ToDouble(tbPhysicalProtectionPoint_Change.Text) - item.physicalProtectionPointChange}";
+
+        }
+
+        private bool CheckIsEquip(Item item)
+        {
+            bool res = false;
+
+            if (item == unit.equipment.helmet)
+            {
+                unit.equipment.helmet.equip = false;
+                HideEquip((IChangeStats)unit.equipment.helmet);
+                res = true;
+            }
+            if (item == unit.equipment.armor)
+            {
+                unit.equipment.armor.equip = false;
+                HideEquip((IChangeStats)unit.equipment.armor);
+                res = true;
+            }
+            if (item == unit.equipment.weapon)
+            {
+                unit.equipment.weapon.equip = false;
+                HideEquip((IChangeStats)unit.equipment.weapon);
+                res = true;
+            }
+
+            return res;
+
+        }
+
+        private bool CheckCharacteristics(INecessaryCharacteristics item)
+        {
+            if (item.necessaryStrength <= unit.characteristics.strength &&
+                item.necessaryDexterity <= unit.characteristics.dexterity &&
+                item.necessaryConstitution <= unit.characteristics.constitution &&
+                item.necessaryIntelligence <= unit.characteristics.intelligence) return true;
+
+            return false;
+        }
+
+        private void EquipItem(Item item)
+        {
+            if (CheckIsEquip(item)) return;
+
+            if (!CheckCharacteristics((INecessaryCharacteristics)item))
+            {
+                MessageBox.Show("Unsuitable characteristics.");
+                return;
+            }
+
+            if (item is IEquipment)
+            {
+                switch (item)
+                {
+                    case Helmet:
+
+                        if (unit.equipment.helmet is not null) HideEquip((IChangeStats)unit.equipment.helmet);
+
+                        unit.equipment.helmet = (Helmet)item;
+                        unit.equipment.helmet.equip = true;
+
+                        ShowEquip((IChangeStats)unit.equipment.helmet);
+                        break;
+
+                    case ChestArmor:
+                        if (unit.equipment.armor is not null) HideEquip((IChangeStats)unit.equipment.armor);
+
+                        unit.equipment.armor = (ChestArmor)item;
+                        unit.equipment.armor.equip = true;
+
+                        ShowEquip((IChangeStats)unit.equipment.armor);
+                        break;
+
+                    case Weapon:
+                        if (unit.equipment.weapon is not null) HideEquip((IChangeStats)unit.equipment.weapon);
+
+                        unit.equipment.weapon = (Weapon)item;
+                        unit.equipment.weapon.equip = true;
+
+                        ShowEquip((IChangeStats)unit.equipment.weapon);
+                        break;
+
+                }
+            }
         }
     }
 }

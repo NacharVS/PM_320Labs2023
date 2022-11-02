@@ -39,6 +39,7 @@ namespace Units_Practic.Characters
         public Unit()
         {
             lvl = new Lvl();
+            equipment = new Equipment();
 
             UpdateAvaibleItems();
         }

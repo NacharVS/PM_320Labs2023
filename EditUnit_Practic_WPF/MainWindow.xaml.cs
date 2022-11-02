@@ -1,6 +1,7 @@
 ﻿using EditUnit_Practic_WPF.Pages;
 using MongoDB.Bson.Serialization;
 using System.Windows;
+using Units_Practic;
 using Units_Practic.Characters;
 
 namespace EditUnit_Practic_WPF
@@ -17,6 +18,7 @@ namespace EditUnit_Practic_WPF
             BsonClassMap.RegisterClassMap<Warrior>();
             BsonClassMap.RegisterClassMap<Rogue>();
             BsonClassMap.RegisterClassMap<Wizard>();
+            BsonClassMap.RegisterClassMap<Equipment>();
 
             EditPage.NavigationService.Navigate(new EditPage());
             MatchPage.NavigationService.Navigate(new MatchPage());
