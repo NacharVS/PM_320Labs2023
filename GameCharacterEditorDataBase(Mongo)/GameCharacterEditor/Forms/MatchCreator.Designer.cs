@@ -31,9 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.SavedCharacteers_Lable = new System.Windows.Forms.Label();
             this.SavedCharactersBox = new System.Windows.Forms.ListBox();
-            this.CustomTeam_Button = new System.Windows.Forms.Button();
             this.TeamType_Label = new System.Windows.Forms.Label();
-            this.AutoTeam_Button = new System.Windows.Forms.Button();
+            this.CreateTeam_Button = new System.Windows.Forms.Button();
             this.Choose_Label = new System.Windows.Forms.Label();
             this.FirstTeam_ListBox = new System.Windows.Forms.ListBox();
             this.SecondTeam_ListBox = new System.Windows.Forms.ListBox();
@@ -78,41 +77,28 @@
             this.SavedCharactersBox.TabIndex = 48;
             this.SavedCharactersBox.SelectedIndexChanged += new System.EventHandler(this.SavedCharactersBox_SelectedIndexChanged);
             // 
-            // CustomTeam_Button
-            // 
-            this.CustomTeam_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.CustomTeam_Button.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CustomTeam_Button.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.CustomTeam_Button.Location = new System.Drawing.Point(321, 166);
-            this.CustomTeam_Button.Name = "CustomTeam_Button";
-            this.CustomTeam_Button.Size = new System.Drawing.Size(367, 42);
-            this.CustomTeam_Button.TabIndex = 78;
-            this.CustomTeam_Button.Text = "Custom team generation";
-            this.CustomTeam_Button.UseVisualStyleBackColor = false;
-            this.CustomTeam_Button.Click += new System.EventHandler(this.CustomTeam_Button_Click);
-            // 
             // TeamType_Label
             // 
             this.TeamType_Label.AutoSize = true;
             this.TeamType_Label.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.TeamType_Label.Location = new System.Drawing.Point(321, 116);
+            this.TeamType_Label.Location = new System.Drawing.Point(402, 119);
             this.TeamType_Label.Name = "TeamType_Label";
-            this.TeamType_Label.Size = new System.Drawing.Size(367, 31);
+            this.TeamType_Label.Size = new System.Drawing.Size(197, 31);
             this.TeamType_Label.TabIndex = 79;
-            this.TeamType_Label.Text = "Choose a way to create a team";
+            this.TeamType_Label.Text = "Select an action";
             // 
-            // AutoTeam_Button
+            // CreateTeam_Button
             // 
-            this.AutoTeam_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.AutoTeam_Button.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AutoTeam_Button.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.AutoTeam_Button.Location = new System.Drawing.Point(321, 214);
-            this.AutoTeam_Button.Name = "AutoTeam_Button";
-            this.AutoTeam_Button.Size = new System.Drawing.Size(367, 42);
-            this.AutoTeam_Button.TabIndex = 80;
-            this.AutoTeam_Button.Text = "Automatic team generation";
-            this.AutoTeam_Button.UseVisualStyleBackColor = false;
-            this.AutoTeam_Button.Click += new System.EventHandler(this.AutoTeam_Button_Click);
+            this.CreateTeam_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.CreateTeam_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CreateTeam_Button.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.CreateTeam_Button.Location = new System.Drawing.Point(321, 170);
+            this.CreateTeam_Button.Name = "CreateTeam_Button";
+            this.CreateTeam_Button.Size = new System.Drawing.Size(367, 42);
+            this.CreateTeam_Button.TabIndex = 80;
+            this.CreateTeam_Button.Text = "Create a team";
+            this.CreateTeam_Button.UseVisualStyleBackColor = false;
+            this.CreateTeam_Button.Click += new System.EventHandler(this.CreateTeam_Button_Click);
             // 
             // Choose_Label
             // 
@@ -178,11 +164,11 @@
             this.AutoGenerate_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.AutoGenerate_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.AutoGenerate_Button.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.AutoGenerate_Button.Location = new System.Drawing.Point(321, 105);
+            this.AutoGenerate_Button.Location = new System.Drawing.Point(321, 108);
             this.AutoGenerate_Button.Name = "AutoGenerate_Button";
             this.AutoGenerate_Button.Size = new System.Drawing.Size(367, 42);
             this.AutoGenerate_Button.TabIndex = 86;
-            this.AutoGenerate_Button.Text = "Start generating teams";
+            this.AutoGenerate_Button.Text = "Automatic team generation";
             this.AutoGenerate_Button.UseVisualStyleBackColor = false;
             this.AutoGenerate_Button.Visible = false;
             this.AutoGenerate_Button.Click += new System.EventHandler(this.AutoGenerate_Button_Click);
@@ -233,7 +219,7 @@
             this.MatchInfo_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.MatchInfo_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MatchInfo_Button.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.MatchInfo_Button.Location = new System.Drawing.Point(321, 310);
+            this.MatchInfo_Button.Location = new System.Drawing.Point(321, 266);
             this.MatchInfo_Button.Name = "MatchInfo_Button";
             this.MatchInfo_Button.Size = new System.Drawing.Size(367, 42);
             this.MatchInfo_Button.TabIndex = 89;
@@ -245,7 +231,7 @@
             // 
             this.Or_Lable.AutoSize = true;
             this.Or_Lable.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Or_Lable.Location = new System.Drawing.Point(482, 263);
+            this.Or_Lable.Location = new System.Drawing.Point(482, 219);
             this.Or_Lable.Name = "Or_Lable";
             this.Or_Lable.Size = new System.Drawing.Size(40, 31);
             this.Or_Lable.TabIndex = 90;
@@ -280,7 +266,7 @@
             this.HoldMatch_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.HoldMatch_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.HoldMatch_Button.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.HoldMatch_Button.Location = new System.Drawing.Point(321, 310);
+            this.HoldMatch_Button.Location = new System.Drawing.Point(321, 266);
             this.HoldMatch_Button.Name = "HoldMatch_Button";
             this.HoldMatch_Button.Size = new System.Drawing.Size(367, 42);
             this.HoldMatch_Button.TabIndex = 93;
@@ -293,7 +279,7 @@
             // 
             this.MatchNumber.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MatchNumber.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.MatchNumber.Location = new System.Drawing.Point(445, 358);
+            this.MatchNumber.Location = new System.Drawing.Point(445, 314);
             this.MatchNumber.Name = "MatchNumber";
             this.MatchNumber.Size = new System.Drawing.Size(120, 25);
             this.MatchNumber.TabIndex = 94;
@@ -331,9 +317,8 @@
             this.Controls.Add(this.SecondTeam_ListBox);
             this.Controls.Add(this.FirstTeam_ListBox);
             this.Controls.Add(this.Choose_Label);
-            this.Controls.Add(this.AutoTeam_Button);
+            this.Controls.Add(this.CreateTeam_Button);
             this.Controls.Add(this.TeamType_Label);
-            this.Controls.Add(this.CustomTeam_Button);
             this.Controls.Add(this.SavedCharacteers_Lable);
             this.Controls.Add(this.SavedCharactersBox);
             this.Controls.Add(this.MatchInfo_Button);
@@ -350,9 +335,8 @@
 
         private Label SavedCharacteers_Lable;
         private ListBox SavedCharactersBox;
-        private Button CustomTeam_Button;
         private Label TeamType_Label;
-        private Button AutoTeam_Button;
+        private Button CreateTeam_Button;
         private Label Choose_Label;
         private ListBox FirstTeam_ListBox;
         private ListBox SecondTeam_ListBox;

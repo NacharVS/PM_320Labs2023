@@ -595,10 +595,10 @@
             this.Armor_Label.Size = new System.Drawing.Size(69, 22);
             this.Armor_Label.TabIndex = 92;
             this.Armor_Label.Text = "Armor:";
+            this.Armor_Label.Visible = false;
             // 
             // Armor_ListBox
             // 
-            this.Armor_ListBox.Enabled = false;
             this.Armor_ListBox.FormattingEnabled = true;
             this.Armor_ListBox.ItemHeight = 15;
             this.Armor_ListBox.Items.AddRange(new object[] {
@@ -609,6 +609,7 @@
             this.Armor_ListBox.Name = "Armor_ListBox";
             this.Armor_ListBox.Size = new System.Drawing.Size(120, 49);
             this.Armor_ListBox.TabIndex = 93;
+            this.Armor_ListBox.Visible = false;
             this.Armor_ListBox.SelectedIndexChanged += new System.EventHandler(this.Armor_ListBox_SelectedIndexChanged);
             // 
             // Armor_Text

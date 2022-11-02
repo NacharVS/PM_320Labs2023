@@ -11,13 +11,13 @@ namespace GameCharacterEditor
     {
         /*public List<ObjectId> FirstTeam { get; set; } = new List<ObjectId> ();
         public List<ObjectId> SecondTeam { get; set; } = new List<ObjectId> ();*/
-        
-        public ObjectId Id;
         /*public List<Character> FirstTeam { get; set; } = new List<Character>();
         public List<Character> SecondTeam { get; set; } = new List<Character>();*/
+        
+        public ObjectId Id;
         public List<string> FirstTeam { get; set; } = new List<string>();
         public List<string> SecondTeam { get; set; } = new List<string>();
-        public int NumberMatch { get; set; }
+        public int? NumberMatch { get; set; }
         public DateTime Time { get; set; }
 
 

@@ -9,6 +9,7 @@ namespace GameCharacterEditor
     {
         private Character character;
         private string characterType;
+        private Armor armor;
         private Equipment equipment;
         private Skill skill;
         private bool skillBool;
@@ -200,7 +201,6 @@ namespace GameCharacterEditor
             Save_Button.Enabled = true;
             GO_Button.Enabled = true;   
             XP_Text.Enabled = true;
-            Armor_ListBox.Enabled = true;
             SavedCharactersBox.Enabled = false;
 
             xp = 0;
@@ -236,12 +236,6 @@ namespace GameCharacterEditor
 
         private void Save_Button_Click(object sender, EventArgs e)
         {
-            /*if (character.Name is null)
-            {
-                MessageBox.Show("Teams are not balansed or dont have characters!",
-                    "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
-
             SavedCharactersBox.Items.Clear();
             SavedCharactersBox.Items.Add(character.Name);
             ListUpdate();
@@ -351,9 +345,20 @@ namespace GameCharacterEditor
                 Skill_Text.Text += character.skillList[i] + " ";
             }
 
-            Material_ComboBox.Visible = false;
-            Armor_ListBox.Visible = false;
+            Armor_Text.Text = "";
+            Armor_Label.Visible = true;
             Armor_Text.Visible = true;
+            for (int i = 0; i < character.armorList.Count; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    Armor_Text.Text += character.armorList[i] + " ";
+                }
+                else
+                {
+                    Armor_Text.Text += character.armorList[i] + ", ";
+                }
+            }
         }
 
         private void Skills_CheckBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -362,7 +367,7 @@ namespace GameCharacterEditor
             {
                 skill = new Skill(Skill_CheckBox.SelectedItem.ToString());
                 character.AddToSkillName(Skill_CheckBox.SelectedItem.ToString());
-                character.AddToSkill(skill);
+                //character.AddToSkill(skill);
                 skillBool = true;
             }
 
@@ -378,7 +383,7 @@ namespace GameCharacterEditor
         {
             equipment = new Equipment(Equipment_CheckBox.SelectedItem.ToString(), 10);
             character.AddToEquipmentName(Equipment_CheckBox.SelectedItem.ToString());
-            character.AddToEquipment(equipment);
+            //character.AddToEquipment(equipment);
         }
 
         private void Edit_Button_Click(object sender, EventArgs e)
@@ -408,6 +413,12 @@ namespace GameCharacterEditor
                 Skills_Lable.Visible = true;
                 Skill_CheckBox.Visible = true;
             }
+
+            if(int.Parse(Lvl_Text.Text) == 3)
+            {
+                Armor_ListBox.Visible = true;
+                Armor_Label.Visible = true;
+            }
         }
 
         private void Armor_ListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -420,38 +431,61 @@ namespace GameCharacterEditor
             switch (Armor_ListBox.SelectedItem.ToString())
             {
                 case "Chain mail":
-                    character.chainmail = new ChainMail(Material_ComboBox.SelectedItem.ToString());
-                    character.chainmail.CheckChainMail(character, Material_ComboBox.SelectedItem.ToString());
-                    Strength_Text.Value = character.Strength;
-                    Dexterity_Text.Value = character.Dexterity;
-                    HP_Text.Value = character.HP;
-                    MP_Text.Value = character.MP;
-                    PDef_Text.Value = character.PDef;
-                    Attack_Text.Value = character.Attack;
+                    armor = new ChainMail(Armor_ListBox.SelectedItem.ToString(),Material_ComboBox.SelectedItem.ToString());
                     break;
                 case "Helmet":
-                    character.helmet = new Helmet(Material_ComboBox.SelectedItem.ToString());
-                    character.helmet.CheckHelmet(character, Material_ComboBox.SelectedItem.ToString());
-                    Strength_Text.Value = character.Strength;
-                    Intelligence_Text.Value = character.Intelligence;
-                    HP_Text.Value = character.HP;
-                    MP_Text.Value = character.MP;
-                    PDef_Text.Value = character.PDef;
-                    Attack_Text.Value = character.Attack;
+                    armor = new Helmet(Armor_ListBox.SelectedItem.ToString(),Material_ComboBox.SelectedItem.ToString());
                     break;
                 case "Shield":
-                    character.shild = new Shield(Material_ComboBox.SelectedItem.ToString());
-                    character.shild.CheckShild(character, Material_ComboBox.SelectedItem.ToString());
-                    Strength_Text.Value = character.Strength;
-                    Dexterity_Text.Value = character.Dexterity;
-                    HP_Text.Value = character.HP;
-                    MP_Text.Value = character.MP;
-                    PDef_Text.Value = character.PDef;
-                    Attack_Text.Value = character.Attack;
+                    armor = new Shield(Armor_ListBox.SelectedItem.ToString(),Material_ComboBox.SelectedItem.ToString());
                     break;
             }
 
+            switch (Material_ComboBox.SelectedItem.ToString())
+            {
+                case "Copper":
+                    ArmorCharacteristics();
+                    break;
+                case "Silver":
+                    if (int.Parse(Lvl_Text.Text) > 4 && int.Parse(Lvl_Text.Text) < 7)
+                    {
+                        ArmorCharacteristics();
+                    }
+                    else
+                    {
+                        MessageBox.Show("To choose a silver armor, you need to reach level 5",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    }
+                    break;
+                case "Gold":
+                    if (int.Parse(Lvl_Text.Text) > 6)
+                    {
+                        ArmorCharacteristics();
+                    }
+                    else
+                    {
+                        MessageBox.Show("To choose a silver armor, you need to reach level 7",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    }
+                    break;
+            }
             DataBase.UpdateCharacterByName(SavedCharactersBox.Text, character);
+        }
+
+        private void ArmorCharacteristics()
+        {
+            armor.Check(character, Material_ComboBox.SelectedItem.ToString(),
+                    Armor_ListBox.SelectedItem.ToString());
+            character.AddToArmorName(Armor_ListBox.SelectedItem.ToString());
+            character.AddToArmorName(Material_ComboBox.SelectedItem.ToString());
+            //character.AddToArmor(armor);
+            Strength_Text.Value = character.Strength;
+            Dexterity_Text.Value = character.Dexterity;
+            Intelligence_Text.Value = character.Intelligence;
+            HP_Text.Value = character.HP;
+            MP_Text.Value = character.MP;
+            PDef_Text.Value = character.PDef;
+            Attack_Text.Value = character.Attack;
         }
 
         private void GO_Button_Click(object sender, EventArgs e)

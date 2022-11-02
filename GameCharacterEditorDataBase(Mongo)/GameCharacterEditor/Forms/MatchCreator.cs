@@ -13,7 +13,7 @@ namespace GameCharacterEditor
 {
     public partial class MatchCreator : Form
     {
-        private Match match;
+        private Match match = new Match();
         private Character character = new Character();
         private int numberTeam;
         public MatchCreator()
@@ -47,8 +47,7 @@ namespace GameCharacterEditor
         public void Display()
         {
             TeamType_Label.Visible = false;
-            CustomTeam_Button.Visible = false;
-            AutoTeam_Button.Visible = false;
+            CreateTeam_Button.Visible = false;
             Or_Lable.Visible = false;
             MatchInfo_Button.Visible = false;
             FirstTeam_ListBox.Visible = true;
@@ -62,10 +61,11 @@ namespace GameCharacterEditor
             Balance_Text.Visible = true;
         }
 
-        private void AutoTeam_Button_Click(object sender, EventArgs e)
+        private void CreateTeam_Button_Click(object sender, EventArgs e)
         {
             Display();
             AutoGenerate_Button.Visible = true;
+            SavedCharactersBox.Enabled = true;
         }
 
         private void AutoGenerate_Button_Click(object sender, EventArgs e)
@@ -113,13 +113,6 @@ namespace GameCharacterEditor
             }
         }
 
-        private void CustomTeam_Button_Click(object sender, EventArgs e)
-        {
-            Display();
-            Choose_Label.Visible = true;
-            SavedCharactersBox.Enabled = true;
-        }
-
         private void SavedCharactersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (FirstTeam_ListBox.Items.Count < 6)
@@ -135,6 +128,11 @@ namespace GameCharacterEditor
 
             SavedCharactersBox.Items.Remove(SavedCharactersBox.Text);
             Balance();
+            
+            if (FirstTeam_ListBox.Items.Count >= 6 && SecondTeam_ListBox.Items.Count >= 6)
+            {
+                AddingLists();
+            }
         }
 
         private void ClearFirst_Button_Click(object sender, EventArgs e)
@@ -145,6 +143,7 @@ namespace GameCharacterEditor
             }
 
             FirstTeam_ListBox.Items.Clear();
+            Balance_Text.Text = "X";
         }
 
         private void ClearSecond_Button_Click(object sender, EventArgs e)
@@ -155,6 +154,7 @@ namespace GameCharacterEditor
             }
 
             SecondTeam_ListBox.Items.Clear();
+            Balance_Text.Text = "X";
         }
 
         private void FirstTeam_ListBox_MouseUp(object sender, MouseEventArgs e)
@@ -167,8 +167,12 @@ namespace GameCharacterEditor
 
                     if (issue == DialogResult.OK)
                     {
+                        SavedCharactersBox.Items.Add(FirstTeam_ListBox.SelectedItem);
                         FirstTeam_ListBox.Items.Remove(FirstTeam_ListBox.Text);
                     }
+                    
+                    SavedCharactersBox.Enabled = true;
+                    Balance_Text.Text = "X";
                     break;
                 case MouseButtons.Left:
                     GameCharacterEditor gameCharacterEditor = new GameCharacterEditor(FirstTeam_ListBox.SelectedItem.ToString());
@@ -187,8 +191,12 @@ namespace GameCharacterEditor
 
                     if (issue == DialogResult.OK)
                     {
+                        SavedCharactersBox.Items.Add(SecondTeam_ListBox.SelectedItem.ToString());
                         SecondTeam_ListBox.Items.Remove(SecondTeam_ListBox.Text);
                     }
+                    
+                    SavedCharactersBox.Enabled = true;
+                    Balance_Text.Text = "X";
                     break;
                 case MouseButtons.Left:
                     GameCharacterEditor gameCharacterEditor = new GameCharacterEditor(SecondTeam_ListBox.SelectedItem.ToString());
@@ -200,6 +208,9 @@ namespace GameCharacterEditor
         private void MatchInfo_Button_Click(object sender, EventArgs e)
         {
             Display();
+            MatchNumber.Visible = false;
+            ClearFirst_Button.Visible = false;
+            ClearSecond_Button.Visible = false;
             SavedCharacteers_Lable.Visible = false;
             HoldMatch_Button.Visible = false;
             Matches_Label.Visible = true;
@@ -208,6 +219,8 @@ namespace GameCharacterEditor
 
         private void Match_ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            FirstTeam_ListBox.Items.Clear();
+            SecondTeam_ListBox.Items.Clear();
             match = DataBase.FindMatchByNumber((int)Match_ListBox.SelectedItem);
 
             foreach (var character in match.FirstTeam)
@@ -238,20 +251,27 @@ namespace GameCharacterEditor
 
         public void Balance()
         {
-            if (BalanceCheck())
+            if (BalanceCheck() && FirstTeam_ListBox.Items.Count == 6 && 
+                SecondTeam_ListBox.Items.Count == 6)
             {
                 Balance_Text.Text = "Balance";
+                HoldMatch_Button.Enabled = true;
             }
             else
             {
                 Balance_Text.Text = "X";
+                HoldMatch_Button.Enabled = false;
             }
+            
+            SavedCharactersBox.Enabled = false;
         }
 
         public bool BalanceCheck()
         {
             int lvlFirstTeam = 0;
             int lvlSecondTeam = 0;
+            int balanceOne = 0;
+            int balanceTwo = 0;
 
             foreach (var character in FirstTeam_ListBox.Items)
             {
@@ -263,8 +283,15 @@ namespace GameCharacterEditor
                 lvlSecondTeam += DataBase.FindCharacterByName(character.ToString()).Lvl;
             }
 
-            int balanceOne = lvlFirstTeam / FirstTeam_ListBox.Items.Count;
-            int balanceTwo = lvlSecondTeam / SecondTeam_ListBox.Items.Count;
+            if (SecondTeam_ListBox.Items.Count != 0)
+            {
+                balanceOne = lvlFirstTeam / FirstTeam_ListBox.Items.Count;
+                balanceTwo = lvlSecondTeam / SecondTeam_ListBox.Items.Count;
+            }
+            else
+            {
+                balanceOne = lvlFirstTeam / FirstTeam_ListBox.Items.Count;
+            }
 
             return Math.Abs(balanceOne - balanceTwo) < 2;
         }
