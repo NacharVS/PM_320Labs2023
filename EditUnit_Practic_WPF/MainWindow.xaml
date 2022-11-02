@@ -21,7 +21,7 @@
             <TabItem x:Name="TbItEdit" Header="Edit">
                 <Frame x:Name="EditPage" NavigationUIVisibility="Hidden"/>
             </TabItem>
-            <TabItem x:Name="TbItMatch" Header="Match" MouseDown="TbItMatch_MouseDown">
+            <TabItem x:Name="TbItMatch" Header="Match">
                 <Frame Name="MatchPage"/>
             </TabItem>
         </TabControl>

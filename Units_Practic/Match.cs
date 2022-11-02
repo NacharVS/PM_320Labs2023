@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace Units_Practic
 {
@@ -29,7 +30,29 @@ namespace Units_Practic
 
         public override string ToString()
         {
-            return $"Macth {date} | {_id}";
+            return $"Macth: {GetUnitsName(firstTeam)} VS {GetUnitsName(secondTeam)}. On {date}.";
+        }
+
+        private string GetUnitsName(List<ObjectId> team)
+        {
+            StringBuilder names = new();
+
+            foreach (var id in team)
+            {
+                try
+                {
+                    names.Append(MongoDb.MongoDb.FindById(id.ToString()).name);
+                }
+                catch
+                {
+                    names.Append("*unit is lost*");
+                }
+
+                names.Append(", ");
+            }
+            names.Remove(names.Length-2, 2);
+
+            return names.ToString();
         }
     }
 }
