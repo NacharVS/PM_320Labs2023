@@ -1,0 +1,12 @@
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\bin\Debug\net6.0\WPFcharacterictic.Core.deps.json
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\bin\Debug\net6.0\WPFcharacterictic.Core.dll
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\bin\Debug\net6.0\WPFcharacterictic.Core.pdb
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\obj\Debug\net6.0\WPFcharacterictic.Core.csproj.AssemblyReference.cache
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\obj\Debug\net6.0\WPFcharacterictic.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\obj\Debug\net6.0\WPFcharacterictic.Core.AssemblyInfoInputs.cache
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\obj\Debug\net6.0\WPFcharacterictic.Core.AssemblyInfo.cs
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\obj\Debug\net6.0\WPFcharacterictic.Core.csproj.CoreCompileInputs.cache
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\obj\Debug\net6.0\WPFcharacterictic.Core.dll
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\obj\Debug\net6.0\refint\WPFcharacterictic.Core.dll
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\obj\Debug\net6.0\WPFcharacterictic.Core.pdb
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\WPFcharacterictic.Core\obj\Debug\net6.0\ref\WPFcharacterictic.Core.dll

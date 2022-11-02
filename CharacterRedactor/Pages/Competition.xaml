@@ -1,0 +1,44 @@
+﻿<Page x:Class="WPFcharacterictic.WPF.Competition"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFcharacterictic.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      x:Name="CompetitionPage"
+      Title="Competition">
+
+    <Grid Background="White" Margin="0,0,0,-87">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="44*"/>
+            <ColumnDefinition Width="319*"/>
+            <ColumnDefinition Width="37*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="71*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Height="28" Margin="0,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Competition" VerticalAlignment="Top" Width="210" FontSize="22" TextAlignment="Center" FontFamily="Poor Richard"/>
+        <TextBlock HorizontalAlignment="Left" Height="28" Margin="55,53,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Team 1" VerticalAlignment="Top" Width="179" FontSize="20" TextAlignment="Center" Grid.Column="1" FontFamily="Poor Richard"/>
+        <TextBlock HorizontalAlignment="Left" Height="28" Margin="396,53,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Team 2" VerticalAlignment="Top" Width="179" FontSize="18" TextAlignment="Center" Grid.Column="1" FontFamily="Poor Richard"/>
+        <ComboBox x:Name="userTeam1One" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="55,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1One"/>
+        <ComboBox x:Name="userTeam2One" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="55,136,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1One"/>
+        <ComboBox x:Name="userTeam3One" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="55,180,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1One"/>
+        <ComboBox x:Name="userTeam4One" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="55,226,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1One"/>
+        <ComboBox x:Name="userTeam5One" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="55,271,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1One"/>
+        <ComboBox x:Name="userTeam6One" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="55,315,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1One"/>
+        <ComboBox x:Name="userTeam1Two" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="396,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1Two"/>
+        <ComboBox x:Name="userTeam2Two" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="396,136,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1Two"/>
+        <ComboBox x:Name="userTeam3Two" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="396,180,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1Two"/>
+        <ComboBox x:Name="userTeam4Two" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="396,226,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1Two"/>
+        <ComboBox x:Name="userTeam5Two" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="396,271,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1Two"/>
+        <ComboBox x:Name="userTeam6Two" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="396,315,0,0" Grid.Row="1" VerticalAlignment="Top" Width="179" BorderThickness="0,0,0,0" SelectionChanged="ClickUserTeam1Two"/>
+        <TextBlock x:Name="averageLevelOne" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="106,368,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="76" TextAlignment="Center" Background="#FF32C8E8" Foreground="White" FontSize="24"/>
+        <TextBlock x:Name="averageLevelTwo" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="448,368,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="76" TextAlignment="Center" Background="#FF32C8E8" Foreground="White" FontSize="24"/>
+        <Button Grid.Column="1" Content="Save" HorizontalAlignment="Left" Height="28" Margin="572,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="48" Background="#FF41C48F" Foreground="White" BorderBrush="{x:Null}" FontFamily="Poor Richard" FontSize="14"/>
+        <Button Grid.Column="1" Content="Auto" HorizontalAlignment="Left" Height="28" Margin="519,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="48" Background="#FF41C48F" Foreground="White" BorderBrush="{x:Null}" FontFamily="Poor Richard" FontSize="14" Click="BtnAutoClick"/>
+        <Button Grid.Column="1" Content="Back" HorizontalAlignment="Left" Height="28" Margin="26,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="48" Background="#FF41ADC4" Foreground="White" BorderBrush="{x:Null}" FontFamily="Poor Richard" FontSize="14" Click="Button_Click"/>
+    </Grid>
+</Page>
