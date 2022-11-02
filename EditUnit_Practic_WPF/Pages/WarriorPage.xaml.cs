@@ -34,6 +34,10 @@ namespace EditUnit_Practic_WPF.Pages
         {
             UpdateCharacteristics();
             GetItems();
+
+            ShowEquip((IChangeStats)unit.equipment.helmet);
+            ShowEquip((IChangeStats)unit.equipment.armor);
+            ShowEquip((IChangeStats)unit.equipment.weapon);
         }
 
         private void UpdateCharacteristics()
@@ -324,38 +328,31 @@ namespace EditUnit_Practic_WPF.Pages
                 res = true;
             }
 
-            return res;
-
-        }
-
-        private bool CheckCharacteristics(INecessaryCharacteristics item)
-        {
-            if (item.necessaryStrength <= unit.characteristics.strength &&
-                item.necessaryDexterity <= unit.characteristics.dexterity &&
-                item.necessaryConstitution <= unit.characteristics.constitution &&
-                item.necessaryIntelligence <= unit.characteristics.intelligence) return true;
+            tbAtackPoint_Change.Text = tbAtackPoint_Change.Text == "" ? $"{item.atackPointChange}" 
+                : $"{Convert.ToDouble(tbAtackPoint_Change.Text) + item.atackPointChange}";
+            tbMagicAtackPoint_Change.Text = tbMagicAtackPoint_Change.Text == "" ? $"{item.magicAtackPointChange}" 
+                : $"{Convert.ToDouble(tbMagicAtackPoint_Change.Text) + item.magicAtackPointChange}";
+            tbPhysicalProtectionPoint_Change.Text = tbPhysicalProtectionPoint_Change.Text == "" ? $"{item.physicalProtectionPointChange}" 
+                : $"{Convert.ToDouble(tbPhysicalProtectionPoint_Change.Text) + item.physicalProtectionPointChange}";
 
             return false;
         }
 
         private void EquipItem(Item item)
         {
-            if (CheckIsEquip(item)) return;
-
-            if (!CheckCharacteristics((INecessaryCharacteristics)item))
-            {
-                MessageBox.Show("Unsuitable characteristics.");
-                return;
-            }
-
             if (item is IEquipment)
             {
+                if (CheckIsEquip(item)) return;
+
+                if (!CheckCharacteristics((INecessaryCharacteristics)item))
+                {
+                    MessageBox.Show("Unsuitable characteristics.");
+                    return;
+                }
+
                 switch (item)
                 {
                     case Helmet:
-
-                        if (unit.equipment.helmet is not null) HideEquip((IChangeStats)unit.equipment.helmet);
-
                         unit.equipment.helmet = (Helmet)item;
                         unit.equipment.helmet.equip = true;
 
@@ -363,8 +360,6 @@ namespace EditUnit_Practic_WPF.Pages
                         break;
 
                     case ChestArmor:
-                        if (unit.equipment.armor is not null) HideEquip((IChangeStats)unit.equipment.armor);
-
                         unit.equipment.armor = (ChestArmor)item;
                         unit.equipment.armor.equip = true;
 
@@ -372,8 +367,6 @@ namespace EditUnit_Practic_WPF.Pages
                         break;
 
                     case Weapon:
-                        if (unit.equipment.weapon is not null) HideEquip((IChangeStats)unit.equipment.weapon);
-
                         unit.equipment.weapon = (Weapon)item;
                         unit.equipment.weapon.equip = true;
 
@@ -382,6 +375,9 @@ namespace EditUnit_Practic_WPF.Pages
 
                 }
             }
+
+
+            UpdateCharacteristics();
         }
     }
 }

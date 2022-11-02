@@ -34,6 +34,10 @@ namespace EditUnit_Practic_WPF.Pages
         {
             UpdateCharacteristics();
             GetItems();
+
+            ShowEquip((IChangeStats)unit.equipment.helmet);
+            ShowEquip((IChangeStats)unit.equipment.armor);
+            ShowEquip((IChangeStats)unit.equipment.weapon);
         }
 
         private void UpdateCharacteristics()
