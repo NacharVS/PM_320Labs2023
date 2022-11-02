@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CreateCharacterWarcraftWpf.Equipments;
+using Microsoft.Win32;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -208,9 +210,11 @@ namespace CreateCharacterWarcraftWpf
             tbConInfo.Text = Convert.ToString(unit.constitution) + " / " + Convert.ToString(unit.constitutionMax);
             tbIntInfo.Text = Convert.ToString(unit.intelligence) + " / " + Convert.ToString(unit.intelligenceMax);
 
-            
+            cmBxChooseHelmet.Text = unit.equipments[0];
+            cmBxChooseArmor.Text = unit.equipments[1];
+            cmBxChooseWeapon.Text = unit.equipments[2];
 
-           foreach(var item in unit.inventory)
+            foreach (var item in unit.inventory)
             {
                 lstBoxInventory.Items.Add(item);
             }
@@ -371,6 +375,10 @@ namespace CreateCharacterWarcraftWpf
             unit.activeAbility = activeAbility;
             unit.inventory = unit.inventory.Concat(inventory).ToList();
 
+            unit.equipments[0] = cmBxChooseHelmet.Text;
+            unit.equipments[1] = cmBxChooseArmor.Text;
+            unit.equipments[2] = cmBxChooseWeapon.Text;
+
             Mongo.ReplaceByName(unit.name, unit);
             FillListBox();
 
@@ -408,20 +416,249 @@ namespace CreateCharacterWarcraftWpf
             inventory.Add(tbTitleItem.Text);
             lstBoxInventory.Items.Add(tbTitleItem.Text);
         }
+        private bool checkPosibility(int str, int dex, int cons, int intel, int reqStrength, int reqDexterity, int reqConstitution, int reqIntelligence)
+        {
+            
+            if(str >= reqStrength && dex >= reqDexterity && cons >= reqConstitution && intel >= reqIntelligence)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-        private void btnHelmet_Click(object sender, RoutedEventArgs e)
+        private void cmBxChooseWeapon_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            if (cmBxChooseWeapon.SelectedIndex == 0)
+            {
+                WoodenSword woodSword = new WoodenSword();
+                if (checkPosibility(takeNum(tbStrInfo.Text), takeNum(tbDexInfo.Text), takeNum(tbConInfo.Text), takeNum(tbIntInfo.Text),
+                    woodSword.ReqStrength, woodSword.ReqDexterity, woodSword.ReqConstitution, woodSword.ReqIntelligence))
+                {
+                    writeBuff();
+                }
+                else
+                {
+                    cmBxChooseWeapon.SelectedIndex = 3;
+                    writeBuff();
+                }
+
+            }
+            else if (cmBxChooseWeapon.SelectedIndex == 1)
+            {
+                IronSword ironSword = new IronSword();
+                if (checkPosibility(takeNum(tbStrInfo.Text), takeNum(tbDexInfo.Text), takeNum(tbConInfo.Text), takeNum(tbIntInfo.Text),
+                    ironSword.ReqStrength, ironSword.ReqDexterity, ironSword.ReqConstitution, ironSword.ReqIntelligence))
+                {
+                    writeBuff();
+                }
+                else
+                {
+                    cmBxChooseWeapon.SelectedIndex = 3;
+                    writeBuff();
+                }
+            }
+            else if (cmBxChooseWeapon.SelectedIndex == 2)
+            {
+                ObsidianSword obsidianSword = new ObsidianSword();
+                if (checkPosibility(takeNum(tbStrInfo.Text), takeNum(tbDexInfo.Text), takeNum(tbConInfo.Text), takeNum(tbIntInfo.Text),
+                    obsidianSword.ReqStrength, obsidianSword.ReqDexterity, obsidianSword.ReqConstitution, obsidianSword.ReqIntelligence))
+                {
+                    writeBuff();
+                }
+                else
+                {
+                    cmBxChooseWeapon.SelectedIndex = 3;
+                    writeBuff();
+                }
+            }
+        }
+
+        
+
+        private void cmBxChooseHelmet_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmBxChooseHelmet.SelectedIndex == 0)
+            {
+                WoodenHelmet woodenHelmet = new WoodenHelmet();
+                if (checkPosibility(takeNum(tbStrInfo.Text), takeNum(tbDexInfo.Text), takeNum(tbConInfo.Text), takeNum(tbIntInfo.Text),
+                    woodenHelmet.ReqStrength, woodenHelmet.ReqDexterity, woodenHelmet.ReqConstitution, woodenHelmet.ReqIntelligence))
+                {
+                    writeBuff();
+                }
+                else
+                {
+                    cmBxChooseHelmet.SelectedIndex = 3;
+                    writeBuff();
+                }
+
+            }
+            else if (cmBxChooseHelmet.SelectedIndex == 1)
+            {
+                IronHelmet ironHelmet= new IronHelmet();
+                if (checkPosibility(takeNum(tbStrInfo.Text), takeNum(tbDexInfo.Text), takeNum(tbConInfo.Text), takeNum(tbIntInfo.Text),
+                    ironHelmet.ReqStrength, ironHelmet.ReqDexterity, ironHelmet.ReqConstitution, ironHelmet.ReqIntelligence))
+                {
+                    writeBuff();
+                }
+                else
+                {
+                    cmBxChooseHelmet.SelectedIndex = 3;
+                    writeBuff();
+                }
+            }
+            else if (cmBxChooseHelmet.SelectedIndex == 2)
+            {
+                ObsidianHelmet obsidianHelmet = new ObsidianHelmet();
+                if (checkPosibility(takeNum(tbStrInfo.Text), takeNum(tbDexInfo.Text), takeNum(tbConInfo.Text), takeNum(tbIntInfo.Text),
+                    obsidianHelmet.ReqStrength, obsidianHelmet.ReqDexterity, obsidianHelmet.ReqConstitution, obsidianHelmet.ReqIntelligence))
+                {
+                    writeBuff();
+                }
+                else
+                {
+                    cmBxChooseHelmet.SelectedIndex = 3;
+                    writeBuff();
+                }
+            }
+            
+        }
+
+        private void tbDexBInfo_Copy_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void btnArmor_Click(object sender, RoutedEventArgs e)
+        private void cmBxChooseArmor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (cmBxChooseArmor.SelectedIndex == 0)
+            {
+                WoodenArmor woodenArmor = new WoodenArmor();
+                if (checkPosibility(takeNum(tbStrInfo.Text), takeNum(tbDexInfo.Text), takeNum(tbConInfo.Text), takeNum(tbIntInfo.Text),
+                    woodenArmor.ReqStrength, woodenArmor.ReqDexterity, woodenArmor.ReqConstitution, woodenArmor.ReqIntelligence))
+                {
+                    writeBuff();
+                }
+                else
+                {
+                    cmBxChooseArmor.SelectedIndex = 3;
+                    writeBuff();
+                }
 
+            }
+            else if (cmBxChooseArmor.SelectedIndex == 1)
+            {
+                IronArmor ironArmor = new IronArmor();
+                if (checkPosibility(takeNum(tbStrInfo.Text), takeNum(tbDexInfo.Text), takeNum(tbConInfo.Text), takeNum(tbIntInfo.Text),
+                    ironArmor.ReqStrength, ironArmor.ReqDexterity, ironArmor.ReqConstitution, ironArmor.ReqIntelligence))
+                {
+                    writeBuff();
+                }
+                else
+                {
+                    cmBxChooseArmor.SelectedIndex = 3;
+                    writeBuff();
+                }
+            }
+            else if (cmBxChooseArmor.SelectedIndex == 2)
+            {
+                ObsidianArmor obsidianArmor= new ObsidianArmor();
+                if (checkPosibility(takeNum(tbStrInfo.Text), takeNum(tbDexInfo.Text), takeNum(tbConInfo.Text), takeNum(tbIntInfo.Text),
+                    obsidianArmor.ReqStrength, obsidianArmor.ReqDexterity, obsidianArmor.ReqConstitution, obsidianArmor.ReqIntelligence))
+                {
+                    writeBuff();
+                }
+                else
+                {
+                    cmBxChooseArmor.SelectedIndex = 3;
+                    writeBuff();
+                }
+            }
         }
-
-        private void btnWeapon_Click(object sender, RoutedEventArgs e)
+        public void writeBuff()
         {
+            tbDexBInfo.Text = takeNum(tbDexInfo.Text).ToString();
+            tbStrBInfo.Text = takeNum(tbStrInfo.Text).ToString();
+            tbIntBInfo.Text = takeNum(tbIntInfo.Text).ToString();
+            tbConBInfo.Text = takeNum(tbConInfo.Text).ToString();
 
+            int dexBuff;
+            int strBuff;
+            int intBuff;
+            int conBuff;
+
+            if (cmBxChooseHelmet.SelectedIndex == 0)
+            {
+                WoodenHelmet helmet = new WoodenHelmet();
+                addBuffHelmet(helmet);
+            }
+            else if (cmBxChooseHelmet.SelectedIndex == 1)
+            {
+                IronHelmet helmet = new IronHelmet();
+                addBuffHelmet(helmet);
+            }
+            else if (cmBxChooseHelmet.SelectedIndex == 2)
+            {
+                ObsidianHelmet helmet = new ObsidianHelmet();
+                addBuffHelmet(helmet);
+            }
+
+            if (cmBxChooseArmor.SelectedIndex == 0)
+            {
+                WoodenArmor armor = new WoodenArmor();
+                addBuffArmor(armor);
+            }
+            else if (cmBxChooseArmor.SelectedIndex == 1)
+            {
+                IronArmor armor = new IronArmor();
+                addBuffArmor(armor);
+            }
+            else if (cmBxChooseArmor.SelectedIndex == 2)
+            {
+                ObsidianArmor armor = new ObsidianArmor();
+                addBuffArmor(armor);
+            }
+
+            if (cmBxChooseWeapon.SelectedIndex == 0)
+            {
+                WoodenSword sword = new WoodenSword();
+                addBuffWeapon(sword);
+            }
+            else if (cmBxChooseWeapon.SelectedIndex == 1)
+            {
+                IronSword sword = new IronSword();
+                addBuffWeapon(sword);
+            }
+            else if (cmBxChooseWeapon.SelectedIndex == 2)
+            {
+                ObsidianSword sword = new ObsidianSword();
+                addBuffWeapon(sword);
+            }
+            void addBuffWeapon(Equipments.Equipments sword)
+            {
+                tbDexBInfo.Text = (convInt(tbDexBInfo.Text) + takeNum(tbDexInfo.Text) + sword.DexterityBuff).ToString();
+                tbStrBInfo.Text = (convInt(tbStrBInfo.Text) + takeNum(tbStrInfo.Text) + sword.StrengthBuff).ToString();
+                tbIntBInfo.Text = (convInt(tbIntBInfo.Text) + takeNum(tbIntInfo.Text) + sword.IntelligenceBuff).ToString();
+                tbConBInfo.Text = (convInt(tbConBInfo.Text) + takeNum(tbConInfo.Text) + sword.ConstitutionBuff).ToString();
+            }
+
+            void addBuffHelmet(Equipments.Equipments helmet)
+            {
+                tbDexBInfo.Text = (convInt(tbDexBInfo.Text) + takeNum(tbDexInfo.Text) + helmet.DexterityBuff).ToString();
+                tbStrBInfo.Text = (convInt(tbStrBInfo.Text) + takeNum(tbStrInfo.Text) + helmet.StrengthBuff).ToString();
+                tbIntBInfo.Text = (convInt(tbIntBInfo.Text) + takeNum(tbIntInfo.Text) + helmet.IntelligenceBuff).ToString();
+                tbConBInfo.Text = (convInt(tbConBInfo.Text) + takeNum(tbConInfo.Text) + helmet.ConstitutionBuff).ToString();
+            }
+            void addBuffArmor(Equipments.Equipments armor)
+            {
+                tbDexBInfo.Text = (convInt(tbDexBInfo.Text) + takeNum(tbDexInfo.Text) + armor.DexterityBuff).ToString();
+                tbStrBInfo.Text = (convInt(tbStrBInfo.Text) + takeNum(tbStrInfo.Text) + armor.StrengthBuff).ToString();
+                tbIntBInfo.Text = (convInt(tbIntBInfo.Text) + takeNum(tbIntInfo.Text) + armor.IntelligenceBuff).ToString();
+                tbConBInfo.Text = (convInt(tbConBInfo.Text) + takeNum(tbConInfo.Text) + armor.ConstitutionBuff).ToString();
+            }
         }
     }
 }

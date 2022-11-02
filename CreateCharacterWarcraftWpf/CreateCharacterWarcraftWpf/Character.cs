@@ -27,7 +27,7 @@ namespace CreateCharacterWarcraftWpf
         public int level;
         public List<string> activeAbility = new List<string>();
         public List<string> inventory = new List<string>();
-
+        public string[] equipments = {"None", "None", "None" };
 
         public Character(string name, int healthPoint, int manaPoint, int attack, double protDet, int skillPoint, int strength, int strengthMax,
             int dexterity, int dexterityMax, int constitution, int constitutionMax, int intelligence,
