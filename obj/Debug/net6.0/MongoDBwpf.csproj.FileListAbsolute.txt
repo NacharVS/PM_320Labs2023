@@ -1,0 +1,15 @@
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\bin\Debug\net6.0\MongoDBwpf.deps.json
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\bin\Debug\net6.0\MongoDBwpf.dll
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\bin\Debug\net6.0\MongoDBwpf.pdb
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\bin\Debug\net6.0\WPFcharacterictic.Core.dll
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\bin\Debug\net6.0\WPFcharacterictic.Core.pdb
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\MongoDBwpf.csproj.AssemblyReference.cache
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\MongoDBwpf.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\MongoDBwpf.AssemblyInfoInputs.cache
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\MongoDBwpf.AssemblyInfo.cs
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\MongoDBwpf.csproj.CoreCompileInputs.cache
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\MongoDBwpf.csproj.CopyComplete
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\MongoDBwpf.dll
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\refint\MongoDBwpf.dll
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\MongoDBwpf.pdb
+C:\Users\Elvina\source\repos\Ktits\CharacterRedactor\MongoDBwpf\obj\Debug\net6.0\ref\MongoDBwpf.dll
