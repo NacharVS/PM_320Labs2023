@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 
@@ -10,7 +9,7 @@ public static class ImageDb
     private static readonly MongoClient Client = new("mongodb://localhost");
     private static readonly IMongoDatabase Database = Client.GetDatabase("Image");
     private static readonly GridFSBucket FileWorker = new(Database);
-    private static readonly string DownloadsFolder = GetDownloadFolderPath();
+    private static readonly string DownloadsFolder = "downloads";//GetDownloadFolderPath();
 
     public static async Task UploadImageToDb(string fileName)
     {
@@ -37,6 +36,16 @@ public static class ImageDb
         {
             Console.WriteLine(ex.Message);
         }
+    }
+
+    public static string[] GetAllImages()
+    {
+        var fileInfo =
+             FileWorker.Find(Builders<GridFSFileInfo>.Filter.Empty);
+
+
+        
+        return fileInfo.ToList().Select(x => x.Filename).ToArray();
     }
     
     private static string GetDownloadFolderPath() 

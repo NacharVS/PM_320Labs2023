@@ -365,6 +365,7 @@ namespace Editor.WPF
         {
             new InitAbilities().Up();
             new InitEquipment().Up();
+            new InitCharacters().Up();
         }
     }
 }

@@ -5,11 +5,12 @@
 <PageTitle>Home</PageTitle>
 
 <h1>Gallery</h1>
-<div class="row row-cols-5 g-3">
-    @foreach (var filepath in FileService.LoadAllImages())
+<div class="row row-cols-3 g-3">
+    @foreach (var filepath in FileService.GetAllImages())
     {
         <div class="col">
             <ImageCard ImageName="@filepath"/>
         </div>
     }
+    
 </div>
