@@ -1,0 +1,149 @@
+﻿<Window x:Class="CreateCharacterWarcraftWpf.Match"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CreateCharacterWarcraftWpf"
+        mc:Ignorable="d"
+        Title="Match" Height="490" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/image.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Match" FontSize="28" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,10,0,0" Width="115">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+            <Label.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg"/>
+            </Label.Foreground>
+        </Label>
+        <Label Content="Characters:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,67,0,0" FontWeight="Bold" Width="115">
+            <Label.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="UniformToFill"/>
+            </Label.Foreground>
+            <Label.BorderBrush>
+                <ImageBrush/>
+            </Label.BorderBrush>
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
+        <Button x:Name="btnAutoGenerate" Content="Auto Generate" Grid.Column="0" Width="120" Height="35" FontSize="15" Margin="40,267,640,132" FontWeight="Bold" Click="btnAutoGenerate_Click">
+            <Button.Resources>
+            </Button.Resources>
+            <Button.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="UniformToFill"/>
+            </Button.Foreground>
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="btnStart" Content="Start" Grid.Column="0" Width="120" Height="35" FontSize="15" Margin="40,327,640,72" FontWeight="Bold" Click="btnStart_Click">
+            <Button.Resources>
+            </Button.Resources>
+            <Button.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="UniformToFill"/>
+            </Button.Foreground>
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnAddFirstTeam" Content="Add" Width="120" Height="35" FontSize="15" Margin="215,267,465,132" FontWeight="Bold" Click="btnAddFirstTeam_Click">
+            <Button.Resources>
+            </Button.Resources>
+            <Button.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="UniformToFill"/>
+            </Button.Foreground>
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnAddSecondTeam" Content="Add" Width="120" Height="35" FontSize="15" Margin="515,267,165,132" FontWeight="Bold" Click="btnAddSecondTeam_Click">
+            <Button.Resources>
+            </Button.Resources>
+            <Button.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="UniformToFill"/>
+            </Button.Foreground>
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnDeleteFirstTeam" Content="Delete" Width="120" Height="35" FontSize="15" Margin="365,267,315,132" FontWeight="Bold" Click="btnDeleteFirstTeam_Click">
+            <Button.Resources>
+            </Button.Resources>
+            <Button.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="UniformToFill"/>
+            </Button.Foreground>
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnDeleteSecondTeam" Content="Delete" Width="120" Height="35" FontSize="15" Margin="665,267,15,132" FontWeight="Bold" Click="btnDeleteSecondTeam_Click">
+            <Button.Resources>
+            </Button.Resources>
+            <Button.Foreground>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/Images/image.jpg"/>
+            </Button.Foreground>
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.5"/>
+            </Button.Background>
+        </Button>
+        <Label Name="lbIsBalanced" Background="Green" FontSize="18" Content="Match balanced" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="635,10,0,0" FontWeight="Bold" Width="150"/>
+        <ListBox x:Name="lstBoxCharacters" Margin="39,106,640,190" FontFamily="Hobo Std" FontSize="20">
+            <ListBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </ListBox.Background>
+            <ListBox.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="None"/>
+            </ListBox.Foreground>
+        </ListBox>
+        <ListBox x:Name="lstBoxFirstTeam" Margin="215,104,315,192" FontFamily="Hobo Std" FontSize="20">
+            <ListBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </ListBox.Background>
+            <ListBox.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="None"/>
+            </ListBox.Foreground>
+        </ListBox>
+        <ListBox x:Name="lstBoxTwoTeam" Margin="515,104,15,192" FontFamily="Hobo Std" FontSize="20">
+            <ListBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </ListBox.Background>
+            <ListBox.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="None"/>
+            </ListBox.Foreground>
+        </ListBox>
+        <TextBox x:Name="tbInfFirstTeam" HorizontalAlignment="Left" Margin="215,67,0,0" TextWrapping="Wrap" Text="FirsTeam" VerticalAlignment="Top" Width="145" IsReadOnly="True" FontFamily="Hobo Std" FontSize="20" FontStretch="Medium" FontWeight="Bold" Height="32">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+            <TextBox.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="None"/>
+            </TextBox.Foreground>
+        </TextBox>
+        <TextBox x:Name="tbInfTwoTeam" HorizontalAlignment="Left" Margin="515,67,0,0" TextWrapping="Wrap" Text="Second Team" VerticalAlignment="Top" Width="145" IsReadOnly="True" FontFamily="Hobo Std" FontSize="20" FontStretch="Medium" FontWeight="Bold" Height="32">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+            <TextBox.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="None"/>
+            </TextBox.Foreground>
+        </TextBox>
+        <TextBox x:Name="tbInfoMatch" HorizontalAlignment="Left" Margin="215,347,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="35" FontSize="24" FontWeight="Bold">
+            <TextBox.Foreground>
+                <ImageBrush ImageSource="/Images/image.jpg" Stretch="UniformToFill"/>
+            </TextBox.Foreground>
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+        </TextBox>
+    </Grid>
+</Window>

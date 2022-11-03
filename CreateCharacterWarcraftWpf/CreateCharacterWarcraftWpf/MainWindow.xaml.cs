@@ -165,23 +165,24 @@ namespace CreateCharacterWarcraftWpf
         {
             lstBoxInventory.Items.Clear();
             ClearAbility(activeAbility);
+            string[] equipments = { "None", "None", "None" };
             Character unit;
             if (cmBxChooseCharacter.SelectedIndex == 0)
             {
-                unit = new Warrior("", 25, 0, 25, 15, 777, 30, 250, 15, 70, 20, 100, 10, 50, 0, 1, activeAbility, inventory);
+                unit = new Warrior("", 25, 0, 25, 15, 777, 30, 250, 15, 70, 20, 100, 10, 50, 0, 1, activeAbility, inventory, equipments);
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Warrior.gif"));
                 WriteInfo(unit);
 
             }
             else if (cmBxChooseCharacter.SelectedIndex == 1)
             {
-                unit = new Rogue("", 20, 5, 15, 20, 888, 15, 55, 30, 250, 20, 80, 15, 70, 0, 1, activeAbility, inventory);
+                unit = new Rogue("", 20, 5, 15, 20, 888, 15, 55, 30, 250, 20, 80, 15, 70, 0, 1, activeAbility, inventory, equipments);
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Rogue.gif"));
                 WriteInfo(unit);
             }
             else if (cmBxChooseCharacter.SelectedIndex == 2)
             {
-                unit = new Wizard("", 30, 25, 30, 5, 666, 10, 45, 20, 70, 15, 60, 35, 250, 0, 1, activeAbility, inventory);
+                unit = new Wizard("", 30, 25, 30, 5, 666, 10, 45, 20, 70, 15, 60, 35, 250, 0, 1, activeAbility, inventory, equipments);
                 pbCharacter.Source = BitmapFrame.Create(new Uri(@"pack://application:,,,/Images/Wizard.gif"));
                 WriteInfo(unit);
             }
@@ -223,6 +224,7 @@ namespace CreateCharacterWarcraftWpf
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            string[] equipments = { cmBxChooseHelmet.Text, cmBxChooseArmor.Text, cmBxChooseWeapon.Text };
             if (tbUntName.Text == "")
             {
                 MessageBox.Show("Write name");
@@ -235,11 +237,13 @@ namespace CreateCharacterWarcraftWpf
             else
             {
                 Character unit;
+                
                 if (cmBxChooseCharacter.SelectedIndex == 0)
                 {
                     unit = new Warrior(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
                         convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 250, takeNum(tbDexInfo.Text),
-                        70, takeNum(tbConInfo.Text), 100, takeNum(tbIntInfo.Text), 50, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility, inventory);
+                        70, takeNum(tbConInfo.Text), 100, takeNum(tbIntInfo.Text), 50, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), 
+                        activeAbility, inventory, equipments);
                     newInfo.Add(unit);
                     Mongo.AddToDataBase(unit);
                     FillListBox();
@@ -248,7 +252,8 @@ namespace CreateCharacterWarcraftWpf
                 {
                     unit = new Rogue(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
                         convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 55, takeNum(tbDexInfo.Text),
-                        250, takeNum(tbConInfo.Text), 80, takeNum(tbIntInfo.Text), 70, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility, inventory);
+                        250, takeNum(tbConInfo.Text), 80, takeNum(tbIntInfo.Text), 70, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), 
+                        activeAbility, inventory, equipments);
                     newInfo.Add(unit);
                     Mongo.AddToDataBase(unit);
                     FillListBox();
@@ -257,7 +262,8 @@ namespace CreateCharacterWarcraftWpf
                 {
                     unit = new Wizard(tbUntName.Text, convInt(tbHpInfo.Text), convInt(tbMpInfo.Text), convInt(tbApInfo.Text),
                         convDbl(tbPrDetInfo.Text), convInt(tbSpInfo.Text), takeNum(tbStrInfo.Text), 45, takeNum(tbDexInfo.Text),
-                        70, takeNum(tbConInfo.Text), 60, takeNum(tbIntInfo.Text), 250, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), activeAbility, inventory);
+                        70, takeNum(tbConInfo.Text), 60, takeNum(tbIntInfo.Text), 250, takeNum(tbExpInfo.Text), takeNum(tbLvlInfo.Text), 
+                        activeAbility, inventory, equipments);
                     newInfo.Add(unit);
                     Mongo.AddToDataBase(unit);
                     FillListBox();
@@ -336,7 +342,8 @@ namespace CreateCharacterWarcraftWpf
 
         private Character TakeUnit(string? name)
         {
-            Character unit = new Character("", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, activeAbility, inventory);
+            string[] equipments = { "None", "None", "None" };
+            Character unit = new Character("", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, activeAbility, inventory, equipments);
 
             var collection = Mongo.GetCollection();
 
@@ -349,7 +356,6 @@ namespace CreateCharacterWarcraftWpf
                     unit = collect[i];
                 }
             }
-
             return unit;
         }
 
@@ -418,7 +424,6 @@ namespace CreateCharacterWarcraftWpf
         }
         private bool checkPosibility(int str, int dex, int cons, int intel, int reqStrength, int reqDexterity, int reqConstitution, int reqIntelligence)
         {
-            
             if(str >= reqStrength && dex >= reqDexterity && cons >= reqConstitution && intel >= reqIntelligence)
             {
                 return true;
@@ -445,7 +450,6 @@ namespace CreateCharacterWarcraftWpf
                     cmBxChooseWeapon.SelectedIndex = 3;
                     writeBuff();
                 }
-
             }
             else if (cmBxChooseWeapon.SelectedIndex == 1)
             {
@@ -474,6 +478,10 @@ namespace CreateCharacterWarcraftWpf
                     cmBxChooseWeapon.SelectedIndex = 3;
                     writeBuff();
                 }
+            }
+            else if (cmBxChooseWeapon.SelectedIndex == 3 && tbUntName.Text != "")
+            {
+                writeBuff();
             }
         }
 
@@ -524,7 +532,10 @@ namespace CreateCharacterWarcraftWpf
                     writeBuff();
                 }
             }
-            
+            else if (cmBxChooseHelmet.SelectedIndex == 3 && tbUntName.Text != "")
+            {
+                writeBuff();
+            }
         }
 
         private void tbDexBInfo_Copy_TextChanged(object sender, TextChangedEventArgs e)
@@ -577,6 +588,10 @@ namespace CreateCharacterWarcraftWpf
                     writeBuff();
                 }
             }
+            else if (cmBxChooseArmor.SelectedIndex == 3 && tbUntName.Text != "")
+            {
+                writeBuff();
+            }
         }
         public void writeBuff()
         {
@@ -584,11 +599,6 @@ namespace CreateCharacterWarcraftWpf
             tbStrBInfo.Text = takeNum(tbStrInfo.Text).ToString();
             tbIntBInfo.Text = takeNum(tbIntInfo.Text).ToString();
             tbConBInfo.Text = takeNum(tbConInfo.Text).ToString();
-
-            int dexBuff;
-            int strBuff;
-            int intBuff;
-            int conBuff;
 
             if (cmBxChooseHelmet.SelectedIndex == 0)
             {
@@ -639,26 +649,32 @@ namespace CreateCharacterWarcraftWpf
             }
             void addBuffWeapon(Equipments.Equipments sword)
             {
-                tbDexBInfo.Text = (convInt(tbDexBInfo.Text) + takeNum(tbDexInfo.Text) + sword.DexterityBuff).ToString();
-                tbStrBInfo.Text = (convInt(tbStrBInfo.Text) + takeNum(tbStrInfo.Text) + sword.StrengthBuff).ToString();
-                tbIntBInfo.Text = (convInt(tbIntBInfo.Text) + takeNum(tbIntInfo.Text) + sword.IntelligenceBuff).ToString();
-                tbConBInfo.Text = (convInt(tbConBInfo.Text) + takeNum(tbConInfo.Text) + sword.ConstitutionBuff).ToString();
+                tbDexBInfo.Text = (convInt(tbDexBInfo.Text) + sword.DexterityBuff).ToString();
+                tbStrBInfo.Text = (convInt(tbStrBInfo.Text)  + sword.StrengthBuff).ToString();
+                tbIntBInfo.Text = (convInt(tbIntBInfo.Text)  + sword.IntelligenceBuff).ToString();
+                tbConBInfo.Text = (convInt(tbConBInfo.Text)  + sword.ConstitutionBuff).ToString();
             }
 
             void addBuffHelmet(Equipments.Equipments helmet)
             {
-                tbDexBInfo.Text = (convInt(tbDexBInfo.Text) + takeNum(tbDexInfo.Text) + helmet.DexterityBuff).ToString();
-                tbStrBInfo.Text = (convInt(tbStrBInfo.Text) + takeNum(tbStrInfo.Text) + helmet.StrengthBuff).ToString();
-                tbIntBInfo.Text = (convInt(tbIntBInfo.Text) + takeNum(tbIntInfo.Text) + helmet.IntelligenceBuff).ToString();
-                tbConBInfo.Text = (convInt(tbConBInfo.Text) + takeNum(tbConInfo.Text) + helmet.ConstitutionBuff).ToString();
+                tbDexBInfo.Text = (convInt(tbDexBInfo.Text) + helmet.DexterityBuff).ToString();
+                tbStrBInfo.Text = (convInt(tbStrBInfo.Text) + helmet.StrengthBuff).ToString();
+                tbIntBInfo.Text = (convInt(tbIntBInfo.Text) + helmet.IntelligenceBuff).ToString();
+                tbConBInfo.Text = (convInt(tbConBInfo.Text) + helmet.ConstitutionBuff).ToString();
             }
             void addBuffArmor(Equipments.Equipments armor)
             {
-                tbDexBInfo.Text = (convInt(tbDexBInfo.Text) + takeNum(tbDexInfo.Text) + armor.DexterityBuff).ToString();
-                tbStrBInfo.Text = (convInt(tbStrBInfo.Text) + takeNum(tbStrInfo.Text) + armor.StrengthBuff).ToString();
-                tbIntBInfo.Text = (convInt(tbIntBInfo.Text) + takeNum(tbIntInfo.Text) + armor.IntelligenceBuff).ToString();
-                tbConBInfo.Text = (convInt(tbConBInfo.Text) + takeNum(tbConInfo.Text) + armor.ConstitutionBuff).ToString();
+                tbDexBInfo.Text = (convInt(tbDexBInfo.Text) + armor.DexterityBuff).ToString();
+                tbStrBInfo.Text = (convInt(tbStrBInfo.Text) + armor.StrengthBuff).ToString();
+                tbIntBInfo.Text = (convInt(tbIntBInfo.Text) + armor.IntelligenceBuff).ToString();
+                tbConBInfo.Text = (convInt(tbConBInfo.Text) + armor.ConstitutionBuff).ToString();
             }
+        }
+
+        private void btnCng_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            Match matchWindow = new Match();
+            matchWindow.Show();
         }
     }
 }

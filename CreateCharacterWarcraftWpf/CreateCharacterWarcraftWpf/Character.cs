@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using CreateCharacterWarcraftWpf.Equipments;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -28,10 +29,9 @@ namespace CreateCharacterWarcraftWpf
         public List<string> activeAbility = new List<string>();
         public List<string> inventory = new List<string>();
         public string[] equipments = {"None", "None", "None" };
-
         public Character(string name, int healthPoint, int manaPoint, int attack, double protDet, int skillPoint, int strength, int strengthMax,
             int dexterity, int dexterityMax, int constitution, int constitutionMax, int intelligence,
-            int intelligenceMax, int experience, int level, List<string> activeAbility, List<string> inventory)
+            int intelligenceMax, int experience, int level, List<string> activeAbility, List<string> inventory, string[] equipments)
         {
             this.name = name;
             this.healthPoint = healthPoint;
@@ -60,5 +60,20 @@ namespace CreateCharacterWarcraftWpf
                 + ", int: " + intelligence);
         }
 
+        public bool alive()
+        {
+            if(healthPoint > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public void Attack(Character unit)
+        {
+            healthPoint = healthPoint - unit.attack;
+        }
     }
 }
