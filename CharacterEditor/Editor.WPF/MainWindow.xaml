@@ -78,6 +78,8 @@
         <Label x:Name="label1" Grid.Column="1" Content="Item  description:" HorizontalAlignment="Left" Margin="617,196,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="textItemDescr" Grid.Column="1" HorizontalAlignment="Left" Margin="617,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="270" Width="152"/>
         <Button x:Name="btn_Up_Migrations" Grid.Column="1" Content="Update db" HorizontalAlignment="Left" Margin="766,9,0,0" VerticalAlignment="Top" Click="btn_Up_Migrations_Click"/>
+        <Button x:Name="btnOpenMatchWindow" Grid.Column="1" Content="Matches -&gt;" HorizontalAlignment="Left" Margin="364,565,0,0" VerticalAlignment="Top" Height="34" Width="75" Click="btnOpenMatchWindow_Click"/>
+        <Button x:Name="btnMatchHistory" Grid.Column="1" Content="Match history" HorizontalAlignment="Left" Margin="485,565,0,0" VerticalAlignment="Top" Height="34" Width="102" Click="btnMatchHistory_Click"/>
 
     </Grid>
 </Window>

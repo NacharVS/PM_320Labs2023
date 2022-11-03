@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using DataProvider;
@@ -10,6 +11,8 @@ using DataProvider.Models;
 using Editor.Core.Abilities;
 using Editor.Core.Characters;
 using Editor.Core.Inventory;
+using Editor.Core.MatchHistory;
+using Editor.WPF.windows;
 
 namespace Editor.WPF
 {
@@ -21,6 +24,7 @@ namespace Editor.WPF
         private MongoProvider<Character> _characterProvider;
         private MongoProvider<Ability> _abilityProvider;
         private MongoProvider<Equipment> _equipmentProvider;
+        private MongoProvider<MatchHistory> _matchProvider;
 
         private Character? _currentCharacter;
         private const int StartSkillPoints = 5;
@@ -57,17 +61,17 @@ namespace Editor.WPF
             {
                 case "Warrior":
                     _currentCharacter = new Warrior(StartSkillPoints, 0, _starterAbilities, null, 
-                        new List<InventoryItem?>(_equipmentProvider.LoadAll()));
+                        new List<Equipment?>(_equipmentProvider.LoadAll()));
                     InitializeEvents();
                     break;
                 case "Rogue":
                     _currentCharacter = new Rogue(StartSkillPoints, 0, _starterAbilities, null, 
-                        new List<InventoryItem?>(_equipmentProvider.LoadAll()));
+                        new List<Equipment?>(_equipmentProvider.LoadAll()));
                     InitializeEvents();
                     break;
                 case "Wizard":
                     _currentCharacter = new Wizard(StartSkillPoints, 0, _starterAbilities, null, 
-                        new List<InventoryItem?>(_equipmentProvider.LoadAll()));
+                        new List<Equipment?>(_equipmentProvider.LoadAll()));
                     InitializeEvents();
                     break;
             }
@@ -248,6 +252,9 @@ namespace Editor.WPF
 
             _equipmentProvider = new MongoProvider<Equipment>(new EquipmentRepository(
                 new MongoConnection<EquipmentDb>("mongodb://localhost", "Characters", "Equipment")));
+
+            _matchProvider = new MongoProvider<MatchHistory>(new MatchRepository(
+                new MongoConnection<MatchHistoryDb>("mongodb://localhost", "Characters", "Matches")));
         }
 
         private void InitializeAbilitiesList(IEnumerable<Ability> abilities)
@@ -290,7 +297,7 @@ namespace Editor.WPF
         {
             try
             {
-                _currentCharacter?.AddItemToInventory(new InventoryItem(tbInvItem.Text));
+                _currentCharacter?.AddItemToInventory(new Equipment(tbInvItem.Text));
                 comboInventory.Items.Add(tbInvItem.Text);
                 lbInvCapacity.Content = (_currentCharacter?.InventoryCapacity - _currentCharacter?.Inventory.Count);
             }
@@ -366,6 +373,22 @@ namespace Editor.WPF
             new InitAbilities().Up();
             new InitEquipment().Up();
             new InitCharacters().Up();
+        }
+
+        private void btnOpenMatchWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new MatchWindow(_characterProvider);
+
+            if (window.ShowDialog() == true)
+            {
+                _matchProvider.Save(window.MatchHistory);
+            }
+        }
+
+        private void btnMatchHistory_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new MatchHistoryWindow(_matchProvider, _characterProvider);
+            window.Show();
         }
     }
 }

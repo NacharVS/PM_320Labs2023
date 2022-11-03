@@ -22,6 +22,11 @@ public class Equipment : InventoryItem
     public double PhysicalDefense { get; set; }
     public double MagicDefense { get; set; }
 
+    public Equipment(string name) : base(name)
+    {
+        Name = name;
+    }
+
     public Equipment(EquipmentSlot slot, string? name, int requiredStrength, int requiredDexterity, int requiredConstitution, int requiredIntelligence, 
         int equipmentLevel, double healthPoints, double manaPoints, double physicalDamage, double magicDamage, 
         double physicalDefense, double magicDefense, int strength, int constitution, int dexterity, int intelligence) : base(name)
