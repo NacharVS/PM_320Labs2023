@@ -7,14 +7,14 @@ namespace Editor.Core.Characters;
 
 public class Warrior : Character
 {
-    public Warrior(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory) 
+    public Warrior(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<Equipment?> inventory) 
         : base(new WarriorStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize();
     }
 
     public Warrior(int availableSkillPoints, int experience, int strength, int dexterity, 
-        int constitution, int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory)
+        int constitution, int intelligence, IEnumerable<Ability?>? abilities, string? name, List<Equipment?> inventory)
         : base(new WarriorStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize(true);

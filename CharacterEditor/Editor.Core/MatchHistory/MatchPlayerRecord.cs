@@ -5,13 +5,13 @@ namespace Editor.Core.MatchHistory;
 public class MatchPlayerRecord : IHaveName
 {
     public string? Name { get; set; }
-    public string CharacterId { get; set; }
+    public string CharacterName { get; set; }
     public string TeamName { get; set; }
 
-    public MatchPlayerRecord(string? name, string characterId, string teamName)
+    public MatchPlayerRecord(string id, string? name, string characterName, string teamName)
     {
         Name = name;
-        CharacterId = characterId;
+        CharacterName = characterName;
         TeamName = teamName;
     }
 }

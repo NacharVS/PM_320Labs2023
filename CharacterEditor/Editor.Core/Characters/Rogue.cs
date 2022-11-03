@@ -7,14 +7,14 @@ namespace Editor.Core.Characters;
 
 public class Rogue : Character
 {
-    public Rogue(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory) 
+    public Rogue(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<Equipment?> inventory) 
         : base(new RogueStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize();
     }
     
     public Rogue(int availableSkillPoints, int experience, int strength, int dexterity, 
-        int constitution, int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory)
+        int constitution, int intelligence, IEnumerable<Ability?>? abilities, string? name, List<Equipment?> inventory)
         : base(new RogueStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize(true);

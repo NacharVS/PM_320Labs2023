@@ -10,7 +10,7 @@ namespace Editor.Core.Characters
     {
         public BaseStatBoundary StatsBoundary;
         public string? Name { get; set; }
-        public List<InventoryItem?> Inventory { get; set; }
+        public List<Equipment?> Inventory { get; set; }
         public double HealthPoints { get; set; }
         public double ManaPoints { get; set; }
         public double PhysicalDamage { get; set; }
@@ -29,7 +29,7 @@ namespace Editor.Core.Characters
         public int InventoryCapacity { get; set; }
 
         public Character(BaseStatBoundary statsBoundary, int availableSkillPoints,
-            int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory)
+            int experience, IEnumerable<Ability?>? abilities, string? name, List<Equipment?> inventory)
         {
             StatsBoundary = statsBoundary;
             AvailableSkillPoints = availableSkillPoints;
@@ -146,7 +146,10 @@ namespace Editor.Core.Characters
 
         public int Level
         {
-            get { return _level; }
+            get 
+            {
+                return CalculateLevel(); 
+            }
             set => OnLevelChange?.Invoke(this, new LevelChangeArgs(value));
         }
 
@@ -192,7 +195,25 @@ namespace Editor.Core.Characters
             _experience = args.Amount;
         }
 
-        public void AddItemToInventory(InventoryItem? item)
+        private int CalculateLevel()
+        {
+            var exp = 0;
+            var level = 1;
+
+            while (true)
+            {
+                exp += level * 1000;
+                if (Experience < exp)
+                {
+                    break;
+                }
+
+                ++level;
+            }
+            return level;
+        }
+
+        public void AddItemToInventory(Equipment? item)
         {
             if (Inventory.Count >= InventoryCapacity)
             {
@@ -305,5 +326,10 @@ namespace Editor.Core.Characters
         public event HandleExperienceChange? OnExperienceChange;
         public event HandleLevelChange? OnLevelChange;
         public event HandleInventoryChange? OnInventoryChange;
+
+        public override string ToString()
+        {
+            return $"{Name} -  {Level}lvl";
+        }
     }
 }

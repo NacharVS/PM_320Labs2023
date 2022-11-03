@@ -7,14 +7,14 @@ namespace Editor.Core.Characters;
 
 public class Wizard : Character
 {
-    public Wizard(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory) 
+    public Wizard(int availableSkillPoints, int experience, IEnumerable<Ability?>? abilities, string? name, List<Equipment?> inventory) 
         : base(new WizardStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize();
     }
     
     public Wizard(int availableSkillPoints, int experience, int strength, int dexterity, int constitution, 
-        int intelligence, IEnumerable<Ability?>? abilities, string? name, List<InventoryItem?> inventory)
+        int intelligence, IEnumerable<Ability?>? abilities, string? name, List<Equipment?> inventory)
         : base(new WizardStatBoundary(), availableSkillPoints, experience, abilities, name, inventory)
     {
         Initialize(true);

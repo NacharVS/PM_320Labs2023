@@ -15,7 +15,7 @@ namespace DataProvider.Models
         public int AvailableSkillPoints { get; set; }
         public int Experience { get; set; }
         public List<Ability?>? Abilities { get; set; }
-        public List<InventoryItem?> Inventory { get; set; }
+        public List<Equipment?> Inventory { get; set; }
 
         public string Class;
 

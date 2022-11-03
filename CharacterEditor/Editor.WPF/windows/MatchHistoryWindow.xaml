@@ -1,0 +1,39 @@
+﻿<Window x:Class="Editor.WPF.windows.MatchHistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Editor.WPF.windows"
+        mc:Ignorable="d"
+        Title="MatchHistoryWindow" Height="450" Width="800">
+    <Grid>
+        <ComboBox x:Name="comboMatches" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboMatches_SelectionChanged"/>
+        <Label x:Name="lbTeam1" Content="" HorizontalAlignment="Left" Margin="109,61,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbTeam2" Content="" HorizontalAlignment="Left" Margin="674,61,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label" Content="Team 1 name:" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="Team 2 name:" HorizontalAlignment="Left" Margin="582,61,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label2" Content="Team 1 players" HorizontalAlignment="Left" Margin="14,112,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label3" Content="Team 2 players" HorizontalAlignment="Left" Margin="478,112,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="lbteam1players" AutoGenerateColumns="False" Margin="10,156,426,116">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
+                <DataGridTextColumn Header="Physical dmg" Binding="{Binding PhysicalDamage}"/>
+                <DataGridTextColumn Header="Physical def" Binding="{Binding PhysicalDefense}"/>
+                <DataGridTextColumn Header="Magic dmg" Binding="{Binding MagicDamage}"/>
+                <DataGridTextColumn Header="Magic def" Binding="{Binding MagicDefense}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="lbteam2players" AutoGenerateColumns="False" Margin="426,156,10,116">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
+                <DataGridTextColumn Header="Physical dmg" Binding="{Binding PhysicalDamage}"/>
+                <DataGridTextColumn Header="Physical def" Binding="{Binding PhysicalDefense}"/>
+                <DataGridTextColumn Header="Magic dmg" Binding="{Binding MagicDamage}"/>
+                <DataGridTextColumn Header="Magic def" Binding="{Binding MagicDefense}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>
