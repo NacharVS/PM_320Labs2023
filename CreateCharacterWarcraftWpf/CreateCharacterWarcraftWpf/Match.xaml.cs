@@ -175,6 +175,7 @@ namespace CreateCharacterWarcraftWpf
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             Random rnd = new Random();
+            string result;
             int i = rnd.Next(0, lstBoxFirstTeam.Items.Count);
             Character oneCharachter = Mongo.TakeUnit(parsMatch(lstBoxFirstTeam.Items[i].ToString()));
 
@@ -207,11 +208,35 @@ namespace CreateCharacterWarcraftWpf
             if (oneCharachter.alive())
             {
                 tbInfoMatch.Text =  (oneCharachter.name + " kill " + twoCharachter.name);
+                result = $"Team one win! {oneCharachter.name} kill {twoCharachter.name}";
             }
             else
             {
                 tbInfoMatch.Text =  (twoCharachter.name + " kill " + oneCharachter.name);
+
+                result = $"Team two win! {twoCharachter.name} kill {oneCharachter.name}";
             }
+            
+            TeamMatch teamMatch = new TeamMatch(takeTeam(lstBoxFirstTeam), takeTeam(lstBoxTwoTeam), result, DateTime.Now);
+
+            MongoMatch.AddToDataBase(teamMatch);
+        }
+
+        private List<string> takeTeam(ListBox lstBoxTeam)
+        {
+            List<string> list = new List<string>();
+            Character unit;
+            for (int i = 0; i < lstBoxTeam.Items.Count; i++)
+            {
+                unit = Mongo.TakeUnit(parsMatch(lstBoxTeam.Items[i].ToString()));
+                list.Add(takeTypeCharacter(unit.GetType()) + ": " + unit.name + " " + unit.level);
+            }
+            return list;
+        }
+
+        public string takeTypeCharacter(Type type)
+        {
+            return Convert.ToString(type).Substring(27);
         }
     }
 }
