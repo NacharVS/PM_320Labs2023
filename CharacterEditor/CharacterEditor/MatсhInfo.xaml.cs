@@ -168,6 +168,10 @@ namespace CharacterEditor
                     _match = new MatchInfo(_matchContext, _charContext);
                 }
             }
+            else
+            {
+                MessageBox.Show("Teams not balanced!");
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿@page "/Cabinet"
+@using AuthorizationWebApp.Data.LocalStorageService
 @inject UserService UserService;
+@inject ILocalStorageService LocalStorageService;
+@inject IJSRuntime Js;
 <h3>Cabinet</h3>
 
 @if (UserService.currentUser is not null &&
@@ -11,7 +14,7 @@
             <h5 class="card-title">Surname" @UserService.currentUser.Surname</h5>
             <p class="card-text">Mail: @UserService.currentUser.Mail</p>
             <p class="card-text">Login: @UserService.currentUser.Login</p>
-            <button btn btn-dark @onclick="LogOut">Log out</button>
+            <button class="btn btn-dark" @onclick="LogOut">Log out</button>
         </div>
     </div>
 }
@@ -25,5 +28,7 @@ else if(UserService.currentUser is null)
     private void LogOut()
     {
         UserService.currentUser = null;
+        LocalStorageService.RemoveAsync("Authorization");
+        Js.InvokeVoidAsync("alert", "Log out has succesfull!");
     }
 }

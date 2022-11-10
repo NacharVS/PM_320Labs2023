@@ -1,4 +1,7 @@
 ﻿@page "/"
+@using AuthorizationWebApp.Data.LocalStorageService
+@inject UserService UserService;
+@inject ILocalStorageService LocalStorageService;
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +10,16 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?"/>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        User user = await LocalStorageService.GetAsync<User>("Authorization");
+
+        if (user is not null) 
+        {
+            UserService.currentUser = user;
+        }
+    }
+}

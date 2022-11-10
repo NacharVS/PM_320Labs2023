@@ -1,6 +1,8 @@
 ﻿@page "/Authorization"
-@inject UserService _UserService;
-@inject IJSRuntime JS
+@using AuthorizationWebApp.Data.LocalStorageService
+@inject UserService UserService;
+@inject IJSRuntime Js;
+@inject ILocalStorageService LocalStorageService
 
 <h3>Authorization</h3>
 <form>
@@ -20,17 +22,21 @@
     private string? _userLogin;
     private string? _userPassword;
 
-    private void UserLogin()
+    private async void UserLogin()
     {
         if (_userLogin is not null &&
             _userPassword is not null)
         {
-            _UserService.currentUser = _UserService.UserLogin(_userLogin);
-            if (_UserService.currentUser is null)
+            UserService.currentUser = UserService.UserLogin(_userLogin);
+            if (UserService.currentUser is null)
             {
-                JS.InvokeVoidAsync("alert", "No such user in DB!");
+                Js.InvokeVoidAsync("alert", "No such user in DB!");
+                return;
             }
-            JS.InvokeVoidAsync("alert", "Authorization has succesfull!");
+            
+            Js.InvokeVoidAsync("alert", "Authorization has succesfull!");
+            await LocalStorageService.SetAsync<User>("Authorization", UserService.currentUser);
+            
             _userLogin = null;
             _userPassword = null;
         }

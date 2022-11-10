@@ -1,17 +1,11 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using AuthorizationWebApp.Data;
-using AuthorizationWebApp.Data.LocalStorageService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddSingleton<UserService>();
-builder.Services.AddSingleton<User>();
-builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 
 var app = builder.Build();
 
