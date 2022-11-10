@@ -1,0 +1,62 @@
+﻿@page "/reg"
+@using Data
+@inject NavigationManager Navigation
+@inject CurrentUser CurrentUser
+<PageTitle>Index</PageTitle>
+
+<h1>Hello</h1>
+
+<div class="card">
+    <h4 class="card-header">Registration Page</h4>
+    <div class="card-body">
+        <EditForm Model="@user">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+            <hr>
+                <label for="email"><b>Name</b></label>
+                <InputText placeholder="Enter Name" name="name" id="name" required @bind-Value="user.FirstName" />
+                <br/>
+                <label for="email"><b>Surname</b></label>
+                <InputText  type="text" placeholder="Enter Surname" name="surname" id="surname" @bind-Value="user.LastName" />
+                <br/>
+                <label for="email"><b>Email</b></label>
+                <InputText type="text" placeholder="Enter Email" name="email" id="email" required @bind-Value="user.Email" />
+                <br/>
+                <label for="email"><b>Login</b></label>
+                <InputText type="text" placeholder="Enter Login" name="login" id="login" required @bind-Value="user.Login" />
+                <br/>
+                <label for="psw"><b>Password</b></label>
+                <InputText type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-Value="user.Password" />
+                <br/>
+                <label for="psw-repeat"><b>Repeat Password</b></label>
+                <InputText type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-Value="repPassword" />
+            <hr>
+
+            <button type="submit" class="registerbtn" @onclick="Registrarion">Registration</button>
+            <button type="submit" class="registerbtn" @onclick="Login">To Login</button>
+        </EditForm>
+    </div>
+</div>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    User user = new User();
+    string repPassword;
+
+    private void Registrarion()
+    {
+        
+    } 
+
+    private void Login() 
+	{ 
+		Navigation.NavigateTo("/counter"); 
+	} 
+
+    private void NavigateToCounterComponent() 
+	{ 
+		Navigation.NavigateTo("/counter"); 
+	} 
+}

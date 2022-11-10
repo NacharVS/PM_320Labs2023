@@ -449,15 +449,29 @@ namespace GameEditor
                 if (selectedUnit.helmet is null || checking == false)
                 {
                     selectedUnit.helmet = new Helmet(listBoxOfHelmets.SelectedItem.ToString());
-                    selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), true);
-                    UpdateStat();
+                    bool ch = selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), true);
+                    if (ch)
+                    {
+                        UpdateStat();
+                    }
+                    else
+                    {
+                        listBoxOfHelmets.SelectedItem = "-";
+                    }
                 }
                 else
                 {
                     selectedUnit.helmet.ChangeStatistic(selectedUnit, selectedUnit.helmet.Material, false);
                     selectedUnit.helmet = new Helmet(listBoxOfHelmets.SelectedItem.ToString());
-                    selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), true);
-                    UpdateStat();
+                    bool ch = selectedUnit.helmet.ChangeStatistic(selectedUnit, listBoxOfHelmets.SelectedItem.ToString(), true);
+                    if (ch)
+                    {
+                        UpdateStat();
+                    }
+                    else
+                    {
+                        listBoxOfHelmets.SelectedItem = "-";
+                    }
                 }
                 DBConnection.Update(selectedUnit);
             }
@@ -470,15 +484,29 @@ namespace GameEditor
                 if (selectedUnit.chestplate is null || checking == false)
                 {
                     selectedUnit.chestplate = new Chestplate(listBoxOfChestplates.SelectedItem.ToString());
-                    selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
-                    UpdateStat();
+                    bool ch = selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
+                    if (ch)
+                    {
+                        UpdateStat();
+                    }
+                    else
+                    {
+                        listBoxOfChestplates.SelectedItem = "-";
+                    }
                 }
                 else
                 {
                     selectedUnit.chestplate.ChangeStatistic(selectedUnit, selectedUnit.chestplate.Material, false);
                     selectedUnit.chestplate = new Chestplate(listBoxOfChestplates.SelectedItem.ToString());
-                    selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
-                    UpdateStat();
+                    bool ch = selectedUnit.chestplate.ChangeStatistic(selectedUnit, listBoxOfChestplates.SelectedItem.ToString(), true);
+                    if (ch)
+                    {
+                        UpdateStat();
+                    }
+                    else
+                    {
+                        listBoxOfChestplates.SelectedItem = "-";
+                    }
                 }
                 DBConnection.Update(selectedUnit);
             }
@@ -491,15 +519,29 @@ namespace GameEditor
                 if (selectedUnit.boots is null || checking == false)
                 {
                     selectedUnit.boots = new Boots(listBoxOfBoots.SelectedItem.ToString());
-                    selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), true);
-                    UpdateStat();
+                    bool ch = selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), true);
+                    if (ch)
+                    {
+                        UpdateStat();
+                    }
+                    else
+                    {
+                        listBoxOfBoots.SelectedItem = "-";
+                    }
                 }
                 else
                 {
                     selectedUnit.boots.ChangeStatistic(selectedUnit, selectedUnit.boots.Material, false);
                     selectedUnit.boots = new Boots(listBoxOfBoots.SelectedItem.ToString());
-                    selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), true);
-                    UpdateStat();
+                    bool ch = selectedUnit.boots.ChangeStatistic(selectedUnit, listBoxOfBoots.SelectedItem.ToString(), true);
+                    if (ch)
+                    {
+                        UpdateStat();
+                    }
+                    else
+                    {
+                        listBoxOfBoots.SelectedItem = "-";
+                    }
                 }
                 DBConnection.Update(selectedUnit);
             }

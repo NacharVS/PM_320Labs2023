@@ -241,10 +241,10 @@
             // armorLbl
             // 
             this.armorLbl.AutoSize = true;
-            this.armorLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.armorLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.armorLbl.Location = new System.Drawing.Point(12, 2);
             this.armorLbl.Name = "armorLbl";
-            this.armorLbl.Size = new System.Drawing.Size(63, 25);
+            this.armorLbl.Size = new System.Drawing.Size(65, 25);
             this.armorLbl.TabIndex = 23;
             this.armorLbl.Text = "Armor";
             // 
@@ -283,10 +283,10 @@
             // skillsRogLbl
             // 
             this.skillsRogLbl.AutoSize = true;
-            this.skillsRogLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.skillsRogLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.skillsRogLbl.Location = new System.Drawing.Point(23, 13);
             this.skillsRogLbl.Name = "skillsRogLbl";
-            this.skillsRogLbl.Size = new System.Drawing.Size(51, 25);
+            this.skillsRogLbl.Size = new System.Drawing.Size(54, 25);
             this.skillsRogLbl.TabIndex = 24;
             this.skillsRogLbl.Text = "Skills";
             // 
@@ -383,7 +383,7 @@
             // pointsLbl
             // 
             this.pointsLbl.AutoSize = true;
-            this.pointsLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.pointsLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.pointsLbl.Location = new System.Drawing.Point(465, 389);
             this.pointsLbl.Name = "pointsLbl";
             this.pointsLbl.Size = new System.Drawing.Size(56, 23);
@@ -407,20 +407,20 @@
             // levelLbl
             // 
             this.levelLbl.AutoSize = true;
-            this.levelLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.levelLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.levelLbl.Location = new System.Drawing.Point(216, 423);
             this.levelLbl.Name = "levelLbl";
-            this.levelLbl.Size = new System.Drawing.Size(48, 23);
+            this.levelLbl.Size = new System.Drawing.Size(49, 23);
             this.levelLbl.TabIndex = 33;
             this.levelLbl.Text = "Level";
             // 
             // ExLbl
             // 
             this.ExLbl.AutoSize = true;
-            this.ExLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ExLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ExLbl.Location = new System.Drawing.Point(21, 426);
             this.ExLbl.Name = "ExLbl";
-            this.ExLbl.Size = new System.Drawing.Size(30, 23);
+            this.ExLbl.Size = new System.Drawing.Size(31, 23);
             this.ExLbl.TabIndex = 31;
             this.ExLbl.Text = "XP";
             // 
@@ -453,10 +453,10 @@
             // nameLbl
             // 
             this.nameLbl.AutoSize = true;
-            this.nameLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.nameLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.nameLbl.Location = new System.Drawing.Point(21, 67);
             this.nameLbl.Name = "nameLbl";
-            this.nameLbl.Size = new System.Drawing.Size(59, 25);
+            this.nameLbl.Size = new System.Drawing.Size(61, 25);
             this.nameLbl.TabIndex = 20;
             this.nameLbl.Text = "Name";
             // 
@@ -481,10 +481,10 @@
             // attackManaLbl
             // 
             this.attackManaLbl.AutoSize = true;
-            this.attackManaLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.attackManaLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.attackManaLbl.Location = new System.Drawing.Point(216, 389);
             this.attackManaLbl.Name = "attackManaLbl";
-            this.attackManaLbl.Size = new System.Drawing.Size(106, 23);
+            this.attackManaLbl.Size = new System.Drawing.Size(108, 23);
             this.attackManaLbl.TabIndex = 17;
             this.attackManaLbl.Text = "Attack Mana";
             // 
@@ -523,40 +523,40 @@
             // pDefLbl
             // 
             this.pDefLbl.AutoSize = true;
-            this.pDefLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.pDefLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.pDefLbl.Location = new System.Drawing.Point(21, 349);
             this.pDefLbl.Name = "pDefLbl";
-            this.pDefLbl.Size = new System.Drawing.Size(96, 23);
+            this.pDefLbl.Size = new System.Drawing.Size(98, 23);
             this.pDefLbl.TabIndex = 12;
             this.pDefLbl.Text = "PhysicalDef";
             // 
             // attackLbl
             // 
             this.attackLbl.AutoSize = true;
-            this.attackLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.attackLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.attackLbl.Location = new System.Drawing.Point(21, 389);
             this.attackLbl.Name = "attackLbl";
-            this.attackLbl.Size = new System.Drawing.Size(58, 23);
+            this.attackLbl.Size = new System.Drawing.Size(59, 23);
             this.attackLbl.TabIndex = 11;
             this.attackLbl.Text = "Attack";
             // 
             // hpLbl
             // 
             this.hpLbl.AutoSize = true;
-            this.hpLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.hpLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.hpLbl.Location = new System.Drawing.Point(21, 310);
             this.hpLbl.Name = "hpLbl";
-            this.hpLbl.Size = new System.Drawing.Size(32, 23);
+            this.hpLbl.Size = new System.Drawing.Size(33, 23);
             this.hpLbl.TabIndex = 10;
             this.hpLbl.Text = "HP";
             // 
             // manaLbl
             // 
             this.manaLbl.AutoSize = true;
-            this.manaLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.manaLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.manaLbl.Location = new System.Drawing.Point(21, 270);
             this.manaLbl.Name = "manaLbl";
-            this.manaLbl.Size = new System.Drawing.Size(53, 23);
+            this.manaLbl.Size = new System.Drawing.Size(54, 23);
             this.manaLbl.TabIndex = 9;
             this.manaLbl.Text = "Mana";
             // 
@@ -615,7 +615,7 @@
             // intelligenceLbl
             // 
             this.intelligenceLbl.AutoSize = true;
-            this.intelligenceLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.intelligenceLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.intelligenceLbl.Location = new System.Drawing.Point(21, 229);
             this.intelligenceLbl.Name = "intelligenceLbl";
             this.intelligenceLbl.Size = new System.Drawing.Size(98, 23);
@@ -625,7 +625,7 @@
             // constitutionLbl
             // 
             this.constitutionLbl.AutoSize = true;
-            this.constitutionLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.constitutionLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.constitutionLbl.Location = new System.Drawing.Point(21, 189);
             this.constitutionLbl.Name = "constitutionLbl";
             this.constitutionLbl.Size = new System.Drawing.Size(104, 23);
@@ -635,27 +635,27 @@
             // dexterityLbl
             // 
             this.dexterityLbl.AutoSize = true;
-            this.dexterityLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.dexterityLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.dexterityLbl.Location = new System.Drawing.Point(21, 149);
             this.dexterityLbl.Name = "dexterityLbl";
-            this.dexterityLbl.Size = new System.Drawing.Size(78, 23);
+            this.dexterityLbl.Size = new System.Drawing.Size(80, 23);
             this.dexterityLbl.TabIndex = 2;
             this.dexterityLbl.Text = "Dexterity";
             // 
             // strengthLbl
             // 
             this.strengthLbl.AutoSize = true;
-            this.strengthLbl.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.strengthLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.strengthLbl.Location = new System.Drawing.Point(21, 108);
             this.strengthLbl.Name = "strengthLbl";
-            this.strengthLbl.Size = new System.Drawing.Size(75, 23);
+            this.strengthLbl.Size = new System.Drawing.Size(76, 23);
             this.strengthLbl.TabIndex = 1;
             this.strengthLbl.Text = "Strength";
             // 
             // listBoxMain
             // 
             this.listBoxMain.Dock = System.Windows.Forms.DockStyle.Top;
-            this.listBoxMain.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.listBoxMain.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.listBoxMain.FormattingEnabled = true;
             this.listBoxMain.ItemHeight = 20;
             this.listBoxMain.Items.AddRange(new object[] {
@@ -719,10 +719,10 @@
             // inventoryLbl
             // 
             this.inventoryLbl.AutoSize = true;
-            this.inventoryLbl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.inventoryLbl.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.inventoryLbl.Location = new System.Drawing.Point(22, 1);
             this.inventoryLbl.Name = "inventoryLbl";
-            this.inventoryLbl.Size = new System.Drawing.Size(87, 25);
+            this.inventoryLbl.Size = new System.Drawing.Size(93, 25);
             this.inventoryLbl.TabIndex = 22;
             this.inventoryLbl.Text = "Inventory";
             // 
@@ -762,6 +762,7 @@
             // listBoxRes
             // 
             this.listBoxRes.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listBoxRes.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.listBoxRes.FormattingEnabled = true;
             this.listBoxRes.ItemHeight = 20;
             this.listBoxRes.Location = new System.Drawing.Point(0, 28);
@@ -783,8 +784,9 @@
             // 
             // gameToolStripMenuItem
             // 
+            this.gameToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
-            this.gameToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
             this.gameToolStripMenuItem.Text = "Match";
             this.gameToolStripMenuItem.Click += new System.EventHandler(this.GameToolStripMenuItem_Click);
             // 
@@ -883,7 +885,7 @@
         private Label bootsLbl;
         private Label chestplateLbl;
         private Label helmetLbl;
-        private ListBox listBoxOfBoots;
+        public ListBox listBoxOfBoots;
         private ListBox listBoxOfChestplates;
         private ListBox listBoxOfHelmets;
         private MenuStrip menuStrip;

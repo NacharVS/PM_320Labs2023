@@ -15,7 +15,7 @@ namespace GameEditorLibrary
             Material = material;
         }
 
-        public void ChangeStatistic(Unit unit, string material, bool boo)
+        public bool ChangeStatistic(Unit unit, string material, bool boo)
         {
             try
             {
@@ -24,25 +24,46 @@ namespace GameEditorLibrary
                     switch (material)
                     {
                         case "Leather":
-                            unit.Strength += 1;
-                            unit.Constitution += 1;
-                            unit.phDefention += 1;
-                            unit.HP += 1;
-                            unit.MP += 1;
+                            if (unit.Level >= 1)
+                            {
+                                unit.Strength += 1;
+                                unit.Constitution += 1;
+                                unit.phDefention += 1;
+                                unit.HP += 1;
+                                unit.MP += 1;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                             break;
                         case "Chainmail":
-                            unit.Strength += 2;
-                            unit.Constitution += 2;
-                            unit.phDefention += 2;
-                            unit.HP += 2;
-                            unit.MP += 2;
+                            if (unit.Level >= 2)
+                            {
+                                unit.Strength += 2;
+                                unit.Constitution += 2;
+                                unit.phDefention += 2;
+                                unit.HP += 2;
+                                unit.MP += 2;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                             break;
                         case "Iron":
-                            unit.Strength += 3;
-                            unit.Constitution += 3;
-                            unit.phDefention += 3;
-                            unit.HP += 3;
-                            unit.MP += 3;
+                            if (unit.Level >= 3)
+                            {
+                                unit.Strength += 3;
+                                unit.Constitution += 3;
+                                unit.phDefention += 3;
+                                unit.HP += 3;
+                                unit.MP += 3;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                             break;
                     }
                 }
@@ -75,6 +96,7 @@ namespace GameEditorLibrary
                 }
             }
             catch (Exception ex) { }
+            return true;
         }
     }
 }

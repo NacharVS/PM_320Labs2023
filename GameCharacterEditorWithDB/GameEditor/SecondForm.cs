@@ -92,6 +92,7 @@ namespace GameEditor
 
         void RemoveOneMenuItem_Click(object sender, EventArgs e)
         {
+            listBoxOfUnits.SelectedIndex = -1;
             if (!(listBoxOfMatches.SelectedItems.Count > 0))
             {
                 listBoxOfUnits.Items.Add(listBoxTeamOne.SelectedItem.ToString());
@@ -102,6 +103,7 @@ namespace GameEditor
 
         void RemoveTwoMenuItem_Click(object sender, EventArgs e)
         {
+            listBoxOfUnits.SelectedIndex = -1;
             if (!(listBoxOfMatches.SelectedItems.Count > 0))
             {
                 listBoxOfUnits.Items.Add(listBoxTeamTwo.SelectedItem.ToString());
@@ -115,7 +117,7 @@ namespace GameEditor
             if (listBoxTeamOne.Items.Count > 0 && listBoxTeamOne.Items.Count < 7)
             {
                 int lvls = 0;
-                int count = 0;
+                double count = 0;
 
                 foreach (var i in listBoxTeamOne.Items)
                 {
@@ -130,9 +132,13 @@ namespace GameEditor
             {
                 textBoxOne.Text = "";
             }
-            if (listBoxTeamOne.Items.Count != 6 && listBoxTeamTwo.Items.Count != 6)
+            if (listBoxTeamOne.Items.Count != 6 || listBoxTeamTwo.Items.Count != 6)
             {
                 startBtn.Visible = false;
+            }
+            else if (Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) < 2)
+            {
+                startBtn.Visible = true;
             }
         }
 
@@ -141,7 +147,7 @@ namespace GameEditor
             if (listBoxTeamTwo.Items.Count > 0 && listBoxTeamTwo.Items.Count < 7)
             {
                 int lvls = 0;
-                int count = 0;
+                double count = 0;
 
                 foreach (var i in listBoxTeamTwo.Items)
                 {
@@ -156,15 +162,19 @@ namespace GameEditor
             {
                 textBoxTwo.Text = "";
             }
-            if (listBoxTeamOne.Items.Count != 6 && listBoxTeamTwo.Items.Count != 6)
+            if (listBoxTeamOne.Items.Count != 6 || listBoxTeamTwo.Items.Count != 6)
             {
                 startBtn.Visible = false;
+            }
+            else if (Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) < 2)
+            {
+                startBtn.Visible = true;
             }
         }
 
         private void TextBoxOne_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxOne.Text != "" && textBoxTwo.Text != "" && Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) <= 2)
+            if (textBoxOne.Text != "" && textBoxTwo.Text != "" && Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) < 2)
             {
                 startBtn.Visible = true;
             }
@@ -176,7 +186,7 @@ namespace GameEditor
 
         private void TextBoxTwo_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxOne.Text != "" && textBoxTwo.Text != "" && Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) <= 2)
+            if (textBoxOne.Text != "" && textBoxTwo.Text != "" && Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) < 2)
             {
                 startBtn.Visible = true;
             }
@@ -211,6 +221,17 @@ namespace GameEditor
         private void AutoBtn_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
+            while (listBoxTeamOne.Items.Count != 0)
+            {
+                listBoxOfUnits.Items.Add(listBoxTeamOne.Items[0]);
+                listBoxTeamOne.Items.Remove(listBoxTeamOne.Items[0]);
+            }
+            while (listBoxTeamTwo.Items.Count != 0)
+            {
+                listBoxOfUnits.Items.Add(listBoxTeamTwo.Items[0]);
+                listBoxTeamTwo.Items.Remove(listBoxTeamTwo.Items[0]);
+            }
+
             while (listBoxTeamOne.Items.Count < 6)
             {
                 int index = rnd.Next(0, listBoxOfUnits.Items.Count);
@@ -225,7 +246,7 @@ namespace GameEditor
                 SecondTeamChangedEvent();
                 listBoxOfUnits.Items.Remove(listBoxOfUnits.Items[indexTwo]);
             }
-            if (!(Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) <= 2))
+            if (!(Math.Abs(Convert.ToDouble(textBoxOne.Text) - Convert.ToDouble(textBoxTwo.Text)) < 2))
             {
                 DeleteInfo();
                 AutoBtn_Click(sender, e);
@@ -234,9 +255,10 @@ namespace GameEditor
 
         private void ListBoxOfMatches_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             if (listBoxOfMatches.SelectedItems.Count > 0)
             {
-                if (listBoxTeamOne.Items.Count != 0 && listBoxTeamTwo.Items.Count != 0 && listBoxOfMatches.SelectedItems.Count > 0)
+                if (listBoxTeamOne.Items.Count != 0 && listBoxTeamTwo.Items.Count != 0 && textBoxNumberMatch.Text != "")
                 {
                     while (listBoxTeamOne.Items.Count != 0)
                     {
@@ -247,7 +269,7 @@ namespace GameEditor
                         listBoxTeamTwo.Items.Remove(listBoxTeamTwo.Items[0]);
                     }
                 }
-                else if ((listBoxTeamOne.Items.Count != 0 || listBoxTeamTwo.Items.Count != 0) && listBoxOfMatches.SelectedItems.Count > 0)
+                else if ((listBoxTeamOne.Items.Count != 0 || listBoxTeamTwo.Items.Count != 0))
                 {
                     while (listBoxTeamOne.Items.Count != 0)
                     {
