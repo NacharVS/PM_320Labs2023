@@ -22,13 +22,26 @@ public static class ImageDb
             await FileWorker.UploadFromStreamAsync(fileName, fs);
         }
     }
+    
+    public static async Task UploadImageToDb(Stream stream, string fileName)
+    {
+        var fileInfo =
+            await FileWorker.FindAsync(Builders<GridFSFileInfo>.Filter.Eq(info => info.Filename, fileName));
 
-    public static async Task DownloadToLocal(string fileName)
+        if (fileInfo.FirstOrDefault() is null)
+        {
+            await FileWorker.UploadFromStreamAsync(fileName, stream);
+        }
+
+        await DownloadToLocal(fileName, "wwwroot/upload");
+    }
+
+    public static async Task DownloadToLocal(string fileName, string path=null)
     {
         try
         {
             await using FileStream fs = new FileStream(
-                $"{DownloadsFolder}/{fileName}",
+                $"{path ?? DownloadsFolder}/{fileName}",
                 FileMode.Create);
             await FileWorker.DownloadToStreamByNameAsync(fileName, fs);
         }
@@ -43,8 +56,6 @@ public static class ImageDb
         var fileInfo =
              FileWorker.Find(Builders<GridFSFileInfo>.Filter.Empty);
 
-
-        
         return fileInfo.ToList().Select(x => x.Filename).ToArray();
     }
     

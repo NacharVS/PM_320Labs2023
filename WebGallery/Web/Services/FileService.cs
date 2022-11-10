@@ -22,6 +22,11 @@ public class FileService
     {
         return ImageDb.GetAllImages();
     }
+
+    public async Task LoadImage(Stream stream, string name)
+    {
+        await ImageDb.UploadImageToDb(stream, name);
+    }
     public async Task UploadAllImages()
     {
         foreach (var filePath in LoadAllImages())

@@ -1,4 +1,5 @@
 ﻿@using Web.Services
+@using Core.DataProvider
 @inject FileService FileService
 
 <div class="top-row ps-3 navbar navbar-dark">
@@ -33,6 +34,13 @@
     private void ToggleNavMenu()
     {
         _collapseNavMenu = !_collapseNavMenu;
+    }
+
+    private async Task LoadImage(InputFileChangeEventArgs args)
+    {
+        await using FileStream fs = new(args.File.Name, FileMode.Create);
+
+        await ImageDb.UploadImageToDb(fs, args.File.Name);
     }
 
 }
