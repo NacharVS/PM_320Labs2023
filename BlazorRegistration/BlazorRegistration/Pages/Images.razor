@@ -1,40 +1,51 @@
 ﻿@page "/images"
 @using BlazorRegistration.Services
 @inject FileSystemService fss
+
 <PageTitle>Uploading images</PageTitle>
 
 <h3>Uploading images</h3>
 
- <table class="table">
-     <thead>
-     <tr>
-         <th>File name</th>
-         <th>Uploading an image</th>
-     </tr>
-     </thead>
-     <tbody>
-        
-     </tbody>
-</table>
+<InputFile OnChange="@LoadFiles" multiple/> <br><br>
+
+@foreach (var name in fileNames)
+{
+    <input type="submit" class="btn btn-primary btn-lg" @onclick="() => Download(name)" value="Load"/>
+    <p>@name</p>
+}
 
 <img src="@path" width="500"/>
 
 @code {
-    string path;
-    string fileName;
+    string? path;
     List<string> fileNames = new List<string>();
     List<IBrowserFile> loadedFiles = new List<IBrowserFile>();
-    
+
+    protected override void OnInitialized()
+    {
+        UploadImg();
+    }
+
+    private void UploadImg()
+    {
+        fileNames = fss.UploadImages();
+    }
+
+    private void Download(string name)
+    {
+        path = fss.DownloadToLocal(name);
+    }
+
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
-        
         foreach (var file in e.GetMultipleFiles(e.FileCount))
         {
             loadedFiles.Add(file);
-            Stream stream = file.OpenReadStream();
-            //await fss.UploadImageToDb(stream, file.Name);
+            Stream stream = file.OpenReadStream(5000000);
+            await fss.UploadImageToDbAsync(stream, file.Name);
             stream.Dispose();
         }
-
+        UploadImg();
     }
+
 }

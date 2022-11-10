@@ -266,7 +266,7 @@
             this.HoldMatch_Button.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.HoldMatch_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.HoldMatch_Button.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.HoldMatch_Button.Location = new System.Drawing.Point(321, 266);
+            this.HoldMatch_Button.Location = new System.Drawing.Point(321, 306);
             this.HoldMatch_Button.Name = "HoldMatch_Button";
             this.HoldMatch_Button.Size = new System.Drawing.Size(367, 42);
             this.HoldMatch_Button.TabIndex = 93;
@@ -279,7 +279,7 @@
             // 
             this.MatchNumber.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MatchNumber.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.MatchNumber.Location = new System.Drawing.Point(445, 314);
+            this.MatchNumber.Location = new System.Drawing.Point(445, 354);
             this.MatchNumber.Name = "MatchNumber";
             this.MatchNumber.Size = new System.Drawing.Size(120, 25);
             this.MatchNumber.TabIndex = 94;

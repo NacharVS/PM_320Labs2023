@@ -347,6 +347,7 @@ namespace GameCharacterEditor
 
             Armor_Text.Text = "";
             Armor_Label.Visible = true;
+            Armor_ListBox.Visible = true;
             Armor_Text.Visible = true;
             for (int i = 0; i < character.armorList.Count; i++)
             {
@@ -476,8 +477,8 @@ namespace GameCharacterEditor
         {
             armor.Check(character, Material_ComboBox.SelectedItem.ToString(),
                     Armor_ListBox.SelectedItem.ToString());
-            character.AddToArmorName(Armor_ListBox.SelectedItem.ToString());
             character.AddToArmorName(Material_ComboBox.SelectedItem.ToString());
+            character.AddToArmorName(Armor_ListBox.SelectedItem.ToString());
             //character.AddToArmor(armor);
             Strength_Text.Value = character.Strength;
             Dexterity_Text.Value = character.Dexterity;

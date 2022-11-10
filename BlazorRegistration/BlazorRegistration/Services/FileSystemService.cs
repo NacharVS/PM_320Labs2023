@@ -6,16 +6,13 @@ namespace BlazorRegistration.Services;
 
 public class FileSystemService
 {
-    public void UploadImageToDb(string path, string fileName)
+    public async Task UploadImageToDbAsync(Stream stream, string fileName)
     {
         var client = new MongoClient("mongodb://localhost");
         var database = client.GetDatabase("BlazorImages");
         var gridFS = new GridFSBucket(database);
-
-        using (FileStream fs = new FileStream(path, FileMode.Open))
-        {
-            gridFS.UploadFromStream(fileName, fs);
-        }
+        
+        await gridFS.UploadFromStreamAsync(fileName, stream);
     }
 
     public string DownloadToLocal(string fileName)
@@ -27,7 +24,7 @@ public class FileSystemService
         using (FileStream fs =
                new FileStream(
                    $"{Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/wwwroot/Images/")}{fileName}",
-                   FileMode.CreateNew))
+                   FileMode.OpenOrCreate))
         {
             gridFS.DownloadToStreamByName(fileName, fs);
         }
@@ -39,8 +36,8 @@ public class FileSystemService
     {
         var client = new MongoClient("mongodb://localhost");
         var database = client.GetDatabase("BlazorImages");
-        var collection = database.GetCollection<GridFSFileInfo>("Images");
-        var images = collection.Find(new BsonDocument()).ToList();
+        var collection = database.GetCollection<GridFSFileInfo>("fs.files");
+        var images = collection.Find(x => true).ToList();
         var nameImages = new List<string>();
 
         foreach (var img in images)

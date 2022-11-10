@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<DataBase>();
 builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
-builder.Services.AddScoped<FileSystemService>();
+builder.Services.AddSingleton<FileSystemService>();
 
 var app = builder.Build();
 

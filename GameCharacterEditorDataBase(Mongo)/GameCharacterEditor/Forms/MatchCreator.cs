@@ -143,6 +143,7 @@ namespace GameCharacterEditor
             }
 
             FirstTeam_ListBox.Items.Clear();
+            SavedCharactersBox.Enabled = true;
             Balance_Text.Text = "X";
         }
 
@@ -154,6 +155,7 @@ namespace GameCharacterEditor
             }
 
             SecondTeam_ListBox.Items.Clear();
+            SavedCharactersBox.Enabled = true;
             Balance_Text.Text = "X";
         }
 
@@ -208,6 +210,7 @@ namespace GameCharacterEditor
         private void MatchInfo_Button_Click(object sender, EventArgs e)
         {
             Display();
+            Balance_Text.Visible = false;
             MatchNumber.Visible = false;
             ClearFirst_Button.Visible = false;
             ClearSecond_Button.Visible = false;
@@ -256,14 +259,20 @@ namespace GameCharacterEditor
             {
                 Balance_Text.Text = "Balance";
                 HoldMatch_Button.Enabled = true;
+                SavedCharactersBox.Enabled = false;
+            }
+            else if (!BalanceCheck() && FirstTeam_ListBox.Items.Count == 6 &&
+                SecondTeam_ListBox.Items.Count == 6)
+            {
+                Balance_Text.Text = "X";
+                HoldMatch_Button.Enabled = false;
+                SavedCharactersBox.Enabled = false;
             }
             else
             {
                 Balance_Text.Text = "X";
                 HoldMatch_Button.Enabled = false;
             }
-            
-            SavedCharactersBox.Enabled = false;
         }
 
         public bool BalanceCheck()
