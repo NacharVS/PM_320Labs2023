@@ -61,5 +61,10 @@
         {
             return _maxRang;    
         }
+
+        public override string ToString()
+        {
+            return $"{Name} | {Rang}";
+        }
     }
 }

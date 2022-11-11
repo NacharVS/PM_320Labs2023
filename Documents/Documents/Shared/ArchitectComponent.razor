@@ -1,0 +1,119 @@
+﻿@using Documents.Data
+@using System.Text.RegularExpressions
+
+@if (_architect != null)
+{
+    <div class="form-group">
+        <label>Наименование проектной организации</label>
+        <input class="form-control" @bind-value="@_architect.Name" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_architect)">
+    </div>
+
+    <div class="form-group">
+        <label>ОГРН</label>
+        <input class="form-control" @bind-value="@_architect.OGRN" style="width: 400px;" @onblur="SendUserInfo">
+        @if (!IsOGRNCorrect())
+        {
+            <div class="alert alert-warning" style="width: 400px;">
+              Неверный ОГРН!
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>ИНН</label>
+        <input class="form-control" @bind-value="@_architect.INN" style="width: 400px;" @onblur="SendUserInfo">
+        @if (!IsINNCorrect())
+        {
+            <div class="alert alert-warning" style="width: 400px;">
+              Неверный ИНН!
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>КПП</label>
+        <input class="form-control" @bind-value="@_architect.KPP" style="width: 400px;" @onblur="SendUserInfo">
+        @if (!IsKPPCorrect())
+        {
+            <div class="alert alert-warning" style="width: 400px;">
+              Неверный КПП!
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>Адрес</label>
+        <input class="form-control" @bind-value="@_architect.Address" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_architect)">
+    </div>
+
+    <div class="form-group">
+        <label>Директор</label>
+        <input class="form-control" @bind-value="@_architect.Director" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_architect)">
+    </div>
+
+    <div class="form-group">
+        <label>Главный инженер проекта</label>
+        <input class="form-control" @bind-value="@_architect.Engineer" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_architect)">
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Architect Architect { get; set; }
+
+    private Architect _architect = new Architect();
+
+    [Parameter]
+    public EventCallback<User> SendUser { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsDataCorrect { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Architect != null)
+        {
+            _architect = Architect;
+        }
+        StateHasChanged();
+    }
+
+    private void SendUserInfo()
+    {
+        if (IsINNCorrect() && IsKPPCorrect() && IsOGRNCorrect())
+        {
+            IsDataCorrect.InvokeAsync(true);
+            SendUser.InvokeAsync(_architect);
+        }
+    }
+
+    private bool IsOGRNCorrect()
+    {
+        if (_architect.OGRN != null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");;
+            return r.IsMatch(_architect.OGRN) && _architect.OGRN.Length == 13;
+        }
+        return false;
+    }
+
+    private bool IsINNCorrect()
+    {
+        if(_architect.INN != null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");;
+            return r.IsMatch(_architect.INN) && _architect.INN.Length == 10;
+        }
+        return false;
+    }
+
+    private bool IsKPPCorrect()
+    {
+        if (_architect.KPP != null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");;
+            return r.IsMatch(_architect.KPP) && _architect.KPP.Length == 9;
+        }
+        return false;
+    }
+}

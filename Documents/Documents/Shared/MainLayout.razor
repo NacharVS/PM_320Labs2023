@@ -1,0 +1,40 @@
+﻿@inherits LayoutComponentBase
+
+@using Documents.Services
+@using Documents.Data
+
+@inject UserService UserServ
+@inject ILocalStorageService LocalStServ
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            @if (UserServ.CurrentUser != null)
+            {
+                <a href="/account" target="_blank">@UserServ.CurrentUser.Login</a>
+            }
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        var localUser = await LocalStServ.GetAsync<User>("Authorization");
+        var dbUser = UserServ.GetUserByLoginAndPassword(localUser.Login, localUser.Password);
+
+        if (dbUser != null)
+        {
+            UserServ.CurrentUser = dbUser;
+        }
+    }
+}

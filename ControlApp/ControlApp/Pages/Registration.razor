@@ -77,6 +77,11 @@
     {
         if (CheckFields())
         {
+            if (_userService.GetUser(_login) != null)
+            {
+                return;
+            }
+
             var user = new User()
                 {
                     Name = _name,

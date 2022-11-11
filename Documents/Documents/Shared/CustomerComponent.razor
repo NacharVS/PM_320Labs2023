@@ -1,0 +1,42 @@
+﻿@using Documents.Data
+
+@if (_customer != null)
+{
+    <div class="form-group">
+        <label>Фамилия</label>
+        <input class="form-control" @bind-value="@_customer.Name" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_customer)">
+    </div>
+
+    <div class="form-group">
+        <label>Имя</label>
+        <input class="form-control" @bind-value="@_customer.Surname" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_customer)">
+    </div>
+
+    <div class="form-group">
+        <label>Отчество</label>
+        <input class="form-control" @bind-value="@_customer.Patronymic" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_customer)">
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Customer Customer { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsDataCorrect { get; set; }
+
+    private Customer _customer = new Customer();
+
+    [Parameter]
+    public EventCallback<User> SendUser { get; set; }
+
+    protected override void OnInitialized()
+    {
+        IsDataCorrect.InvokeAsync(true);
+        if (Customer != null)
+        {
+            _customer = Customer;
+        }
+        StateHasChanged();
+    }
+}

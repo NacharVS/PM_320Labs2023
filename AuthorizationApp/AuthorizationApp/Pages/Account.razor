@@ -1,0 +1,29 @@
+﻿@page "/account"
+
+@using AuthorizationApp.Data
+
+@inject UserService UserServ
+@inject NavigationManager NavManager
+
+<h3>Account</h3>
+
+@if (UserServ.CurrentUser != null)
+{
+<div class="card" style="width: 300px">
+	<div class="card-body">
+		<h5 class="card-title">User Info</h5>
+		<h6 class="card-text">Surname: @UserServ.CurrentUser.Surname</h6>
+		<h6 class="card-text">Name: @UserServ.CurrentUser.Name</h6>
+		<h6 class="card-text">Email: @UserServ.CurrentUser.Email</h6>
+	</div>
+	<button class="btn btn-primary" @onclick="@LogOut">Log out</button>
+</div>
+}
+
+@code {
+	private void LogOut()
+	{
+		UserServ.CurrentUser = null;
+		NavManager.NavigateTo("/");
+	}
+}

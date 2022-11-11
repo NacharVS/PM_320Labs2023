@@ -41,6 +41,7 @@ namespace CharacterEditor
 
             foreach(var match in matches)
             {
+                match.StartDate = match.StartDate.AddHours(3);
                 cbMatches.Items.Add(match);
             }
         }

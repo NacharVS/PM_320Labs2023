@@ -59,7 +59,6 @@ namespace CharacterEditor
                         cbHelmets.Items.Add(helmet);
                     }
                 }
-                cbHelmets.DisplayMemberPath = "Name";
 
                 cbBreastplates.Items.Clear();
                 var breastplates = _character.GetAvailableBreastplates();
@@ -70,7 +69,6 @@ namespace CharacterEditor
                         cbBreastplates.Items.Add(breastplate);
                     }
                 }
-                cbBreastplates.DisplayMemberPath = "Name";
 
                 cbWeapons.Items.Clear();
                 var weapons = _character.GetAvailableWeapons();
@@ -81,7 +79,6 @@ namespace CharacterEditor
                         cbWeapons.Items.Add(weapon);
                     }
                 }
-                cbWeapons.DisplayMemberPath = "Name";
             }
         }
 

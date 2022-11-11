@@ -1,0 +1,44 @@
+﻿@page "/login"
+
+@using AuthorizationApp.Data
+@using AuthorizationApp.Data.LocalStorageService
+
+@inject NavigationManager NavigationMan
+@inject UserService UserServ
+@inject IJSRuntime JSRun
+@inject ILocalStorageService LocalStServ
+
+<h3>Authorization</h3>
+
+<div class="form-group">
+    <label for="login">Login</label>
+    <input class="form-control" placeholder="Login" @bind-value="@_login">
+</div>
+<div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" placeholder="Password" @bind-value="@_password">
+</div>
+<button class="btn btn-primary" @onclick="@LogIn">Log in</button>
+
+@code {
+    private string _login = "";
+    private string _password = "";
+
+    private async void LogIn()
+    {
+        var user = UserServ.GetUserByLoginAndPassword(_login, _password);
+        if (user != null)
+        {
+            UserServ.CurrentUser = user;
+            await JSRun.InvokeVoidAsync("alert", "Login completed successfully!");
+            await LocalStServ.SetAsync<User>("Authorization", UserServ.CurrentUser);
+            NavigationMan.NavigateTo("/account");
+            return;
+        }
+
+        if (user == null)
+        {
+            await JSRun.InvokeVoidAsync("alert", "User not founded!");
+        }
+    }
+}

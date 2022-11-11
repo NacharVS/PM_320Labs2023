@@ -1,0 +1,45 @@
+﻿@page "/login"
+
+@using Documents.Services
+@using Documents.Data
+
+@inject UserService UserServ
+@inject IJSRuntime JSRun
+@inject ILocalStorageService LocalStServ
+@inject NavigationManager NavigationMan
+
+<h3>Авторирзация</h3>
+
+<div class="form-group">
+    <label>Логин</label>
+    <input class="form-control" @bind-value="@_login" style="width: 400px;">
+</div>
+
+<div class="form-group">
+    <label>Пароль</label>
+    <input class="form-control" @bind-value="@_password" style="width: 400px;">
+</div>
+
+<button class="btn btn-primary" @onclick="@LogIn">Войти</button>
+
+@code {
+    private string _login = "";
+    private string _password = "";
+
+    private async void LogIn()
+    {
+        var user = UserServ.GetUserByLoginAndPassword(_login, _password);
+        if (user != null)
+        {
+            UserServ.CurrentUser = user;
+            await LocalStServ.SetAsync<User>("Authorization", UserServ.CurrentUser);
+            NavigationMan.NavigateTo("/account");
+            return;
+        }
+
+        if (user == null)
+        {
+            await JSRun.InvokeVoidAsync("alert", "Такой пользователь не существует!");
+        }
+    }
+}

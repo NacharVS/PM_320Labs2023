@@ -1,0 +1,85 @@
+﻿@page "/registration"
+
+@using AuthorizationApp.Data
+
+@inject IJSRuntime JSRun
+@inject UserService UserServ
+@inject NavigationManager NavigationMan
+
+<h3>Registration</h3>
+
+<div class="form-group">
+    <label for="login">Login</label>
+    <input class="form-control" placeholder="Login" @bind-value="@user.Login">
+    @if(user.Login == "" || user.Login == null)
+    {
+        <div class="alert alert-warning">
+            Login cannot be empty!
+        </div>
+    }
+</div>
+<div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" placeholder="Password" @bind-value="@user.Password">
+    @if(user.Password == "" || user.Password == null)
+    {
+        <div class="alert alert-warning">
+            Password cannot be empty!
+        </div>
+    }
+</div>
+<div class="form-group">
+    <label for="passwordCheck">Password Check</label>
+    <input type="password" class="form-control" placeholder="Password" @bind-value="@_passwordCheck">
+    @if(_passwordCheck != user.Password)
+    {
+        <div class="alert alert-warning">
+            Passwords don`t match!
+        </div>
+    }
+</div>
+<div class="form-group">
+    <label for="name">Name</label>
+    <input class="form-control" placeholder="Name" @bind-value="@user.Name">
+</div>
+<div class="form-group">
+    <label>Surname</label>
+    <input class="form-control" placeholder="Surname" @bind-value="@user.Surname">
+</div>
+<div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" placeholder="Email" @bind-value="user.Email">
+</div>
+<button type="button" class="btn btn-primary" @onclick="RegistrationUser">Registration</button>
+
+@code {
+    private User user = new User();
+    private string _passwordCheck;
+
+    private bool CheckFields()
+    {
+        return (user.Login != "" || user.Login == null) &&
+               (user.Password != "" || user.Password == null) &&
+               _passwordCheck != "" &&
+               user.Password == _passwordCheck;
+    }
+
+    private async void RegistrationUser()
+    {
+        if (!CheckFields())
+        {
+            await JSRun.InvokeVoidAsync("alert", "Not all fields are filled in!");
+            return;
+        }
+
+        if (UserServ.GetUserByLogin(user.Login) != null)
+        {
+            await JSRun.InvokeVoidAsync("alert", "User with this login already exists!");
+            return;
+        }
+
+        UserServ.AddUser(user);
+        user = new User();
+        NavigationMan.NavigateTo("/login");
+    }
+}

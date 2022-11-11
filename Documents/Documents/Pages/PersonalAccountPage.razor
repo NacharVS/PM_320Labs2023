@@ -1,0 +1,97 @@
+﻿@page "/account"
+
+@using Documents.Data
+@using Documents.Services
+@using System.Text.RegularExpressions
+
+@inject UserService UserServ
+@inject RoleService RoleServ
+
+<h3>Личный кабинет</h3>
+
+@switch(_user.Role_ID)
+{
+    case "636ce3da2b43e99e3f7871fe":
+        <CustomerComponent IsDataCorrect="x => _isDataCorrect = x" Customer="_user as Customer" SendUser="x => _user = x"></CustomerComponent>
+        break;
+    case "636ce3ef8e2a89e056c01119":
+        <ArchitectComponent IsDataCorrect="x => _isDataCorrect = x" Architect="_user as Architect" SendUser="x => _user = x"></ArchitectComponent>
+        break;
+    case "636ce406167bd31f31312b30":
+        <BuilderComponent IsDataCorrect="x => _isDataCorrect = x" Builder="_user as Builder" SendUser="x => _user = x"></BuilderComponent>
+        break;
+    default:
+        break;
+
+}
+
+<div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" @bind-value="_user.Email" style="width: 400px;">
+    @if (!IsEmailCorrect())
+    {
+        <div class="alert alert-warning" style="width: 400px;">
+          Неверный email!
+        </div>
+    }
+</div>
+
+<div class="form-group">
+    <label>Телефон</label>
+    <input class="form-control" @bind-value="@_user.PhoneNumber" style="width: 400px;">
+    @if (!IsPhoneNumberCorrect())
+    {
+        <div class="alert alert-warning" style="width: 400px;">
+          Неверный телефонный номер!
+        </div>
+    }
+</div>
+
+<div class="form-group">
+    <label>Роль: </label>
+    <label>@RoleServ.GetRoleById(_user.Role_ID).Name</label>
+</div>
+
+<button class="btn btn-primary" @onclick="@Save">Сохранить</button>
+
+@code {
+    private User _user;
+    private bool _isDataCorrect;
+
+    protected override void OnInitialized()
+    {
+        _user = UserServ.CurrentUser;
+    }
+
+    private void Save()
+    {
+        if (CheckFields() && _isDataCorrect)
+        {
+            UserServ.UpdateUser(_user, _user.Login);
+        }
+    }
+
+    private bool CheckFields()
+    {
+        return (_user.Login != ""
+         && _user.Password != ""
+         && _user.Email != ""
+         && _user.Role_ID != ""
+         && IsPhoneNumberCorrect()
+         && IsEmailCorrect());
+    }
+
+    private bool IsPhoneNumberCorrect()
+    {
+        Regex r = new Regex(@"^[0-9]+$");
+        return r.IsMatch(_user.PhoneNumber) && _user.PhoneNumber.Length == 11;
+    }
+
+    private bool IsEmailCorrect()
+    {
+        string cond = @"(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)";
+        return Regex.IsMatch(_user.Email, cond);
+    }
+}
+
+

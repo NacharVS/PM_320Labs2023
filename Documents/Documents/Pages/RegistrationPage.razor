@@ -1,0 +1,151 @@
+﻿@page "/registration"
+
+@using Documents.Services
+@using Documents.Data
+@using System.Text.RegularExpressions
+
+@inject IJSRuntime JSRun
+@inject RoleService RoleServ
+@inject UserService UserServ
+@inject NavigationManager NavigationMan
+
+<h3>Регистрация</h3>
+
+<div class="form-group">
+    <label>Логин</label>
+    <input class="form-control" @bind-value="@_login" style="width: 400px;">
+</div>
+
+<div class="form-group">
+    <label>Пароль</label>
+    <input type="password" class="form-control" @bind-value="@_password" style="width: 400px;">
+</div>
+
+<div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" @bind-value="@_email" style="width: 400px;">
+    @if (!IsEmailCorrect())
+    {
+        <div class="alert alert-warning" style="width: 400px;">
+          Неверный email!
+        </div>
+    }
+</div>
+
+<div class="form-group">
+    <label>Телефон</label>
+    <input class="form-control" @bind-value="@_phoneNumber" style="width: 400px;">
+    @if(!IsPhoneNumberCorrect())
+    {
+        <div class="alert alert-warning" style="width: 400px;">
+          Неверный телефонный номер!
+        </div>
+    }
+</div>
+
+<div class="form-group">
+    <label>Роль</label><br/>
+    <select class="custom-select" @bind="@_selectedRole" @onblur="CreateUser" style="width: 400px;">
+      @foreach(var role in RoleServ.GetRoleNames())
+      {
+          <option value="@role">@role</option>
+      }
+    </select>
+</div>
+
+@switch(RoleServ.GetRoleByName(_selectedRole)?.Id)
+{
+    case "636ce3da2b43e99e3f7871fe":
+        <CustomerComponent IsDataCorrect="x => _isDataCorrect = x" SendUser="x => _user = x"></CustomerComponent>
+        break;
+    case "636ce3ef8e2a89e056c01119":
+        <ArchitectComponent IsDataCorrect="x => _isDataCorrect = x" SendUser="x => _user = x"></ArchitectComponent>
+        break;
+    case "636ce406167bd31f31312b30":
+        <BuilderComponent IsDataCorrect="x => _isDataCorrect = x" SendUser="x => _user = x"></BuilderComponent>
+        break;
+    default:
+        break;
+
+}
+
+<button class="btn btn-primary" @onclick="Registration">Зарегистрироваться</button>
+
+@code {
+    private bool _isDataCorrect;
+    private User _user = new User();
+    private string _login = "";
+    private string _password = "";
+    private string _phoneNumber = "";
+    private string _email = "";
+    private string _selectedRole = "";
+
+    private void CreateUser()
+    {
+        var roleId = RoleServ.GetRoleByName(_selectedRole)?.Id;
+
+        if (roleId == "636ce3da2b43e99e3f7871fe")
+        {
+            _user = new Customer();
+        }
+
+        if (roleId == "636ce3ef8e2a89e056c01119")
+        {
+            _user = new Architect();
+        }
+
+        if (roleId == "636ce406167bd31f31312b30")
+        {
+            _user = new Builder();
+        }
+    }
+
+    private async void Registration()
+    {
+        if (!CheckFields() || !_isDataCorrect)
+        {
+            await JSRun.InvokeVoidAsync("alert", "Не все поля заполнены!");
+            return;
+        }
+
+        if (UserServ.IsUserExist(_login))
+        {
+            await JSRun.InvokeVoidAsync("alert", "Пользователь с таким логином уже существует!");
+            return;
+        }
+
+        if (_user != null)
+        {
+            _user.Login = _login;
+            _user.Password = _password;
+            _user.Email = _email;
+            _user.Role_ID = RoleServ.GetRoleByName(_selectedRole).Id;
+            _user.PhoneNumber = _phoneNumber;
+            UserServ.InsertUser(_user);
+        }
+
+        NavigationMan.NavigateTo("/login");
+    }
+
+    private bool CheckFields()
+    {
+        return (_login != ""
+         && _password != ""
+         && _email != ""
+         && _selectedRole != ""
+         && IsPhoneNumberCorrect()
+         && IsEmailCorrect());
+    }
+
+    private bool IsPhoneNumberCorrect()
+    {
+        Regex r = new Regex(@"^[0-9]+$");
+        return r.IsMatch(_phoneNumber) && _phoneNumber.Length == 11;
+    }
+
+    private bool IsEmailCorrect()
+    {
+        string cond = @"(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)";
+        return Regex.IsMatch(_email, cond);
+    }
+}

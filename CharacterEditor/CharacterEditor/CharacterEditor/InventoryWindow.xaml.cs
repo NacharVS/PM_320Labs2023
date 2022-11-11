@@ -99,8 +99,6 @@ namespace CharacterEditor
         {
             if (_character != null)
             {
-                lbInventoryItems.DisplayMemberPath = "Name";
-
                 foreach (var item in _items)
                 {
                     lbInventoryItems.Items.Add(item);

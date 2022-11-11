@@ -25,5 +25,10 @@ namespace ControlApp.Data
         {
             return _users.Find<User>(x => x.Login == login && x.Password == password).FirstOrDefault();
         }
+
+        public User GetUser(string login)
+        {
+            return _users.Find<User>(x => x.Login == login).FirstOrDefault();
+        }
     }
 }

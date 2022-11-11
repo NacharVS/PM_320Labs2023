@@ -1,0 +1,36 @@
+﻿@page "/images"
+
+@using AuthorizationApp.Data
+
+@inject FileSystemService FSService
+
+<h3>Images</h3>
+<button class="btn btn-primary" @onclick="FSService.UpdateImagesInDB">Load images to DB</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Show</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var item in FSService.GetImageNames())
+      {
+           <tr>
+               <td>@item</td>
+               <td><button class="btn btn-primary" @onclick="() => ShowImage(item)">Show</button></td>
+           </tr> 
+      }
+    </tbody>
+</table>
+<img src="/images/@selectedImage" alt="Image not selected!" width="300" height="200"/>
+
+@code {
+    private string selectedImage;
+
+    private void ShowImage(string name)
+    {
+        FSService.DownloadToLocal(name);
+        selectedImage = name;
+    }
+}

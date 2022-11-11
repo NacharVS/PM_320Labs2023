@@ -1,0 +1,37 @@
+﻿@inherits LayoutComponentBase
+@using AuthorizationApp.Data
+@using AuthorizationApp.Data.LocalStorageService
+
+@inject UserService UserServ
+@inject ILocalStorageService LocalStServ
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            @if (UserServ.CurrentUser != null)
+            {
+                <a href="/account" target="_blank">@UserServ.CurrentUser.Surname @UserServ.CurrentUser.Name</a>
+            }
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        User localUser = await LocalStServ.GetAsync<User>("Authorization");
+        if (localUser != null)
+        {
+            UserServ.CurrentUser = localUser;
+        }
+    }
+}

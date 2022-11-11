@@ -1,0 +1,113 @@
+﻿@using Documents.Data
+@using System.Text.RegularExpressions
+
+@if (_builder != null)
+{
+    <div class="form-group">
+        <label>Наименование проектной организации</label>
+        <input class="form-control" @bind-value="@_builder.Name" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_builder)">
+    </div>
+
+    <div class="form-group">
+        <label>ОГРН</label>
+        <input class="form-control" @bind-value="@_builder.OGRN" style="width: 400px;" @onblur="SendUserInfo">
+        @if (!IsOGRNCorrect())
+        {
+            <div class="alert alert-warning" style="width: 400px;">
+              Неверный ОГРН!
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>ИНН</label>
+        <input class="form-control" @bind-value="@_builder.INN" style="width: 400px;" @onblur="SendUserInfo">
+        @if (!IsINNCorrect())
+        {
+            <div class="alert alert-warning" style="width: 400px;">
+              Неверный ИНН!
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>КПП</label>
+        <input class="form-control" @bind-value="@_builder.KPP" style="width: 400px;" @onblur="SendUserInfo">
+        @if (!IsKPPCorrect())
+        {
+            <div class="alert alert-warning" style="width: 400px;">
+              Неверный КПП!
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>Адрес</label>
+        <input class="form-control" @bind-value="@_builder.Address" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_builder)">
+    </div>
+
+    <div class="form-group">
+        <label>Руководитель Исполнительного комитета РТ</label>
+        <input class="form-control" @bind-value="@_builder.Director" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_builder)">
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Builder Builder { get; set; }
+    private Builder _builder = new Builder();
+
+    [Parameter]
+    public EventCallback<bool> IsDataCorrect { get; set; }
+
+    [Parameter]
+    public EventCallback<User> SendUser { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Builder != null)
+        {
+            _builder = Builder;
+        }
+        StateHasChanged();
+    }
+
+    private void SendUserInfo()
+    {
+        if (IsINNCorrect() && IsKPPCorrect() && IsOGRNCorrect())
+        {
+            IsDataCorrect.InvokeAsync(true);
+            SendUser.InvokeAsync(_builder);
+        }
+    }
+
+    private bool IsOGRNCorrect()
+    {
+        if (_builder.OGRN != null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");;
+            return r.IsMatch(_builder.OGRN) && _builder.OGRN.Length == 13;
+        }
+        return false;
+    }
+
+    private bool IsINNCorrect()
+    {
+        if(_builder.INN != null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");;
+            return r.IsMatch(_builder.INN) && _builder.INN.Length == 10;
+        }
+        return false;
+    }
+
+    private bool IsKPPCorrect()
+    {
+        if (_builder.KPP != null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");;
+            return r.IsMatch(_builder.KPP) && _builder.KPP.Length == 9;
+        }
+        return false;
+    }
+}
