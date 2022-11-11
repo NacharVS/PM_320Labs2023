@@ -1,81 +1,92 @@
 ﻿@using DocumentApp.Interfaces
 @using DocumentApp.Models
+@using DocumentApp.Pages
 @using DocumentApp.Services
+@using System.Text.RegularExpressions
 @inject UserService UserService; 
-@if (IsCabinet)
+@if (UserService.CurrentUser is null)
 {
-    if (UserService.CurrentUser is not null)
-    {
-        user = UserService.CurrentUser as Builder;
-    }
-    <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@user.BuilderName"/>
-        <label class="form-label">Наименование проектной организации</label>
-    </div>
-    <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@user.OGRN"/>
-        <label class="form-label">ОГРН</label>
-    </div>
-    <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@user.INN"/>
-        <label class="form-label">ИНН</label>
-    </div>
-    <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@user.KPP"/>
-        <label class="form-label">КПП</label>
-    </div>
-    <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@user.Adress"/>
-        <label class="form-label">Адрес</label>
-    </div>
-    <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@user.Director"/>
-        <label class="form-label">Руководитель исполнительного комитета РТ</label>
-    </div>
+    user = new Builder();
 }
 else
 {
+    user = UserService.CurrentUser as Builder;
+}
     <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@BuilderName"/>
+        <input type="text" class="form-control form-control-lg" @bind="@user.BuilderName"/>
         <label class="form-label">Наименование проектной организации</label>
     </div>
     <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@Ogrn"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@user.OGRN"/>
         <label class="form-label">ОГРН</label>
+        @if (!IsOGRNCorrect())
+        {
+            <div class="alert alert-warning">Неверно введен ОГРН</div>
+        }
     </div>
     <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@Inn"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@user.INN"/>
         <label class="form-label">ИНН</label>
+        @if (!IsINNCorrect())
+        {
+            <div class="alert alert-warning">Неверно введен ИНН</div>
+        }
     </div>
     <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@Kpp"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@user.KPP"/>
         <label class="form-label">КПП</label>
+        @if (!IsKPPCorrect())
+        {
+            <div class="alert alert-warning">Неверно введен КПП</div>
+        }
     </div>
     <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@Adress"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@user.Adress"/>
         <label class="form-label">Адрес</label>
     </div>
     <div class="form-outline mb-4">
-        <input type="email" class="form-control form-control-lg" @bind-value="@Director"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@user.Director"/>
         <label class="form-label">Руководитель исполнительного комитета РТ</label>
     </div>
-}
+
 
 @code {
-    public string? BuilderName;
+    public Builder? user;
 
-    public string? Ogrn;
+    public bool CanSave = true;
+    
+    private bool IsOGRNCorrect()
+    {
+        if (user.OGRN != null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");;
+            return r.IsMatch(user.OGRN) && user.OGRN.Length == 13;
+        }
+        return false;
+    }
 
-    public string? Inn;
+    private bool IsINNCorrect()
+    {
+        if(user.INN != null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");;
+            return r.IsMatch(user.INN) && user.INN.Length == 10;
+        }
+        return false;
+    }
 
-    public string? Kpp;
+    private bool IsKPPCorrect()
+    {
+        if (user.KPP != null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");;
+            return r.IsMatch(user.KPP) && user.KPP.Length == 9;
+        }
+        return false;
+    }
 
-    public string? Adress;
-
-    public string? Director;
-
-    [Parameter]
-    public bool IsCabinet { get; set; }
-
-    private Builder? user;
+    public void Check()
+    {
+        CanSave = IsOGRNCorrect() && IsINNCorrect() && IsKPPCorrect();
+    }
 }

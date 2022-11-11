@@ -1,14 +1,17 @@
 ﻿@using DocumentApp.Interfaces
 @using DocumentApp.Models
 @using DocumentApp.Services
+@using System.Text.RegularExpressions
 @inject UserService UserService;
 
-@if (IsCabinet)
+@if (UserService.CurrentUser is null)
 {
-  if (UserService.CurrentUser is not null)
-  {
-    user = UserService.CurrentUser as Designer;
-  }
+  user = new Designer();
+}
+else
+{
+  user = UserService.CurrentUser as Designer;
+}
   <div class="form-outline mb-4">
     <input type="text" class="form-control form-control-lg" @bind-value="@user.DesignerName"/>
     <label class="form-label">Наименование проектной организации</label>
@@ -16,14 +19,26 @@
   <div class="form-outline mb-4">
     <input type="text" class="form-control form-control-lg" @bind-value="@user.OGRN"/>
     <label class="form-label">ОГРН</label>
+    @if (!IsOGRNCorrect())
+    {
+        <div class="alert alert-warning">Неверно введен ОГРН</div>
+    }
   </div>
   <div class="form-outline mb-4">
     <input type="text" class="form-control form-control-lg" @bind-value="@user.INN"/>
     <label class="form-label">ИНН</label>
+    @if (!IsINNCorrect())
+            {
+                <div class="alert alert-warning">Неверно введен ИНН</div>
+            }
   </div>
   <div class="form-outline mb-4">
     <input type="text" class="form-control form-control-lg" @bind-value="@user.KPP"/>
     <label class="form-label">КПП</label>
+    @if (!IsKPPCorrect())
+            {
+                <div class="alert alert-warning">Неверно введен КПП</div>
+            }
     <div class="form-outline mb-4">
       <input type="text" class="form-control form-control-lg" @bind-value="@user.Adress"/>
       <label class="form-label">Адрес</label>
@@ -37,56 +52,43 @@
       <label class="form-label">Главный инженер проекта</label>
     </div>
   </div>
-}
-else
-{
-  <div class="form-outline mb-4">
-    <input type="text" class="form-control form-control-lg" @bind-value="@DesignerName"/>
-    <label class="form-label">Наименование проектной организации</label>
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" class="form-control form-control-lg" @bind-value="@Ogrn"/>
-    <label class="form-label">ОГРН</label>
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" class="form-control form-control-lg" @bind-value="@Inn"/>
-    <label class="form-label">ИНН</label>
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" class="form-control form-control-lg" @bind-value="@Kpp"/>
-    <label class="form-label">КПП</label>
-    <div class="form-outline mb-4">
-      <input type="text" class="form-control form-control-lg" @bind-value="@Adress"/>
-      <label class="form-label">Адрес</label>
-    </div>
-    <div class="form-outline mb-4">
-      <input type="text" class="form-control form-control-lg" @bind-value="@Director"/>
-      <label class="form-label">Директор</label>
-    </div>
-    <div class="form-outline mb-4">
-      <input type="text" class="form-control form-control-lg" @bind-value="@MainIngeneer"/>
-      <label class="form-label">Главный инженер проекта</label>
-    </div>
-  </div>
-}
 
 @code {
-  public string? DesignerName;
-
-  public string? Ogrn;
-
-  public string? Inn;
-
-  public string? Kpp;
-
-  public string? Adress;
+  public Designer? user;
   
-  public string? Director;
-
-  public string? MainIngeneer;
+  public bool CanSave = true;
   
-  [Parameter]
-  public bool IsCabinet { get; set; }
+  private bool IsOGRNCorrect()
+  {
+    if (user.OGRN != null)
+    {
+      Regex r = new Regex(@"^[0-9]+$");;
+      return r.IsMatch(user.OGRN) && user.OGRN.Length == 13;
+    }
+    return false;
+  }
 
-  private Designer user;
+  private bool IsINNCorrect()
+  {
+    if(user.INN != null)
+    {
+      Regex r = new Regex(@"^[0-9]+$");;
+      return r.IsMatch(user.INN) && user.INN.Length == 10;
+    }
+    return false;
+  }
+
+  private bool IsKPPCorrect()
+  {
+    if (user.KPP != null)
+    {
+      Regex r = new Regex(@"^[0-9]+$");;
+      return r.IsMatch(user.KPP) && user.KPP.Length == 9;
+    }
+    return false;
+  }
+  public void Check()
+  {
+    CanSave = IsOGRNCorrect() && IsINNCorrect() && IsKPPCorrect();
+  }
 }

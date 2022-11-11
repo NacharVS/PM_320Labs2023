@@ -3,8 +3,11 @@
 @using DocumentApp.Services
 @using Microsoft.AspNetCore.Components
 @using ZstdSharp.Unsafe
+@using DocumentApp.Interfaces
 @inject UserService UserService;
 @inject RoleService RoleService;
+@inject ILocalStorage LocalStorageService
+@inject NavigationManager NavigationManager
 
 <section class="vh-200 bg-image"
          style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
@@ -14,12 +17,12 @@
                 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-5">Регистрация аккаунта</h2>
+                            <h2 class="text-uppercase text-center mb-5">Личный кабинет</h2>
 
                             <form>
                                 @if (UserService.CurrentUser is not null)
                                 {
-                                     user = UserService.CurrentUser;
+                                    user = UserService.CurrentUser;
                                 }
 
                                 <div class="form-outline mb-4">
@@ -37,18 +40,23 @@
                                     @switch (_roleName)
                                     {
                                         case "Заказчик":
-                                            <CustomerRegPage @ref="_customerRegPage" IsCabinet="@true"/>
+                                            <CustomerRegPage @ref="_customerRegPage"/>
                                             break;
                                         case "Проектировщик":
-                                            <DesignerRegPage @ref="_designerRegPage" IsCabinet="@true"/>
+                                            <DesignerRegPage @ref="_designerRegPage"/>
                                             break;
                                         case "Застройщик":
-                                            <BuilderRegPage @ref="_builderRegPage" IsCabinet="@true"/>
+                                            <BuilderRegPage @ref="_builderRegPage"/>
                                             break;
                                     }
                                 </div>
 
                             </form>
+                            
+                            <div class="d-flex justify-content-center">
+                                <button type="submit"
+                                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="LogOut">Выйти</button>
+                            </div>
 
                         </div>
                     </div>
@@ -70,4 +78,10 @@
         _roleName = RoleService.GetRoleNameById(UserService.CurrentUser?.RoleId);
     }
 
+    private void LogOut()
+    {
+        UserService.CurrentUser = null;
+        LocalStorageService.RemoveAsync("Authorization");
+        NavigationManager.NavigateTo("/RegPage");
+    }
 }

@@ -2,6 +2,7 @@
 @using DocumentApp.Models
 @using DocumentApp.Interfaces
 @using DocumentApp.Services
+@using System.Text.RegularExpressions
 
 @inject RoleService RoleService;
 @inject UserService UserService;
@@ -26,12 +27,19 @@
                                 <div class="form-outline mb-4">
                                     <input type="email" class="form-control form-control-lg" @bind-value="@_email"/>
                                     <label class="form-label">Ваш Email</label>
+                                    @if (!CheckEmail())
+                                    {
+                                        <div class="alert alert-warning">Неверно введен Email</div>
+                                    }
                                 </div>
                                 <div class="form-outline mb-4">
                                     <input type="text" class="form-control form-control-lg" @bind-value="@_phone"/>
                                     <label class="form-label">Ваш номер телефона</label>
                                     <label class="form-label col-form-label-sm">Пример: 89011111111</label>
-                                    <div class="alert-danger" hidden="@CheckPhone()">Номер введен не корректно</div>
+                                    @if (!CheckPhone())
+                                                {
+                                                    <div class="alert alert-warning">Неверно введен номер телефона</div>
+                                                }
                                 </div>
 
                                 <div class="form-outline mb-4">
@@ -65,6 +73,10 @@
                                 <div class="form-outline mb-4">
                                     <input type="password" class="form-control form-control-lg" @bind-value="@_passwordRepeat"/>
                                     <label class="form-label">Повтор пароля</label>
+                                    @if (!CheckPassword())
+                                    {
+                                        <div class="alert alert-warning">Введенные пароли не совпадают</div>
+                                    }
                                 </div>
 
                                 <p class="text-center text-muted mt-5 mb-0">Уже есть аккаунт? <a href="/AuthPage"
@@ -88,48 +100,66 @@
     private CustomerRegPage? _customerRegPage;
     private BuilderRegPage? _builderRegPage;
     private DesignerRegPage? _designerRegPage;
+    User user = new();
     
-    private string? _login;
+    private string? _login = "";
 
-    private string? _password;
-    private string? _passwordRepeat;
+    private string? _password = "";
+    private string? _passwordRepeat = "";
 
-    private string? _email;
+    private string? _email = "";
 
-    private string? _phone;
+    private string? _phone = "";
 
-    private string? _roleName;
+    private string? _roleName = "";
 
     private bool CheckPhone()
     {
-        if (_phone is null)
-        {
-            return true;
-        }
-        if (!int.TryParse(_phone, out int num) || !(_phone.Length == 11))
-        {
-            return false;
-        }
-        return true;
+        Regex r = new Regex(@"^[0-9]+$");
+        return r.IsMatch(_phone) && _phone.Length == 11;
+    }
+
+    private bool CheckEmail()
+    {
+        string cond = @"(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)";
+        return Regex.IsMatch(_email, cond);
+    }
+
+    private bool CheckPassword()
+    {
+        return _password == _passwordRepeat;
+    }
+    private bool CheckFields()
+    {
+        return _login != ""
+               && _password != ""
+               && _email != ""
+               && _phone != ""
+               && _roleName != ""
+               && CheckPhone()
+               && CheckEmail()
+               && CheckPassword()
+        && _builderRegPage.CanSave
+        && _designerRegPage.CanSave
+        && _customerRegPage.CanSave;
     }
 
     private void Register()
     {
-        User user = new();
         switch (_roleName)
         {
             case "Заказчик":
                 user = new Customer
                 {
-                    Name = _customerRegPage?.Name,
-                    Surname = _customerRegPage?.Surname,
-                    Patronymic = _customerRegPage?.Patronymic,
+                    Name = _customerRegPage?.user?.Name,
+                    Surname = _customerRegPage?.user?.Surname,
+                    Patronymic = _customerRegPage?.user?.Patronymic,
                     Login = _login,
                     Password = _password,
                     Phone = _phone,
                     Email = _email,
                     RoleId = RoleService.GetRoleByName(_roleName).Id,
-                    Department = _customerRegPage?.Department
+                    Department = _customerRegPage?.user?.Department
                 };
                 break;
             case "Застройщик":
@@ -140,13 +170,15 @@
                     Phone = _phone,
                     Email = _email,
                     RoleId = RoleService.GetRoleByName(_roleName).Id,
-                    BuilderName = _builderRegPage.BuilderName,
-                    OGRN = _builderRegPage.Ogrn,
-                    INN = _builderRegPage.Inn,
-                    KPP = _builderRegPage.Kpp,
-                    Adress = _builderRegPage.Adress,
-                    Director = _builderRegPage.Director
+                    BuilderName = _builderRegPage.user.BuilderName,
+                    OGRN = _builderRegPage.user.OGRN,
+                    INN = _builderRegPage.user.INN,
+                    KPP = _builderRegPage.user.KPP,
+                    Adress = _builderRegPage.user.Adress,
+                    Director = _builderRegPage.user.Adress
+                        
                 };
+                _builderRegPage.Check();
                 break;
             case "Проектировщик":
                 user = new Designer()
@@ -156,16 +188,20 @@
                     Phone = _phone,
                     Email = _email,
                     RoleId = RoleService.GetRoleByName(_roleName).Id,
-                    DesignerName = _designerRegPage.DesignerName,
-                    OGRN = _designerRegPage.Ogrn,
-                    INN = _designerRegPage.Inn,
-                    KPP = _designerRegPage.Kpp,
-                    Adress = _designerRegPage.Adress,
-                    Director = _designerRegPage.Director,
-                    MainIngeneer = _designerRegPage.MainIngeneer
+                    DesignerName = _designerRegPage.user.DesignerName,
+                    OGRN = _designerRegPage.user.OGRN,
+                    INN = _designerRegPage.user.INN,
+                    KPP = _designerRegPage.user.KPP,
+                    Adress = _designerRegPage.user.Adress,
+                    Director = _designerRegPage.user.Adress,
+                    MainIngeneer = _designerRegPage.user.MainIngeneer
                 };
+                _designerRegPage.Check();
                 break;
         }
-        UserService.SaveUser(user);
+        if (CheckFields())
+        {
+            UserService.SaveUser(user);
+        }
     }
 }

@@ -1,7 +1,10 @@
 ﻿@page "/AuthPage"
 @using DocumentApp.Services
+@using DocumentApp.Interfaces
+@using DocumentApp.Models
 @inject UserService UserService;
 @inject NavigationManager NavigationManager;
+@inject ILocalStorage LocalStorageService;
 
 <section class="vh-200 bg-image"
          style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
@@ -47,6 +50,7 @@
     private void LogIn()
     {
         UserService.UserLogIn(_login, _password);
+        LocalStorageService.SetAsync<User>("Authorization", UserService.CurrentUser);
         NavigationManager.NavigateTo("/UserPage");
     }
 }
