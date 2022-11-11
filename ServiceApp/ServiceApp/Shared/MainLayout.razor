@@ -1,0 +1,24 @@
+﻿@inherits LayoutComponentBase
+@using ServiceApp.Services
+@inject DataBase dataBase
+@inject ILocalStorageService localStorageService
+
+<PageTitle>Personal account</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu/>
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="/account" target="_blank">
+                <span class="oi oi-person" aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

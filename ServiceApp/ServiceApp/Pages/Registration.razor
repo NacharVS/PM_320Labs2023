@@ -1,0 +1,44 @@
+﻿@page "/registration"
+
+<PageTitle>Personal account</PageTitle>
+
+@using ServiceApp.Data
+@using ServiceApp.Services
+@inject DataBase dataBase
+
+<h1>Registration</h1>
+
+<EditForm Model="@users" OnValidSubmit="@Reg" class="mx-1 mx-md-4">
+
+    <p>Login:</p>
+    <input type="" id="Login" @bind-value="@users.Login"/>
+    <p>Password:</p>
+    <input type="password" id="Password" @bind-value="@users.Password"/>
+    <p>Password repeat:</p>
+    <input type="password" id="PasswordRepeat" @bind-value="@users.PasswordRepeat"/>
+    <p>Surname:</p>
+    <input type="text" id="Surname" @bind-value="@users.Surname" />
+    <p>Name:</p>
+    <input type="text" id="Name" @bind-value="@users.Name" />
+    <p>Patronymic:</p>
+        <input type="text" id="Name" @bind-value="@users.Patronymic" />
+    <p>EMail:</p>
+    <input type="text" id="EMail" @bind-value="@users.EMail" />
+    <p>Telephone:</p>
+        <input type="text" id="Name" @bind-value="@users.Telephone" />
+
+    <input type="submit" class="btn btn-primary btn-lg" value="Registration" />
+
+</EditForm>
+
+@code {
+    private Worker users = new Worker();
+
+    public void Reg()
+    {
+        if (users.Password == users.PasswordRepeat)
+        {
+            dataBase.AddToDataBase(users);
+        }
+    }
+}

@@ -1,0 +1,26 @@
+﻿@page "/account"
+
+<PageTitle>Personal account</PageTitle>
+
+@using ServiceApp.Data
+@using ServiceApp.Services
+@inject DataBase dataBase
+@inject NavigationManager novigation
+
+<h3>PersonalAccount</h3>
+
+<EditForm Model="@user" OnValidSubmit="@LogOut" class="mx-1 mx-md-4">
+    <p>Surname: @dataBase.CurrentUser?.Surname</p>
+    <p>Name: @dataBase.CurrentUser?.Name</p>
+    <p>Patrinymic: @dataBase.CurrentUser?.Patronymic</p>
+    <input type="submit" class="btn btn-primary btn-lg" value="Log Out" />
+</EditForm>
+
+@code {
+    public Worker user = new Worker();
+    public void LogOut()
+    {
+        dataBase.CurrentUser = null;
+        novigation.NavigateTo("/");
+    }
+}

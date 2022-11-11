@@ -1,0 +1,49 @@
+﻿@page "/doc"
+@using ServiceApp.Services
+@inject FileSystemService fss
+
+<PageTitle>Uploading documents</PageTitle>
+
+<h3>Uploading documents</h3>
+
+<InputFile OnChange="@LoadFiles" multiple/> <br><br>
+
+@foreach (var name in fileNames)
+{
+    <input type="submit" class="btn btn-primary btn-lg" @onclick="() => Download(name)" value="Load"/>
+    <p>@name</p>
+}
+
+@code {
+    string? path;
+    List<string> fileNames = new List<string>();
+    List<IBrowserFile> loadedFiles = new List<IBrowserFile>();
+
+    protected override void OnInitialized()
+    {
+        UploadImg();
+    }
+
+    private void UploadImg()
+    {
+        fileNames = fss.UploadDocuments();
+    }
+
+    private void Download(string name)
+    {
+        path = fss.DownloadToLocal(name);
+    }
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        foreach (var file in e.GetMultipleFiles(e.FileCount))
+        {
+            loadedFiles.Add(file);
+            Stream stream = file.OpenReadStream(5000000);
+            await fss.UploadImageToDbAsync(stream, file.Name);
+            stream.Dispose();
+        }
+        UploadImg();
+    }
+
+}

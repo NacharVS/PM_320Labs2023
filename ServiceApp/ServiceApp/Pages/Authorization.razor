@@ -1,0 +1,50 @@
+﻿@page "/authorization"
+
+<PageTitle>Authorization</PageTitle>
+
+@using ServiceApp.Data
+@using ServiceApp.Services
+@inject DataBase dataBase
+@inject IJSRuntime JS
+@inject ILocalStorageService localStorageService
+
+<h1>Authorization</h1>
+
+<EditForm Model="@user" OnValidSubmit="@LogIn" class="mx-1 mx-md-4">
+
+    <p>Login:</p>
+    <input type="" id="Login" @bind-value="@user.Login"/>
+    <p>Password:</p>
+    <input type="password" id="Password" @bind-value="@user.Password"/>
+
+    <input type="submit" class="btn btn-primary btn-lg" value="Log In" />
+
+    @if (dataBase.CurrentUser is not null)
+    {
+        <p>Surname: @dataBase.CurrentUser?.Surname</p>
+        <p>Name: @dataBase.CurrentUser?.Name</p>
+        <p>Patronymic: @dataBase.CurrentUser?.Patronymic</p>
+    }
+    
+</EditForm>
+
+@code {
+    private Worker user = new Worker();
+
+    public void LogIn()
+    {
+        if (user.Login != null && user.Password != null)
+        {
+            dataBase.CurrentUser = dataBase.FindByLogin(user.Login);
+            
+            if (dataBase.CurrentUser != null)
+            {
+                localStorageService.SetAsync<Worker>("Authorization", dataBase.CurrentUser);
+            }
+            else
+            {
+                JS.InvokeVoidAsync("alert", "There is no such user in the database");
+            }
+        }
+    }
+}
