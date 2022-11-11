@@ -10,6 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 builder.Services.AddScoped<DBConnection>();
+builder.Services.AddSingleton<CurrentUsersRole>();
 builder.Services.AddSingleton<CurrentUser>();
 
 var app = builder.Build();

@@ -1,4 +1,10 @@
 ﻿@inherits LayoutComponentBase
+@using Services
+@using Data
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager Navigation
+@inject CurrentUser UserCurrent
+@inject CurrentUsersRole UserCurrentRole
 
 <PageTitle>ServiceApp</PageTitle>
 
@@ -9,7 +15,7 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <b @onclick = "ClickingIn">@UserCurrent.CurrentU?.Login</b>
         </div>
 
         <article class="content px-4">
@@ -17,3 +23,23 @@
         </article>
     </main>
 </div>
+
+@code {
+    private void ClickingIn()
+    {
+        Navigation.NavigateTo("/mainproj");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            User newUser = await LocalStorage.GetAsync<User>("Autho");
+            if(newUser is not null)
+            {
+                UserCurrent.CurrentU = newUser;
+                StateHasChanged();
+            }
+        }
+    }
+}

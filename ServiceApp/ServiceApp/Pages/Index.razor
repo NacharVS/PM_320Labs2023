@@ -1,24 +1,23 @@
 ﻿@page "/"
 @using Data
 @inject NavigationManager Navigation
-@inject CurrentUser CurrentUser
+@inject CurrentUsersRole CurrentUser
 
 <PageTitle>Index</PageTitle>
 
 <h1>Hello</h1>
 
-<button class="btn btn-primary" value = "Заказчик" @onclick="NavigateToReg"> Заказчик </button>
-<button class="btn btn-primary" value = "Проектировщик" @onclick="NavigateToReg"> Проектировщик </button>
-<button class="btn btn-primary" value = "Застройщик" @onclick="NavigateToReg"> Застройщик </button>
+<button class="btn btn-primary" value = "Заказчик" @onclick="@(() => NavigateToReg("Customer"))"> Заказчик </button>
+<button class="btn btn-primary" value = "Проектировщик" @onclick="@(() => NavigateToReg("Designer"))"> Проектировщик </button>
+<button class="btn btn-primary" value = "Застройщик" @onclick="@(() => NavigateToReg("Developer"))"> Застройщик </button>
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 @code {
-	string? roleName;
 
-	private void NavigateToReg() 
+	private void NavigateToReg(string value) 
 	{
-		CurrentUser.UserRole = roleName;
+		CurrentUser.UserRole = value;
 		Navigation.NavigateTo("/reg"); 
 	} 
-}
+}}

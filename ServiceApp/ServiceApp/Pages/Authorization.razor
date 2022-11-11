@@ -1,0 +1,93 @@
+﻿@page "/autho"
+@using Data
+@using Services
+@inject NavigationManager Navigation
+@inject CurrentUsersRole CurrUserRole
+@inject ILocalStorageService LocalStorage
+@inject CurrentUser CurrUser
+@inject IJSRuntime JS
+<PageTitle>Index</PageTitle>
+
+<h1>Hello</h1>
+
+<div class="card">
+    <h4 class="card-header">Authorization Page</h4>
+    <div class="card-body">
+        <hr>
+            <label for="login"><b>Login</b></label>
+            <input type="text" placeholder="Enter Login" name="login" id="login" required @bind-value="login" />
+            <br/>
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-value="password" />
+            <br/>
+        <hr>
+        <button type="submit" class="registerbtn" @onclick="Login">Logining</button>
+    </div>
+</div>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    string login;
+    string password;
+
+    private async void Login() 
+    { 
+        if (login != null && password != null)
+        {
+            switch (CurrUserRole.UserRole)
+            {
+                case "Customer":
+                    Customer customer = DBConnection.FindByLoginCustomer(login);
+                    if (customer != null)
+                    {
+                        if (customer.Password == password)
+                        {
+                            CurrUser.CurrentU = customer;
+                            Navigation.NavigateTo("/mainproj");
+                            await LocalStorage.SetAsync<User>("Autho", customer);
+                        }
+                        else
+                        {
+                            JS.InvokeVoidAsync("alert", "No user found");
+                        }
+                    }
+                    break;
+                case "Designer":
+                    Designer designer = DBConnection.FindByLoginDesigner(login);
+                    if (designer != null)
+                    {
+                        if (designer.Password == password)
+                        {
+                            CurrUser.CurrentU = designer;
+                            Navigation.NavigateTo("/mainproj");
+                            await LocalStorage.SetAsync<User>("Autho", designer);
+                        }
+                        else
+                        {
+                            JS.InvokeVoidAsync("alert", "No user found");
+                        }
+                    }
+                    break;
+                case "Developer":
+                    Developer developer = DBConnection.FindByLoginDeveloper(login);
+                    if (developer != null)
+                    {
+                        if (developer.Password == password)
+                        {
+                            CurrUser.CurrentU = developer;
+                            Navigation.NavigateTo("/mainproj");
+                            await LocalStorage.SetAsync<User>("Autho", developer);
+                        }
+                        else
+                        {
+                            JS.InvokeVoidAsync("alert", "No user found");
+                        }
+                    }
+                    break;
+            }
+            StateHasChanged();
+        }
+
+	} 
+}

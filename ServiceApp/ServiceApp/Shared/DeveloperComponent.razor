@@ -1,0 +1,40 @@
+﻿<div class="card">
+    <h4 class="card-header">Personal Page</h4>
+    <div class="card-body">
+        <hr>
+            <label for="organisation"><b>Органзация</b></label>
+            <input type="text" placeholder="Enter Organisation" name="organisation" id="organisation" required @bind-value="organisation" />
+            <br/>
+            <label for="ogrn"><b>ОГРН</b></label>
+            <input type="text" placeholder="Enter OGRN" name="ogrn" id="ogrn" required @bind-value="ogrn" />
+            <br/>
+            <label for="inn"><b>ИНН</b></label>
+            <input type="text" placeholder="Enter INN" name="inn" id="inn" required @bind-value="inn" />
+            <br/>
+            <label for="kpp"><b>КПП</b></label>
+            <input type="text" placeholder="Enter KPP" name="kpp" id="kpp" required @bind-value="kpp" />
+            <br/>
+            <label for="address"><b>Адрес</b></label>
+            <input type="text" placeholder="Enter Address" name="address" id="address" required @bind-value="address" />
+            <br/>
+            <label for="telephone"><b>Телефон</b></label>
+            <input type="text" placeholder="Enter Telephone" name="telephone" id="telephone" required @bind-value="telephone" />
+            <br/>
+        <hr>
+        <button type="submit" class="registerbtn" @onclick="Save">Save</button>
+    </div>
+</div>
+
+@code {
+    string organisation;
+    string ogrn;
+    string inn;
+    string kpp;
+    string address;
+    string telephone;
+
+    public void Save()
+    {
+        
+    }
+}

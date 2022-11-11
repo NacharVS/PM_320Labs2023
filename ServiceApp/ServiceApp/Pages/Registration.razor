@@ -1,6 +1,9 @@
 ﻿@page "/reg"
 @using Data
+@using Services
 @inject NavigationManager Navigation
+@inject ILocalStorageService LocalStorage
+@inject CurrentUsersRole CurrentUsersRole
 @inject CurrentUser CurrentUser
 <PageTitle>Index</PageTitle>
 
@@ -9,54 +12,73 @@
 <div class="card">
     <h4 class="card-header">Registration Page</h4>
     <div class="card-body">
-        <EditForm Model="@user">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-
-            <hr>
-                <label for="email"><b>Name</b></label>
-                <InputText placeholder="Enter Name" name="name" id="name" required @bind-Value="user.FirstName" />
-                <br/>
-                <label for="email"><b>Surname</b></label>
-                <InputText  type="text" placeholder="Enter Surname" name="surname" id="surname" @bind-Value="user.LastName" />
-                <br/>
-                <label for="email"><b>Email</b></label>
-                <InputText type="text" placeholder="Enter Email" name="email" id="email" required @bind-Value="user.Email" />
-                <br/>
-                <label for="email"><b>Login</b></label>
-                <InputText type="text" placeholder="Enter Login" name="login" id="login" required @bind-Value="user.Login" />
-                <br/>
-                <label for="psw"><b>Password</b></label>
-                <InputText type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-Value="user.Password" />
-                <br/>
-                <label for="psw-repeat"><b>Repeat Password</b></label>
-                <InputText type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-Value="repPassword" />
-            <hr>
-
-            <button type="submit" class="registerbtn" @onclick="Registrarion">Registration</button>
-            <button type="submit" class="registerbtn" @onclick="Login">To Login</button>
-        </EditForm>
+        <hr>
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required @bind-value="email" />
+            <br/>
+            <label for="login"><b>Login</b></label>
+            <input type="text" placeholder="Enter Login" name="login" id="login" required @bind-value="login" />
+            <br/>
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-value="password" />
+            <br/>
+            <label for="psw-repeat"><b>Repeat Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-value="repPassword" />
+        <hr>
+        <button type="submit" class="registerbtn" @onclick="Registrarion">Registration</button>
+        <button type="submit" class="registerbtn" @onclick="Login">To Login</button>
     </div>
 </div>
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 @code {
-    User user = new User();
+    string login;
+    string password;
+    string email;
     string repPassword;
 
-    private void Registrarion()
+    private async void Registrarion()
     {
-        
+        if (password == repPassword)
+        {
+            switch (CurrentUsersRole.UserRole)
+            {
+                case "Customer":
+                    Customer customer = new Customer();
+                    customer.Login = login;
+                    customer.Password = password;
+                    customer.Email = email;
+                    CurrentUser.CurrentU = customer;
+                    DBConnection.AddToDataBase(customer);
+                    await LocalStorage.SetAsync<User>("Autho", customer);
+                    break;
+                case "Designer":
+                    Designer designer = new Designer();
+                    designer.Login = login;
+                    designer.Password = password;
+                    designer.Email = email;
+                    CurrentUser.CurrentU = designer;
+                    DBConnection.AddToDataBase(designer);
+                    await LocalStorage.SetAsync<User>("Autho", designer);
+                    break;
+                case "Developer":
+                    Developer developer = new Developer();
+                    developer.Login = login;
+                    developer.Password = password;
+                    developer.Email = email;
+                    CurrentUser.CurrentU = developer;
+                    DBConnection.AddToDataBase(developer);
+                    await LocalStorage.SetAsync<User>("Autho", developer);
+                    break;
+            }
+            StateHasChanged();
+            Navigation.NavigateTo("/personal"); 
+        }
     } 
 
     private void Login() 
 	{ 
-		Navigation.NavigateTo("/counter"); 
-	} 
-
-    private void NavigateToCounterComponent() 
-	{ 
-		Navigation.NavigateTo("/counter"); 
+		Navigation.NavigateTo("/autho"); 
 	} 
 }

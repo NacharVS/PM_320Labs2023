@@ -1,0 +1,25 @@
+﻿@page "/personal"
+@using Data
+@inject NavigationManager Navigation
+@inject CurrentUsersRole CurrentUserRole
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello</h1>
+
+@switch (CurrentUserRole.UserRole)
+{
+    case "Customer":
+    <CustomerComponent></CustomerComponent>
+        break;
+    case "Designer":
+    <DesignerComponent></DesignerComponent>
+        break;
+    case "Developer":
+    <DeveloperComponent></DeveloperComponent>
+        break;
+}
+
+@code {
+
+}

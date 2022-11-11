@@ -2,6 +2,6 @@
 {
     public class CurrentUser
     {
-        public string UserRole { get; set; }
+        public User CurrentU { get; set; }
     }
 }
