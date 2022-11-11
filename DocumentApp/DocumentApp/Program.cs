@@ -1,4 +1,6 @@
+using DocumentApp.Interfaces;
 using DocumentApp.Models;
+using DocumentApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -9,6 +11,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddSingleton<RoleService>();
+builder.Services.AddSingleton<UserService>();
+builder.Services.AddScoped<ILocalStorage, LocalStorageService>();
 
 var app = builder.Build();
 

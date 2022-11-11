@@ -10,16 +10,7 @@ public class User
     
     [BsonIgnoreIfNull]
     public string? Password { get; set; }
-    
-    [BsonIgnoreIfNull]
-    public string? Surname { get; set; }
-    
-    [BsonIgnoreIfNull]
-    public string? Name { get; set; }
-    
-    [BsonIgnoreIfNull]
-    public string? Patronymic { get; set; }
-    
+
     [BsonIgnoreIfNull]
     public string? Email { get; set; }
     

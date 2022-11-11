@@ -1,0 +1,92 @@
+﻿@using DocumentApp.Interfaces
+@using DocumentApp.Models
+@using DocumentApp.Services
+@inject UserService UserService;
+
+@if (IsCabinet)
+{
+  if (UserService.CurrentUser is not null)
+  {
+    user = UserService.CurrentUser as Designer;
+  }
+  <div class="form-outline mb-4">
+    <input type="text" class="form-control form-control-lg" @bind-value="@user.DesignerName"/>
+    <label class="form-label">Наименование проектной организации</label>
+  </div>
+  <div class="form-outline mb-4">
+    <input type="text" class="form-control form-control-lg" @bind-value="@user.OGRN"/>
+    <label class="form-label">ОГРН</label>
+  </div>
+  <div class="form-outline mb-4">
+    <input type="text" class="form-control form-control-lg" @bind-value="@user.INN"/>
+    <label class="form-label">ИНН</label>
+  </div>
+  <div class="form-outline mb-4">
+    <input type="text" class="form-control form-control-lg" @bind-value="@user.KPP"/>
+    <label class="form-label">КПП</label>
+    <div class="form-outline mb-4">
+      <input type="text" class="form-control form-control-lg" @bind-value="@user.Adress"/>
+      <label class="form-label">Адрес</label>
+    </div>
+    <div class="form-outline mb-4">
+      <input type="text" class="form-control form-control-lg" @bind-value="@user.Director"/>
+      <label class="form-label">Директор</label>
+    </div>
+    <div class="form-outline mb-4">
+      <input type="text" class="form-control form-control-lg" @bind-value="@user.MainIngeneer"/>
+      <label class="form-label">Главный инженер проекта</label>
+    </div>
+  </div>
+}
+else
+{
+  <div class="form-outline mb-4">
+    <input type="text" class="form-control form-control-lg" @bind-value="@DesignerName"/>
+    <label class="form-label">Наименование проектной организации</label>
+  </div>
+  <div class="form-outline mb-4">
+    <input type="text" class="form-control form-control-lg" @bind-value="@Ogrn"/>
+    <label class="form-label">ОГРН</label>
+  </div>
+  <div class="form-outline mb-4">
+    <input type="text" class="form-control form-control-lg" @bind-value="@Inn"/>
+    <label class="form-label">ИНН</label>
+  </div>
+  <div class="form-outline mb-4">
+    <input type="text" class="form-control form-control-lg" @bind-value="@Kpp"/>
+    <label class="form-label">КПП</label>
+    <div class="form-outline mb-4">
+      <input type="text" class="form-control form-control-lg" @bind-value="@Adress"/>
+      <label class="form-label">Адрес</label>
+    </div>
+    <div class="form-outline mb-4">
+      <input type="text" class="form-control form-control-lg" @bind-value="@Director"/>
+      <label class="form-label">Директор</label>
+    </div>
+    <div class="form-outline mb-4">
+      <input type="text" class="form-control form-control-lg" @bind-value="@MainIngeneer"/>
+      <label class="form-label">Главный инженер проекта</label>
+    </div>
+  </div>
+}
+
+@code {
+  public string? DesignerName;
+
+  public string? Ogrn;
+
+  public string? Inn;
+
+  public string? Kpp;
+
+  public string? Adress;
+  
+  public string? Director;
+
+  public string? MainIngeneer;
+  
+  [Parameter]
+  public bool IsCabinet { get; set; }
+
+  private Designer user;
+}

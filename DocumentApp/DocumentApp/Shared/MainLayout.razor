@@ -1,4 +1,9 @@
-﻿@inherits LayoutComponentBase
+﻿@using DocumentApp.Interfaces
+@using DocumentApp.Models
+@using DocumentApp.Services
+@inherits LayoutComponentBase
+@inject UserService UserService;
+@inject ILocalStorage LocalStorageService;
 
 <PageTitle>DocumentApp</PageTitle>
 
@@ -9,7 +14,10 @@
 
     <main>
         <div class="top-row px-4">
-            
+            @if (UserService.CurrentUser is not null)
+            {
+                <a href="/UserPage">@UserService.CurrentUser.Login </a>
+            }
         </div>
 
         <article class="content px-4">
@@ -17,3 +25,24 @@
         </article>
     </main>
 </div>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        User user = null;
+        var locUser = await LocalStorageService.GetAsync<User>("Authorization");
+        if (locUser is null)
+        {
+            UserService.CurrentUser = null;
+        }
+        else
+        {
+            user = UserService.GetUserByLoginAndPassword(locUser.Login, locUser.Password);
+        }
+        if (user is not null)
+        {
+            UserService.CurrentUser = user;
+        }
+    }
+}

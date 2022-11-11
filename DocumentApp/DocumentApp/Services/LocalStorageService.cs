@@ -1,9 +1,10 @@
 ﻿using System.Text.Json;
+using DocumentApp.Interfaces;
 using Microsoft.JSInterop;
 
 namespace DocumentApp.Services;
 
-public class LocalStorageService
+public class LocalStorageService : ILocalStorage
 {
     private readonly IJSRuntime _jsRuntime;
 

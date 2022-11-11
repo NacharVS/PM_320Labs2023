@@ -1,119 +1,171 @@
 ﻿@page "/RegPage"
 @using DocumentApp.Models
+@using DocumentApp.Interfaces
+@using DocumentApp.Services
 
 @inject RoleService RoleService;
+@inject UserService UserService;
 
-<section class="vh-100 bg-image"
-  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 15px;">
-            <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+<section class="vh-200 bg-image"
+         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+                            <h2 class="text-uppercase text-center mb-5">Регистрация аккаунта</h2>
 
-              <form>
+                            <form>
 
-                <div class="form-outline mb-4">
-                  <input type="text" class="form-control form-control-lg" @bind-value="@_login"/>
-                  <label class="form-label">Ваш логин</label>
-                </div>
-                
-                <div class="form-outline mb-4">
-                  <input type="email" class="form-control form-control-lg" @bind-value="@_name"/>
-                  <label class="form-label">Ваше имя</label>
-                </div>
-                
-                <div class="form-outline mb-4">
-                  <input type="email" class="form-control form-control-lg" @bind-value="@_surname"/>
-                  <label class="form-label">Ваша фамилия</label>
-                </div>
-                
-                <div class="form-outline mb-4">
-                  <input type="email" class="form-control form-control-lg" @bind-value="@_patronymic"/>
-                  <label class="form-label">Ваше отчество</label>
-                </div>
-                
-                <div class="form-outline mb-4">
-                  <input type="email" class="form-control form-control-lg" @bind-value="@_email"/>
-                  <label class="form-label">Ваш Email</label>
-                </div>
-                <div class="form-outline mb-4">
-                  <input type="email" class="form-control form-control-lg" @bind-value="@_phone"/>
-                  <label class="form-label">Ваш номер телефона</label>
-                  <label class="form-label col-form-label-sm">Пример: 89011111111</label>
-                  <div class="alert-danger" hidden="@CheckPhone()">Номер введен не корректно</div>
-                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="text" class="form-control form-control-lg" @bind-value="@_login"/>
+                                    <label class="form-label">Ваш логин</label>
+                                </div>
 
-                <div class="form-outline mb-4">
-                  <select class="form-select form-select-lg" @bind="@_roleName">
-                    @foreach (var role in RoleService.GetAllRoles())
-                    {
-                      <option value="@role">@role</option>
-                    }
-                  </select>
-                  <label class="form-label">Роль</label>
+                                <div class="form-outline mb-4">
+                                    <input type="email" class="form-control form-control-lg" @bind-value="@_email"/>
+                                    <label class="form-label">Ваш Email</label>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="text" class="form-control form-control-lg" @bind-value="@_phone"/>
+                                    <label class="form-label">Ваш номер телефона</label>
+                                    <label class="form-label col-form-label-sm">Пример: 89011111111</label>
+                                    <div class="alert-danger" hidden="@CheckPhone()">Номер введен не корректно</div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <select class="form-select form-select-lg" @bind="@_roleName">
+                                        <option value=""></option>
+                                        @foreach (var role in RoleService.GetAllRoles())
+                                        {
+                                            <option value="@role">@role</option>
+                                        }
+                                    </select>
+                                    <label class="form-label">Роль</label>
+                                    @switch (@_roleName)
+                                    {
+                                        case "Заказчик":
+                                            <CustomerRegPage @ref="_customerRegPage"/>
+                                            break;
+                                        case "Проектировщик":
+                                            <DesignerRegPage @ref="_designerRegPage"/>
+                                            break;
+                                        case "Застройщик":
+                                            <BuilderRegPage @ref="_builderRegPage"/>
+                                            break;
+                                    }
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="password" class="form-control form-control-lg" @bind-value="@_password"/>
+                                    <label class="form-label">Пароль</label>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="password" class="form-control form-control-lg" @bind-value="@_passwordRepeat"/>
+                                    <label class="form-label">Повтор пароля</label>
+                                </div>
+
+                                <p class="text-center text-muted mt-5 mb-0">Уже есть аккаунт? <a href="/AuthPage"
+                                                                                                 class="fw-bold text-body"><u>Авторизуйтесь</u></a></p>
+
+                            </form>
+                            
+                            <div class="d-flex justify-content-center">
+                                <button type="submit"
+                                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="Register">Зарегистрироваться</button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-
-                <div class="form-outline mb-4">
-                  <input type="password" class="form-control form-control-lg" @bind-value="@_password"/>
-                  <label class="form-label">Пароль</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="password" class="form-control form-control-lg" @bind-value="@_passwordRepeat"/>
-                  <label class="form-label">Повтор пароля</label>
-                </div>
-
-                <div class="d-flex justify-content-center">
-                  <button type="submit"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Зарегистрироваться</button>
-                </div>
-
-                <p class="text-center text-muted mt-5 mb-0">Уже есть аккаунт? <a href="#!"
-                    class="fw-bold text-body"><u>Авторизуйтесь</u></a></p>
-
-              </form>
-
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 @code {
-  private string? _login;
+    private CustomerRegPage? _customerRegPage;
+    private BuilderRegPage? _builderRegPage;
+    private DesignerRegPage? _designerRegPage;
+    
+    private string? _login;
 
-  private string? _password;
-  private string? _passwordRepeat;
+    private string? _password;
+    private string? _passwordRepeat;
 
-  private string? _surname;
+    private string? _email;
 
-  private string? _name;
+    private string? _phone;
 
-  private string? _patronymic;
+    private string? _roleName;
 
-  private string? _email;
-
-  private string? _phone;
-
-  private string? _roleName;
-
-  private bool CheckPhone()
-  {
-    if (_phone is null)
+    private bool CheckPhone()
     {
-      return true;
+        if (_phone is null)
+        {
+            return true;
+        }
+        if (!int.TryParse(_phone, out int num) || !(_phone.Length == 11))
+        {
+            return false;
+        }
+        return true;
     }
-    if (!int.TryParse(_phone, out int num) && !(_phone.Length == 11))
+
+    private void Register()
     {
-      return false;
+        User user = new();
+        switch (_roleName)
+        {
+            case "Заказчик":
+                user = new Customer
+                {
+                    Name = _customerRegPage?.Name,
+                    Surname = _customerRegPage?.Surname,
+                    Patronymic = _customerRegPage?.Patronymic,
+                    Login = _login,
+                    Password = _password,
+                    Phone = _phone,
+                    Email = _email,
+                    RoleId = RoleService.GetRoleByName(_roleName).Id,
+                    Department = _customerRegPage?.Department
+                };
+                break;
+            case "Застройщик":
+                user = new Builder()
+                {
+                    Login = _login,
+                    Password = _password,
+                    Phone = _phone,
+                    Email = _email,
+                    RoleId = RoleService.GetRoleByName(_roleName).Id,
+                    BuilderName = _builderRegPage.BuilderName,
+                    OGRN = _builderRegPage.Ogrn,
+                    INN = _builderRegPage.Inn,
+                    KPP = _builderRegPage.Kpp,
+                    Adress = _builderRegPage.Adress,
+                    Director = _builderRegPage.Director
+                };
+                break;
+            case "Проектировщик":
+                user = new Designer()
+                {
+                    Login = _login,
+                    Password = _password,
+                    Phone = _phone,
+                    Email = _email,
+                    RoleId = RoleService.GetRoleByName(_roleName).Id,
+                    DesignerName = _designerRegPage.DesignerName,
+                    OGRN = _designerRegPage.Ogrn,
+                    INN = _designerRegPage.Inn,
+                    KPP = _designerRegPage.Kpp,
+                    Adress = _designerRegPage.Adress,
+                    Director = _designerRegPage.Director,
+                    MainIngeneer = _designerRegPage.MainIngeneer
+                };
+                break;
+        }
+        UserService.SaveUser(user);
     }
-    else
-    {
-      return true;
-    }
-  }
 }

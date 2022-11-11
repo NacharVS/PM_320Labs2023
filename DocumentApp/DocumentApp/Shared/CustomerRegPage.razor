@@ -1,0 +1,66 @@
+﻿@using DocumentApp.Services
+@using DocumentApp.Interfaces
+@using DocumentApp.Models
+@inject UserService UserService
+@if (IsCabinet)
+{
+    if (UserService.CurrentUser is not null)
+    {
+        user = UserService.CurrentUser as Customer ?? new Customer();
+    }
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control form-control-lg" @bind-value="@user.Name"/>
+        <label class="form-label">Ваше имя</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control form-control-lg" @bind-value="@user.Surname"/>
+        <label class="form-label">Ваша фамилия</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control form-control-lg" @bind-value="@user.Patronymic"/>
+        <label class="form-label">Ваше отчество</label>
+    </div>
+    <div class="form-outline mb-4">
+        <label class="form-label">@user.Department</label>
+    </div>
+}
+else
+{
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control form-control-lg" @bind-value="@Name"/>
+        <label class="form-label">Ваше имя</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control form-control-lg" @bind-value="@Surname"/>
+        <label class="form-label">Ваша фамилия</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control form-control-lg" @bind-value="@Patronymic"/>
+        <label class="form-label">Ваше отчество</label>
+    </div>
+    <div class="form-outline mb-4" @bind="@Department">
+        <section class="form-select form-select-lg">
+            <option value="Гaзоснабжение">Гaзоснабжение</option>
+            <option value="Водоснабжение">Водоснабжение</option>
+        </section>
+        <label class="form-label">Отдел</label>
+    </div>
+}
+@code {
+    public string? Surname;
+
+    public string? Name;
+
+    public string? Patronymic;
+
+    public string? Department;
+    
+    [Parameter]
+    public bool IsCabinet { get; set; }
+
+    private Customer? user;
+}
