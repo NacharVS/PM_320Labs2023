@@ -5,6 +5,7 @@
 @inject UserService UserService;
 @inject NavigationManager NavigationManager;
 @inject ILocalStorage LocalStorageService;
+@inject IJSRuntime JSR
 
 <section class="vh-200 bg-image"
          style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
@@ -47,10 +48,17 @@
     private string? _login;
     private string? _password;
 
-    private void LogIn()
+    private async void LogIn()
     {
-        UserService.UserLogIn(_login, _password);
-        LocalStorageService.SetAsync<User>("Authorization", UserService.CurrentUser);
-        NavigationManager.NavigateTo("/UserPage");
+        var user = UserService.UserLogIn(_login, _password);
+        if (user is null)
+        {
+            await JSR.InvokeVoidAsync("alert", "Такой пользователь не существует!");
+        }
+        else
+        {
+            await LocalStorageService.SetAsync<User>("Authorization", UserService.CurrentUser);
+            NavigationManager.NavigateTo("/UserPage");
+        }
     }
 }

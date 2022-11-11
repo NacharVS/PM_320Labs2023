@@ -4,91 +4,105 @@
 @using System.Text.RegularExpressions
 @inject UserService UserService;
 
-@if (UserService.CurrentUser is null)
+@if (_designer is not null)
 {
-  user = new Designer();
-}
-else
-{
-  user = UserService.CurrentUser as Designer;
-}
   <div class="form-outline mb-4">
-    <input type="text" class="form-control form-control-lg" @bind-value="@user.DesignerName"/>
+    <input type="text" class="form-control form-control-lg" @bind-value="@_designer.DesignerName" @onblur="() => SendUser.InvokeAsync(_designer)"/>
     <label class="form-label">Наименование проектной организации</label>
   </div>
   <div class="form-outline mb-4">
-    <input type="text" class="form-control form-control-lg" @bind-value="@user.OGRN"/>
+    <input type="text" class="form-control form-control-lg" @bind-value="@_designer.OGRN" @onblur="SendUserInfo"/>
     <label class="form-label">ОГРН</label>
     @if (!IsOGRNCorrect())
     {
-        <div class="alert alert-warning">Неверно введен ОГРН</div>
+      <div class="alert alert-warning">Неверно введен ОГРН</div>
     }
   </div>
   <div class="form-outline mb-4">
-    <input type="text" class="form-control form-control-lg" @bind-value="@user.INN"/>
+    <input type="text" class="form-control form-control-lg" @bind-value="@_designer.INN" @onblur="SendUserInfo"/>
     <label class="form-label">ИНН</label>
     @if (!IsINNCorrect())
-            {
-                <div class="alert alert-warning">Неверно введен ИНН</div>
-            }
+    {
+      <div class="alert alert-warning">Неверно введен ИНН</div>
+    }
   </div>
   <div class="form-outline mb-4">
-    <input type="text" class="form-control form-control-lg" @bind-value="@user.KPP"/>
+    <input type="text" class="form-control form-control-lg" @bind-value="@_designer.KPP" @onblur="SendUserInfo"/>
     <label class="form-label">КПП</label>
     @if (!IsKPPCorrect())
-            {
-                <div class="alert alert-warning">Неверно введен КПП</div>
-            }
+    {
+      <div class="alert alert-warning">Неверно введен КПП</div>
+    }
     <div class="form-outline mb-4">
-      <input type="text" class="form-control form-control-lg" @bind-value="@user.Adress"/>
+      <input type="text" class="form-control form-control-lg" @bind-value="@_designer.Adress" @onblur="() => SendUser.InvokeAsync(_designer)"/>
       <label class="form-label">Адрес</label>
     </div>
     <div class="form-outline mb-4">
-      <input type="text" class="form-control form-control-lg" @bind-value="@user.Director"/>
+      <input type="text" class="form-control form-control-lg" @bind-value="@_designer.Director" @onblur="() => SendUser.InvokeAsync(_designer)"/>
       <label class="form-label">Директор</label>
     </div>
     <div class="form-outline mb-4">
-      <input type="text" class="form-control form-control-lg" @bind-value="@user.MainIngeneer"/>
+      <input type="text" class="form-control form-control-lg" @bind-value="@_designer.MainIngeneer" @onblur="() => SendUser.InvokeAsync(_designer)"/>
       <label class="form-label">Главный инженер проекта</label>
     </div>
   </div>
-
+}
 @code {
-  public Designer? user;
-  
   public bool CanSave = true;
   
   private bool IsOGRNCorrect()
   {
-    if (user.OGRN != null)
+    if (_designer.OGRN != null)
     {
       Regex r = new Regex(@"^[0-9]+$");;
-      return r.IsMatch(user.OGRN) && user.OGRN.Length == 13;
+      return r.IsMatch(_designer.OGRN) && _designer.OGRN.Length == 13;
     }
     return false;
   }
 
   private bool IsINNCorrect()
   {
-    if(user.INN != null)
+    if(_designer.INN != null)
     {
       Regex r = new Regex(@"^[0-9]+$");;
-      return r.IsMatch(user.INN) && user.INN.Length == 10;
+      return r.IsMatch(_designer.INN) && _designer.INN.Length == 10;
     }
     return false;
   }
 
   private bool IsKPPCorrect()
   {
-    if (user.KPP != null)
+    if (_designer.KPP != null)
     {
       Regex r = new Regex(@"^[0-9]+$");;
-      return r.IsMatch(user.KPP) && user.KPP.Length == 9;
+      return r.IsMatch(_designer.KPP) && _designer.KPP.Length == 9;
     }
     return false;
   }
   public void Check()
   {
     CanSave = IsOGRNCorrect() && IsINNCorrect() && IsKPPCorrect();
+  }
+  [Parameter]
+  public Designer Designer { get; set; }
+  private Designer _designer = new Designer();
+  [Parameter]
+  public EventCallback<User> SendUser { get; set; }
+    
+  protected override void OnInitialized()
+  {
+    if (Designer != null)
+    {
+      _designer = Designer;
+    }
+    StateHasChanged();
+  }
+
+  private void SendUserInfo()
+  {
+    if (IsINNCorrect() && IsKPPCorrect() && IsOGRNCorrect())
+    {
+      SendUser.InvokeAsync(_designer);
+    }
   }
 }

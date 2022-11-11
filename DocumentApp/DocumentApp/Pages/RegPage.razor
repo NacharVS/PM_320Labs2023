@@ -6,6 +6,8 @@
 
 @inject RoleService RoleService;
 @inject UserService UserService;
+@inject IJSRuntime JSR
+@inject NavigationManager NavigationManager
 
 <section class="vh-200 bg-image"
          style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
@@ -37,13 +39,13 @@
                                     <label class="form-label">Ваш номер телефона</label>
                                     <label class="form-label col-form-label-sm">Пример: 89011111111</label>
                                     @if (!CheckPhone())
-                                                {
-                                                    <div class="alert alert-warning">Неверно введен номер телефона</div>
-                                                }
+                                    {
+                                        <div class="alert alert-warning">Неверно введен номер телефона</div>
+                                    }
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <select class="form-select form-select-lg" @bind="@_roleName">
+                                    <select class="form-select form-select-lg" @bind="@_roleName" @onblur="CreateUser">
                                         <option value=""></option>
                                         @foreach (var role in RoleService.GetAllRoles())
                                         {
@@ -54,13 +56,13 @@
                                     @switch (@_roleName)
                                     {
                                         case "Заказчик":
-                                            <CustomerRegPage @ref="_customerRegPage"/>
+                                            <CustomerRegPage SendUser="x => user = x"/>
                                             break;
                                         case "Проектировщик":
-                                            <DesignerRegPage @ref="_designerRegPage"/>
+                                            <DesignerRegPage SendUser="x => user = x"/>
                                             break;
                                         case "Застройщик":
-                                            <BuilderRegPage @ref="_builderRegPage"/>
+                                            <BuilderRegPage SendUser="x => user = x"/>
                                             break;
                                     }
                                 </div>
@@ -138,70 +140,47 @@
                && _roleName != ""
                && CheckPhone()
                && CheckEmail()
-               && CheckPassword()
-        && _builderRegPage.CanSave
-        && _designerRegPage.CanSave
-        && _customerRegPage.CanSave;
+               && CheckPassword();
     }
 
-    private void Register()
+    private void CreateUser()
     {
         switch (_roleName)
         {
             case "Заказчик":
-                user = new Customer
-                {
-                    Name = _customerRegPage?.user?.Name,
-                    Surname = _customerRegPage?.user?.Surname,
-                    Patronymic = _customerRegPage?.user?.Patronymic,
-                    Login = _login,
-                    Password = _password,
-                    Phone = _phone,
-                    Email = _email,
-                    RoleId = RoleService.GetRoleByName(_roleName).Id,
-                    Department = _customerRegPage?.user?.Department
-                };
+                user = new Customer();
                 break;
             case "Застройщик":
-                user = new Builder()
-                {
-                    Login = _login,
-                    Password = _password,
-                    Phone = _phone,
-                    Email = _email,
-                    RoleId = RoleService.GetRoleByName(_roleName).Id,
-                    BuilderName = _builderRegPage.user.BuilderName,
-                    OGRN = _builderRegPage.user.OGRN,
-                    INN = _builderRegPage.user.INN,
-                    KPP = _builderRegPage.user.KPP,
-                    Adress = _builderRegPage.user.Adress,
-                    Director = _builderRegPage.user.Adress
-                        
-                };
-                _builderRegPage.Check();
+                user = new Builder();
                 break;
             case "Проектировщик":
-                user = new Designer()
-                {
-                    Login = _login,
-                    Password = _password,
-                    Phone = _phone,
-                    Email = _email,
-                    RoleId = RoleService.GetRoleByName(_roleName).Id,
-                    DesignerName = _designerRegPage.user.DesignerName,
-                    OGRN = _designerRegPage.user.OGRN,
-                    INN = _designerRegPage.user.INN,
-                    KPP = _designerRegPage.user.KPP,
-                    Adress = _designerRegPage.user.Adress,
-                    Director = _designerRegPage.user.Adress,
-                    MainIngeneer = _designerRegPage.user.MainIngeneer
-                };
-                _designerRegPage.Check();
+                user = new Designer();
                 break;
         }
-        if (CheckFields())
+    }
+    private async void Register()
+    {
+        if (UserService.CheckUserEx(_login))
         {
-            UserService.SaveUser(user);
+            await JSR.InvokeVoidAsync("alert", "Пользователь с таким именем существует!");
+            return;
+        }
+        if (!CheckFields())
+        {
+            await JSR.InvokeVoidAsync("alert", "Не все поля заполнены!");
+            return;
+        }
+        if (user is not null)
+        {
+            user.Login = _login;
+            user.Password = _password;
+            user.Email = _email;
+            user.RoleId = RoleService.GetRoleByName(_roleName).Id;
+            user.Phone = _phone;
+            if (UserService.SaveUser(user))
+            {
+                NavigationManager.NavigateTo("/AuthPage");
+            }
         }
     }
 }

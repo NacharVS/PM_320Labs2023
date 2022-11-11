@@ -4,20 +4,15 @@
 @using DocumentApp.Services
 @using System.Text.RegularExpressions
 @inject UserService UserService; 
-@if (UserService.CurrentUser is null)
+@if (_builder is not null)
 {
-    user = new Builder();
-}
-else
-{
-    user = UserService.CurrentUser as Builder;
-}
+
     <div class="form-outline mb-4">
-        <input type="text" class="form-control form-control-lg" @bind="@user.BuilderName"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@_builder.BuilderName"  @onblur="() => SendUser.InvokeAsync(_builder)"/>
         <label class="form-label">Наименование проектной организации</label>
     </div>
     <div class="form-outline mb-4">
-        <input type="text" class="form-control form-control-lg" @bind-value="@user.OGRN"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@_builder.OGRN" @onblur="SendUserInfo"/>
         <label class="form-label">ОГРН</label>
         @if (!IsOGRNCorrect())
         {
@@ -25,7 +20,7 @@ else
         }
     </div>
     <div class="form-outline mb-4">
-        <input type="text" class="form-control form-control-lg" @bind-value="@user.INN"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@_builder.INN" @onblur="SendUserInfo"/>
         <label class="form-label">ИНН</label>
         @if (!IsINNCorrect())
         {
@@ -33,7 +28,7 @@ else
         }
     </div>
     <div class="form-outline mb-4">
-        <input type="text" class="form-control form-control-lg" @bind-value="@user.KPP"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@_builder.KPP" @onblur="SendUserInfo"/>
         <label class="form-label">КПП</label>
         @if (!IsKPPCorrect())
         {
@@ -41,46 +36,46 @@ else
         }
     </div>
     <div class="form-outline mb-4">
-        <input type="text" class="form-control form-control-lg" @bind-value="@user.Adress"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@_builder.Adress"  @onblur="() => SendUser.InvokeAsync(_builder)"/>
         <label class="form-label">Адрес</label>
     </div>
     <div class="form-outline mb-4">
-        <input type="text" class="form-control form-control-lg" @bind-value="@user.Director"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@_builder.Director"  @onblur="() => SendUser.InvokeAsync(_builder)"/>
         <label class="form-label">Руководитель исполнительного комитета РТ</label>
     </div>
-
+}
 
 @code {
-    public Builder? user;
+    //public Builder? user;
 
     public bool CanSave = true;
     
     private bool IsOGRNCorrect()
     {
-        if (user.OGRN != null)
+        if (_builder.OGRN != null)
         {
             Regex r = new Regex(@"^[0-9]+$");;
-            return r.IsMatch(user.OGRN) && user.OGRN.Length == 13;
+            return r.IsMatch(_builder.OGRN) && _builder.OGRN.Length == 13;
         }
         return false;
     }
 
     private bool IsINNCorrect()
     {
-        if(user.INN != null)
+        if(_builder.INN != null)
         {
             Regex r = new Regex(@"^[0-9]+$");;
-            return r.IsMatch(user.INN) && user.INN.Length == 10;
+            return r.IsMatch(_builder.INN) && _builder.INN.Length == 10;
         }
         return false;
     }
 
     private bool IsKPPCorrect()
     {
-        if (user.KPP != null)
+        if (_builder.KPP != null)
         {
             Regex r = new Regex(@"^[0-9]+$");;
-            return r.IsMatch(user.KPP) && user.KPP.Length == 9;
+            return r.IsMatch(_builder.KPP) && _builder.KPP.Length == 9;
         }
         return false;
     }
@@ -88,5 +83,28 @@ else
     public void Check()
     {
         CanSave = IsOGRNCorrect() && IsINNCorrect() && IsKPPCorrect();
+    }
+    
+    [Parameter]
+    public Builder Builder { get; set; }
+    private Builder _builder = new Builder();
+    [Parameter]
+    public EventCallback<User> SendUser { get; set; }
+    
+    protected override void OnInitialized()
+    {
+        if (Builder != null)
+        {
+            _builder = Builder;
+        }
+        StateHasChanged();
+    }
+
+    private void SendUserInfo()
+    {
+        if (IsINNCorrect() && IsKPPCorrect() && IsOGRNCorrect())
+        {
+            SendUser.InvokeAsync(_builder);
+        }
     }
 }

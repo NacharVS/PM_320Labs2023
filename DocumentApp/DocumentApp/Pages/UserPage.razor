@@ -4,6 +4,7 @@
 @using Microsoft.AspNetCore.Components
 @using ZstdSharp.Unsafe
 @using DocumentApp.Interfaces
+@using System.Text.RegularExpressions
 @inject UserService UserService;
 @inject RoleService RoleService;
 @inject ILocalStorage LocalStorageService
@@ -20,43 +21,50 @@
                             <h2 class="text-uppercase text-center mb-5">Личный кабинет</h2>
 
                             <form>
-                                @if (UserService.CurrentUser is not null)
-                                {
-                                    user = UserService.CurrentUser;
-                                }
-
                                 <div class="form-outline mb-4">
-                                    <input type="email" class="form-control form-control-lg" @bind-value="@user.Email"/>
+                                    <input type="email" class="form-control form-control-lg" @bind-value="@_user.Email"/>
                                     <label class="form-label">Ваш Email</label>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <input type="text" class="form-control form-control-lg" @bind-value="@user.Phone"/>
-                                    <label class="form-label">Ваш номер телефона</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">@_roleName</label>
-                                    <label class="form-label">Роль</label>
-                                    @switch (_roleName)
+                                    @if (!CheckEmail())
                                     {
-                                        case "Заказчик":
-                                            <CustomerRegPage @ref="_customerRegPage"/>
-                                            break;
-                                        case "Проектировщик":
-                                            <DesignerRegPage @ref="_designerRegPage"/>
-                                            break;
-                                        case "Застройщик":
-                                            <BuilderRegPage @ref="_builderRegPage"/>
-                                            break;
+                                        <div class="alert alert-warning">Неверно введен Email</div>
+                                    }
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="text" class="form-control form-control-lg" @bind-value="@_user.Phone"/>
+                                    <label class="form-label">Ваш номер телефона</label>
+                                    @if (!CheckPhone())
+                                    {
+                                        <div class="alert alert-warning">Неверно введен номер телефона</div>
                                     }
                                 </div>
 
+                                <div class="form-outline mb-4">
+                                    <div><label class="form-label col-form-label-lg">@_roleName</label></div>
+                                    <div><label class="form-label">Роль</label>
+                                         @switch (_roleName)
+                                         {
+                                             case "Заказчик":
+                                                 <CustomerRegPage Customer="_user as Customer" SendUser="x => _user = x" IsCabinet="true"/>
+                                                 break;
+                                             case "Проектировщик":
+                                                 <DesignerRegPage Customer="_user as Designer" SendUser="x => _user = x"/>
+                                                 break;
+                                             case "Застройщик":
+                                                 <BuilderRegPage Customer="_user as Builder" SendUser="x => _user = x"/>
+                                                 break;
+                                         }</div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center mb-3">
+                                    <button type="submit"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="Save">Сохранить</button>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="LogOut">Выйти</button>
+                                </div>
                             </form>
-                            
-                            <div class="d-flex justify-content-center">
-                                <button type="submit"
-                                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="LogOut">Выйти</button>
-                            </div>
 
                         </div>
                     </div>
@@ -66,17 +74,45 @@
     </div>
 </section>
 @code {
-    private User user;
-    private CustomerRegPage? _customerRegPage;
-    private BuilderRegPage? _builderRegPage;
-    private DesignerRegPage? _designerRegPage;
-
-    private string? _roleName;
+    private User _user;
 
     protected override void OnInitialized()
     {
+        _user = UserService.CurrentUser;
         _roleName = RoleService.GetRoleNameById(UserService.CurrentUser?.RoleId);
     }
+
+    private void Save()
+    {
+        if (CheckFields())
+        {
+            UserService.UpdateUser(_user, _user.Login);
+        }
+    }
+
+    private bool CheckFields()
+    {
+        return (_user.Login != ""
+                && _user.Password != ""
+                && _user.Email != ""
+                && _user.RoleId != ""
+                && CheckPhone()
+                && CheckEmail());
+    }
+
+    private bool CheckPhone()
+    {
+        Regex r = new Regex(@"^[0-9]+$");
+        return r.IsMatch(_user.Phone) && _user.Phone.Length == 11;
+    }
+
+    private bool CheckEmail()
+    {
+        string cond = @"(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)";
+        return Regex.IsMatch(_user.Email, cond);
+    }
+
+    private string? _roleName;
 
     private void LogOut()
     {

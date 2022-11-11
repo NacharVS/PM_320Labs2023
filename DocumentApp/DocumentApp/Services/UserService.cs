@@ -31,6 +31,11 @@ public class UserService
         }
     }
 
+    public bool CheckUserEx(string login)
+    {
+        return DataBaseConnection.UsersCollection.Find<User>(x => x.Login == login).FirstOrDefault() != null;
+    }
+
     public User UserLogIn(string? login, string? password)
     {
         try
@@ -39,22 +44,6 @@ public class UserService
                                                                       x.Login == login && x.Password == password)
                 .FirstOrDefault();
             CurrentUser = res;
-            return res;
-            // switch (DataBaseConnection.RolesCollection.Find(x=> x.Id == res.RoleId).FirstOrDefault().Name)
-            // {
-            //     case "Заказчик":
-            //         CurrentUser = res as Customer ?? new Customer();
-            //         _localStorageService.SetAsync<Customer>("Authorization", CurrentUser as Customer);
-            //         break;
-            //     case "Проектировщик":
-            //         CurrentUser = res as Designer ?? new Designer();
-            //         _localStorageService.SetAsync<Designer>("Authorization", CurrentUser as Designer);
-            //         break;
-            //     case "Застройщик":
-            //         CurrentUser = res as Builder ?? new Builder();
-            //         _localStorageService.SetAsync<Builder>("Authorization", CurrentUser as Builder);
-            //         break;
-            // }
         }
         catch (Exception e)
         {
@@ -63,9 +52,16 @@ public class UserService
         return CurrentUser!;
     }
 
-    public User GetUserByLoginAndPassword(string login, string password)
+    public bool UpdateUser(User user, string login)
     {
-        return DataBaseConnection.UsersCollection.Find(x =>
-            x.Login == login && x.Password == password).FirstOrDefault();
+        try
+        {
+            DataBaseConnection.UsersCollection.ReplaceOne(x => x.Login == login, user);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

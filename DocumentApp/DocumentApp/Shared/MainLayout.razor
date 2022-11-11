@@ -38,7 +38,7 @@
         }
         else
         {
-            user = UserService.GetUserByLoginAndPassword(locUser.Login, locUser.Password);
+            user = UserService.UserLogIn(locUser.Login, locUser.Password);
         }
         if (user is not null)
         {

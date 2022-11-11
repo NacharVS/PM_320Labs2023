@@ -2,33 +2,58 @@
 @using DocumentApp.Interfaces
 @using DocumentApp.Models
 @inject UserService UserService
-@if (UserService.CurrentUser is null)
+@if (_customer is not null)
 {
-    user = new Customer();
-}
-else
-{
-    user = UserService.CurrentUser as Customer;
-}
+
     <div class="form-outline mb-4">
-        <input type="text" class="form-control form-control-lg" @bind-value="@user.Name"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@_customer.Name" @onblur="() => SendUser.InvokeAsync(_customer)"/>
         <label class="form-label">Ваше имя</label>
     </div>
 
     <div class="form-outline mb-4">
-        <input type="text" class="form-control form-control-lg" @bind-value="@user.Surname"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@_customer.Surname" @onblur="() => SendUser.InvokeAsync(_customer)"/>
         <label class="form-label">Ваша фамилия</label>
     </div>
 
     <div class="form-outline mb-4">
-        <input type="text" class="form-control form-control-lg" @bind-value="@user.Patronymic"/>
+        <input type="text" class="form-control form-control-lg" @bind-value="@_customer.Patronymic" @onblur="() => SendUser.InvokeAsync(_customer)"/>
         <label class="form-label">Ваше отчество</label>
     </div>
-    <div class="form-outline mb-4">
-        <label class="form-label">@user.Department</label>
-    </div>
+    @if (IsCabinet)
+    {
+        <div><label class="form-label col-form-label-lg">@_customer.Department</label></div>
+        <div><label class="form-label">Отделение</label></div>
+    }
+    else
+    {
+        <div class="form-outline mb-4">
+            <select class="form-select form-select-lg" @bind="@_customer.Department">
+                <option value="1">Газификация</option>
+                <option value="2">Водоснабжение</option>
+            </select>
+            <label class="form-label">Отделение</label>
+        </div>
+    }
+}
 @code {
-    public Customer? user;
+
+    [Parameter]
+    public bool IsCabinet { get; set; }
+
+    [Parameter]
+    public Customer Customer { get; set; }
     
-    public bool CanSave = true;
+    private Customer _customer = new Customer();
+
+    [Parameter]
+    public EventCallback<User> SendUser { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Customer != null)
+        {
+            _customer = Customer;
+        }
+        StateHasChanged();
+    }
 }
