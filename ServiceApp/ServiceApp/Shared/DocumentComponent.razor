@@ -1,0 +1,36 @@
+﻿@using Data
+@inject NavigationManager Navigation
+@inject CurrentUser CurrentUser
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Наименование документа</th>
+            <th>Утвержден</th>
+        </tr>
+        @foreach (var proj in Projects)
+        {
+            <tr>
+                <td>@proj.Name</td>
+            </tr>
+        }
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+@if (CurrentUser.CurrentCustomer != null)
+{
+    <button @onclick="CreatingDoc">Создать документ</button>
+}
+
+@code {
+    [Parameter]
+    public List<Project>? Projects { get; set; }
+
+    private void CreatingDoc()
+    {
+        Navigation.NavigateTo("/doc");
+    }
+}

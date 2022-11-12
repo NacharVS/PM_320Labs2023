@@ -1,16 +1,73 @@
-﻿<div class="alert alert-secondary mt-4">
-    <span class="oi oi-pencil me-2" aria-hidden="true"></span>
-    <strong>@Title</strong>
+﻿@using Data
+@using Services
+@inject CurrentUser CurrentUser
+@inject NavigationManager Navigation
+@inject ILocalStorageService LocalStorage
 
-    <span class="text-nowrap">
-        Please take our
-        <a target="_blank" class="font-weight-bold link-dark" href="https://go.microsoft.com/fwlink/?linkid=2149017">brief survey</a>
-    </span>
-    and tell us what you think.
+<div class="card">
+    <h4 class="card-header">Personal Page</h4>
+    <div class="card-body">
+        <hr>
+            <label for="organisation"><b>Органзация</b></label>
+            <input type="text" placeholder="Enter Organisation" name="organisation" id="organisation" required @bind-value="organisation" />
+            <br/>
+            <label for="ogrn"><b>ОГРН</b></label>
+            <input type="text" maxlength="13" placeholder="Enter OGRN" name="ogrn" id="ogrn" required @bind-value="ogrn" />
+            <br/>
+            <label for="inn"><b>ИНН</b></label>
+            <input type="text" maxlength="10" placeholder="Enter INN" name="inn" id="inn" required @bind-value="inn" />
+            <br/>
+            <label for="kpp"><b>КПП</b></label>
+            <input type="text" maxlength="9" placeholder="Enter KPP" name="kpp" id="kpp" required @bind-value="kpp" />
+            <br/>
+            <label for="address"><b>Адрес</b></label>
+            <input type="text" placeholder="Enter Address" name="address" id="address" required @bind-value="address" />
+            <br/>
+            <label for="telephone"><b>Телефон</b></label>
+            <input type="text" placeholder="Enter Telephone" name="telephone" id="telephone" required @bind-value="telephone" />
+            <br/>
+            <label for="director"><b>Директор</b></label>
+            <input type="text" placeholder="Enter Director" name="director" id="director" required @bind-value="director" />
+            <br/>
+            <label for="engineer"><b>Главный инженер</b></label>
+            <input type="text" placeholder="Enter Engineer" name="engineer" id="engineer" required @bind-value="engineer" />
+            <br/>
+        <hr>
+        <button type="submit" class="registerbtn" @onclick="Save">Save</button>
+    </div>
 </div>
 
+<button @onclick="GoToProj">Мои проекты</button>
+
+
 @code {
-    // Demonstrates how a parent component can supply parameters
-    [Parameter]
-    public string? Title { get; set; }
+    string? organisation;
+    string? ogrn;
+    string? inn;
+    string? kpp;
+    string? address;
+    string? telephone;
+    string? director;
+    string? engineer;
+
+    public void GoToProj()
+    {
+        Navigation.NavigateTo("/mainproj");
+    }
+
+    public async void Save()
+    {
+        CurrentUser.CurrentDesigner.DesignerOrganisation = organisation;
+        CurrentUser.CurrentDesigner.OGRN = ogrn;
+        CurrentUser.CurrentDesigner.KPP = kpp;
+        CurrentUser.CurrentDesigner.INN = inn;
+        CurrentUser.CurrentDesigner.Address = address;
+        CurrentUser.CurrentDesigner.Telephone = telephone;
+        CurrentUser.CurrentDesigner.Director = director;
+        CurrentUser.CurrentDesigner.MainEngineer = engineer;
+        DBConnection.ReplaceDesigner(CurrentUser.CurrentDesigner);
+        await LocalStorage.SetAsync<Designer>("Autho", CurrentUser.CurrentDesigner);
+        StateHasChanged();
+        Navigation.NavigateTo("/personalmain");
+    }
 }

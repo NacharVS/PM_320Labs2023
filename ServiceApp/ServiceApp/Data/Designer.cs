@@ -1,8 +1,9 @@
-﻿namespace ServiceApp.Data
+﻿
+namespace ServiceApp.Data
 {
     public class Designer : User
     {
-        public string ProjectOrganisation { get; set; }
+        public string DesignerOrganisation { get; set; }
 
         public string OGRN { get; set; }
 

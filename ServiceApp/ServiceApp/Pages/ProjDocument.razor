@@ -1,0 +1,96 @@
+﻿@page "/doc"
+@using Data
+@using Services
+@inject NavigationManager Navigation
+@inject CurrentUsersRole CurrentUser
+@inject CurrentUser CurrentUserName
+@inject ILocalStorageService LocalStorage
+
+
+<div class="card">
+    <h4 class="card-header">Создание проекта</h4>
+    <div class="card-body">
+        <p>Department: @CurrentUserName.CurrentCustomer.Department</p>
+        <hr>
+            <label for="name"><b>Название проекта</b></label>
+            <input type="text" placeholder="Enter Project Name" name="name" id="name" required @bind-value="name" />
+            <br/>
+            <label for="name"><b>Застройщик</b></label>
+            <select name="dev" @onchange = "DeveloperChanged">
+                @foreach (var dev in developers)
+                {
+                    <option value="@dev.Login">@dev.DeveloperOrganisation</option>
+                }
+            </select>
+            <br/>
+            <label for="name"><b>Проектировщик</b></label>
+            <select name="des" @onchange = "DesignerChanged">
+                @foreach (var des in designers)
+                {
+                    <option value="@des.Login">@des.DesignerOrganisation</option>
+                }
+            </select>
+        <hr>
+        <button type="submit" class="registerbtn" @onclick="Save">Создать</button>
+    </div>
+</div>
+
+<button @onclick="GoToProj">Мои проекты</button>
+
+@code {
+    string developer;
+    string designer;
+    string name;
+    List<Developer> developers;
+    List<Designer> designers;
+
+    protected override void OnInitialized()
+    {
+        developers = DBConnection.ImportAllDevelopers();
+        designers = DBConnection.ImportAllDesigner();
+    }
+
+    public void GoToProj()
+    {
+        Navigation.NavigateTo("/mainproj");
+    }
+
+    public void DeveloperChanged(ChangeEventArgs e)
+    {
+        if (e.Value is not null)
+        {
+            developer = e.Value.ToString();
+        }
+    }
+
+    public void DesignerChanged(ChangeEventArgs e)
+    {
+        if (e.Value is not null)
+        {
+            designer = e.Value.ToString();
+        }
+    }
+
+    public void Save()
+    {
+        Project project = new Project();
+        project.Name = name;
+        project.Department = CurrentUserName.CurrentCustomer.Department;
+        project.Customer = CurrentUserName.CurrentCustomer.Login;
+        project.Designer = designer;
+        project.Developer = developer;
+
+        switch (project.Department)
+        {
+            case "Водоснабжение":
+                DBConnection.AddToDataBaseProjectW(project);
+                break;
+            case "Газификация" :
+                DBConnection.AddToDataBaseProjectG(project);
+                break;
+
+        }
+
+        Navigation.NavigateTo("/mainproj");
+    }
+}

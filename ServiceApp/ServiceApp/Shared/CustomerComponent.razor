@@ -1,16 +1,47 @@
-﻿<div class="alert alert-secondary mt-4">
-    <span class="oi oi-pencil me-2" aria-hidden="true"></span>
-    <strong>@Title</strong>
+﻿@using Data
+@using Services
+@inject CurrentUser CurrentUser
+@inject NavigationManager Navigation
+@inject ILocalStorageService LocalStorage
 
-    <span class="text-nowrap">
-        Please take our
-        <a target="_blank" class="font-weight-bold link-dark" href="https://go.microsoft.com/fwlink/?linkid=2149017">brief survey</a>
-    </span>
-    and tell us what you think.
+<div class="card">
+    <h4 class="card-header">Personal Page</h4>
+    <div class="card-body">
+        <hr>
+            <select name="role" @onchange = "DepartmentChanged">
+                <option value="-">-</option>
+                <option value="Водоснабжение">Водоснабжение</option>
+                <option value="Газификация">Газификация</option>
+            </select>
+        <hr>
+        <button type="submit" class="registerbtn" @onclick="Save">Save</button>
+    </div>
 </div>
 
+<button @onclick="GoToProj">Мои проекты</button>
+
 @code {
-    // Demonstrates how a parent component can supply parameters
-    [Parameter]
-    public string? Title { get; set; }
+    string department;
+
+    public void GoToProj()
+    {
+        Navigation.NavigateTo("/mainproj");
+    }
+
+    public async void Save()
+    {
+        CurrentUser.CurrentCustomer.Department = department;
+        DBConnection.ReplaceCustomer(CurrentUser.CurrentCustomer);
+        await LocalStorage.SetAsync<Customer>("Autho", CurrentUser.CurrentCustomer);
+        StateHasChanged();
+        Navigation.NavigateTo("/personalmain");
+    }
+
+    public void DepartmentChanged(ChangeEventArgs e)
+    {
+        if (e.Value is not null)
+        {
+            department = e.Value.ToString();
+        }
+    }
 }

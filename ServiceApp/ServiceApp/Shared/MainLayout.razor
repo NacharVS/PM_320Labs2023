@@ -15,7 +15,7 @@
 
     <main>
         <div class="top-row px-4">
-            <b @onclick = "ClickingIn">@UserCurrent.CurrentU?.Login</b>
+            <b @onclick = "ClickingIn"></b>
         </div>
 
         <article class="content px-4">
@@ -34,11 +34,24 @@
     {
         if (firstRender)
         {
-            User newUser = await LocalStorage.GetAsync<User>("Autho");
-            if(newUser is not null)
+            UserCurrentRole.UserRole = await LocalStorage.GetAsync<string>("string");
+            switch (UserCurrentRole.UserRole)
             {
-                UserCurrent.CurrentU = newUser;
-                StateHasChanged();
+                case "Customer":
+                    UserCurrent.CurrentCustomer = await LocalStorage.GetAsync<Customer>("Autho");
+                    break;
+                case "Designer":
+                    UserCurrent.CurrentDesigner = await LocalStorage.GetAsync<Designer>("Autho");
+                    break;
+                case "Developer":
+                    UserCurrent.CurrentDeveloper = await LocalStorage.GetAsync<Developer>("Autho");
+                    break;
+            }
+            StateHasChanged();
+
+            if (UserCurrent.CurrentCustomer != null || UserCurrent.CurrentDesigner != null || UserCurrent.CurrentDeveloper != null)
+            {
+                Navigation.NavigateTo("/personalmain"); 
             }
         }
     }

@@ -1,4 +1,10 @@
-﻿<div class="card">
+﻿@using Data
+@using Services
+@inject CurrentUser CurrentUser
+@inject NavigationManager Navigation
+@inject ILocalStorageService LocalStorage
+
+<div class="card">
     <h4 class="card-header">Personal Page</h4>
     <div class="card-body">
         <hr>
@@ -6,13 +12,13 @@
             <input type="text" placeholder="Enter Organisation" name="organisation" id="organisation" required @bind-value="organisation" />
             <br/>
             <label for="ogrn"><b>ОГРН</b></label>
-            <input type="text" placeholder="Enter OGRN" name="ogrn" id="ogrn" required @bind-value="ogrn" />
+            <input type="text" maxlength="13" placeholder="Enter OGRN" name="ogrn" id="ogrn" required @bind-value="ogrn" />
             <br/>
             <label for="inn"><b>ИНН</b></label>
-            <input type="text" placeholder="Enter INN" name="inn" id="inn" required @bind-value="inn" />
+            <input type="text" maxlength="10" placeholder="Enter INN" name="inn" id="inn" required @bind-value="inn" />
             <br/>
             <label for="kpp"><b>КПП</b></label>
-            <input type="text" placeholder="Enter KPP" name="kpp" id="kpp" required @bind-value="kpp" />
+            <input type="text" maxlength="9" placeholder="Enter KPP" name="kpp" id="kpp" required @bind-value="kpp" />
             <br/>
             <label for="address"><b>Адрес</b></label>
             <input type="text" placeholder="Enter Address" name="address" id="address" required @bind-value="address" />
@@ -25,16 +31,32 @@
     </div>
 </div>
 
-@code {
-    string organisation;
-    string ogrn;
-    string inn;
-    string kpp;
-    string address;
-    string telephone;
+<button @onclick="GoToProj">Мои проекты</button>
 
-    public void Save()
+@code {
+    string? organisation;
+    string? ogrn;
+    string? inn;
+    string? kpp;
+    string? address;
+    string? telephone;
+
+    public void GoToProj()
     {
-        
+        Navigation.NavigateTo("/mainproj");
+    }
+
+    public async void Save()
+    {
+        CurrentUser.CurrentDeveloper.DeveloperOrganisation = organisation;
+        CurrentUser.CurrentDeveloper.OGRN = ogrn;
+        CurrentUser.CurrentDeveloper.KPP = kpp;
+        CurrentUser.CurrentDeveloper.INN = inn;
+        CurrentUser.CurrentDeveloper.Address = address;
+        CurrentUser.CurrentDeveloper.Telephone = telephone;
+        DBConnection.ReplaceDeveloper(CurrentUser.CurrentDeveloper);
+        await LocalStorage.SetAsync<Developer>("Autho", CurrentUser.CurrentDeveloper);
+        StateHasChanged();
+        Navigation.NavigateTo("/personalmain");
     }
 }

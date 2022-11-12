@@ -5,7 +5,7 @@ namespace ServiceApp.Data
 {
     public class User
     {
-        [BsonId]
+        [BsonIgnoreIfDefault]
         public ObjectId Id { get; set; }
 
         public string FirstName { get; set; }

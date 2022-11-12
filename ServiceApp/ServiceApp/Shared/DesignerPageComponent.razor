@@ -1,0 +1,30 @@
+﻿@using Data
+@inject CurrentUser CurrentUser
+@inject NavigationManager Navigation
+
+<div class="card">
+    <h4 class="card-header">Personal Page</h4>
+    <div class="card">
+        <p>Name:  @CurrentUser.CurrentDesigner.FirstName</p>
+        <p>Surname:  @CurrentUser.CurrentDesigner.LastName</p>
+        <p>Email: @CurrentUser.CurrentDesigner.Email</p>
+        <p>Login: @CurrentUser.CurrentDesigner.Login</p>
+        <p>Telephone: @CurrentUser.CurrentDesigner.Telephone</p>
+        <p>INN: @CurrentUser.CurrentDesigner.INN</p>
+        <p>KPP: @CurrentUser.CurrentDesigner.KPP</p>
+        <p>OGRN: @CurrentUser.CurrentDesigner.OGRN</p>
+        <p>Address: @CurrentUser.CurrentDesigner.Address</p>
+        <p>Designer oranisation: @CurrentUser.CurrentDesigner.DesignerOrganisation</p>
+        <p>Director: @CurrentUser.CurrentDesigner.Director</p>
+    </div>
+</div>
+
+<button @onclick="GoToProj">Мои проекты</button>
+
+@code {
+
+    public void GoToProj()
+    {
+        Navigation.NavigateTo("/mainproj");
+    }
+}

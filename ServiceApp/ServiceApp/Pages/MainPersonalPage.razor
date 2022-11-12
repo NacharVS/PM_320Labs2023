@@ -1,4 +1,4 @@
-﻿@page "/personal"
+﻿@page "/personalmain"
 @using Data
 @using Services
 @inject NavigationManager Navigation
@@ -12,19 +12,22 @@
 @switch (CurrentUserRole.UserRole)
 {
     case "Customer":
-    <CustomerComponent></CustomerComponent>
+    <CustomerPageComponent></CustomerPageComponent>
         break;
     case "Designer":
-    <DesignerComponent></DesignerComponent>
+    <DesignerPageComponent></DesignerPageComponent>
         break;
     case "Developer":
-    <DeveloperComponent></DeveloperComponent>
+    <DeveloperPageComponent></DeveloperPageComponent>
         break;
 }
 
+<button @onclick="Edit">Редактировать</button>
 <button @onclick="Logouting">LOG OUT</button>
 
+
 @code {
+
     private void Logouting()
     {
         CurrentUserName.CurrentCustomer = null;
@@ -34,5 +37,10 @@
         LocalStorage.RemoveAsync("string");
         Navigation.NavigateTo("/");
         StateHasChanged();
+    }
+
+    public void Edit()
+    {
+        Navigation.NavigateTo("/personal");
     }
 }

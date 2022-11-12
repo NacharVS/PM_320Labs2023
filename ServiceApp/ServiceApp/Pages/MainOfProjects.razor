@@ -1,20 +1,59 @@
 ﻿@page "/mainproj"
 @using Data
+@using Services
 @inject NavigationManager Navigation
 @inject CurrentUsersRole CurrentUser
+@inject CurrentUser CurrentUserName
+@inject ILocalStorageService LocalStorage
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello</h1>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<DocumentComponent Projects = "@projects"></DocumentComponent>
+
+<button @onclick="Logouting">Выйти</button>
+<button @onclick="GoToProfile">Профиль</button>
 
 @code {
-	string? roleName;
+    List<Project> projects;
 
-	private void NavigateToReg() 
-	{
-		CurrentUser.UserRole = roleName;
-		Navigation.NavigateTo("/reg"); 
-	} 
+    protected override void OnInitialized()
+    {
+        @switch (CurrentUser.UserRole)
+        {
+            case "Customer":
+                switch (CurrentUserName.CurrentCustomer.Department)
+                {
+                    case "Водоснабжение":
+                        projects = DBConnection.ImportAllProjectW();
+                        break;
+                    case "Газификация":
+                        projects = DBConnection.ImportAllProjectG();
+                        break;
+                }
+                break;
+            case "Designer":
+
+                break;
+            case "Developer":
+
+                break;
+        }
+    }
+
+    private void Logouting()
+    {
+        CurrentUserName.CurrentCustomer = null;
+        CurrentUserName.CurrentDesigner = null;
+        CurrentUserName.CurrentDeveloper = null;
+        LocalStorage.RemoveAsync("Autho");
+        LocalStorage.RemoveAsync("string");
+        Navigation.NavigateTo("/");
+        StateHasChanged();
+    }
+
+    public void GoToProfile()
+    {
+        Navigation.NavigateTo("/personalmain");
+    }
 }

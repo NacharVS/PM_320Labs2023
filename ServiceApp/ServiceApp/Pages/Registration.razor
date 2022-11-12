@@ -7,7 +7,6 @@
 @inject CurrentUser CurrentUser
 <PageTitle>Index</PageTitle>
 
-<h1>Hello</h1>
 
 <div class="card">
     <h4 class="card-header">Registration Page</h4>
@@ -16,11 +15,14 @@
             <label for="email"><b>Email</b></label>
             <input type="text" placeholder="Enter Email" name="email" id="email" required @bind-value="email" />
             <br/>
+            <br/>
             <label for="login"><b>Login</b></label>
             <input type="text" placeholder="Enter Login" name="login" id="login" required @bind-value="login" />
             <br/>
+            <br/>
             <label for="psw"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-value="password" />
+            <br/>
             <br/>
             <label for="psw-repeat"><b>Repeat Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-value="repPassword" />
@@ -30,7 +32,6 @@
     </div>
 </div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
 
 @code {
     string login;
@@ -40,7 +41,7 @@
 
     private async void Registrarion()
     {
-        if (password == repPassword)
+        if (password == repPassword && login != null && email != null && password != null)
         {
             switch (CurrentUsersRole.UserRole)
             {
@@ -49,27 +50,30 @@
                     customer.Login = login;
                     customer.Password = password;
                     customer.Email = email;
-                    CurrentUser.CurrentU = customer;
-                    DBConnection.AddToDataBase(customer);
-                    await LocalStorage.SetAsync<User>("Autho", customer);
+                    CurrentUser.CurrentCustomer = customer;
+                    DBConnection.AddToDataBaseCustomer(customer);
+                    await LocalStorage.SetAsync<Customer>("Autho", customer);
+                    await LocalStorage.SetAsync<string>("string", "Customer");
                     break;
                 case "Designer":
                     Designer designer = new Designer();
                     designer.Login = login;
                     designer.Password = password;
                     designer.Email = email;
-                    CurrentUser.CurrentU = designer;
-                    DBConnection.AddToDataBase(designer);
-                    await LocalStorage.SetAsync<User>("Autho", designer);
+                    CurrentUser.CurrentDesigner = designer;
+                    DBConnection.AddToDataBaseDesigner(designer);
+                    await LocalStorage.SetAsync<Designer>("Autho", designer);
+                    await LocalStorage.SetAsync<string>("string", "Designer");
                     break;
                 case "Developer":
                     Developer developer = new Developer();
                     developer.Login = login;
                     developer.Password = password;
                     developer.Email = email;
-                    CurrentUser.CurrentU = developer;
-                    DBConnection.AddToDataBase(developer);
-                    await LocalStorage.SetAsync<User>("Autho", developer);
+                    CurrentUser.CurrentDeveloper = developer;
+                    DBConnection.AddToDataBaseDeveloper(developer);
+                    await LocalStorage.SetAsync<Developer>("Autho", developer);
+                    await LocalStorage.SetAsync<string>("string", "Developer");
                     break;
             }
             StateHasChanged();

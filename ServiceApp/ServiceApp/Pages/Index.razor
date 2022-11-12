@@ -5,13 +5,12 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello</h1>
 
 <button class="btn btn-primary" value = "Заказчик" @onclick="@(() => NavigateToReg("Customer"))"> Заказчик </button>
 <button class="btn btn-primary" value = "Проектировщик" @onclick="@(() => NavigateToReg("Designer"))"> Проектировщик </button>
 <button class="btn btn-primary" value = "Застройщик" @onclick="@(() => NavigateToReg("Developer"))"> Застройщик </button>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
 
 @code {
 
@@ -20,4 +19,4 @@
 		CurrentUser.UserRole = value;
 		Navigation.NavigateTo("/reg"); 
 	} 
-}}
+}

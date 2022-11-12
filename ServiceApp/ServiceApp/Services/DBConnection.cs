@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Bson;
 using ServiceApp.Data;
 
 namespace ServiceApp.Services
@@ -39,6 +40,15 @@ namespace ServiceApp.Services
             return user;
         }
 
+        public static void ReplaceCustomer(Customer customer)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var filter = new BsonDocument("Login", customer.Login);
+            var collection = database.GetCollection<Customer>("CollectionOfCustomers");
+            collection.ReplaceOne(filter, customer);
+        }
+
         public static void AddToDataBaseDesigner(Designer user)
         {
             var client = new MongoClient("mongodb://localhost:27017");
@@ -56,6 +66,24 @@ namespace ServiceApp.Services
             return user;
         }
 
+        public static void ReplaceDesigner(Designer designer)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var filter = new BsonDocument("Login", designer.Login);
+            var collection = database.GetCollection<Designer>("CollectionOfDesigners");
+            collection.ReplaceOne(filter, designer);
+        }
+
+        public static List<Designer> ImportAllDesigner()
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var collection = database.GetCollection<Designer>("CollectionOfDesigners");
+            var list = collection.Find(new BsonDocument()).ToList();
+            return list;
+        }
+
         public static void AddToDataBaseDeveloper(Developer user)
         {
             var client = new MongoClient("mongodb://localhost:27017");
@@ -71,6 +99,58 @@ namespace ServiceApp.Services
             var collection = database.GetCollection<Developer>("CollectionOfDeveloper");
             var user = collection.Find(x => x.Login == login).FirstOrDefault();
             return user;
+        }
+
+        public static void ReplaceDeveloper(Developer developer)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var filter = new BsonDocument("Login", developer.Login);
+            var collection = database.GetCollection<Developer>("CollectionOfDeveloper");
+            collection.ReplaceOne(filter, developer);
+        }
+
+        public static List<Developer> ImportAllDevelopers()
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var collection = database.GetCollection<Developer>("CollectionOfDeveloper");
+            var list = collection.Find(new BsonDocument()).ToList();
+            return list;
+        }
+
+        public static void AddToDataBaseProjectG(Project project)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var collection = database.GetCollection<Project>("CollectionOfProjectsGas");
+            collection.InsertOne(project);
+        }
+
+        public static void AddToDataBaseProjectW(Project project)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var collection = database.GetCollection<Project>("CollectionOfProjectsWater");
+            collection.InsertOne(project);
+        }
+
+        public static List<Project> ImportAllProjectW()
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var collection = database.GetCollection<Project>("CollectionOfProjectsWater");
+            var list = collection.Find(new BsonDocument()).ToList();
+            return list;
+        }
+
+        public static List<Project> ImportAllProjectG()
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var collection = database.GetCollection<Project>("CollectionOfProjectsGas");
+            var list = collection.Find(new BsonDocument()).ToList();
+            return list;
         }
     }
 }
