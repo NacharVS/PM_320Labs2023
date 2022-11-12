@@ -8,25 +8,26 @@
 @inject IJSRuntime JS
 @inject ILocalStorageService localStorageService
 
-<h1>Authorization</h1>
+<div class="card">
+    <h1 class="card-header">Authorization</h1>
+    <div class="card-body">
+        <EditForm Model="@user" OnValidSubmit="@LogIn" class="mx-1 mx-md-4">
+            <label>Login:</label><br/>
+            <input type="" id="Login" @bind-value="@user.Login"/><br/>
+            <label>Password:</label><br/>
+            <input type="password" id="Password" @bind-value="@user.Password"/><br/><br/>
 
-<EditForm Model="@user" OnValidSubmit="@LogIn" class="mx-1 mx-md-4">
+            <input type="submit" class="btn btn-primary btn-lg" value="Log In" />
 
-    <p>Login:</p>
-    <input type="" id="Login" @bind-value="@user.Login"/>
-    <p>Password:</p>
-    <input type="password" id="Password" @bind-value="@user.Password"/>
-
-    <input type="submit" class="btn btn-primary btn-lg" value="Log In" />
-
-    @if (dataBase.CurrentUser is not null)
-    {
-        <p>Surname: @dataBase.CurrentUser?.Surname</p>
-        <p>Name: @dataBase.CurrentUser?.Name</p>
-        <p>Patronymic: @dataBase.CurrentUser?.Patronymic</p>
-    }
-    
-</EditForm>
+            @if (dataBase.CurrentUser is not null)
+            {
+                <p>Surname: @dataBase.CurrentUser?.Surname</p>
+                <p>Name: @dataBase.CurrentUser?.Name</p>
+                <p>Patronymic: @dataBase.CurrentUser?.Patronymic</p>
+            }
+        </EditForm>
+    </div>
+</div>
 
 @code {
     private Worker user = new Worker();

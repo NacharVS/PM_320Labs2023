@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceApp", "ServiceApp\ServiceApp.csproj", "{336EEA3B-38BD-44E2-B1DC-480B4AF03077}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceApp", "ServiceApp\ServiceApp.csproj", "{336EEA3B-38BD-44E2-B1DC-480B4AF03077}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +15,11 @@ Global
 		{336EEA3B-38BD-44E2-B1DC-480B4AF03077}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{336EEA3B-38BD-44E2-B1DC-480B4AF03077}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{336EEA3B-38BD-44E2-B1DC-480B4AF03077}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5CEB77F0-9E5C-44C4-A80F-48B10CBE80A0}
 	EndGlobalSection
 EndGlobal

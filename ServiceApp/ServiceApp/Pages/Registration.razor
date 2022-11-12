@@ -6,30 +6,31 @@
 @using ServiceApp.Services
 @inject DataBase dataBase
 
-<h1>Registration</h1>
+<div class="card">
+    <h1 class="card-header">Registration</h1>
+    <div class="card-body">
+        <EditForm Model="@users" OnValidSubmit="@Reg" class="mx-1 mx-md-4">
+            <label>Login:</label> <br/>
+            <input type="" id="Login" @bind-value="@users.Login"/><br/>
+            <label>Password:</label><br/>
+            <input type="password" id="Password" @bind-value="@users.Password"/><br/>
+            <label>Password repeat:</label><br/>
+            <input type="password" id="PasswordRepeat" @bind-value="@users.PasswordRepeat"/><br/>
+            <label>Surname:</label><br/>
+            <input type="text" id="Surname" @bind-value="@users.Surname" /><br/>
+            <label>Name:</label><br/>
+            <input type="text" id="Name" @bind-value="@users.Name" /><br/>
+            <label>Patronymic:</label><br/>
+            <input type="text" id="Name" @bind-value="@users.Patronymic" /><br/>
+            <label>EMail:</label><br/>
+            <input type="text" id="EMail" @bind-value="@users.EMail" /><br/>
+            <label>Telephone:</label><br/>
+            <input type="text" id="Name" @bind-value="@users.Telephone" /><br/><br/>
 
-<EditForm Model="@users" OnValidSubmit="@Reg" class="mx-1 mx-md-4">
-
-    <p>Login:</p>
-    <input type="" id="Login" @bind-value="@users.Login"/>
-    <p>Password:</p>
-    <input type="password" id="Password" @bind-value="@users.Password"/>
-    <p>Password repeat:</p>
-    <input type="password" id="PasswordRepeat" @bind-value="@users.PasswordRepeat"/>
-    <p>Surname:</p>
-    <input type="text" id="Surname" @bind-value="@users.Surname" />
-    <p>Name:</p>
-    <input type="text" id="Name" @bind-value="@users.Name" />
-    <p>Patronymic:</p>
-        <input type="text" id="Name" @bind-value="@users.Patronymic" />
-    <p>EMail:</p>
-    <input type="text" id="EMail" @bind-value="@users.EMail" />
-    <p>Telephone:</p>
-        <input type="text" id="Name" @bind-value="@users.Telephone" />
-
-    <input type="submit" class="btn btn-primary btn-lg" value="Registration" />
-
-</EditForm>
+            <input type="submit" class="btn btn-primary btn-lg" value="Registration" /><br/>
+        </EditForm>
+    </div>
+</div>
 
 @code {
     private Worker users = new Worker();

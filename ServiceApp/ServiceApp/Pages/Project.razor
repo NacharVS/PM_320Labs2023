@@ -1,0 +1,20 @@
+﻿@page "/project"
+
+<PageTitle>Project</PageTitle>
+
+@using ServiceApp.Data
+@inject Customer customer
+
+<h1>Project</h1>
+
+<p>Отрасль: @customer?.Department</p>
+<p>Документы: </p>
+
+@*<select>
+    <option>1</option>
+    <option>2</option>
+</select>*@
+
+@code {
+
+}

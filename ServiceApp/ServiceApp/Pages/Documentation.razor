@@ -4,15 +4,18 @@
 
 <PageTitle>Uploading documents</PageTitle>
 
-<h3>Uploading documents</h3>
+<div class="card">
+    <h1 class="card-header">Uploading documents</h1>
+    <div class="card-body">
+        <InputFile OnChange="@LoadFiles" multiple/> <br><br>
 
-<InputFile OnChange="@LoadFiles" multiple/> <br><br>
-
-@foreach (var name in fileNames)
-{
-    <input type="submit" class="btn btn-primary btn-lg" @onclick="() => Download(name)" value="Load"/>
-    <p>@name</p>
-}
+        @foreach (var name in fileNames)
+        {
+            <input type="submit" class="btn btn-primary btn-lg" @onclick="() => Download(name)" value="Load"/>
+            <p>@name</p>
+        }
+    </div>
+</div>
 
 @code {
     string? path;
@@ -21,10 +24,10 @@
 
     protected override void OnInitialized()
     {
-        UploadImg();
+        UploadDoc();
     }
 
-    private void UploadImg()
+    private void UploadDoc()
     {
         fileNames = fss.UploadDocuments();
     }
@@ -43,7 +46,6 @@
             await fss.UploadImageToDbAsync(stream, file.Name);
             stream.Dispose();
         }
-        UploadImg();
+        UploadDoc();
     }
-
 }
