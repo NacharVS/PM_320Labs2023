@@ -12,6 +12,7 @@ builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 builder.Services.AddScoped<DBConnection>();
 builder.Services.AddSingleton<CurrentUsersRole>();
 builder.Services.AddSingleton<CurrentUser>();
+builder.Services.AddSingleton<CurrentProject>();
 
 var app = builder.Build();
 

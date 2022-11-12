@@ -33,10 +33,10 @@
                 }
                 break;
             case "Designer":
-
+                projects = DBConnection.FindByLoginDesignersProj(CurrentUserName.CurrentDesigner.Login);
                 break;
             case "Developer":
-
+                projects = DBConnection.FindByLoginDevelopersProj(CurrentUserName.CurrentDeveloper.Login);
                 break;
         }
     }

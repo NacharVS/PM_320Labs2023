@@ -152,5 +152,35 @@ namespace ServiceApp.Services
             var list = collection.Find(new BsonDocument()).ToList();
             return list;
         }
+
+        public static List<Project> FindByLoginDevelopersProj(string loginOfDev)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var collection = database.GetCollection<Project>("CollectionOfProjectsGas");
+            var collectionTwo = database.GetCollection<Project>("CollectionOfProjectsWater");
+            var first = collection.Find(x => x.Developer == loginOfDev).ToList();
+            var second = collectionTwo.Find(x => x.Developer == loginOfDev).ToList();
+            foreach (var doc in second)
+            {
+                first.Add(doc);
+            }
+            return first;
+        }
+
+        public static List<Project> FindByLoginDesignersProj(string loginOfDes)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var collection = database.GetCollection<Project>("CollectionOfProjectsGas");
+            var collectionTwo = database.GetCollection<Project>("CollectionOfProjectsWater");
+            var first = collection.Find(x => x.Developer == loginOfDes).ToList();
+            var second = collectionTwo.Find(x => x.Developer == loginOfDes).ToList();
+            foreach (var doc in second)
+            {
+                first.Add(doc);
+            }
+            return first;
+        }
     }
 }

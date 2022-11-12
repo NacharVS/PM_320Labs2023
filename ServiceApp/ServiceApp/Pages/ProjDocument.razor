@@ -17,6 +17,7 @@
             <br/>
             <label for="name"><b>Застройщик</b></label>
             <select name="dev" @onchange = "DeveloperChanged">
+                <option value="-">-</option>
                 @foreach (var dev in developers)
                 {
                     <option value="@dev.Login">@dev.DeveloperOrganisation</option>
@@ -25,11 +26,43 @@
             <br/>
             <label for="name"><b>Проектировщик</b></label>
             <select name="des" @onchange = "DesignerChanged">
+                <option value="-">-</option>
                 @foreach (var des in designers)
                 {
                     <option value="@des.Login">@des.DesignerOrganisation</option>
                 }
             </select>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Наименование документа</th>
+                        <th>В первую очередь</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @switch (@CurrentUserName.CurrentCustomer.Department)
+                    {
+                        case "Водоснабжение":
+                            @foreach (var doc in DocumentName.documentW)
+                            {
+                                <tr>
+                                    <td>@doc</td>
+                                    <td>g</td>
+                                </tr>
+                            }
+                        break;
+                        case "Газификация":
+                            @foreach (var doc in DocumentName.documentG)
+                            {
+                                <tr>
+                                    <td>@doc</td>
+                                    <td>g</td>
+                                </tr>
+                            }
+                        break;
+                    }
+                </tbody>
+            </table>
         <hr>
         <button type="submit" class="registerbtn" @onclick="Save">Создать</button>
     </div>

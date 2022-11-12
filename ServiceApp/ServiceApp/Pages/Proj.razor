@@ -1,0 +1,90 @@
+﻿@page "/proj"
+@using Data
+@using Services
+@inject NavigationManager Navigation
+@inject CurrentUsersRole CurrentUser
+@inject CurrentUser CurrentUserName
+@inject CurrentProject CurrentProj
+@inject ILocalStorageService LocalStorage
+
+<PageTitle>Index</PageTitle>
+
+
+<div class="card">
+    <h4 class="card-header">Personal Page</h4>
+    <div class="card-body">
+        <hr>
+            <p>Наименование:  @CurrentProj.Project.Name</p>
+            <p>Отрасль:  @CurrentProj.Project.Department</p>
+            <p>Заказчик: @CurrentProj.Project.Customer</p>
+            <p>Проектировщик:  @CurrentProj.Project.Designer</p>
+            <p>Застройщик: @CurrentProj.Project.Developer</p>
+        <hr>
+        <h6>Необходимые документы</h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Наименование документа</th>
+                    <th>В первую очередь</th>
+                </tr>
+            </thead>
+            <tbody>
+                @switch (@CurrentProj.Project.Department)
+                {
+                    case "Водоснабжение":
+                        @foreach (var doc in DocumentName.documentW)
+                        {
+                            <tr>
+                                <td>@doc</td>
+                                <td>g</td>
+                            </tr>
+                        }
+                    break;
+                    case "Газификация":
+                        @foreach (var doc in DocumentName.documentG)
+                        {
+                            <tr>
+                                <td>@doc</td>
+                                <td>g</td>
+                            </tr>
+                        }
+                    break;
+                }
+            </tbody>
+        </table>
+        <h6>Документы, предоставленные проектировщиком</h6>
+        <h6>Документы, предоставленные застройщиком</h6>
+        @if (CurrentUser.UserRole == "Заказчик")
+        {
+            <button type="submit" class="registerbtn" @onclick="Save">Утвердить</button>
+        }
+    </div>
+</div>
+
+
+<button @onclick="Logouting">Выйти</button>
+<button @onclick="GoToProfile">Профиль</button>
+
+@code {
+
+    private void Logouting()
+    {
+        CurrentUserName.CurrentCustomer = null;
+        CurrentUserName.CurrentDesigner = null;
+        CurrentUserName.CurrentDeveloper = null;
+        LocalStorage.RemoveAsync("Autho");
+        LocalStorage.RemoveAsync("string");
+        Navigation.NavigateTo("/");
+        StateHasChanged();
+    }
+
+    public void GoToProfile()
+    {
+        Navigation.NavigateTo("/personalmain");
+    }
+
+    public void Save()
+    {
+        Navigation.NavigateTo("/personalmain");
+    }
+}
