@@ -56,13 +56,13 @@
                                     @switch (@_roleName)
                                     {
                                         case "Заказчик":
-                                            <CustomerRegPage SendUser="x => user = x"/>
+                                            <CustomerRegPage SendUser="x => user = x" CanSave="x => _canSave = x"/>
                                             break;
                                         case "Проектировщик":
-                                            <DesignerRegPage SendUser="x => user = x"/>
+                                            <DesignerRegPage SendUser="x => user = x" CanSave="x => _canSave = x"/>
                                             break;
                                         case "Застройщик":
-                                            <BuilderRegPage SendUser="x => user = x"/>
+                                            <BuilderRegPage SendUser="x => user = x" CanSave="x => _canSave = x"/>
                                             break;
                                     }
                                 </div>
@@ -99,9 +99,6 @@
     </div>
 </section>
 @code {
-    private CustomerRegPage? _customerRegPage;
-    private BuilderRegPage? _builderRegPage;
-    private DesignerRegPage? _designerRegPage;
     User user = new();
     
     private string? _login = "";
@@ -114,6 +111,8 @@
     private string? _phone = "";
 
     private string? _roleName = "";
+
+    private bool _canSave;
 
     private bool CheckPhone()
     {
@@ -165,7 +164,7 @@
             await JSR.InvokeVoidAsync("alert", "Пользователь с таким именем существует!");
             return;
         }
-        if (!CheckFields())
+        if (!CheckFields() || !_canSave)
         {
             await JSR.InvokeVoidAsync("alert", "Не все поля заполнены!");
             return;

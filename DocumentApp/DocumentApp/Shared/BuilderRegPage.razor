@@ -46,9 +46,32 @@
 }
 
 @code {
-    //public Builder? user;
+    [Parameter]
+    public EventCallback<bool> CanSave { get; set; }
+    
+    [Parameter]
+    public Builder Builder { get; set; }
+    private Builder _builder = new Builder();
+    [Parameter]
+    public EventCallback<User> SendUser { get; set; }
+    
+    protected override void OnInitialized()
+    {
+        if (Builder != null)
+        {
+            _builder = Builder;
+        }
+        StateHasChanged();
+    }
 
-    public bool CanSave = true;
+    private void SendUserInfo()
+    {
+        if (IsINNCorrect() && IsKPPCorrect() && IsOGRNCorrect())
+        {
+            CanSave.InvokeAsync(true);
+            SendUser.InvokeAsync(_builder);
+        }
+    }
     
     private bool IsOGRNCorrect()
     {
@@ -78,33 +101,5 @@
             return r.IsMatch(_builder.KPP) && _builder.KPP.Length == 9;
         }
         return false;
-    }
-
-    public void Check()
-    {
-        CanSave = IsOGRNCorrect() && IsINNCorrect() && IsKPPCorrect();
-    }
-    
-    [Parameter]
-    public Builder Builder { get; set; }
-    private Builder _builder = new Builder();
-    [Parameter]
-    public EventCallback<User> SendUser { get; set; }
-    
-    protected override void OnInitialized()
-    {
-        if (Builder != null)
-        {
-            _builder = Builder;
-        }
-        StateHasChanged();
-    }
-
-    private void SendUserInfo()
-    {
-        if (IsINNCorrect() && IsKPPCorrect() && IsOGRNCorrect())
-        {
-            SendUser.InvokeAsync(_builder);
-        }
     }
 }

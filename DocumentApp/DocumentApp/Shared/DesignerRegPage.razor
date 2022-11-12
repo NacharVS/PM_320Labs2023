@@ -48,7 +48,32 @@
   </div>
 }
 @code {
-  public bool CanSave = true;
+  [Parameter]
+  public EventCallback<bool> CanSave { get; set; }
+  
+  [Parameter]
+  public Designer Designer { get; set; }
+  private Designer _designer = new Designer();
+  [Parameter]
+  public EventCallback<User> SendUser { get; set; }
+    
+  protected override void OnInitialized()
+  {
+    if (Designer != null)
+    {
+      _designer = Designer;
+    }
+    StateHasChanged();
+  }
+
+  private void SendUserInfo()
+  {
+    if (IsINNCorrect() && IsKPPCorrect() && IsOGRNCorrect())
+    {
+      CanSave.InvokeAsync(true);
+      SendUser.InvokeAsync(_designer);
+    }
+  }
   
   private bool IsOGRNCorrect()
   {
@@ -78,31 +103,5 @@
       return r.IsMatch(_designer.KPP) && _designer.KPP.Length == 9;
     }
     return false;
-  }
-  public void Check()
-  {
-    CanSave = IsOGRNCorrect() && IsINNCorrect() && IsKPPCorrect();
-  }
-  [Parameter]
-  public Designer Designer { get; set; }
-  private Designer _designer = new Designer();
-  [Parameter]
-  public EventCallback<User> SendUser { get; set; }
-    
-  protected override void OnInitialized()
-  {
-    if (Designer != null)
-    {
-      _designer = Designer;
-    }
-    StateHasChanged();
-  }
-
-  private void SendUserInfo()
-  {
-    if (IsINNCorrect() && IsKPPCorrect() && IsOGRNCorrect())
-    {
-      SendUser.InvokeAsync(_designer);
-    }
   }
 }

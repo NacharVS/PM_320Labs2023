@@ -13,6 +13,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<RoleService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddScoped<ILocalStorage, LocalStorageService>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
 
 var app = builder.Build();
 

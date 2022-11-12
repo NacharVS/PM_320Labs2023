@@ -1,0 +1,27 @@
+﻿@page "/ProjectsPage"
+@using DocumentApp.Models
+<h3>ProjectsPage</h3>
+
+<table class="table table-responsive table-bordered">
+    <thead>
+        <tr>
+            <td>Название проекта</td>
+            <td>Заказчик</td>
+            <td>Проектировщик</td>
+            <td>Застройщик</td>
+            <td>Действие</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var proj in _projects)
+            {
+                
+            }
+        </tr>
+    </tbody>
+</table>
+
+@code {
+    private List<Project> _projects;
+}

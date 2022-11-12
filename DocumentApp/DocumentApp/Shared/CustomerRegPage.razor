@@ -19,26 +19,28 @@
         <input type="text" class="form-control form-control-lg" @bind-value="@_customer.Patronymic" @onblur="() => SendUser.InvokeAsync(_customer)"/>
         <label class="form-label">Ваше отчество</label>
     </div>
-    @if (IsCabinet)
-    {
-        <div><label class="form-label col-form-label-lg">@_customer.Department</label></div>
-        <div><label class="form-label">Отделение</label></div>
-    }
-    else
-    {
+    @* @if (IsCabinet) *@
+    @* { *@
+    @*     <div><label class="form-label col-form-label-lg">@_customer.Department</label></div> *@
+    @*     <div><label class="form-label">Отделение</label></div> *@
+    @* } *@
+    @* else *@
+    @* { *@
         <div class="form-outline mb-4">
-            <select class="form-select form-select-lg" @bind="@_customer.Department">
-                <option value="1">Газификация</option>
-                <option value="2">Водоснабжение</option>
+            <select class="form-select form-select-lg" @bind="@_customer.Department" @onselect="() => SendUser.InvokeAsync(_customer)">
+                <option value=""></option>
+                <option value="Газификация">Газификация</option>
+                <option value="Водоснабжение">Водоснабжение</option>
             </select>
             <label class="form-label">Отделение</label>
         </div>
-    }
+    // }
 }
 @code {
-
     [Parameter]
     public bool IsCabinet { get; set; }
+    [Parameter]
+    public EventCallback<bool> CanSave { get; set; }
 
     [Parameter]
     public Customer Customer { get; set; }
@@ -50,6 +52,7 @@
 
     protected override void OnInitialized()
     {
+        CanSave.InvokeAsync(true);
         if (Customer != null)
         {
             _customer = Customer;
