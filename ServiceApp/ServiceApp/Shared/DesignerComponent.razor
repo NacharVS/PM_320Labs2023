@@ -1,5 +1,6 @@
 ﻿@using Data
 @using Services
+@using System.ComponentModel.DataAnnotations;
 @inject CurrentUser CurrentUser
 @inject NavigationManager Navigation
 @inject ILocalStorageService LocalStorage
@@ -11,20 +12,32 @@
             <label for="organisation"><b>Органзация</b></label>
             <input type="text" placeholder="Enter Organisation" name="organisation" id="organisation" required @bind-value="organisation" />
             <br/>
+            <label for="middleName"><b>Фамилия</b></label>
+            <input type="text" placeholder="Введите Фамилию" name="middleName" id="middleName" required @bind-value="middleName" />
+            <br/>
+            <label for="firstName"><b>Имя</b></label>
+            <input type="text" placeholder="Введите Имя" name="firstName" id="firstName" required @bind-value="firstName" />
+            <br/>
+            <label for="lastName"><b>Отчество</b></label>
+            <input type="text" placeholder="Введите Отчество" name="lastName" id="lastName" required @bind-value="lastName" />
+            <br/>
+            <label for="telephone"><b>Телефон</b></label>
+            <input type="tel" placeholder="Введите Телефон" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="telephone" />
+            <br/>
+            <label for="email"><b>Email</b></label>
+            <input type="email" placeholder="Ввдеите Почту" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
+            <br/>
             <label for="ogrn"><b>ОГРН</b></label>
             <input type="text" maxlength="13" placeholder="Enter OGRN" name="ogrn" id="ogrn" required @bind-value="ogrn" />
             <br/>
             <label for="inn"><b>ИНН</b></label>
-            <input type="text" maxlength="10" placeholder="Enter INN" name="inn" id="inn" required @bind-value="inn" />
+            <input type="text" maxlength="10" placeholder="Enter INN" name="inn" id="inn" required @bind-value="inn"/>
             <br/>
             <label for="kpp"><b>КПП</b></label>
             <input type="text" maxlength="9" placeholder="Enter KPP" name="kpp" id="kpp" required @bind-value="kpp" />
             <br/>
             <label for="address"><b>Адрес</b></label>
             <input type="text" placeholder="Enter Address" name="address" id="address" required @bind-value="address" />
-            <br/>
-            <label for="telephone"><b>Телефон</b></label>
-            <input type="text" placeholder="Enter Telephone" name="telephone" id="telephone" required @bind-value="telephone" />
             <br/>
             <label for="director"><b>Директор</b></label>
             <input type="text" placeholder="Enter Director" name="director" id="director" required @bind-value="director" />
@@ -41,6 +54,9 @@
 
 
 @code {
+    string middleName;
+    string firstName;
+    string? lastName;
     string? organisation;
     string? ogrn;
     string? inn;
@@ -49,6 +65,8 @@
     string? telephone;
     string? director;
     string? engineer;
+    string email;
+    List<string> globex = new List<string> () { "mail", "gmail" };
 
     public void GoToProj()
     {
@@ -57,17 +75,25 @@
 
     public async void Save()
     {
-        CurrentUser.CurrentDesigner.DesignerOrganisation = organisation;
-        CurrentUser.CurrentDesigner.OGRN = ogrn;
-        CurrentUser.CurrentDesigner.KPP = kpp;
-        CurrentUser.CurrentDesigner.INN = inn;
-        CurrentUser.CurrentDesigner.Address = address;
-        CurrentUser.CurrentDesigner.Telephone = telephone;
-        CurrentUser.CurrentDesigner.Director = director;
-        CurrentUser.CurrentDesigner.MainEngineer = engineer;
-        DBConnection.ReplaceDesigner(CurrentUser.CurrentDesigner);
-        await LocalStorage.SetAsync<Designer>("Autho", CurrentUser.CurrentDesigner);
-        StateHasChanged();
-        Navigation.NavigateTo("/personalmain");
+        if (TelephoneCorrect())
+        {
+            CurrentUser.CurrentDesigner.DesignerOrganisation = organisation;
+            CurrentUser.CurrentDesigner.OGRN = ogrn;
+            CurrentUser.CurrentDesigner.KPP = kpp;
+            CurrentUser.CurrentDesigner.INN = inn;
+            CurrentUser.CurrentDesigner.Address = address;
+            CurrentUser.CurrentDesigner.Telephone = telephone;
+            CurrentUser.CurrentDesigner.Director = director;
+            CurrentUser.CurrentDesigner.MainEngineer = engineer;
+            DBConnection.ReplaceDesigner(CurrentUser.CurrentDesigner);
+            await LocalStorage.SetAsync<Designer>("Autho", CurrentUser.CurrentDesigner);
+            StateHasChanged();
+            Navigation.NavigateTo("/personalmain");
+        }
+    }
+
+    public bool TelephoneCorrect()
+    {
+        return true;
     }
 }

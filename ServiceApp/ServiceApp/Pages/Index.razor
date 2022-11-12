@@ -5,10 +5,59 @@
 
 <PageTitle>Index</PageTitle>
 
+<style>
+.buttons {
+  height: 600px;
+  width: 100%;
+  position: relative;
+}
 
-<button class="btn btn-primary" value = "Заказчик" @onclick="@(() => NavigateToReg("Customer"))"> Заказчик </button>
-<button class="btn btn-primary" value = "Проектировщик" @onclick="@(() => NavigateToReg("Designer"))"> Проектировщик </button>
-<button class="btn btn-primary" value = "Застройщик" @onclick="@(() => NavigateToReg("Developer"))"> Застройщик </button>
+.btn1 {
+  margin: 0;
+  position: absolute;
+  width: 20%;
+  height: 15%;
+  top: 20%;
+  left: 50%;
+  -ms-transform: translate(-50%, -80%);
+  transform: translate(-50%, -20%);
+}
+
+.btn2 {
+  margin: 0;
+  position: absolute;
+  width: 20%;
+  height: 15%;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.btn3 {
+  margin: 0;
+  position: absolute;
+  width: 20%;
+  height: 15%;
+  top: 80%;
+  left: 50%;
+  -ms-transform: translate(-50%, -20%);
+  transform: translate(-50%, -80%);
+}
+</style>
+
+<div class = "buttons">
+	<div class = "btn1">
+		<button class="button-27" value = "Заказчик" @onclick="@(() => NavigateToReg("Customer"))"> Заказчик </button>
+	</div>
+	<div class = "btn2">
+		<button class="button-27" value = "Проектировщик" @onclick="@(() => NavigateToReg("Designer"))"> Проектировщик </button>
+	</div>
+	<div class = "btn3">
+		<button class="button-27" value = "Застройщик" @onclick="@(() => NavigateToReg("Developer"))"> Застройщик </button>
+	</div>
+</div>
+
 
 
 

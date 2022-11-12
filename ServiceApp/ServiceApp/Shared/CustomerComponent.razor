@@ -8,11 +8,27 @@
     <h4 class="card-header">Personal Page</h4>
     <div class="card-body">
         <hr>
+            <label for="department"><b>Отдел</b></label>
             <select name="role" @onchange = "DepartmentChanged">
                 <option value="-">-</option>
                 <option value="Водоснабжение">Водоснабжение</option>
                 <option value="Газификация">Газификация</option>
             </select>
+            <label for="middleName"><b>Фамилия</b></label>
+            <input type="text" placeholder="Введите Фамилию" name="middleName" id="middleName" required @bind-value="middleName" />
+            <br/>
+            <label for="firstName"><b>Имя</b></label>
+            <input type="text" placeholder="Введите Имя" name="firstName" id="firstName" required @bind-value="firstName" />
+            <br/>
+            <label for="lastName"><b>Отчество</b></label>
+            <input type="text" placeholder="Введите Отчество" name="lastName" id="lastName" required @bind-value="lastName" />
+            <br/>
+            <label for="telephone"><b>Телефон</b></label>
+            <input type="tel" placeholder="Введите Телефон" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="telephone" />
+            <br/>
+            <label for="email"><b>Email</b></label>
+            <input type="email" placeholder="Введите почту" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
+            <br/>
         <hr>
         <button type="submit" class="registerbtn" @onclick="Save">Save</button>
     </div>
@@ -22,6 +38,12 @@
 
 @code {
     string department;
+    string middleName;
+    string firstName;
+    string? lastName;
+    string telephone;
+    string email;
+    List<string> globex = new List<string> () { "mail", "gmail" };
 
     public void GoToProj()
     {

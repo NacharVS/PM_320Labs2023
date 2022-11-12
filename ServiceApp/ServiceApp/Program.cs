@@ -13,7 +13,8 @@ builder.Services.AddScoped<DBConnection>();
 builder.Services.AddSingleton<CurrentUsersRole>();
 builder.Services.AddSingleton<CurrentUser>();
 builder.Services.AddSingleton<CurrentProject>();
-
+builder.Services.AddSingleton<FileSystemService>();
+builder.Services.AddSingleton<DocumentName>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

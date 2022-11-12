@@ -1,6 +1,7 @@
 ﻿@page "/reg"
 @using Data
 @using Services
+@using System.ComponentModel.DataAnnotations
 @inject NavigationManager Navigation
 @inject ILocalStorageService LocalStorage
 @inject CurrentUsersRole CurrentUsersRole
@@ -13,7 +14,7 @@
     <div class="card-body">
         <hr>
             <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" id="email" required @bind-value="email" />
+            <input type="email" pattern=".+@globex\.com"  placeholder="Enter Email" name="email" id="email" required @bind-value="email" />
             <br/>
             <br/>
             <label for="login"><b>Login</b></label>
@@ -27,8 +28,13 @@
             <label for="psw-repeat"><b>Repeat Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" id="psw" required @bind-value="repPassword" />
         <hr>
-        <button type="submit" class="registerbtn" @onclick="Registrarion">Registration</button>
-        <button type="submit" class="registerbtn" @onclick="Login">To Login</button>
+        <div class = "buttonreg">
+            <button type="submit" class="button-27" @onclick="Registrarion">Registration</button>
+            <br />
+            <br />
+            <br />
+            <button type="submit" class="button-27" @onclick="Login">To Login</button>
+        </div>
     </div>
 </div>
 
@@ -38,10 +44,10 @@
     string password;
     string email;
     string repPassword;
-
+    List<string> globex = new List<string> () { "mail", "gmail" };
     private async void Registrarion()
     {
-        if (password == repPassword && login != null && email != null && password != null)
+        if (password == repPassword && login != null && email != null && password != null && EmailCorrect())
         {
             switch (CurrentUsersRole.UserRole)
             {
@@ -82,7 +88,12 @@
     } 
 
     private void Login() 
-	{ 
-		Navigation.NavigateTo("/autho"); 
-	} 
+    { 
+        Navigation.NavigateTo("/autho"); 
+    } 
+
+    private bool EmailCorrect() 
+    {
+        return new EmailAddressAttribute().IsValid(email);
+    } 
 }

@@ -5,6 +5,7 @@
 @inject CurrentUsersRole CurrentUser
 @inject CurrentUser CurrentUserName
 @inject CurrentProject CurrentProj
+@inject FileSystemService FileSyS
 @inject ILocalStorageService LocalStorage
 
 <PageTitle>Index</PageTitle>
@@ -32,20 +33,24 @@
                 @switch (@CurrentProj.Project.Department)
                 {
                     case "Водоснабжение":
-                        @foreach (var doc in DocumentName.documentW)
+                        @foreach (var doc in CurrentProj.Project.DocsPreor)
                         {
                             <tr>
-                                <td>@doc</td>
-                                <td>g</td>
+                                <td>@doc.Key</td>
+                                <td>
+                                     <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                </td>
                             </tr>
                         }
                     break;
                     case "Газификация":
-                        @foreach (var doc in DocumentName.documentG)
+                        @foreach (var doc in CurrentProj.Project.DocsPreor)
                         {
                             <tr>
-                                <td>@doc</td>
-                                <td>g</td>
+                                <td>@doc.Key</td>
+                                <td>
+                                     <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                </td>
                             </tr>
                         }
                     break;
@@ -53,11 +58,20 @@
             </tbody>
         </table>
         <h6>Документы, предоставленные проектировщиком</h6>
+        @if (CurrentUser.UserRole == "Проектировщик")
+        {
+            <InputFile OnChange="@LoadFilesByDesigner" multiple  />
+        }
         <h6>Документы, предоставленные застройщиком</h6>
+        @if (CurrentUser.UserRole == "Застройщик")
+        {
+            <InputFile OnChange="@LoadFilesByDeveloper" multiple  />
+        }
         @if (CurrentUser.UserRole == "Заказчик")
         {
-            <button type="submit" class="registerbtn" @onclick="Save">Утвердить</button>
+            <button type="submit" class="registerbtn" @onclick="Ok">Утвердить</button>
         }
+        <button type="submit" class="registerbtn" @onclick="Save">Сохранить</button>
     </div>
 </div>
 
@@ -66,6 +80,8 @@
 <button @onclick="GoToProfile">Профиль</button>
 
 @code {
+    List<IBrowserFile> _loadedFilesDev = new();
+    List<IBrowserFile> _loadedFilesDes = new();
 
     private void Logouting()
     {
@@ -84,6 +100,35 @@
     }
 
     public void Save()
+    {
+        Navigation.NavigateTo("/personalmain");
+    }
+    
+    public void Ok()
+    {
+        Navigation.NavigateTo("/personalmain");
+    }
+
+    private async Task LoadFilesByDesigner(InputFileChangeEventArgs e)
+    {
+        _loadedFilesDes.Clear();
+
+        foreach (var file in e.GetMultipleFiles(e.FileCount))
+        {
+            _loadedFilesDes.Add(file);
+            Stream stream = file.OpenReadStream(2000000);
+            await FileSyS.UploadFileToDb(stream, file.Name);
+            stream.Dispose();
+        }
+        RenderAll();
+    }
+
+    void RenderAll()
+    {
+        
+    }
+
+    private async Task LoadFilesByDeveloper(InputFileChangeEventArgs e)
     {
         Navigation.NavigateTo("/personalmain");
     }

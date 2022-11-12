@@ -14,5 +14,6 @@ namespace ServiceApp.Data
         public string Customer { get; set; }
         public string Developer { get; set; }
         public string Designer { get; set; }
+        public Dictionary<string, bool> DocsPreor { get; set; }
     }
 }

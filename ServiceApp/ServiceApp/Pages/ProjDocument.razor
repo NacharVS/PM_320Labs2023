@@ -5,6 +5,7 @@
 @inject CurrentUsersRole CurrentUser
 @inject CurrentUser CurrentUserName
 @inject ILocalStorageService LocalStorage
+@inject DocumentName Doc
 
 
 <div class="card">
@@ -43,20 +44,24 @@
                     @switch (@CurrentUserName.CurrentCustomer.Department)
                     {
                         case "Водоснабжение":
-                            @foreach (var doc in DocumentName.documentW)
+                            @foreach (var doc in Doc.documentH)
                             {
                                 <tr>
-                                    <td>@doc</td>
-                                    <td>g</td>
+                                    <td @onclick = "() => Changed(doc.Key)">@doc.Key</td>
+                                    <td>
+                                        <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                    </td>
                                 </tr>
                             }
                         break;
                         case "Газификация":
-                            @foreach (var doc in DocumentName.documentG)
+                            @foreach (var doc in Doc.documentG)
                             {
                                 <tr>
-                                    <td>@doc</td>
-                                    <td>g</td>
+                                    <td @onclick = "() => ChangedG(doc.Key)">@doc.Key</td>
+                                    <td>
+                                        <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                    </td>
                                 </tr>
                             }
                         break;
@@ -74,6 +79,8 @@
     string developer;
     string designer;
     string name;
+    bool checkedValue;
+    bool checkedValueG;
     List<Developer> developers;
     List<Designer> designers;
 
@@ -81,6 +88,18 @@
     {
         developers = DBConnection.ImportAllDevelopers();
         designers = DBConnection.ImportAllDesigner();
+    }
+
+    public void Changed(string key)
+    {
+        checkedValue = !Doc.documentH[key];
+        Doc.documentH[key] = checkedValue;
+    }
+
+    public void ChangedG(string key)
+    {
+        checkedValueG = !Doc.documentG[key];
+        Doc.documentG[key] = checkedValueG;
     }
 
     public void GoToProj()
@@ -116,9 +135,11 @@
         switch (project.Department)
         {
             case "Водоснабжение":
+                project.DocsPreor = Doc.documentH;
                 DBConnection.AddToDataBaseProjectW(project);
                 break;
             case "Газификация" :
+                project.DocsPreor = Doc.documentG;
                 DBConnection.AddToDataBaseProjectG(project);
                 break;
 
