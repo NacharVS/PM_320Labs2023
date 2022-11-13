@@ -60,6 +60,7 @@
             {
                 _customer = Customer;
                 _department = DepartmentServ.GetDepartmentById(Customer.Department_ID).Name;
+                IsDataCorrect.InvokeAsync(true);
             }
             StateHasChanged();
         }
