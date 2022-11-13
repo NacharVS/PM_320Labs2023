@@ -1,0 +1,170 @@
+﻿@using Microsoft.AspNetCore.Components
+@using MongoDB.Bson
+@using DocumentApp.Models
+@using DocumentApp.Services
+@using DocumentApp.Interfaces
+@inject ProjectService ProjectService
+@inject IDocumentService DocumentService
+
+<EditForm Model="ProjectService.CurrentProject">
+    <table class="table table-responsive table-bordered">
+        <thead>
+        <tr>
+            <td>Название</td>
+            <td>Наименование файла</td>
+            @if (!IsCustomer)
+            {
+                <td>Файл</td>
+            }
+            <td>Действие</td>
+            <td>Предпочтительность</td>
+            <td>Утвержден</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var doc in ProjectService.CurrentProject.DesignerDocuments!)
+        {
+            <tr>
+                <td> <label class="form-label col-form-label-lg">@doc.Name</label> </td>
+                <td> <label class="form-label col-form-label-lg"> @doc.FileName</label> </td>
+                @if (!IsCustomer)
+                {
+                    <td>
+                        <InputFile OnChange="@(e => UploadDocument(e, doc))"></InputFile>
+                    </td>
+                }
+                <td>
+                    <div class="d-flex justify-content-around">
+                        @if (!IsCustomer)
+                        {
+                            <button class="btn btn-dark me-10" @onclick="SaveChanges">Сохранить</button>
+                        }
+                        <a class="btn btn-secondary"  href="documents/@doc.FileName" @onclick="() => DownloadDocument(doc)" download="@doc.FileName">Скачать</a>
+                    </div>
+                </td>
+                <td>
+                    @if (IsCustomer)
+                    {
+                        <InputCheckbox @bind-Value="doc.IsPrefer" class="d-flex justify-content-center"></InputCheckbox>
+                    }
+                    else
+                    {
+                        var hidden = !doc.IsPrefer;
+                        <div class="alert alert-info" hidden="@hidden">Предпочтительный документ</div>
+                    }
+                </td>
+                <td>
+                    @if (IsCustomer)
+                    {
+                        <InputCheckbox @bind-Value="doc.IsApproved" class="d-flex justify-content-center"></InputCheckbox>
+                    }
+                    else
+                    {
+                        var hidden = !doc.IsApproved;
+                        <div class="alert alert-success" hidden="@hidden">Документ утвержен</div>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Название поля</th>
+                <th>Значение</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+        @foreach (var field in ProjectService.CurrentProject.DesignerForm!.FormFields!)
+        {
+            if(ProjectService.CurrentProject.ProjectDepartment == "Газификация")
+            {
+                if (!_defDocs!.DesignerFormGasNoHeader.Contains(field.FieldName))
+                {
+                    <tr>
+                        <td><label class="form-label col-form-label-lg">>@field.FieldName</label></td>
+                    </tr>
+                    continue;
+                }
+    
+                <tr>
+                    <td>@field.FieldName</td>
+                    <td><input class="form-control form-control-lg" @bind="field.FieldValue"/></td>
+                </tr>
+            }
+            else
+            {
+                if (!_defDocs!.DesignerFormWaterNoHeader.Contains(field.FieldName!))
+                {
+                    <tr>
+                        <td><label class="form-label col-form-label-lg">@field.FieldName</label></td>
+                    </tr>
+                    continue;
+                }
+    
+                <tr>
+                    <td>@field.FieldName</td>
+                    <td><input class="form-control form-control-lg" @bind="field.FieldValue"/></td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+     @if (IsCustomer)
+     {
+         <button class="btn btn-success" @onclick="SaveChanges">Сохранить изменения</button>
+     }
+ </EditForm>
+
+@code {
+    [Parameter]
+    public bool IsCustomer { get; set; }
+
+    private Document? _document;
+    
+    private List<Document>? _docs;
+    private DefaultDocuments? _defDocs;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _defDocs = new();
+    }
+
+    private async Task UploadDocument(InputFileChangeEventArgs e, Document document)
+    {
+        Stream stream = e.File.OpenReadStream(2000000);
+        await DataBaseConnection.GridFs.UploadFromStreamAsync(e.File.Name, stream);
+        stream.Dispose();
+
+        document.FileName = e.File.Name;
+        document.Data = GetByteArrayFromFile(e.File.Name);
+        DownloadDocument(document);
+    }
+    
+    public byte[] GetByteArrayFromFile(string fileName)
+    {
+        byte[] byteArray;
+        try
+        {
+            byteArray = DataBaseConnection.GridFs.DownloadAsBytesByName(fileName);
+        }
+        catch
+        {
+            byteArray = null;
+        }
+        return byteArray;
+    }
+
+    private void SaveChanges()
+    {
+        ProjectService.UpdateProject(ProjectService.CurrentProject.Id!);
+    }
+
+    private void DownloadDocument(Document doc)
+    {
+        DocumentService.DownloadDocument(doc);
+    }
+}

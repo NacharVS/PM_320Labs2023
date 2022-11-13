@@ -2,98 +2,41 @@
 @using DocumentApp.Interfaces
 @using DocumentApp.Models
 @using DocumentApp.Services
-<h3>Projects</h3>
+<h3>Проекты</h3>
 @inject IDocumentService DocumentService
 @inject UserService UserService
+@inject ProjectService ProjectService
+@inject RoleService RoleService
 
-<EditForm Model="@_document">
-    <table class="table table-responsive table-bordered">
-        <thead>
-        <tr>
-            <td>Название</td>
-            <td>Наименование файла</td>
-            @if (UserService.CurrentUser.RoleId != "636d3987fa5a3023d2857cbc")
-            {
-                <td>Файл</td>
-            }
-            <td>Действие</td>
-            <td>Предпочтительность</td>
-            <td>Утвержден</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var doc in _docs)
-        {
-            <tr>
-                <td> <label class="form-label col-form-label-lg">@doc.Name</label> </td>
-                <td> <label class="form-label col-form-label-lg"> @doc.FileName</label> </td>
-                @if (UserService.CurrentUser.RoleId != "636d3987fa5a3023d2857cbc")
-                {
-                    <td>
-                        <InputFile OnChange="@(e => UploadDocument(e, doc.Name))"></InputFile>
-                    </td>
-                }
-                <td>
-                    <div class="d-flex justify-content-around">
-                        <button class="btn btn-dark me-10">Сохранить</button>
-                        <button class="btn btn-secondary">Скачать</button>
-                    </div>
-                </td>
-                <td>
-                    @if (UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbc")
-                    {
-                        <InputCheckbox @bind-Value="doc.IsPrefer" class="d-flex justify-content-center"></InputCheckbox>
-                    }
-                    else
-                    {
-                        <div class="alert alert-info" hidden="!@doc.IsPrefer">Предпочтительный документ</div>
-                    }
-                </td>
-                <td>
-                    @if (UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbc")
-                    {
-                        <InputCheckbox @bind-Value="doc.IsApproved" class="d-flex justify-content-center"></InputCheckbox>
-                    }
-                    else
-                    {
-                        <div class="alert alert-success" hidden="!@doc.IsApproved">Документ утвержен</div>
-                    }
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</EditForm>
+@switch (_role)
+{
+    case "Заказчик":
+        <CustomerProject></CustomerProject>
+    break;
+        
+    case "Проектировщик":
+        <DesignerProject IsCustomer="_isCustomer"></DesignerProject>
+    break;
+        
+    case "Застройщик":
+        <BuilderProject IsCustomer="_isCustomer"></BuilderProject>
+    break;
+    default:
+        return;
+}
 
 @code {
-    [Parameter] 
-    public string DepartmentName { get; set; }
+    private string? _role;
+    private bool _isCustomer;
 
-    private Document _document;
-    
-    private List<Document> _docs;
-    private DefaultDocuments _defDocs;
-
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _document = new();
-        _defDocs = new("Водоснабжение");
-        _docs = new();
-        
-        foreach (var doc in _defDocs.docs)
+        base.OnInitialized();
+        _role = RoleService.GetRoleNameById(UserService.CurrentUser.RoleId);
+        if (_role == "Заказчик")
         {
-            _docs.Add(new Document
-            {
-                Name = doc,
-                IsPrefer = false,
-                IsApproved = false
-            });
+            _isCustomer = true;
         }
-    }
-
-    private async Task UploadDocument(InputFileChangeEventArgs e, string documentName)
-    {
-        var document = _docs.FirstOrDefault(x => x.Name == documentName);
     }
 
 }

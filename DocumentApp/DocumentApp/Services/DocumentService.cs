@@ -12,24 +12,44 @@ public class DocumentService : IDocumentService
     {
         return DataBaseConnection.DocumentsCollection.Find(new BsonDocument()).ToList();
     }
-    public Document Save(Document document)
+    public Document SaveDocument(Document document)
     {
         DataBaseConnection.DocumentsCollection.InsertOne(document);
         return document;
     }
-
-    public Document Upload(string documentId, byte[] data)
+    
+    public List<Document>SaveDocuments(List<Document> documents)
     {
-        var document = DataBaseConnection.DocumentsCollection.Find(x=> x.Id == documentId).FirstOrDefault();
-        document.Data = data;
-        DataBaseConnection.DocumentsCollection.ReplaceOne(x => x.Id == documentId, document);
-        return document;
+        foreach (var document in documents)
+        {
+            DataBaseConnection.DocumentsCollection.InsertOne(document);
+        }
+        return documents;
+    }
+    
+    public List<Document> SaveDesignerDocuments(List<Document>? documents)
+    {
+        foreach (var document in documents!)
+        {
+            DataBaseConnection.DesignerDocumentsCollection.InsertOne(document);
+        }
+
+        return documents;
+    }
+    
+    public void DownloadDocument(Document document)
+    {
+        try
+        {
+            File.WriteAllBytes($"{Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\wwwroot\documents\")}{document.FileName}", document.Data);
+        }
+        catch (Exception)
+        {
+        }
     }
 
-    public void DeleteDocument(string documentId)
+    public Document Upload(Document document)
     {
-        var document = DataBaseConnection.DocumentsCollection.Find(x=> x.Id == documentId).FirstOrDefault();
-        document.Data = null;
-        DataBaseConnection.DocumentsCollection.ReplaceOne(x => x.Id == documentId, document);
+        return document;
     }
 }

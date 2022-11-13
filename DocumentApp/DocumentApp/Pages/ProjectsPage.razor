@@ -1,9 +1,19 @@
 ﻿@page "/ProjectsPage"
 @using DocumentApp.Models
+@using DocumentApp.Services
+@using DocumentApp.Interfaces
+
+@inject UserService UserService
+@inject ProjectService ProjectService
+@inject NavigationManager NavigationManager
+@inject IDocumentService DocumentService
+
 <h3>ProjectsPage</h3>
 
-<table class="table table-responsive table-bordered">
-    <thead>
+@if (_projects is not null && _projects.Count > 0)
+{
+    <table class="table table-responsive table-bordered">
+        <thead>
         <tr>
             <td>Название проекта</td>
             <td>Заказчик</td>
@@ -11,17 +21,51 @@
             <td>Застройщик</td>
             <td>Действие</td>
         </tr>
-    </thead>
-    <tbody>
-        <tr>
+        </thead>
+        <tbody>
             @foreach (var proj in _projects)
             {
-                
+                <tr>
+                    <td> <label class="form-label col-form-label-lg">@proj.ProjectName</label> </td>
+                    <td> <label class="form-label col-form-label-lg">@UserService.GetUserById(proj.CustomerId).Login</label> </td>
+                    <td> <label class="form-label col-form-label-lg">@UserService.GetUserById(proj.DesignerId).Login</label> </td>
+                    <td> <label class="form-label col-form-label-lg" >@UserService.GetUserById(proj.BuilderId).Login</label> </td>
+                    <td> <button class="btn btn-dark" @onclick="() => OpenProject(proj)">Открыть</button> </td>
+                </tr>
             }
-        </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
+@if(UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbc")
+{
+    <NewProjectComponent></NewProjectComponent>
+}
 
 @code {
     private List<Project> _projects;
+
+    protected override void OnInitialized()
+    {
+        var allProjects = ProjectService.GetProjects();
+
+        if (UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbc")
+        {
+            var customer = UserService.CurrentUser as Customer;
+            _projects = allProjects.Where(x=> x.ProjectDepartment == customer.Department).ToList();
+        }
+        else if (UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbd")
+        {
+            _projects = allProjects.Where(x=> x.BuilderId == UserService.CurrentUser.Login).ToList();
+        }
+        else if (UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbe")
+        {
+            _projects = allProjects.Where(x=> x.DesignerId == UserService.CurrentUser.Login).ToList();
+        }
+    }
+
+    private void OpenProject(Project project)
+    {
+        ProjectService.CurrentProject = project;
+        NavigationManager.NavigateTo("/ProjectPage");
+    }
 }

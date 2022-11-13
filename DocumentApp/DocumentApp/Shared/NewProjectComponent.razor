@@ -1,0 +1,146 @@
+﻿@using DocumentApp.Models
+@using DocumentApp.Services
+@using DocumentApp.Interfaces
+@inject UserService UserService
+@inject NavigationManager NavigationManager
+@inject ProjectService ProjectService
+@inject IDocumentService DocumentService
+<h3>NewProjectComponent</h3>
+
+<EditForm Model="ProjectService.CurrentProject">
+    <input type="text" @bind="ProjectService.CurrentProject.ProjectName" class="form-control form-control-lg"/>
+    <label class="form-label col-form-label-lg">Название проекта</label><br/>
+    
+    <div><label class="form-label col-form-label-lg">@_projectCustomer!.Name</label></div>
+    <div><label class="form-label form-control-lg">Заказчик</label></div>
+    
+    <div><select @bind="ProjectService.CurrentProject.DesignerId" class="form-select form-select-lg">
+                 <option value=""></option>
+                 @foreach (var designer in _designers!)
+                 {
+                     var _designer = UserService.GetUserById(designer.Login) as Designer;
+                     <option value="@_designer.Login">@_designer.DesignerName</option>
+                 }
+             </select></div>
+    <div><label class="form-label col-form-label-lg">Проектировщик</label></div>
+    
+    <div><select @bind="ProjectService.CurrentProject.BuilderId" class="form-select form-select-lg">
+                 <option value=""></option>
+                 @foreach (var builder in _builders)
+                 {
+                     var _builder = UserService.GetUserById(builder.Login) as Builder;
+                     <option value="@_builder.Login">@_builder.BuilderName</option>
+                 }
+             </select></div>
+    <div><label class="form-label col-form-label-lg">Застройщик</label></div>
+    
+    <div><button class="btn btn-success" @onclick="CreateProject">Создать</button></div>
+</EditForm>
+@code {
+    private List<Document>? _docs;
+    private List<Document>? _designerDocs;
+    private Form? _designerForm;
+    private List<FormField>? _designerFormFields;
+    
+    private List<User>? _designers;
+    private List<User>? _builders;
+    private DefaultDocuments? _defaultDocuments;
+
+    private Customer? _projectCustomer;
+    
+    protected override void OnInitialized()
+    {
+        ProjectService.CurrentProject = new();
+        _defaultDocuments = new();
+        _docs = new();
+        _designerDocs = new();
+        _designerForm = new();
+        _designerFormFields = new();
+        _projectCustomer = UserService.CurrentUser as Customer;
+        var allUsers = UserService.GetUsers();
+
+        if(_projectCustomer!.Department == "Газификация")
+        {
+            foreach (var doc in _defaultDocuments!.DocumentsDas)
+            {
+                _docs.Add(new Document
+                {
+                    Name = doc,
+                    IsPrefer= false,
+                    IsApproved = false
+                });
+            }
+            foreach(var doc in _defaultDocuments.DesignerDocuments)
+            {
+                _designerDocs.Add(new Document
+                {
+                    Name = doc,
+                    IsPrefer = false,
+                    IsApproved = false
+                });
+            }
+            foreach(var field in _defaultDocuments.DesignerFormGas)
+            {
+                _designerForm.FormFields?.Add(new FormField {FieldValue = field, FieldName = ""});
+            }
+            foreach(var field in _designerForm.FormFields!)
+            {
+                _designerFormFields.Add(field);
+            }
+
+        }
+        else
+        {
+            foreach (var doc in _defaultDocuments!.DocumentsWater)
+            {
+                _docs.Add(new Document
+                {
+                    Name = doc,
+                    IsPrefer = false,
+                    IsApproved = false
+                });
+            }
+
+            foreach (var doc in _defaultDocuments.DesignerDocuments)
+            {
+                _designerDocs.Add(new Document
+                {
+                    Name = doc,
+                    IsPrefer = false,
+                    IsApproved = false
+                });
+            }
+
+            foreach (var field in _defaultDocuments.DesignerFormWater)
+            {
+                _designerForm.FormFields!.Add(new FormField{FieldName = field,FieldValue = ""});
+            }
+
+            foreach (var field in _designerForm.FormFields!)
+            {
+                _designerFormFields.Add(field);
+            }
+        }
+        
+        _designers = allUsers.Where(x => x.RoleId == "636d3987fa5a3023d2857cbe").ToList();
+        _builders = allUsers.Where(x => x.RoleId == "636d3987fa5a3023d2857cbd").ToList();
+    }
+
+    private void CreateProject()
+    {
+        ProjectService.CurrentProject.ProjectDepartment = _projectCustomer!.Department;
+        ProjectService.CurrentProject.CustomerId = _projectCustomer.Login;
+        ProjectService.CurrentProject.CreatedDate = DateTime.Now;
+        ProjectService.CurrentProject.Documents = _docs;
+        ProjectService.CurrentProject.DesignerForm = _designerForm;
+        ProjectService.CurrentProject.DesignerDocuments = _designerDocs;
+        
+        DocumentService.SaveDocuments(_docs!);
+        DocumentService.SaveDesignerDocuments(_designerDocs);
+        ProjectService.SaveForm(_designerForm!);
+        ProjectService.CreateProject(ProjectService.CurrentProject);
+        
+        StateHasChanged();
+        NavigationManager.NavigateTo("/ProjectsPage");
+    }
+}

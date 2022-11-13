@@ -5,7 +5,10 @@ namespace DocumentApp.Interfaces;
 public interface IDocumentService
 {
     List<Document> GetDocuments();
-    Document Save(Document document);
-    Document Upload(string documentId, byte[] data);
-    void DeleteDocument(string documentId);
+    Document SaveDocument(Document document);
+    List<Document> SaveDocuments(List<Document> documents);
+    List<Document> SaveDesignerDocuments(List<Document>? documents);
+    Document Upload(Document document);
+
+    void DownloadDocument(Document document);
 }

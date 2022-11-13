@@ -2,6 +2,7 @@
 using DocumentApp.Models;
 using DocumentApp.Services;
 using DocumentApp.Shared;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
@@ -16,6 +17,11 @@ public class UserService
         BsonClassMap.RegisterClassMap<Customer>();
         BsonClassMap.RegisterClassMap<Builder>();
         BsonClassMap.RegisterClassMap<Designer>();
+    }
+    
+    public List<User> GetUsers()
+    {
+        return DataBaseConnection.UsersCollection.Find(new BsonDocument()).ToList();
     }
 
     public bool SaveUser(User user)
@@ -50,6 +56,22 @@ public class UserService
         }
 
         return CurrentUser!;
+    }
+
+    public User GetUserById(string? id)
+    {
+        User res = new();
+        try
+        {
+            res = DataBaseConnection.UsersCollection.Find<User>(x =>
+                    x.Login == id)
+                .FirstOrDefault();
+        }
+        catch (Exception e)
+        {
+        }
+
+        return res!;
     }
 
     public bool UpdateUser(User user, string login)
