@@ -1,0 +1,255 @@
+@page "/profile"
+@using Web.Services
+@using Core.Enums
+@inject AuthService AuthService;
+@inject NavigationManager NavigationManager
+@inject UserDomainService UserDomainService
+
+@if (_profileDataLoaded)
+{
+    <div class="vh-100" style="background-color: #fff;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-start align-items-top h-100">
+                <div class="col col-lg-10 mb-4 mb-lg-0">
+                    <div class="card mb-3" style="border-radius: .5rem;">
+                        <div class="row g-0">
+                            <div class="col-md-3 d-flex flex-column justify-content-center align-items-center gradient-custom text-center text-white"
+                                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                <h5>@name</h5><br/>
+                                <p>@role</p>
+                                <i class="far fa-edit mb-5"></i>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body p-4">
+                                    <h6>Primary information</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <h6>Email</h6>
+                                            <p class="text-muted">@email</p>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Phone</h6>
+                                            <p class="text-muted">@phone</p>
+                                        </div>
+                                    </div>
+
+                                    @if (role == UserRole.Customer)
+                                    {
+                                        <h6>Secondary information</h6>
+                                        <hr class="mt-0 mb-4">
+                                        <div class="row pt-1">
+                                            <div class="col-12 mb-3">
+                                                <h6>Industry type</h6>
+                                                <div class="btn-group" id="roleradiogroup" role="group" aria-label="Basic radio toggle button group">
+                                                    @if (industry == IndustryType.WaterSupply)
+                                                    {
+                                                        <input type="radio" class="btn-check" name="btnradio" id="radiowater" autocomplete="off"
+                                                               @oninput="@(ui => { industry = IndustryType.WaterSupply; })"
+                                                               checked>
+                                                        <label class="btn btn-outline-danger" for="radiocustomer">WaterSupply</label>
+
+                                                        <input type="radio" class="btn-check" name="btnradio" id="radiogas" autocomplete="off"
+                                                               @oninput="@(ui => { industry = IndustryType.Gasification; })">
+                                                        <label class="btn btn-outline-danger" for="radiobuilder">Gasification</label>
+                                                        
+                                                        <input type="radio" class="btn-check" name="btnradio" id="radionotspecified" autocomplete="off"
+                                                               @oninput="@(ui => { industry = IndustryType.NotSpecified; })">
+                                                        <label class="btn btn-outline-danger" for="radiobuilder">Not specified</label>
+                                                    }
+                                                    else if (industry == IndustryType.Gasification)
+                                                    {
+                                                        <input type="radio" class="btn-check" name="btnradio" id="radiocustomer" autocomplete="off"
+                                                               @oninput="@(ui => { industry = IndustryType.WaterSupply; })">
+                                                        <label class="btn btn-outline-danger" for="radiocustomer">WaterSupply</label>
+
+                                                        <input type="radio" class="btn-check" name="btnradio" id="radiobuilder" autocomplete="off"
+                                                               @oninput="@(ui => { industry = IndustryType.Gasification; })"
+                                                               checked>
+                                                        <label class="btn btn-outline-danger" for="radiobuilder">Gasification</label>
+                                                        
+                                                        <input type="radio" class="btn-check" name="btnradio" id="radionotspecified" autocomplete="off"
+                                                               @oninput="@(ui => { industry = IndustryType.NotSpecified; })">
+                                                        <label class="btn btn-outline-danger" for="radiobuilder">Not specified</label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="radio" class="btn-check" name="btnradio" id="radiocustomer" autocomplete="off"
+                                                               @oninput="@(ui => { industry = IndustryType.WaterSupply; })">
+                                                        <label class="btn btn-outline-danger" for="radiocustomer">WaterSupply</label>
+
+                                                        <input type="radio" class="btn-check" name="btnradio" id="radiobuilder" autocomplete="off"
+                                                               @oninput="@(ui => { industry = IndustryType.Gasification; })"
+                                                               >
+                                                        <label class="btn btn-outline-danger" for="radiobuilder">Gasification</label>
+                                                        
+                                                        <input type="radio" class="btn-check" name="btnradio" id="radionotspecified" autocomplete="off"
+                                                               @oninput="@(ui => { industry = IndustryType.NotSpecified; })"
+                                                               checked>
+                                                        <label class="btn btn-outline-danger" for="radiobuilder">Not specified</label>
+                                                    }
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (role is UserRole.Builder or UserRole.Architect)
+                                    {
+                                        <h6>Secondary information</h6>
+                                        <hr class="mt-0 mb-4">
+                                        <div class="row pt-1">
+                                            <div class="col-4 mb-3">
+                                                <h6>PSRN</h6>
+                                                <input value="@Psrn" @oninput="@(ui => { Psrn = (string?)ui.Value; })"  
+                                                       class="text-muted form-control"/>
+                                            </div>
+                                            <div class="col-4 mb-3">
+                                                <h6>TIN</h6>
+                                                <input value="@Tin" @oninput="@(ui => { Tin = (string?)ui.Value; })"  
+                                                       class="text-muted form-control"/>
+                                            </div>
+                                            <div class="col-4 mb-3">
+                                                <h6>TRRC</h6>
+                                                <input value="@Trrc" @oninput="@(ui => { Trrc = (string?)ui.Value; })"  
+                                                       class="text-muted form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="row pt-1">
+                                            @if (role == UserRole.Architect)
+                                            {
+                                                <div class="col-6 mb-3">
+                                                    <h6>Main Engineer</h6>
+                                                    <input value="@Engineer" @oninput="@(ui => { Engineer = (string?)ui.Value; })"  
+                                                           class="text-muted form-control"/>
+                                                </div>
+                                            }
+                                            <div class="col-6 mb-3">
+                                                <h6>Director</h6>
+                                                <input value="@Director" @oninput="@(ui => { Director = (string?)ui.Value; })"  
+                                                       class="text-muted form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="row pt-1">
+                                            <div class="col-12 mb-3">
+                                                <h6>Address</h6>
+                                                <input value="@Address" @oninput="@(ui => { Address = (string?)ui.Value; })"  
+                                                       class="text-muted form-control"/>
+                                            </div>
+                                        </div>
+                                    }
+                                    
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-4 mb-3">
+                                            
+                                        </div>
+                                        <div class="col-4 mb-3">
+                                            <button @onclick="@SaveChanges" class="btn btn-outline-danger">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool _profileDataLoaded;
+
+    private dynamic? currentUser;
+    private string? name;
+    private string? email;
+    private string? phone;
+    private UserRole role;
+    private IndustryType industry;
+    private string? Psrn { get; set; }
+    private string? Tin { get; set; }
+    private string? Trrc { get; set; }
+    private string? Address { get; set; }
+    private string? Director { get; set; }
+    private string? Engineer { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (AuthService.AuthorizedUser == null)
+        {
+            NavigationManager.NavigateTo(NavigationManager.BaseUri + "authorization");
+        }
+        currentUser = AuthService.AuthorizedUser!;
+        SetPrimaryVariables();
+
+        switch (currentUser!.Role)
+        {
+            case UserRole.Customer:
+                SetCustomerVariables();
+                break;
+            case UserRole.Builder:
+                SetBuilderVariables();
+                break;
+            case UserRole.Architect:
+                SetArchitectVariables();
+                break;
+        }
+        
+        _profileDataLoaded = true;
+    }
+
+    private void SetPrimaryVariables()
+    {
+        name = currentUser!.Name;
+        email = currentUser.Email;
+        phone = currentUser.PhoneNumber;
+        role = currentUser.Role;
+    }
+
+    private void SetCustomerVariables()
+    {
+        industry = currentUser!.Industry;
+    }
+
+    private void SetBuilderVariables()
+    {
+        Psrn = currentUser!.PSRN;
+        Tin = currentUser.TIN;
+        Trrc = currentUser.TRRC;
+        Address = currentUser.Address;
+        Director = currentUser.Director;
+    }
+
+    private void SetArchitectVariables()
+    {
+        SetBuilderVariables();
+        Engineer = currentUser!.MainEngineer;
+    }
+
+    private void SaveChanges()
+    {
+        switch (role)
+        {
+            case UserRole.Customer:
+                currentUser!.Industry = industry;
+                break;
+            case UserRole.Builder:
+                currentUser!.PSRN = Psrn;
+                currentUser.TIN = Tin;
+                currentUser.TRRC = Trrc;
+                currentUser.Address = Address;
+                currentUser.Director = Director;
+                break;
+            case UserRole.Architect:
+                currentUser!.PSRN = Psrn;
+                currentUser.TIN = Tin;
+                currentUser.TRRC = Trrc;
+                currentUser.Address = Address;
+                currentUser.Director = Director;
+                currentUser.MainEngineer = Engineer;
+                break;
+        }
+        
+        UserDomainService.SaveUser(currentUser, true);
+    }
+}

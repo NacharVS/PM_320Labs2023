@@ -1,0 +1,190 @@
+@page "/authorization"
+@using Web.Services
+@using Core.Entities.Users
+@using Core.Enums
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
+
+<div class="h-100 gradient-form" style="background-color: #fff;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black">
+                    <div class="row g-0">
+                        <div class="@(_isRegistration ? "col-lg-12" : "col-lg-6")">
+                            <div class="card-body p-md-5 mx-md-4">
+
+                                <div class="text-center">
+                                    <img src="img/barslogo.png"
+                                         style="width: 185px; margin-bottom: 15px" alt="logo">
+                                    <h4 class="mt-1 mb-5 pb-1">Bars.Tenders</h4>
+                                </div>
+
+                                <form>
+                                    @if (!_isRegistration)
+                                    {
+                                        <p>Please login to your account</p>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="form2Example11" class="form-control"
+                                                   placeholder="Login"
+                                                   @bind="@_login" @oninput="@(ui => { _login = (string?)ui.Value; })"/>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="password" id="form2Example22" class="form-control"
+                                                   placeholder="Password"
+                                                   @bind="@_password" @oninput="@(ui => { _password = (string?)ui.Value; })"/>
+                                        </div>
+
+                                        <div class="text-center pt-1 mb-5 pb-1">
+                                            <button class="btn btn-block fa-lg btn-outline-success mb-3" type="button"
+                                                    @onclick="async () => await Authorize()">
+                                                Log in
+                                            </button>
+                                            <p class="alert-danger">@_exceptionMessage</p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-center pb-4">
+                                            <p class="mb-0 me-2">Don't have an account?</p>
+                                            <button type="button" @onclick="() => _isRegistration = true" class="btn btn-outline-success">Create new</button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <p>Register new account</p>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="name" class="form-control"
+                                                   placeholder="Full name"
+                                                   @bind="@_name" @oninput="@(ui => { _name = (string?)ui.Value; })"/>
+                                        </div>
+                                        
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="email" class="form-control"
+                                                   placeholder="Login"
+                                                   @bind="@_login" @oninput="@(ui => { _login = (string?)ui.Value; })"/>
+                                        </div>
+                                        
+                                        <div class="form-outline mb-4">
+                                            <input type="email" id="email" class="form-control"
+                                                   placeholder="Email address"
+                                                   @bind="@_email" @oninput="@(ui => { _email = (string?)ui.Value; })"/>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="password" id="password" class="form-control"
+                                                   placeholder="Password"
+                                                   @bind="@_password" @oninput="@(ui => { _password = (string?)ui.Value; })"/>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="phone" class="form-control"
+                                                   placeholder="Phone number"
+                                                   @bind="@_phoneNumber" @oninput="@(ui => { _phoneNumber = (string?)ui.Value; })"/>
+                                        </div>
+
+                                        <p>Your role:</p>
+                                        <div class="btn-group" id="roleradiogroup" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="btnradio" id="radiocustomer" autocomplete="off"
+                                                   @oninput="@(ui => { _role = UserRole.Customer; })" checked>
+                                            <label class="btn btn-outline-success" for="radiocustomer">Customer</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="radiobuilder" autocomplete="off"
+                                                   @oninput="@(ui => { _role = UserRole.Builder; })">
+                                            <label class="btn btn-outline-success" for="radiobuilder">Builder</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="radioarchitect" autocomplete="off"
+                                                   @oninput="@(ui => { _role = UserRole.Architect; })">
+                                            <label class="btn btn-outline-success" for="radioarchitect">Architect</label>
+                                        </div>
+
+                                        <div class="text-center pt-1 mb-5 pb-1">
+                                            <button class="btn btn-block fa-lg btn-outline-success mb-3" type="button"
+                                                    @onclick="async () => await Register()">
+                                                Registrate
+                                            </button>
+                                            <p class="alert-danger">@_exceptionMessage</p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-center pb-4">
+                                            <p class="mb-0 me-2">Already have an account?</p>
+                                            <button type="button" @onclick="() => _isRegistration = false" class="btn btn-outline-success">Back to login form</button>
+                                        </div>
+                                    }
+    
+                                </form>
+                            </div>
+                        </div>
+                        @if (!_isRegistration)
+                        {
+                            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                    <h4 class="mb-4">Modern tenders system </h4>
+                                    <p class="small mb-0">
+                                        Greet new, hight-perfomanced, web-based B2B information system. We provide blazingly fast,
+                                        brand new product to achieve your goals of work and communication
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string? _exceptionMessage;
+    private bool _isRegistration;
+    private string? _name;
+    private string? _login;
+    private string? _email;
+    private string? _password;
+    private string? _phoneNumber;
+    private UserRole _role = UserRole.Customer;
+
+    private async Task Register()
+    {
+        _exceptionMessage = null;
+        
+        try
+        {
+            await AuthService.RegisterUser(new BaseUser
+            {
+                Name = _name ?? String.Empty,
+                Login = _login ?? String.Empty,
+                Email = _email ?? String.Empty,
+                Role = _role,
+                PhoneNumber = _phoneNumber ?? String.Empty
+            }, _password ?? String.Empty);
+            
+            NavigationManager.NavigateTo("/profile");
+        }
+        catch (Exception ex)
+        {
+            _exceptionMessage = ex.Message;
+        }
+    }
+
+    private async Task Authorize()
+    {
+        _exceptionMessage = null;
+        
+        try
+        {
+            await AuthService.AuthorizeUser(
+                _login ?? String.Empty, 
+                _password ?? String.Empty
+                );
+            
+            NavigationManager.NavigateTo("/profile");
+        }
+        catch (Exception ex)
+        {
+            _exceptionMessage = ex.Message;
+        }
+    }
+
+}

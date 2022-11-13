@@ -3,6 +3,10 @@ using MongoDB.Driver;
 
 namespace DataProvider
 {
+    /// <summary>
+    /// Класс подключения к MongoDb
+    /// </summary>
+    /// <typeparam name="TEntity">Тип сущности</typeparam>
     public class MongoConnection<TEntity>
     {
         public IMongoDatabase Database { get; set; }
@@ -16,6 +20,11 @@ namespace DataProvider
             
             Database = new MongoClient(connectionString).GetDatabase(mongoDb);
             Collection = Database.GetCollection<TEntity>(collectionName);
+        }
+
+        public IMongoCollection<TEntity> GetBaseCollection()
+        {
+            return Database.GetCollection<TEntity>(typeof(TEntity).BaseType?.Name);
         }
     }
 }

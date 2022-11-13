@@ -1,26 +1,33 @@
 using Core.Entities;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DataProvider.Domain.Impl;
 
+/// <summary>
+/// Базовая реализация репозитория
+/// </summary>
+/// <typeparam name="TEntity">Тип сущности</typeparam>
 public class BaseRepository<TEntity> : IRepository<TEntity>
     where TEntity : BaseEntity
 {
     private readonly MongoConnection<TEntity> _connection;
 
-    public BaseRepository(MongoConnection<TEntity> connection)
+    public BaseRepository(IConfiguration configuration)
     {
-        _connection = connection;
+        _connection = new MongoConnection<TEntity>(configuration);
     }
 
-    public async Task<TEntity?> Get(ObjectId id)
+    public async Task<TEntity?> Get(ObjectId id, bool asBaseCollection = false)
     {
-        return (await _connection.Collection.FindAsync(x => x._id == id)).FirstOrDefault();
+        var collection = asBaseCollection ? _connection.GetBaseCollection() : _connection.Collection;
+        return (await collection.FindAsync(x => x._id == id)).FirstOrDefault();
     }
-    public async Task<IEnumerable<TEntity?>> GetAll()
+    public async Task<IEnumerable<TEntity?>> GetAll(bool asBaseCollection = false)
     {
-        return (await _connection.Collection.FindAsync(_ => true)).ToList();;
+        var collection = asBaseCollection ? _connection.GetBaseCollection() : _connection.Collection;
+        return (await collection.FindAsync(_ => true)).ToList();
     }
 
     public async Task Delete(TEntity entity)
@@ -28,29 +35,36 @@ public class BaseRepository<TEntity> : IRepository<TEntity>
         await _connection.Collection.DeleteOneAsync(x => x._id == entity._id);
     }
 
-    public async Task Update(TEntity entity)
+    public async Task Update(TEntity entity, bool asBaseCollection = false)
     {
-        await _connection.Collection.ReplaceOneAsync(x => x._id == entity._id, 
-            entity);
+        var collection = asBaseCollection ? _connection.GetBaseCollection() : _connection.Collection;
+        await collection.ReplaceOneAsync(x => x._id == entity._id, entity);
     }
 
-    public async Task Save(TEntity entity)
+    public async Task Save(TEntity entity, bool asBaseCollection = false)
     {
         entity._id = ObjectId.GenerateNewId();
-        await _connection.Collection.InsertOneAsync(entity);
+        var collection = asBaseCollection ? _connection.GetBaseCollection() : _connection.Collection;
+        await collection.InsertOneAsync(entity);
     }
 
-    public async Task SaveOrUpdate(TEntity entity)
+    public async Task SaveOrUpdate(TEntity entity, bool asBaseCollection = false)
     {
-        if ((await _connection.Collection.
+        var collection = asBaseCollection ? _connection.GetBaseCollection() : _connection.Collection;
+        if ((await collection.
                 FindAsync(x => 
                     x._id == entity._id)).FirstOrDefault() != null)
         {
-            await Update(entity);
+            await Update(entity, asBaseCollection);
         }
         else
         {
-            await Save(entity);
+            await Save(entity, asBaseCollection);
         }
+    }
+
+    public IMongoDatabase GetDatabase()
+    {
+        return _connection.Database;
     }
 }

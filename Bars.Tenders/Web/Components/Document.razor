@@ -1,0 +1,22 @@
+@using Core.Entities.Documents
+@using Web.Services
+@inject DocumentDomainService DocumentDomainService
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">@Doc.Name</h5>
+    <p class="card-text">@Doc.DocumentType</p>
+    <button type="button" class="btn btn-primary" @onclick="@DownloadFile">Download</button>
+  </div>
+</div>
+
+@code {
+  [Parameter] 
+  public dynamic Doc { get; set; }
+
+  private async Task DownloadFile()
+  {
+    
+  }
+  
+}

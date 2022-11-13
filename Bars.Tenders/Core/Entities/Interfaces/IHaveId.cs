@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Core.Entities.interfaces;
+namespace Core.Entities.Interfaces;
 
 public interface IHaveId
 {

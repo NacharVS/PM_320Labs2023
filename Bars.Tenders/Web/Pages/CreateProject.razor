@@ -1,0 +1,132 @@
+@page "/createproject"
+@using Web.Services
+@using Core.Entities.Projects
+@using Core.Entities.Users
+@using Core.Enums
+@using MongoDB.Bson
+@inject NavigationManager NavigationManager;
+@inject ProjectDomainService ProjectDomainService;
+@inject UserDomainService UserDomainService;
+@inject AuthService AuthService;
+
+<h3>Create Project</h3>
+
+@if (_isUsersLoaded)
+{
+    <div class="vh-100" style="background-color: #fff;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-start align-items-top h-100">
+                <div class="col col-lg-10 mb-4 mb-lg-0">
+                    <form>
+                        <div class="form-outline mb-4">
+                            <input @oninput="@(ui => { _name = (string?)ui.Value; })" type="text" id="name" class="form-control"/>
+                            <label class="form-label" for="name">Name</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <textarea @oninput="@(ui => { _description = (string?)ui.Value; })" class="form-control" id="description" rows="4"></textarea>
+                            <label class="form-label" for="description">Description</label>
+                        </div>
+                    
+                        <p>Select Builder for project</p>
+                        <select @onchange="@(ui => { _builderId = GetObjectId((string?)ui.Value); })" class="form-select mb-4" aria-label="Default select example">
+                            @foreach (var i in _builders)
+                            {
+                                <option value="@i?._id">@i?.Name</option>
+                            }
+                        </select>
+                    
+                        <p>Select Architect for project</p>
+                        <select @onchange="@(ui => { _architectId = GetObjectId((string?)ui.Value); })" class="form-select mb-4" aria-label="Default select example">
+                            @foreach (var i in _architects)
+                            {
+                                <option value="@i?._id">@i?.Name</option>
+                            }
+                        </select>
+
+                        <p class="alert-danger">@_exceptionText</p>
+                    </form>
+                    <button @onclick="@SaveProject" class="btn btn-outline-primary btn-block mb-4">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool _isUsersLoaded;
+
+    private IEnumerable<Builder?> _builders;
+    private IEnumerable<Architect?> _architects;
+
+    private string? _name;
+    private string? _description;
+    private string? _exceptionText;
+    private ObjectId? _builderId;
+    private ObjectId? _architectId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthService.AuthorizedUser is null)
+        {
+            NavigationManager.NavigateTo("/authorization");
+        }
+
+        if (AuthService.AuthorizedUser!.Role != UserRole.Customer)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+
+        _builders = await UserDomainService.LoadBuilders();
+        _architects = await UserDomainService.LoadArchitects();
+
+        _builderId = _builders.ElementAtOrDefault(0)?._id;
+        _architectId = _architects.ElementAtOrDefault(0)?._id;
+
+        _isUsersLoaded = true;
+    }
+
+    private ObjectId? GetObjectId(string? stringId)
+    {
+        if (ObjectId.TryParse(stringId, out var id))
+        {
+            return id;
+        }
+        return null;
+    }
+    private async Task SaveProject()
+
+    {
+        if (string.IsNullOrEmpty(_name))
+        {
+            _exceptionText = "Project name cannot be empty!";
+            return;
+        }
+
+        if (_builderId is null)
+        {
+            _exceptionText = "Builder cannot be empty";
+            return;
+        }
+
+        if (_architectId is null)
+        {
+            _exceptionText = "Architect cannot be empty";
+            return;
+        }
+
+        await ProjectDomainService.SaveProject(new BaseProject
+        {
+            Name = _name!,
+            Description = _description,
+            CustomerId = AuthService.AuthorizedUser!._id,
+            BuilderId = _builderId.GetValueOrDefault(),
+            ArchitectId = _architectId.GetValueOrDefault(),
+            IndustryType = ((dynamic)AuthService.AuthorizedUser).Industry
+        }
+            );
+
+        NavigationManager.NavigateTo("/projects");
+    }
+
+}

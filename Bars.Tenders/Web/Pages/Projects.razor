@@ -1,0 +1,54 @@
+@page "/projects"
+@using Web.Services
+@using Web.Components
+@using Core.Entities.Projects
+@using Core.Enums
+@inject ProjectDomainService DomainService
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
+
+<h3 class="mb-3">Projects</h3>
+
+@if (AuthService.AuthorizedUser.Role == UserRole.Customer)
+{
+    <button class="btn btn-outline-primary mb-4" @onclick="@CreateNewProject">Create new project</button>
+}
+
+@if (_isDataLoaded)
+{
+    <div class="row row-cols-3 g-3">
+        @foreach (var project in _projects)
+        {
+            <div class="col">
+                <Project ProjectObj="@project"/>
+            </div>
+        }
+    </div>
+}
+
+
+@code {
+    private bool _isDataLoaded;
+    private IEnumerable<BaseProject?> _projects;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthService.AuthorizedUser is null)
+        {
+            NavigationManager.NavigateTo("/authorization");
+        }
+
+        var industry = AuthService.AuthorizedUser!.Role == UserRole.Customer 
+            ? ((dynamic)AuthService.AuthorizedUser).Industry 
+            : IndustryType.NotSpecified;
+
+        _projects = await DomainService.LoadProjects(AuthService.AuthorizedUser!._id, industry);
+        _isDataLoaded = true;
+    }
+
+    private void CreateNewProject()
+    {
+        NavigationManager.NavigateTo("/createproject");
+    }
+
+}

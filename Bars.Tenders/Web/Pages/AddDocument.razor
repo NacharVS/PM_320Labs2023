@@ -1,0 +1,150 @@
+@page "/adddocument"
+@page "/adddocument/{ProjectId}"
+@using Web.Services
+@using Core.Enums
+@using Web.Utils
+@using MongoDB.Bson
+@using Core.Entities.Projects
+@using Core.Entities.Documents
+@using System.ComponentModel.DataAnnotations
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
+@inject DocumentDomainService DocumentDomainService
+@inject ProjectDomainService ProjectDomainService
+
+<div class="vh-100" style="background-color: #fff;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-start align-items-top h-100">
+                <div class="col col-lg-10 mb-4 mb-lg-0">
+                    <form>
+                        <div class="form-outline mb-4">
+                            <input @oninput="@(ui => { _name = (string?)ui.Value; })" type="text" id="name" class="form-control"/>
+                            <label class="form-label" for="name">Name</label>
+                        </div>
+
+                        <p>Select document type</p>
+                        <select @onchange="@(ui => { _documentType = (int?)ui.Value; })" class="form-select mb-4" aria-label="Default select example">
+                            @if (_project.IndustryType == IndustryType.WaterSupply)
+                            {
+                                @foreach (WaterSupplyDocumentType i in Enum.GetValues(typeof(WaterSupplyDocumentType)))
+                                {
+                                    <option value="@i">@GetDisplayName(i)</option>
+                                }
+                            }
+                            else
+                            {
+                                @foreach (GasificationDocumentType i in Enum.GetValues(typeof(GasificationDocumentType)))
+                                {
+                                    <option value="@i">@GetDisplayName(i)</option>
+                                }
+                            }
+
+                        </select>
+                        
+                        <p>Upload file for this document:</p>
+                        <InputFile OnChange="@SingleUpload" class="form-control"/>
+
+                        <p class="alert-danger">@_exceptionText</p>
+                    </form>
+                    <p class="alert-danger">@_exceptionText</p>
+                    <button @onclick="@SaveDocument" class="btn btn-outline-primary btn-block mb-4">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@code {
+    [Parameter]
+    public string ProjectId { get; set; } = null!;
+
+    private BaseProject _project = null!;
+    
+    private string? _name;
+
+    private string? _exceptionText;
+    private ObjectId? _fileId;
+    private int? _documentType;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthService.AuthorizedUser is null)
+        {
+            NavigationManager.NavigateTo("/authorization");
+        }
+        
+        if (AuthService.AuthorizedUser!.Role == UserRole.Customer)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        
+        if (!ObjectId.TryParse(ProjectId, out var projectId))
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        
+        _project = (await ProjectDomainService.LoadProject(projectId))!;
+    }
+
+    private async Task SaveDocument()
+    {
+        if (string.IsNullOrEmpty(_name))
+        {
+            _exceptionText = "Name cannot be empty";
+            return;
+        }
+
+        if (_fileId is null)
+        {
+            _exceptionText = "File cannot be empty";
+        }
+
+        if (_project.IndustryType == IndustryType.Gasification)
+        {
+            await DocumentDomainService.SaveGasificationDocument(new GasificationDocument
+            {
+                Name = _name,
+                FileId = _fileId.GetValueOrDefault(),
+                ProjectId = _project._id,
+                OwnerId = AuthService.AuthorizedUser!._id,
+                DocumentType = (GasificationDocumentType)_documentType.GetValueOrDefault()
+            }, true);
+        }
+        else if (_project.IndustryType == IndustryType.WaterSupply)
+        {
+            await DocumentDomainService.SaveWaterSupplyDocument(new WaterSupplyDocument
+            {
+                Name = _name,
+                FileId = _fileId.GetValueOrDefault(),
+                ProjectId = _project._id,
+                OwnerId = AuthService.AuthorizedUser!._id,
+                DocumentType = (WaterSupplyDocumentType)_documentType.GetValueOrDefault()
+            }, true);
+        }
+        
+        NavigationManager.NavigateTo($"/project/{_project._id}");
+    }
+
+    private async Task SingleUpload(InputFileChangeEventArgs e)
+    {
+        if (string.IsNullOrEmpty(_name))
+        {
+            _exceptionText = "Fill document name before uploading file";
+            return;
+        }
+        
+        MemoryStream ms = new MemoryStream();
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        _fileId = await DocumentDomainService.SaveFile(_name!, ms);
+    }
+
+    private string? GetDisplayName(WaterSupplyDocumentType doc)
+    {
+        return doc.GetAttribute<DisplayAttribute>().Name;
+    }
+    
+    private string? GetDisplayName(GasificationDocumentType doc)
+    {
+        return doc.GetAttribute<DisplayAttribute>().Name;
+    }
+
+}

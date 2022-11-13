@@ -1,21 +1,10 @@
-using Core.Entities.users;
-using DataProvider;
-using DataProvider.Domain;
-using DataProvider.Domain.Impl;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Web.Data;
+using Core.Entities.Users;
+using MongoDB.Bson.Serialization;
 using Web.Modules;
-using Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddScoped<AuthService>();
-
 var module = new Module(builder);
 module.RegisterModules();
 

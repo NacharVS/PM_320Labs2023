@@ -1,5 +1,6 @@
 namespace Web.Modules;
 
+
 public partial class Module
 {
     private readonly WebApplicationBuilder _builder;
@@ -11,8 +12,9 @@ public partial class Module
 
     public void RegisterModules()
     {
-        RegisterConnections();
         RegisterRepositories();
         RegisterProviders();
+        RegisterServices();
+        MapEntities();
     }
 }
