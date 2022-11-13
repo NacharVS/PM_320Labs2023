@@ -66,16 +66,16 @@
                 <InputFile OnChange="@LoadFiles" multiple  />
                 <br />
             }
-            @if (CurrentProj.Project.LoadedFilesDes is not null)
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Наименование документа</th>
-                            <th>Наименование документа</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Наименование документа</th>
+                        <th>Наименование документа</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (CurrentProj.Project.LoadedFilesDes is not null)
+                    {
                         @foreach (var file in CurrentProj.Project.LoadedFilesDes)
                         {
                             <tr>
@@ -85,20 +85,30 @@
                                 </td>
                             </tr>
                         }
-                        @if (filesDes is not null)
+                    }
+                    @if (filesDes is not null)
+                    {
+                        @foreach (var file in filesDes)
                         {
-                            @foreach (var file in filesDes)
-                            {
-                                <tr>
-                                    <td><b>@file</b></td>
-                                    <td> 
-                                        <a href="/files/@file">Просмотреть файл и скачать</a>
-                                    </td>
-                                </tr>
-                            }
+                            <tr>
+                                <td><b>@file</b></td>
+                                <td> 
+                                    <a href="/files/@file">Просмотреть файл и скачать</a>
+                                </td>
+                            </tr>
                         }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+            </table>
+            @if (CurrentUser.UserRole == "Designer")
+            {
+                <button type="submit" class="registerbtn" @onclick="DelNewFilesDes">Удлаить все только загруженные файлы</button>
+                <br />
+            }
+            @if (CurrentUser.UserRole == "Designer")
+            {
+                <button type="submit" class="registerbtn" @onclick="DelEarlyFileDes">Удлаить все сохранненые ранее файлы</button>
+                <br />
             }
             @if (CurrentUser.UserRole == "Customer")
             {
@@ -121,16 +131,16 @@
                 <InputFile OnChange="@LoadFilesByDeveloper" multiple  />
                 <br />
             }
-            @if (CurrentProj.Project.LoadedFilesDev is not null)
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Наименование документа</th>
-                            <th>Наименование документа</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Наименование документа</th>
+                        <th>Наименование документа</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (CurrentProj.Project.LoadedFilesDev is not null)
+                    {
                         @foreach (var file in CurrentProj.Project.LoadedFilesDev)
                         {
                             <tr>
@@ -140,20 +150,30 @@
                                 </td>
                             </tr>
                         }
-                        @if (filesDev is not null)
+                    }
+                    @if (filesDev is not null)
+                    {
+                        @foreach (var file in filesDev)
                         {
-                            @foreach (var file in filesDev)
-                            {
-                                <tr>
-                                    <td><b>@file</b></td>
-                                    <td>
-                                        <a href="/files/@file">Просмотреть файл и скачать</a>
-                                    </td>
-                                </tr>
-                            }
+                            <tr>
+                                <td><b>@file</b></td>
+                                <td>
+                                    <a href="/files/@file">Просмотреть файл и скачать</a>
+                                </td>
+                            </tr>
                         }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+            </table>
+            @if (CurrentUser.UserRole == "Developer")
+            {
+                <button type="submit" class="registerbtn" @onclick="DelNewFilesDev">Удлаить все только загруженные файлы</button>
+                <br />
+            }
+            @if (CurrentUser.UserRole == "Developer")
+            {
+                <button type="submit" class="registerbtn" @onclick="DelEarlyFileDev">Удлаить все сохранненые ранее файлы</button>
+                <br />
             }
             @if (CurrentUser.UserRole == "Customer")
             {
@@ -183,11 +203,30 @@
 @code {
     List<IBrowserFile> _loadedFilesDev = new();
     List<IBrowserFile> _loadedFilesDes = new();
-    List<string>? filesDes = new();
-    List<string>? filesDev = new();
+    List<string> filesDes = new List<string>();
+    List<string> filesDev = new List<string>();
     string comForDes;
     string comForDev;
 
+    public void DelNewFilesDev()
+    {
+        filesDev.Clear();
+    }
+
+    public void DelNewFilesDes()
+    {
+        filesDes.Clear();
+    }
+
+    public void DelEarlyFileDev()
+    {
+        CurrentProj.Project.LoadedFilesDev.Clear();
+    }
+
+    public void DelEarlyFileDes()
+    {
+        CurrentProj.Project.LoadedFilesDes.Clear();
+    }
 
     private void Logouting()
     {
@@ -207,75 +246,82 @@
 
     public void Aprroved()
     {
-        switch (CurrentProj.Project.Department)
-        {
-            case "Водоснабжение" :
-                foreach (var file in filesDes)
-                {
-                    CurrentProj.Project.LoadedFilesDes.Add(file);
-                }
-                foreach (var file in filesDev)
-                {
-                    CurrentProj.Project.LoadedFilesDev.Add(file);
-                }
-                CurrentProj.Project.CommentForDes = comForDes;
-                CurrentProj.Project.CommentForDev = comForDev;
-                CurrentProj.Project.IsApproved = true;
-                DBConnection.ReplaceWater(CurrentProj.Project);
-                break;
-            case "Газификация" :
-                foreach (var file in filesDes)
-                {
-                    CurrentProj.Project.LoadedFilesDes.Add(file);
-                }
-                foreach (var file in filesDev)
-                {
-                    CurrentProj.Project.LoadedFilesDev.Add(file);
-                }
-                CurrentProj.Project.CommentForDes = comForDes;
-                CurrentProj.Project.CommentForDev = comForDev;
-                CurrentProj.Project.IsApproved = true;
-                DBConnection.ReplaceGas(CurrentProj.Project);
-                break;
-        }
-        filesDes = null;
-        filesDev = null;
+        CurrentProj.Project.IsApproved = true;
+        DBConnection.ReplaceGas(CurrentProj.Project);
+        filesDes.Clear();
+        filesDev.Clear();
         Navigation.NavigateTo("/personalmain");
     }
 
     public void Save()
     {
+
+
         switch (CurrentProj.Project.Department)
         {
             case "Водоснабжение" :
-                foreach (var file in filesDes)
+                if (CurrentUser.UserRole == "Customer")
                 {
-                    CurrentProj.Project.LoadedFilesDes.Add(file);
+                    CurrentProj.Project.CommentForDes = comForDes;
+                    CurrentProj.Project.CommentForDev = comForDev;                   
                 }
-                foreach (var file in filesDev)
+                if (CurrentUser.UserRole == "Developer")
                 {
-                    CurrentProj.Project.LoadedFilesDev.Add(file);
+                    CurrentProj.Project.LoadedFilesDev = new List<string>();  
+                    if (filesDev != null)
+                    {
+                        foreach (var file in filesDev)
+                        {
+                            CurrentProj.Project.LoadedFilesDev.Add(file);
+                        }
+                    }                    
                 }
-                CurrentProj.Project.CommentForDes = comForDes;
-                CurrentProj.Project.CommentForDev = comForDev;
+                if (CurrentUser.UserRole == "Designer")
+                {
+                    CurrentProj.Project.LoadedFilesDes = new List<string>();  
+                    if (filesDes != null)
+                    {
+                        foreach (var file in filesDes)
+                        {
+                            CurrentProj.Project.LoadedFilesDes.Add(file);
+                        }
+                    }                 
+                }
                 DBConnection.ReplaceWater(CurrentProj.Project);
                 break;
             case "Газификация" :
-                foreach (var file in filesDes)
+                if (CurrentUser.UserRole == "Customer")
                 {
-                    CurrentProj.Project.LoadedFilesDes.Add(file);
+                    CurrentProj.Project.CommentForDes = comForDes;
+                    CurrentProj.Project.CommentForDev = comForDev;                   
                 }
-                foreach (var file in filesDev)
+                if (CurrentUser.UserRole == "Developer")
                 {
-                    CurrentProj.Project.LoadedFilesDev.Add(file);
+                    CurrentProj.Project.LoadedFilesDev = new List<string>();  
+                    if (filesDev != null)
+                    {
+                        foreach (var file in filesDev)
+                        {
+                            CurrentProj.Project.LoadedFilesDev.Add(file);
+                        }
+                    }                    
                 }
-                CurrentProj.Project.CommentForDes = comForDes;
-                CurrentProj.Project.CommentForDev = comForDev;
+                if (CurrentUser.UserRole == "Designer")
+                {
+                    CurrentProj.Project.LoadedFilesDes = new List<string>();  
+                    if (filesDes != null)
+                    {
+                        foreach (var file in filesDes)
+                        {
+                            CurrentProj.Project.LoadedFilesDes.Add(file);
+                        }
+                    }                 
+                }
                 DBConnection.ReplaceGas(CurrentProj.Project);
                 break;
         }
-        filesDes = null;
-        filesDev = null;
+        filesDes.Clear();
+        filesDev.Clear();
         Navigation.NavigateTo("/personalmain");
     }
 
@@ -291,7 +337,7 @@
         foreach (var file in e.GetMultipleFiles(e.FileCount))
         {
             _loadedFilesDes.Add(file);
-            filesDes.Add(file.Name);
+            filesDes?.Add(file.Name);
             Stream stream = file.OpenReadStream();
             await FileSyS.UploadFileToDb(stream, file.Name);
             FileSyS.DownloadFileToProject(file);
@@ -307,7 +353,7 @@
         foreach (var file in e.GetMultipleFiles(e.FileCount))
         {
             _loadedFilesDev.Add(file);
-            filesDev.Add(file.Name);
+            filesDev?.Add(file.Name);
             Stream stream = file.OpenReadStream();
             await FileSyS.UploadFileToDb(stream, file.Name);
             FileSyS.DownloadFileToProject(file);

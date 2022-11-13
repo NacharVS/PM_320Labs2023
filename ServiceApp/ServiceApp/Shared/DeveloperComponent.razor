@@ -8,42 +8,42 @@
     <h4 class="card-header">Personal Page</h4>
     <div class="card-body">
         <hr>
-            <label for="organisation"><b>Органзация</b></label>
-            <input type="text" placeholder="Enter Organisation" name="organisation" id="organisation" required @bind-value="organisation" />
+            <label for="organisation"><b>Органзация</b></label><br />
+            <input type="text" placeholder="@CurrentUser.CurrentDeveloper.DeveloperOrganisation" name="organisation" id="organisation" required @bind-value="organisation" />
             <br/>
-            <label for="middleName"><b>Фамилия</b></label>
-            <input type="text" placeholder="Введите Фамилию" name="middleName" id="middleName" required @bind-value="middleName" />
+            <label for="middleName"><b>Фамилия</b></label><br />
+            <input type="text" placeholder="@CurrentUser.CurrentDeveloper.MiddleName" name="middleName" id="middleName" required @bind-value="middleName" />
             <br/>
-            <label for="firstName"><b>Имя</b></label>
-            <input type="text" placeholder="Введите Имя" name="firstName" id="firstName" required @bind-value="firstName" />
+            <label for="firstName"><b>Имя</b></label><br />
+            <input type="text" placeholder="@CurrentUser.CurrentDeveloper.FirstName" name="firstName" id="firstName" required @bind-value="firstName" />
             <br/>
-            <label for="lastName"><b>Отчество</b></label>
-            <input type="text" placeholder="Введите Отчество" name="organisation" id="lastName" required @bind-value="lastName" />
+            <label for="lastName"><b>Отчество</b></label><br />
+            <input type="text" placeholder="@CurrentUser.CurrentDeveloper.LastName" name="organisation" id="lastName" required @bind-value="lastName" />
             <br/>
-            <label for="telephone"><b>Телефон</b></label>
-            <input type="tel" placeholder="Введите Телефон" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="telephone" />
+            <label for="telephone"><b>Телефон</b></label><br />
+            <input type="tel" placeholder="@CurrentUser.CurrentDeveloper.Telephone" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="telephone" />
             <br/>
-            <label for="email"><b>Email</b></label>
-            <input type="email" placeholder="Введите почту" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
+            <label for="email"><b>Email</b></label><br />
+            <input type="email" placeholder="@CurrentUser.CurrentDeveloper.Email" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
             <br/>
-            <label for="ogrn"><b>ОГРН</b></label>
-            <input type="text" maxlength="13" placeholder="Enter OGRN" name="ogrn" id="ogrn" required @bind-value="ogrn" />
+            <label for="ogrn"><b>ОГРН</b></label><br />
+            <input type="text" maxlength="13" minlength="13" placeholder="@CurrentUser.CurrentDeveloper.OGRN" name="ogrn" id="ogrn" required @bind-value="ogrn" />
             <br/>
-            <label for="inn"><b>ИНН</b></label>
-            <input type="text" maxlength="10" placeholder="Enter INN" name="inn" id="inn" required @bind-value="inn" />
+            <label for="inn"><b>ИНН</b></label><br />
+            <input type="text" maxlength="10" minlength="10" placeholder="@CurrentUser.CurrentDeveloper.INN" name="inn" id="inn" required @bind-value="inn" />
             <br/>
-            <label for="kpp"><b>КПП</b></label>
-            <input type="text" maxlength="9" placeholder="Enter KPP" name="kpp" id="kpp" required @bind-value="kpp" />
+            <label for="kpp"><b>КПП</b></label><br />
+            <input type="text" maxlength="9" minlength="9" placeholder="@CurrentUser.CurrentDeveloper.KPP" name="kpp" id="kpp" required @bind-value="kpp" />
             <br/>
-            <label for="address"><b>Адрес</b></label>
-            <input type="text" placeholder="Enter Address" name="address" id="address" required @bind-value="address" />
+            <label for="address"><b>Адрес</b></label><br />
+            <input type="text" placeholder="@CurrentUser.CurrentDeveloper.Address" name="address" id="address" required @bind-value="address" />
             <br/>
         <hr>
         <button type="submit" class="registerbtn" @onclick="Save">Save</button>
+        <button type="submit" class="registerbtn" @onclick="GoToProfile">Перейти в профиль</button>
     </div>
 </div>
 
-<button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
 
 @code {
     string? organisation;
@@ -65,7 +65,7 @@
 
     public async void Save()
     {
-        if (TelephoneCorrect())
+        if (middleName is not null && firstName is not null && organisation is not null && ogrn is not null && inn is not null && kpp is not null && address is not null && telephone is not null && ogrn.Length == 13 && inn.Length == 10 && kpp.Length == 9)
         {
             CurrentUser.CurrentDeveloper.DeveloperOrganisation = organisation;
             CurrentUser.CurrentDeveloper.OGRN = ogrn;
@@ -80,8 +80,11 @@
         }
     }
 
-    public bool TelephoneCorrect()
+    public void GoToProfile()
     {
-        return true;
+        if (CurrentUser.CurrentDeveloper.MiddleName is not null && CurrentUser.CurrentDeveloper.FirstName is not null && CurrentUser.CurrentDeveloper.DeveloperOrganisation is not null && CurrentUser.CurrentDeveloper.OGRN is not null && CurrentUser.CurrentDeveloper.INN is not null && CurrentUser.CurrentDeveloper.KPP is not null && CurrentUser.CurrentDeveloper.Telephone is not null)
+        {
+            Navigation.NavigateTo("/personalmain");
+        }
     }
 }

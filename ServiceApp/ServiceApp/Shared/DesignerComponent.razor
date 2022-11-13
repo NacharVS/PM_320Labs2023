@@ -10,47 +10,59 @@
     <div class="card-body">
         <hr>
             <label for="organisation"><b>Органзация</b></label>
-            <input type="text" placeholder="Enter Organisation" name="organisation" id="organisation" required @bind-value="organisation" />
+            <input type="text" placeholder="@CurrentUser.CurrentDesigner.DesignerOrganisation" name="organisation" id="organisation" required @bind-value="organisation" />
+            <br/>
             <br/>
             <label for="middleName"><b>Фамилия</b></label>
-            <input type="text" placeholder="Введите Фамилию" name="middleName" id="middleName" required @bind-value="middleName" />
+            <input type="text" placeholder="@CurrentUser.CurrentDesigner.MiddleName" name="middleName" id="middleName" required @bind-value="middleName" />
+            <br/>
             <br/>
             <label for="firstName"><b>Имя</b></label>
-            <input type="text" placeholder="Введите Имя" name="firstName" id="firstName" required @bind-value="firstName" />
+            <input type="text" placeholder="@CurrentUser.CurrentDesigner.FirstName" name="firstName" id="firstName" required @bind-value="firstName" />
+            <br/>
             <br/>
             <label for="lastName"><b>Отчество</b></label>
-            <input type="text" placeholder="Введите Отчество" name="lastName" id="lastName" required @bind-value="lastName" />
+            <input type="text" placeholder="@CurrentUser.CurrentDesigner.LastName" name="lastName" id="lastName" required @bind-value="lastName" />
+            <br/>
             <br/>
             <label for="telephone"><b>Телефон</b></label>
-            <input type="tel" placeholder="Введите Телефон" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="telephone" />
+            <input type="tel" placeholder="@CurrentUser.CurrentDesigner.Telephone" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="telephone" />
+            <br/>
             <br/>
             <label for="email"><b>Email</b></label>
-            <input type="email" placeholder="Ввдеите Почту" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
+            <input type="email" placeholder="@CurrentUser.CurrentDesigner.Email" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
+            <br/>
             <br/>
             <label for="ogrn"><b>ОГРН</b></label>
-            <input type="text" maxlength="13" placeholder="Enter OGRN" name="ogrn" id="ogrn" required @bind-value="ogrn" />
+            <input type="text" maxlength="13" minlength="13" placeholder="@CurrentUser.CurrentDesigner.OGRN" name="ogrn" id="ogrn" required @bind-value="ogrn" />
+            <br/>
             <br/>
             <label for="inn"><b>ИНН</b></label>
-            <input type="text" maxlength="10" placeholder="Enter INN" name="inn" id="inn" required @bind-value="inn"/>
+            <input type="text" maxlength="10" minlength="10" placeholder="@CurrentUser.CurrentDesigner.INN" name="inn" id="inn" required @bind-value="inn"/>
+            <br/>
             <br/>
             <label for="kpp"><b>КПП</b></label>
-            <input type="text" maxlength="9" placeholder="Enter KPP" name="kpp" id="kpp" required @bind-value="kpp" />
+            <input type="text" maxlength="9" minlength="9" placeholder="@CurrentUser.CurrentDesigner.KPP" name="kpp" id="kpp" required @bind-value="kpp" />
+            <br/>
             <br/>
             <label for="address"><b>Адрес</b></label>
-            <input type="text" placeholder="Enter Address" name="address" id="address" required @bind-value="address" />
+            <input type="text" placeholder="@CurrentUser.CurrentDesigner.Address" name="address" id="address" required @bind-value="address" />
+            <br/>
             <br/>
             <label for="director"><b>Директор</b></label>
-            <input type="text" placeholder="Enter Director" name="director" id="director" required @bind-value="director" />
+            <input type="text" placeholder="@CurrentUser.CurrentDesigner.Director" name="director" id="director" required @bind-value="director" />
+            <br/>
             <br/>
             <label for="engineer"><b>Главный инженер</b></label>
-            <input type="text" placeholder="Enter Engineer" name="engineer" id="engineer" required @bind-value="engineer" />
+            <input type="text" placeholder="@CurrentUser.CurrentDesigner.MainEngineer" name="engineer" id="engineer" required @bind-value="engineer" />
+            <br/>
             <br/>
         <hr>
         <button type="submit" class="registerbtn" @onclick="Save">Save</button>
+        <button type="submit" class="registerbtn" @onclick="GoToProfile">Перейти в профиль</button>
     </div>
 </div>
 
-<button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
 
 
 @code {
@@ -75,8 +87,11 @@
 
     public async void Save()
     {
-        if (TelephoneCorrect())
+        if (middleName is not null && firstName is not null && organisation is not null && ogrn is not null && kpp is not null && inn is not null && address is not null && telephone is not null && ogrn.Length == 13 && inn.Length == 10 && kpp.Length == 9)
         {
+            CurrentUser.CurrentDesigner.MiddleName = middleName;
+            CurrentUser.CurrentDesigner.FirstName = firstName;
+            CurrentUser.CurrentDesigner.LastName = lastName;
             CurrentUser.CurrentDesigner.DesignerOrganisation = organisation;
             CurrentUser.CurrentDesigner.OGRN = ogrn;
             CurrentUser.CurrentDesigner.KPP = kpp;
@@ -92,8 +107,11 @@
         }
     }
 
-    public bool TelephoneCorrect()
+    public void GoToProfile()
     {
-        return true;
+        if (CurrentUser.CurrentDesigner.MiddleName is not null && CurrentUser.CurrentDesigner.FirstName is not null && CurrentUser.CurrentDesigner.DesignerOrganisation is not null && CurrentUser.CurrentDesigner.OGRN is not null && CurrentUser.CurrentDesigner.KPP is not null && CurrentUser.CurrentDesigner.Telephone is not null && CurrentUser.CurrentDesigner.INN is not null && CurrentUser.CurrentDesigner.Director is not null && CurrentUser.CurrentDesigner.MainEngineer is not null)
+        {
+            Navigation.NavigateTo("/personalmain");
+        }
     }
 }

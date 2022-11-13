@@ -16,8 +16,8 @@ namespace ServiceApp.Data
         public string Developer { get; set; }
         public string Designer { get; set; }
         public Dictionary<string, bool> DocsPreor { get; set; }
-        public List<string>? LoadedFilesDev { get; set; }
-        public List<string>? LoadedFilesDes { get; set; }
+        public List<string> LoadedFilesDev = new List<string>();
+        public List<string> LoadedFilesDes = new List<string>();
         public string CommentForDes { get; set; }
         public string CommentForDev { get; set; }
         public bool IsApproved { get; set; }

@@ -8,7 +8,7 @@
     <h4 class="card-header">Personal Page</h4>
     <div class="card-body">
         <hr>
-            <label for="department"><b>Отдел</b></label>
+            <label for="department"><b>Отдел</b></label><br />
             <select name="role" @onchange = "DepartmentChanged">
                 <option value="-">-</option>
                 <option value="Водоснабжение">Водоснабжение</option>
@@ -16,31 +16,36 @@
             </select>
             <br/>
             <label for="middleName"><b>Фамилия</b></label>
-            <input type="text" placeholder="Введите Фамилию" name="middleName" id="middleName" required @bind-value="middleName" />
+            <br/>
+            <input type="text" placeholder="@CurrentUser.CurrentCustomer.MiddleName" name="middleName" id="middleName" required @bind-value="middleName" > </input>
             <br/>
             <br/>
             <label for="firstName"><b>Имя</b></label>
-            <input type="text" placeholder="Введите Имя" name="firstName" id="firstName" required @bind-value="firstName" />
+            <br/>
+            <input type="text" placeholder="@CurrentUser.CurrentCustomer.FirstName" name="firstName" id="firstName" required @bind-value="firstName" />
             <br/>
             <br/>
             <label for="lastName"><b>Отчество</b></label>
-            <input type="text" placeholder="Введите Отчество" name="lastName" id="lastName" required @bind-value="lastName" />
+            <br/>
+            <input type="text" placeholder="@CurrentUser.CurrentCustomer.LastName" name="lastName" id="lastName" required @bind-value="lastName" />
             <br/>
             <br/>
             <label for="telephone"><b>Телефон</b></label>
-            <input type="tel" placeholder="Введите Телефон" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="telephone" />
+            <br/>
+            <input type="tel" placeholder="@CurrentUser.CurrentCustomer.Telephone" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="phone" id="phone" required @bind-value="telephone" />
             <br/>
             <br/>
             <label for="email"><b>Email</b></label>
-            <input type="email" placeholder="Введите почту" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
+            <br/>
+            <input type="email" placeholder="@CurrentUser.CurrentCustomer.Email" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
             <br/>
             <br/>
         <hr>
-        <button type="submit" class="registerbtn" @onclick="Save">Save</button>
+        <button type="submit" class="registerbtn" @onclick="Save">Сохранить</button>
+        <button type="submit" class="registerbtn" @onclick="GoToProfile">Перейти в профиль</button>
     </div>
 </div>
 
-<button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
 
 @code {
     string department;
@@ -51,18 +56,29 @@
     string email;
     List<string> globex = new List<string> () { "mail", "gmail" };
 
-    public void GoToProj()
-    {
-        Navigation.NavigateTo("/mainproj");
-    }
-
     public async void Save()
     {
-        CurrentUser.CurrentCustomer.Department = department;
-        DBConnection.ReplaceCustomer(CurrentUser.CurrentCustomer);
-        await LocalStorage.SetAsync<Customer>("Autho", CurrentUser.CurrentCustomer);
-        StateHasChanged();
-        Navigation.NavigateTo("/personalmain");
+        if (middleName is not null && firstName is not null && department is not null && telephone is not null)
+        {
+            CurrentUser.CurrentCustomer.Department = department;
+            CurrentUser.CurrentCustomer.MiddleName = middleName;
+            CurrentUser.CurrentCustomer.FirstName = firstName;
+            CurrentUser.CurrentCustomer.LastName = lastName;
+            CurrentUser.CurrentCustomer.Telephone = telephone;
+            CurrentUser.CurrentCustomer.Email = email;
+            DBConnection.ReplaceCustomer(CurrentUser.CurrentCustomer);
+            await LocalStorage.SetAsync<Customer>("Autho", CurrentUser.CurrentCustomer);
+            StateHasChanged();
+            Navigation.NavigateTo("/personalmain");
+        }
+    }
+
+    public void GoToProfile()
+    {
+        if (CurrentUser.CurrentCustomer.MiddleName is not null && CurrentUser.CurrentCustomer.FirstName is not null && CurrentUser.CurrentCustomer.Department is not null && CurrentUser.CurrentCustomer.Telephone is not null && CurrentUser.CurrentCustomer.Email is not null)
+        {
+            Navigation.NavigateTo("/personalmain");
+        }
     }
 
     public void DepartmentChanged(ChangeEventArgs e)
