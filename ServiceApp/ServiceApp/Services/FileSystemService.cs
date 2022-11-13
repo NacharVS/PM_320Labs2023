@@ -6,7 +6,7 @@ namespace ServiceApp.Services;
 
 public class FileSystemService
 {
-    public async Task UploadImageToDbAsync(Stream stream, string fileName)
+    public async Task UploadDocumentToDbAsync(Stream stream, string fileName)
     {
         var client = new MongoClient("mongodb://localhost");
         var database = client.GetDatabase("Documentation");

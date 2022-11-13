@@ -1,4 +1,4 @@
-﻿@page "/doc"
+﻿@page "/developer"
 @using ServiceApp.Services
 @inject FileSystemService fss
 
@@ -43,7 +43,7 @@
         {
             loadedFiles.Add(file);
             Stream stream = file.OpenReadStream(5000000);
-            await fss.UploadImageToDbAsync(stream, file.Name);
+            await fss.UploadDocumentToDbAsync(stream, file.Name);
             stream.Dispose();
         }
         UploadDoc();

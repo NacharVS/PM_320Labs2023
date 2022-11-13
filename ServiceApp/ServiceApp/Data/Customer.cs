@@ -6,5 +6,5 @@ public class Customer : Worker
 {
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull]
-    public string Department { get; set; }
+    public string? Department { get; set; }
 }

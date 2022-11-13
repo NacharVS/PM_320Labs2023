@@ -10,10 +10,11 @@
 <h3>PersonalAccount</h3>
 
 <EditForm Model="@user" OnValidSubmit="@LogOut" class="mx-1 mx-md-4">
+    <p>Role: @dataBase.CurrentUser?.WorkerRole</p>
     <p>Surname: @dataBase.CurrentUser?.Surname</p>
     <p>Name: @dataBase.CurrentUser?.Name</p>
     <p>Patrinymic: @dataBase.CurrentUser?.Patronymic</p>
-    <input type="submit" class="btn btn-primary btn-lg" value="Log Out" />
+    <input type="submit" class="btn btn-primary btn-lg" value="Log Out"/>
 </EditForm>
 
 @code {

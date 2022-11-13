@@ -4,42 +4,193 @@
 
 @using ServiceApp.Data
 @using ServiceApp.Services
+@using System.Diagnostics
+@using Microsoft.Extensions.Configuration.UserSecrets
+@inject IJSRuntime JS
 @inject DataBase dataBase
 
 <div class="card">
     <h1 class="card-header">Registration</h1>
     <div class="card-body">
-        <EditForm Model="@users" OnValidSubmit="@Reg" class="mx-1 mx-md-4">
+        <EditForm Model="@user" OnValidSubmit="@Reg" class="mx-1 mx-md-4">
             <label>Login:</label> <br/>
-            <input type="" id="Login" @bind-value="@users.Login"/><br/>
+            <input type="" id="Login" @bind-value="@user.Login"/><br/>
             <label>Password:</label><br/>
-            <input type="password" id="Password" @bind-value="@users.Password"/><br/>
+            <input type="password" id="Password" @bind-value="@user.Password"/><br/>
             <label>Password repeat:</label><br/>
-            <input type="password" id="PasswordRepeat" @bind-value="@users.PasswordRepeat"/><br/>
+            <input type="password" id="PasswordRepeat" @bind-value="@user.PasswordRepeat"/><br/>
+            
+            <label>Role:</label><br/>
+            <input type="text" id="Role" @bind-value="@user.WorkerRole" /><br/>
+            @*<input type="checkbox" id="customer" @bind-value="@users.WorkerRole" />
+            <label for="customer">Customer</label><br/>
+            <input type="checkbox" id="designer" @bind-value="@users.WorkerRole" />
+            <label for="designer">Designer</label><br/>
+            <input type="checkbox" id="developer" @bind-value="@users.WorkerRole" />
+            <label for="developer">Developer</label><br/>*@
+            
             <label>Surname:</label><br/>
-            <input type="text" id="Surname" @bind-value="@users.Surname" /><br/>
+            <input type="text" id="Surname" @bind-value="@user.Surname" /><br/>
             <label>Name:</label><br/>
-            <input type="text" id="Name" @bind-value="@users.Name" /><br/>
+            <input type="text" id="Name" @bind-value="@user.Name" /><br/>
             <label>Patronymic:</label><br/>
-            <input type="text" id="Name" @bind-value="@users.Patronymic" /><br/>
+            <input type="text" id="Patronymic" @bind-value="@user.Patronymic" /><br/>
             <label>EMail:</label><br/>
-            <input type="text" id="EMail" @bind-value="@users.EMail" /><br/>
+            <input type="text" id="EMail" @bind-value="@user.EMail" /><br/>
             <label>Telephone:</label><br/>
-            <input type="text" id="Name" @bind-value="@users.Telephone" /><br/><br/>
+            <input type="text" id="Telephone" @bind-value="@user.Telephone" /><br/><br/>
 
+            @switch (user.WorkerRole)
+            {
+                case "Customer":
+                    <p>You have chosen a customer</p>
+                    <label>Department:</label><br/>
+                    <input type="text" @bind-value="department"/><br/><br/>
+                    break;;
+                case "Designer":
+                    <p>You have chosen a designer</p>
+                    <label>ProjectOrganizationName:</label><br/>
+                    <input type="text" @bind-value="organization"/><br/>
+                    <label>OGRN:</label><br/>
+                    <input type="text" @bind-value="ogrn"/><br/>
+                    <label>INN:</label><br/>
+                    <input type="text" @bind-value="inn"/><br/>
+                    <label>KPP:</label><br/>
+                    <input type="text" @bind-value="kpp"/><br/>
+                    <label>Adress:</label><br/>
+                    <input type="text" @bind-value="adress"/><br/>
+                    <label>Director:</label><br/>
+                    <input type="text" @bind-value="director"/><br/>
+                    <label>ChiefProjectEngineer:</label><br/>
+                    <input type="text" @bind-value="chief"/><br/><br/>
+                    break;
+                case "Developer":
+                    <p>You have chosen a developer</p>
+                    <label>DeveloperOrganizationName:</label><br/>
+                    <input type="text" @bind-value="organization"/><br/>
+                    <label>OGRN:</label><br/>
+                    <input type="text" @bind-value="ogrn"/><br/>
+                    <label>INN:</label><br/>
+                    <input type="text" @bind-value="inn"/><br/>
+                    <label>KPP:</label><br/>
+                    <input type="text" @bind-value="kpp"/><br/>
+                    <label>Adress:</label><br/>
+                    <input type="text" @bind-value="adress"/><br/>
+                    <label>ExecutiveCommitteeHead:</label><br/>
+                    <input type="text" @bind-value="chief"/><br/>
+                    break;
+            }
+            
+            <br/><br/>
             <input type="submit" class="btn btn-primary btn-lg" value="Registration" /><br/>
+            
+            @if (btn)
+            {
+                <p>You have been registered</p>
+            }
         </EditForm>
     </div>
 </div>
 
 @code {
-    private Worker users = new Worker();
+    //users
+    private Worker user = new Worker();
+    //for customer
+    private string department;
+    //for designer
+    private string director;
+    //for designer and developer
+    private string organization;
+    private string ogrn;
+    private string inn;
+    private string kpp;
+    private string adress;
+    private string chief;
+    
+    bool btn = false;
 
     public void Reg()
     {
-        if (users.Password == users.PasswordRepeat)
+        switch (user.WorkerRole)
         {
-            dataBase.AddToDataBase(users);
+            case "Customer":
+                Customer customer = new Customer();
+                customer.WorkerRole = user.WorkerRole;
+                customer.Login = user.Login;
+                customer.Password = user.Password;
+                customer.PasswordRepeat = user.PasswordRepeat;
+                customer.Surname = user.Surname;
+                customer.Name = user.Name;
+                customer.Patronymic = user.Patronymic;
+                customer.EMail = user.EMail;
+                customer.Telephone = user.Telephone;
+                customer.Department = department;
+                if (customer.Password == customer.PasswordRepeat)
+                {
+                    dataBase.AddToDataBase(customer);
+                    btn = true;
+                }
+                else
+                {
+                    JS.InvokeVoidAsync("alert", "Passwords don't match");
+                }
+                break;
+            case "Designer":
+                Designer designer = new Designer();
+                designer.WorkerRole = user.WorkerRole;
+                designer.Login = user.Login;
+                designer.Password = user.Password;
+                designer.PasswordRepeat = user.PasswordRepeat;
+                designer.Surname = user.Surname;
+                designer.Name = user.Name;
+                designer.Patronymic = user.Patronymic;
+                designer.EMail = user.EMail;
+                designer.Telephone = user.Telephone;
+                designer.ProjectOrganizationName = organization;
+                designer.OGRN = ogrn;
+                designer.INN = inn;
+                designer.KPP = kpp;
+                designer.Adress = adress;
+                designer.Director = director;
+                designer.ChiefProjectEngineer = chief;
+                if (designer.Password == designer.PasswordRepeat)
+                {
+                    dataBase.AddToDataBase(designer);
+                    btn = true;
+                }
+                else
+                {
+                    JS.InvokeVoidAsync("alert", "Passwords don't match");
+                }
+                break;
+            case "Developer":
+                Developer developer = new Developer();
+                developer.WorkerRole = user.WorkerRole;
+                developer.Login = user.Login;
+                developer.Password = user.Password;
+                developer.PasswordRepeat = user.PasswordRepeat;
+                developer.Surname = user.Surname;
+                developer.Name = user.Name;
+                developer.Patronymic = user.Patronymic;
+                developer.EMail = user.EMail;
+                developer.Telephone = user.Telephone;
+                developer.DeveloperOrganizationName = organization;
+                developer.OGRN = ogrn;
+                developer.INN = inn;
+                developer.KPP = kpp;
+                developer.Adress = adress;
+                developer.ExecutiveCommitteeHead = chief;
+                if (developer.Password == developer.PasswordRepeat)
+                {
+                    dataBase.AddToDataBase(developer);
+                    btn = true;
+                }
+                else
+                {
+                    JS.InvokeVoidAsync("alert", "Passwords don't match");
+                }
+                break;
         }
     }
+
 }

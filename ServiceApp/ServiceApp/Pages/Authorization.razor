@@ -4,23 +4,28 @@
 
 @using ServiceApp.Data
 @using ServiceApp.Services
+@using System.Diagnostics
 @inject DataBase dataBase
 @inject IJSRuntime JS
 @inject ILocalStorageService localStorageService
+@inject NavigationManager novigation
 
 <div class="card">
     <h1 class="card-header">Authorization</h1>
     <div class="card-body">
         <EditForm Model="@user" OnValidSubmit="@LogIn" class="mx-1 mx-md-4">
+            <label>Role:</label><br/>
+            <input type="text" id="Role" @bind-value="role"/><br/>
             <label>Login:</label><br/>
-            <input type="" id="Login" @bind-value="@user.Login"/><br/>
+            <input type="text" id="Login" @bind-value="@user.Login"/><br/>
             <label>Password:</label><br/>
             <input type="password" id="Password" @bind-value="@user.Password"/><br/><br/>
 
-            <input type="submit" class="btn btn-primary btn-lg" value="Log In" />
+            <input type="submit" class="btn btn-primary btn-lg" value="Log In"/>
 
             @if (dataBase.CurrentUser is not null)
             {
+                <p>Role: @dataBase.CurrentUser?.WorkerRole</p>
                 <p>Surname: @dataBase.CurrentUser?.Surname</p>
                 <p>Name: @dataBase.CurrentUser?.Name</p>
                 <p>Patronymic: @dataBase.CurrentUser?.Patronymic</p>
@@ -31,13 +36,28 @@
 
 @code {
     private Worker user = new Worker();
+    private string role;
 
     public void LogIn()
     {
         if (user.Login != null && user.Password != null)
         {
-            dataBase.CurrentUser = dataBase.FindByLogin(user.Login);
-            
+            switch (role)
+            {
+                case "Customer":
+                    dataBase.CurrentUser = dataBase.FindByCustomerLogin(user.Login);
+                    novigation.NavigateTo("/customer");
+                    break;
+                case "Designer":
+                    dataBase.CurrentUser = dataBase.FindByDesignLogin(user.Login);
+                    novigation.NavigateTo("/designer");
+                    break;
+                case "Developer":
+                    dataBase.CurrentUser = dataBase.FindByDeveloperLogin(user.Login);
+                    novigation.NavigateTo("/developer");
+                    break;
+            }
+
             if (dataBase.CurrentUser != null)
             {
                 localStorageService.SetAsync<Worker>("Authorization", dataBase.CurrentUser);

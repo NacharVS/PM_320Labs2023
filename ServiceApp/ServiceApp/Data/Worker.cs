@@ -11,29 +11,32 @@ public class Worker
     public ObjectId Id { get; set; }
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull]
-    public string Role { get; set; }
+    public string? Role { get; set; }
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull]
-    public string Login { get; set; }
+    public string? Login { get; set; }
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull]
-    public string Password { get; set; }
+    public string? Password { get; set; }
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull]
-    public string PasswordRepeat { get; set; }
+    public string? PasswordRepeat { get; set; }
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull]
-    public string Surname { get; set; }
+    public string? Surname { get; set; }
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull] 
-    public string Patronymic { get; set; }
+    public string? Patronymic { get; set; }
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull] 
-    public string EMail { get; set; }
+    public string? EMail { get; set; }
     [BsonIgnoreIfDefault]
     [BsonIgnoreIfNull] 
-    public int  Telephone { get; set; }
+    public string? Telephone { get; set; }
+    [BsonIgnoreIfDefault]
+    [BsonIgnoreIfNull]
+    public string? WorkerRole { get; set; }
 }
