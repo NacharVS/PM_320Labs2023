@@ -15,29 +15,30 @@
                 <option value="Газификация">Газификация</option>
             </select>
             <br/>
+            <br/>
             <label for="middleName"><b>Фамилия</b></label>
             <br/>
-            <input type="text" placeholder="@CurrentUser.CurrentCustomer.MiddleName" name="middleName" id="middleName" required @bind-value="middleName" > </input>
+            <input type="text" placeholder="@CurrentUser.CurrentCustomer.MiddleName" name="middleName" id="middleName" required @bind-value="@CurrentUser.CurrentCustomer.MiddleName" > </input>
             <br/>
             <br/>
             <label for="firstName"><b>Имя</b></label>
             <br/>
-            <input type="text" placeholder="@CurrentUser.CurrentCustomer.FirstName" name="firstName" id="firstName" required @bind-value="firstName" />
+            <input type="text" placeholder="@CurrentUser.CurrentCustomer.FirstName" name="firstName" id="firstName" required @bind-value="@CurrentUser.CurrentCustomer.FirstName" />
             <br/>
             <br/>
             <label for="lastName"><b>Отчество</b></label>
             <br/>
-            <input type="text" placeholder="@CurrentUser.CurrentCustomer.LastName" name="lastName" id="lastName" required @bind-value="lastName" />
+            <input type="text" placeholder="@CurrentUser.CurrentCustomer.LastName" name="lastName" id="lastName" required @bind-value="@CurrentUser.CurrentCustomer.LastName" />
             <br/>
             <br/>
             <label for="telephone"><b>Телефон</b></label>
             <br/>
-            <input type="tel" placeholder="@CurrentUser.CurrentCustomer.Telephone" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="phone" id="phone" required @bind-value="telephone" />
+            <input type="tel" placeholder="@CurrentUser.CurrentCustomer.Telephone" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="phone" id="phone" required @bind-value="@CurrentUser.CurrentCustomer.Telephone" />
             <br/>
             <br/>
             <label for="email"><b>Email</b></label>
             <br/>
-            <input type="email" placeholder="@CurrentUser.CurrentCustomer.Email" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
+            <input type="email" placeholder="@CurrentUser.CurrentCustomer.Email" pattern=".+@globex\.com" name="email" id="email" required @bind-value="@CurrentUser.CurrentCustomer.Email" />
             <br/>
             <br/>
         <hr>
@@ -49,23 +50,14 @@
 
 @code {
     string department;
-    string middleName;
-    string firstName;
-    string? lastName;
-    string telephone;
-    string email;
+
     List<string> globex = new List<string> () { "mail", "gmail" };
 
     public async void Save()
     {
-        if (middleName is not null && firstName is not null && department is not null && telephone is not null)
+        if (CurrentUser.CurrentCustomer.MiddleName is not null && CurrentUser.CurrentCustomer.FirstName is not null && CurrentUser.CurrentCustomer.Department is not null && CurrentUser.CurrentCustomer.Telephone is not null && CurrentUser.CurrentCustomer.Email is not null)
         {
             CurrentUser.CurrentCustomer.Department = department;
-            CurrentUser.CurrentCustomer.MiddleName = middleName;
-            CurrentUser.CurrentCustomer.FirstName = firstName;
-            CurrentUser.CurrentCustomer.LastName = lastName;
-            CurrentUser.CurrentCustomer.Telephone = telephone;
-            CurrentUser.CurrentCustomer.Email = email;
             DBConnection.ReplaceCustomer(CurrentUser.CurrentCustomer);
             await LocalStorage.SetAsync<Customer>("Autho", CurrentUser.CurrentCustomer);
             StateHasChanged();
