@@ -18,7 +18,7 @@
             <tr>
                 <td @onclick = "() => ViewProj(proj)">@proj.Name</td>
                 <td @onclick = "() => ViewProj(proj)">@proj.Department</td>
-                <td ></td>
+                <td><input type="checkbox" checked = "@proj.IsApproved" disabled="disabled"><label></label></td>
             </tr>
         }
     </tbody>
@@ -26,7 +26,7 @@
 
 @if (CurrentUser.CurrentCustomer != null)
 {
-    <button @onclick="CreatingProj">Создать Проект</button>
+    <button class = "registerbtn" @onclick="CreatingProj">Создать Проект</button>
 }
 
 @code {

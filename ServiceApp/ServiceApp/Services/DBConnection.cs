@@ -182,5 +182,23 @@ namespace ServiceApp.Services
             }
             return first;
         }
+
+        public static void ReplaceGas(Project project)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var filter = new BsonDocument("_id", project.Id);
+            var collection = database.GetCollection<Project>("CollectionOfProjectsGas");
+            collection.ReplaceOne(filter, project);
+        }
+
+        public static void ReplaceWater(Project project)
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("GalievaProject");
+            var filter = new BsonDocument("_id", project.Id);
+            var collection = database.GetCollection<Project>("CollectionOfProjectsWater");
+            collection.ReplaceOne(filter, project);
+        }
     }
 }

@@ -14,27 +14,33 @@
                 <option value="Водоснабжение">Водоснабжение</option>
                 <option value="Газификация">Газификация</option>
             </select>
+            <br/>
             <label for="middleName"><b>Фамилия</b></label>
             <input type="text" placeholder="Введите Фамилию" name="middleName" id="middleName" required @bind-value="middleName" />
+            <br/>
             <br/>
             <label for="firstName"><b>Имя</b></label>
             <input type="text" placeholder="Введите Имя" name="firstName" id="firstName" required @bind-value="firstName" />
             <br/>
+            <br/>
             <label for="lastName"><b>Отчество</b></label>
             <input type="text" placeholder="Введите Отчество" name="lastName" id="lastName" required @bind-value="lastName" />
+            <br/>
             <br/>
             <label for="telephone"><b>Телефон</b></label>
             <input type="tel" placeholder="Введите Телефон" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="telephone" />
             <br/>
+            <br/>
             <label for="email"><b>Email</b></label>
             <input type="email" placeholder="Введите почту" pattern=".+@globex\.com" name="email" id="email" required @bind-value="email" />
+            <br/>
             <br/>
         <hr>
         <button type="submit" class="registerbtn" @onclick="Save">Save</button>
     </div>
 </div>
 
-<button @onclick="GoToProj">Мои проекты</button>
+<button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
 
 @code {
     string department;

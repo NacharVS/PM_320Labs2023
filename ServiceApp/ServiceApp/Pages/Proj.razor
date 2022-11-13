@@ -7,12 +7,13 @@
 @inject CurrentProject CurrentProj
 @inject FileSystemService FileSyS
 @inject ILocalStorageService LocalStorage
+@inject IJSRuntime JS
 
 <PageTitle>Index</PageTitle>
 
 
 <div class="card">
-    <h4 class="card-header">Personal Page</h4>
+    <h4 class="card-header" Color = "black">Personal Page</h4>
     <div class="card-body">
         <hr>
             <p>Наименование:  @CurrentProj.Project.Name</p>
@@ -57,31 +58,136 @@
                 }
             </tbody>
         </table>
-        <h6>Документы, предоставленные проектировщиком</h6>
-        @if (CurrentUser.UserRole == "Проектировщик")
+        @if (CurrentUser.UserRole != "Developer")
         {
-            <InputFile OnChange="@LoadFilesByDesigner" multiple  />
+            <h6>Документы, предоставленные проектировщиком</h6>
+            @if (CurrentUser.UserRole == "Designer")
+            {
+                <InputFile OnChange="@LoadFiles" multiple  />
+                <br />
+            }
+            @if (CurrentProj.Project.LoadedFilesDes is not null)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Наименование документа</th>
+                            <th>Наименование документа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var file in CurrentProj.Project.LoadedFilesDes)
+                        {
+                            <tr>
+                                <td><b>@file</b></td>
+                                <td> 
+                                    <a href="/files/@file">Просмотреть файл и скачать</a>
+                                </td>
+                            </tr>
+                        }
+                        @if (filesDes is not null)
+                        {
+                            @foreach (var file in filesDes)
+                            {
+                                <tr>
+                                    <td><b>@file</b></td>
+                                    <td> 
+                                        <a href="/files/@file">Просмотреть файл и скачать</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
+            @if (CurrentUser.UserRole == "Customer")
+            {
+                <label for="comForDes"><b>Комментарий</b></label>                    
+                <input type="text" placeholder="Комментарий" name="comForDes" id="comForDes" required @bind-value="comForDes" />
+                <br/>
+            }
+            else
+            {
+                <label for="comForDes"><b>Комментарий</b></label> 
+                <br/>
+                <h5>@CurrentProj.Project.CommentForDes</h5>
+            }
         }
-        <h6>Документы, предоставленные застройщиком</h6>
-        @if (CurrentUser.UserRole == "Застройщик")
+        @if (CurrentUser.UserRole != "Designer")
         {
-            <InputFile OnChange="@LoadFilesByDeveloper" multiple  />
+            <h6>Документы, предоставленные застройщиком</h6>
+            @if (CurrentUser.UserRole == "Developer")
+            {
+                <InputFile OnChange="@LoadFilesByDeveloper" multiple  />
+                <br />
+            }
+            @if (CurrentProj.Project.LoadedFilesDev is not null)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Наименование документа</th>
+                            <th>Наименование документа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var file in CurrentProj.Project.LoadedFilesDev)
+                        {
+                            <tr>
+                                <td><b>@file</b></td>
+                                <td>
+                                    <a href="/files/@file">Просмотреть файл и скачать</a>
+                                </td>
+                            </tr>
+                        }
+                        @if (filesDev is not null)
+                        {
+                            @foreach (var file in filesDev)
+                            {
+                                <tr>
+                                    <td><b>@file</b></td>
+                                    <td>
+                                        <a href="/files/@file">Просмотреть файл и скачать</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
+            @if (CurrentUser.UserRole == "Customer")
+            {
+                <label for="comForDes"><b>Комментарий</b></label>                    
+                <input type="text" placeholder="Комментарий" name="comForDes" id="comForDes" required @bind-value="comForDev" />
+                <br/>
+            }
+            else
+            {
+                <label for="comForDes"><b>Комментарий</b></label> 
+                <br/>
+                <h5>@CurrentProj.Project.CommentForDev</h5>
+            }
         }
-        @if (CurrentUser.UserRole == "Заказчик")
+        <br />
+        @if (CurrentUser.UserRole == "Customer")
         {
-            <button type="submit" class="registerbtn" @onclick="Ok">Утвердить</button>
+            <button type="submit" class="registerbtn" @onclick="Aprroved">Утвердить</button>
         }
-        <button type="submit" class="registerbtn" @onclick="Save">Сохранить</button>
     </div>
 </div>
 
-
-<button @onclick="Logouting">Выйти</button>
-<button @onclick="GoToProfile">Профиль</button>
+<button type="submit" class="registerbtn" @onclick="Save">Сохранить</button>
+<button class = "registerbtn"  @onclick="Logouting">Выйти</button>
+<button class = "registerbtn" @onclick="GoToProfile">Профиль</button>
 
 @code {
     List<IBrowserFile> _loadedFilesDev = new();
     List<IBrowserFile> _loadedFilesDes = new();
+    List<string>? filesDes = new();
+    List<string>? filesDev = new();
+    string comForDes;
+    string comForDev;
+
 
     private void Logouting()
     {
@@ -99,37 +205,119 @@
         Navigation.NavigateTo("/personalmain");
     }
 
-    public void Save()
+    public void Aprroved()
     {
+        switch (CurrentProj.Project.Department)
+        {
+            case "Водоснабжение" :
+                foreach (var file in filesDes)
+                {
+                    CurrentProj.Project.LoadedFilesDes.Add(file);
+                }
+                foreach (var file in filesDev)
+                {
+                    CurrentProj.Project.LoadedFilesDev.Add(file);
+                }
+                CurrentProj.Project.CommentForDes = comForDes;
+                CurrentProj.Project.CommentForDev = comForDev;
+                CurrentProj.Project.IsApproved = true;
+                DBConnection.ReplaceWater(CurrentProj.Project);
+                break;
+            case "Газификация" :
+                foreach (var file in filesDes)
+                {
+                    CurrentProj.Project.LoadedFilesDes.Add(file);
+                }
+                foreach (var file in filesDev)
+                {
+                    CurrentProj.Project.LoadedFilesDev.Add(file);
+                }
+                CurrentProj.Project.CommentForDes = comForDes;
+                CurrentProj.Project.CommentForDev = comForDev;
+                CurrentProj.Project.IsApproved = true;
+                DBConnection.ReplaceGas(CurrentProj.Project);
+                break;
+        }
+        filesDes = null;
+        filesDev = null;
         Navigation.NavigateTo("/personalmain");
     }
-    
+
+    public void Save()
+    {
+        switch (CurrentProj.Project.Department)
+        {
+            case "Водоснабжение" :
+                foreach (var file in filesDes)
+                {
+                    CurrentProj.Project.LoadedFilesDes.Add(file);
+                }
+                foreach (var file in filesDev)
+                {
+                    CurrentProj.Project.LoadedFilesDev.Add(file);
+                }
+                CurrentProj.Project.CommentForDes = comForDes;
+                CurrentProj.Project.CommentForDev = comForDev;
+                DBConnection.ReplaceWater(CurrentProj.Project);
+                break;
+            case "Газификация" :
+                foreach (var file in filesDes)
+                {
+                    CurrentProj.Project.LoadedFilesDes.Add(file);
+                }
+                foreach (var file in filesDev)
+                {
+                    CurrentProj.Project.LoadedFilesDev.Add(file);
+                }
+                CurrentProj.Project.CommentForDes = comForDes;
+                CurrentProj.Project.CommentForDev = comForDev;
+                DBConnection.ReplaceGas(CurrentProj.Project);
+                break;
+        }
+        filesDes = null;
+        filesDev = null;
+        Navigation.NavigateTo("/personalmain");
+    }
+
     public void Ok()
     {
         Navigation.NavigateTo("/personalmain");
     }
 
-    private async Task LoadFilesByDesigner(InputFileChangeEventArgs e)
+    private async Task LoadFiles(InputFileChangeEventArgs e)
     {
         _loadedFilesDes.Clear();
 
         foreach (var file in e.GetMultipleFiles(e.FileCount))
         {
             _loadedFilesDes.Add(file);
-            Stream stream = file.OpenReadStream(2000000);
+            filesDes.Add(file.Name);
+            Stream stream = file.OpenReadStream();
             await FileSyS.UploadFileToDb(stream, file.Name);
+            FileSyS.DownloadFileToProject(file);
             stream.Dispose();
         }
-        RenderAll();
     }
 
-    void RenderAll()
-    {
-        
-    }
 
     private async Task LoadFilesByDeveloper(InputFileChangeEventArgs e)
     {
-        Navigation.NavigateTo("/personalmain");
+        _loadedFilesDev.Clear();
+
+        foreach (var file in e.GetMultipleFiles(e.FileCount))
+        {
+            _loadedFilesDev.Add(file);
+            filesDev.Add(file.Name);
+            Stream stream = file.OpenReadStream();
+            await FileSyS.UploadFileToDb(stream, file.Name);
+            FileSyS.DownloadFileToProject(file);
+            stream.Dispose();
+        }
     }
 }
+
+<style>
+    .card-header {
+        background-color :rgba(0,0,0,0.4);
+    }
+</style>
