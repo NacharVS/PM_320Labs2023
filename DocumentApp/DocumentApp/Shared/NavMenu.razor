@@ -10,8 +10,14 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Главная
+            </NavLink>
             <NavLink class="nav-link" href="/RegPage" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Authorization
+                <span class="oi oi-person" aria-hidden="true"></span> Авторизация
+            </NavLink>
+            <NavLink class="nav-link" href="/ProjectsPage" Match="NavLinkMatch.All">
+                <span class="oi oi-calendar" aria-hidden="true"></span> Проекты
             </NavLink>
         </div>
     </nav>

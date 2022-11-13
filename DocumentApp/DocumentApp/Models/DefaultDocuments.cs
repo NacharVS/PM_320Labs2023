@@ -17,7 +17,7 @@ public class DefaultDocuments
             "Сведения о наличие водозаборных скважин (родников) на территории хозяйства."
         };
 
-        public List<string> DocumentsDas = new()
+        public List<string> DocumentsGas = new()
         {
             "Письмо-обращение на имя Президента,Премьер-Министра, Минстрой РТ",
             "Задание на проектирование",
@@ -69,7 +69,7 @@ public class DefaultDocuments
             "Срок разработки проектной документации, месяцев"
         };
 
-        public List<string> DesignerFormWaterNoHeader = new List<string>
+        public List<string> DesignerFormWaterNoHeader = new()
         {
             "Диаметр (мм) трубопровода и протяженность линейного объекта (м)",
             "Производительность БОС, м3/сут",

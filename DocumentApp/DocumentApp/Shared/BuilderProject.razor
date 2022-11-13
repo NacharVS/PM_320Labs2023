@@ -7,72 +7,73 @@
 @inject IDocumentService DocumentService
 
 <EditForm Model="ProjectService.CurrentProject">
-     <table class="table table-responsive table-bordered">
-         <thead>
-         <tr>
-             <td>Название</td>
-             <td>Наименование файла</td>
-             @if (!IsCustomer)
-             {
-                 <td>Файл</td>
-             }
-             <td>Действие</td>
-             <td>Предпочтительность</td>
-             <td>Утвержден</td>
-         </tr>
-         </thead>
-         <tbody>
-         @foreach (var doc in ProjectService.CurrentProject.Documents!)
-         {
-             <tr>
-                 <td> <label class="form-label col-form-label-lg">@doc.Name</label> </td>
-                 <td> <label class="form-label col-form-label-lg"> @doc.FileName</label> </td>
-                 @if (!IsCustomer)
-                 {
-                     <td>
-                         <InputFile OnChange="@(e => UploadDocument(e, doc))"></InputFile>
-                     </td>
-                 }
-                 <td>
-                     <div class="d-flex justify-content-around">
-                         @if (!IsCustomer)
-                         {
-                             <button class="btn btn-dark me-10" @onclick="() => SaveDocument(doc)">Сохранить</button>
-                         }
-                         <a class="btn btn-secondary"  href="documents/@doc.FileName" @onclick="() => DownloadDocument(doc)" download="@doc.FileName">Скачать</a>
-                     </div>
-                 </td>
-                 <td>
-                     @if (IsCustomer)
-                     {
-                         <InputCheckbox @bind-Value="doc.IsPrefer" class="d-flex justify-content-center"></InputCheckbox>
-                     }
-                     else
-                     {
-                         var hidden = !doc.IsPrefer;
-                         <div class="alert alert-info" hidden="@hidden">Предпочтительный документ</div>
-                     }
-                 </td>
-                 <td>
-                     @if (IsCustomer)
-                     {
-                         <InputCheckbox @bind-Value="doc.IsApproved" class="d-flex justify-content-center"></InputCheckbox>
-                     }
-                     else
-                     {
-                         var hidden = !doc.IsApproved;
-                         <div class="alert alert-success" hidden="@hidden">Документ утвержен</div>
-                     }
-                 </td>
-             </tr>
-         }
-         </tbody>
-     </table>
-     @if (IsCustomer)
-     {
-         <button class="btn btn-success" @onclick="SaveChanges">Сохранить изменения</button>
-     }
- </EditForm>
+    <table class="table table-responsive table-bordered">
+        <thead>
+        <tr>
+            <td>Название</td>
+            <td>Наименование файла</td>
+            @if (!IsCustomer)
+            {
+                <td>Файл</td>
+            }
+            <td>Действие</td>
+            <td>Предпочтительность</td>
+            <td>Утвержден</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var doc in ProjectService.CurrentProject.Documents!)
+        {
+            <tr>
+                <td> <label class="form-label col-form-label-lg">@doc.Name</label> </td>
+                <td> <label class="form-label col-form-label-lg"> @doc.FileName</label> </td>
+                @if (!IsCustomer)
+                {
+                    <td>
+                        <InputFile OnChange="@(e => UploadDocument(e, doc))"></InputFile>
+                    </td>
+                }
+                <td>
+                    <div class="d-flex justify-content-around">
+                        @if (!IsCustomer)
+                        {
+                            <button class="btn btn-dark me-10" @onclick="() => SaveDocument(doc)">Сохранить</button>
+                        }
+                        <a class="btn btn-secondary"  href="documents/@doc.FileName" @onclick="() => DownloadDocument(doc)" download="@doc.FileName">Скачать</a>
+                    </div>
+                </td>
+                <td>
+                    @if (IsCustomer)
+                    {
+                        <InputCheckbox @bind-Value="doc.IsPrefer" class="d-flex justify-content-center"></InputCheckbox>
+                    }
+                    else
+                    {
+                        var hidden = !doc.IsPrefer;
+                        <div class="alert alert-info" hidden="@hidden">Предпочтительный документ</div>
+                    }
+                </td>
+                <td>
+                    @if (IsCustomer)
+                    {
+                        <InputCheckbox @bind-Value="doc.IsApproved" class="d-flex justify-content-center"></InputCheckbox>
+                    }
+                    else
+                    {
+                        var hidden = !doc.IsApproved;
+                        <div class="alert alert-success" hidden="@hidden">Документ утвержен</div>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @if (IsCustomer)
+    {
+        <button class="btn btn-success" @onclick="SaveChanges">Сохранить изменения</button>
+    }
+</EditForm>
+<hr/>
 
 @code {
     [Parameter]

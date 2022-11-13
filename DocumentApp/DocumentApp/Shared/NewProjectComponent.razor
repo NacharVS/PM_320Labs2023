@@ -5,7 +5,7 @@
 @inject NavigationManager NavigationManager
 @inject ProjectService ProjectService
 @inject IDocumentService DocumentService
-<h3>NewProjectComponent</h3>
+<h3>Новый проект</h3>
 
 <EditForm Model="ProjectService.CurrentProject">
     <input type="text" @bind="ProjectService.CurrentProject.ProjectName" class="form-control form-control-lg"/>
@@ -61,7 +61,7 @@
 
         if(_projectCustomer!.Department == "Газификация")
         {
-            foreach (var doc in _defaultDocuments!.DocumentsDas)
+            foreach (var doc in _defaultDocuments!.DocumentsGas)
             {
                 _docs.Add(new Document
                 {
@@ -81,7 +81,7 @@
             }
             foreach(var field in _defaultDocuments.DesignerFormGas)
             {
-                _designerForm.FormFields?.Add(new FormField {FieldValue = field, FieldName = ""});
+                _designerForm.FormFields?.Add(new FormField {FieldValue = "", FieldName = field});
             }
             foreach(var field in _designerForm.FormFields!)
             {
