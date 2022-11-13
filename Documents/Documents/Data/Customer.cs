@@ -10,5 +10,7 @@ namespace Documents.Data
         public string Surname { get; set; }
         [BsonIgnoreIfDefault]
         public string Patronymic { get; set; }
+        [BsonIgnoreIfDefault]
+        public string Department_ID { get; set; }
     }
 }

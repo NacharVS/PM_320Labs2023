@@ -30,11 +30,15 @@
     protected override async Task OnInitializedAsync()
     {
         var localUser = await LocalStServ.GetAsync<User>("Authorization");
-        var dbUser = UserServ.GetUserByLoginAndPassword(localUser.Login, localUser.Password);
 
-        if (dbUser != null)
+        if (localUser != null)
         {
-            UserServ.CurrentUser = dbUser;
-        }
+            var dbUser = UserServ.GetUserByLoginAndPassword(localUser.Login, localUser.Password);
+
+            if (dbUser != null)
+            {
+                UserServ.CurrentUser = dbUser;
+            }
+        }  
     }
 }

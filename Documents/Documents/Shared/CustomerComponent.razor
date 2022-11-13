@@ -1,4 +1,10 @@
 ﻿@using Documents.Data
+@using Documents.Services
+
+@inject DepartmentService DepartmentServ
+@inject UserService UserServ
+@inject DepartmentService DepartmentServ
+
 
 @if (_customer != null)
 {
@@ -16,27 +22,58 @@
         <label>Отчество</label>
         <input class="form-control" @bind-value="@_customer.Patronymic" style="width: 400px;" @onblur="() => SendUser.InvokeAsync(_customer)">
     </div>
+
+    <div class="form-group">
+        <label>Отдел: </label>
+        <br/><select class="custom-select" @bind="@_department" style="width: 400px;" @onblur="SendUserInfo">
+            @foreach(var dep in DepartmentServ.GetDepartmentNames())
+            {
+                <option value="@dep">@dep</option>
+            }
+        </select>
+        @if (_department == "")
+        {
+            <div class="alert alert-warning" style="width: 400px;">
+                Не указан отдел!
+            </div>
+        }
+        </div>
 }
 
 @code {
-    [Parameter]
-    public Customer Customer { get; set; }
+        [Parameter]
+        public Customer Customer { get; set; }
 
-    [Parameter]
-    public EventCallback<bool> IsDataCorrect { get; set; }
+        [Parameter]
+        public EventCallback<bool> IsDataCorrect { get; set; }
 
-    private Customer _customer = new Customer();
+        private Customer _customer = new Customer();
 
-    [Parameter]
-    public EventCallback<User> SendUser { get; set; }
+        [Parameter]
+        public EventCallback<User> SendUser { get; set; }
 
-    protected override void OnInitialized()
-    {
-        IsDataCorrect.InvokeAsync(true);
-        if (Customer != null)
+        private string _department = ""; 
+
+        protected override void OnInitialized()
         {
-            _customer = Customer;
+            if (Customer != null)
+            {
+                _customer = Customer;
+                _department = DepartmentServ.GetDepartmentById(Customer.Department_ID).Name;
+            }
+            StateHasChanged();
         }
-        StateHasChanged();
-    }
+
+        private void SendUserInfo()
+        {
+            if (_department != "")
+            {
+                _customer.Department_ID = DepartmentServ.GetDepartmentByName(_department).Id;
+                SendUser.InvokeAsync(_customer);
+                IsDataCorrect.InvokeAsync(true);
+                return;
+            }
+            IsDataCorrect.InvokeAsync(false);
+        }
+
 }

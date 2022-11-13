@@ -6,6 +6,7 @@
 
 @inject UserService UserServ
 @inject RoleService RoleServ
+@inject IJSRuntime JSRun
 
 <h3>Личный кабинет</h3>
 
@@ -63,12 +64,16 @@
         _user = UserServ.CurrentUser;
     }
 
-    private void Save()
+    private async void Save()
     {
         if (CheckFields() && _isDataCorrect)
         {
             UserServ.UpdateUser(_user, _user.Login);
+            await JSRun.InvokeVoidAsync("alert", "Данные успешно сохранены!");
+            return;
         }
+
+        await JSRun.InvokeVoidAsync("alert", "Не все поля заполнены!");
     }
 
     private bool CheckFields()

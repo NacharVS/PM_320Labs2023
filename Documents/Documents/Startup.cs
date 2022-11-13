@@ -30,6 +30,7 @@ namespace Documents
             services.AddServerSideBlazor();
             services.AddSingleton<RoleService>();
             services.AddSingleton<UserService>();
+            services.AddSingleton<DepartmentService>();
             services.AddScoped<ILocalStorageService, LocalStorageService>();
         }
 

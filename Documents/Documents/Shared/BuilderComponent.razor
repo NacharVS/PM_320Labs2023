@@ -67,6 +67,7 @@
     {
         if (Builder != null)
         {
+            IsDataCorrect.InvokeAsync(true);
             _builder = Builder;
         }
         StateHasChanged();
@@ -78,7 +79,9 @@
         {
             IsDataCorrect.InvokeAsync(true);
             SendUser.InvokeAsync(_builder);
+            return;
         }
+        IsDataCorrect.InvokeAsync(false);
     }
 
     private bool IsOGRNCorrect()

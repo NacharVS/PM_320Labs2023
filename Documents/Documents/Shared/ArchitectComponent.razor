@@ -74,6 +74,7 @@
         if (Architect != null)
         {
             _architect = Architect;
+            IsDataCorrect.InvokeAsync(true);
         }
         StateHasChanged();
     }
@@ -84,7 +85,9 @@
         {
             IsDataCorrect.InvokeAsync(true);
             SendUser.InvokeAsync(_architect);
+            return;
         }
+        IsDataCorrect.InvokeAsync(false);
     }
 
     private bool IsOGRNCorrect()
