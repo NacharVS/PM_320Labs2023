@@ -1,22 +1,120 @@
 @using Core.Entities.Documents
+@using Core.Enums
 @using Web.Services
+@using Web.Utils
+@using System.ComponentModel.DataAnnotations
 @inject DocumentDomainService DocumentDomainService
+@inject AuthService AuthService
 
 <div class="card">
-  <div class="card-body">
-    <h5 class="card-title">@Doc.Name</h5>
-    <p class="card-text">@Doc.DocumentType</p>
-    <button type="button" class="btn btn-primary" @onclick="@DownloadFile">Download</button>
-  </div>
+    <div class="card-body">
+        <h5 class="card-title">@Doc.Name.Split(".")[0]</h5>
+        <p class="card-text">@TryGetDisplayName(Doc.DocumentType)</p>
+        <button type="button" class="btn btn-primary" @onclick="@DownloadFile">Download</button>
+
+
+        @if (Doc.IsRequired)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="isrequired"
+                       @onchange="@(async ui => { await OnRequiredChange((bool)ui.Value); })"
+                       readonly=@_disabled checked/>
+                <label class="form-check-label" for="isrequired">Required</label>
+            </div>
+        }
+        else
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="isrequired"
+                       @onchange="@(async ui => { await OnRequiredChange((bool)ui.Value); })"/>
+                <label class="form-check-label" for="isrequired">Required</label>
+            </div>
+        }
+
+        @if (Doc.IsAccepted)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="isaccepted"
+                       @onchange="@(async ui => { await OnAcceptedChange((bool)ui.Value); })" checked/>
+                <label class="form-check-label" for="isaccepted">Accepted</label>
+            </div>
+        }
+        else
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="isaccepted"
+                       @onchange="@(async ui => { await OnAcceptedChange((bool)ui.Value); })"/>
+                <label class="form-check-label" for="isaccepted">Accepted</label>
+            </div>
+        }
+
+
+    </div>
 </div>
 
 @code {
-  [Parameter] 
-  public dynamic Doc { get; set; }
 
-  private async Task DownloadFile()
-  {
-    
-  }
-  
+    [Parameter]
+    public dynamic Doc { get; set; }
+
+    private bool _disabled;
+
+    protected override void OnInitialized()
+    {
+        _disabled = AuthService.AuthorizedUser!.Role != UserRole.Customer;
+    }
+
+    private async Task DownloadFile()
+    {
+        await using FileStream fs = new FileStream($"downloads/{Doc.Name + '.' + Doc.FileExtension}", FileMode.Create);
+        await DocumentDomainService.DownloadFile(Doc.FileId, fs);
+    }
+
+    private string? TryGetDisplayName(dynamic doc)
+    {
+        try
+        {
+            return ((WaterSupplyDocumentType)doc).GetAttribute<DisplayAttribute>().Name;
+        }
+        catch
+        {
+            return ((GasificationDocumentType)doc).GetAttribute<DisplayAttribute>().Name;
+        }
+    }
+
+    private async Task OnRequiredChange(bool result)
+    {
+        if (Doc is WaterSupplyDocument doc)
+        {
+            var document = doc;
+            document!.IsRequired = result;
+
+            await DocumentDomainService.SaveWaterSupplyDocument(document, true);
+        }
+        else
+        {
+            var document = Doc as GasificationDocument;
+            document!.IsRequired = result;
+
+            await DocumentDomainService.SaveGasificationDocument(document, true);
+        }
+    }
+
+    private async Task OnAcceptedChange(bool result)
+    {
+        if (Doc is WaterSupplyDocument doc)
+        {
+            doc!.IsAccepted = result;
+
+            await DocumentDomainService.SaveWaterSupplyDocument(doc, true);
+        }
+        else
+        {
+            var document = Doc as GasificationDocument;
+            document!.IsAccepted = result;
+
+            await DocumentDomainService.SaveGasificationDocument(document, true);
+        }
+    }
+
 }

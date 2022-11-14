@@ -50,8 +50,17 @@
 
                         <p class="alert-danger">@exceptionText</p>
                     </form>
-                    <button @onclick="@SaveProject" class="btn btn-outline-primary btn-block mb-4">Save</button>
+                    @if (AuthService.AuthorizedUser!.Role == UserRole.Customer)
+                    {
+                        <button @onclick="@SaveProject" class="btn btn-outline-primary btn-block mb-5">Save</button>
+                    }
+                    
                 </div>
+                @if (AuthService.AuthorizedUser.Role != UserRole.Customer)
+                {
+                    <button @onclick="@AddDocument" class="btn btn-outline-primary">Add document</button>
+                }
+                
                 <div class="row row-cols-3 g-3">
                     @foreach (var document in _documents)
                     {
@@ -88,11 +97,6 @@
         if (AuthService.AuthorizedUser is null)
         {
             NavigationManager.NavigateTo("/authorization");
-        }
-
-        if (AuthService.AuthorizedUser!.Role != UserRole.Customer)
-        {
-            NavigationManager.NavigateTo("/");
         }
 
         _project = (await ProjectDomainService.LoadProject(ObjectId.Parse(ProjectId)))!;
@@ -161,6 +165,11 @@
             );
 
         NavigationManager.NavigateTo("/projects");
+    }
+
+    private void AddDocument()
+    {
+        NavigationManager.NavigateTo($"/adddocument/{_project._id}");
     }
 
 }

@@ -47,15 +47,15 @@
                                                         <input type="radio" class="btn-check" name="btnradio" id="radiowater" autocomplete="off"
                                                                @oninput="@(ui => { industry = IndustryType.WaterSupply; })"
                                                                checked>
-                                                        <label class="btn btn-outline-danger" for="radiocustomer">WaterSupply</label>
+                                                        <label class="btn btn-outline-danger" for="radiowater">WaterSupply</label>
 
                                                         <input type="radio" class="btn-check" name="btnradio" id="radiogas" autocomplete="off"
                                                                @oninput="@(ui => { industry = IndustryType.Gasification; })">
-                                                        <label class="btn btn-outline-danger" for="radiobuilder">Gasification</label>
+                                                        <label class="btn btn-outline-danger" for="radiogas">Gasification</label>
                                                         
                                                         <input type="radio" class="btn-check" name="btnradio" id="radionotspecified" autocomplete="off"
                                                                @oninput="@(ui => { industry = IndustryType.NotSpecified; })">
-                                                        <label class="btn btn-outline-danger" for="radiobuilder">Not specified</label>
+                                                        <label class="btn btn-outline-danger" for="radionotspecified">Not specified</label>
                                                     }
                                                     else if (industry == IndustryType.Gasification)
                                                     {
@@ -70,7 +70,7 @@
                                                         
                                                         <input type="radio" class="btn-check" name="btnradio" id="radionotspecified" autocomplete="off"
                                                                @oninput="@(ui => { industry = IndustryType.NotSpecified; })">
-                                                        <label class="btn btn-outline-danger" for="radiobuilder">Not specified</label>
+                                                        <label class="btn btn-outline-danger" for="radionotspecified">Not specified</label>
                                                     }
                                                     else
                                                     {
@@ -86,7 +86,7 @@
                                                         <input type="radio" class="btn-check" name="btnradio" id="radionotspecified" autocomplete="off"
                                                                @oninput="@(ui => { industry = IndustryType.NotSpecified; })"
                                                                checked>
-                                                        <label class="btn btn-outline-danger" for="radiobuilder">Not specified</label>
+                                                        <label class="btn btn-outline-danger" for="radionotspecified">Not specified</label>
                                                     }
                                                     
                                                 </div>

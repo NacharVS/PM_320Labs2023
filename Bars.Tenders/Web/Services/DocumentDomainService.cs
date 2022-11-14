@@ -68,8 +68,14 @@ public class DocumentDomainService
     /// Save document file and return it's id
     /// </summary>
     /// <returns></returns>
-    public async Task<ObjectId> SaveFile(string name, MemoryStream ms)
+    public async Task<ObjectId> SaveFile(string name, Stream ms)
     {
         return await _gridFs.UploadFromStreamAsync(name, ms);
     }
+
+    public async Task DownloadFile(ObjectId fileId, FileStream stream)
+    {
+        await _gridFs.DownloadToStreamAsync(fileId, stream);
+    }
+    
 }

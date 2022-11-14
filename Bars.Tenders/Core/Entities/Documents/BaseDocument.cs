@@ -9,6 +9,7 @@ namespace Core.Entities.Documents;
 public class BaseDocument : BaseEntity
 {
     public string Name { get; set; }
+    public string FileExtension { get; set; }
     public bool IsAccepted { get; set; }
     public bool IsRequired { get; set; }
     public ObjectId OwnerId { get; set; }

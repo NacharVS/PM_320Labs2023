@@ -12,7 +12,9 @@
 @inject DocumentDomainService DocumentDomainService
 @inject ProjectDomainService ProjectDomainService
 
-<div class="vh-100" style="background-color: #fff;">
+@if (_isDataLoaded)
+{
+    <div class="vh-100" style="background-color: #fff;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-start align-items-top h-100">
                 <div class="col col-lg-10 mb-4 mb-lg-0">
@@ -23,19 +25,19 @@
                         </div>
 
                         <p>Select document type</p>
-                        <select @onchange="@(ui => { _documentType = (int?)ui.Value; })" class="form-select mb-4" aria-label="Default select example">
+                        <select @onchange="@(ui => { _documentType = int.Parse((string?)ui.Value); })" class="form-select mb-4" aria-label="Default select example">
                             @if (_project.IndustryType == IndustryType.WaterSupply)
                             {
                                 @foreach (WaterSupplyDocumentType i in Enum.GetValues(typeof(WaterSupplyDocumentType)))
                                 {
-                                    <option value="@i">@GetDisplayName(i)</option>
+                                    <option value="@((int)i)">@GetDisplayName(i)</option>
                                 }
                             }
                             else
                             {
                                 @foreach (GasificationDocumentType i in Enum.GetValues(typeof(GasificationDocumentType)))
                                 {
-                                    <option value="@i">@GetDisplayName(i)</option>
+                                    <option value="@((int)i)">@GetDisplayName(i)</option>
                                 }
                             }
 
@@ -52,17 +54,20 @@
             </div>
         </div>
     </div>
+}
 
 @code {
     [Parameter]
     public string ProjectId { get; set; } = null!;
 
+    private bool _isDataLoaded;
     private BaseProject _project = null!;
     
     private string? _name;
 
     private string? _exceptionText;
     private ObjectId? _fileId;
+    private string _fileExt;
     private int? _documentType;
 
     protected override async Task OnInitializedAsync()
@@ -83,6 +88,8 @@
         }
         
         _project = (await ProjectDomainService.LoadProject(projectId))!;
+
+        _isDataLoaded = true;
     }
 
     private async Task SaveDocument()
@@ -96,6 +103,7 @@
         if (_fileId is null)
         {
             _exceptionText = "File cannot be empty";
+            return;
         }
 
         if (_project.IndustryType == IndustryType.Gasification)
@@ -104,6 +112,7 @@
             {
                 Name = _name,
                 FileId = _fileId.GetValueOrDefault(),
+                FileExtension = _fileExt,
                 ProjectId = _project._id,
                 OwnerId = AuthService.AuthorizedUser!._id,
                 DocumentType = (GasificationDocumentType)_documentType.GetValueOrDefault()
@@ -115,6 +124,7 @@
             {
                 Name = _name,
                 FileId = _fileId.GetValueOrDefault(),
+                FileExtension = _fileExt,
                 ProjectId = _project._id,
                 OwnerId = AuthService.AuthorizedUser!._id,
                 DocumentType = (WaterSupplyDocumentType)_documentType.GetValueOrDefault()
@@ -132,9 +142,13 @@
             return;
         }
         
-        MemoryStream ms = new MemoryStream();
-        await e.File.OpenReadStream().CopyToAsync(ms);
-        _fileId = await DocumentDomainService.SaveFile(_name!, ms);
+        // MemoryStream ms = new MemoryStream();
+        // await e.File.OpenReadStream().CopyToAsync(ms);
+
+        await using var fs = e.File.OpenReadStream();
+
+        _fileExt = e.File.Name.Split('.')[^1];
+        _fileId = await DocumentDomainService.SaveFile($"{_name!}.{e.File.Name.Split('.')[^1]}", fs);
     }
 
     private string? GetDisplayName(WaterSupplyDocumentType doc)
