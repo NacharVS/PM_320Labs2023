@@ -47,8 +47,7 @@ public class UserService
         try
         {
             var res = DataBaseConnection.UsersCollection.Find<User>(x =>
-                                                                      x.Login == login && x.Password == password)
-                .FirstOrDefault();
+                                                                      x.Login == login && x.Password == password).FirstOrDefault();
             CurrentUser = res;
         }
         catch (Exception e)

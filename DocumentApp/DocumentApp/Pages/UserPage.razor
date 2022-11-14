@@ -41,31 +41,30 @@
                                 <div class="form-outline mb-4">
                                     <div><label class="form-label col-form-label-lg">@_roleName</label></div>
                                     <div><label class="form-label">Роль</label>
-                                         @switch (_roleName)
-                                         {
-                                             case "Заказчик":
-                                                 <CustomerRegPage Customer="_user as Customer" SendUser="x => _user = x" IsCabinet="true"/>
-                                                 break;
-                                             case "Проектировщик":
-                                                 <DesignerRegPage Designer="_user as Designer" SendUser="x => _user = x"/>
-                                                 break;
-                                             case "Застройщик":
-                                                 <BuilderRegPage Builder="_user as Builder" SendUser="x => _user = x"/>
-                                                 break;
-                                         }</div>
+                                        @switch (_roleName)
+                                        {
+                                            case "Заказчик":
+                                                <CustomerRegPage Customer="_user as Customer" SendUser="x => _user = x" IsCabinet="true"/>
+                                                break;
+                                            case "Проектировщик":
+                                                <DesignerRegPage Designer="_user as Designer" SendUser="x => _user = x"/>
+                                                break;
+                                            case "Застройщик":
+                                                <BuilderRegPage Builder="_user as Builder" SendUser="x => _user = x"/>
+                                                break;
+                                        }</div>
                                 </div>
                                 
                                 <div class="d-flex justify-content-center mb-3">
                                     <button type="submit"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="Save">Сохранить</button>
                                 </div>
-                                
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit"
-                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="LogOut">Выйти</button>
-                                </div>
                             </form>
-
+                            
+                            <div class="d-flex justify-content-center">
+                                <button type="submit"
+                                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="LogOut">Выйти</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -105,14 +104,28 @@
 
     private bool CheckPhone()
     {
-        Regex r = new Regex(@"^[0-9]+$");
-        return r.IsMatch(_user.Phone) && _user.Phone.Length == 11;
+        if (_user is not null)
+        {
+            Regex r = new Regex(@"^[0-9]+$");
+            return r.IsMatch(_user.Phone) && _user.Phone.Length == 11;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private bool CheckEmail()
     {
-        string cond = @"(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)";
-        return Regex.IsMatch(_user.Email, cond);
+        if (_user is not null)
+        {
+            string cond = @"(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)";
+            return Regex.IsMatch(_user.Email, cond);
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private string? _roleName;

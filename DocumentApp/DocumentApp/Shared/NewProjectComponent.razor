@@ -5,6 +5,7 @@
 @inject NavigationManager NavigationManager
 @inject ProjectService ProjectService
 @inject IDocumentService DocumentService
+@inject IJSRuntime JSR
 <h3>Новый проект</h3>
 
 <EditForm Model="ProjectService.CurrentProject">
@@ -15,27 +16,26 @@
     <div><label class="form-label form-control-lg">Заказчик</label></div>
     
     <div><select @bind="ProjectService.CurrentProject.DesignerId" class="form-select form-select-lg">
-                 <option value=""></option>
-                 @foreach (var designer in _designers!)
-                 {
-                     var _designer = UserService.GetUserById(designer.Login) as Designer;
-                     <option value="@_designer.Login">@_designer.DesignerName</option>
-                 }
-             </select></div>
+        <option value=""></option>
+        @foreach (var designer in _designers!)
+        {
+            var _designer = UserService.GetUserById(designer.Login) as Designer;
+            <option value="@_designer.Login">@_designer.DesignerName</option>
+        }
+    </select></div>
     <div><label class="form-label col-form-label-lg">Проектировщик</label></div>
     
     <div><select @bind="ProjectService.CurrentProject.BuilderId" class="form-select form-select-lg">
-                 <option value=""></option>
-                 @foreach (var builder in _builders)
-                 {
-                     var _builder = UserService.GetUserById(builder.Login) as Builder;
-                     <option value="@_builder.Login">@_builder.BuilderName</option>
-                 }
-             </select></div>
+        <option value=""></option>
+        @foreach (var builder in _builders)
+        {
+            var _builder = UserService.GetUserById(builder.Login) as Builder;
+            <option value="@_builder.Login">@_builder.BuilderName</option>
+        }
+    </select></div>
     <div><label class="form-label col-form-label-lg">Застройщик</label></div>
-    
-    <div><button class="btn btn-success" @onclick="CreateProject">Создать</button></div>
 </EditForm>
+<div><button type="submit" class="btn btn-success" @onclick="CreateProject">Создать</button></div>
 @code {
     private List<Document>? _docs;
     private List<Document>? _designerDocs;
@@ -128,19 +128,26 @@
 
     private void CreateProject()
     {
-        ProjectService.CurrentProject.ProjectDepartment = _projectCustomer!.Department;
-        ProjectService.CurrentProject.CustomerId = _projectCustomer.Login;
-        ProjectService.CurrentProject.CreatedDate = DateTime.Now;
-        ProjectService.CurrentProject.Documents = _docs;
-        ProjectService.CurrentProject.DesignerForm = _designerForm;
-        ProjectService.CurrentProject.DesignerDocuments = _designerDocs;
-        
-        DocumentService.SaveDocuments(_docs!);
-        DocumentService.SaveDesignerDocuments(_designerDocs);
-        ProjectService.SaveForm(_designerForm!);
-        ProjectService.CreateProject(ProjectService.CurrentProject);
-        
-        StateHasChanged();
-        NavigationManager.NavigateTo("/ProjectsPage");
+        if (ProjectService.CurrentProject.BuilderId is not null && ProjectService.CurrentProject.DesignerId is not null)
+        {
+            ProjectService.CurrentProject.ProjectDepartment = _projectCustomer!.Department;
+            ProjectService.CurrentProject.CustomerId = _projectCustomer.Login;
+            ProjectService.CurrentProject.CreatedDate = DateTime.Now;
+            ProjectService.CurrentProject.Documents = _docs;
+            ProjectService.CurrentProject.DesignerForm = _designerForm;
+            ProjectService.CurrentProject.DesignerDocuments = _designerDocs;
+
+            DocumentService.SaveDocuments(_docs!);
+            DocumentService.SaveDesignerDocuments(_designerDocs);
+            ProjectService.SaveForm(_designerForm!);
+            ProjectService.CreateProject(ProjectService.CurrentProject);
+
+            StateHasChanged();
+            JSR.InvokeVoidAsync("alert", "Проект успешно создан");
+        }
+        else
+        {
+            JSR.InvokeVoidAsync("alert", "Данные проекта не заполнены");
+        }
     }
 }

@@ -7,6 +7,7 @@
 @inject IDocumentService DocumentService
 
 <EditForm Model="ProjectService.CurrentProject">
+    <h1>Название проекта: @ProjectService.CurrentProject.ProjectName</h1>
     <table class="table table-responsive table-bordered">
         <thead>
         <tr>
@@ -39,7 +40,10 @@
                         {
                             <button class="btn btn-dark me-10" @onclick="SaveChanges">Сохранить</button>
                         }
-                        <a class="btn btn-secondary"  href="documents/@doc.FileName" @onclick="() => DownloadDocument(doc)" download="@doc.FileName">Скачать</a>
+                        @if (doc.Data is not null)
+                        {
+                            <a class="btn btn-secondary" href="documents/@doc.FileName" @onclick="() => DownloadDocument(doc)" download="@doc.FileName">Скачать</a>
+                        }
                     </div>
                 </td>
                 <td>
@@ -70,16 +74,16 @@
     </table>
     <table class="table">
         <thead>
-            <tr>
-                <th>Название поля</th>
-                <th>Значение</th>
-            </tr>
+        <tr>
+            <th>Название поля</th>
+            <th>Значение</th>
+        </tr>
         </thead>
         <tbody>
-    
+
         @foreach (var field in ProjectService.CurrentProject.DesignerForm!.FormFields!)
         {
-            if(ProjectService.CurrentProject.ProjectDepartment == "Газификация")
+            if (ProjectService.CurrentProject.ProjectDepartment == "Газификация")
             {
                 if (!_defDocs!.DesignerFormGasNoHeader.Contains(field.FieldName))
                 {
@@ -88,7 +92,7 @@
                     </tr>
                     continue;
                 }
-    
+
                 <tr>
                     <td>@field.FieldName</td>
                     <td><input class="form-control form-control-lg" @bind="field.FieldValue"/></td>
@@ -103,20 +107,34 @@
                     </tr>
                     continue;
                 }
-    
+
                 <tr>
                     <td>@field.FieldName</td>
-                    <td><input class="form-control form-control-lg" @bind="field.FieldValue"/></td>
+                    @if (IsCustomer)
+                    {
+                        <td><label class="form-control form-control-lg"/>@field.FieldValue</td>
+                    }
+                    else
+                    {
+                        <td><input class="form-control form-control-lg" @bind="field.FieldValue"/></td>
+                    }
                 </tr>
             }
         }
         </tbody>
     </table>
-     @if (IsCustomer)
-     {
-         <button class="btn btn-success" @onclick="SaveChanges">Сохранить изменения</button>
-     }
- </EditForm>
+    @if (IsCustomer)
+    {
+        <InputCheckbox @bind-Value="ProjectService.CurrentProject.DesignerForm.IsApproved" class="d-flex justify-content-center form-check form-check-input">Утвержден</InputCheckbox>
+        <label class="form-label col-form-label-lg">Утвержден</label>
+    }
+    else
+    {
+        var hidden = !ProjectService.CurrentProject.DesignerForm.IsApproved;
+        <div class="alert alert-success" hidden="@hidden">Документ утвержен</div>
+    }
+    <div><button class="btn btn-success" @onclick="SaveChanges">Сохранить изменения</button></div>
+</EditForm>
 
 @code {
     [Parameter]
@@ -165,6 +183,9 @@
 
     private void DownloadDocument(Document doc)
     {
-        DocumentService.DownloadDocument(doc);
+        if (doc.Data is not null)
+        {
+            DocumentService.DownloadDocument(doc);
+        }
     }
 }

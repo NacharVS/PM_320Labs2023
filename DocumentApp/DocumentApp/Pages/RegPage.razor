@@ -53,18 +53,18 @@
                                         }
                                     </select>
                                     <label class="form-label">Роль</label>
-                                    @switch (@_roleName)
-                                    {
-                                        case "Заказчик":
-                                            <CustomerRegPage SendUser="x => user = x" CanSave="x => _canSave = x"/>
-                                            break;
-                                        case "Проектировщик":
-                                            <DesignerRegPage SendUser="x => user = x" CanSave="x => _canSave = x"/>
-                                            break;
-                                        case "Застройщик":
-                                            <BuilderRegPage SendUser="x => user = x" CanSave="x => _canSave = x"/>
-                                            break;
-                                    }
+                                    @* @switch (@_roleName) *@
+                                    @* { *@
+                                    @*     case "Заказчик": *@
+                                    @*         <CustomerRegPage SendUser="x => user = x" CanSave="x => _canSave = x"/> *@
+                                    @*         break; *@
+                                    @*     case "Проектировщик": *@
+                                    @*         <DesignerRegPage SendUser="x => user = x" CanSave="x => _canSave = x"/> *@
+                                    @*         break; *@
+                                    @*     case "Застройщик": *@
+                                    @*         <BuilderRegPage SendUser="x => user = x" CanSave="x => _canSave = x"/> *@
+                                    @*         break; *@
+                                    @* } *@
                                 </div>
 
                                 <div class="form-outline mb-4">
@@ -112,7 +112,7 @@
 
     private string? _roleName = "";
 
-    private bool _canSave;
+    //private bool _canSave;
 
     private bool CheckPhone()
     {
@@ -164,7 +164,7 @@
             await JSR.InvokeVoidAsync("alert", "Пользователь с таким именем существует!");
             return;
         }
-        if (!CheckFields() || !_canSave)
+        if (!CheckFields())
         {
             await JSR.InvokeVoidAsync("alert", "Не все поля заполнены!");
             return;

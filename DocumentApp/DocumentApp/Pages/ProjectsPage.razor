@@ -36,7 +36,8 @@
         </tbody>
     </table>
 }
-@if(UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbc")
+@if(UserService.CurrentUser is not null &&
+    UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbc")
 {
     <NewProjectComponent></NewProjectComponent>
 }
@@ -46,6 +47,10 @@
 
     protected override void OnInitialized()
     {
+        if (UserService.CurrentUser is null)
+        {
+            return;
+        }
         var allProjects = ProjectService.GetProjects();
 
         if (UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbc")

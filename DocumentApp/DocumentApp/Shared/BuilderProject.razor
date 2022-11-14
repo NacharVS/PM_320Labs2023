@@ -7,6 +7,7 @@
 @inject IDocumentService DocumentService
 
 <EditForm Model="ProjectService.CurrentProject">
+    <h1>Название проекта: @ProjectService.CurrentProject.ProjectName</h1>
     <table class="table table-responsive table-bordered">
         <thead>
         <tr>
@@ -37,9 +38,14 @@
                     <div class="d-flex justify-content-around">
                         @if (!IsCustomer)
                         {
-                            <button class="btn btn-dark me-10" @onclick="() => SaveDocument(doc)">Сохранить</button>
+                            <div><button class="btn btn-dark me-10" @onclick="() => SaveDocument(doc)">Сохранить</button></div>
                         }
-                        <a class="btn btn-secondary"  href="documents/@doc.FileName" @onclick="() => DownloadDocument(doc)" download="@doc.FileName">Скачать</a>
+                        <div>
+                            @if (doc.Data is not null)
+                            {
+                                <a class="btn btn-secondary" href="documents/@doc.FileName" @onclick="() => DownloadDocument(doc)" download="@doc.FileName">Скачать</a>
+                            }
+                        </div>
                     </div>
                 </td>
                 <td>
@@ -68,10 +74,6 @@
         }
         </tbody>
     </table>
-    @if (IsCustomer)
-    {
-        <button class="btn btn-success" @onclick="SaveChanges">Сохранить изменения</button>
-    }
 </EditForm>
 <hr/>
 
@@ -120,6 +122,9 @@
 
     private void DownloadDocument(Document doc)
     {
-        DocumentService.DownloadDocument(doc);
+        if (doc.Data is not null)
+        {
+            DocumentService.DownloadDocument(doc);
+        }
     }
 }
