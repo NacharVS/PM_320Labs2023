@@ -6,6 +6,7 @@
 @inject ILocalStorageService LocalStorage
 @inject CurrentUsersRole CurrentUsersRole
 @inject CurrentUser CurrentUser
+@inject IJSRuntime JS
 <PageTitle>Index</PageTitle>
 
 
@@ -85,6 +86,10 @@
             StateHasChanged();
             Navigation.NavigateTo("/personal"); 
         }
+        else
+        {
+            JS.InvokeVoidAsync("alert", "Something Wrong");
+        }
     } 
 
     private void Login() 
@@ -97,3 +102,9 @@
         return new EmailAddressAttribute().IsValid(email);
     } 
 }
+
+<style>
+    .button-27{
+        width: 50%;
+    }
+</style>

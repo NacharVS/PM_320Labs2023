@@ -81,8 +81,62 @@
             <h6><b>Документы, предоставленные проектировщиком</b></h6>
             @if (CurrentUser.UserRole == "Designer")
             {
+                switch (@CurrentProj.Project.Department)
+                {
+                    case "Водоснабжение":
+                        <h4>Технико-экономические показатели(ТЭП)</h4>
+                        @foreach (var doc in CurrentProj.Project.FormOfDesigner)
+                        {
+                            <h5>@doc.Key</h5>
+                            <input value="@doc.Value" @oninput="(e)=> CurrentProj.Project.FormOfDesigner[doc.Key] = e.Value.ToString()"></input>                            
+                        }
+                        break;
+                    case "Газификация":
+                        <h4>Технико-экономические показатели(ТЭП)</h4>
+                        @foreach (var doc in CurrentProj.Project.FormOfDesignerOne)
+                        {
+                            <h5>@doc.Key</h5>
+                            <input value="@doc.Value" @oninput="(e)=> CurrentProj.Project.FormOfDesignerOne[doc.Key] = e.Value.ToString()"></input>                            
+                        }
+                        <h4>Технико-экономические показатели(ТЭП)</h4>  
+                        @foreach (var doc in CurrentProj.Project.FormOfDesigner)
+                        {
+                            <h5>@doc.Key</h5>
+                            <input value="@doc.Value" @oninput="(e)=> CurrentProj.Project.FormOfDesigner[doc.Key] = e.Value.ToString()"></input>                            
+                        }
+                        break;
+                }
+                <b></b><br /><br />
                 <InputFile OnChange="@LoadFiles" multiple  />
                 <br />
+            }
+            else
+            {
+                switch (@CurrentProj.Project.Department)
+                {
+                    case "Водоснабжение":
+                        <h4>Технико-экономические показатели(ТЭП)</h4>
+                        @foreach (var doc in CurrentProj.Project.FormOfDesigner)
+                        {
+                            <h5>@doc.Key</h5>
+                            <label >@doc.Value</label>                            
+                        }
+                        break;
+                    case "Газификация":
+                        <h4>Технико-экономические показатели(ТЭП)</h4>
+                        @foreach (var doc in CurrentProj.Project.FormOfDesignerOne)
+                        {
+                            <h5>@doc.Key</h5>
+                            <label >@doc.Value</label>                              
+                        }
+                        <h4>Технико-экономические показатели(ТЭП)</h4>  
+                        @foreach (var doc in CurrentProj.Project.FormOfDesigner)
+                        {
+                            <h5>@doc.Key</h5>
+                            <label >@doc.Value</label>                             
+                        }
+                        break;
+                }
             }
             <table class="table">
                 <thead>
@@ -226,6 +280,9 @@
     List<string> filesDev = new List<string>();
     string comForDes;
     string comForDev;
+    string waterValue;
+    string gasFirstValue;
+    string gasValue;
 
     public void GoToProj()
     {

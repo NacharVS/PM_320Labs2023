@@ -167,11 +167,16 @@
             case "Водоснабжение":
                 project.DocsPreor = Doc.documentH;
                 project.DocsPreorTwo = Doc.documentHDes;
+                project.FormOfDesigner = Doc.designerFormWater;
+                project.FormOfDesignerValue = new List<string>();
                 DBConnection.AddToDataBaseProjectW(project);
                 break;
             case "Газификация" :
                 project.DocsPreor = Doc.documentG;
                 project.DocsPreorTwo = Doc.documentGDes;
+                project.FormOfDesignerOne = Doc.designerFormGasOne;
+                project.FormOfDesigner = Doc.designerFormGas;
+                project.FormOfDesignerValue = new List<string>();
                 DBConnection.AddToDataBaseProjectG(project);
                 break;
 

@@ -32,13 +32,35 @@
 
         public Dictionary<string, bool> documentHDes = new Dictionary<string, bool>()
         {
-            { "Технико-экономические показатели (ТЭП)", false }
+            { "Смета на ПиР", false },
+            { "График проектирования", false}
         };
 
         public Dictionary<string, bool> documentGDes = new Dictionary<string, bool>()
         {
-            { "Технико-экономические показатели (ТЭП)", false },
-            { "Вводной газопровод низкого давления", false }
+            { "Смета на ПиР", false },
+            { "График проектирования", false}
+        };
+
+        public Dictionary<string, string> designerFormGasOne = new Dictionary<string, string>()
+        {
+            { "Диаметр (мм) трубопровода и протяженность линейного объекта (м)", "" }
+        };
+
+        public Dictionary<string, string> designerFormGas = new Dictionary<string, string>()
+        {
+            { "Диаметр (мм) трубопровода и протяженность линейного объекта (м).", "" },
+            { "Сметная стоимость работ, тыс. руб.", "" },
+            { "Срок разработки проектной документации, месяцев", "" }
+        };
+
+        public Dictionary<string, string> designerFormWater= new Dictionary<string, string>()
+        {
+            { "Диаметр (мм) трубопровода и протяженность линейного объекта (м)", "" },
+            { "Производительность БОС, м3/сут", "" },
+            { "кол.-во (шт) и производительность КНС (м3/ч)", "" },
+            { "Сметная стоимость работ, тыс. руб.", "" },
+            { "Срок разработки проектной документации, месяцев", "" }
         };
     }
 }
