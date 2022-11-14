@@ -2,13 +2,14 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Core.Entities.Users;
-using Core.Enums;
 using DataProvider;
+using Microsoft.JSInterop;
 
 namespace Web.Services;
 
 public class AuthService
 {
+    private readonly IJSRuntime js;
     private readonly HMACSHA256 _encryptor;
     private readonly MongoProvider<BaseUser> _userContext;
     private readonly UserDomainService _userDomain;
@@ -16,15 +17,30 @@ public class AuthService
     public BaseUser? AuthorizedUser { get; set; }
 
     public AuthService(IConfiguration configuration, MongoProvider<BaseUser> userContext,
-        UserDomainService userDomain)
+        UserDomainService userDomain, IJSRuntime js)
     {
         _userContext = userContext;
         _userDomain = userDomain;
+        this.js = js;
         _encryptor = new HMACSHA256(
             Encoding.UTF8.GetBytes(configuration["Encryption:AnalogKey"] ?? String.Empty));
     }
-    
-    public async Task<IResult> AuthorizeUser(string login, string password)
+
+    public async Task AuthorizeUserWithCache()
+    {
+        string login = await js.InvokeAsync<string>("GetLogin");
+        string passHash = await js.InvokeAsync<string>("GetPasswordHash");
+        try
+        {
+            await AuthorizeUser(login, passHash, true);
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    public async Task<IResult> AuthorizeUser(string login, string password, bool usingHash = false)
     {
         if (login == String.Empty)
         {
@@ -44,9 +60,13 @@ public class AuthService
             throw new Exception("User not found");
         }
 
-        if (possibleUser.PasswordHash == CalculateHash(password))
+        if (possibleUser.PasswordHash == (usingHash ? password : CalculateHash(password)))
         {
             AuthorizedUser = await _userDomain.LoadUser(possibleUser._id, possibleUser.Role, true);
+            if (!usingHash)
+            {
+                await js.InvokeVoidAsync("AddUserToLocalStorage", login, CalculateHash(password));
+            }
             return Results.Ok("Authorized");
         }
 
@@ -99,12 +119,12 @@ public class AuthService
         );
     }
 
-    private bool CheckEmail(string email)
+    public bool CheckEmail(string email)
     {
         return Regex.IsMatch(email, @".+\@.+\..+");
     }
 
-    private bool CheckPhoneNumber(string phoneNumber)
+    public bool CheckPhoneNumber(string phoneNumber)
     {
         return Regex.IsMatch(phoneNumber, "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
     }

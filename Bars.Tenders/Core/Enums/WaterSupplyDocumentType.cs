@@ -4,6 +4,6 @@ namespace Core.Enums;
 
 public enum WaterSupplyDocumentType
 {
-    [Display(Name="Акт обследования объекта")]
-    ActResearchingObject
+    [Display(Name="Технико-экономические показатели")]
+    TAP
 }

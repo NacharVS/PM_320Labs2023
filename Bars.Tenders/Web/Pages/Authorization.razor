@@ -77,6 +77,12 @@
                                                    placeholder="Password"
                                                    @bind="@_password" @oninput="@(ui => { _password = (string?)ui.Value; })"/>
                                         </div>
+                                        
+                                        <div class="form-outline mb-4">
+                                            <input type="password" id="password" class="form-control"
+                                                   placeholder="Repeat password"
+                                                   @bind="@_repeatPassword" @oninput="@(ui => { _repeatPassword = (string?)ui.Value; })"/>
+                                        </div>
 
                                         <div class="form-outline mb-4">
                                             <input type="text" id="phone" class="form-control"
@@ -142,6 +148,7 @@
     private string? _login;
     private string? _email;
     private string? _password;
+    private string? _repeatPassword;
     private string? _phoneNumber;
     private UserRole _role = UserRole.Customer;
 
@@ -151,6 +158,11 @@
         
         try
         {
+            if (_password != _repeatPassword)
+            {
+                throw new Exception("Passwords don't match");
+            }
+            
             await AuthService.RegisterUser(new BaseUser
             {
                 Name = _name ?? String.Empty,
@@ -185,6 +197,11 @@
         {
             _exceptionMessage = ex.Message;
         }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await AuthService.AuthorizeUserWithCache();
     }
 
 }

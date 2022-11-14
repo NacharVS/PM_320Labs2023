@@ -1,9 +1,22 @@
 ﻿@page "/"
+@using Web.Services
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Web
+
+@inject AuthService AuthService
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>There is nothing now..</h1>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?"/>
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await AuthService.AuthorizeUserWithCache();
+        
+        if (AuthService.AuthorizedUser is null)
+        {
+            NavigationManager.NavigateTo("/authorization");
+        }
+    }
+}

@@ -26,11 +26,13 @@
                                     <div class="row pt-1">
                                         <div class="col-6 mb-3">
                                             <h6>Email</h6>
-                                            <p class="text-muted">@email</p>
+                                            <input value="@email" @oninput="@(ui => { email = (string?)ui.Value; })"  
+                                                   class="text-muted form-control"/>
                                         </div>
                                         <div class="col-6 mb-3">
                                             <h6>Phone</h6>
-                                            <p class="text-muted">@phone</p>
+                                            <input value="@phone" @oninput="@(ui => { phone = (string?)ui.Value; })"  
+                                                   class="text-muted form-control"/>
                                         </div>
                                     </div>
 
@@ -144,6 +146,7 @@
                                             
                                         </div>
                                         <div class="col-4 mb-3">
+                                            <p class="alert-danger mb-3">@_exception</p>
                                             <button @onclick="@SaveChanges" class="btn btn-outline-danger">Save changes</button>
                                         </div>
                                     </div>
@@ -172,6 +175,8 @@
     private string? Address { get; set; }
     private string? Director { get; set; }
     private string? Engineer { get; set; }
+
+    private string? _exception;
 
     protected override void OnInitialized()
     {
@@ -226,8 +231,11 @@
         Engineer = currentUser!.MainEngineer;
     }
 
-    private void SaveChanges()
+    private async Task SaveChanges()
     {
+        currentUser!.Email = email;
+        currentUser.PhoneNumber = phone;
+        
         switch (role)
         {
             case UserRole.Customer:
@@ -249,7 +257,45 @@
                 currentUser.MainEngineer = Engineer;
                 break;
         }
-        
-        UserDomainService.SaveUser(currentUser, true);
+        try
+        {
+            if (!AuthService.CheckEmail(email))
+            {
+                throw new Exception("Email is incorrect");
+            }
+            if (!AuthService.CheckPhoneNumber(phone))
+            {
+                throw new Exception("Phone is incorrect");
+            }
+            if (currentUser.Role != UserRole.Customer)
+            {
+                if (Tin is null || Tin.Length != 10)
+                {
+                    throw new Exception("Tin in incrrect");
+                }
+                
+                if (Psrn is null || Psrn.Length != 13)
+                {
+                    throw new Exception("PSRN in incrrect");
+                }
+                
+                if (Trrc is null || Trrc.Length != 9)
+                {
+                    throw new Exception("TRRC in incrrect");
+                }
+            }
+            
+            await UserDomainService.SaveUser(currentUser, true);
+            _exception = null;
+        }
+        catch (Exception ex)
+        {
+            _exception = ex.Message;
+        }
+    }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await AuthService.AuthorizeUserWithCache();
     }
 }

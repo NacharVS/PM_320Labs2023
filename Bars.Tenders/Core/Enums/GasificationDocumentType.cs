@@ -4,12 +4,17 @@ namespace Core.Enums;
 
 public enum GasificationDocumentType
 {
-    [Display(Name="письмо-обращение")]
+    [Display(Name="Письмо-обращение")]
     Message,
     
-    [Display(Name="задача на проектирование")]
+    [Display(Name="Задача на проектирование")]
     DesigningTask,
     
     [Display(Name="Акт обследования объекта")]
-    ActResearchingObject
+    ActResearchingObject,
+    
+    [Display(Name = "Ситуационный план")]
+    SituationalPlan,
+    
+    
 }

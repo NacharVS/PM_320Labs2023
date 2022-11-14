@@ -11,43 +11,20 @@
         <h5 class="card-title">@Doc.Name.Split(".")[0]</h5>
         <p class="card-text">@TryGetDisplayName(Doc.DocumentType)</p>
         <button type="button" class="btn btn-primary" @onclick="@DownloadFile">Download</button>
-
-
-        @if (Doc.IsRequired)
-        {
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="isrequired"
-                       @onchange="@(async ui => { await OnRequiredChange((bool)ui.Value); })"
-                       readonly=@_disabled checked/>
-                <label class="form-check-label" for="isrequired">Required</label>
-            </div>
-        }
-        else
-        {
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="isrequired"
-                       @onchange="@(async ui => { await OnRequiredChange((bool)ui.Value); })"/>
-                <label class="form-check-label" for="isrequired">Required</label>
-            </div>
-        }
-
-        @if (Doc.IsAccepted)
-        {
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="isaccepted"
-                       @onchange="@(async ui => { await OnAcceptedChange((bool)ui.Value); })" checked/>
-                <label class="form-check-label" for="isaccepted">Accepted</label>
-            </div>
-        }
-        else
-        {
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="isaccepted"
-                       @onchange="@(async ui => { await OnAcceptedChange((bool)ui.Value); })"/>
-                <label class="form-check-label" for="isaccepted">Accepted</label>
-            </div>
-        }
-
+        
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="isrequired"
+                   @onchange="@(async ui => { await OnRequiredChange((bool)ui.Value); })"
+                   disabled=@_disabled checked=@_checkedRequired/>
+            <label class="form-check-label" for="isrequired">Required</label>
+        </div>
+        
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="isaccepted"
+                   @onchange="@(async ui => { await OnAcceptedChange((bool)ui.Value); })" 
+                   disabled=@_disabled checked=@_checkedAccepted/>
+            <label class="form-check-label" for="isaccepted">Accepted</label>
+        </div>
 
     </div>
 </div>
@@ -58,10 +35,14 @@
     public dynamic Doc { get; set; }
 
     private bool _disabled;
+    private bool _checkedRequired;
+    private bool _checkedAccepted;
 
     protected override void OnInitialized()
     {
         _disabled = AuthService.AuthorizedUser!.Role != UserRole.Customer;
+        _checkedRequired = Doc.IsRequired;
+        _checkedAccepted = Doc.IsAccepted;
     }
 
     private async Task DownloadFile()

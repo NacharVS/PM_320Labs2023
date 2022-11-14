@@ -70,8 +70,10 @@
     private string _fileExt;
     private int? _documentType;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await AuthService.AuthorizeUserWithCache();
+        
         if (AuthService.AuthorizedUser is null)
         {
             NavigationManager.NavigateTo("/authorization");
