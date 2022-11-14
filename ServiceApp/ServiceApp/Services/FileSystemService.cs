@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
+using ServiceApp.Data;
 
 namespace ServiceApp.Services;
 
@@ -13,6 +14,14 @@ public class FileSystemService
         var gridFS = new GridFSBucket(database);
         
         await gridFS.UploadFromStreamAsync(fileName, stream);
+    }
+    
+    public async Task UploadCustomerDocumentationToDbAsync(Document document)
+    {
+        MongoClient client = new MongoClient("mongodb://localhost");
+        IMongoDatabase database = client.GetDatabase("CustomerDocumentation");
+        var collection = database.GetCollection<Document>("Documents");
+        collection.InsertOne(document);
     }
 
     public string DownloadToLocal(string fileName)

@@ -9,19 +9,49 @@
 
 <h3>PersonalAccount</h3>
 
-<EditForm Model="@user" OnValidSubmit="@LogOut" class="mx-1 mx-md-4">
-    <p>Role: @dataBase.CurrentUser?.WorkerRole</p>
-    <p>Surname: @dataBase.CurrentUser?.Surname</p>
-    <p>Name: @dataBase.CurrentUser?.Name</p>
-    <p>Patrinymic: @dataBase.CurrentUser?.Patronymic</p>
-    <input type="submit" class="btn btn-primary btn-lg" value="Log Out"/>
-</EditForm>
+<p>Role: @dataBase.CurrentUser?.WorkerRole</p>
+<p>Surname: @dataBase.CurrentUser?.Surname</p>
+<p>Name: @dataBase.CurrentUser?.Name</p>
+<p>Patrinymic: @dataBase.CurrentUser?.Patronymic</p>
+
+@switch (dataBase.CurrentUser?.WorkerRole)
+{
+   case "Customer":
+       <p>Departnemt: @dataBase.CurrentCustomer?.Department</p>
+       break;
+    case "Designer":
+        <p>ProjectOrganizationName: @dataBase.CurrentDesigner?.ProjectOrganizationName</p>
+        <p>OGRN: @dataBase.CurrentDesigner?.OGRN</p>
+        <p>INN: @dataBase.CurrentDesigner?.INN</p>
+        <p>KPP: @dataBase.CurrentDesigner?.KPP</p>
+        <p>Adress: @dataBase.CurrentDesigner?.Adress</p>
+        <p>Director: @dataBase.CurrentDesigner?.Director</p>
+        <p>ChiefProjectEngineer: @dataBase.CurrentDesigner?.ChiefProjectEngineer</p>
+        break;
+    case "Developer":
+        <p>DeveloperOrganizationName: @dataBase.CurrentDeveloper?.DeveloperOrganizationName</p>
+        <p>OGRN: @dataBase.CurrentDeveloper?.OGRN</p>
+        <p>INN: @dataBase.CurrentDeveloper?.INN</p>
+        <p>KPP: @dataBase.CurrentDeveloper?.KPP</p>
+        <p>Adress: @dataBase.CurrentDeveloper?.Adress</p>
+        <p>ExecutiveCommitteeHead: @dataBase.CurrentDeveloper?.ExecutiveCommitteeHead</p>
+        break;
+}
+<button type="submit" class="btn btn-primary btn-lg" @onclick="Edit">Editing</button>
+<button type="submit" class="btn btn-primary btn-lg" @onclick="LogOut">Log Out</button>
+
 
 @code {
     public Worker user = new Worker();
+    
     public void LogOut()
     {
         dataBase.CurrentUser = null;
         novigation.NavigateTo("/");
+    }
+
+    public void Edit()
+    {
+        novigation.NavigateTo("/editing");
     }
 }

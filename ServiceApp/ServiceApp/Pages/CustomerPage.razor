@@ -1,5 +1,60 @@
-﻿<h3>CustomerPage</h3>
+﻿@page "/customer"
+@using ServiceApp.Services
+@using ServiceApp.Data
+@inject FileSystemService fss
+
+<PageTitle>Uploading documents</PageTitle>
+
+<div class="card">
+    <h1 class="card-header">Uploading documents</h1>
+    <div class="card-body">
+        @*<label>ProjectRole:</label><br/>
+        <input type="text" id="Role" @bind-value="" /><br/>*@
+        
+        @foreach (var name in fileNames)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <label bind="@doc.Name">@name</label>
+                    <input type="submit" class="btn btn-primary btn-lg" @onclick="() => Download(name)" value="Viewing"/><br/>
+                    <label>DesignerOrganization:</label><br/>
+                    <input type="text" id="organization" @bind-value="@doc.designerOrganization" /><br/>
+                    <label>DeveloperOrganization:</label><br/>
+                    <input type="text" id="organization" @bind-value="@doc.developerOrganization" /><br/>
+                    <input type="checkbox" id="approve" @bind-value="@doc.IsApproved" />
+                    <label for="approve">Approve</label><br/>
+                    <input type="checkbox" id="required" @bind-value="@doc.IsRequired" />
+                    <label for="required">Required</label><br/>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" @onclick="UploadCustomerDocument" >Save</button>
+            </div>
+        }
+    </div>
+</div>
 
 @code {
     
+    private Document doc = new Document();
+    private string? path;
+    List<string> fileNames = new List<string>();
+
+    private void UploadCustomerDocument()
+    {
+        fss.UploadCustomerDocumentationToDbAsync(doc);
+    }
+    
+    protected override void OnInitialized()
+    {
+        UploadDoc();
+    }
+
+    private void UploadDoc()
+    {
+        fileNames = fss.UploadDocuments();
+    }
+
+    private void Download(string name)
+    {
+        path = fss.DownloadToLocal(name);
+    }
 }

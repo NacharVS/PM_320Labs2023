@@ -1,34 +1,20 @@
-﻿@page "/registration"
+﻿@page "/editing"
 
 <PageTitle>Personal account</PageTitle>
 
 @using ServiceApp.Data
 @using ServiceApp.Services
-@using System.Diagnostics
-@using Microsoft.Extensions.Configuration.UserSecrets
 @inject IJSRuntime JS
 @inject DataBase dataBase
 
 <div class="card">
-    <h1 class="card-header">Registration</h1>
+    <h1 class="card-header">Personal account</h1>
     <div class="card-body">
-        <EditForm Model="@user" OnValidSubmit="@Reg" class="mx-1 mx-md-4">
-            <label>Login:</label> <br/>
-            <input type="" id="Login" @bind-value="@user.Login"/><br/>
+        <EditForm Model="@user" OnValidSubmit="@Edit" class="mx-1 mx-md-4">
             <label>Password:</label><br/>
             <input type="password" id="Password" @bind-value="@user.Password"/><br/>
             <label>Password repeat:</label><br/>
             <input type="password" id="PasswordRepeat" @bind-value="@user.PasswordRepeat"/><br/>
-            
-            <label>Role:</label><br/>
-            <input type="text" id="Role" @bind-value="@user.WorkerRole" /><br/>
-            @*<input type="checkbox" id="customer" @bind-value="@users.WorkerRole" />
-            <label for="customer">Customer</label><br/>
-            <input type="checkbox" id="designer" @bind-value="@users.WorkerRole" />
-            <label for="designer">Designer</label><br/>
-            <input type="checkbox" id="developer" @bind-value="@users.WorkerRole" />
-            <label for="developer">Developer</label><br/>*@
-            
             <label>Surname:</label><br/>
             <input type="text" id="Surname" @bind-value="@user.Surname" /><br/>
             <label>Name:</label><br/>
@@ -40,15 +26,13 @@
             <label>Telephone:</label><br/>
             <input type="text" id="Telephone" @bind-value="@user.Telephone" /><br/><br/>
 
-            @switch (user.WorkerRole)
+            @switch (dataBase.CurrentUser?.WorkerRole)
             {
                 case "Customer":
-                    <p>You have chosen a customer</p>
                     <label>Department:</label><br/>
                     <input type="text" @bind-value="department"/><br/><br/>
                     break;;
                 case "Designer":
-                    <p>You have chosen a designer</p>
                     <label>ProjectOrganizationName:</label><br/>
                     <input type="text" @bind-value="organization"/><br/>
                     <label>OGRN:</label><br/>
@@ -65,7 +49,6 @@
                     <input type="text" @bind-value="chief"/><br/><br/>
                     break;
                 case "Developer":
-                    <p>You have chosen a developer</p>
                     <label>DeveloperOrganizationName:</label><br/>
                     <input type="text" @bind-value="organization"/><br/>
                     <label>OGRN:</label><br/>
@@ -81,11 +64,11 @@
                     break;
             }
             
-            <input type="submit" class="btn btn-primary btn-lg" value="Registration" /><br/>
+            <input type="submit" class="btn btn-primary btn-lg" value="Save" /><br/>
             
             @if (btn)
             {
-                <p>You have been registered</p>
+                <p>The changes have been saved</p>
             }
         </EditForm>
     </div>
@@ -108,15 +91,15 @@
     
     bool btn = false;
 
-    public void Reg()
+    public void Edit()
     {
-        switch (user.WorkerRole)
+        switch (dataBase.CurrentUser?.WorkerRole)
         {
             case "Customer":
                 Customer customer = new Customer
                 {
-                    WorkerRole = user.WorkerRole,
-                    Login = user.Login,
+                    WorkerRole = dataBase.CurrentUser?.WorkerRole,
+                    Login = dataBase.CurrentUser?.Login,
                     Password = user.Password,
                     PasswordRepeat = user.PasswordRepeat,
                     Surname = user.Surname,
@@ -128,7 +111,7 @@
                 };
                 if (customer.Password == customer.PasswordRepeat)
                 {
-                    dataBase.AddToDataBase(customer);
+                    dataBase.ReplaceCustomerByName(customer.Login, customer);
                     btn = true;
                 }
                 else
@@ -139,8 +122,8 @@
             case "Designer":
                 Designer designer = new Designer
                 {
-                    WorkerRole = user.WorkerRole,
-                    Login = user.Login,
+                    WorkerRole = dataBase.CurrentUser?.WorkerRole,
+                    Login = dataBase.CurrentUser?.Login,
                     Password = user.Password,
                     PasswordRepeat = user.PasswordRepeat,
                     Surname = user.Surname,
@@ -158,7 +141,7 @@
                 };
                 if (designer.Password == designer.PasswordRepeat)
                 {
-                    dataBase.AddToDataBase(designer);
+                    dataBase.ReplaceDesignerByName(designer.Name, designer);
                     btn = true;
                 }
                 else
@@ -169,8 +152,8 @@
             case "Developer":
                 Developer developer = new Developer
                 {
-                    WorkerRole = user.WorkerRole,
-                    Login = user.Login,
+                    WorkerRole = dataBase.CurrentUser?.WorkerRole,
+                    Login = dataBase.CurrentUser?.Login,
                     Password = user.Password,
                     PasswordRepeat = user.PasswordRepeat,
                     Surname = user.Surname,
@@ -187,7 +170,7 @@
                 };
                 if (developer.Password == developer.PasswordRepeat)
                 {
-                    dataBase.AddToDataBase(developer);
+                    dataBase.ReplaceDeveloperByName(developer.Name, developer);
                     btn = true;
                 }
                 else
