@@ -43,9 +43,27 @@
                                 </td>
                             </tr>
                         }
+                        @foreach (var doc in CurrentProj.Project.DocsPreorTwo)
+                        {
+                            <tr>
+                                <td>@doc.Key</td>
+                                <td>
+                                     <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                </td>
+                            </tr>
+                        }
                     break;
                     case "Газификация":
                         @foreach (var doc in CurrentProj.Project.DocsPreor)
+                        {
+                            <tr>
+                                <td>@doc.Key</td>
+                                <td>
+                                     <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                </td>
+                            </tr>
+                        }
+                        @foreach (var doc in CurrentProj.Project.DocsPreorTwo)
                         {
                             <tr>
                                 <td>@doc.Key</td>
@@ -60,7 +78,7 @@
         </table>
         @if (CurrentUser.UserRole != "Developer")
         {
-            <h6>Документы, предоставленные проектировщиком</h6>
+            <h6><b>Документы, предоставленные проектировщиком</b></h6>
             @if (CurrentUser.UserRole == "Designer")
             {
                 <InputFile OnChange="@LoadFiles" multiple  />
@@ -112,20 +130,20 @@
             }
             @if (CurrentUser.UserRole == "Customer")
             {
-                <label for="comForDes"><b>Комментарий</b></label>                    
+                <label for="comForDes"><b>Комментарий</b></label> <br/>                   
                 <input type="text" placeholder="Комментарий" name="comForDes" id="comForDes" required @bind-value="comForDes" />
-                <br/>
+                <br/><br />
             }
             else
             {
                 <label for="comForDes"><b>Комментарий</b></label> 
-                <br/>
-                <h5>@CurrentProj.Project.CommentForDes</h5>
+                <br/><br />
+                <h5>@CurrentProj.Project.CommentForDes</h5><br />
             }
         }
         @if (CurrentUser.UserRole != "Designer")
         {
-            <h6>Документы, предоставленные застройщиком</h6>
+            <h6><b>Документы, предоставленные застройщиком</b></h6>
             @if (CurrentUser.UserRole == "Developer")
             {
                 <InputFile OnChange="@LoadFilesByDeveloper" multiple  />
@@ -177,7 +195,7 @@
             }
             @if (CurrentUser.UserRole == "Customer")
             {
-                <label for="comForDes"><b>Комментарий</b></label>                    
+                <label for="comForDes"><b>Комментарий</b></label><br />                 
                 <input type="text" placeholder="Комментарий" name="comForDes" id="comForDes" required @bind-value="comForDev" />
                 <br/>
             }
@@ -197,6 +215,7 @@
 </div>
 
 <button type="submit" class="registerbtn" @onclick="Save">Сохранить</button>
+<button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
 <button class = "registerbtn"  @onclick="Logouting">Выйти</button>
 <button class = "registerbtn" @onclick="GoToProfile">Профиль</button>
 
@@ -207,6 +226,11 @@
     List<string> filesDev = new List<string>();
     string comForDes;
     string comForDev;
+
+    public void GoToProj()
+    {
+        Navigation.NavigateTo("/mainproj");
+    }
 
     public void DelNewFilesDev()
     {
@@ -247,16 +271,22 @@
     public void Aprroved()
     {
         CurrentProj.Project.IsApproved = true;
-        DBConnection.ReplaceGas(CurrentProj.Project);
+        switch (CurrentProj.Project.Department)
+        {
+            case "Водоснабжение" :
+                DBConnection.ReplaceWater(CurrentProj.Project);
+                break;
+            case "Газификация" :
+                DBConnection.ReplaceGas(CurrentProj.Project);
+                break;
+        }
         filesDes.Clear();
         filesDev.Clear();
-        Navigation.NavigateTo("/personalmain");
+        Navigation.NavigateTo("/mainproj");
     }
 
     public void Save()
     {
-
-
         switch (CurrentProj.Project.Department)
         {
             case "Водоснабжение" :

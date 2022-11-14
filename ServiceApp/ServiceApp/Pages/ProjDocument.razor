@@ -53,12 +53,30 @@
                                     </td>
                                 </tr>
                             }
+                            @foreach (var doc in Doc.documentHDes)
+                            {
+                                <tr>
+                                    <td @onclick = "() => ChangedTwo(doc.Key)">@doc.Key</td>
+                                    <td>
+                                        <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                    </td>
+                                </tr>
+                            }
                         break;
                         case "Газификация":
                             @foreach (var doc in Doc.documentG)
                             {
                                 <tr>
                                     <td @onclick = "() => ChangedG(doc.Key)">@doc.Key</td>
+                                    <td>
+                                        <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var doc in Doc.documentGDes)
+                            {
+                                <tr>
+                                    <td @onclick = "() => ChangedGTwo(doc.Key)">@doc.Key</td>
                                     <td>
                                         <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
                                     </td>
@@ -96,10 +114,22 @@
         Doc.documentH[key] = checkedValue;
     }
 
+    public void ChangedTwo(string key)
+    {
+        checkedValue = !Doc.documentHDes[key];
+        Doc.documentHDes[key] = checkedValue;
+    }
+
     public void ChangedG(string key)
     {
         checkedValueG = !Doc.documentG[key];
         Doc.documentG[key] = checkedValueG;
+    }
+
+    public void ChangedGTwo(string key)
+    {
+        checkedValueG = !Doc.documentGDes[key];
+        Doc.documentGDes[key] = checkedValueG;
     }
 
     public void GoToProj()
@@ -128,7 +158,7 @@
         Project project = new Project();
         project.Name = name;
         project.Department = CurrentUserName.CurrentCustomer.Department;
-        project.Customer = CurrentUserName.CurrentCustomer.Login;
+        project.Customer = CurrentUserName.CurrentCustomer.MiddleName;
         project.Designer = designer;
         project.Developer = developer;
 
@@ -136,10 +166,12 @@
         {
             case "Водоснабжение":
                 project.DocsPreor = Doc.documentH;
+                project.DocsPreorTwo = Doc.documentHDes;
                 DBConnection.AddToDataBaseProjectW(project);
                 break;
             case "Газификация" :
                 project.DocsPreor = Doc.documentG;
+                project.DocsPreorTwo = Doc.documentGDes;
                 DBConnection.AddToDataBaseProjectG(project);
                 break;
 

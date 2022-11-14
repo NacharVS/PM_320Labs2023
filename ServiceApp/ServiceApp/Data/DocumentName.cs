@@ -29,5 +29,16 @@
             { "Технические условия на сети электроснабжение, водоснабжения, водоотведения при установке БМК", false },
             { "Согласование посадки котельной", false }
         };
+
+        public Dictionary<string, bool> documentHDes = new Dictionary<string, bool>()
+        {
+            { "Технико-экономические показатели (ТЭП)", false }
+        };
+
+        public Dictionary<string, bool> documentGDes = new Dictionary<string, bool>()
+        {
+            { "Технико-экономические показатели (ТЭП)", false },
+            { "Вводной газопровод низкого давления", false }
+        };
     }
 }

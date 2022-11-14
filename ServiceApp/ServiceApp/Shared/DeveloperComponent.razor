@@ -38,6 +38,9 @@
             <label for="address"><b>Адрес</b></label><br />
             <input type="text" placeholder="@CurrentUser.CurrentDeveloper.Address" name="address" id="address" required @bind-value="@CurrentUser.CurrentDeveloper.Address" />
             <br/>
+            <label for="leader"><b>Главный</b></label><br />
+            <input type="text" placeholder="@CurrentUser.CurrentDeveloper.Leader" name="leader" id="leader" required @bind-value="@CurrentUser.CurrentDeveloper.Leader" />
+            <br/>
         <hr>
         <button type="submit" class="registerbtn" @onclick="Save">Save</button>
         <button type="submit" class="registerbtn" @onclick="GoToProfile">Перейти в профиль</button>

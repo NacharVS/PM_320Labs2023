@@ -55,7 +55,7 @@
 
     public async void Save()
     {
-        if (CurrentUser.CurrentCustomer.MiddleName is not null && CurrentUser.CurrentCustomer.FirstName is not null && CurrentUser.CurrentCustomer.Department is not null && CurrentUser.CurrentCustomer.Telephone is not null && CurrentUser.CurrentCustomer.Email is not null)
+        if (CurrentUser.CurrentCustomer.MiddleName is not null && CurrentUser.CurrentCustomer.FirstName is not null && department is not null && CurrentUser.CurrentCustomer.Telephone is not null && CurrentUser.CurrentCustomer.Email is not null)
         {
             CurrentUser.CurrentCustomer.Department = department;
             DBConnection.ReplaceCustomer(CurrentUser.CurrentCustomer);
