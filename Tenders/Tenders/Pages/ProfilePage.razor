@@ -1,0 +1,293 @@
+﻿@page "/ProfilePage"
+@using Tenders.Data.Services
+@using Tenders.Data.Users
+@using System.Text.RegularExpressions
+
+@inject AuthorizationService AuthorizationService
+@inject MongoConnectionService MongoConnectionService
+@inject NavigationManager Navigation
+
+@if (_user is Customer)
+{
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">Full name</label><input type="text" class="form-control" placeholder="full name" @bind-value="_fullName"></div>
+                        <div class="col-md-6"><label class="labels">Industry type</label>
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select industry type</button>
+                                  <ul class="dropdown-menu">
+                                    <li class="dropdown-item" @onclick="ChooseWaterSupply">Water supply</li>
+                                    <li class="dropdown-item" @onclick="ChooseGasSupply">Gas supply</li>
+                                  </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Phone Number</label><input type="text" class="form-control" placeholder="enter phone number" @bind-value="_phoneNumber"></div>
+                        <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email" @bind-value="_email"></div>
+                        </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">Password</label><input type="password" class="form-control" placeholder="Password" @bind-value="_password"></div>
+                        <div class="col-md-6"><label class="labels">Repeated password</label><input type="password" class="form-control" @bind-value="_repeatedPassword" placeholder="Repeated password"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><button class="btn btn-primary profile-button" type="button" @onclick="SaveCustomerInfo">Save Profile</button></div>
+                        <div class="col-md-6"><button class="btn btn-primary profile-button" type="button" @onclick="GoToProjects">Projects</button></div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (_user is Developer)
+{
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="enter name" @bind-value="_name"></div>
+                        <div class="col-md-12"><label class="labels">PSRN</label><input type="text" class="form-control" placeholder="enter PSRN" @bind-value="_PSRN"></div>
+                        <div class="col-md-12"><label class="labels">TIN</label><input type="text" class="form-control" placeholder="enter TIN" @bind-value="_TIN"></div>
+                        <div class="col-md-12"><label class="labels">TRRC</label><input type="text" class="form-control" placeholder="enter TRRC" @bind-value="_TRRC"></div>
+                        <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" placeholder="enter address" @bind-value="_address"></div>
+                        <div class="col-md-12"><label class="labels">Director</label><input type="text" class="form-control" placeholder="enter director" @bind-value="_director"></div>
+                        <div class="col-md-12"><label class="labels">Phone Number</label><input type="text" class="form-control" placeholder="enter phone number" @bind-value="_phoneNumber"></div>
+                        <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email" @bind-value="_email"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">Password</label><input type="password" class="form-control" placeholder="Password" @bind-value="_password"></div>
+                        <div class="col-md-6"><label class="labels">Repeated password</label><input type="password" class="form-control" @bind-value="_repeatedPassword" placeholder="Repeated password"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><button class="btn btn-primary profile-button" type="button" @onclick="SaveDeveloperInfo">Save Profile</button></div>
+                        <div class="col-md-6"><button class="btn btn-primary profile-button" type="button" @onclick="GoToProjects">Projects</button></div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="enter name" @bind-value="_name"></div>
+                        <div class="col-md-12"><label class="labels">PSRN</label><input type="text" class="form-control" placeholder="enter PSRN" @bind-value="_PSRN"></div>
+                        <div class="col-md-12"><label class="labels">TIN</label><input type="text" class="form-control" placeholder="enter TIN" @bind-value="_TIN"></div>
+                        <div class="col-md-12"><label class="labels">TRRC</label><input type="text" class="form-control" placeholder="enter TRRC" @bind-value="_TRRC"></div>
+                        <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" placeholder="enter address" @bind-value="_address"></div>
+                        <div class="col-md-12"><label class="labels">Director</label><input type="text" class="form-control" placeholder="enter director" @bind-value="_director"></div>
+                        <div class="col-md-12"><label class="labels">Main project engineer</label><input type="text" class="form-control" placeholder="enter main project engineer" @bind-value="_mainProjectEngineer"></div>
+                        <div class="col-md-12"><label class="labels">Phone Number</label><input type="text" class="form-control" placeholder="enter phone number" @bind-value="_phoneNumber"></div>
+                        <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email" @bind-value="_email"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><label class="labels">Password</label><input type="password" class="form-control" placeholder="Password" @bind-value="_password"></div>
+                        <div class="col-md-6"><label class="labels">Repeated password</label><input type="password" class="form-control" @bind-value="_repeatedPassword" placeholder="Repeated password"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><button class="btn btn-primary profile-button" type="button" @onclick="SaveDesignerInfo">Save Profile</button></div>
+                        <div class="col-md-6"><button class="btn btn-primary profile-button" type="button" @onclick="GoToProjects">Projects</button></div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (!String.IsNullOrEmpty(_exMessage))
+{
+    <p>@_exMessage</p>
+}
+<button class="btn btn-primary profile-button" type="button" @onclick="Exit">Exit</button>
+
+@code {
+    User _user;
+    string _fullName;
+    IndustryType _industryType;
+    string _phoneNumber;
+    string _email;
+    string _password;
+    string _repeatedPassword;
+    string _name;
+    string _PSRN; //ОГРН
+    string _TIN; //ИНН
+    string _TRRC; //КПП
+    string _address;
+    string _director;
+    string _mainProjectEngineer;
+    String _exMessage;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _user = AuthorizationService.CurrentUser;
+        FillInputs(_user);
+    }
+
+    private void ChooseWaterSupply()
+    {
+        _industryType = IndustryType.WaterSupply;
+    }
+    
+    private void ChooseGasSupply()
+    {
+        _industryType = IndustryType.GasSupply;
+    }
+
+    private void FillInputs(User user)
+    {
+        if (user is Customer)
+        {
+            _fullName = (user as Customer).FullName;
+            _industryType = (user as Customer).IndustryType;
+        }
+        else if (user is Developer)
+        {
+            _name = (user as Developer).Name;
+            _PSRN = (user as Developer).PSRN;
+            _TIN = (user as Developer).TIN;
+            _TRRC = (user as Developer).TRRC;
+            _address = (user as Developer).Address;
+            _director = (user as Developer).Director;
+        }
+        else if (user is Designer)
+        {
+            _name = (user as Designer).Name;
+            _PSRN = (user as Designer).PSRN;
+            _TIN = (user as Designer).TIN;
+            _TRRC = (user as Designer).TRRC;
+            _address = (user as Designer).Address;
+            _director = (user as Designer).Director;
+            _mainProjectEngineer = (user as Designer).MainProjectEngineer;
+        }
+        _phoneNumber = user.PhoneNumber;
+        _email = user.PhoneNumber;
+        _password = user.Password;
+        _repeatedPassword = user.Password;
+    }
+
+    private void SaveCustomerInfo()
+    {
+        (_user as Customer).FullName = _fullName;
+        (_user as Customer).IndustryType = _industryType;
+        SaveUserInfo();
+    }
+
+    private void SaveDesignerInfo()
+    {
+        (_user as Designer).Name = _name;
+        if (CheckTIN((_user as Designer).TIN))
+            (_user as Designer).TIN = _TIN;
+        else
+            _exMessage = "Not correct TIN";
+
+        if (CheckPSRN((_user as Designer).PSRN))
+            (_user as Designer).PSRN = _PSRN;
+        else
+            _exMessage = "Not correct PSRN";
+
+        if (CheckTRRC((_user as Designer).TRRC))
+            (_user as Designer).TRRC = _TRRC;
+        else
+            _exMessage = "Not correct TRRC";
+        
+        (_user as Designer).Address = _address;
+        (_user as Designer).Director = _director;
+        (_user as Designer).MainProjectEngineer = _mainProjectEngineer;
+        SaveUserInfo();
+    }
+
+    private void SaveDeveloperInfo()
+    {
+        (_user as Developer).Name = _name;
+        if (CheckTIN((_user as Developer).TIN))
+            (_user as Developer).TIN = _TIN;
+        else
+            _exMessage = "Not correct TIN";
+
+        if (CheckPSRN((_user as Developer).PSRN))
+            (_user as Developer).PSRN = _PSRN;
+        else
+            _exMessage = "Not correct PSRN";
+
+        if (CheckTRRC((_user as Developer).TRRC))
+            (_user as Developer).TRRC = _TRRC;
+        else
+            _exMessage = "Not correct TRRC";
+        (_user as Developer).Address = _address;
+        (_user as Developer).Director = _director;
+    }
+
+    private void SaveUserInfo()
+    {
+        if (CheckPhoneNum())
+            _user.PhoneNumber = _phoneNumber;
+        else
+            _exMessage = "Not correct phone number";
+
+        if (CheckEmail())
+            _user.Email = _email;
+        else
+            _exMessage = "Not correct email";
+        
+        if (_password == _repeatedPassword && _repeatedPassword == "")
+        {
+            _user.Password = _password;
+        }
+        if (String.IsNullOrEmpty(_exMessage))
+        {
+            MongoConnectionService.ReplaceUser(_user);
+        }
+    }
+
+    private bool CheckPhoneNum()
+    {
+        return Regex.IsMatch(_user.PhoneNumber, "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
+    }
+
+    private bool CheckEmail()
+    {
+        return Regex.IsMatch(_user.Email, @".+\@.+\..+");
+    }
+
+    private bool CheckPSRN(string PSRN)
+    {
+        return PSRN.Length == 13 && PSRN.All(char.IsDigit);
+    }
+
+    private bool CheckTIN(string TIN)
+    {
+        return TIN.Length == 10 && TIN.All(char.IsDigit);
+    }
+
+    private bool CheckTRRC(string TRRC)
+    {
+        return TRRC.Length == 9 && TRRC.All(char.IsDigit);
+    }
+
+    private void GoToProjects()
+    {
+        Navigation.NavigateTo("/ProjectPage");
+    }
+
+    private void Exit()
+    {
+        AuthorizationService.CurrentUser = null;
+        AuthorizationService.Exit();
+        Navigation.NavigateTo("/");
+    }
+}

@@ -1,0 +1,150 @@
+﻿@page "/RegistrationPage"
+@using Tenders.Data.Users
+@using Tenders.Data.Services
+
+@inject NavigationManager Navigation
+@inject MongoConnectionService MongoConnectionService
+@inject AuthorizationService AuthorizationService
+
+<PageTitle>Registration</PageTitle>
+
+<section class="vh-100" style="background-color: #2779e2;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-9">
+        <h1 class="text-white mb-4">Registration</h1>
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body">
+            <div class="row align-items-center pt-4 pb-3">
+              <div class="col-md-3 ps-5">
+                <h6 class="mb-0">Login</h6>
+              </div>
+              <div class="col-md-9 pe-5">
+                <input type="text" class="form-control form-control-lg" @bind-value="_user.Login"/>
+              </div>
+            </div>
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center py-3">
+              <div class="col-md-3 ps-5">
+                <h6 class="mb-0">Password</h6>
+              </div>
+              <div class="col-md-9 pe-5">
+                <input type="password" class="form-control form-control-lg" @bind-value="_user.Password" />
+              </div>
+            </div>
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center py-3">
+              <div class="col-md-3 ps-5">
+
+                <h6 class="mb-0">Repeat password</h6>
+
+              </div>
+              <div class="col-md-9 pe-5">
+                <input type="password" class="form-control form-control-lg" @bind-value="_repeatedPassword" />
+              </div>
+            </div>
+            
+            <hr class="mx-n3">
+            
+            <div class="row align-items-center pt-4 pb-3">
+              <div class="col-md-3 ps-5">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-md-9 pe-5">
+                <input type="email" class="form-control form-control-lg" @bind-value="_user.Email"/>
+              </div>
+            </div>
+            
+            <hr class="mx-n3">
+            
+            <div class="row align-items-center pt-4 pb-3">
+              <div class="col-md-3 ps-5">
+                <h6 class="mb-0">Phone number</h6>
+              </div>
+              <div class="col-md-9 pe-5">
+                <input type="tel" class="form-control form-control-lg" @bind-value="_user.PhoneNumber"/>
+              </div>
+            </div>
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+              <div class="col-md-3 ps-5">
+                <h6 class="mb-0">Select role</h6>
+              </div>
+              <div class="col-md-9 pe-5">
+                <select class="select">
+                  <option value="1">Unspecified</option>
+                  <option value="2" @onclick="ChooseCustomerRole">Customer</option>
+                  <option value="3" @onclick="ChooseDesignerRole">Designer</option>
+                  <option value="4" @onclick="ChooseDeveloperRole">Developer</option>
+                </select>
+              </div>
+            </div>
+            
+            <hr class="mx-n3">
+            
+            <div class="px-5 py-4">
+              <button type="submit" class="btn btn-primary btn-lg" @onclick="Registration">Registrate</button>
+            </div>
+            
+            <hr class="mx-n3"/>
+
+            @if (!String.IsNullOrEmpty(_exMessage))
+            {
+                <p>@_exMessage</p>
+            }
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+@if (!String.IsNullOrEmpty(_exMessage))
+{
+    <p>@_exMessage</p>
+}
+
+@code
+{
+    string _repeatedPassword;
+    string? _exMessage;
+    UserRole _role;
+    User? _user;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _user = new User();
+    }
+
+    private void ChooseCustomerRole()
+    {
+        _role = UserRole.Customer;
+    }
+
+    private void ChooseDesignerRole()
+    {
+        _role = UserRole.Designer;
+    }
+    
+    private void ChooseDeveloperRole()
+    {
+        _role = UserRole.Developer;
+    }
+    
+    private void Registration()
+    {
+        _exMessage = "";
+        _exMessage = AuthorizationService.Registrate(_user, _repeatedPassword, _role);
+        if (_exMessage == "")
+        {
+            Navigation.NavigateTo("/");
+        }
+    }
+}

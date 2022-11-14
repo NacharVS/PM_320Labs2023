@@ -1,0 +1,82 @@
+﻿@page "/ProjectCreatingPage"
+
+@using Tenders.Data.Users
+@using Tenders.Data.Services
+@using Tenders.Data
+
+@inject MongoConnectionService MongoConnectionService
+@inject AuthorizationService AuthorizationService
+@inject NavigationManager Navigation
+
+<h3>Project Creating</h3>
+<button class="btn btn-outline-secondary dropdown-toggle"  id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select developer</button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        @foreach (var developer in _developers)
+        {
+            <div>
+                <li class="dropdown-item">@developer</li>
+                <button @onclick="() => _developer = developer">Choose</button>
+            </div>                                                                                                   
+        }
+    </div>
+<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select designer</button>
+    <ul class="dropdown-menu">
+        @foreach (var designer in _designers)
+        {
+            <div>
+                <li class="dropdown-item">@designer</li>
+                <button @onclick="() => _designer = designer">Choose</button>
+            </div>
+        }   
+    </ul>
+<button @onclick="SaveProject">Save</button>
+<button @onclick="Return">Return</button>
+@if (!String.IsNullOrEmpty(_exMessage))
+{
+    <p>@_exMessage</p>
+}
+
+@code {
+    List<Developer> _developers;
+    List<Designer> _designers;
+    Developer _developer;
+    Designer _designer;
+    string _exMessage;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _developers = new List<Developer>();
+        _designers = new List<Designer>();
+        foreach (var model in MongoConnectionService.GetDevelopers())
+        {
+            _developers.Add(new Developer(model));
+        }
+
+        foreach (var model in MongoConnectionService.GetDesigners())
+        {
+            _designers.Add(new Designer(model));
+        }
+    }
+
+    protected void SaveProject()
+    {
+        if (_designer == null || _developer == null)
+        {
+            _exMessage = "Choose designer and developer";
+        }
+        else
+        {
+            var project = new Project(AuthorizationService.CurrentUser as Customer);
+            project.Designer = _designer;
+            project.Developer = _developer;
+            MongoConnectionService.AddToDb(project);
+            Return();
+        }
+    }
+
+    private void Return()
+    {
+        Navigation.NavigateTo("/ProjectPage");
+    }
+}

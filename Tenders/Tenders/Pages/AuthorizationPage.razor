@@ -1,0 +1,60 @@
+﻿@using Tenders.Data.Users
+@using Tenders.Data.Services
+@using Authorization.Data
+@inject NavigationManager Navigation
+@inject MongoConnectionService MongoConnectionService
+@inject AuthorizationService AuthorizationService
+
+@page "/"
+@if (AuthorizationService.CurrentUser is not null)
+{
+    Navigation.NavigateTo("/ProfilePage");
+}
+else
+{
+    <form>
+        <div class="form-outline mb-4">
+            <input type="text" class="form-control" placeholder="Login" @bind-value="_user.Login"/>
+        </div>
+
+        <div class="form-outline mb-4">
+            <input type="password" class="form-control" placeholder="Password" @bind-value="_user.Password"/>
+        </div>
+
+        <button type="button" class="btn btn-primary btn-block mb-4" @onclick="Login">Sign in</button>
+
+        <!-- Register buttons -->
+        <div class="text-center">
+            <p>Not a member?<p @onclick="Registration">Register</p></p>
+        </div>
+    </form>
+    @if (!String.IsNullOrEmpty(_exMessage))
+    {
+        <p>@_exMessage</p>
+    }
+}
+
+@code {
+    User _user = new User();
+    string _exMessage;
+
+    private void Registration()
+    {
+        Navigation.NavigateTo("/RegistrationPage");
+    }
+
+    private void Login()
+    {
+        _exMessage = "";
+        _exMessage = AuthorizationService.LogIn(_user);
+        if (_exMessage == "")
+            Navigation.NavigateTo("/ProfilePage");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        await AuthorizationService.GetLocalUser();
+    }
+
+}

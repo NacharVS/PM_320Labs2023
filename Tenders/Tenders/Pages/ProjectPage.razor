@@ -1,0 +1,226 @@
+﻿@page "/ProjectPage"
+@using Tenders.Data
+@using Tenders.Data.Services
+@using Tenders.Data.Users
+
+@inject MongoConnectionService MongoConnectionService
+@inject AuthorizationService AuthorizationService
+@inject NavigationManager Navigation
+
+<h3>Projects</h3>
+@if (AuthorizationService.CurrentUser is Customer)
+{
+    <div class="form-group">
+	    <button class="form-control" @onclick="CreateNewProject">Create new project</button>
+    </div>	
+	@foreach (var project in projects)
+	{
+		if (project.Customer.IndustryType == (AuthorizationService.CurrentUser as Customer).IndustryType)
+		{
+		    <form>
+			    <div class="form-group">
+				    <label class="control-label">Developer</label>
+				    <p class="form-control">@project.Developer</p>
+			    </div>					
+								    
+			    <div class="form-group">
+				    <label class="control-label">Designer</label>
+				    <p class="form-control">@project.Designer</p>
+                </div>	
+                
+                <div class="form-group">
+            	    <label class="control-label">Industry type</label>
+            	    <p class="form-control">@project.IndustryType</p>
+                </div>	
+
+                <div class="form-group">
+                    <h1 class="control-label">Designer documents:</h1>
+                </div>
+                @foreach (var document in project.DocumentsForDesigner)
+                {
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label>Document name:</label>
+                            <p class="form-control">@document</p>
+                        </div>
+                        @if (project.Customer.Login == AuthorizationService.CurrentUser.Login)
+                        {
+                            <div class="checkbox">
+                                <label><input type="checkbox" @bind-value="document.IsRequired">Is required</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" @bind-value="document.IsApproved">Is approved</label>
+                            </div>
+                            @if (document.FileName != null)
+                            {
+                                <button class="btn btn-default" @onclick="() => Download(document)">Download</button>
+                            }
+                        }
+                        else
+                        {
+                            <div class="checkbox">
+                                <label><input type="checkbox" disabled @bind-value="document.IsRequired">Is required</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" disabled @bind-value="document.IsApproved">Is approved</label>
+                            </div>
+                            @if (document.FileName != null)
+                            {
+                                <button class="btn btn-default" @onclick="() => Download(document)">Download</button>
+                            }
+                        }
+                    </form>
+                }
+                <div class="form-group">
+                    <h1 class="control-label">Developer documents:</h1>
+                </div>
+                @foreach (var document in project.DocumentsForDeveloper)
+                {
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label>Document name:</label>
+                            <p class="form-control">@document</p>
+                        </div>
+                        @if (project.Customer.Login == AuthorizationService.CurrentUser.Login)
+                        {
+                            <div class="checkbox">
+                                <label><input type="checkbox" @bind-value="document.IsRequired">Is required</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" @bind-value="document.IsApproved">Is approved</label>
+                            </div>
+                            @if (document.FileName != null)
+                            {
+                                <button class="btn btn-default" @onclick="() => Download(document)">Download</button>
+                            }
+                        }
+                        else
+                        {
+                            <div class="checkbox">
+                                <label><input type="checkbox" disabled @bind-value="document.IsRequired">Is required</label>
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" disabled @bind-value="document.IsApproved">Is approved</label>
+                            </div>
+                            @if (document.FileName != null)
+                            {
+                                <button class="btn btn-default" @onclick="() => Download(document)">Download</button>
+                            }
+                        }
+                    </form>
+                }
+                @if (project.Customer.Login == AuthorizationService.CurrentUser.Login)
+                {
+                    <button class="button btn-primary" @onclick="() => SaveProject(project)">Save project</button>
+                }
+		    </form>
+		    <hr class="hr hr-blurry"/>
+		}
+	}
+}
+else if (AuthorizationService.CurrentUser is Developer)
+{
+    @foreach (var project in projects)
+    {
+        @if (project.Developer.Login == AuthorizationService.CurrentUser.Login)
+        {
+            <div class="form-group">
+                <h1 class="control-label">Documents:</h1>
+            </div>
+            @foreach (var document in project.DocumentsForDeveloper)
+            {
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label>Document name:</label>
+                        <p class="form-control">@document</p>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" disabled @bind-value="document.IsRequired">Is required</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" disabled @bind-value="document.IsApproved">Is approved</label>
+                    </div>
+                    <InputFile class="btn btn-default" OnChange="(e) => SingleUpload(e, document)">Upload</InputFile>
+                    @if (document.FileName != null)
+                    {
+                        <button class="btn btn-default" @onclick="() => Download(document)">Download</button>
+                    }
+                </form>
+            }
+        }
+        <button class="button btn-primary" @onclick="() => SaveProject(project)">Save project</button>
+    }
+    <hr class="hr hr-blurry"/>
+}
+else if (AuthorizationService.CurrentUser is Designer)
+{
+    @foreach (var project in projects)
+    {
+        @if (project.Designer.Login == AuthorizationService.CurrentUser.Login)
+        {
+            <div class="form-group">
+                <h1 class="control-label">Documents:</h1>
+            </div>
+            @foreach (var document in project.DocumentsForDesigner)
+            {
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label>Document name:</label>
+                        <p class="form-control">@document</p>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" disabled @bind-value="document.IsRequired">Is required</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" disabled @bind-value="document.IsApproved">Is approved</label>
+                    </div>
+                    <InputFile class="btn btn-default" OnChange="(e) => SingleUpload(e, document)">Upload</InputFile>
+                    @if (document.FileName != null)
+                    {
+                        <button class="btn btn-default" @onclick="() => Download(document)">Download</button>
+                    }
+                </form>
+            }
+        }
+        <button class="button btn-primary" @onclick="() => SaveProject(project)">Save project</button>
+    }
+    <hr class="hr hr-blurry"/>
+}
+<button class="btn btn-primary" @onclick="Exit">Exit</button>
+
+@code {
+    List<Project> projects;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        projects = MongoConnectionService.GetProjects();
+    }
+
+    private void CreateNewProject()
+    {
+        Navigation.NavigateTo("/ProjectCreatingPage");
+    }
+
+    private void Exit()
+    {
+        Navigation.NavigateTo("/ProfilePage");
+    }
+    
+    private async Task SingleUpload(InputFileChangeEventArgs e, Document document)
+    {
+        Stream stream = e.File.OpenReadStream(2000000);
+        await MongoConnectionService.UploadFileToDb(e.File, document, stream);
+        stream.Dispose();
+    }
+
+    private void Download(Document document)
+    {
+        MongoConnectionService.DownloadFile(document);
+    }
+
+    private void SaveProject(Project project)
+    {
+        MongoConnectionService.SaveProject(project);
+    }
+}
