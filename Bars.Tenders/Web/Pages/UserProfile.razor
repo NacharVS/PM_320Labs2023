@@ -142,12 +142,13 @@
                                     
                                     <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
-                                        <div class="col-4 mb-3">
+                                        <div class="col-3 mb-3">
                                             
                                         </div>
-                                        <div class="col-4 mb-3">
+                                        <div class="col-6 mb-3">
                                             <p class="alert-danger mb-3">@_exception</p>
-                                            <button @onclick="@SaveChanges" class="btn btn-outline-danger">Save changes</button>
+                                            <button @onclick="@SaveChanges" class="btn btn-outline-success">Save changes</button>
+                                            <button @onclick="@LogOut" class="btn btn-outline-danger">Log out</button>
                                         </div>
                                     </div>
                                 </div>
@@ -178,11 +179,16 @@
 
     private string? _exception;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         if (AuthService.AuthorizedUser == null)
         {
-            NavigationManager.NavigateTo(NavigationManager.BaseUri + "authorization");
+            await AuthService.AuthorizeUserWithCache();
+            if (AuthService.AuthorizedUser == null)
+            {
+                NavigationManager.NavigateTo(NavigationManager.BaseUri + "authorization");
+                return;
+            }
         }
         currentUser = AuthService.AuthorizedUser!;
         SetPrimaryVariables();
@@ -293,9 +299,10 @@
             _exception = ex.Message;
         }
     }
-    
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+
+    private async Task LogOut()
     {
-        await AuthService.AuthorizeUserWithCache();
+        await AuthService.LogOut();
+        NavigationManager.NavigateTo("/authorization");
     }
 }

@@ -69,7 +69,12 @@
     {
         if (AuthService.AuthorizedUser is null)
         {
-            NavigationManager.NavigateTo("/authorization");
+            await AuthService.AuthorizeUserWithCache();
+            if (AuthService.AuthorizedUser == null)
+            {
+                NavigationManager.NavigateTo(NavigationManager.BaseUri + "authorization");
+                return;
+            }
         }
 
         if (AuthService.AuthorizedUser!.Role != UserRole.Customer)

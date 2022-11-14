@@ -9,7 +9,7 @@
 
 <h3 class="mb-3">Projects</h3>
 
-@if (AuthService.AuthorizedUser.Role == UserRole.Customer)
+@if (AuthService.AuthorizedUser?.Role == UserRole.Customer)
 {
     <button class="btn btn-outline-primary mb-4" @onclick="@CreateNewProject">Create new project</button>
 }
@@ -35,7 +35,12 @@
     {
         if (AuthService.AuthorizedUser is null)
         {
-            NavigationManager.NavigateTo("/authorization");
+            await AuthService.AuthorizeUserWithCache();
+            if (AuthService.AuthorizedUser == null)
+            {
+                NavigationManager.NavigateTo("/authorization");
+                return;
+            }
         }
 
         var industry = AuthService.AuthorizedUser!.Role == UserRole.Customer 

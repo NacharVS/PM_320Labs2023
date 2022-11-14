@@ -3,13 +3,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Core.Entities.Users;
 using DataProvider;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Web.Services;
 
 public class AuthService
 {
-    private readonly IJSRuntime js;
+    private readonly IJSRuntime _js;
     private readonly HMACSHA256 _encryptor;
     private readonly MongoProvider<BaseUser> _userContext;
     private readonly UserDomainService _userDomain;
@@ -21,15 +22,15 @@ public class AuthService
     {
         _userContext = userContext;
         _userDomain = userDomain;
-        this.js = js;
+        _js = js;
         _encryptor = new HMACSHA256(
             Encoding.UTF8.GetBytes(configuration["Encryption:AnalogKey"] ?? String.Empty));
     }
 
     public async Task AuthorizeUserWithCache()
     {
-        string login = await js.InvokeAsync<string>("GetLogin");
-        string passHash = await js.InvokeAsync<string>("GetPasswordHash");
+        string login = await _js.InvokeAsync<string>("GetLogin");
+        string passHash = await _js.InvokeAsync<string>("GetPasswordHash");
         try
         {
             await AuthorizeUser(login, passHash, true);
@@ -65,7 +66,7 @@ public class AuthService
             AuthorizedUser = await _userDomain.LoadUser(possibleUser._id, possibleUser.Role, true);
             if (!usingHash)
             {
-                await js.InvokeVoidAsync("AddUserToLocalStorage", login, CalculateHash(password));
+                await _js.InvokeVoidAsync("AddUserToLocalStorage", login, CalculateHash(password));
             }
             return Results.Ok("Authorized");
         }
@@ -110,6 +111,12 @@ public class AuthService
         await AuthorizeUser(user.Login, password);
 
         return Results.Ok("Successfully registered");
+    }
+
+    public async Task LogOut()
+    {
+        await _js.InvokeVoidAsync("ClearLocalStorage");
+        AuthorizedUser = null;
     }
 
     private string CalculateHash(string password)

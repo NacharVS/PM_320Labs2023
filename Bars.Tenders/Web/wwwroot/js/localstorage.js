@@ -12,3 +12,8 @@ function GetPasswordHash()
 {
     return localStorage.getItem("passwordHash");
 }
+
+function ClearLocalStorage()
+{
+    localStorage.clear();
+}
