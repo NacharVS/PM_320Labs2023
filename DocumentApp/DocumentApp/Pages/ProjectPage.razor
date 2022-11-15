@@ -8,6 +8,7 @@
 @inject ProjectService ProjectService
 @inject RoleService RoleService
 
+<h3>Название проекта: @ProjectService.CurrentProject.ProjectName</h3>
 @switch (_role)
 {
     case "Заказчик":
