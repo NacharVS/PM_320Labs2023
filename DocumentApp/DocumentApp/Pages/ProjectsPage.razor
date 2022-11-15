@@ -12,14 +12,16 @@
 
 @if (_projects is not null && _projects.Count > 0)
 {
-    <table class="table table-responsive table-bordered">
+    <table class="table table-bordered">
         <thead>
         <tr>
-            <td>Название проекта</td>
-            <td>Заказчик</td>
-            <td>Проектировщик</td>
-            <td>Застройщик</td>
-            <td>Действие</td>
+            <td><strong>Название проекта</strong></td>
+            <td><strong>Заказчик</strong></td>
+            <td><strong>Проектировщик</strong></td>
+            <td><strong>Застройщик</strong></td>
+            <td><strong>Дата</strong></td>
+            <td><strong>Направление</strong></td>
+            <td><strong>Действие</strong></td>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +32,8 @@
                     <td> <label class="form-label col-form-label-lg">@UserService.GetUserById(proj.CustomerId).Login</label> </td>
                     <td> <label class="form-label col-form-label-lg">@UserService.GetUserById(proj.DesignerId).Login</label> </td>
                     <td> <label class="form-label col-form-label-lg" >@UserService.GetUserById(proj.BuilderId).Login</label> </td>
+                    <td> <label class="form-label col-form-label-lg" >@proj.CreatedDate.Date</label> </td>
+                    <td> <label class="form-label col-form-label-lg" >@proj.ProjectDepartment</label> </td>
                     <td> <button class="btn btn-dark" @onclick="() => OpenProject(proj)">Открыть</button> </td>
                 </tr>
             }
@@ -39,7 +43,7 @@
 @if(UserService.CurrentUser is not null &&
     UserService.CurrentUser.RoleId == "636d3987fa5a3023d2857cbc")
 {
-    <NewProjectComponent></NewProjectComponent>
+    <a class="btn btn-success" href="/NewProject">Новый проект</a>
 }
 
 @code {

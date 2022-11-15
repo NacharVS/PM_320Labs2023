@@ -1,4 +1,6 @@
-﻿@using DocumentApp.Models
+﻿@page "/NewProject"
+
+@using DocumentApp.Models
 @using DocumentApp.Services
 @using DocumentApp.Interfaces
 @inject UserService UserService
@@ -144,6 +146,7 @@
 
             StateHasChanged();
             JSR.InvokeVoidAsync("alert", "Проект успешно создан");
+            NavigationManager.NavigateTo("/ProjectsPage");
         }
         else
         {

@@ -7,19 +7,19 @@
 @inject IDocumentService DocumentService
 
 <EditForm Model="ProjectService.CurrentProject">
-    <h1>Название проекта: @ProjectService.CurrentProject.ProjectName</h1>
-    <table class="table table-responsive table-bordered">
+    <h3>Название проекта: @ProjectService.CurrentProject.ProjectName</h3>
+    <table class="table table-bordered">
         <thead>
         <tr>
-            <td>Название</td>
-            <td>Наименование файла</td>
+            <td><strong>Название</strong></td>
+            <td><strong>Наименование файла</strong></td>
             @if (!IsCustomer)
             {
-                <td>Файл</td>
+                <td><strong>Файл</strong></td>
             }
-            <td>Действие</td>
-            <td>Предпочтительность</td>
-            <td>Утвержден</td>
+            <td><strong>Действие</strong></td>
+            <td><strong>Предпочтительность</strong></td>
+            <td><strong>Утвержден</strong></td>
         </tr>
         </thead>
         <tbody>
@@ -88,14 +88,21 @@
                 if (!_defDocs!.DesignerFormGasNoHeader.Contains(field.FieldName))
                 {
                     <tr>
-                        <td><label class="form-label col-form-label-lg d-flex justify-content-center">@field.FieldName</label></td>
+                        <td align="center" colspan="2"><label class="form-label col-form-label-lg d-flex justify-content-center">@field.FieldName</label></td>
                     </tr>
                     continue;
                 }
 
                 <tr>
-                    <td>@field.FieldName</td>
-                    <td><input class="form-control form-control-lg" @bind="field.FieldValue"/></td>
+                    <td><label class="form-label col-form-label-lg">@field.FieldName</label></td>
+                    @if (IsCustomer)
+                    {
+                        <td><label class="form-control form-control-lg">@field.FieldValue</label></td>
+                    }
+                    else
+                    {
+                        <td><input class="form-control form-control-lg" @bind="field.FieldValue"/></td>
+                    }
                 </tr>
             }
             else
@@ -103,16 +110,16 @@
                 if (!_defDocs!.DesignerFormWaterNoHeader.Contains(field.FieldName!))
                 {
                     <tr>
-                        <td><label class="form-label col-form-label-lg">@field.FieldName</label></td>
+                        <td colspan="2" align="center"><label class="form-label col-form-label-lg">@field.FieldName</label></td>
                     </tr>
                     continue;
                 }
 
                 <tr>
-                    <td>@field.FieldName</td>
+                    <td><label class="form-label col-form-label-lg">@field.FieldName</label></td>
                     @if (IsCustomer)
                     {
-                        <td><label class="form-control form-control-lg"/>@field.FieldValue</td>
+                        <td><label class="form-control form-control-lg">@field.FieldValue</label></td>
                     }
                     else
                     {

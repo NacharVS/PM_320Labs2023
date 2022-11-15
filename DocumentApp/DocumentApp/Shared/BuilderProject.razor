@@ -7,19 +7,19 @@
 @inject IDocumentService DocumentService
 
 <EditForm Model="ProjectService.CurrentProject">
-    <h1>Название проекта: @ProjectService.CurrentProject.ProjectName</h1>
+    <h3>Название проекта: @ProjectService.CurrentProject.ProjectName</h3>
     <table class="table table-responsive table-bordered">
         <thead>
         <tr>
-            <td>Название</td>
-            <td>Наименование файла</td>
+            <td><strong>Название</strong></td>
+            <td><strong>Наименование файла</strong></td>
             @if (!IsCustomer)
             {
-                <td>Файл</td>
+                <td><strong>Файл</strong></td>
             }
-            <td>Действие</td>
-            <td>Предпочтительность</td>
-            <td>Утвержден</td>
+            <td><strong>Действие</strong></td>
+            <td><strong>Предпочтительность</strong></td>
+            <td><strong>Утвержден</strong></td>
         </tr>
         </thead>
         <tbody>
