@@ -22,16 +22,3 @@
         break;
 }
 
-@code {
-    private void Logouting()
-    {
-        CurrentUserName.CurrentCustomer = null;
-        CurrentUserName.CurrentDesigner = null;
-        CurrentUserName.CurrentDeveloper = null;
-        LocalStorage.RemoveAsync("Autho");
-        LocalStorage.RemoveAsync("string");
-        Navigation.NavigateTo("/");
-        StateHasChanged();
-    }
-}
-

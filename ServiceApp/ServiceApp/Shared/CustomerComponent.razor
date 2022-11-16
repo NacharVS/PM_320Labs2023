@@ -1,5 +1,6 @@
 ﻿@using Data
 @using Services
+@using System.Text.RegularExpressions
 @inject CurrentUser CurrentUser
 @inject NavigationManager Navigation
 @inject ILocalStorageService LocalStorage
@@ -33,7 +34,7 @@
             <br/>
             <label for="telephone"><b>Телефон</b></label>
             <br/>
-            <input type="tel" placeholder="@CurrentUser.CurrentCustomer.Telephone" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="phone" id="phone" required @bind-value="@CurrentUser.CurrentCustomer.Telephone" />
+            <input type="tel" placeholder="@CurrentUser.CurrentCustomer.Telephone" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="phone" id="phone" required @bind-value="@telephone" />
             <br/>
             <br/>
             <label for="email"><b>Email</b></label>
@@ -50,13 +51,15 @@
 
 @code {
     string department;
+    string telephone;
 
     List<string> globex = new List<string> () { "mail", "gmail" };
 
     public async void Save()
     {
-        if (CurrentUser.CurrentCustomer.MiddleName is not null && CurrentUser.CurrentCustomer.FirstName is not null && department is not null && CurrentUser.CurrentCustomer.Telephone is not null && CurrentUser.CurrentCustomer.Email is not null)
+        if (Regex.IsMatch(telephone, "^[0-9]+$") && CurrentUser.CurrentCustomer.MiddleName is not null && CurrentUser.CurrentCustomer.FirstName is not null && department is not null && telephone is not null && CurrentUser.CurrentCustomer.Email is not null)
         {
+            CurrentUser.CurrentCustomer.Telephone = telephone;
             CurrentUser.CurrentCustomer.Department = department;
             DBConnection.ReplaceCustomer(CurrentUser.CurrentCustomer);
             await LocalStorage.SetAsync<Customer>("Autho", CurrentUser.CurrentCustomer);

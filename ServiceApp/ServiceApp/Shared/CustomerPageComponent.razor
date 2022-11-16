@@ -2,20 +2,26 @@
 @using Services
 @inject CurrentUser CurrentUser
 @inject NavigationManager Navigation
+@inject ILocalStorageService LocalStorage
 
-<div class="card">
+<div class="card"> 
     <h4 class="card-header">Personal Page</h4>
-    <div class="card">
-        <p>Name:  @CurrentUser.CurrentCustomer.FirstName</p>
-        <p>Surname:  @CurrentUser.CurrentCustomer.LastName</p>
-        <p>Email: @CurrentUser.CurrentCustomer.Email</p>
-        <p>Login: @CurrentUser.CurrentCustomer.Login</p>
-        <p>Telephone: @CurrentUser.CurrentCustomer.Telephone</p>
-        <p>Department: @CurrentUser.CurrentCustomer.Department</p>
+    <div class="card-body">
+        @if (CurrentUser.CurrentCustomer is not null)
+        {
+            <p>Имя:  @CurrentUser.CurrentCustomer.FirstName</p>
+            <p>Фамилия:  @CurrentUser.CurrentCustomer.LastName</p>
+            <p>Почта: @CurrentUser.CurrentCustomer.Email</p>
+            <p>Логин: @CurrentUser.CurrentCustomer.Login</p>
+            <p>Телефон: @CurrentUser.CurrentCustomer.Telephone</p>
+            <p>Сфера: @CurrentUser.CurrentCustomer.Department</p>
+        }
+        <button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
+        <button class = "registerbtn" @onclick="Edit">Редактировать</button>
+        <button  class = "registerbtn" @onclick="Logouting">Выйти</button>
     </div>
 </div>
 
-<button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
 
 @code {
 
@@ -24,4 +30,19 @@
         Navigation.NavigateTo("/mainproj");
     }
 
+    private void Logouting()
+    {
+        CurrentUser.CurrentCustomer = null;
+        CurrentUser.CurrentDesigner = null;
+        CurrentUser.CurrentDeveloper = null;
+        LocalStorage.RemoveAsync("Autho");
+        LocalStorage.RemoveAsync("string");
+        Navigation.NavigateTo("/");
+        StateHasChanged();
+    }
+
+    public void Edit()
+    {
+        Navigation.NavigateTo("/personal");
+    }
 }

@@ -1,29 +1,53 @@
 ﻿@using Data
+@using Services
 @inject CurrentUser CurrentUser
 @inject NavigationManager Navigation
+@inject ILocalStorageService LocalStorage
 
 <div class="card">
     <h4 class="card-header">Personal Page</h4>
-    <div class="card">
-        <p>Name:  @CurrentUser.CurrentDeveloper.FirstName</p>
-        <p>Surname:  @CurrentUser.CurrentDeveloper.LastName</p>
-        <p>Email: @CurrentUser.CurrentDeveloper.Email</p>
-        <p>Login: @CurrentUser.CurrentDeveloper.Login</p>
-        <p>Telephone: @CurrentUser.CurrentDeveloper.Telephone</p>
-        <p>INN: @CurrentUser.CurrentDeveloper.INN</p>
-        <p>KPP: @CurrentUser.CurrentDeveloper.KPP</p>
-        <p>OGRN: @CurrentUser.CurrentDeveloper.OGRN</p>
-        <p>Address: @CurrentUser.CurrentDeveloper.Address</p>
-        <p>Developer oranisation: @CurrentUser.CurrentDeveloper.DeveloperOrganisation</p>
-        <p>Director: @CurrentUser.CurrentDeveloper.Leader</p>
+    <div class="card-body">
+        @if (CurrentUser.CurrentDeveloper is not null)
+        {
+            <p>Имя:  @CurrentUser.CurrentDeveloper.FirstName</p>
+            <p>Фамилия:  @CurrentUser.CurrentDeveloper.LastName</p>
+            <p>Почта: @CurrentUser.CurrentDeveloper.Email</p>
+            <p>Логин: @CurrentUser.CurrentDeveloper.Login</p>
+            <p>Телефон: @CurrentUser.CurrentDeveloper.Telephone</p>
+            <p>ИНН: @CurrentUser.CurrentDeveloper.INN</p>
+            <p>КПП: @CurrentUser.CurrentDeveloper.KPP</p>
+            <p>ОГРН: @CurrentUser.CurrentDeveloper.OGRN</p>
+            <p>Адрес: @CurrentUser.CurrentDeveloper.Address</p>
+            <p>Организация: @CurrentUser.CurrentDeveloper.DeveloperOrganisation</p>
+            <p>Директор: @CurrentUser.CurrentDeveloper.Leader</p>
+        }
+        <button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
+        <button class = "registerbtn" @onclick="Edit">Редактировать</button>
+        <button  class = "registerbtn" @onclick="Logouting">Выйти</button>
     </div>
 </div>
 
-<button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
+
 
 @code {
     public void GoToProj()
     {
         Navigation.NavigateTo("/mainproj");
+    }
+
+    private void Logouting()
+    {
+        CurrentUser.CurrentCustomer = null;
+        CurrentUser.CurrentDesigner = null;
+        CurrentUser.CurrentDeveloper = null;
+        LocalStorage.RemoveAsync("Autho");
+        LocalStorage.RemoveAsync("string");
+        Navigation.NavigateTo("/");
+        StateHasChanged();
+    }
+
+    public void Edit()
+    {
+        Navigation.NavigateTo("/personal");
     }
 }

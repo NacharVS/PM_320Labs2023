@@ -21,7 +21,7 @@
                 <option value="-">-</option>
                 @foreach (var dev in developers)
                 {
-                    <option value="@dev.Login">@dev.DeveloperOrganisation</option>
+                    <option value="@dev.DeveloperOrganisation">@dev.DeveloperOrganisation</option>
                 }
             </select>
             <br/>
@@ -30,7 +30,7 @@
                 <option value="-">-</option>
                 @foreach (var des in designers)
                 {
-                    <option value="@des.Login">@des.DesignerOrganisation</option>
+                    <option value="@des.DesignerOrganisation">@des.DesignerOrganisation</option>
                 }
             </select>
             <table class="table">
@@ -88,10 +88,9 @@
             </table>
         <hr>
         <button type="submit" class="registerbtn" @onclick="Save">Создать</button>
+        <button class = "registerbtn"  @onclick="GoToProj">Мои проекты</button>
     </div>
 </div>
-
-<button class = "registerbtn"  @onclick="GoToProj">Мои проекты</button>
 
 @code {
     string developer;
@@ -168,7 +167,6 @@
                 project.DocsPreor = Doc.documentH;
                 project.DocsPreorTwo = Doc.documentHDes;
                 project.FormOfDesigner = Doc.designerFormWater;
-                project.FormOfDesignerValue = new List<string>();
                 DBConnection.AddToDataBaseProjectW(project);
                 break;
             case "Газификация" :
@@ -176,7 +174,6 @@
                 project.DocsPreorTwo = Doc.documentGDes;
                 project.FormOfDesignerOne = Doc.designerFormGasOne;
                 project.FormOfDesigner = Doc.designerFormGas;
-                project.FormOfDesignerValue = new List<string>();
                 DBConnection.AddToDataBaseProjectG(project);
                 break;
 
@@ -185,3 +182,4 @@
         Navigation.NavigateTo("/mainproj");
     }
 }
+

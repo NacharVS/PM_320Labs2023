@@ -21,26 +21,3 @@
     <DeveloperPageComponent></DeveloperPageComponent>
         break;
 }
-
-<button class = "registerbtn" @onclick="Edit">Редактировать</button>
-<button  class = "registerbtn" @onclick="Logouting">LOG OUT</button>
-
-
-@code {
-
-    private void Logouting()
-    {
-        CurrentUserName.CurrentCustomer = null;
-        CurrentUserName.CurrentDesigner = null;
-        CurrentUserName.CurrentDeveloper = null;
-        LocalStorage.RemoveAsync("Autho");
-        LocalStorage.RemoveAsync("string");
-        Navigation.NavigateTo("/");
-        StateHasChanged();
-    }
-
-    public void Edit()
-    {
-        Navigation.NavigateTo("/personal");
-    }
-}

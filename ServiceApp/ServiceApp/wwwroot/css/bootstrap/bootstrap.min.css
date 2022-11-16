@@ -47,6 +47,7 @@
 }
 .card-header {
     background-color: rgba(0,0,0,0.4);
+    text-
 }
 .registerbtn {
     appearance: none;
@@ -77,5 +78,22 @@
 .registerbtn:hover {
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     transform: translateY(-2px);
+}
+
+.card {
+    --clr: rgba(0,0,0,1);
+    --outline: 2px solid var(--clr);
+    color: var(--clr);
+    outline: var(--outline);
+    border: var(--outline);
+    outline-offset: -2px;
+    transition: outline-offset 200ms ease;
+}
+
+.card:hover,
+.card:focus {
+    outline: var(--outline);
+    outline-offset: 2px;
+    // because of normalize
 }
 /*# sourceMappingURL=bootstrap.min.css.map */

@@ -1,6 +1,7 @@
 ﻿@using Data
 @using Services
-@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.DataAnnotations
+@using System.Text.RegularExpressions
 @inject CurrentUser CurrentUser
 @inject NavigationManager Navigation
 @inject ILocalStorageService LocalStorage
@@ -26,7 +27,7 @@
             <br/>
             <br/>
             <label for="telephone"><b>Телефон</b></label>
-            <input type="tel" placeholder="@CurrentUser.CurrentDesigner.Telephone" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="@CurrentUser.CurrentDesigner.Telephone" />
+            <input type="tel" maxlength="11" placeholder="@CurrentUser.CurrentDesigner.Telephone" pattern="[8]{1}-([0-9]){3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="telephone" id="telephone" required @bind-value="@telephone" />
             <br/>
             <br/>
             <label for="email"><b>Email</b></label>
@@ -34,15 +35,15 @@
             <br/>
             <br/>
             <label for="ogrn"><b>ОГРН</b></label>
-            <input type="text" maxlength="13" minlength="13" placeholder="@CurrentUser.CurrentDesigner.OGRN" name="ogrn" id="ogrn" required @bind-value="@CurrentUser.CurrentDesigner.OGRN" />
+            <input type="text" maxlength="13" pattern="[0-9]{13}" minlength="13" placeholder="@CurrentUser.CurrentDesigner.OGRN" name="ogrn" id="ogrn" required @bind-value="@ogrn" />
             <br/>
             <br/>
             <label for="inn"><b>ИНН</b></label>
-            <input type="text" maxlength="10" minlength="10" placeholder="@CurrentUser.CurrentDesigner.INN" name="inn" id="inn" required @bind-value="@CurrentUser.CurrentDesigner.INN"/>
+            <input type="text" maxlength="10" pattern="[0-9]{10}" minlength="10" placeholder="@CurrentUser.CurrentDesigner.INN" name="inn" id="inn" required @bind-value="@inn"/>
             <br/>
             <br/>
             <label for="kpp"><b>КПП</b></label>
-            <input type="text" maxlength="9" minlength="9" placeholder="@CurrentUser.CurrentDesigner.KPP" name="kpp" id="kpp" required @bind-value="@CurrentUser.CurrentDesigner.KPP" />
+            <input type="text" maxlength="9" pattern="[0-9]{9}" minlength="9" placeholder="@CurrentUser.CurrentDesigner.KPP" name="kpp" id="kpp" required @bind-value="@kpp" />
             <br/>
             <br/>
             <label for="address"><b>Адрес</b></label>
@@ -67,6 +68,10 @@
 
 @code {
     List<string> globex = new List<string> () { "mail", "gmail" };
+    string ogrn;
+    string inn;
+    string kpp;
+    string telephone;
 
     public void GoToProj()
     {
@@ -75,8 +80,13 @@
 
     public async void Save()
     {
-        if (CurrentUser.CurrentDesigner.MiddleName is not null && CurrentUser.CurrentDesigner.FirstName is not null && CurrentUser.CurrentDesigner.DesignerOrganisation is not null && CurrentUser.CurrentDesigner.OGRN is not null && CurrentUser.CurrentDesigner.KPP is not null && CurrentUser.CurrentDesigner.Telephone is not null && CurrentUser.CurrentDesigner.INN is not null && CurrentUser.CurrentDesigner.Director is not null && CurrentUser.CurrentDesigner.MainEngineer is not null)
+        if (Regex.IsMatch(ogrn, "^[0-9]+$") && Regex.IsMatch(inn, "^[0-9]+$") && Regex.IsMatch(kpp, "^[0-9]+$") && Regex.IsMatch(telephone, "^[0-9]+$") && CurrentUser.CurrentDesigner.MiddleName is not null && CurrentUser.CurrentDesigner.FirstName is not null && CurrentUser.CurrentDesigner.DesignerOrganisation is not null && ogrn is not null && kpp is not null && telephone is not null && inn is not null && CurrentUser.CurrentDesigner.Director is not null && CurrentUser.CurrentDesigner.MainEngineer is not null)
         {
+            CurrentUser.CurrentDesigner.OGRN = ogrn;
+            CurrentUser.CurrentDesigner.KPP = kpp;
+            CurrentUser.CurrentDesigner.INN = inn;
+            CurrentUser.CurrentDesigner.Telephone = telephone;
+
             DBConnection.ReplaceDesigner(CurrentUser.CurrentDesigner);
             await LocalStorage.SetAsync<Designer>("Autho", CurrentUser.CurrentDesigner);
             StateHasChanged();

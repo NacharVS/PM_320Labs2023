@@ -13,7 +13,7 @@
 
 
 <div class="card">
-    <h4 class="card-header" Color = "black">Personal Page</h4>
+    <h4 class="card-header" Color = "black">Информация о проекте</h4>
     <div class="card-body">
         <hr>
             <p>Наименование:  @CurrentProj.Project.Name</p>
@@ -22,7 +22,7 @@
             <p>Проектировщик:  @CurrentProj.Project.Designer</p>
             <p>Застройщик: @CurrentProj.Project.Developer</p>
         <hr>
-        <h6>Необходимые документы</h6>
+        <h6><b>Необходимые документы</b></h6>
         <table class="table">
             <thead>
                 <tr>
@@ -115,25 +115,25 @@
                 switch (@CurrentProj.Project.Department)
                 {
                     case "Водоснабжение":
-                        <h4>Технико-экономические показатели(ТЭП)</h4>
+                        <label><b>Технико-экономические показатели(ТЭП)</b></label><br /><br />
                         @foreach (var doc in CurrentProj.Project.FormOfDesigner)
                         {
-                            <h5>@doc.Key</h5>
-                            <label >@doc.Value</label>                            
+                            <label>@doc.Key</label>
+                            <label >@doc.Value</label><br />                            
                         }
                         break;
                     case "Газификация":
-                        <h4>Технико-экономические показатели(ТЭП)</h4>
+                        <label><b>Технико-экономические показатели(ТЭП)</b></label><br /><br />
                         @foreach (var doc in CurrentProj.Project.FormOfDesignerOne)
                         {
-                            <h5>@doc.Key</h5>
-                            <label >@doc.Value</label>                              
+                            <label>@doc.Key</label>
+                            <label >@doc.Value</label><br />                             
                         }
-                        <h4>Технико-экономические показатели(ТЭП)</h4>  
+                        <label><b>Технико-экономические показатели(ТЭП)</b></label><br /><br />
                         @foreach (var doc in CurrentProj.Project.FormOfDesigner)
                         {
-                            <h5>@doc.Key</h5>
-                            <label >@doc.Value</label>                             
+                            <label>@doc.Key</label>
+                            <label >@doc.Value</label><br />                         
                         }
                         break;
                 }
@@ -174,12 +174,12 @@
             </table>
             @if (CurrentUser.UserRole == "Designer")
             {
-                <button type="submit" class="registerbtn" @onclick="DelNewFilesDes">Удлаить все только загруженные файлы</button>
+                <button type="submit" class="registerbtn" @onclick="DelNewFilesDes">Удалить все только загруженные файлы</button>
                 <br />
             }
             @if (CurrentUser.UserRole == "Designer")
             {
-                <button type="submit" class="registerbtn" @onclick="DelEarlyFileDes">Удлаить все сохранненые ранее файлы</button>
+                <button type="submit" class="registerbtn" @onclick="DelEarlyFileDes">Удалить все сохранненые ранее файлы</button>
                 <br />
             }
             @if (CurrentUser.UserRole == "Customer")
@@ -265,13 +265,10 @@
         {
             <button type="submit" class="registerbtn" @onclick="Aprroved">Утвердить</button>
         }
+        <button type="submit" class="registerbtn" @onclick="Save">Сохранить</button>
+        <button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
     </div>
 </div>
-
-<button type="submit" class="registerbtn" @onclick="Save">Сохранить</button>
-<button class = "registerbtn" @onclick="GoToProj">Мои проекты</button>
-<button class = "registerbtn"  @onclick="Logouting">Выйти</button>
-<button class = "registerbtn" @onclick="GoToProfile">Профиль</button>
 
 @code {
     List<IBrowserFile> _loadedFilesDev = new();
@@ -280,9 +277,6 @@
     List<string> filesDev = new List<string>();
     string comForDes;
     string comForDev;
-    string waterValue;
-    string gasFirstValue;
-    string gasValue;
 
     public void GoToProj()
     {
