@@ -1,0 +1,100 @@
+﻿@using Documents.Data
+@using Documents.Services
+
+@inject UserService UserServ
+
+<div class="d-flex justify-content-between">
+	<div class="mb-2">
+		<h5><b>Проектировщик:</b> @((UserServ.GetUserById(_project.Architect)) as Architect)</h5>
+	</div>
+
+	<div class="mb-2">
+		<h5><b>Застройщик:</b> @((UserServ.GetUserById(_project.Builder)) as Builder)</h5>
+	</div>
+</div>
+
+<EditForm Model="_project">
+	<h4 align="center" class="mb-2">Документы</h4>
+	<table class="table mt-4">
+	  <thead>
+		<tr>
+		  <th scope="col">Название документа</th>
+		  <th scope="col">Название файла</th>
+		  <th scope="col">Скачать</th>
+		  <th scope="col">Обязательный</th>
+		  <th scope="col">Утвержден</th>
+		</tr> 
+	  </thead>
+	  <tbody>
+			@foreach(var doc in _project.BuilderDocumentInfos)
+			{
+				<tr>
+					<td>@doc.Name</td>
+					<td>@doc.FileName</td>
+					<td><button class="btn btn-primary">Скачать</button></td>
+					<td><InputCheckbox @bind-Value="@doc.IsImportant" @onblur="SendProjectInfo"></InputCheckbox></td>
+					<td><InputCheckbox @bind-Value="@doc.IsAccepted" @onblur="SendProjectInfo"></InputCheckbox></td>		
+				</tr>
+			}
+
+			@foreach(var doc in _project.ArchitectDocumentInfos)
+			{
+				<tr>
+					<td>@doc.Name</td>
+					<td>@doc.FileName</td>
+					<td><button class="btn btn-primary">Скачать</button></td>
+					<td><InputCheckbox @bind-Value="@doc.IsImportant" @onblur="SendProjectInfo"></InputCheckbox></td>
+					<td><InputCheckbox @bind-Value="@doc.IsAccepted" @onblur="SendProjectInfo"></InputCheckbox></td>		
+				</tr>
+			}
+	  </tbody>
+	</table>
+
+	<div>
+		<h4 align="center" class="mb-2">Форма</h4>
+		<table class="table table-bordered border-primary">
+			<tbody>
+				@foreach (var item in _project.FormInfos)
+				{
+					@if (item.Name == "Технико-экономические показатели (ТЭП)"
+					|| item.Name == "Вводной газопровод низкого давления")
+					{
+						<tr>
+							<td colspan="2" align="center"><b>@(item.Name)</b></td>
+						</tr>
+					}
+
+					<tr>
+						<td class="col-1">@(item.Name)</td>
+						<td class="col-1">@(item.Value)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</EditForm>
+
+@code {
+	[Parameter]
+	public Project Project { get; set; }
+
+	[Parameter]
+	public EventCallback<Project> SendProject { get; set; }
+
+	private Project _project;
+
+	protected override void OnInitialized()
+	{
+		if (Project != null)
+		{
+			_project = Project;
+			return;
+		}
+		_project = new Project();
+	}
+
+	private void SendProjectInfo()
+	{
+		SendProject.InvokeAsync(_project);
+	}
+}

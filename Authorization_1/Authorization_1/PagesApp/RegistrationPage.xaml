@@ -1,0 +1,56 @@
+﻿<Page x:Class="Authorization_1.PagesApp.RegistrationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Authorization_1.PagesApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RegistrationPage">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="70">
+                <TextBlock FontSize="20" Text="Login"></TextBlock>
+                <TextBox Width="200" Name="txtLogin"></TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="70">
+                <TextBlock FontSize="20" Text="Name"></TextBlock>
+                <TextBox Width="200" Name="txtName"></TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="70">
+                <TextBlock FontSize="20" Text="Role"></TextBlock>
+                <TextBox Width="200" Name="txtRole"></TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="70">
+                <TextBlock FontSize="20" Text="Password"></TextBlock>
+                <PasswordBox Width="200" Name="txtPassword"></PasswordBox>
+            </StackPanel>
+
+
+            <StackPanel>
+                <Button Content="Login" Width="80"></Button>
+                <Button Content="Registration" Width="80" Click="EventRegistration"></Button>
+            </StackPanel>
+            
+        </StackPanel>
+    </Grid>
+</Page>

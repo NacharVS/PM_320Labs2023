@@ -1,0 +1,111 @@
+﻿@page "/newProject"
+
+@using Documents.Services
+@using Documents.Data
+
+@inject UserService UserServ
+@inject RoleService RoleServ
+@inject IJSRuntime JSRun
+@inject ProjectService ProjectServ
+@inject NavigationManager NavigationMan
+
+<h3>Новый проект</h3>
+
+<div class="form-group">
+    <label>Название</label>
+    <input class="form-control" @bind-value="@_name" style="width: 400px;">
+    @if (_name == "")
+    {
+        <div class="alert alert-warning" style="width: 400px;">
+          Название не может быть пустым!
+        </div>
+    }
+</div>
+
+<div class="form-group">
+    <label>Проектировщик</label><br/>
+    <select class="custom-select" @bind="@_selectedArchitect" style="width:400px;">
+        @foreach(var arc in _architects)
+        {
+            <option value="@((arc as Architect).Id)">@(arc as Architect)</option>
+        }
+    </select>
+    @if (_selectedArchitect == "")
+    {
+        <div class="alert alert-warning" style="width: 400px;">
+          Не указан проектировщик!
+        </div>
+    }
+</div>
+
+<div class="form-group">
+    <label>Застройщик</label><br/>
+    <select class="custom-select" @bind="@_selectedBuilder" style="width:400px;">
+        @foreach(var builder in _builders)
+        {
+            <option value="@((builder as Builder).Id)">@(builder as Builder)</option>
+        }
+    </select>
+    @if (_selectedBuilder == "")
+    {
+        <div class="alert alert-warning" style="width: 400px;">
+          Не указан застройщик!
+        </div>
+    }
+</div>
+
+<button class="btn btn-primary" @onclick="CreateProject">Создать</button>
+
+
+@code {
+    private List<User> _architects;
+    private List<User> _builders;
+
+    private string _selectedArchitect = "";
+    private string _selectedBuilder = "";
+    private string _name = "";
+
+    protected override void OnInitialized()
+    {
+        _architects = UserServ.GetUsersNamesByRole("636ce3ef8e2a89e056c01119");
+        _builders = UserServ.GetUsersNamesByRole("636ce406167bd31f31312b30");
+    }
+
+    private async void CreateProject()
+    {
+        if (_selectedArchitect != "" && _selectedBuilder != "" && _name != "")
+        {
+            if(ProjectServ.GetProjectByName(_name) != null)
+            {
+                await JSRun.InvokeVoidAsync("alert", "Проект с таким названием уже существует!");
+                return;
+            }
+
+            Project proj = new Project();
+
+            if(((UserServ.CurrentUser) as Customer).Department_ID == "636ea3c6f6650224b7894d93")
+            {
+                proj = new WaterSupplyProject();
+            }
+
+            if(((UserServ.CurrentUser) as Customer).Department_ID == "636ea3c8f6650224b7894d94")
+            {
+                proj = new GasProject();
+            }
+
+            proj.Name = _name;
+            proj.Architect = _selectedArchitect;
+            proj.Builder = _selectedBuilder;
+            proj.Customer = UserServ.CurrentUser.Id;
+            proj.Department_ID = (UserServ.CurrentUser as Customer).Department_ID;
+
+            ProjectServ.InsertProject(proj);
+            ProjectServ.CurrentProject = proj;
+
+            NavigationMan.NavigateTo("/projectPage");
+            return;
+        }
+
+        await JSRun.InvokeVoidAsync("alert", "Не все поля заполнены!");
+    }
+}

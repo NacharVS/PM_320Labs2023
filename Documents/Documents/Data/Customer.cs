@@ -12,5 +12,10 @@ namespace Documents.Data
         public string Patronymic { get; set; }
         [BsonIgnoreIfDefault]
         public string Department_ID { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Surname} {Name} {Patronymic}";
+        }
     }
 }

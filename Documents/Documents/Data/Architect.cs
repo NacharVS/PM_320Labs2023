@@ -18,5 +18,10 @@ namespace Documents.Data
         public string Director { get; set; }
         [BsonIgnoreIfDefault]
         public string Engineer { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

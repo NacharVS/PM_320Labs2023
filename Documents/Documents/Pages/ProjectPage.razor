@@ -1,0 +1,55 @@
+﻿@page "/projectPage"
+
+@using Documents.Services
+@using Documents.Data
+
+@inject DepartmentService DepartmentServ
+@inject ProjectService ProjectServ
+@inject UserService UserServ
+@inject NavigationManager NavigationMan
+
+@if (_project != null)
+{
+	<div class="d-flex justify-content-between">
+		<h3>Проект: @_project.Name</h3>
+		<button class="btn btn-success" @onclick="SaveProject">Сохранить</button>
+	</div>
+
+
+	<div class="mb-2">
+		<h5><b>Создан:</b> @_project.CreatedDate</h5>
+	</div>
+
+	<div class="d-flex justify-content-between">
+		<div>
+			<h5><b>Отдел:</b> @DepartmentServ.GetDepartmentById(_project.Department_ID).Name</h5>
+		</div>
+
+		<div>
+			<h5><b>Заказчик:</b> @((UserServ.GetUserById(_project.Customer)) as Customer)</h5>
+		</div>
+	</div>
+
+	@if (UserServ.CurrentUser is Customer)
+	{
+		<CustomerProjectComponent SendProject="x => _project = x" Project="_project"></CustomerProjectComponent>
+	}
+}
+
+@code {
+	private Project _project;
+
+	protected override void OnInitialized()
+	{
+		_project = ProjectServ.CurrentProject;
+	}
+
+	private void SaveProject()
+	{
+		if (_project != null)
+		{
+			ProjectServ.UpdateProject(_project, _project.Name);
+			NavigationMan.NavigateTo("/projects");
+		}
+	}
+}

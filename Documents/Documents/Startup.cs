@@ -31,6 +31,7 @@ namespace Documents
             services.AddSingleton<RoleService>();
             services.AddSingleton<UserService>();
             services.AddSingleton<DepartmentService>();
+            services.AddSingleton<ProjectService>();
             services.AddScoped<ILocalStorageService, LocalStorageService>();
         }
 

@@ -1,0 +1,90 @@
+﻿@page "/projects"
+
+@using Documents.Services
+@using Documents.Data
+
+@inject UserService UserServ
+@inject ProjectService ProjectsServ
+@inject NavigationManager NavigationMan
+
+@if (_user == null)
+{
+	<div class=" alert alert-warning">
+		Пожалуйста авторизуйтесь! <a target="_blank" href="/login">Авторизация</a>
+	</div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-between">
+            <h3>Проекты</h3>
+            @if (_user is Customer)
+            {
+                <button class="btn btn-primary mb-3" @onclick="CreateProject">Создать Проект</button>
+            }
+        </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Название проекта</th>
+          <th scope="col">Подробнее</th>
+        </tr>
+      </thead>
+      <tbody>
+          @if (_user is Customer)
+            {
+                @foreach(var project in ProjectsServ.GetProjectsByDepartment((_user as Customer).Department_ID))
+                {
+                    <tr>
+                        <td>@project</td>
+                        <td><button class="btn btn-success" @onclick="() => NavigateProjectPage(project)">Подробнее</button></td>
+                    </tr>
+                }
+            }
+
+            @if ((_user is Architect))
+            {
+                @foreach(var project in ProjectsServ.GetProjectsByArchitect(_user.Id))
+                {
+                    <tr>
+                        <td>@project</td>
+                        <td><button class="btn btn-success" @onclick="() => NavigateProjectPage(project)">Подробнее</button></td>
+                    </tr>
+                }
+            }
+
+            @if ((_user is Builder))
+            {
+                @foreach(var project in ProjectsServ.GetProjectsByBuider(_user.Id))
+                {
+                    <tr>
+                        <td>@project</td>
+                        <td><button class="btn btn-success" @onclick="() => NavigateProjectPage(project)">Подробнее</button></td>
+                    </tr>
+                }
+            }
+      </tbody>
+    </table>
+}
+
+@code {
+    private User _user;
+
+    protected override void OnInitialized()
+    {
+        _user = UserServ.CurrentUser;
+    }
+
+    private void CreateProject()
+    {
+        NavigationMan.NavigateTo("/newProject");
+    }
+
+    private void NavigateProjectPage(string name)
+    {
+        ProjectsServ.CurrentProject = ProjectsServ.GetProjectByName(name);
+        NavigationMan.NavigateTo("/projectPage");
+    }
+}

@@ -10,9 +10,17 @@
 @inject NavigationManager NavigationMan
 @inject IJSRuntime JSRun
 
-<h3>Личный кабинет</h3>
+@if (UserServ.CurrentUser == null)
+{
+    <div class=" alert alert-warning">
+		Пожалуйста авторизуйтесь! <a target="_blank" href="/login">Авторизация</a>
+	</div>
+}
+
 @if (UserServ.CurrentUser != null)
 {
+    <h3>Личный кабинет</h3>
+
     @switch(_user.Role_ID)
     {
         case "636ce3da2b43e99e3f7871fe":
