@@ -9,6 +9,7 @@
 @inject RoleService RoleService;
 @inject ILocalStorage LocalStorageService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSR
 
 <section class="vh-200 bg-image"
          style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
@@ -44,13 +45,13 @@
                                         @switch (_roleName)
                                         {
                                             case "Заказчик":
-                                                <CustomerRegPage Customer="_user as Customer" SendUser="x => _user = x" IsCabinet="true"/>
+                                                <CustomerRegPage Customer="_user as Customer" SendUser="x => _user = x" IsCabinet="true" CanSave="x => _canSave = x"/>
                                                 break;
                                             case "Проектировщик":
-                                                <DesignerRegPage Designer="_user as Designer" SendUser="x => _user = x"/>
+                                                <DesignerRegPage Designer="_user as Designer" SendUser="x => _user = x" CanSave="x => _canSave = x"/>
                                                 break;
                                             case "Застройщик":
-                                                <BuilderRegPage Builder="_user as Builder" SendUser="x => _user = x"/>
+                                                <BuilderRegPage Builder="_user as Builder" SendUser="x => _user = x" CanSave="x => _canSave = x"/>
                                                 break;
                                         }</div>
                                 </div>
@@ -74,6 +75,7 @@
 </section>
 @code {
     private User _user;
+    private bool _canSave;
 
     protected override void OnInitialized()
     {
@@ -86,9 +88,13 @@
 
     private void Save()
     {
-        if (CheckFields())
+        if (CheckFields() && _canSave)
         {
             UserService.UpdateUser(_user, _user.Login);
+        }
+        else
+        {
+            JSR.InvokeVoidAsync("alert", "Измененные данные не корректны!");
         }
     }
 
