@@ -1,0 +1,63 @@
+﻿@page "/authorization"
+@page "/"
+@using GasWaterSupply.Service
+@inject AuthorizationService AuthService
+
+@if(!_isRegistration)
+{
+	<div class="d-flex justify-content-center align-content-center">
+		<div class="d-flex flex-column pt-4">
+			<div><p class="h4">Авторизация</p></div>
+			<form>
+				<div class="input-group mb-3">
+				  <input type="text" class="form-control" placeholder="Логин" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group mb-3">
+				  <input type="password" class="form-control" placeholder="Пароль" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+			</form>
+			<button class="btn btn-primary mb-3">Войти</button>
+			<button class="btn btn-primary" @onclick="_ => _isRegistration = true">Зарегистрироваться</button>
+		</div>
+	</div>
+	}
+else
+{
+	<div class="d-flex justify-content-center align-content-center">
+		<div class="d-flex flex-column pt-4">
+			<div><p class="h4">Регистрация</p></div>
+			<form>
+				<div class="input-group mb-3">
+				  <input @bind="@login" type="text" class="form-control" placeholder="Логин" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group mb-3">
+				  <input @bind="@password" type="password" class="form-control" placeholder="Пароль" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group mb-3">
+				  <input @bind="@number" type="text" class="form-control" placeholder="Номер телефона" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group mb-3">
+				  <input @bind="@email" type="text" class="form-control" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
+				</div>
+			</form>
+			<button @onclick="@Register" class="btn btn-primary mb-3">Зарегистрироваться</button>
+			<button class="btn btn-primary" @onclick="_ => _isRegistration = false">Войти</button>
+			
+		</div>
+	</div>
+}
+
+
+@code {
+	private bool _isRegistration;
+	private string password;
+	private string login;
+	private string number;
+	private string email;
+
+	private void Register()
+	{
+		
+	}
+
+}
