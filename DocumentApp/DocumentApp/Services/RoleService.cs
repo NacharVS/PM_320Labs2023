@@ -18,4 +18,23 @@ public class RoleService
     {
         return DataBaseConnection.RolesCollection.Find(x => x.Id == id).FirstOrDefault().Name;
     }
+
+    public void InsertRoles()
+    {
+        DataBaseConnection.RolesCollection.InsertOne(new Role()
+        {
+            Name = "Застройщик",
+            Id = "636d3987fa5a3023d2857cbc"
+        });
+        DataBaseConnection.RolesCollection.InsertOne(new Role()
+        {
+            Name = "Проектировщик",
+            Id = "636d3987fa5a3023d2857cbe"
+        });
+        DataBaseConnection.RolesCollection.InsertOne(new Role()
+        {
+            Name = "Заказчик",
+            Id = "636d3987fa5a3023d2857cbd"
+        });
+    }
 }
