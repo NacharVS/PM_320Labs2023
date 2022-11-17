@@ -7,13 +7,12 @@
 <div class="card">
     <h1 class="card-header">Uploading documents</h1>
     <div class="card-body">
-        <InputFile OnChange="@LoadFiles" multiple/> <br><br>
-
+        <label><b>DesignerDocuments</b></label><br/>
         @foreach (var name in fileNames)
         {
-            <input type="submit" class="btn btn-primary btn-lg" @onclick="() => Download(name)" value="Load"/>
-            <p>@name</p>
+            <p>@name</p><br/>
         }
+        <InputFile OnChange="@LoadFiles" multiple/>
     </div>
 </div>
 
@@ -29,12 +28,7 @@
 
     private void UploadDoc()
     {
-        fileNames = fss.UploadDocuments();
-    }
-
-    private void Download(string name)
-    {
-        path = fss.DownloadToLocal(name);
+        fileNames = fss.UploadDesignerDocuments();
     }
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
@@ -43,7 +37,7 @@
         {
             loadedFiles.Add(file);
             Stream stream = file.OpenReadStream(5000000);
-            await fss.UploadDocumentToDbAsync(stream, file.Name);
+            await fss.UploadDesignerDocumentToDbAsync(stream, file.Name);
             stream.Dispose();
         }
         UploadDoc();

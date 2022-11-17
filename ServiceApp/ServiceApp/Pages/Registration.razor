@@ -113,7 +113,7 @@
         switch (user.WorkerRole)
         {
             case "Customer":
-                Customer customer = new Customer
+                dataBase.CurrentCustomer = new Customer
                 {
                     WorkerRole = user.WorkerRole,
                     Login = user.Login,
@@ -126,9 +126,9 @@
                     Telephone = user.Telephone,
                     Department = department
                 };
-                if (customer.Password == customer.PasswordRepeat)
+                if (dataBase.CurrentCustomer.Password == dataBase.CurrentCustomer.PasswordRepeat)
                 {
-                    dataBase.AddToDataBase(customer);
+                    dataBase.AddToDataBase(dataBase.CurrentCustomer);
                     btn = true;
                 }
                 else
@@ -137,7 +137,7 @@
                 }
                 break;
             case "Designer":
-                Designer designer = new Designer
+                dataBase.CurrentDesigner = new Designer
                 {
                     WorkerRole = user.WorkerRole,
                     Login = user.Login,
@@ -156,9 +156,9 @@
                     Director = director,
                     ChiefProjectEngineer = chief
                 };
-                if (designer.Password == designer.PasswordRepeat)
+                if (dataBase.CurrentDesigner.Password == dataBase.CurrentDesigner.PasswordRepeat)
                 {
-                    dataBase.AddToDataBase(designer);
+                    dataBase.AddToDataBase(dataBase.CurrentDesigner);
                     btn = true;
                 }
                 else
@@ -167,7 +167,7 @@
                 }
                 break;
             case "Developer":
-                Developer developer = new Developer
+                dataBase.CurrentDeveloper = new Developer
                 {
                     WorkerRole = user.WorkerRole,
                     Login = user.Login,
@@ -185,9 +185,9 @@
                     Adress = adress,
                     ExecutiveCommitteeHead = chief
                 };
-                if (developer.Password == developer.PasswordRepeat)
+                if (dataBase.CurrentDeveloper.Password == dataBase.CurrentDeveloper.PasswordRepeat)
                 {
-                    dataBase.AddToDataBase(developer);
+                    dataBase.AddToDataBase(dataBase.CurrentDeveloper);
                     btn = true;
                 }
                 else

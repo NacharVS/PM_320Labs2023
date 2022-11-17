@@ -15,7 +15,7 @@
     <div class="card-body">
         <EditForm Model="@user" OnValidSubmit="@LogIn" class="mx-1 mx-md-4">
             <label>Role:</label><br/>
-            <input type="text" id="Role" @bind-value="role"/><br/>
+            <input type="text" id="Role" @bind-value="@user.WorkerRole"/><br/>
             <label>Login:</label><br/>
             <input type="text" id="Login" @bind-value="@user.Login"/><br/>
             <label>Password:</label><br/>
@@ -23,37 +23,39 @@
 
             <input type="submit" class="btn btn-primary btn-lg" value="Log In"/>
 
-            @if (dataBase.CurrentUser is not null)
+            @*@if (dataBase.CurrentUser is not null)
             {
                 <p>Role: @dataBase.CurrentUser?.WorkerRole</p>
                 <p>Surname: @dataBase.CurrentUser?.Surname</p>
                 <p>Name: @dataBase.CurrentUser?.Name</p>
                 <p>Patronymic: @dataBase.CurrentUser?.Patronymic</p>
-            }
+            }*@
         </EditForm>
     </div>
 </div>
 
 @code {
     private Worker user = new Worker();
-    private string role;
 
     public void LogIn()
     {
         if (user.Login != null && user.Password != null)
         {
-            switch (role)
+            switch (user.WorkerRole)
             {
                 case "Customer":
                     dataBase.CurrentUser = dataBase.FindByCustomerLogin(user.Login);
+                    dataBase.CurrentCustomer = (Customer)dataBase.CurrentUser;
                     novigation.NavigateTo("/customer");
                     break;
                 case "Designer":
                     dataBase.CurrentUser = dataBase.FindByDesignLogin(user.Login);
+                    dataBase.CurrentDesigner = (Designer)dataBase.CurrentUser;
                     novigation.NavigateTo("/designer");
                     break;
                 case "Developer":
                     dataBase.CurrentUser = dataBase.FindByDeveloperLogin(user.Login);
+                    dataBase.CurrentDeveloper = (Developer)dataBase.CurrentUser;
                     novigation.NavigateTo("/developer");
                     break;
             }

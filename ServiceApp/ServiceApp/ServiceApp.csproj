@@ -12,4 +12,8 @@
       <PackageReference Include="MongoDB.Driver.GridFS" Version="2.18.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\Documents\Акт обследования и выбор места под проектируемую скважину.pdf" />
+    </ItemGroup>
+
 </Project>

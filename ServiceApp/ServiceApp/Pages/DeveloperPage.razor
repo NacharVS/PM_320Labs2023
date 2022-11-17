@@ -7,19 +7,43 @@
 <div class="card">
     <h1 class="card-header">Uploading documents</h1>
     <div class="card-body">
-        <InputFile OnChange="@LoadFiles" multiple/> <br><br>
-
-        @foreach (var name in fileNames)
-        {
-            <input type="submit" class="btn btn-primary btn-lg" @onclick="() => Download(name)" value="Load"/>
-            <p>@name</p>
-        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Water</th>
+                    <th>Gas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @foreach (var name in waterFileNames)
+                        {
+                            <tr>
+                                <td>@name:</td>
+                            </tr>
+                        } 
+                        <InputFile OnChange="@LoadWaterFiles" multiple/>
+                    </td>
+                    <td>
+                         @foreach (var name in gasFileNames)
+                        {
+                            <tr>
+                                <td>@name:</td>
+                            </tr>
+                        }
+                        <InputFile OnChange="@LoadGasFiles" multiple/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
 @code {
     string? path;
-    List<string> fileNames = new List<string>();
+    List<string> waterFileNames = new List<string>();
+    List<string> gasFileNames = new List<string>();
     List<IBrowserFile> loadedFiles = new List<IBrowserFile>();
 
     protected override void OnInitialized()
@@ -29,21 +53,28 @@
 
     private void UploadDoc()
     {
-        fileNames = fss.UploadDocuments();
+        waterFileNames = fss.UploadWaterDocuments();
+        gasFileNames = fss.UploadGasDocuments();
     }
 
-    private void Download(string name)
-    {
-        path = fss.DownloadToLocal(name);
-    }
-
-    private async Task LoadFiles(InputFileChangeEventArgs e)
+    private async Task LoadWaterFiles(InputFileChangeEventArgs e)
     {
         foreach (var file in e.GetMultipleFiles(e.FileCount))
         {
             loadedFiles.Add(file);
             Stream stream = file.OpenReadStream(5000000);
-            await fss.UploadDocumentToDbAsync(stream, file.Name);
+            await fss.UploadWaterDocumentToDbAsync(stream, file.Name);
+            stream.Dispose();
+        }
+        UploadDoc();
+    }
+    private async Task LoadGasFiles(InputFileChangeEventArgs e)
+    {
+        foreach (var file in e.GetMultipleFiles(e.FileCount))
+        {
+            loadedFiles.Add(file);
+            Stream stream = file.OpenReadStream(5000000);
+            await fss.UploadGasDocumentToDbAsync(stream, file.Name);
             stream.Dispose();
         }
         UploadDoc();
