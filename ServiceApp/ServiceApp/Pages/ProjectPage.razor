@@ -1,0 +1,81 @@
+﻿@page "/project"
+@using ServiceApp.Services
+@using ServiceApp.Data
+@inject DataBase dataBase
+@inject NavigationManager novigation
+
+<h3>ProjectPage</h3>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Project</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var proj in projects)
+    {
+        <tr>
+            <td @onclick="() => ViewProj(proj)">@proj.Name</td>
+        </tr>
+    }
+    </tbody>
+    
+</table>
+
+@code 
+{
+    private List<Project> projects = new List<Project>();
+    string developer;
+    string designer;
+    string name;
+    List<Developer> developers;
+    List<Designer> designers;
+    
+    /*protected override void OnInitialized()
+    {
+        // switch (dataBase.CurrentUser.WorkerRole)
+        // {
+        //     case "Customer":
+        //         switch (dataBase.CurrentCustomer.Department)
+        //         {
+        //             case "Водоснабжение":
+        //                 projects = dataBase.ImportAllProject();
+        //                 break;
+        //             case "Газификация":
+        //                 projects = dataBase.ImportAllProject();
+        //                 break;
+        //         }
+        //         break;
+        //     case "Designer":
+        //         projects = DBConnection.FindByLoginDesignersProj(CurrentUserName.CurrentDesigner.Login);
+        //         break;
+        //     case "Developer":
+        //         projects = DBConnection.FindByLoginDevelopersProj(CurrentUserName.CurrentDeveloper.Login);
+        //         break;
+        // }
+    }*/
+
+    public void ViewProj(Project project)
+    {
+        dataBase.CurrentProject = project;
+        novigation.NavigateTo("/proj");
+    }
+    
+    
+    protected override void OnInitialized()
+    {
+        switch (dataBase.CurrentUser?.WorkerRole)
+        {
+            case "Customer":
+                novigation.NavigateTo("/customer");
+                break;
+            case "Designer":
+                novigation.NavigateTo("/designer");
+                break;
+            case "Developer":
+                novigation.NavigateTo("/developer");
+                break;
+        }
+    }
+}

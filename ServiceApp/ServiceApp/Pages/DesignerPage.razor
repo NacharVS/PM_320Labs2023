@@ -10,8 +10,9 @@
         <label><b>DesignerDocuments</b></label><br/>
         @foreach (var name in fileNames)
         {
-            <p>@name</p><br/>
+            <p class="mb-0">@name</p>
         }
+        <br/>
         <InputFile OnChange="@LoadFiles" multiple/>
     </div>
 </div>

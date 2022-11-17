@@ -46,20 +46,17 @@
                 case "Customer":
                     dataBase.CurrentUser = dataBase.FindByCustomerLogin(user.Login);
                     dataBase.CurrentCustomer = (Customer)dataBase.CurrentUser;
-                    novigation.NavigateTo("/customer");
                     break;
                 case "Designer":
-                    dataBase.CurrentUser = dataBase.FindByDesignLogin(user.Login);
+                    dataBase.CurrentUser = dataBase.FindByDesignerLogin(user.Login);
                     dataBase.CurrentDesigner = (Designer)dataBase.CurrentUser;
-                    novigation.NavigateTo("/designer");
                     break;
                 case "Developer":
                     dataBase.CurrentUser = dataBase.FindByDeveloperLogin(user.Login);
                     dataBase.CurrentDeveloper = (Developer)dataBase.CurrentUser;
-                    novigation.NavigateTo("/developer");
                     break;
             }
-
+            novigation.NavigateTo("/account");
             if (dataBase.CurrentUser != null)
             {
                 localStorageService.SetAsync<Worker>("Authorization", dataBase.CurrentUser);
