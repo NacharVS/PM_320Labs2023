@@ -1,8 +1,10 @@
 using Core.Entities.Documents;
+using Core.Entities.Users;
 using Core.Enums;
 using DataProvider;
 using MongoDB.Bson;
 using MongoDB.Driver.GridFS;
+using Web.Services;
 
 namespace Web.Services;
 
@@ -38,20 +40,23 @@ public class DocumentDomainService
         return await _baseDocumentContext.Load(id, asBaseCollection);
     }
 
-    public async Task<IEnumerable<BaseDocument?>> LoadProjectDocuments(ObjectId projectId,
+    public async Task<IEnumerable<BaseDocument?>> LoadProjectDocuments(ObjectId projectId, BaseUser currentUser,
         IndustryType industryType = IndustryType.NotSpecified, bool asBaseCollection = false)
     {
         if (industryType == IndustryType.Gasification)
         {
-            return (await _gasDocumentContext.LoadAll(asBaseCollection)).Where(x => x?.ProjectId == projectId);
+            return (await _gasDocumentContext.LoadAll(asBaseCollection)).Where(x => x?.ProjectId == projectId)
+                .Where(x => currentUser?.Role == UserRole.Customer || x?.OwnerId == currentUser?._id);
         }
 
         if (industryType == IndustryType.WaterSupply)
         {
-            return (await _waterDocumentContext.LoadAll(asBaseCollection)).Where(x => x?.ProjectId == projectId);
+            return (await _waterDocumentContext.LoadAll(asBaseCollection)).Where(x => x?.ProjectId == projectId)
+                .Where(x => currentUser?.Role == UserRole.Customer || x?.OwnerId == currentUser?._id);
         }
 
-        return (await _baseDocumentContext.LoadAll(asBaseCollection)).Where(x => x?.ProjectId == projectId);
+        return (await _baseDocumentContext.LoadAll(asBaseCollection)).Where(x => x?.ProjectId == projectId)
+            .Where(x => currentUser?.Role == UserRole.Customer || x?.OwnerId == currentUser?._id);
     }
 
     public async Task SaveGasificationDocument(GasificationDocument entity, bool asBaseCollection = false)
@@ -76,6 +81,12 @@ public class DocumentDomainService
     public async Task DownloadFile(ObjectId fileId, FileStream stream)
     {
         await _gridFs.DownloadToStreamAsync(fileId, stream);
+    }
+
+    public async Task Delete(BaseDocument entity, bool asBaseCollection = false)
+    {
+        await _baseDocumentContext.Delete(entity);
+        await _gridFs.DeleteAsync(entity.FileId);
     }
     
 }

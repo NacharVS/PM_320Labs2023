@@ -5,29 +5,57 @@
 @using System.ComponentModel.DataAnnotations
 @inject DocumentDomainService DocumentDomainService
 @inject AuthService AuthService
+@inject NavigationManager NavigationManager
+@inject UserDomainService UserDomainService
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">@Doc.Name.Split(".")[0]</h5>
-        <p class="card-text">@TryGetDisplayName(Doc.DocumentType)</p>
-        <button type="button" class="btn btn-primary" @onclick="@DownloadFile">Download</button>
-        
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="isrequired"
-                   @onchange="@(async ui => { await OnRequiredChange((bool)ui.Value); })"
-                   disabled=@_disabled checked=@_checkedRequired/>
-            <label class="form-check-label" for="isrequired">Required</label>
+@if (_isDataLoaded)
+{
+    <!-- Modal -->
+    <div class="modal fade show" style="@_displayAttr" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Warning!</h5>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this document? This action cannot be reverted.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="@CloseModal">Close</button>
+                    <button type="button" class="btn btn-danger" @onclick="@DeleteDocument">Delete</button>
+                </div>
+            </div>
         </div>
-        
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="isaccepted"
-                   @onchange="@(async ui => { await OnAcceptedChange((bool)ui.Value); })" 
-                   disabled=@_disabled checked=@_checkedAccepted/>
-            <label class="form-check-label" for="isaccepted">Accepted</label>
-        </div>
-
     </div>
-</div>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@Doc.Name.Split(".")[0]</h5>
+            <p class="card-text">@TryGetDisplayName(Doc.DocumentType)</p>
+            <p class="card-text text-muted">Uploaded by: @_creatorName</p>
+            <button type="button" class="btn btn-primary" style="margin-right: 30px" @onclick="@DownloadFile">Download</button>
+            @if (AuthService.AuthorizedUser?.Role != UserRole.Customer)
+            {
+                <button type="button" class="btn btn-danger" @onclick="@OpenModal">Delete</button>
+            }
+        
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="isrequired"
+                       @onchange="@(async ui => { await OnRequiredChange((bool)ui.Value); })"
+                       disabled=@_disabled checked=@_checkedRequired/>
+                <label class="form-check-label" for="isrequired">Required</label>
+            </div>
+        
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="isaccepted"
+                       @onchange="@(async ui => { await OnAcceptedChange((bool)ui.Value); })" 
+                       disabled=@_disabled checked=@_checkedAccepted/>
+                <label class="form-check-label" for="isaccepted">Accepted</label>
+            </div>
+
+        </div>
+    </div>
+}
 
 @code {
 
@@ -37,18 +65,34 @@
     private bool _disabled;
     private bool _checkedRequired;
     private bool _checkedAccepted;
+    private string? _creatorName;
+    private bool _isDataLoaded;
+    private string _displayAttr = "display: hidden;";
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         _disabled = AuthService.AuthorizedUser!.Role != UserRole.Customer;
         _checkedRequired = Doc.IsRequired;
         _checkedAccepted = Doc.IsAccepted;
+
+        _creatorName = (await UserDomainService.LoadUser(Doc.OwnerId, UserRole.NotSpecified)).Name;
+        _isDataLoaded = true;
     }
 
     private async Task DownloadFile()
     {
         await using FileStream fs = new FileStream($"downloads/{Doc.Name + '.' + Doc.FileExtension}", FileMode.Create);
         await DocumentDomainService.DownloadFile(Doc.FileId, fs);
+    }
+    
+    private void OpenModal()
+    {
+        _displayAttr = "display: block";
+    }
+
+    private void CloseModal()
+    {
+        _displayAttr = "display: hidden";
     }
 
     private string? TryGetDisplayName(dynamic doc)
@@ -96,6 +140,13 @@
 
             await DocumentDomainService.SaveGasificationDocument(document, true);
         }
+    }
+
+    private async Task DeleteDocument()
+    {
+        await DocumentDomainService.Delete(Doc as BaseDocument);
+        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo($"/project/{Doc.ProjectId}");
     }
 
 }

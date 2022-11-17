@@ -1,20 +1,78 @@
 @using Core.Entities.Projects
+@using Core.Enums
+@using Web.Services
 @inject NavigationManager NavigationManager
+@inject UserDomainService UserDomainService
+@inject ProjectDomainService ProjectDomainService;
+@inject AuthService AuthService
 
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">@ProjectObj.Name</h5>
-    <p class="card-text">@ProjectObj.Description</p>
-    <button type="button" class="btn btn-primary" @onclick="@OpenProject">Open</button>
-  </div>
-</div>
+@if (_isDataLoaded)
+{
+    <!-- Modal -->
+    <div class="modal fade show" style="@_displayAttr" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Warning!</h5>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this project? This action cannot be reverted.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="@CloseModal">Close</button>
+                    <button type="button" class="btn btn-danger" @onclick="@DeleteProject">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@ProjectObj.Name</h5>
+            <p class="card-text">@ProjectObj.Description</p>
+            <p class="card-text text-muted">Created by: @_creatorName</p>
+            <button style="margin-right: 30px" type="button" class="btn btn-primary" @onclick="@OpenProject">Open</button>
+            @if (AuthService.AuthorizedUser?.Role == UserRole.Customer)
+            {
+                <button type="button" class="btn btn-danger" @onclick="@OpenModal">Delete</button>
+            }
+        </div>
+    </div>
+}
 
 @code {
     [Parameter] 
     public BaseProject ProjectObj { get; set; } = null!;
 
+    private string? _creatorName;
+    private string _displayAttr = "display: hidden;";
+    private bool _isDataLoaded;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _creatorName = (await UserDomainService.LoadUser(ProjectObj.CustomerId, UserRole.NotSpecified))?.Name;
+        _isDataLoaded = true;
+    }
+
     private void OpenProject()
     {
         NavigationManager.NavigateTo($"/project/{ProjectObj._id}");
+    }
+
+    private async Task DeleteProject()
+    {
+        await ProjectDomainService.Delete(ProjectObj);
+        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/projects");
+    }
+
+    private void OpenModal()
+    {
+        _displayAttr = "display: block";
+    }
+
+    private void CloseModal()
+    {
+        _displayAttr = "display: hidden";
     }
 }

@@ -11,5 +11,8 @@ public enum UserRole
     Architect,
     
     [Display(Name = "Застройщик")]
-    Builder
+    Builder,
+    
+    [Display(Name = "Не указано")]
+    NotSpecified
 }

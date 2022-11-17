@@ -141,9 +141,6 @@
             _exceptionText = "Fill document name before uploading file";
             return;
         }
-        
-        // MemoryStream ms = new MemoryStream();
-        // await e.File.OpenReadStream().CopyToAsync(ms);
 
         await using var fs = e.File.OpenReadStream();
 

@@ -16,5 +16,9 @@ public enum GasificationDocumentType
     [Display(Name = "Ситуационный план")]
     SituationalPlan,
     
+    [Display(Name = "Согласование посадки котельной")]
+    OvenInstallation,
     
+    [Display(Name = "Технический паспорт (план БТИ) объекта СКБ")]
+    TechPassport
 }

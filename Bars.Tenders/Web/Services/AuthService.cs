@@ -3,7 +3,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Core.Entities.Users;
 using DataProvider;
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Web.Services;

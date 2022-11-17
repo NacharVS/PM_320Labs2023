@@ -30,9 +30,10 @@ public class BaseRepository<TEntity> : IRepository<TEntity>
         return (await collection.FindAsync(_ => true)).ToList();
     }
 
-    public async Task Delete(TEntity entity)
+    public async Task Delete(TEntity entity, bool asBaseCollection = false)
     {
-        await _connection.Collection.DeleteOneAsync(x => x._id == entity._id);
+        var collection = asBaseCollection ? _connection.GetBaseCollection() : _connection.Collection;
+        await collection.DeleteOneAsync(x => x._id == entity._id);
     }
 
     public async Task Update(TEntity entity, bool asBaseCollection = false)

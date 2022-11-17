@@ -32,9 +32,9 @@ namespace DataProvider
             return await _repository.GetAll(asBaseCollection);
         }
 
-        public async Task Delete(TEntity entity)
+        public async Task Delete(TEntity entity, bool asBaseCollection = false)
         {
-            await _repository.Delete(entity);
+            await _repository.Delete(entity, asBaseCollection);
         }
 
         public IMongoDatabase GetDatabase()

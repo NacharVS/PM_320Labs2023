@@ -34,7 +34,7 @@ public class UserDomainService
             case UserRole.Architect:
                 return await _architectContext.Load(id, asBaseCollection);
             default:
-                throw new Exception("Role is not specified!");
+                return await _userContext.Load(id, asBaseCollection);
         }
     }
 

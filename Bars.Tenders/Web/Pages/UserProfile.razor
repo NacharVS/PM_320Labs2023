@@ -1,6 +1,8 @@
 @page "/profile"
 @using Web.Services
 @using Core.Enums
+@using Web.Utils
+@using System.ComponentModel.DataAnnotations
 @inject AuthService AuthService;
 @inject NavigationManager NavigationManager
 @inject UserDomainService UserDomainService
@@ -15,8 +17,10 @@
                         <div class="row g-0">
                             <div class="col-md-3 d-flex flex-column justify-content-center align-items-center gradient-custom text-center text-white"
                                  style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                                <h5>@name</h5><br/>
-                                <p>@role</p>
+                                
+                                <input value="@name" @oninput="@(ui => { name = (string?)ui.Value; })"  
+                                                                                   class="text-muted form-control"/>
+                                <p>@GetDisplayName(role)</p>
                                 <i class="far fa-edit mb-5"></i>
                             </div>
                             <div class="col-md-9">
@@ -47,48 +51,48 @@
                                                     @if (industry == IndustryType.WaterSupply)
                                                     {
                                                         <input type="radio" class="btn-check" name="btnradio" id="radiowater" autocomplete="off"
-                                                               @oninput="@(ui => { industry = IndustryType.WaterSupply; })"
+                                                               @oninput="@(_ => { industry = IndustryType.WaterSupply; })"
                                                                checked>
-                                                        <label class="btn btn-outline-danger" for="radiowater">WaterSupply</label>
+                                                        <label class="btn btn-outline-danger" for="radiowater">@GetDisplayName(IndustryType.WaterSupply)</label>
 
                                                         <input type="radio" class="btn-check" name="btnradio" id="radiogas" autocomplete="off"
-                                                               @oninput="@(ui => { industry = IndustryType.Gasification; })">
-                                                        <label class="btn btn-outline-danger" for="radiogas">Gasification</label>
+                                                               @oninput="@(_ => { industry = IndustryType.Gasification; })">
+                                                        <label class="btn btn-outline-danger" for="radiogas">@GetDisplayName(IndustryType.Gasification)</label>
                                                         
                                                         <input type="radio" class="btn-check" name="btnradio" id="radionotspecified" autocomplete="off"
-                                                               @oninput="@(ui => { industry = IndustryType.NotSpecified; })">
-                                                        <label class="btn btn-outline-danger" for="radionotspecified">Not specified</label>
+                                                               @oninput="@(_ => { industry = IndustryType.NotSpecified; })">
+                                                        <label class="btn btn-outline-danger" for="radionotspecified">@GetDisplayName(IndustryType.NotSpecified)</label>
                                                     }
                                                     else if (industry == IndustryType.Gasification)
                                                     {
                                                         <input type="radio" class="btn-check" name="btnradio" id="radiocustomer" autocomplete="off"
-                                                               @oninput="@(ui => { industry = IndustryType.WaterSupply; })">
-                                                        <label class="btn btn-outline-danger" for="radiocustomer">WaterSupply</label>
+                                                               @oninput="@(_ => { industry = IndustryType.WaterSupply; })">
+                                                        <label class="btn btn-outline-danger" for="radiocustomer">@GetDisplayName(IndustryType.WaterSupply)</label>
 
                                                         <input type="radio" class="btn-check" name="btnradio" id="radiobuilder" autocomplete="off"
-                                                               @oninput="@(ui => { industry = IndustryType.Gasification; })"
+                                                               @oninput="@(_ => { industry = IndustryType.Gasification; })"
                                                                checked>
-                                                        <label class="btn btn-outline-danger" for="radiobuilder">Gasification</label>
+                                                        <label class="btn btn-outline-danger" for="radiobuilder">@GetDisplayName(IndustryType.Gasification)</label>
                                                         
                                                         <input type="radio" class="btn-check" name="btnradio" id="radionotspecified" autocomplete="off"
-                                                               @oninput="@(ui => { industry = IndustryType.NotSpecified; })">
-                                                        <label class="btn btn-outline-danger" for="radionotspecified">Not specified</label>
+                                                               @oninput="@(_ => { industry = IndustryType.NotSpecified; })">
+                                                        <label class="btn btn-outline-danger" for="radionotspecified">@GetDisplayName(IndustryType.NotSpecified)</label>
                                                     }
                                                     else
                                                     {
                                                         <input type="radio" class="btn-check" name="btnradio" id="radiocustomer" autocomplete="off"
-                                                               @oninput="@(ui => { industry = IndustryType.WaterSupply; })">
-                                                        <label class="btn btn-outline-danger" for="radiocustomer">WaterSupply</label>
+                                                               @oninput="@(_ => { industry = IndustryType.WaterSupply; })">
+                                                        <label class="btn btn-outline-danger" for="radiocustomer">@GetDisplayName(IndustryType.WaterSupply)</label>
 
                                                         <input type="radio" class="btn-check" name="btnradio" id="radiobuilder" autocomplete="off"
-                                                               @oninput="@(ui => { industry = IndustryType.Gasification; })"
+                                                               @oninput="@(_ => { industry = IndustryType.Gasification; })"
                                                                >
-                                                        <label class="btn btn-outline-danger" for="radiobuilder">Gasification</label>
+                                                        <label class="btn btn-outline-danger" for="radiobuilder">@GetDisplayName(IndustryType.Gasification)</label>
                                                         
                                                         <input type="radio" class="btn-check" name="btnradio" id="radionotspecified" autocomplete="off"
-                                                               @oninput="@(ui => { industry = IndustryType.NotSpecified; })"
+                                                               @oninput="@(_ => { industry = IndustryType.NotSpecified; })"
                                                                checked>
-                                                        <label class="btn btn-outline-danger" for="radionotspecified">Not specified</label>
+                                                        <label class="btn btn-outline-danger" for="radionotspecified">@GetDisplayName(IndustryType.NotSpecified)</label>
                                                     }
                                                     
                                                 </div>
@@ -239,8 +243,9 @@
 
     private async Task SaveChanges()
     {
-        currentUser!.Email = email;
-        currentUser.PhoneNumber = phone;
+        currentUser!.Name = name ?? String.Empty;
+        currentUser!.Email = email ?? string.Empty;
+        currentUser.PhoneNumber = phone ?? string.Empty;
         
         switch (role)
         {
@@ -265,6 +270,11 @@
         }
         try
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new Exception("Name is incorrect");
+            }
+            
             if (!AuthService.CheckEmail(email))
             {
                 throw new Exception("Email is incorrect");
@@ -275,17 +285,17 @@
             }
             if (currentUser.Role != UserRole.Customer)
             {
-                if (Tin is null || Tin.Length != 10)
+                if (Tin is null || Tin.Length != 10 || !Tin.All(char.IsDigit)) 
                 {
                     throw new Exception("Tin in incrrect");
                 }
                 
-                if (Psrn is null || Psrn.Length != 13)
+                if (Psrn is null || Psrn.Length != 13 || !Psrn.All(char.IsDigit))
                 {
                     throw new Exception("PSRN in incrrect");
                 }
                 
-                if (Trrc is null || Trrc.Length != 9)
+                if (Trrc is null || Trrc.Length != 9 || !Trrc.All(char.IsDigit))
                 {
                     throw new Exception("TRRC in incrrect");
                 }
@@ -304,5 +314,15 @@
     {
         await AuthService.LogOut();
         NavigationManager.NavigateTo("/authorization");
+    }
+    
+    private string? GetDisplayName(IndustryType doc)
+    {
+        return doc.GetAttribute<DisplayAttribute>().Name;
+    }
+    
+    private string? GetDisplayName(UserRole doc)
+    {
+        return doc.GetAttribute<DisplayAttribute>().Name;
     }
 }

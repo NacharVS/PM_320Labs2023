@@ -1,3 +1,4 @@
+using Core.Entities.Documents;
 using Core.Entities.Users;
 using MongoDB.Bson.Serialization;
 
@@ -26,6 +27,12 @@ public partial class Module
         });
 
         BsonClassMap.RegisterClassMap<Architect>(cm =>
+        {
+            cm.AutoMap();
+            cm.SetIgnoreExtraElements(true);
+        });
+        
+        BsonClassMap.RegisterClassMap<BaseDocument>(cm =>
         {
             cm.AutoMap();
             cm.SetIgnoreExtraElements(true);

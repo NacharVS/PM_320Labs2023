@@ -7,6 +7,8 @@
 @using Web.Components
 @using Core.Entities.Projects
 @using Core.Entities.Documents
+@using Web.Utils
+@using System.ComponentModel.DataAnnotations
 
 @inject NavigationManager NavigationManager
 @inject ProjectDomainService ProjectDomainService;
@@ -16,23 +18,23 @@
 
 @if (_isDataLoaded)
 {
-    <div class="vh-100" style="background-color: #fff;">
+    <div class="vh-100 overflow-auto" style="background-color: #fff;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-start align-items-top h-100">
                 <div class="col col-lg-10 mb-4 mb-lg-0">
                     <form>
                         <div class="form-outline mb-4">
-                            <input value="@name" @oninput="@(ui => { name = (string?)ui.Value; })" type="text" id="name" class="form-control"/>
+                            <input readonly=@_isReadonly value="@name" @oninput="@(ui => { name = (string?)ui.Value; })" type="text" id="name" class="form-control"/>
                             <label class="form-label" for="name">Name</label>
                         </div>
 
                         <div class="form-outline mb-4">
-                            <textarea value="@description" @oninput="@(ui => { description = (string?)ui.Value; })" class="form-control" id="description" rows="4"></textarea>
+                            <textarea readonly=@_isReadonly value="@description" @oninput="@(ui => { description = (string?)ui.Value; })" class="form-control" id="description" rows="4"></textarea>
                             <label class="form-label" for="description">Description</label>
                         </div>
 
                         <p>Select Builder for project</p>
-                        <select @onchange="@(ui => { builderId = GetObjectId((string?)ui.Value); })" class="form-select" aria-label="Default select example">
+                        <select disabled=@_isReadonly @onchange="@(ui => { builderId = GetObjectId((string?)ui.Value); })" class="form-select mb-4" aria-label="Default select example">
                             @foreach (var i in _builders)
                             {
                                 <option value="@i?._id">@i?.Name</option>
@@ -40,13 +42,16 @@
                         </select>
 
                         <p>Select Architect for project</p>
-                        <select @onchange="@(ui => { architectId = GetObjectId((string?)ui.Value); })" class="form-select" aria-label="Default select example">
+                        <select disabled=@_isReadonly @onchange="@(ui => { architectId = GetObjectId((string?)ui.Value); })" class="form-select mb-4" aria-label="Default select example">
                             @foreach (var i in _architects)
                             {
                                 <option value="@i?._id">@i?.Name</option>
                             }
                         </select>
-                        <p>Industry: @_project.IndustryType</p>
+                        <div class="d-inline-flex align-content-center">
+                            <p style="margin-right: 10px;margin-top: auto;margin-bottom: auto">Industry: </p> 
+                            <button class="btn btn-outline-danger" disabled>@GetDisplayName(_project.IndustryType)</button>
+                        </div>
 
                         <p class="alert-danger">@exceptionText</p>
                     </form>
@@ -81,6 +86,7 @@
 
     private BaseProject _project = null!;
     private bool _isDataLoaded;
+    private bool _isReadonly;
 
     private List<Builder?> _builders;
     private List<Architect?> _architects;
@@ -109,7 +115,7 @@
         _builders = (await UserDomainService.LoadBuilders()).ToList();
         _architects = (await UserDomainService.LoadArchitects()).ToList();
         _documents = (await DocumentDomainService
-            .LoadProjectDocuments(ObjectId.Parse(ProjectId), _project.IndustryType, true)).ToList();
+            .LoadProjectDocuments(ObjectId.Parse(ProjectId), AuthService.AuthorizedUser, _project.IndustryType, true)).ToList();
 
         builderId = _project.BuilderId;
         architectId = _project.ArchitectId;
@@ -123,6 +129,8 @@
         _architects.Remove(tempArch);
         _builders.Insert(0, tempBuilder);
         _architects.Insert(0, tempArch);
+
+        _isReadonly = AuthService.AuthorizedUser.Role != UserRole.Customer;
 
         _isDataLoaded = true;
     }
@@ -175,6 +183,11 @@
     private void AddDocument()
     {
         NavigationManager.NavigateTo($"/adddocument/{_project._id}");
+    }
+    
+    private string? GetDisplayName(IndustryType doc)
+    {
+        return doc.GetAttribute<DisplayAttribute>().Name;
     }
 
 }
