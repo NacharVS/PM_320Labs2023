@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -28,10 +29,33 @@ namespace Documents.Services
                 stream.Dispose();
 
                 document.FileName = file.Name;
-
+                document.Content = GetByteArray(file.Name);
             }
         }
 
+        public byte[] GetByteArray(string fileName)
+        {
+            byte[] byteArray;
 
+            try
+            {
+                byteArray = _gridFS.DownloadAsBytesByName(fileName);
+            }
+            catch
+            {
+                byteArray = null;
+            }
+
+            return byteArray;
+        }
+
+        public void DownloadDocumentToProject(DocumentInfo document)
+        {
+            try
+            {
+                System.IO.File.WriteAllBytes($"{Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/wwwroot/documents/")}{document.FileName}", document.Content);
+            }
+            catch (Exception) {}
+        }
     }
 }

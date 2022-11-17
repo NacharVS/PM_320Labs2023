@@ -32,6 +32,7 @@ namespace Documents
             services.AddSingleton<UserService>();
             services.AddSingleton<DepartmentService>();
             services.AddSingleton<ProjectService>();
+            services.AddSingleton<FileSystemService>();
             services.AddScoped<ILocalStorageService, LocalStorageService>();
         }
 

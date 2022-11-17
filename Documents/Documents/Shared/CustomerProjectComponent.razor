@@ -2,6 +2,7 @@
 @using Documents.Services
 
 @inject UserService UserServ
+@inject FileSystemService FSServ
 
 <div class="d-flex justify-content-between">
 	<div class="mb-2">
@@ -31,7 +32,12 @@
 				<tr>
 					<td>@doc.Name</td>
 					<td>@doc.FileName</td>
-					<td><button class="btn btn-primary">Скачать</button></td>
+					<td>
+						@if (doc.Content != null)
+						{
+							<a class="btn btn-primary" href="documents/@(doc.FileName)" @onclick="() => DownloadDocument(doc)" download="@doc.FileName">Скачать</a>
+						}
+					</td>
 					<td><InputCheckbox @bind-Value="@doc.IsImportant" @onblur="SendProjectInfo"></InputCheckbox></td>
 					<td><InputCheckbox @bind-Value="@doc.IsAccepted" @onblur="SendProjectInfo"></InputCheckbox></td>		
 				</tr>
@@ -42,7 +48,12 @@
 				<tr>
 					<td>@doc.Name</td>
 					<td>@doc.FileName</td>
-					<td><button class="btn btn-primary">Скачать</button></td>
+					<td>
+						@if (doc.Content != null)
+						{
+							<a class="btn btn-primary" href="documents/@(doc.FileName)" @onclick="() => DownloadDocument(doc)" download="@doc.FileName">Скачать</a>
+						}
+					</td>
 					<td><InputCheckbox @bind-Value="@doc.IsImportant" @onblur="SendProjectInfo"></InputCheckbox></td>
 					<td><InputCheckbox @bind-Value="@doc.IsAccepted" @onblur="SendProjectInfo"></InputCheckbox></td>		
 				</tr>
@@ -52,6 +63,8 @@
 
 	<div>
 		<h4 align="center" class="mb-2">Форма</h4>
+		<h5>Форма утверждена: <InputCheckbox @bind-Value="@_project.IsFormAccepted" @onblur="SendProjectInfo"></InputCheckbox></h5>
+		
 		<table class="table table-bordered border-primary">
 			<tbody>
 				@foreach (var item in _project.FormInfos)
@@ -96,5 +109,13 @@
 	private void SendProjectInfo()
 	{
 		SendProject.InvokeAsync(_project);
+	}
+
+	private void DownloadDocument(DocumentInfo doc)
+	{
+		if (doc != null && doc.Content != null)
+		{
+			FSServ.DownloadDocumentToProject(doc);
+		}
 	}
 }

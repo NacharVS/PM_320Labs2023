@@ -21,6 +21,7 @@ namespace Documents.Data
         public List<DocumentInfo> BuilderDocumentInfos { get; set; }
         public List<DocumentInfo> ArchitectDocumentInfos { get; set; }
         public List<FormInfo> FormInfos { get; set; }
+        public bool IsFormAccepted { get; set; }
 
         public Project()
         {

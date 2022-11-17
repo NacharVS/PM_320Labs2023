@@ -17,7 +17,7 @@
 		</tr> 
 	  </thead>
 	  <tbody>
-			@foreach(var doc in _project.ArchitectDocumentInfos)
+			@foreach(var doc in _project.BuilderDocumentInfos)
 			{
 				<tr>
 					<td>@doc.Name</td>
@@ -29,30 +29,6 @@
 			}
 	  </tbody>
 	</table>
-
-	<div>
-		<h4 align="center" class="mb-2">Форма</h4>
-		<h5>Форма утверждена: @(_project.IsFormAccepted ? "Да" : "Нет")</h5>
-		<table class="table table-bordered border-primary">
-			<tbody>
-				@foreach (var item in _project.FormInfos)
-				{
-					@if (item.Name == "Технико-экономические показатели (ТЭП)"
-					|| item.Name == "Вводной газопровод низкого давления")
-					{
-						<tr>
-							<td colspan="2" align="center"><b>@(item.Name)</b></td>
-						</tr>
-					}
-
-					<tr>
-						<td class="col-1">@(item.Name)</td>
-						<td class="col-1"><input class="form-control" @bind="@item.Value" style="width: 200px;"></td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
 </EditForm>
 
 @code {

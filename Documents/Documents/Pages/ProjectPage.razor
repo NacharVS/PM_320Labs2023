@@ -34,6 +34,16 @@
 	{
 		<CustomerProjectComponent SendProject="x => _project = x" Project="_project"></CustomerProjectComponent>
 	}
+
+	@if (UserServ.CurrentUser is Architect)
+	{
+		<ArchitectProjectComponent SendProject="x => _project = x" Project="_project"></ArchitectProjectComponent>
+	}
+
+	@if (UserServ.CurrentUser is Builder)
+	{
+		<BuilderProjectComponent SendProject="x => _project = x" Project="_project"></BuilderProjectComponent>
+	}
 }
 
 @code {

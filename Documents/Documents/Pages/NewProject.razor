@@ -8,6 +8,7 @@
 @inject IJSRuntime JSRun
 @inject ProjectService ProjectServ
 @inject NavigationManager NavigationMan
+@inject ILocalStorageService LocalStServ
 
 <h3>Новый проект</h3>
 
@@ -58,8 +59,8 @@
 
 
 @code {
-    private List<User> _architects;
-    private List<User> _builders;
+    private List<User> _architects = new List<User>();
+    private List<User> _builders = new List<User>();
 
     private string _selectedArchitect = "";
     private string _selectedBuilder = "";

@@ -53,26 +53,9 @@
     </select>
 </div>
 
-@switch(RoleServ.GetRoleByName(_selectedRole)?.Id)
-{
-    case "636ce3da2b43e99e3f7871fe":
-        <CustomerComponent IsDataCorrect="x => _isDataCorrect = x" SendUser="x => _user = x"></CustomerComponent>
-        break;
-    case "636ce3ef8e2a89e056c01119":
-        <ArchitectComponent IsDataCorrect="x => _isDataCorrect = x" SendUser="x => _user = x"></ArchitectComponent>
-        break;
-    case "636ce406167bd31f31312b30":
-        <BuilderComponent IsDataCorrect="x => _isDataCorrect = x" SendUser="x => _user = x"></BuilderComponent>
-        break;
-    default:
-        break;
-
-}
-
 <button class="btn btn-primary" @onclick="Registration">Зарегистрироваться</button>
 
 @code {
-    private bool _isDataCorrect;
     private User _user = new User();
     private string _login = "";
     private string _password = "";
@@ -86,7 +69,10 @@
 
         if (roleId == "636ce3da2b43e99e3f7871fe")
         {
-            _user = new Customer();
+            _user = new Customer()
+            {
+                Department_ID = "636ea3c8f6650224b7894d94"
+            };
         }
 
         if (roleId == "636ce3ef8e2a89e056c01119")
@@ -102,7 +88,7 @@
 
     private async void Registration()
     {
-        if (!CheckFields() || !_isDataCorrect)
+        if (!CheckFields())
         {
             await JSRun.InvokeVoidAsync("alert", "Не все поля заполнены!");
             return;
@@ -121,7 +107,7 @@
             _user.Email = _email;
             _user.Role_ID = RoleServ.GetRoleByName(_selectedRole).Id;
             _user.PhoneNumber = _phoneNumber;
-            UserServ.InsertUser(_user);
+            UserServ.InsertUser(_user); 
         }
 
         NavigationMan.NavigateTo("/login");
