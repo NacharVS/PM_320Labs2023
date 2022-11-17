@@ -8,22 +8,38 @@
 @inject ProjectService ProjectService
 @inject RoleService RoleService
 
-<h3>Название проекта: @ProjectService.CurrentProject.ProjectName</h3>
-@switch (_role)
+@if (ProjectService.CurrentProject is not null)
 {
-    case "Заказчик":
-        <CustomerProject></CustomerProject>
-    break;
-        
-    case "Проектировщик":
-        <DesignerProject IsCustomer="_isCustomer"></DesignerProject>
-    break;
-        
-    case "Застройщик":
-        <BuilderProject IsCustomer="_isCustomer"></BuilderProject>
-    break;
-    default:
-        return;
+    <h3><strong>Название проекта:</strong> @ProjectService.CurrentProject.ProjectName</h3>
+    <h3><strong>Дата создания:</strong> @ProjectService.CurrentProject.CreatedDate</h3>
+    @if (ProjectService.CurrentProject.CustomerId is not null)
+    {
+        <h3><strong>Заказчик проекта:</strong> @((UserService.GetUserById(ProjectService.CurrentProject.CustomerId) as Customer)!.Surname)</h3>
+    }
+    @if (ProjectService.CurrentProject.DesignerId is not null)
+    {
+        <h3><strong>Проектировщик проекта:</strong> @((UserService.GetUserById(ProjectService.CurrentProject.DesignerId) as Designer)!.DesignerName)</h3>
+    }
+    @if (ProjectService.CurrentProject.BuilderId is not null)
+    {
+        <h3><strong>Застройщик проекта:</strong> @((UserService.GetUserById(ProjectService.CurrentProject.BuilderId) as Builder)!.BuilderName)</h3>
+    }
+    @switch (_role)
+    {
+        case "Заказчик":
+            <CustomerProject></CustomerProject>
+            break;
+            
+        case "Проектировщик":
+            <DesignerProject IsCustomer="_isCustomer"></DesignerProject>
+            break;
+            
+        case "Застройщик":
+            <BuilderProject IsCustomer="_isCustomer"></BuilderProject>
+            break;
+        default:
+            return;
+    }
 }
 
 @code {
