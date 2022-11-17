@@ -19,8 +19,8 @@
             <p>Наименование:  @CurrentProj.Project.Name</p>
             <p>Отрасль:  @CurrentProj.Project.Department</p>
             <p>Заказчик: @CurrentProj.Project.Customer</p>
-            <p>Проектировщик:  @CurrentProj.Project.Designer</p>
-            <p>Застройщик: @CurrentProj.Project.Developer</p>
+            <p>Проектировщик:  @DBConnection.FindByLoginDesigner(CurrentProj.Project.Designer).DesignerOrganisation</p>
+            <p>Застройщик: @DBConnection.FindByLoginDeveloper(CurrentProj.Project.Developer).DeveloperOrganisation</p>
         <hr>
         <h6><b>Необходимые документы</b></h6>
         <table class="table">
@@ -34,231 +34,247 @@
                 @switch (@CurrentProj.Project.Department)
                 {
                     case "Водоснабжение":
-                        @foreach (var doc in CurrentProj.Project.DocsPreor)
+                        @if (CurrentUser.UserRole != "Designer")
                         {
-                            <tr>
-                                <td>@doc.Key</td>
-                                <td>
-                                     <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
-                                </td>
-                            </tr>
+                            @foreach (var doc in CurrentProj.Project.DocsPreor)
+                            {
+                                <tr>
+                                    <td>@doc.Key</td>
+                                    <td>
+                                        <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                    </td>
+                                </tr>
+                            }
                         }
-                        @foreach (var doc in CurrentProj.Project.DocsPreorTwo)
+                        @if (CurrentUser.UserRole != "Developer")
                         {
-                            <tr>
-                                <td>@doc.Key</td>
-                                <td>
-                                     <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
-                                </td>
-                            </tr>
+                            @foreach (var doc in CurrentProj.Project.DocsPreorTwo)
+                            {
+                                <tr>
+                                    <td>@doc.Key</td>
+                                    <td>
+                                        <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    break;
+                        break;
                     case "Газификация":
-                        @foreach (var doc in CurrentProj.Project.DocsPreor)
+                        @if (CurrentUser.UserRole != "Designer")
                         {
-                            <tr>
-                                <td>@doc.Key</td>
-                                <td>
-                                     <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
-                                </td>
-                            </tr>
+                            @foreach (var doc in CurrentProj.Project.DocsPreor)
+                            {
+                                <tr>
+                                    <td>@doc.Key</td>
+                                    <td>
+                                        <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                    </td>
+                                </tr>
+                            }
                         }
-                        @foreach (var doc in CurrentProj.Project.DocsPreorTwo)
+                        @if (CurrentUser.UserRole != "Developer")
                         {
-                            <tr>
-                                <td>@doc.Key</td>
-                                <td>
-                                     <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
-                                </td>
-                            </tr>
+                            @foreach (var doc in CurrentProj.Project.DocsPreorTwo)
+                            {
+                                <tr>
+                                    <td>@doc.Key</td>
+                                    <td>
+                                        <input type="checkbox" checked = "@doc.Value" disabled="disabled"><label></label>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    break;
+                        break;
                 }
             </tbody>
         </table>
         @if (CurrentUser.UserRole != "Developer")
         {
-            <h6><b>Документы, предоставленные проектировщиком</b></h6>
-            @if (CurrentUser.UserRole == "Designer")
-            {
-                switch (@CurrentProj.Project.Department)
+            <div class = "card"><br />
+                <h6><b>Документы, предоставленные проектировщиком</b></h6>
+                @if (CurrentUser.UserRole == "Designer")
                 {
-                    case "Водоснабжение":
-                        <h4>Технико-экономические показатели(ТЭП)</h4>
-                        @foreach (var doc in CurrentProj.Project.FormOfDesigner)
-                        {
-                            <h5>@doc.Key</h5>
-                            <input value="@doc.Value" @oninput="(e)=> CurrentProj.Project.FormOfDesigner[doc.Key] = e.Value.ToString()"></input>                            
-                        }
-                        break;
-                    case "Газификация":
-                        <h4>Технико-экономические показатели(ТЭП)</h4>
-                        @foreach (var doc in CurrentProj.Project.FormOfDesignerOne)
-                        {
-                            <h5>@doc.Key</h5>
-                            <input value="@doc.Value" @oninput="(e)=> CurrentProj.Project.FormOfDesignerOne[doc.Key] = e.Value.ToString()"></input>                            
-                        }
-                        <h4>Технико-экономические показатели(ТЭП)</h4>  
-                        @foreach (var doc in CurrentProj.Project.FormOfDesigner)
-                        {
-                            <h5>@doc.Key</h5>
-                            <input value="@doc.Value" @oninput="(e)=> CurrentProj.Project.FormOfDesigner[doc.Key] = e.Value.ToString()"></input>                            
-                        }
-                        break;
+                    switch (@CurrentProj.Project.Department)
+                    {
+                        case "Водоснабжение":
+                            <h7><b>Технико-экономические показатели(ТЭП)</b></h7>
+                            @foreach (var doc in CurrentProj.Project.FormOfDesigner)
+                            {
+                                <h7>@doc.Key - </h7><br />
+                                <input value="@doc.Value" @oninput="(e)=> CurrentProj.Project.FormOfDesigner[doc.Key] = e.Value.ToString()"></input> <br />                        
+                            }
+                            break;
+                        case "Газификация":
+                            <h7><b>Технико-экономические показатели(ТЭП)</b></h7><br />
+                            @foreach (var doc in CurrentProj.Project.FormOfDesignerOne)
+                            {
+                                <h7>@doc.Key - </h7><br />
+                                <input value="@doc.Value" @oninput="(e)=> CurrentProj.Project.FormOfDesignerOne[doc.Key] = e.Value.ToString()"></input> <br />                           
+                            }
+                            <h7><b>Технико-экономические показатели(ТЭП)</b></h7>  <br />
+                            @foreach (var doc in CurrentProj.Project.FormOfDesigner)
+                            {
+                                <h7>@doc.Key - </h7><br />
+                                <input value="@doc.Value" @oninput="(e)=> CurrentProj.Project.FormOfDesigner[doc.Key] = e.Value.ToString()"></input> <br />                        
+                            }
+                            break;
+                    }
+                    <b></b><br /><br />
+                    <InputFile OnChange="@LoadFiles" multiple  />
+                    <br />
                 }
-                <b></b><br /><br />
-                <InputFile OnChange="@LoadFiles" multiple  />
-                <br />
-            }
-            else
-            {
-                switch (@CurrentProj.Project.Department)
+                else
                 {
-                    case "Водоснабжение":
-                        <label><b>Технико-экономические показатели(ТЭП)</b></label><br /><br />
-                        @foreach (var doc in CurrentProj.Project.FormOfDesigner)
-                        {
-                            <label>@doc.Key</label>
-                            <label >@doc.Value</label><br />                            
-                        }
-                        break;
-                    case "Газификация":
-                        <label><b>Технико-экономические показатели(ТЭП)</b></label><br /><br />
-                        @foreach (var doc in CurrentProj.Project.FormOfDesignerOne)
-                        {
-                            <label>@doc.Key</label>
-                            <label >@doc.Value</label><br />                             
-                        }
-                        <label><b>Технико-экономические показатели(ТЭП)</b></label><br /><br />
-                        @foreach (var doc in CurrentProj.Project.FormOfDesigner)
-                        {
-                            <label>@doc.Key</label>
-                            <label >@doc.Value</label><br />                         
-                        }
-                        break;
+                    switch (@CurrentProj.Project.Department)
+                    {
+                        case "Водоснабжение":
+                            <label><b>Технико-экономические показатели(ТЭП)</b></label><br /><br />
+                            @foreach (var doc in CurrentProj.Project.FormOfDesigner)
+                            {
+                                <label>@doc.Key - </label>
+                                <label >@doc.Value</label><br />                            
+                            }
+                            break;
+                        case "Газификация":
+                            <label><b>Технико-экономические показатели(ТЭП)</b></label><br /><br />
+                            @foreach (var doc in CurrentProj.Project.FormOfDesignerOne)
+                            {
+                                <label>@doc.Key - </label>
+                                <label >@doc.Value</label><br />                             
+                            }
+                            <label><b>Технико-экономические показатели(ТЭП)</b></label><br /><br />
+                            @foreach (var doc in CurrentProj.Project.FormOfDesigner)
+                            {
+                                <label>@doc.Key - </label>
+                                <label >@doc.Value</label><br />                         
+                            }
+                            break;
+                    }
                 }
-            }
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Наименование документа</th>
-                        <th>Наименование документа</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (CurrentProj.Project.LoadedFilesDes is not null)
-                    {
-                        @foreach (var file in CurrentProj.Project.LoadedFilesDes)
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Наименование документа</th>
+                            <th>Наименование документа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (CurrentProj.Project.LoadedFilesDes is not null)
                         {
-                            <tr>
-                                <td><b>@file</b></td>
-                                <td> 
-                                    <a href="/files/@file">Просмотреть файл и скачать</a>
-                                </td>
-                            </tr>
+                            @foreach (var file in CurrentProj.Project.LoadedFilesDes)
+                            {
+                                <tr>
+                                    <td><b>@file</b></td>
+                                    <td> 
+                                        <a href="/files/@file">Просмотреть файл и скачать</a>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                    @if (filesDes is not null)
-                    {
-                        @foreach (var file in filesDes)
+                        @if (filesDes is not null)
                         {
-                            <tr>
-                                <td><b>@file</b></td>
-                                <td> 
-                                    <a href="/files/@file">Просмотреть файл и скачать</a>
-                                </td>
-                            </tr>
+                            @foreach (var file in filesDes)
+                            {
+                                <tr>
+                                    <td><b>@file</b></td>
+                                    <td> 
+                                        <a href="/files/@file">Просмотреть файл и скачать</a>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
-            @if (CurrentUser.UserRole == "Designer")
-            {
-                <button type="submit" class="registerbtn" @onclick="DelNewFilesDes">Удалить все только загруженные файлы</button>
-                <br />
-            }
-            @if (CurrentUser.UserRole == "Designer")
-            {
-                <button type="submit" class="registerbtn" @onclick="DelEarlyFileDes">Удалить все сохранненые ранее файлы</button>
-                <br />
-            }
-            @if (CurrentUser.UserRole == "Customer")
-            {
-                <label for="comForDes"><b>Комментарий</b></label> <br/>                   
-                <input type="text" placeholder="Комментарий" name="comForDes" id="comForDes" required @bind-value="comForDes" />
-                <br/><br />
-            }
-            else
-            {
-                <label for="comForDes"><b>Комментарий</b></label> 
-                <br/><br />
-                <h5>@CurrentProj.Project.CommentForDes</h5><br />
-            }
+                    </tbody>
+                </table>
+                @if (CurrentUser.UserRole == "Designer")
+                {
+                    <button type="submit" class="registerbtn" @onclick="DelNewFilesDes">Удалить все только загруженные файлы</button>
+                    <br />
+                }
+                @if (CurrentUser.UserRole == "Designer")
+                {
+                    <button type="submit" class="registerbtn" @onclick="DelEarlyFileDes">Удалить все сохранненые ранее файлы</button>
+                    <br />
+                }
+                @if (CurrentUser.UserRole == "Customer")
+                {
+                    <label for="comForDes"><b>Комментарий</b></label> <br/>                   
+                    <input type="text" placeholder="Комментарий" name="comForDes" id="comForDes" required @bind-value="comForDes" />
+                    <br/><br />
+                }
+                else
+                {
+                    <label for="comForDes"><b>Комментарий</b></label> 
+                    <br/><br />
+                    <h5>@CurrentProj.Project.CommentForDes</h5><br />
+                }
+            </div>
         }
         @if (CurrentUser.UserRole != "Designer")
         {
-            <h6><b>Документы, предоставленные застройщиком</b></h6>
-            @if (CurrentUser.UserRole == "Developer")
-            {
-                <InputFile OnChange="@LoadFilesByDeveloper" multiple  />
-                <br />
-            }
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Наименование документа</th>
-                        <th>Наименование документа</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (CurrentProj.Project.LoadedFilesDev is not null)
-                    {
-                        @foreach (var file in CurrentProj.Project.LoadedFilesDev)
+            <div class = "card"><br />
+                <h6><b>Документы, предоставленные застройщиком</b></h6>
+                @if (CurrentUser.UserRole == "Developer")
+                {
+                    <InputFile OnChange="@LoadFilesByDeveloper" multiple  />
+                    <br />
+                }
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Наименование документа</th>
+                            <th>Наименование документа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (CurrentProj.Project.LoadedFilesDev is not null)
                         {
-                            <tr>
-                                <td><b>@file</b></td>
-                                <td>
-                                    <a href="/files/@file">Просмотреть файл и скачать</a>
-                                </td>
-                            </tr>
+                            @foreach (var file in CurrentProj.Project.LoadedFilesDev)
+                            {
+                                <tr>
+                                    <td><b>@file</b></td>
+                                    <td>
+                                        <a href="/files/@file">Просмотреть файл и скачать</a>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                    @if (filesDev is not null)
-                    {
-                        @foreach (var file in filesDev)
+                        @if (filesDev is not null)
                         {
-                            <tr>
-                                <td><b>@file</b></td>
-                                <td>
-                                    <a href="/files/@file">Просмотреть файл и скачать</a>
-                                </td>
-                            </tr>
+                            @foreach (var file in filesDev)
+                            {
+                                <tr>
+                                    <td><b>@file</b></td>
+                                    <td>
+                                        <a href="/files/@file">Просмотреть файл и скачать</a>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
-            @if (CurrentUser.UserRole == "Developer")
-            {
-                <button type="submit" class="registerbtn" @onclick="DelNewFilesDev">Удлаить все только загруженные файлы</button>
-                <br />
-            }
-            @if (CurrentUser.UserRole == "Developer")
-            {
-                <button type="submit" class="registerbtn" @onclick="DelEarlyFileDev">Удлаить все сохранненые ранее файлы</button>
-                <br />
-            }
-            @if (CurrentUser.UserRole == "Customer")
-            {
-                <label for="comForDes"><b>Комментарий</b></label><br />                 
-                <input type="text" placeholder="Комментарий" name="comForDes" id="comForDes" required @bind-value="comForDev" />
-                <br/>
-            }
-            else
-            {
-                <label for="comForDes"><b>Комментарий</b></label> 
-                <br/>
-                <h5>@CurrentProj.Project.CommentForDev</h5>
-            }
+                    </tbody>
+                </table>
+                @if (CurrentUser.UserRole == "Developer")
+                {
+                    <button type="submit" class="registerbtn" @onclick="DelNewFilesDev">Удлаить все только загруженные файлы</button>
+                    <br />
+                }
+                @if (CurrentUser.UserRole == "Developer")
+                {
+                    <button type="submit" class="registerbtn" @onclick="DelEarlyFileDev">Удлаить все сохранненые ранее файлы</button>
+                    <br />
+                }
+                @if (CurrentUser.UserRole == "Customer")
+                {
+                    <label for="comForDes"><b>Комментарий</b></label><br />                 
+                    <input type="text" placeholder="Комментарий" name="comForDes" id="comForDes" required @bind-value="comForDev" />
+                    <br/>
+                }
+                else
+                {
+                    <label for="comForDes"><b>Комментарий</b></label> 
+                    <br/>
+                    <h5>@CurrentProj.Project.CommentForDev</h5>
+                }
+            </div>
         }
         <br />
         @if (CurrentUser.UserRole == "Customer")

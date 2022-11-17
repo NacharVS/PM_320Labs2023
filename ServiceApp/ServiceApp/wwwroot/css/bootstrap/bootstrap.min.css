@@ -88,6 +88,7 @@
     border: var(--outline);
     outline-offset: -2px;
     transition: outline-offset 200ms ease;
+    padding: 8px;
 }
 
 .card:hover,

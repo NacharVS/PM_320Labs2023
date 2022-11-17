@@ -21,7 +21,7 @@
                 <option value="-">-</option>
                 @foreach (var dev in developers)
                 {
-                    <option value="@dev.DeveloperOrganisation">@dev.DeveloperOrganisation</option>
+                    <option value="@dev.Login">@dev.DeveloperOrganisation</option>
                 }
             </select>
             <br/>
@@ -30,7 +30,7 @@
                 <option value="-">-</option>
                 @foreach (var des in designers)
                 {
-                    <option value="@des.DesignerOrganisation">@des.DesignerOrganisation</option>
+                    <option value="@des.Login">@des.DesignerOrganisation</option>
                 }
             </select>
             <table class="table">
