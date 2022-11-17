@@ -254,12 +254,12 @@
                 </table>
                 @if (CurrentUser.UserRole == "Developer")
                 {
-                    <button type="submit" class="registerbtn" @onclick="DelNewFilesDev">Удлаить все только загруженные файлы</button>
+                    <button type="submit" class="registerbtn" @onclick="DelNewFilesDev">Удалить все только загруженные файлы</button>
                     <br />
                 }
                 @if (CurrentUser.UserRole == "Developer")
                 {
-                    <button type="submit" class="registerbtn" @onclick="DelEarlyFileDev">Удлаить все сохранненые ранее файлы</button>
+                    <button type="submit" class="registerbtn" @onclick="DelEarlyFileDev">Удалить все сохранненые ранее файлы</button>
                     <br />
                 }
                 @if (CurrentUser.UserRole == "Customer")
