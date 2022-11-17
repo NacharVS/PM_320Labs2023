@@ -57,14 +57,17 @@
 
     public async void Save()
     {
-        if (Regex.IsMatch(telephone, "^[0-9]+$") && CurrentUser.CurrentCustomer.MiddleName is not null && CurrentUser.CurrentCustomer.FirstName is not null && department is not null && telephone is not null && CurrentUser.CurrentCustomer.Email is not null)
+        if (telephone is not null)
         {
-            CurrentUser.CurrentCustomer.Telephone = telephone;
-            CurrentUser.CurrentCustomer.Department = department;
-            DBConnection.ReplaceCustomer(CurrentUser.CurrentCustomer);
-            await LocalStorage.SetAsync<Customer>("Autho", CurrentUser.CurrentCustomer);
-            StateHasChanged();
-            Navigation.NavigateTo("/personalmain");
+            if (Regex.IsMatch(telephone, "^[0-9]+$") && CurrentUser.CurrentCustomer.MiddleName is not null && CurrentUser.CurrentCustomer.FirstName is not null && department is not null && telephone is not null && CurrentUser.CurrentCustomer.Email is not null)
+            {
+                CurrentUser.CurrentCustomer.Telephone = telephone;
+                CurrentUser.CurrentCustomer.Department = department;
+                DBConnection.ReplaceCustomer(CurrentUser.CurrentCustomer);
+                await LocalStorage.SetAsync<Customer>("Autho", CurrentUser.CurrentCustomer);
+                StateHasChanged();
+                Navigation.NavigateTo("/personalmain");
+            }
         }
     }
 

@@ -63,17 +63,20 @@
 
     public async void Save()
     {
-        if (Regex.IsMatch(ogrn, "^[0-9]+$") && Regex.IsMatch(inn, "^[0-9]+$") && Regex.IsMatch(kpp, "^[0-9]+$") && Regex.IsMatch(telephone, "^[0-9]+$") && CurrentUser.CurrentDeveloper.MiddleName is not null && CurrentUser.CurrentDeveloper.FirstName is not null && CurrentUser.CurrentDeveloper.DeveloperOrganisation is not null && ogrn is not null && inn is not null && kpp is not null && telephone is not null)
+        if (ogrn is not null && inn is not null && kpp is not null && telephone is not null)
         {
-            CurrentUser.CurrentDeveloper.OGRN = ogrn;
-            CurrentUser.CurrentDeveloper.KPP = kpp;
-            CurrentUser.CurrentDeveloper.INN = inn;
-            CurrentUser.CurrentDeveloper.Telephone = telephone;
+            if (Regex.IsMatch(ogrn, "^[0-9]+$") && Regex.IsMatch(inn, "^[0-9]+$") && Regex.IsMatch(kpp, "^[0-9]+$") && Regex.IsMatch(telephone, "^[0-9]+$") && CurrentUser.CurrentDeveloper.MiddleName is not null && CurrentUser.CurrentDeveloper.FirstName is not null && CurrentUser.CurrentDeveloper.DeveloperOrganisation is not null && ogrn is not null && inn is not null && kpp is not null && telephone is not null)
+            {
+                CurrentUser.CurrentDeveloper.OGRN = ogrn;
+                CurrentUser.CurrentDeveloper.KPP = kpp;
+                CurrentUser.CurrentDeveloper.INN = inn;
+                CurrentUser.CurrentDeveloper.Telephone = telephone;
 
-            DBConnection.ReplaceDeveloper(CurrentUser.CurrentDeveloper);
-            await LocalStorage.SetAsync<Developer>("Autho", CurrentUser.CurrentDeveloper);
-            StateHasChanged();
-            Navigation.NavigateTo("/personalmain");
+                DBConnection.ReplaceDeveloper(CurrentUser.CurrentDeveloper);
+                await LocalStorage.SetAsync<Developer>("Autho", CurrentUser.CurrentDeveloper);
+                StateHasChanged();
+                Navigation.NavigateTo("/personalmain");
+            }
         }
     }
 

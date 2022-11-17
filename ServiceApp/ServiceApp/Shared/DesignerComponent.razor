@@ -80,17 +80,20 @@
 
     public async void Save()
     {
-        if (Regex.IsMatch(ogrn, "^[0-9]+$") && Regex.IsMatch(inn, "^[0-9]+$") && Regex.IsMatch(kpp, "^[0-9]+$") && Regex.IsMatch(telephone, "^[0-9]+$") && CurrentUser.CurrentDesigner.MiddleName is not null && CurrentUser.CurrentDesigner.FirstName is not null && CurrentUser.CurrentDesigner.DesignerOrganisation is not null && ogrn is not null && kpp is not null && telephone is not null && inn is not null && CurrentUser.CurrentDesigner.Director is not null && CurrentUser.CurrentDesigner.MainEngineer is not null)
+        if (ogrn is not null && inn is not null && kpp is not null && telephone is not null)
         {
-            CurrentUser.CurrentDesigner.OGRN = ogrn;
-            CurrentUser.CurrentDesigner.KPP = kpp;
-            CurrentUser.CurrentDesigner.INN = inn;
-            CurrentUser.CurrentDesigner.Telephone = telephone;
+            if (Regex.IsMatch(ogrn, "^[0-9]+$") && Regex.IsMatch(inn, "^[0-9]+$") && Regex.IsMatch(kpp, "^[0-9]+$") && Regex.IsMatch(telephone, "^[0-9]+$") && CurrentUser.CurrentDesigner.MiddleName is not null && CurrentUser.CurrentDesigner.FirstName is not null && CurrentUser.CurrentDesigner.DesignerOrganisation is not null && ogrn is not null && kpp is not null && telephone is not null && inn is not null && CurrentUser.CurrentDesigner.Director is not null && CurrentUser.CurrentDesigner.MainEngineer is not null)
+            {
+                CurrentUser.CurrentDesigner.OGRN = ogrn;
+                CurrentUser.CurrentDesigner.KPP = kpp;
+                CurrentUser.CurrentDesigner.INN = inn;
+                CurrentUser.CurrentDesigner.Telephone = telephone;
 
-            DBConnection.ReplaceDesigner(CurrentUser.CurrentDesigner);
-            await LocalStorage.SetAsync<Designer>("Autho", CurrentUser.CurrentDesigner);
-            StateHasChanged();
-            Navigation.NavigateTo("/personalmain");
+                DBConnection.ReplaceDesigner(CurrentUser.CurrentDesigner);
+                await LocalStorage.SetAsync<Designer>("Autho", CurrentUser.CurrentDesigner);
+                StateHasChanged();
+                Navigation.NavigateTo("/personalmain");
+            }
         }
     }
 
