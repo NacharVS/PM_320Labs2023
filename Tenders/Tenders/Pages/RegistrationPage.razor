@@ -77,11 +77,11 @@
                 <h6 class="mb-0">Select role</h6>
               </div>
               <div class="col-md-9 pe-5">
-                <select class="select">
-                  <option value="1">Unspecified</option>
-                  <option value="2" @onclick="ChooseCustomerRole">Customer</option>
-                  <option value="3" @onclick="ChooseDesignerRole">Designer</option>
-                  <option value="4" @onclick="ChooseDeveloperRole">Developer</option>
+                <select class="select" @bind="_role">
+                  <option value="@UserRole.Uncpecified">Unspecified</option>
+                  <option value="@UserRole.Customer">Customer</option>
+                  <option value="@UserRole.Designer">Designer</option>
+                  <option value="@UserRole.Developer">Developer</option>
                 </select>
               </div>
             </div>
@@ -105,10 +105,6 @@
     </div>
   </div>
 </section>
-@if (!String.IsNullOrEmpty(_exMessage))
-{
-    <p>@_exMessage</p>
-}
 
 @code
 {
