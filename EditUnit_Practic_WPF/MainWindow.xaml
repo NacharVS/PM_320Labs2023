@@ -1,0 +1,29 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EditUnit_Practic_WPF"
+        xmlns:Units_Practic="clr-namespace:Units_Practic;assembly=Units_Practic" xmlns:Abilities="clr-namespace:Units_Practic.Abilities;assembly=Units_Practic" x:Class="EditUnit_Practic_WPF.MainWindow"
+        mc:Ignorable="d"
+        Title="Edit unit" MinHeight="675" Height="675" MinWidth="877" Width="877" ResizeMode="CanResize" Icon="/Media/Icon.png" >
+    <Grid>
+        <Menu HorizontalAlignment="Left" Width="37">
+            <MenuItem Header="Menu" Margin="-3,0,0,0">
+                <MenuItem Header="new Warrior" Click="WarriorItem_Click"/>
+                <MenuItem Header="new Rogue" Click="RogueItem_Click"/>
+                <MenuItem Header="new Wizard" Click="WizardItem_Click" />
+                <Separator/>
+                <MenuItem Header="Main menu" Click="MainMenu_Click" />
+            </MenuItem>
+        </Menu>
+        <TabControl x:Name="tabControl" Margin="37,0,0,0">
+            <TabItem x:Name="TbItEdit" Header="Edit">
+                <Frame x:Name="EditPage" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TbItMatch" Header="Match">
+                <Frame Name="MatchPage"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

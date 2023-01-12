@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labs320
+namespace Units_Practic.Items
 {
-    internal class TestClass
+    public interface IEquipment
     {
+        public bool equip { get; set; }
     }
 }

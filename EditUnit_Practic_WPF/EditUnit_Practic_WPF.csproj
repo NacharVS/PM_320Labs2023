@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icon.png" />
+    <None Remove="png-clipart-world-of-warcraft-legion-warcraft-iii-the-frozen-throne-world-of-warcraft-battle-for-azeroth-blizzard-entertainment-game-others-game-video-game.png" />
+    <None Remove="Rogue.png" />
+    <None Remove="Warrior.png" />
+    <None Remove="Wizard.png" />
+    <None Remove="Wizard2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Units_Practic\Units_Practic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Media\Icon.png" />
+    <Resource Include="Media\png-clipart-world-of-warcraft-legion-warcraft-iii-the-frozen-throne-world-of-warcraft-battle-for-azeroth-blizzard-entertainment-game-others-game-video-game.png" />
+    <Resource Include="Media\Rogue.png" />
+    <Resource Include="Media\Warrior.png" />
+    <Resource Include="Media\Wizard.png" />
+    <Resource Include="Media\Wizard2.png" />
+  </ItemGroup>
+
+</Project>
