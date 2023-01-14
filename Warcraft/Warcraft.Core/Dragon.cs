@@ -31,7 +31,7 @@ public class Dragon : Ranged
                             Message = "Подгорел на {0} урона"
                         }
                     },
-                    Message = "Пустил огненное дыхание на {0}"
+                    Message = $"Пустил огненное дыхание на {{0}}. Урон: {Damage}"
                 }
             }
         };

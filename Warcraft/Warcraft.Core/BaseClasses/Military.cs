@@ -26,6 +26,12 @@ public abstract class Military : Movable
 
     public void CastSpell(string spellName, Unit target)
     {
+        if (IsDestroyed)
+        {
+            Log("Мёртв и не может кастовать");
+            return;
+        }
+
         var spell = Spells[spellName];
 
         if (spell.ManaCost > Mana)
@@ -39,7 +45,7 @@ public abstract class Military : Movable
             Log("Не могу кастовать на себя");
             return;
         }
-        
+
         spell.Cast(target);
         Mana -= spell.ManaCost;
         Log(string.Format(spell.Message, target.Name));

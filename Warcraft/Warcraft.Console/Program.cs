@@ -43,31 +43,60 @@ var blacksmith = new Blacksmith(logger, (int)Health.Tank, (int)Cost.Standard,
 
 var random = new Random();
 var heroes = new List<Unit>
-    { mage1, mage, dragon, footman, footman1, peasant, guardTower, blacksmith, archer, archer1 };
-    // { mage, mage1 };
-while (heroes.Count != 1)
+    // { mage1, mage, dragon, footman, footman1, peasant, guardTower, archer, archer1 };
+{ mage, mage1 };
+
+var tasks = new List<Task>();
+foreach (var hero in heroes)
 {
-    var unit = heroes[random.Next(heroes.Count)];
-    var target = heroes[random.Next(heroes.Count)];
-
-    switch (unit)
+    var task = new Task(() =>
     {
-        case Military hero:
-            hero.RandomAttack(target);
-            break;
-        case GuardTower tower:
-            tower.Attack(target);
-            break;
-        case Peasant villager:
-            villager.RandomAction();
-            break;
-        case Blacksmith smith:
-            smith.RandomBuff();
-            break;
-    }
+        while (!hero.IsDestroyed)
+        {
+            if (heroes.Count(x => !x.IsDestroyed) == 1)
+            {
+                return;
+            }
 
-    if (target.IsDestroyed)
-        heroes.Remove(target);
+            Unit target;
+            while ((target = heroes[random.Next(0, heroes.Count)]) != hero)
+            {
+                if (target.IsDestroyed || hero.IsDestroyed) continue;
+                
+                logger.LogInfo(hero, "------------Делает свой ход------------");
+                switch (hero)
+                {
+                    case Military military:
+                        military.RandomAttack(target);
+                        break;
+                    case GuardTower tower:
+                        tower.Attack(target);
+                        break;
+                    case Peasant villager:
+                        villager.RandomAction();
+                        break;
+                    case Blacksmith smith:
+                        smith.RandomBuff();
+                        break;
+                }
+                
+                logger.LogInfo(hero, "------------Закончил свой ход------------");
+                Thread.Sleep(hero is Military mil ? mil.AttackSpeed : 500);
+            }
+        }
+    });
+    tasks.Add(task);
+    task.Start();
 }
 
-logger.LogInfo(heroes[0], "ПОБЕДИТЕЛЬ!!!");
+Task.WaitAll(tasks.ToArray());
+
+var winner = heroes.FirstOrDefault(x => !x.IsDestroyed);
+if (winner is not null)
+{
+    logger.LogInfo(winner, "ПОБЕДИТЕЛЬ!");
+}
+else
+{
+    logger.LogInfo(null, "Никто не победил");
+}

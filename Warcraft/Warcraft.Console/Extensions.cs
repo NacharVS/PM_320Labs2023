@@ -9,6 +9,7 @@ public static class Extensions
 
     public static void RandomAttack(this Military hero, Unit target)
     {
+        if (hero.IsDestroyed) return;
         var action = Random.Next(2);
         switch (action)
         {
@@ -31,6 +32,7 @@ public static class Extensions
 
     public static void RandomBuff(this Blacksmith smith)
     {
+        if (smith.IsDestroyed) return;
         var action = Random.Next(3);
         switch (action)
         {
@@ -48,6 +50,7 @@ public static class Extensions
 
     public static void RandomAction(this Peasant peasant)
     {
+        if (peasant.IsDestroyed) return;
         var action = Random.Next(2);
         switch (action)
         {

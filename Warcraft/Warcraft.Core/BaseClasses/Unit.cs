@@ -6,6 +6,7 @@ namespace Warcraft.Core.BaseClasses;
 
 public abstract class Unit
 {
+    private object _lockObject = "";
     public int Health { get; private set; }
     public int MaxHealth { get; }
     public int Cost { get; private set; }
@@ -53,16 +54,19 @@ public abstract class Unit
 
     public void AddEffect(Effect effect)
     {
-        var existingEffect =
-            ActiveEffects.FirstOrDefault(x => x.Name == effect.Name);
-        if (existingEffect is not null)
+        lock (_lockObject)
         {
-            existingEffect.Duration += effect.Duration;
-            return;
-        }
+            var existingEffect =
+                ActiveEffects.FirstOrDefault(x => x.Name == effect.Name);
+            if (existingEffect is not null)
+            {
+                existingEffect.Duration += effect.Duration;
+                return;
+            }
 
-        ActiveEffects.Add(effect);
-        Log($"Получил эффект {effect.Name}");
+            ActiveEffects.Add(effect);
+            Log($"Получил эффект {effect.Name}");
+        }
     }
 
     public void GetHealed(int value)
@@ -105,21 +109,24 @@ public abstract class Unit
     {
         if (IsDestroyed)
             return;
-        
-        foreach (var effect in ActiveEffects)
+
+        lock (_lockObject)
         {
-            if (effect.Duration <= 0)
+            foreach (var effect in ActiveEffects)
             {
-                ActiveEffects.Remove(effect);
-                Log($"Эффект {effect.Name} снят");
-                return;
+                if (effect.Duration <= 0)
+                {
+                    ActiveEffects.Remove(effect);
+                    Log($"Эффект {effect.Name} снят");
+                    return;
+                }
+
+                Health -= effect.Damage;
+                AfterHpChange?.Invoke(this,
+                    new HealthPointEventArgs(Health + effect.Damage, Health));
+                effect.Duration--;
+                Log(effect.LogMessage);
             }
-            
-            Health -= effect.Damage;
-            AfterHpChange?.Invoke(this,
-                new HealthPointEventArgs(Health + effect.Damage, Health));
-            effect.Duration--;
-            Log(effect.LogMessage);
         }
     }
 }
