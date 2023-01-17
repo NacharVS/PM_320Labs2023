@@ -43,8 +43,8 @@ var blacksmith = new Blacksmith(logger, (int)Health.Tank, (int)Cost.Standard,
 
 var random = new Random();
 var heroes = new List<Unit>
-    // { mage1, mage, dragon, footman, footman1, peasant, guardTower, archer, archer1 };
-{ mage, mage1 };
+    { mage1, mage, dragon, footman, footman1, peasant, guardTower, archer, archer1 };
+// { mage, footman };
 
 var tasks = new List<Task>();
 foreach (var hero in heroes)

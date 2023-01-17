@@ -3,6 +3,7 @@ using AuthorizationApp.Data;
 using AuthorizationApp.Database;
 using AuthorizationApp.Services;
 using AuthorizationApp.Services.Interfaces;
+using Timer = AuthorizationApp.Timer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IEncryptionService, EncryptionService>();
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 builder.Services.AddSingleton<IFileService, FileService>();
+builder.Services.AddSingleton<Timer>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddHostedService<ImageHostedService>();
 

@@ -3,6 +3,7 @@
 @using AuthorizationApp.Services
 @using AuthorizationApp.Services.Interfaces
 @using IAuthorizationService = AuthorizationApp.Services.Interfaces.IAuthorizationService
+@using Timer = System.Threading.Timer
 @inject IAuthorizationService AuthorizationService;
 @inject IUserIdentityService UserIdentityService
 @inject NavigationManager NavigationManager
@@ -27,8 +28,15 @@
         <label class="form-label" for="form2Example2">Password</label>
     </div>
 
-    <!-- Submit button -->
-    <input type="submit" class="btn btn-primary btn-block mb-4" value="Sign in"/>
+    @if (!_isLoading)
+    {
+        <!-- Submit button -->
+        <input type="submit" class="btn btn-primary btn-block mb-4" value="Sign in"/>
+    }
+    else
+    {
+        <p>Loading...</p>
+    }
 
     <!-- Register buttons -->
     <div class="text-center">
@@ -45,12 +53,15 @@
 
 @code {
     private bool _isCorrectLogin = true;
+    private bool _isLoading = false;
     private readonly LoginCredentials _loginCredentials = new();
 
     private async Task CheckAuthorization()
     {
+        _isLoading = true;
         if (!await AuthorizationService.Authorize(_loginCredentials))
         {
+            _isLoading = false;
             _isCorrectLogin = false;
             return;
         }

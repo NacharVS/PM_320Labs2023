@@ -28,7 +28,7 @@ public class Mage : Ranged
                 {
                     Name = "Файрбол", Damage = FireballDamage,
                     ManaCost = FireballManaCost,
-                    Message = $"Пустил файрбол на {0}. Урон: {Damage}",
+                    Message = $"Пустил файрбол на {0}. Урон: {FireballDamage}",
                     InflictedEffects = new[]
                     {
                         new Effect
@@ -45,7 +45,7 @@ public class Mage : Ranged
                 {
                     Name = "Буря",
                     ManaCost = BlizzardManaCost, Damage = BlizzardDamage,
-                    Message = $"Выпустил снежную бурю на {{0}}. Урон {Damage}",
+                    Message = $"Выпустил снежную бурю на {{0}}. Урон {BlizzardDamage}",
                     InflictedEffects = new []
                     {
                         new Effect

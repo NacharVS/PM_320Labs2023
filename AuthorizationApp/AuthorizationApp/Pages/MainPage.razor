@@ -4,6 +4,7 @@
 @inject IAuthorizationService AuthorizationService;
 @inject IImageService ImageService;
 @inject IFileService FileService;
+@inject Timer Timer;
 
 <h3>MainPage</h3>
 <div class="page" style="display:flex;">
@@ -45,6 +46,12 @@
         <InputFile OnChange="@LoadFiles" multiple></InputFile>
     </div>
 </div>
+<div>
+    <span>@(Timer.Seconds / 60)</span>
+    <span>:</span>
+    <span>@(Timer.Seconds - Timer.Seconds/60 * 60)</span>
+</div>
+<button @onclick="() => Timer.AddSeconds(60)">Add minute</button>
 
 @code {
 
@@ -54,11 +61,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        Timer.Action = StateHasChanged;
+        Timer.StartAsync(120);
         await ImageService.InitializeImages();
         _images = (await ImageService.GetAllImages()).ToList();
         _imagesInitialized = true;
     }
-
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {

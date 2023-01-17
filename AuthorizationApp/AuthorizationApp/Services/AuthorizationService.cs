@@ -35,6 +35,8 @@ public class AuthorizationService : IAuthorizationService
 
     public async Task<bool> Authorize(LoginCredentials loginCredentials)
     {
+        await Task.Delay(3000);
+
         if (!_repository.IsUserRegistered(loginCredentials.Login))
         {
             return false;
