@@ -11,7 +11,7 @@ namespace WarcraftLibrary
         Random rnd = new Random();
         public int Arrows;
 
-        public Archer(string name, int health = 70, int cost = 25, int lvl = 1, bool isDestroyed = false, int speed = 12, int damage = 8, int attackSpeed = 1, int armor = 5, int arrows = 20) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed, armor) 
+        public Archer(string name, int health = 70, int cost = 25, int lvl = 1, bool isDestroyed = false, int speed = 12, int damage = 8, int attackSpeed = 80, int armor = 5, int arrows = 20) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed, armor) 
         {
             Arrows = arrows;
         }

@@ -11,27 +11,27 @@ namespace WarcraftLibrary
         Random rnd = new Random();
         private int _maxHealth;
 
-        public Footman(string name, int health = 40, int cost = 10, int lvl = 1, bool isDestroyed = false, int speed = 12, int damage = 10, int attackSpeed = 5, int armor = 5) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed, armor)
-        { 
+        public Footman(string name, int health = 40, int cost = 10, int lvl = 1, bool isDestroyed = false, int speed = 12, int damage = 10, int attackSpeed = 140, int armor = 5) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed, armor)
+        {
             _maxHealth = health;
         }
 
-        public string Berserker() 
+        public string Berserker()
         {
             return $"{Name} нанес удар с силой {Damage * 1.5}.{Damage * 1.5}";
         }
 
-        public string Stun(Moveable unit) 
+        public string Stun(Moveable unit)
         {
-            unit.Speed -= 10;
+            unit.Speed -= 20;
             return $"{Name} застанил противника.{0}";
         }
 
         public override string Attack(Unit unit, Blacksmith blacksmith)
         {
-            var val = rnd.Next(1, 8);
+            var val = rnd.Next(1, 10);
 
-            if (val == 3)
+            if (val == 3 || val == 2 || val == 1)
             {
                 return $"{Name} не смог нанести удар.{0}";
             }

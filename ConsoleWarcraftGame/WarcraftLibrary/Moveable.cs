@@ -10,7 +10,7 @@ namespace WarcraftLibrary
     {
         public int Speed;
 
-        public Moveable(string name, int health, int cost, int lvl, bool isDestroyed, int speed, int damage) : base(name, health, cost, lvl, isDestroyed, damage)
+        public Moveable(string name, int health, int cost, int lvl, bool isDestroyed, int speed, int damage, int attackSpeed) : base(name, health, cost, lvl, isDestroyed, damage, attackSpeed)
         {
             this.Speed = speed;
         }

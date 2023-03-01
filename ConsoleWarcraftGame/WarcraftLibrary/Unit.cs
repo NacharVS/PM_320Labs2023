@@ -20,13 +20,14 @@ namespace WarcraftLibrary
             }
         }
         public int Cost;
+        public int AttackSpeed;
         public int Lvl;
         public bool IsDestroyed;
         public int Damage;
         public delegate void DestroyingDelegate(string message);
         public delegate void HealthChangedDelegate(string name, int beforeHealthValue, int healthValue);
 
-        public Unit(string name, int health, int cost, int lvl, bool isDestroyed, int damage)
+        public Unit(string name, int health, int cost, int lvl, bool isDestroyed, int damage, int attackSpeed)
         {
             this.Name = name;
             this._health = health;
@@ -34,6 +35,7 @@ namespace WarcraftLibrary
             this.Lvl = lvl;
             this.IsDestroyed = isDestroyed;
             this.Damage = damage;
+            this.AttackSpeed = attackSpeed;
         }
 
         public virtual string Attack(Unit unit, Blacksmith blacksmith)

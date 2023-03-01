@@ -10,12 +10,10 @@ namespace WarcraftLibrary
     {
         Random rnd = new Random();
         public int Range;
-        public int AttackSpeed;
 
-        public GuardTower(string name, int health = 300, int cost = 100, int lvl = 1, bool isDestroyed = false, int range = 80, int damage = 10, int attackSpeed = 1) : base(name, health, cost, lvl, isDestroyed, damage)
+        public GuardTower(string name, int health = 300, int cost = 100, int lvl = 1, bool isDestroyed = false, int range = 80, int damage = 10, int attackSpeed = 50) : base(name, health, cost, lvl, isDestroyed, damage, attackSpeed)
         {
             this.Range = range;
-            this.AttackSpeed = attackSpeed;
         }
 
         public override string Attack(Unit unit, Blacksmith blacksmith)

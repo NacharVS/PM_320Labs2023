@@ -8,7 +8,7 @@ namespace WarcraftLibrary
 {
     public class Peasent : Moveable
     {
-        public Peasent(string name, int health = 20, int cost = 10, int lvl = 1, bool isDestroyed = false, int speed = 15, int damage = 0) : base(name, health, cost, lvl, isDestroyed, speed, damage)
+        public Peasent(string name, int health = 20, int cost = 10, int lvl = 1, bool isDestroyed = false, int speed = 15, int damage = 0, int attackSpeed = 0) : base(name, health, cost, lvl, isDestroyed, speed, damage, attackSpeed)
         { }
 
         public void Mining() 

@@ -29,26 +29,47 @@ namespace ConsoleWarcraft
             units[0].HealthChangedEvent += InfoExtended;
             units[1].HealthChangedEvent += InfoExtended;
 
-            while ((units[0].IsDestroyed == false) && (units[1].IsDestroyed == false))
+            Task firstUnitAttack = new Task(() =>
+            {
+                FirstAttack(units, blacksmith);
+            });
+            firstUnitAttack.Start();
+
+            Task secondUnitAttack = new Task(() =>
+            {
+                SecondAttack(units, blacksmith);
+            });
+            secondUnitAttack.Start();
+
+            secondUnitAttack.Wait();
+
+
+            Console.WriteLine("The End");
+        }
+        public static void FirstAttack(List<Unit> units, Blacksmith blacksmith)
+        {
+            while ((!units[0].IsDestroyed) && (!units[1].IsDestroyed))
             {
                 string[] attack = (units[0].Attack(units[1], blacksmith)).Split(".");
                 Console.WriteLine(attack[0]);
                 units[1].Health = units[1].Health - Convert.ToInt32(attack[1]);
                 units[1].Checking();
-                Thread.Sleep(500);
 
-                if (units[1].IsDestroyed == true)
-                {
-                    return;
-                }
+                Thread.Sleep(500 - units[0].AttackSpeed);
+            }
+        }
 
+        public static void SecondAttack(List<Unit> units, Blacksmith blacksmith)
+        {
+            while ((!units[0].IsDestroyed) && (!units[1].IsDestroyed))
+            {
                 string[] attackTwo = (units[1].Attack(units[0], blacksmith)).Split(".");
                 Console.WriteLine(attackTwo[0]);
                 units[0].Health = units[0].Health - Convert.ToInt32(attackTwo[1]);
                 units[0].Checking();
-                Thread.Sleep(500);
+
+                Thread.Sleep(500 - units[1].AttackSpeed);
             }
-            Console.WriteLine("The End");
         }
 
         public static void DisplayMessage(string message) => Console.WriteLine(message);
